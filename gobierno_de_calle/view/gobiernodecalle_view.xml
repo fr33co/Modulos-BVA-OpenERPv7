@@ -57,6 +57,26 @@ PROYECTOS
             </field>
         </record>
         
+        <record model="ir.ui.view" id="proyectos_tree_view">
+            <field name="name">gdc.proyectos.tree</field>
+            <field name="model">gdc.proyectos</field>
+            <field name="arch" type="xml">
+                <tree string="Course Tree">
+                    <field name="codigo" />
+                    <field name="actividad" />
+                    <field name="supervisor_id"/>
+                    <field name="responsible_id"/>
+                    <field name="cobertura" />
+                    <field name="address_id" />
+                    <field name="priority"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="estado"/>
+                    <field name="progreso"/>
+                </tree>
+            </field>
+        </record>
+        
         <record model="ir.ui.view" id="proyectos_view_form">
             <field name="name">gdc.proyectos.form</field>
             <field name="model">gdc.proyectos</field>
@@ -111,7 +131,7 @@ PROYECTOS
                                 </group>
                             </group>
                         </page>
-                        <page string="Entes ejecutantes" name="team">
+                        <page string="Entes ejecutantes asignados" name="team">
                             <group>
                                 <field colspan="4" name="members" widget="many2many_kanban">
                                     <kanban quick_create="false" create="true" delete="true">
