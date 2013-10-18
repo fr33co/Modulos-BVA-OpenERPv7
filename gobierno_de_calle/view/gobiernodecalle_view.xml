@@ -4,6 +4,21 @@
     <data>
 
 <!--
+SECUENCIA
+-->
+
+        <record id="seq_type_proyectos" model="ir.sequence.type">
+            <field name="name">Proyectos</field>
+            <field name="code">gdc.proyectos</field>
+        </record>
+        <record id="seq_proyectos" model="ir.sequence">
+            <field name="name">Repair Order</field>
+            <field name="code">gdc.proyectos</field>
+            <field name="prefix">GDC</field>
+            <field name="padding">6</field>
+        </record>
+
+<!--
 SECTOR
 -->
 
@@ -30,37 +45,81 @@ SECTOR
         </record>
 
 <!--
-CARACTERIZACION
+PROYECTOS
 -->
 
-        <record model="ir.actions.act_window" id="caracterizacion_list_action">
-            <field name="name">Caracterizacion</field>
-            <field name="res_model">gdc.caracterizacion</field>
+        <record model="ir.actions.act_window" id="proyectos_list_action">
+            <field name="name">Proyectos</field>
+            <field name="res_model">gdc.proyectos</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">
             </field>
         </record>
         
-        <record model="ir.ui.view" id="caracterizacion_view_form">
-            <field name="name">gdc.caracterizacion.form</field>
-            <field name="model">gdc.caracterizacion</field>
+        <record model="ir.ui.view" id="proyectos_view_form">
+            <field name="name">gdc.proyectos.form</field>
+            <field name="model">gdc.proyectos</field>
             <field name="type">form</field>
             <field name="priority" eval="16"/>
             <field name="arch" type="xml">
-                <form string="Ficha">
-                    <field name="ente"/>
-                    <field name="institucion_id"/>
-                    <field name="responsible_id"/>
-                    <field name="codigo"/>
+                <form string="Asignacion" version="7.0">
+                    <group>
+                        <group>
+                            <field name="codigo" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="actividad" string="Actividad"/>
+                        </group>
+                        <group>
+                            <field name="cobertura"/>
+                            <field name="supervisor_id"/>
+                            <field name="responsible_id"/>
+                            <field name="presu_tentativo"/>
+                            <field name="presu_real"/>
+                        </group>
+                        <group>
+                            <field name="priority"/>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="estado"/>
+                            <field name="progreso" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Descripcion">
+                            <field name="description" placeholder="Agregar descripcion..."/>
+                        </page>
+                        <page string="Entes ejecutantes" name="team">
+                            <group>
+                                <field colspan="4" name="members" widget="many2many_kanban">
+                                    <kanban quick_create="false" create="true" delete="true">
+                                        <field name="name"/>
+                                        <templates>
+                                            <t t-name="kanban-box">
+                                                <div style="position: relative">
+                                                    <a t-if="! read_only_mode" type="delete" style="position: absolute; right: 0; padding: 4px; diplay: inline-block">X</a>
+                                                    <div class="oe_module_vignette">
+                                                        <div class="oe_module_desc">
+                                                            <field name="name"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </templates>
+                                    </kanban>
+                                </field>
+                            </group>
+                        </page>
+                    </notebook>
                 </form>
             </field>
         </record>
 
         <menuitem id="main_gobiernodecalle_menu" name="Gobierno de calle" />
 
-        <menuitem id="caracterizacion_menu" name="Caracterizacion institucional" parent="main_gobiernodecalle_menu" />
-        <menuitem id="ficha_menu" name="Ficha" parent="caracterizacion_menu" action="caracterizacion_list_action" />
+        <menuitem id="proyectos_menu" name="Proyectos" parent="main_gobiernodecalle_menu" />
+        <menuitem id="asigancion_menu" name="Asignacion" parent="proyectos_menu" action="proyectos_list_action" />
         
     </data>
 </openerp>

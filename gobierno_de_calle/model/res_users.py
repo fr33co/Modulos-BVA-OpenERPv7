@@ -22,5 +22,5 @@ from openerp.osv import osv, fields
 class res_users(osv.Model):
     _inherit = "res.users"
     _columns = {
-            'twitter': fields.char('Cuenta Twitter', size=34, required=True),
+            'twitter': fields.char('Cuenta Twitter', size=34, required=False),
     }

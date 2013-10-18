@@ -29,11 +29,28 @@ class gdc_sector(osv.Model):
     _order="name_sector"
     
 class gdc_caracterizacion(osv.Model):
-    _name = "gdc.caracterizacion"
+    _name = "gdc.proyectos"
     _columns = {
-            'ente': fields.selection((('s','Secretaria'), ('i','Institucion')),'Tipo de Ente', required=True),
-            'institucion_id' : fields.many2one('res.company', 'Institucion', required=True),
-            'responsible_id' : fields.many2one('res.users', 'Responsable de la institucion', required=True),
-            'codigo': fields.char(string="Codigo", size=64),            
+            'codigo': fields.char(string="Codigo", size=20),  
+            'actividad': fields.char(string="Actividad", size=64), 
+            'cobertura': fields.selection((('n','Nacional'), ('R','Regional')),'Cobertura', required=True),
+            'priority': fields.selection((('b','Baja'), ('n','Normal'), ('a', 'Alta')),'Prioridad', required=True),
+            'estado': fields.selection((('n','No definido'), ('pro','Propuesto'), ('epl', 'En planificacion'), ('epro', 'En progreso'), ('c', 'Congelado'), ('t', 'Terminado'), ('plan', 'Plantilla'), ('ar', 'Archivado')),'Estado', required=True),
+            'progreso': fields.char(string="Progreso", size=20), 
+            'date_start': fields.datetime('Fecha estimada de inicio',select=True),
+            'date_end': fields.datetime('Fecha estimada de finalizacion',select=True),
+            'responsible_id' : fields.many2one('res.users', 'Responsable', required=True),
+            'supervisor_id' : fields.many2one('res.company', 'Supervisor', required=True),
+            'description': fields.text('Description'),
+            'presu_tentativo': fields.integer('Presupuesto Tentativo'),
+            'presu_real': fields.integer('Presupuesto Real'),
+            'members': fields.many2many('res.company', 'project_company_rel', 'project_id', 'uid', 'Entes Ejecutantes'),
+            
     }
     
+    _defaults = {
+            'supervisor_id': 1,
+            'codigo': lambda obj, cr, uid, context: obj.pool.get('ir.sequence').get(cr, uid, 'gdc.proyectos'),
+            'estado': 'n',
+            'progreso': '0.0%',
+    }
