@@ -39,13 +39,13 @@ class gdc_caracterizacion(osv.Model):
             'progreso': fields.char(string="Progreso", size=20), 
             'date_start': fields.datetime('Fecha estimada de inicio',select=True),
             'date_end': fields.datetime('Fecha estimada de finalizacion',select=True),
-            'responsible_id' : fields.many2one('res.users', 'Responsable', required=True),
+            'responsible_id' : fields.many2one('res.users', 'Responsable asignado', required=True),
             'supervisor_id' : fields.many2one('res.company', 'Supervisor', required=True),
             'description': fields.text('Description'),
             'presu_tentativo': fields.integer('Presupuesto Tentativo'),
             'presu_real': fields.integer('Presupuesto Real'),
             'bene_tentativo': fields.integer('Cantidad de beneficiados tentativos'),
-            'members': fields.many2many('res.company', 'project_company_rel', 'project_id', 'uid', 'Entes Ejecutantes'),
+            'members': fields.many2many('res.company', 'project_company_rel', 'project_id', 'uid', 'Entes Encargados'),
             'address_id': fields.many2one('res.partner','Location Address', readonly=False),
             'street': fields.related('address_id','street',type='char',string='Street'),
             'street2': fields.related('address_id','street2',type='char',string='Street2'),
@@ -55,7 +55,6 @@ class gdc_caracterizacion(osv.Model):
             'speaker_confirmed': fields.boolean('Speaker Confirmed', readonly=False),
             'country_id': fields.related('address_id', 'country_id',
                         type='many2one', relation='res.country', string='Country', readonly=False),
-            
     }
     
     _defaults = {
@@ -64,3 +63,18 @@ class gdc_caracterizacion(osv.Model):
             'estado': 'n',
             'progreso': '0.0%',
     }
+
+    def on_change_address_id(self, cr, uid, ids, address_id, context=None):
+        values = {}
+        if not address_id:
+            return values
+        address = self.pool.get('res.partner').browse(cr, uid, address_id, context=context)
+        values.update({
+            'street' : address.street,
+            'street2' : address.street2,
+            'city' : address.city,
+            'country_id' : address.country_id and address.country_id.id or False,
+            'state_id' : address.state_id and address.state_id.id or False,
+            'zip' : address.zip,
+        })
+        return {'value' : values}
