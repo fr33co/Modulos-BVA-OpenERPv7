@@ -30,6 +30,7 @@ class gdc_sector(osv.Model):
     
 class gdc_caracterizacion(osv.Model):
     _name = "gdc.proyectos"
+    _rec_name = "actividad"
     _columns = {
             'codigo': fields.char(string="Codigo", size=20),  
             'actividad': fields.char(string="Actividad", size=64), 
@@ -56,6 +57,8 @@ class gdc_caracterizacion(osv.Model):
             'country_id': fields.related('address_id', 'country_id',
                         type='many2one', relation='res.country', string='Country', readonly=False),
     }
+    
+    _order="actividad"
     
     _defaults = {
             'supervisor_id': 1,

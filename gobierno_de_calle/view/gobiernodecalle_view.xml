@@ -52,7 +52,7 @@ PROYECTOS
             <field name="name">Proyectos</field>
             <field name="res_model">gdc.proyectos</field>
             <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,calendar,gantt</field>
             <field name="help" type="html">
             </field>
         </record>
@@ -154,6 +154,27 @@ PROYECTOS
                         </page>
                     </notebook>
                 </form>
+            </field>
+        </record>
+
+        <record id="view_proyectos_gantt" model="ir.ui.view">
+            <field name="name">gdc.proyectos.gantt</field>
+            <field name="model">gdc.proyectos</field>
+            <field eval="2" name="priority"/>
+            <field name="arch" type="xml">
+                <gantt date_start="date_start" date_stop="date_end" string="Tasks">
+                </gantt>
+            </field>
+        </record>
+
+        <record id="view_proyectos_calendar" model="ir.ui.view">
+            <field name="name">gdc.proyectos.calendar</field>
+            <field name="model">gdc.proyectos</field>
+            <field eval="2" name="priority"/>
+            <field name="arch" type="xml">
+                <calendar color="actividad" date_start="date_start" date_stop="date_end" string="Actividades">
+                    <field name="actividad"/>
+                </calendar>
             </field>
         </record>
 
