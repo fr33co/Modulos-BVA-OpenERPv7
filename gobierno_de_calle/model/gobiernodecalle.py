@@ -44,7 +44,17 @@ class gdc_caracterizacion(osv.Model):
             'description': fields.text('Description'),
             'presu_tentativo': fields.integer('Presupuesto Tentativo'),
             'presu_real': fields.integer('Presupuesto Real'),
+            'bene_tentativo': fields.integer('Cantidad de beneficiados tentativos'),
             'members': fields.many2many('res.company', 'project_company_rel', 'project_id', 'uid', 'Entes Ejecutantes'),
+            'address_id': fields.many2one('res.partner','Location Address', readonly=False),
+            'street': fields.related('address_id','street',type='char',string='Street'),
+            'street2': fields.related('address_id','street2',type='char',string='Street2'),
+            'state_id': fields.related('address_id','state_id',type='many2one', relation="res.country.state", string='State'),
+            'zip': fields.related('address_id','zip',type='char',string='zip'),
+            'city': fields.related('address_id','city',type='char',string='city'),
+            'speaker_confirmed': fields.boolean('Speaker Confirmed', readonly=False),
+            'country_id': fields.related('address_id', 'country_id',
+                        type='many2one', relation='res.country', string='Country', readonly=False),
             
     }
     

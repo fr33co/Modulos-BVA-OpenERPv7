@@ -66,10 +66,10 @@ PROYECTOS
                 <form string="Asignacion" version="7.0">
                     <group>
                         <group>
-                            <field name="codigo" readonly="1"/>
+                            <field name="actividad" string="Actividad"/>
                         </group>
                         <group>
-                            <field name="actividad" string="Actividad"/>
+                            <field name="codigo" readonly="1"/>
                         </group>
                         <group>
                             <field name="cobertura"/>
@@ -89,6 +89,27 @@ PROYECTOS
                     <notebook>
                         <page string="Descripcion">
                             <field name="description" placeholder="Agregar descripcion..."/>
+                        </page>
+                        <page string="Destino y Cantidad de Beneficiados">
+                            <group>
+                                <group>
+                                    <label for="address_id" string="Lugar"/>
+                                       <div>
+                                           <field name="address_id" on_change="on_change_address_id(address_id)" />
+                                           <field name="street" placeholder="Street..."/>
+                                           <field name="street2"/>
+                                           <div class="address_format">
+                                               <field name="city" placeholder="City" style="width: 40%%"/>
+                                               <field name="state_id" class="oe_no_button" placeholder="State" style="width: 37%%" options='{"no_open": true}'/>
+                                               <field name="zip" placeholder="ZIP" style="width: 20%%"/>
+                                           </div>    
+                                           <field name="country_id" placeholder="Country" class="oe_no_button" options='{"no_open": true}'/>
+                                       </div>
+                                </group>
+                                <group>
+                                    <field name="bene_tentativo"/>
+                                </group>
+                            </group>
                         </page>
                         <page string="Entes ejecutantes" name="team">
                             <group>
