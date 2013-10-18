@@ -28,15 +28,15 @@ class gdc_sector(osv.Model):
     
     _order="name_sector"
     
-class gdc_caracterizacion(osv.Model):
+class gdc_proyectos(osv.Model):
     _name = "gdc.proyectos"
     _rec_name = "actividad"
     _columns = {
             'codigo': fields.char(string="Codigo", size=20),  
             'actividad': fields.char(string="Actividad", size=64), 
-            'cobertura': fields.selection((('n','Nacional'), ('R','Regional')),'Cobertura', required=True),
-            'priority': fields.selection((('b','Baja'), ('n','Normal'), ('a', 'Alta')),'Prioridad', required=True),
-            'estado': fields.selection((('n','No definido'), ('pro','Propuesto'), ('epl', 'En planificacion'), ('epro', 'En progreso'), ('c', 'Congelado'), ('t', 'Terminado'), ('plan', 'Plantilla'), ('ar', 'Archivado')),'Estado', required=True),
+            'cobertura': fields.selection((('Nacional','Nacional'), ('Regional','Regional'), ('Municipal', 'Municipal')),'Cobertura', required=True),
+            'priority': fields.selection((('Baja','Baja'), ('Normal','Normal'), ('Alta', 'Alta')),'Prioridad', required=True),
+            'estado': fields.selection((('No Definido','No definido'), ('Propuesti','Propuesto'), ('En Planificacion', 'En Planificacion'), ('En Progreso', 'En progreso'), ('Congelado', 'Congelado'), ('Terminado', 'Terminado'), ('Plantilla', 'Plantilla'), ('Archivado', 'Archivado')),'Estado', required=True),
             'progreso': fields.char(string="Progreso", size=20), 
             'date_start': fields.datetime('Fecha estimada de inicio',select=True),
             'date_end': fields.datetime('Fecha estimada de finalizacion',select=True),
@@ -47,15 +47,14 @@ class gdc_caracterizacion(osv.Model):
             'presu_real': fields.integer('Presupuesto Real'),
             'bene_tentativo': fields.integer('Cantidad de beneficiados tentativos'),
             'members': fields.many2many('res.company', 'project_company_rel', 'project_id', 'uid', 'Entes Encargados'),
-            'address_id': fields.many2one('res.partner','Location Address', readonly=False),
-            'street': fields.related('address_id','street',type='char',string='Street'),
-            'street2': fields.related('address_id','street2',type='char',string='Street2'),
-            'state_id': fields.related('address_id','state_id',type='many2one', relation="res.country.state", string='State'),
-            'zip': fields.related('address_id','zip',type='char',string='zip'),
-            'city': fields.related('address_id','city',type='char',string='city'),
-            'speaker_confirmed': fields.boolean('Speaker Confirmed', readonly=False),
+            'address_id': fields.many2one('res.partner','Lugar', readonly=False, required=True),
+            'street': fields.related('address_id','street',type='char',string='Direccion'),
+            'street2': fields.related('address_id','street2',type='char',string='Cont. Direccion'),
+            'state_id': fields.related('address_id','state_id',type='many2one', relation="res.country.state", string='Estado'),
+            'zip': fields.related('address_id','zip',type='char',string='Codigo Postal'),
+            'city': fields.related('address_id','city',type='char',string='Ciudad'),
             'country_id': fields.related('address_id', 'country_id',
-                        type='many2one', relation='res.country', string='Country', readonly=False),
+                        type='many2one', relation='res.country', string='Pais', readonly=False),
     }
     
     _order="actividad"
@@ -63,7 +62,7 @@ class gdc_caracterizacion(osv.Model):
     _defaults = {
             'supervisor_id': 1,
             'codigo': lambda obj, cr, uid, context: obj.pool.get('ir.sequence').get(cr, uid, 'gdc.proyectos'),
-            'estado': 'n',
+            'estado': 'No Definido',
             'progreso': '0.0%',
     }
 
