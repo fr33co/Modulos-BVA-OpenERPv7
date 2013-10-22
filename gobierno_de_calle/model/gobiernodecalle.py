@@ -34,6 +34,9 @@ class gdc_fases(osv.Model):
     _columns = {
         'name_fase': fields.char(string="Fase", size=50, required=True),
         'proyect_id': fields.many2one('gdc.proyectos', 'Proyecto', required=True),
+        'date_start_fase': fields.datetime('Fecha de inicio',select=True),
+        'date_end_fase': fields.datetime('Fecha de finalizacion',select=True),
+        'progreso_fase': fields.char(string="Progreso de fase", size=20), 
     }
     
     _order="name_fase"
@@ -44,6 +47,9 @@ class gdc_tareas(osv.Model):
     _columns = {
         'name_tarea': fields.char(string="Tarea", size=50, required=True),
         'fases_id': fields.many2one('gdc.fases', 'Fase', required=True),
+        'date_start_tarea': fields.datetime('Fecha de inicio',select=True),
+        'date_end_tarea': fields.datetime('Fecha de finalizacion',select=True),
+        'progreso_tarea': fields.char(string="Progreso de tarea", size=20), 
     }
     
     _order="name_tarea"
