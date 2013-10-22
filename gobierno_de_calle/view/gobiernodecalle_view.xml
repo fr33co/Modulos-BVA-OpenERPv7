@@ -198,10 +198,81 @@ PROYECTOS
             </field>
         </record>
 
+<!--
+FASES
+-->
+
+        <record model="ir.actions.act_window" id="fases_list_action">
+            <field name="name">Fases</field>
+            <field name="res_model">gdc.fases</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">calendar,gantt</field>
+            <field name="help" type="html">
+            </field>
+        </record>
+
+        <record id="view_fases_gantt" model="ir.ui.view">
+            <field name="name">gdc.fases.gantt</field>
+            <field name="model">gdc.fases</field>
+            <field eval="2" name="priority"/>
+            <field name="arch" type="xml">
+                <gantt date_start="date_start_fase" date_stop="date_end_fase" string="Fases">
+                </gantt>
+            </field>
+        </record>
+
+        <record id="view_fases_calendar" model="ir.ui.view">
+            <field name="name">gdc.fases.calendar</field>
+            <field name="model">gdc.fases</field>
+            <field eval="2" name="priority"/>
+            <field name="arch" type="xml">
+                <calendar color="name_fase" date_start="date_start_fase" date_stop="date_end_fase" string="Fases">
+                    <field name="name_fase"/>
+                </calendar>
+            </field>
+        </record>
+
+<!--
+TAREAS
+-->
+
+        <record model="ir.actions.act_window" id="tareas_list_action">
+            <field name="name">Tareas</field>
+            <field name="res_model">gdc.tareas</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">calendar,gantt</field>
+            <field name="help" type="html">
+            </field>
+        </record>
+
+        <record id="view_tareas_gantt" model="ir.ui.view">
+            <field name="name">gdc.tareas.gantt</field>
+            <field name="model">gdc.tareas</field>
+            <field eval="2" name="priority"/>
+            <field name="arch" type="xml">
+                <gantt date_start="date_start_tarea" date_stop="date_end_tarea" string="Tareas">
+                </gantt>
+            </field>
+        </record>
+
+        <record id="view_tareas_calendar" model="ir.ui.view">
+            <field name="name">gdc.tareas.calendar</field>
+            <field name="model">gdc.tareas</field>
+            <field eval="2" name="priority"/>
+            <field name="arch" type="xml">
+                <calendar color="name_tarea" date_start="date_start_tarea" date_stop="date_end_tarea" string="Tareas">
+                    <field name="name_tarea"/>
+                </calendar>
+            </field>
+        </record>
+
+
         <menuitem id="main_gobiernodecalle_menu" name="Gobierno de calle" />
 
         <menuitem id="proyectos_menu" name="Proyectos" parent="main_gobiernodecalle_menu" />
         <menuitem id="asigancion_menu" name="Asignacion" parent="proyectos_menu" action="proyectos_list_action" />
+        <menuitem id="fase_menu" name="Fases" parent="proyectos_menu" action="fases_list_action" />
+        <menuitem id="tareas_menu" name="Tareas" parent="proyectos_menu" action="tareas_list_action" />
         
     </data>
 </openerp>
