@@ -152,6 +152,14 @@ PROYECTOS
                                 </field>
                             </group>
                         </page>
+                        <page string="Fases">
+                            <field name="fases_ids" nolabel="1" colspan="4" mode="tree">
+                                <tree string="Fases">
+                                    <field name="name_fase"/>
+                                    <field name="proyect_id"/>
+                                </tree>
+                            </field>
+                        </page>
                     </notebook>
                 </form>
             </field>

@@ -18,6 +18,12 @@
                 <field name="email" position="after">
                     <field name="twitter" />
                 </field>
+                <field name="vat" position="replace">
+                    <field name="amount_prepu" />
+                </field>
+                <field name="company_registry" position="replace">
+                    <field name="deuda" />
+                </field>
             </field>
         </record>
 
