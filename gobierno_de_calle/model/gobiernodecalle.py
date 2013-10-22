@@ -62,7 +62,7 @@ class gdc_proyectos(osv.Model):
             'actividad': fields.char(string="Actividad", size=64), 
             'cobertura': fields.selection((('Nacional','Nacional'), ('Regional','Regional'), ('Municipal', 'Municipal')),'Cobertura', required=True),
             'priority': fields.selection((('Baja','Baja'), ('Normal','Normal'), ('Alta', 'Alta')),'Prioridad', required=True),
-            'estado': fields.selection((('No Definido','No definido'), ('Propuesti','Propuesto'), ('En Planificacion', 'En Planificacion'), ('En Progreso', 'En progreso'), ('Congelado', 'Congelado'), ('Terminado', 'Terminado'), ('Plantilla', 'Plantilla'), ('Archivado', 'Archivado')),'Estado', required=True),
+            'estado': fields.selection((('Borrador','Borrador'), ('Propuesto','Propuesto'), ('Planificacion', 'Planificacion'), ('Progreso', 'Progreso'), ('Congelado', 'Congelado'), ('Terminado', 'Terminado'), ('Plantilla', 'Plantilla'), ('Archivado', 'Archivado'), ('Vencido', 'Vencido')),'Estado', required=True),
             'progreso': fields.char(string="Progreso", size=20), 
             'date_start': fields.datetime('Fecha estimada de inicio',select=True),
             'date_end': fields.datetime('Fecha estimada de finalizacion',select=True),
@@ -89,7 +89,7 @@ class gdc_proyectos(osv.Model):
     _defaults = {
             'supervisor_id': 1,
             'codigo': lambda obj, cr, uid, context: obj.pool.get('ir.sequence').get(cr, uid, 'gdc.proyectos'),
-            'estado': 'No Definido',
+            'estado': 'Borrador',
             'progreso': '0.0%',
     }
 

@@ -61,7 +61,7 @@ PROYECTOS
             <field name="name">gdc.proyectos.tree</field>
             <field name="model">gdc.proyectos</field>
             <field name="arch" type="xml">
-                <tree string="Proyectos">
+                <tree string="Proyectos" colors="red:estado in ('Propuesto', 'Vencido');blue:estado in ('Planificacion', 'Progreso');green:estado=='Terminado';gray:estado in ('Archivado', 'Plantilla');orange:estado=='Congelado'">
                     <field name="codigo" />
                     <field name="actividad" />
                     <field name="supervisor_id"/>
