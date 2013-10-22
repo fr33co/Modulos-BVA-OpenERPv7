@@ -28,4 +28,6 @@ class res_company(osv.Model):
             'dependencia_id': fields.many2one('res.company', 'Dependencia', select=False),
             'twitter': fields.char('Cuenta Twitter', size=34, required=True),
             'num_empleados': fields.integer('Numero de Empleados', required=True),
+            'amount_prepu': fields.integer('Presupuesto Aprobado', required=True),
+            'deuda': fields.integer('Monto de la deuda', required=True),
     }
