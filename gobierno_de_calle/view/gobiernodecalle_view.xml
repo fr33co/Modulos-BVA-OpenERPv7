@@ -155,16 +155,20 @@ PROYECTOS
                         <page string="Fases">
                             <field name="fases_ids" nolabel="1" colspan="4" mode="tree">
                                 <tree string="Fases">
-                                    <field name="name_fase"/>
                                     <field name="proyect_id"/>
+                                    <field name="date_start_fase"/>
+                                    <field name="date_end_fase"/>
+                                    <field name="progreso_fase"/>
                                 </tree>
                             </field>
                         </page>
                         <page string="Tareas">
                             <field name="tareas_ids" nolabel="1" colspan="4" mode="tree">
                                 <tree string="Tareas">
-                                    <field name="name_tarea"/>
                                     <field name="fases_id"/>
+                                    <field name="date_start_tarea"/>
+                                    <field name="date_end_tarea"/>
+                                    <field name="progreso_tarea"/>
                                 </tree>
                             </field>
                         </page>
