@@ -160,6 +160,14 @@ PROYECTOS
                                 </tree>
                             </field>
                         </page>
+                        <page string="Tareas">
+                            <field name="tareas_ids" nolabel="1" colspan="4" mode="tree">
+                                <tree string="Tareas">
+                                    <field name="name_tarea"/>
+                                    <field name="fases_id"/>
+                                </tree>
+                            </field>
+                        </page>
                     </notebook>
                 </form>
             </field>

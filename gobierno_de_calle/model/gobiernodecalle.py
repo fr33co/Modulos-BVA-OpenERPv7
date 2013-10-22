@@ -30,10 +30,23 @@ class gdc_sector(osv.Model):
 
 class gdc_fases(osv.Model):
     _name = "gdc.fases"
+    _rec_name = "name_fase"
     _columns = {
         'name_fase': fields.char(string="Fase", size=50, required=True),
         'proyect_id': fields.many2one('gdc.proyectos', 'Proyecto', required=True),
     }
+    
+    _order="name_fase"
+    
+class gdc_tareas(osv.Model):
+    _name = "gdc.tareas"
+    _rec_name = "name_tarea"
+    _columns = {
+        'name_tarea': fields.char(string="Tarea", size=50, required=True),
+        'fases_id': fields.many2one('gdc.fases', 'Fase', required=True),
+    }
+    
+    _order="name_tarea"
     
 class gdc_proyectos(osv.Model):
     _name = "gdc.proyectos"
@@ -62,6 +75,7 @@ class gdc_proyectos(osv.Model):
             'city': fields.related('address_id','city',type='char',string='Ciudad'),
             'country_id': fields.related('address_id', 'country_id', type='many2one', relation='res.country', string='Pais', readonly=False),
             'fases_ids': fields.one2many('gdc.fases', 'proyect_id', string="Fases"),
+            'tareas_ids': fields.one2many('gdc.tareas', 'fases_id', string="Tareas"),
     }
     
     _order="actividad"
