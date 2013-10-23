@@ -206,8 +206,22 @@ FASES
             <field name="name">Fases</field>
             <field name="res_model">gdc.fases</field>
             <field name="view_type">form</field>
-            <field name="view_mode">calendar,gantt</field>
+            <field name="view_mode">tree,calendar,gantt</field>
             <field name="help" type="html">
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="fases_tree_view">
+            <field name="name">gdc.fases.tree</field>
+            <field name="model">gdc.fases</field>
+            <field name="arch" type="xml">
+                <tree string="Fases">
+                    <field name="proyect_id" />
+                    <field name="name_fase" />
+                    <field name="date_start_fase"/>
+                    <field name="date_end_fase"/>
+                    <field name="progreso_fase" />
+                </tree>
             </field>
         </record>
 
@@ -240,8 +254,22 @@ TAREAS
             <field name="name">Tareas</field>
             <field name="res_model">gdc.tareas</field>
             <field name="view_type">form</field>
-            <field name="view_mode">calendar,gantt</field>
+            <field name="view_mode">tree,calendar,gantt</field>
             <field name="help" type="html">
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="tareas_tree_view">
+            <field name="name">gdc.tareas.tree</field>
+            <field name="model">gdc.tareas</field>
+            <field name="arch" type="xml">
+                <tree string="Tareas">
+                    <field name="fases_id" />
+                    <field name="name_tarea" />
+                    <field name="date_start_tarea"/>
+                    <field name="date_end_tarea"/>
+                    <field name="progreso_tarea" />
+                </tree>
             </field>
         </record>
 
