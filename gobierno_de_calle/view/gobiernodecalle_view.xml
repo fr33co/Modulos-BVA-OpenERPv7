@@ -267,7 +267,7 @@ TAREAS
         </record>
 
 
-        <menuitem id="main_gobiernodecalle_menu" name="Gobierno de calle" />
+        <menuitem id="main_gobiernodecalle_menu" name="Gobierno de calle" sequence="120"/>/>
 
         <menuitem id="proyectos_menu" name="Proyectos" parent="main_gobiernodecalle_menu" />
         <menuitem id="asigancion_menu" name="Asignacion" parent="proyectos_menu" action="proyectos_list_action" />
