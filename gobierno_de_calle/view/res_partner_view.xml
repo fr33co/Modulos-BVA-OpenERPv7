@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <openerp>
+        <data>
+
+            <record model="ir.actions.act_window" id="contact_list_action">
+                <field name="name">Contacts</field>
+                <field name="res_model">res.partner</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">tree,form</field>
+            </record>
+            
+            <record model="ir.ui.view" id="partner_locacion_form_view">
+                <field name="name">partner.locacion</field>
+                <field name="model">res.partner</field>
+                <field name="inherit_id" ref="base.view_partner_form" />
+                <field name="arch" type="xml">
+                    <field name="is_company" position="before">
+                        <field name="locacion" />
+                        <label for="locacion" string="Es un lugar?" />
+                    </field>
+                </field>
+            </record>
+            
+            <record model="ir.actions.act_window" id="contact_cat_list_action">
+                <field name="name">Contact tags</field>
+                <field name="res_model">res.partner.category</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">tree,form</field>
+            </record>
+            
+            <menuitem id="configuration_menu" name="Configuration" parent="main_gobiernodecalle_menu"/>
+            <menuitem id="sector_menu" name="Sectores" parent="configuration_menu" action="sector_list_action"/>
+            <menuitem id="contact_menu" name="Contactos" parent="configuration_menu" action="contact_list_action"/>
+            <menuitem id="contact_cat_menu" name="Etiquetas" parent="configuration_menu" action="contact_cat_list_action" />
+
+        </data>
+    </openerp>

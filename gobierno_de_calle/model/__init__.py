@@ -20,3 +20,4 @@
 import gobiernodecalle
 import res_company
 import res_users
+import res_partner

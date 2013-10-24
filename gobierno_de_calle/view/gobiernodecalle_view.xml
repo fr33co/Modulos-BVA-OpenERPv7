@@ -93,8 +93,8 @@ PROYECTOS
                         </group>
                         <group>
                             <field name="cobertura"/>
-                            <field name="supervisor_id"/>
-                            <field name="responsible_id"/>
+                            <field name="supervisor_id" domain="[('is_company','=',True)]"/>
+                            <field name="responsible_id" domain="[('is_company','=',False)]"/>
                             <field name="presu_tentativo"/>
                             <field name="presu_real"/>
                         </group>
@@ -115,7 +115,7 @@ PROYECTOS
                                 <group>
                                     <label for="address_id" string="Lugar"/>
                                        <div>
-                                           <field name="address_id" on_change="on_change_address_id(address_id)" />
+                                           <field name="address_id" on_change="on_change_address_id(address_id)" domain="[('locacion','=',True)]"/>
                                            <field name="street" placeholder="Direccion..."/>
                                            <field name="street2" placeholder="Cont. Direccion..."/>
                                            <div class="address_format">
@@ -293,7 +293,6 @@ TAREAS
                 </calendar>
             </field>
         </record>
-
 
         <menuitem id="main_gobiernodecalle_menu" name="Gobierno de calle" sequence="120"/>/>
 
