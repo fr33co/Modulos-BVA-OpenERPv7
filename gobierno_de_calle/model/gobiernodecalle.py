@@ -37,6 +37,9 @@ class gdc_fases(osv.Model):
         'date_start_fase': fields.datetime('Fecha de inicio',select=True),
         'date_end_fase': fields.datetime('Fecha de finalizacion',select=True),
         'progreso_fase': fields.char(string="Progreso de fase", size=20), 
+        'responsible_id' : fields.many2one('res.partner', 'Responsable asignado', domain=['|',('is_company','=',False),('category_id.name','ilike','Responsable')], required=True),
+        'members': fields.many2many('res.company', 'project_company_rel', 'project_id', 'uid', 'Entes Encargados'),
+        'description': fields.text('Description'),
     }
     
     _order="name_fase"
@@ -50,6 +53,9 @@ class gdc_tareas(osv.Model):
         'date_start_tarea': fields.datetime('Fecha de inicio',select=True),
         'date_end_tarea': fields.datetime('Fecha de finalizacion',select=True),
         'progreso_tarea': fields.char(string="Progreso de tarea", size=20), 
+        'responsible_id' : fields.many2one('res.partner', 'Responsable asignado', domain=['|',('is_company','=',False),('category_id.name','ilike','Responsable')], required=True),
+        'members': fields.many2many('res.company', 'project_company_rel', 'project_id', 'uid', 'Entes Encargados'),
+        'description': fields.text('Description'),
     }
     
     _order="name_tarea"
