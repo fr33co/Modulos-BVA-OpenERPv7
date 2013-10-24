@@ -94,7 +94,7 @@ PROYECTOS
                         <group>
                             <field name="cobertura"/>
                             <field name="supervisor_id" domain="[('is_company','=',True)]"/>
-                            <field name="responsible_id" domain="[('is_company','=',False)]"/>
+                            <field name="responsible_id" domain="[('category_id.name','ilike','Responsable')]"/>
                             <field name="presu_tentativo"/>
                             <field name="presu_real"/>
                         </group>
