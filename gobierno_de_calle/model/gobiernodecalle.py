@@ -40,6 +40,9 @@ class gdc_fases(osv.Model):
         'responsible_id' : fields.many2one('res.partner', 'Responsable asignado', domain=['|',('is_company','=',False),('category_id.name','ilike','Responsable')], required=True),
         'members': fields.many2many('res.company', 'project_company_rel', 'project_id', 'uid', 'Entes Encargados'),
         'description': fields.text('Description'),
+        'informe_fases': fields.binary('Informe'),
+        'image': fields.binary("Foto", help="Seleccione una imagen"),
+ 
     }
     
     _order="name_fase"
@@ -56,6 +59,8 @@ class gdc_tareas(osv.Model):
         'responsible_id' : fields.many2one('res.partner', 'Responsable asignado', domain=['|',('is_company','=',False),('category_id.name','ilike','Responsable')], required=True),
         'members': fields.many2many('res.company', 'project_company_rel', 'project_id', 'uid', 'Entes Encargados'),
         'description': fields.text('Description'),
+        'informe_tareas': fields.binary('Informe'),
+        'image': fields.binary("Foto", help="Seleccione una imagen"),
     }
     
     _order="name_tarea"
