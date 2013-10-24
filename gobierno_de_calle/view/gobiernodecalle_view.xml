@@ -268,6 +268,12 @@ FASES
                                 </field>
                             </group>
                         </page>
+                        <page string="Subida de informe">
+                            <field name="informe_fases"/>
+                        </page>
+                        <page string="Subida de imagenes">
+                            <field name="image" widget='image'/>
+                        </page>
                     </notebook>
                 </form>
             </field>
@@ -363,6 +369,12 @@ TAREAS
                                     </kanban>
                                 </field>
                             </group>
+                        </page>
+                        <page string="Subida de informe">
+                            <field name="informe_tareas"/>
+                        </page>
+                        <page string="Subida de imagenes">
+                            <field name="image" widget='image'/>
                         </page>
                     </notebook>
                 </form>
