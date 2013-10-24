@@ -29,6 +29,7 @@
         'view/gobiernodecalle_view.xml',
         'view/res_company_view.xml',
         'view/res_users_view.xml',
+        'view/res_partner_view.xml',
         'security/groups.xml',
         'security/ir.model.access.csv',
     ],
