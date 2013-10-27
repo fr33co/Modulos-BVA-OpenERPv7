@@ -93,7 +93,7 @@ PROYECTOS
                         </group>
                         <group>
                             <field name="cobertura"/>
-                            <field name="supervisor_id" domain="[('is_company','=',True)]"/>
+                            <field name="supervisor_id" domain="[('category_id.name','ilike','Supervisor')]"/>
                             <field name="responsible_id" domain="[('category_id.name','ilike','Responsable')]"/>
                             <field name="presu_tentativo"/>
                             <field name="presu_real"/>
@@ -115,7 +115,7 @@ PROYECTOS
                                 <group>
                                     <label for="address_id" string="Lugar"/>
                                        <div>
-                                           <field name="address_id" on_change="on_change_address_id(address_id)" domain="[('locacion','=',True)]"/>
+                                           <field name="address_id" on_change="on_change_address_id(address_id)" domain="[('category_id.name','ilike','Lugar')]"/>
                                            <field name="street" placeholder="Direccion..."/>
                                            <field name="street2" placeholder="Cont. Direccion..."/>
                                            <div class="address_format">
@@ -402,12 +402,12 @@ TAREAS
             </field>
         </record>
 
-        <menuitem id="main_gobiernodecalle_menu" name="Gobierno de calle" sequence="120"/>/>
+        <menuitem id="main_gobiernodecalle_menu" name="Gobierno de calle" sequence="120"/>
 
-        <menuitem id="proyectos_menu" name="Proyectos" parent="main_gobiernodecalle_menu" />
-        <menuitem id="asigancion_menu" name="Asignacion" parent="proyectos_menu" action="proyectos_list_action" />
-        <menuitem id="fase_menu" name="Fases" parent="proyectos_menu" action="fases_list_action" />
-        <menuitem id="tareas_menu" name="Tareas" parent="proyectos_menu" action="tareas_list_action" />
+        <menuitem id="proyectos_menu" name="Proyectos" parent="main_gobiernodecalle_menu" sequence="10"/>
+        <menuitem id="asigancion_menu" name="Asignacion" parent="proyectos_menu" action="proyectos_list_action" sequence="1"/>
+        <menuitem id="fase_menu" name="Fases" parent="proyectos_menu" action="fases_list_action" sequence="2"/>
+        <menuitem id="tareas_menu" name="Tareas" parent="proyectos_menu" action="tareas_list_action" sequence="3"/>
         
     </data>
 </openerp>

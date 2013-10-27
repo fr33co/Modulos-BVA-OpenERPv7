@@ -23,4 +23,5 @@ class res_users(osv.Model):
     _inherit = "res.users"
     _columns = {
             'twitter': fields.char('Cuenta Twitter', size=34, required=False),
+            'category_id': fields.many2one('res.partner.category', 'Etiqueta', required=True),
     }

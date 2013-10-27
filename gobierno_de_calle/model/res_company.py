@@ -25,9 +25,9 @@ class res_company(osv.Model):
             'sector_id': fields.many2one('gdc.sector', 'Sector de competencia', select=False),
             'secretaria': fields.boolean('Es una secretaria?'),
             'responsible_id' : fields.many2one('res.users', 'Responsable', required=True),
-            'dependencia_id': fields.many2one('res.company', 'Dependencia', select=False),
             'twitter': fields.char('Cuenta Twitter', size=34, required=True),
             'num_empleados': fields.integer('Numero de Empleados', required=True),
             'amount_prepu': fields.integer('Presupuesto Aprobado', required=True),
             'deuda': fields.integer('Monto de la deuda', required=True),
+            'category_id': fields.many2one('res.partner.category', 'Etiqueta', required=True),
     }

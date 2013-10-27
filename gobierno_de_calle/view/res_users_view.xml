@@ -3,16 +3,26 @@
 <openerp>
     <data>
 
+        <record model="ir.actions.act_window" id="super_enc_list_action">
+            <field name="name">Supervisores / Encargados</field>
+            <field name="res_model">res.users</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
         <record model="ir.ui.view" id="resusers_add_form">
             <field name="name">resusers_add_form</field>
             <field name="model">res.users</field>
             <field name="inherit_id" ref="base.view_users_form"/>
             <field name="arch" type="xml">
                 <field name="email" position="after">
-                    <field name="twitter" />
+                    <field name="twitter"/>
+                    <field name="category_id"/>
                 </field>
             </field>
         </record>
 
+        <menuitem id="super_enc_menu" name="Supervisores / Encargados" parent="configuration_menu" action="super_enc_list_action" sequence="6"/>
+        
     </data>
 </openerp>

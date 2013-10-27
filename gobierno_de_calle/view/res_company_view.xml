@@ -3,6 +3,13 @@
 <openerp>
     <data>
 
+        <record model="ir.actions.act_window" id="entes_list_action">
+            <field name="name">Entes del Estado</field>
+            <field name="res_model">res.company</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
         <record model="ir.ui.view" id="dependencia_add_form">
             <field name="name">dependencia_add_form</field>
             <field name="model">res.company</field>
@@ -12,8 +19,10 @@
                     <field name="sector_id" />
                     <field name="secretaria" />
                     <field name="responsible_id" />
-                    <field name="dependencia_id" />
                     <field name="num_empleados" />
+                </field>
+                <field name="parent_id" position="after">
+                    <field name="category_id" />
                 </field>
                 <field name="email" position="after">
                     <field name="twitter" />
@@ -26,6 +35,8 @@
                 </field>
             </field>
         </record>
+
+        <menuitem id="instituciones_menu" name="Entes del Estado" parent="configuration_menu" action="entes_list_action" sequence="5"/>
 
     </data>
 </openerp>
