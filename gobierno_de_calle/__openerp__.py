@@ -32,5 +32,6 @@
         'view/res_users_view.xml',
         'security/groups.xml',
         'security/ir.model.access.csv',
+        'data/tags.xml',
     ],
 }
