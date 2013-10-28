@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
     <openerp>
         <data>
-            <record id="group_manager" model="res.groups">
+            <record id="group_manager_gdc" model="res.groups">
                 <field name="name">Gobierno de Calle / Manager</field>
             </record>
         </data>

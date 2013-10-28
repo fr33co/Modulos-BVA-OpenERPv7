@@ -21,7 +21,7 @@
     'name' : "Gobierno de Calle",
     'category' : "Gestion",
     'version' : "1.0",
-    'depends' : ['base'],
+    'depends' : ['base', 'event'],
     'author' : "Angel A. Guadarrama B.",
     'description' : """
                     """,
