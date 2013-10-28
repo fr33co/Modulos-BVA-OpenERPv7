@@ -34,12 +34,12 @@ class gdc_tareas(osv.Model):
     _rec_name = "name_tarea"
     _columns = {
         'name_tarea': fields.char(string="Tarea", size=50, required=False),
-        'project_id': fields.many2one('gdc.proyectos', 'Asignacion', required=False),
+        'project_id2': fields.many2one('gdc.proyectos', 'Asignacion', required=False),
         'date_start_tarea': fields.datetime('Fecha de inicio',select=True),
         'date_end_tarea': fields.datetime('Fecha de finalizacion',select=True),
         'progreso_tarea': fields.char(string="Progreso de tarea", size=20), 
         'responsible_id' : fields.many2one('res.users', 'Responsable asignado', domain=['|',('is_company','=',False),('category_id.name','ilike','Responsable')], required=False),
-        'members': fields.many2many('res.company', 'project_company_rel', 'project_id', 'uid', 'Entes Encargados'),
+        'members_tareas': fields.many2many('res.company', 'project_company_rel2', 'project_id2', 'uid2', 'Entes Encargados'),
         'description': fields.text('Description'),
         'informe_tareas': fields.binary('Informe'),
         'image': fields.binary("Foto", help="Seleccione una imagen"),
@@ -93,7 +93,6 @@ class gdc_proyectos(osv.Model):
             if r2.date_end:
                 c = time.strptime(r2.date_end,'%Y-%m-%d %H:%M:%S')
                 delta = datetime.datetime(c[0], c[1], c[2]) - datetime.datetime(d[0], d[1], d[2])
-                print delta
                 weeks, days = divmod(delta.days, 1)
             result[r2.id] = weeks
         return result
@@ -115,7 +114,7 @@ class gdc_proyectos(osv.Model):
             'presu_tentativo': fields.integer('Presupuesto Tentativo'),
             'presu_real': fields.integer('Presupuesto Real'),
             'bene_tentativo': fields.integer('Cantidad de beneficiados tentativos'),
-            'members': fields.many2many('res.company', 'project_company_rel', 'project_id', 'uid', 'Entes Encargados'),
+            'members_project': fields.many2many('res.company', 'project_company_rel', 'project_id', 'uid', 'Entes Encargados'),
             'address_id': fields.many2one('res.partner','Lugar', readonly=False, required=True, domain=[('category_id.name','ilike','Lugar')]),
             'street': fields.related('address_id','street',type='char',string='Direccion'),
             'street2': fields.related('address_id','street2',type='char',string='Cont. Direccion'),
@@ -123,7 +122,7 @@ class gdc_proyectos(osv.Model):
             'zip': fields.related('address_id','zip',type='char',string='Codigo Postal'),
             'city': fields.related('address_id','city',type='char',string='Ciudad'),
             'country_id': fields.related('address_id', 'country_id', type='many2one', relation='res.country', string='Pais', readonly=False),
-            'tareas_ids': fields.one2many('gdc.tareas', 'project_id', string="Tareas"),
+            'tareas_ids': fields.one2many('gdc.tareas', 'project_id2', string="Tareas"),
     }
         
     _order="actividad"
