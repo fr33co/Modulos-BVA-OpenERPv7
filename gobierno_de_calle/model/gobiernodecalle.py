@@ -136,7 +136,7 @@ class gdc_proyectos(osv.Model):
             'date_created': fields.char('Fecha de Creación',select=True, readonly=True),
             'codigo': fields.char(string="Codigo", size=20),  
             'actividad': fields.char(string="Actividad", size=64, required=True), 
-            'cobertura': fields.selection((('Nacional','Nacional'), ('Regional','Regional'), ('Municipal', 'Municipal')),'Cobertura', required=True),
+            'cobertura': fields.selection((('Direccionalidad','Direccionalidad'),('Nacional','Nacional'), ('Regional','Regional'), ('Municipal', 'Municipal')),'Cobertura', required=True),
             'priority': fields.selection((('Baja','Baja'), ('Normal','Normal'), ('Alta', 'Alta')),'Prioridad', required=True),
             'estado': fields.selection((('Borrador','Borrador'), ('Propuesto','Propuesto'), ('Planificacion', 'Planificacion'), ('Progreso', 'Progreso'), ('Congelado', 'Congelado'), ('Terminado', 'Terminado'), ('Plantilla', 'Plantilla'), ('Archivado', 'Archivado'), ('Vencido', 'Vencido')),'Estado', required=True),
             'progreso': fields.char(string="Progreso", size=20), 
@@ -148,7 +148,7 @@ class gdc_proyectos(osv.Model):
             'description': fields.text('Description'),
             'presu_tentativo': fields.integer('Presupuesto Tentativo'),
             'presu_real': fields.integer('Presupuesto Real'),
-            'bene_tentativo': fields.integer('Cantidad de beneficiados tentativos'),
+            'bene_tentativo': fields.integer('Cantidad de beneficiados tentativos', required=True),
             'members_project': fields.many2many('res.company', 'project_company_rel', 'project_id', 'uid', 'Entes Encargados'),
             'address_id': fields.many2one('res.partner','Lugar', readonly=False, required=True, domain=[('category_id.name','ilike','Lugar')]),
             'street': fields.related('address_id','street',type='char',string='Direccion'),
@@ -158,6 +158,9 @@ class gdc_proyectos(osv.Model):
             'city': fields.related('address_id','city',type='char',string='Ciudad'),
             'country_id': fields.related('address_id', 'country_id', type='many2one', relation='res.country', string='Pais', readonly=False),
             'tareas_ids': fields.one2many('gdc.tareas', 'project_id2', string="Tareas"),
+            'conclusiones': fields.text('Conclusiones'),
+            'acuerdos': fields.text('Acuerdos'),
+            'incidencias': fields.text('Incidencias'),
     }
         
     def _check_dates_now(self, cr, uid, ids, context=None):
