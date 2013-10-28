@@ -21,17 +21,23 @@ import time
 from openerp.osv import osv, fields
 
 class gdc_sector(osv.Model):
+    """Modelo para gestionar los sectores"""
     _name = "gdc.sector"
     _rec_name = "name_sector"
+    _order="name_sector"
+    
     _columns = {
             'name_sector' : fields.char(string="Sector", size=256, required=True),
     }
     
-    _order="name_sector"
-        
 class gdc_tareas(osv.Model):
+    """
+    Modelo para gestionar las tareas de las actividades
+    """
     _name = "gdc.tareas"
     _rec_name = "name_tarea"
+    _order="name_tarea"
+    
     _columns = {
         'name_tarea': fields.char(string="Tarea", size=50, required=False),
         'project_id2': fields.many2one('gdc.proyectos', 'Asignacion', required=False),
@@ -45,13 +51,19 @@ class gdc_tareas(osv.Model):
         'image': fields.binary("Foto", help="Seleccione una imagen"),
     }
     
-    _order="name_tarea"
     
 class gdc_proyectos(osv.Model):
+    """
+    Modelo para gestionar llas actividades
+    """
     _name = "gdc.proyectos"
     _rec_name = "actividad"
+    _order="actividad"
     
     def on_change_address_id(self, cr, uid, ids, address_id, context=None):
+        """
+        Onchange para traer toda la informacion de la direccion
+        """
         values = {}
         if not address_id:
             return values
@@ -67,6 +79,10 @@ class gdc_proyectos(osv.Model):
         return {'value' : values}
     
     def onchange_date_start(self, cr, uid, ids, date_start, context=None):
+        """
+        Onchange para validar que la fecha de inicio no es menor a la 
+        fecha de creacion
+        """
         res = {}
         now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')        
         if date_start < now:
@@ -75,6 +91,10 @@ class gdc_proyectos(osv.Model):
         return res
         
     def onchange_date_end(self, cr, uid, ids, date_end, context=None):
+        """
+        Onchange para validar que la fecha final no es menor a la 
+        fecha de creacion
+        """
         res = {}
         now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         if date_end < now:
@@ -83,6 +103,9 @@ class gdc_proyectos(osv.Model):
         return res
         
     def _compute_days(self, cr, uid, ids, field, arg, context=None):
+        """
+        Metodo para calcular los dias entre la fecha de inicio y la fecha final
+        """
         import datetime
         result = {}
         records = self.browse(cr, uid, ids, context=context)
@@ -96,6 +119,18 @@ class gdc_proyectos(osv.Model):
                 weeks, days = divmod(delta.days, 1)
             result[r2.id] = weeks
         return result
+
+    def copy(self, cr, uid, id, default, context=None):
+        """
+        Metodo para realizar la copia de proyectos
+        """
+        proyecto = self.browse(cr, uid, id, context=context)
+        new_name = "Copia de %s" % proyecto.actividad
+        others_count = self.search(cr, uid, [('actividad', '=like', new_name+'%')], count=True, context=context)
+        if others_count > 0:
+            new_name = "%s (%s)" % (new_name, others_count+1)
+        default['actividad'] = new_name
+        return super(gdc_proyectos, self).copy(cr, uid, id, default, context=context)
 
     _columns = {
             'date_created': fields.char('Fecha de Creación',select=True, readonly=True),
@@ -125,10 +160,23 @@ class gdc_proyectos(osv.Model):
             'tareas_ids': fields.one2many('gdc.tareas', 'project_id2', string="Tareas"),
     }
         
-    _order="actividad"
-    
-    def _check_dates(self, cr, uid, ids, context=None):
+    def _check_dates_now(self, cr, uid, ids, context=None):
+        """
+        SQL Constraints para validar que la fecha de inicio 
+        debe ser mayor o igual a la fecha de creacion del proyecto
+        """
         now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        for leave in self.read(cr, uid, ids, ['date_start'], context=context):
+            if leave['date_start']:
+                if leave['date_start'] <= now:
+                    return False
+        return True
+        
+    def _check_dates(self, cr, uid, ids, context=None):
+        """
+        SQL Constraints para validar que La fecha de inicio debe ser 
+        menor que la fecha final
+        """
         for leave in self.read(cr, uid, ids, ['date_start', 'date_end'], context=context):
             if leave['date_start'] and leave['date_end']:
                 if leave['date_start'] > leave['date_end']:
@@ -136,7 +184,12 @@ class gdc_proyectos(osv.Model):
         return True
 
     _constraints = [
-        (_check_dates, 'Error! La fecha de inicio debe ser menor que la fecha final.', ['date_start', 'date_end'])
+        (_check_dates_now, 'Error! La fecha de inicio debe ser mayor o igual a la fecha de creacion del proyecto', ['date_start']),
+        (_check_dates, 'Error! La fecha de inicio debe ser menor que la fecha final.', ['date_start', 'date_end']),
+    ]
+    
+    _sql_constraints = [
+        ('actividad_unique','UNIQUE(actividad)','La actividad debe ser unica. Intente copiar el proyecto'),
     ]
     
     _defaults = {
