@@ -117,7 +117,7 @@ class gdc_tareas(osv.Model):
         (_check_dates_tareas, 'Error! La fecha de inicio debe ser menor que la fecha final.', ['date_start_tarea', 'date_end_tarea']),
     ]
 
-    def compute_progress_days(self, cr, uid, ids, context=None):
+    def begin_tarea(self, cr, uid, ids, context=None):
         result = {}
         gdc_project = self.pool.get('gdc.proyectos')
         records = self.browse(cr, uid, ids, context=context)
@@ -130,8 +130,7 @@ class gdc_tareas(osv.Model):
                 gdc_project.write(cr, uid, r.project_id2.id, {'progreso': total, 'estado': 'Progreso'})
                 self.write(cr, uid, ids, {'estado_tarea': 'Progreso'})
             else: 
-                result['warning'] = {'title': "Cuidado: Error!",'message' : "Fechas asignadas de forma incorrecta.",}
-            return result
+                return result['warning'] = {'title': "Cuidado: Error!",'message' : "Fechas asignadas de forma incorrecta.",}
 
                 
 #############
