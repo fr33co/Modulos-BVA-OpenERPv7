@@ -66,7 +66,7 @@ PROYECTOS
                     <field name="codigo" />
                     <field name="actividad" />
                     <field name="supervisor_id"/>
-                    <field name="responsible_id"/>
+                    <field domain="[('domain','=','responsible_id')]" name="responsible_id"/>
                     <field name="cobertura" />
                     <field name="address_id" />
                     <field name="priority"/>
@@ -107,7 +107,7 @@ PROYECTOS
                             <field name="date_end" on_change="onchange_date_end(date_end)"/>
                             <field name="dias_proyecto" readonly="1"/>
                             <field name="estado"/>
-                            <field name="progreso" readonly="1"/>
+                            <field name="progreso" readonly="1" widget="progressbar"/>
                         </group>
                     </group>
                     <notebook>
@@ -224,6 +224,7 @@ TAREAS
                     <field name="responsible_id" />
                     <field name="date_start_tarea"/>
                     <field name="date_end_tarea"/>
+                    <field name="dias_tarea" />
                     <field name="progreso_tarea" />
                 </tree>
             </field>
@@ -238,9 +239,18 @@ TAREAS
                         <group>
                             <field name="project_id2" />
                             <field name="name_tarea" />
-                            <field name="date_start_tarea"/>
-                            <field name="date_end_tarea"/>
+                            <field name="responsible_id" />
+                            <field name="date_start_tarea" on_change="onchange_date_start_tarea(date_start_tarea)"/>
+                            <field name="date_end_tarea" on_change="onchange_date_end_tarea(date_end_tarea)"/>
+                        </group>
+                        <group>
+                            <field name="estado_tarea" />
+                            <field name="dias_tarea" />
                             <field name="progreso_tarea" />
+                        </group>
+                        <group>
+                            <button name="compute_progress_days" type="object" string="Comenzar la tarea" />
+                            <button name="compute_progress_days" type="object" string="Finalizar la tarea" />
                         </group>
                     </group>
                     <notebook>

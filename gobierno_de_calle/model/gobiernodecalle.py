@@ -37,20 +37,102 @@ class gdc_tareas(osv.Model):
     _name = "gdc.tareas"
     _rec_name = "name_tarea"
     _order="name_tarea"
-    
+
+    def onchange_date_start_tarea(self, cr, uid, ids, date_start_tarea, context=None):
+        res = {}
+        gdc_project = self.pool.get('gdc.proyectos')
+        records = self.browse(cr, uid, ids, context=context)
+        for r in records:
+            gdc_project_src = gdc_project.read(cr, uid, r.project_id2.id, ['date_start'], context)
+            if date_start_tarea < gdc_project_src['date_start']:
+                res['warning'] = {'title': "Cuidado: Error!",'message' : "No puede seleccionar fechas menores a la inicio del proyecto.",}
+                return res
+            return res
+
+    def onchange_date_end_tarea(self, cr, uid, ids, date_end_tarea, context=None):
+        res = {}
+        gdc_project = self.pool.get('gdc.proyectos')
+        records = self.browse(cr, uid, ids, context=context)
+        for r in records:
+            gdc_project_src = gdc_project.read(cr, uid, r.project_id2.id, ['date_end'], context)
+            if date_end_tarea > gdc_project_src['date_end']:
+                res['warning'] = {'title': "Cuidado: Error!",'message' : "No puede seleccionar fechas mayores a la final del proyecto.",}
+                return res
+            return res
+
+    def _compute_days_tarea(self, cr, uid, ids, field, arg, context=None):
+        """
+        Metodo para calcular los dias entre la fecha de inicio y la fecha final
+        """
+        import datetime
+        result = {}
+        records = self.browse(cr, uid, ids, context=context)
+        for r in records:
+            if r.date_start_tarea:
+                d = time.strptime(r.date_start_tarea,'%Y-%m-%d %H:%M:%S')
+        for r2 in records:
+            if r2.date_end_tarea:
+                c = time.strptime(r2.date_end_tarea,'%Y-%m-%d %H:%M:%S')
+                delta = datetime.datetime(c[0], c[1], c[2]) - datetime.datetime(d[0], d[1], d[2])
+                weeks, days = divmod(delta.days, 1)
+            result[r2.id] = weeks
+        return result
+            
     _columns = {
         'name_tarea': fields.char(string="Tarea", size=50, required=False),
         'project_id2': fields.many2one('gdc.proyectos', 'Asignacion', required=False),
+        'estado_tarea': fields.selection((('Borrador','Borrador'), ('Propuesto','Propuesto'), ('Planificacion', 'Planificacion'), ('Progreso', 'Progreso'), ('Congelado', 'Congelado'), ('Terminado', 'Terminado'), ('Plantilla', 'Plantilla'), ('Archivado', 'Archivado'), ('Vencido', 'Vencido')),'Estado', required=True),
         'date_start_tarea': fields.datetime('Fecha de inicio',select=True),
         'date_end_tarea': fields.datetime('Fecha de finalizacion',select=True),
         'progreso_tarea': fields.char(string="Progreso de tarea", size=20), 
+        'dias_tarea': fields.function(_compute_days_tarea, type='char', string='Dias asignados a la tarea'),
         'responsible_id' : fields.many2one('res.users', 'Responsable asignado', domain=['|',('is_company','=',False),('category_id.name','ilike','Responsable')], required=False),
         'members_tareas': fields.many2many('res.company', 'project_company_rel2', 'project_id2', 'uid2', 'Entes Encargados'),
         'description': fields.text('Description'),
         'informe_tareas': fields.binary('Informe'),
         'image': fields.binary("Foto", help="Seleccione una imagen"),
     }
-    
+
+    def _check_dates_tareas(self, cr, uid, ids, context=None):
+        """
+        SQL Constraints para validar que La fecha de inicio debe ser 
+        menor que la fecha final
+        """
+        for leave in self.read(cr, uid, ids, ['date_start_tarea', 'date_end_tarea'], context=context):
+            if leave['date_start_tarea'] and leave['date_end_tarea']:
+                if leave['date_start_tarea'] > leave['date_end_tarea']:
+                    return False
+        return True
+
+    _constraints = [
+        (_check_dates_tareas, 'Error! La fecha de inicio debe ser menor que la fecha final.', ['date_start_tarea', 'date_end_tarea']),
+    ]
+
+    def compute_progress_days(self, cr, uid, ids, context=None):
+        result = {}
+        gdc_project = self.pool.get('gdc.proyectos')
+        records = self.browse(cr, uid, ids, context=context)
+        for r in records:
+            gdc_project_src = gdc_project.read(cr, uid, r.project_id2.id, ['date_start', 'date_end', 'dias_proyecto'], context)
+            print 'Incio Proyecto'
+            print gdc_project_src['date_start']
+            print 'Inicio Tarea'
+            print r.date_start_tarea
+            print 'Final Proyecto'
+            print gdc_project_src['date_end']
+            print 'Final tarea'
+            print r.date_end_tarea
+            if gdc_project_src['date_start'] <= r.date_start_tarea and gdc_project_src['date_end'] >= r.date_end_tarea and r.date_end_tarea > r.date_start_tarea:
+                print 'correcto'
+                print int(gdc_project_src['dias_proyecto'])
+                print int(r.dias_tarea)
+                calculo = (100.0 * int(r.dias_tarea)) / int(gdc_project_src['dias_proyecto'])
+                porcentaje = "%.2f" % calculo
+                total = int(gdc_project_src['dias_proyecto']) + float(porcentaje)
+                gdc_project.write(cr, uid, r.project_id2.id, {'progreso': total})
+            else: 
+                print 'Incorrecto'
+                
     
 class gdc_proyectos(osv.Model):
     """
@@ -139,7 +221,7 @@ class gdc_proyectos(osv.Model):
             'cobertura': fields.selection((('Direccionalidad','Direccionalidad'),('Nacional','Nacional'), ('Regional','Regional'), ('Municipal', 'Municipal')),'Cobertura', required=True),
             'priority': fields.selection((('Baja','Baja'), ('Normal','Normal'), ('Alta', 'Alta')),'Prioridad', required=True),
             'estado': fields.selection((('Borrador','Borrador'), ('Propuesto','Propuesto'), ('Planificacion', 'Planificacion'), ('Progreso', 'Progreso'), ('Congelado', 'Congelado'), ('Terminado', 'Terminado'), ('Plantilla', 'Plantilla'), ('Archivado', 'Archivado'), ('Vencido', 'Vencido')),'Estado', required=True),
-            'progreso': fields.char(string="Progreso", size=20), 
+            'progreso': fields.float(string="Progreso"), 
             'dias_proyecto': fields.function(_compute_days, type='char', string='Dias asignados al proyecto'),
             'date_start': fields.datetime('Fecha estimada de inicio',select=True, required=True),
             'date_end': fields.datetime('Fecha estimada de finalizacion',select=True, required=True),
