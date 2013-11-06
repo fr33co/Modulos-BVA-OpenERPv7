@@ -249,8 +249,8 @@ TAREAS
                             <field name="progreso_tarea" />
                         </group>
                         <group>
-                            <button name="compute_progress_days" type="object" string="Comenzar la tarea" />
-                            <button name="compute_progress_days" type="object" string="Finalizar la tarea" />
+                            <button name="begin_tarea" type="object" string="Comenzar la tarea" />
+                            <button name="begin_tarea" type="object" string="Finalizar la tarea" />
                         </group>
                     </group>
                     <notebook>
