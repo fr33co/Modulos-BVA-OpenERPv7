@@ -20,6 +20,10 @@ from datetime import datetime
 import time
 from openerp.osv import osv, fields
 
+##########
+# Sector #
+##########
+
 class gdc_sector(osv.Model):
     """Modelo para gestionar los sectores"""
     _name = "gdc.sector"
@@ -29,6 +33,11 @@ class gdc_sector(osv.Model):
     _columns = {
             'name_sector' : fields.char(string="Sector", size=256, required=True),
     }
+
+
+##########
+# Tareas #
+##########
     
 class gdc_tareas(osv.Model):
     """
@@ -114,26 +123,21 @@ class gdc_tareas(osv.Model):
         records = self.browse(cr, uid, ids, context=context)
         for r in records:
             gdc_project_src = gdc_project.read(cr, uid, r.project_id2.id, ['date_start', 'date_end', 'dias_proyecto'], context)
-            print 'Incio Proyecto'
-            print gdc_project_src['date_start']
-            print 'Inicio Tarea'
-            print r.date_start_tarea
-            print 'Final Proyecto'
-            print gdc_project_src['date_end']
-            print 'Final tarea'
-            print r.date_end_tarea
             if gdc_project_src['date_start'] <= r.date_start_tarea and gdc_project_src['date_end'] >= r.date_end_tarea and r.date_end_tarea > r.date_start_tarea:
-                print 'correcto'
-                print int(gdc_project_src['dias_proyecto'])
-                print int(r.dias_tarea)
                 calculo = (100.0 * int(r.dias_tarea)) / int(gdc_project_src['dias_proyecto'])
                 porcentaje = "%.2f" % calculo
                 total = int(gdc_project_src['dias_proyecto']) + float(porcentaje)
-                gdc_project.write(cr, uid, r.project_id2.id, {'progreso': total})
+                gdc_project.write(cr, uid, r.project_id2.id, {'progreso': total, 'estado': 'Progreso'})
+                self.write(cr, uid, ids, {'estado_tarea': 'Progreso'})
             else: 
-                print 'Incorrecto'
+                result['warning'] = {'title': "Cuidado: Error!",'message' : "Fechas asignadas de forma incorrecta.",}
+            return result
+
                 
-    
+#############
+# Proyectos #
+#############
+
 class gdc_proyectos(osv.Model):
     """
     Modelo para gestionar llas actividades
