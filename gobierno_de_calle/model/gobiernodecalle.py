@@ -146,7 +146,10 @@ class gdc_tareas(osv.Model):
                     delta_2 = datetime.datetime(fin[0], fin[1], fin[2]) - datetime.datetime(ahora[0], ahora[1], ahora[2])
                     calculo_delta2 = (100.0 * int(delta_2.days)) / int(r.dias_tarea)
                 else:
-                    self.write(cr, uid, ids, {'progreso_tarea': 0.0})
+                    if now >= r.date_start_tarea and r.date_end_tarea:
+                        self.write(cr, uid, ids, {'progreso_tarea': 100.0})
+                    else:
+                        self.write(cr, uid, ids, {'progreso_tarea': 0.0})
             else: 
                 result['warning'] = {'title': "Cuidado: Error!",'message' : "Fechas asignadas de forma incorrecta.",}
                 return result
