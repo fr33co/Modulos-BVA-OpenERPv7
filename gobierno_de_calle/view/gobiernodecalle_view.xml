@@ -246,7 +246,7 @@ TAREAS
                         <group>
                             <field name="estado_tarea" />
                             <field name="dias_tarea" />
-                            <field name="progreso_tarea" />
+                            <field name="progreso_tarea" readonly="1" widget="progressbar"/>
                         </group>
                         <group>
                             <button name="begin_tarea" type="object" string="Comenzar la tarea" />

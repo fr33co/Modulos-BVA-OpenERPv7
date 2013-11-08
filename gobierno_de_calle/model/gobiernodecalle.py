@@ -116,21 +116,40 @@ class gdc_tareas(osv.Model):
     _constraints = [
         (_check_dates_tareas, 'Error! La fecha de inicio debe ser menor que la fecha final.', ['date_start_tarea', 'date_end_tarea']),
     ]
+    
+    _defaults = {
+            'estado_tarea': 'Borrador',
+            'progreso_tarea': 0.0,
+    }
 
     def begin_tarea(self, cr, uid, ids, context=None):
         result = {}
+        import datetime
+        now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S') 
         gdc_project = self.pool.get('gdc.proyectos')
         records = self.browse(cr, uid, ids, context=context)
         for r in records:
-            gdc_project_src = gdc_project.read(cr, uid, r.project_id2.id, ['date_start', 'date_end', 'dias_proyecto'], context)
+            gdc_project_src = gdc_project.read(cr, uid, r.project_id2.id, ['date_start', 'date_end', 'progreso', 'dias_proyecto'], context)
             if gdc_project_src['date_start'] <= r.date_start_tarea and gdc_project_src['date_end'] >= r.date_end_tarea and r.date_end_tarea > r.date_start_tarea:
                 calculo = (100.0 * int(r.dias_tarea)) / int(gdc_project_src['dias_proyecto'])
                 porcentaje = "%.2f" % calculo
-                total = int(gdc_project_src['dias_proyecto']) + float(porcentaje)
+                total = int(gdc_project_src['progreso']) + float(porcentaje)
                 gdc_project.write(cr, uid, r.project_id2.id, {'progreso': total, 'estado': 'Progreso'})
                 self.write(cr, uid, ids, {'estado_tarea': 'Progreso'})
+                
+                ini = time.strptime(r.date_start_tarea,'%Y-%m-%d %H:%M:%S')
+                fin = time.strptime(r.date_end_tarea,'%Y-%m-%d %H:%M:%S')
+                ahora = time.strptime(now,'%Y-%m-%d %H:%M:%S')
+                if r.date_start_tarea <= now and r.date_end_tarea >= now:
+                    delta_1 = datetime.datetime(ahora[0], ahora[1], ahora[2]) - datetime.datetime(ini[0], ini[1], ini[2])
+                    calculo_delta1 = (100.0 * int(delta_1.days)) / int(r.dias_tarea)
+                    delta_2 = datetime.datetime(fin[0], fin[1], fin[2]) - datetime.datetime(ahora[0], ahora[1], ahora[2])
+                    calculo_delta2 = (100.0 * int(delta_2.days)) / int(r.dias_tarea)
+                else:
+                    self.write(cr, uid, ids, {'progreso_tarea': 0.0})
             else: 
-                return result['warning'] = {'title': "Cuidado: Error!",'message' : "Fechas asignadas de forma incorrecta.",}
+                result['warning'] = {'title': "Cuidado: Error!",'message' : "Fechas asignadas de forma incorrecta.",}
+                return result
 
                 
 #############
@@ -186,7 +205,7 @@ class gdc_proyectos(osv.Model):
             res['warning'] = {'title': "Cuidado: Error!",'message' : "No puede seleccionar como fecha final dias pasados",}
             return res
         return res
-        
+            
     def _compute_days(self, cr, uid, ids, field, arg, context=None):
         """
         Metodo para calcular los dias entre la fecha de inicio y la fecha final
@@ -218,34 +237,34 @@ class gdc_proyectos(osv.Model):
         return super(gdc_proyectos, self).copy(cr, uid, id, default, context=context)
 
     _columns = {
-            'date_created': fields.char('Fecha de Creación',select=True, readonly=True),
-            'codigo': fields.char(string="Codigo", size=20),  
-            'actividad': fields.char(string="Actividad", size=64, required=True), 
-            'cobertura': fields.selection((('Direccionalidad','Direccionalidad'),('Nacional','Nacional'), ('Regional','Regional'), ('Municipal', 'Municipal')),'Cobertura', required=True),
-            'priority': fields.selection((('Baja','Baja'), ('Normal','Normal'), ('Alta', 'Alta')),'Prioridad', required=True),
-            'estado': fields.selection((('Borrador','Borrador'), ('Propuesto','Propuesto'), ('Planificacion', 'Planificacion'), ('Progreso', 'Progreso'), ('Congelado', 'Congelado'), ('Terminado', 'Terminado'), ('Plantilla', 'Plantilla'), ('Archivado', 'Archivado'), ('Vencido', 'Vencido')),'Estado', required=True),
-            'progreso': fields.float(string="Progreso"), 
-            'dias_proyecto': fields.function(_compute_days, type='char', string='Dias asignados al proyecto'),
-            'date_start': fields.datetime('Fecha estimada de inicio',select=True, required=True),
-            'date_end': fields.datetime('Fecha estimada de finalizacion',select=True, required=True),
-            'responsible_id' : fields.many2one('res.users', 'Responsable asignado', domain=[('category_id.name','ilike','Responsable')], required=True),
-            'supervisor_id' : fields.many2one('res.company', 'Ente Supervisor', domain=[('category_id.name','ilike','Supervisor')], required=True),
-            'description': fields.text('Description'),
-            'presu_tentativo': fields.integer('Presupuesto Tentativo'),
-            'presu_real': fields.integer('Presupuesto Real'),
-            'bene_tentativo': fields.integer('Cantidad de beneficiados tentativos', required=True),
-            'members_project': fields.many2many('res.company', 'project_company_rel', 'project_id', 'uid', 'Entes Encargados'),
-            'address_id': fields.many2one('res.partner','Lugar', readonly=False, required=True, domain=[('category_id.name','ilike','Lugar')]),
-            'street': fields.related('address_id','street',type='char',string='Direccion'),
-            'street2': fields.related('address_id','street2',type='char',string='Cont. Direccion'),
-            'state_id': fields.related('address_id','state_id',type='many2one', relation="res.country.state", string='Estado'),
-            'zip': fields.related('address_id','zip',type='char',string='Codigo Postal'),
-            'city': fields.related('address_id','city',type='char',string='Ciudad'),
-            'country_id': fields.related('address_id', 'country_id', type='many2one', relation='res.country', string='Pais', readonly=False),
-            'tareas_ids': fields.one2many('gdc.tareas', 'project_id2', string="Tareas"),
-            'conclusiones': fields.text('Conclusiones'),
-            'acuerdos': fields.text('Acuerdos'),
-            'incidencias': fields.text('Incidencias'),
+        'date_created': fields.char('Fecha de Creación',select=True, readonly=True),
+        'codigo': fields.char(string="Codigo", size=20),  
+        'actividad': fields.char(string="Actividad", size=64, required=True), 
+        'cobertura': fields.selection((('Direccionalidad','Direccionalidad'),('Nacional','Nacional'), ('Regional','Regional'), ('Municipal', 'Municipal')),'Cobertura', required=True),
+        'priority': fields.selection((('Baja','Baja'), ('Normal','Normal'), ('Alta', 'Alta')),'Prioridad', required=True),
+        'estado': fields.selection((('Borrador','Borrador'), ('Propuesto','Propuesto'), ('Planificacion', 'Planificacion'), ('Progreso', 'Progreso'), ('Congelado', 'Congelado'), ('Terminado', 'Terminado'), ('Plantilla', 'Plantilla'), ('Archivado', 'Archivado'), ('Vencido', 'Vencido')),'Estado', required=True),
+        'progreso': fields.float(string="Progreso"), 
+        'dias_proyecto': fields.function(_compute_days, type='char', string='Dias asignados al proyecto'),
+        'date_start': fields.datetime('Fecha estimada de inicio',select=True, required=True),
+        'date_end': fields.datetime('Fecha estimada de finalizacion',select=True, required=True),
+        'responsible_id' : fields.many2one('res.users', 'Responsable asignado', domain=[('category_id.name','ilike','Responsable')], required=True),
+        'supervisor_id' : fields.many2one('res.company', 'Ente Supervisor', domain=[('category_id.name','ilike','Supervisor')], required=True),
+        'description': fields.text('Description'),
+        'presu_tentativo': fields.integer('Presupuesto Tentativo'),
+        'presu_real': fields.integer('Presupuesto Real'),
+        'bene_tentativo': fields.integer('Cantidad de beneficiados tentativos', required=True),
+        'members_project': fields.many2many('res.company', 'project_company_rel', 'project_id', 'uid', 'Entes Encargados'),
+        'address_id': fields.many2one('res.partner','Lugar', readonly=False, required=True, domain=[('category_id.name','ilike','Lugar')]),
+        'street': fields.related('address_id','street',type='char',string='Direccion'),
+        'street2': fields.related('address_id','street2',type='char',string='Cont. Direccion'),
+        'state_id': fields.related('address_id','state_id',type='many2one', relation="res.country.state", string='Estado'),
+        'zip': fields.related('address_id','zip',type='char',string='Codigo Postal'),
+        'city': fields.related('address_id','city',type='char',string='Ciudad'),
+        'country_id': fields.related('address_id', 'country_id', type='many2one', relation='res.country', string='Pais', readonly=False),
+        'tareas_ids': fields.one2many('gdc.tareas', 'project_id2', string="Tareas"),
+        'conclusiones': fields.text('Conclusiones'),
+        'acuerdos': fields.text('Acuerdos'),
+        'incidencias': fields.text('Incidencias'),
     }
         
     def _check_dates_now(self, cr, uid, ids, context=None):
@@ -284,7 +303,8 @@ class gdc_proyectos(osv.Model):
             'supervisor_id': 1,
             'codigo': lambda obj, cr, uid, context: obj.pool.get('ir.sequence').get(cr, uid, 'gdc.proyectos'),
             'estado': 'Borrador',
-            'progreso': '0.0%',
+            'progreso': 0.0,
             'date_created': lambda *a: datetime.now().strftime('%d-%m-%Y %H:%M:%S'),
             'dias_proyecto': 'Aun no asignados. ',
+            'priority': 'Baja',
     }
