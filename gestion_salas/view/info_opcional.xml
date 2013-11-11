@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+
+		<record model="ir.actions.act_window" id="in_opcional_list_action">
+		    <field name="name">Informacion.Opcional</field>
+		    <field name="res_model">solicitar.sala</field>
+		    <field name="view_type">form</field>
+		    <field name="view_mode">tree,form</field>
+		    <field name="help" type="html">
+				<p class="oe_view_nocontent_create">Agregar facebook y/o Twitter</p>
+		    </field>
+		</record>
+
+		<!--Vista formulario Informacion opcional -->
+		<record model="ir.ui.view" id="in_opcional_form_view">
+			<field name="name">Informacion</field>
+			<field name="model">solicitar.sala</field>
+			<field name="inherit_id" ref="base.view_informacion_form"/>
+			<field name="arch" type="xml">
+				<form string="Informacion Form">
+					<page name="info_opcional" position="inside" >
+						<field name="twitter" />
+						<field name="facebook" />
+					</page>							
+				</form>
+			</field>			
+		</record>
+
+		<!-- <menuitem id="main_Salas_menu" name="Gestion de Salas" /> 
+		<menuitem id="Gestion_Salas_menu" name="Gestion de Salas" parent="main_Salas_menu" />
+		<menuitem id="Salas_menu1" name="Informacion Opcional" parent="Gestion_Salas_menu" action="in_opcional_list_action" /> -->
+		
+  </data>
+</openerp>

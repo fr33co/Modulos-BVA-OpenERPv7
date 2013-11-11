@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	
+	<data>
+		
+		<record model="ir.actions.act_window" id="accion_lista_consejos">
+			<field name="name">Consejos</field>
+			<field name="res_model">consejocomunal.consejo</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Registrar el primer Consejo Comunal</p>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="vista_formulario_consejos">
+			<field name="name">consejo.form</field>
+			<field name="model">consejocomunal.consejo</field>
+			<field name="arch" type="xml">
+				<form string="Formulario de Consejos">
+					<field name="municipio" colspan="2"/>
+					<field name="parroquia" colspan="2"/>
+					<notebook colspan="4">
+						<page string="Sección I">
+							<separator string="Identificación Geográfica" colspan="4"/>
+							<field name="fecha_r" colspan="2" nolabel="0"/>
+							<field name="nombre_emp" colspan="2" nolabel="0"/>
+							<field name="localidad" colspan="2" nolabel="0"/>
+							<field name="direccion" colspan="2" nolabel="0"/>
+						</page>
+						<page string="Sección II">
+							<separator string="Área Organizativa del Consejo Comunal" colspan="4"/>
+							<field name="nombre_consejo" colspan="4" nolabel="0"/>
+							<separator string="Condiciones del Consejo Comunal:" colspan="4"/>
+							<field name="legalizacion" colspan="2" nolabel="0"/>
+							<field name="numero_reg" colspan="2" nolabel="0"/>
+							<field name="conformacion" colspan="2" nolabel="0"/>
+							<field name="conformacion_proceso" colspan="2" nolabel="0"/>
+							<field name="vocerias_vencidas" colspan="2" nolabel="0"/>
+							<field name="vocerias_vigentes" colspan="2" nolabel="0"/>
+							<field name="origen" colspan="2" nolabel="0"/>
+							<field name="integracion_batalla" colspan="2" nolabel="0"/>
+							<field name="comuna_construccion" colspan="2" nolabel="0"/>
+							<field name="reforma_consejos" colspan="2" nolabel="0"/>
+						</page>
+						<page string="Sección III">
+							<separator string="Características Demográficas" colspan="4"/>
+							<field name="cantidad_hab" colspan="2" nolabel="0"/>
+							<field name="num_hombres" colspan="2" nolabel="0"/>
+							<field name="num_mujeres" colspan="2" nolabel="0"/>
+							<field name="num_familias" colspan="2" nolabel="0"/>
+							<field name="num_viviendas" colspan="2" nolabel="0"/>
+							<field name="num_ninos" colspan="2" nolabel="0"/>
+							<field name="num_ninas" colspan="2" nolabel="0"/>
+							<field name="num_adolescentes" colspan="2" nolabel="0"/>
+							<field name="num_adultos" colspan="2" nolabel="0"/>
+							<field name="num_adultos_mayores" colspan="2" nolabel="0"/>
+							<field name="num_pers_discapacidad" colspan="2" nolabel="0"/>
+							<field name="madres_solteras" colspan="2" nolabel="0"/>
+							<field name="num_madres_solteras" colspan="2" nolabel="0"/>
+							<field name="num_madres_solteras_des" colspan="2" nolabel="0"/>
+							<separator />
+							<label string="Nota: Los datos ingresados en los campos Hombres, Mujeres, Niños, Niñas y Adolescentes, no deben superar al número de habitantes del ámbito geográfico." colspan="4"/>
+						</page>
+						<page string="Sección IV">
+							<separator string="Características Educativas o Culturales" colspan="4"/>
+							<separator colspan="4"/>
+							<label string="1) El ámbito geográfico del Consejo Comunal se beneficia de las siguientes Misiones Educativas:" colspan="4"></label>
+							<separator colspan="4"/>
+							<field name="alma_mater" colspan="2" nolabel="0"/>
+							<field name="ribas" colspan="2" nolabel="0"/>
+							<field name="robinson" colspan="2" nolabel="0"/>
+							<field name="robinsonII" colspan="2" nolabel="0"/>
+							<field name="robinsonIII" colspan="2" nolabel="0"/>
+							<field name="sucre" colspan="2" nolabel="0"/>
+							<separator colspan="4"/>
+							<label string="Nota: Sólo seleccione si el ámbito geográfico del consejo comunal, se beneficia de las Misiones Educativas" colspan="4"></label>
+							<separator colspan="4"/><separator colspan="4"/>
+							<label string="2) Existe en Consejo Comunal las siguientes instituciones educativas" colspan="4"></label>
+							<separator colspan="4"/>
+							<field name="escuelas_bolivarianas" colspan="2" nolabel="0"/>
+							<field name="escuelas_bol_ope" colspan="2" nolabel="0"/>
+							<field name="simoncito" colspan="2" nolabel="0"/>
+							<field name="simoncito_ope" colspan="2" nolabel="0"/>
+							<field name="escuelas_oficiales" colspan="2" nolabel="0"/>
+							<field name="escuelas_ofi_ope" colspan="2" nolabel="0"/>
+							<field name="aldeas_univeritarias" colspan="2" nolabel="0"/>
+							<field name="aldeas_uni_ope" colspan="2" nolabel="0"/>
+							<field name="universidad_estatal" colspan="2" nolabel="0"/>
+							<field name="universidad_est_ope" colspan="2" nolabel="0"/>
+							<field name="universidad_privada" colspan="2" nolabel="0"/>
+							<field name="universidad_pri_ope" colspan="2" nolabel="0"/>
+							<field name="nucleos_universitario" colspan="2" nolabel="0"/>
+							<field name="nucleos_uni_ope" colspan="2" nolabel="0"/>
+							<field name="escuelas_robinson" colspan="2" nolabel="0"/>
+							<field name="escuelas_robin_ope" colspan="2" nolabel="0"/>
+							<field name="inces" colspan="2" nolabel="0"/>
+							<field name="inces_ope" colspan="2" nolabel="0"/>
+						</page>
+						<page string="Sección V">
+							<separator string="Área Organizativa del Consejo Comunal" colspan="4"/>
+							<field name="nombre_consejo" colspan="2" nolabel="1"/>
+						</page>
+						<page string="Sección VI">
+							<separator string="Área Organizativa del Consejo Comunal" colspan="4"/>
+<!--
+							<field name="nombre_consejo" colspan="2" nolabel="0"/>
+-->
+						</page>
+						<page string="Sección VII">
+							<separator string="Área Organizativa del Consejo Comunal" colspan="4"/>
+<!--
+							<field name="nombre_consejo" colspan="2" nolabel="0"/>
+-->
+						</page>
+					</notebook>
+				</form>
+			</field>
+		</record>
+		
+		<menuitem id="menu_principal_consejos" name="Consejos Comunales"/>
+		
+		<menuitem id="menu_secundario_consejos" name="Consejos Comunales" parent="menu_principal_consejos"/>
+		
+		<menuitem id="menu_consejo" name="Consejos" parent="menu_secundario_consejos" action="accion_lista_consejos"/>
+		
+	</data>
+	
+</openerp>

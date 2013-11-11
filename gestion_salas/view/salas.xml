@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+		<!--Registrar Salas-->
+		<record model="ir.actions.act_window" id="salas_list_action">
+		    <field name="name">Registrar Salas</field>
+		    <field name="res_model">registrar.salas</field>
+		    <field name="view_type">form</field>
+		    <field name="view_mode">tree,form</field>
+		    <field name="help" type="html">
+				<p class="oe_view_nocontent_create">Registrar nueva Sala</p>
+		    </field>
+		</record>
+
+		<record model="ir.ui.view" id="salas_form_view">
+			<field name="name">registrar.form</field>
+			<field name="model">registrar.salas</field>
+			<field name="arch" type="xml">
+				<form string="Registrar Form">
+					<group string="Informacion" col="3" colspan="3" >
+						<group colspan="1">
+							<field name="c_sala" />
+							<field name="sala_nombre" />
+							<field name="sede" />
+						</group>
+						<group colspan="1">
+							<field name="estado" />
+							<field name="ciudad" />
+							<field name="municipio" />
+						</group>
+						<group colspan="1">
+							<field name="parroquia" />
+							<field name="sector" />
+						</group>
+					</group>
+					<group colspan="4">
+						<field name="direccion" colspan="4"/>
+					</group>
+					<group string="Opcional" colspan="4">
+						<field name="observaciones" colspan="4"/>
+					</group>
+					<!--<notebook colspan="4">
+						<page string="Observaciones"  >
+							<group>
+					        	<field name="observaciones" />
+					        </group>
+						</page>
+						<page name="info_opcional" string="Informacion Opcional">
+							<field name="facebook"/>
+							<field name="twitter" />
+							<field name="correo" />
+						</page>
+					</notebook>-->
+				</form>
+			</field>			
+		</record>
+
+		<record model="ir.ui.view" id="sala_tree_view">
+			<field name="name">registrar.tree</field>
+			<field name="model">registrar.salas</field>
+			<field name="arch" type="xml">
+				<tree string=" salas.Tree">
+							<field name="c_sala" />
+							<field name="sala_nombre" />
+							<field name="estado" />
+							<field name="ciudad" />
+							<field name="sede" />
+				</tree>
+			</field>			
+		</record>
+
+		<menuitem id="main_Salas_menu" name="Gestion de Salas" /> 
+		<menuitem id="Gestion_Salas_menu" name="Gestion de Salas" parent="main_Salas_menu" />
+		<menuitem id="Salas_menu" name="Salas" parent="Gestion_Salas_menu" action="salas_list_action" /> 
+		
+  </data>
+</openerp>

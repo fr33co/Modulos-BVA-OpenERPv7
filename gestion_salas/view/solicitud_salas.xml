@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+ 		<!-- ###########  Modelo de secuencia de numero de solicitud ####################
+		<record id="seq_type_solicitud_salas" model="ir.sequence.type">
+            <field name="name">Solicitud de sala</field>
+            <field name="code">sala</field>
+        </record>
+        <record id="seq_rma_repair" model="ir.sequence">
+            <field name="name">Solicitud de sala</field>
+            <field name="code">sala</field>
+            <field name="prefix">SS</field>
+            <field name="padding">5</field>
+        </record> -->
+        
+		<!--Solicitud de Salas-->
+		 <record model="ir.actions.act_window" id="solicitud_list_action">
+		    <field name="name">Solicitud de Salas</field>
+		    <field name="res_model">solicitar.sala</field>
+		    <field name="view_type">form</field>
+		    <field name="view_mode">tree,form,calendar</field>
+		    <field name="help" type="html">
+				<p class="oe_view_nocontent_create">Crear solicitud para el prestamo de una sala</p>
+		    </field>
+		</record>
+
+		<!--Vista formulario Solicitud de prestamos -->
+		<record model="ir.ui.view" id="solicitud_form_view">
+			<field name="name">solicitud.form</field>
+			<field name="model">solicitar.sala</field>
+			<field name="arch" type="xml">
+				<form string="Solicitud Form">
+					<group col="3" colspan="3" >
+						<group string="Datos Personales" colspan="1">
+							<field name="nombre" />
+							<field name="apellido" />
+							<field name="cedula" />
+							<field name="telefono" />
+							<field name="celular" />
+						</group>
+						<group string="Reservacion" colspan="1">
+							<field name="fh_inicio" on_change="onchange_inicio(fh_inicio)"/>
+							<field name="fh_final" on_change="onchange_final(fh_final)" />
+							<field name="motivo" />
+							<field name="salas" on_change="on_change_direccion(salas)"/>
+						</group>
+						<group string="Solicitud" colspan="1">
+							<field name="c_solicitud" />
+							<field name="f_solicitud" />
+						</group>
+					</group>
+					<group colspan="4">
+						<field name="descripcion" colspan="4"/>
+					</group>
+					<notebook colspan="4">
+						<page string="Direccion"  >
+							<group col="3" colspan="3">
+								<group>
+									<field name="estado" />
+					        		<field name="parroquia" />
+					        	</group>
+					        	<group>
+					        		<field name="ciudad" />					        		
+					        		<field name="sector" />
+					        	</group>
+					        	<group>
+					        		<field name="municipio" />
+					        	</group>
+					        </group>
+						</page>
+						<page name="info_opcional" string="Informacion Opcional">
+							<field name="facebook"/>
+							<field name="twitter" />
+							<field name="correo" />
+						</page>
+					</notebook>
+				</form>
+			</field>			
+		</record>
+
+		<record model="ir.ui.view" id="solicitud_sala_tree_view">
+			<field name="name">solicitar.tree</field>
+			<field name="model">solicitar.sala</field>
+			<field name="arch" type="xml">
+				<tree string=" s.sala.Tree">
+					<field name="c_solicitud" />
+					<field name="cedula" />
+					<field name="nombre" />
+					<field name="apellido" />
+					<field name="fh_inicio"/>
+					<field name="fh_final"/>
+					<field name="salas" />
+					<field name="f_solicitud" />
+				</tree>
+			</field>			
+		</record>
+
+		<record id="view_proyectos_calendar" model="ir.ui.view">
+            <field name="name">solicitudes.calendar</field>
+            <field name="model">solicitar.sala</field>
+            <field eval="2" name="priority"/>
+            <field name="arch" type="xml">
+                <calendar color="c_solicitud" date_start="fh_inicio" date_stop="fh_final" string="Actividades">
+                    <field name="c_solicitud"/>
+                </calendar>
+            </field>
+        </record>
+        
+		<menuitem id="main_Salas_menu" name="Gestion de Salas" /> 
+		<menuitem id="Gestion_Salas_menu" name="Gestion de Salas" parent="main_Salas_menu" />
+		<menuitem id="Solicitudes_menu" name="Solicitudes de Sala" parent="Gestion_Salas_menu" action="solicitud_list_action" />
+		<!-- <menuitem id="Salas_menu1" name="Salas" parent="Gestion_Salas_menu" action="salas_list_action" /> -->
+		
+  </data>
+</openerp>
