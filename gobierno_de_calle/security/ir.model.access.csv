@@ -2,4 +2,3 @@ id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
 gdc_proyectos_full_manager,gdc_proyectos_full_manager,model_gdc_proyectos,group_manager_gdc,1,1,1,1
 gdc_proyectos_read_all,gdc_proyectos_read_all,model_gdc_proyectos,,1,0,0,0
 gdc_tareas_full_all,gdc_tareas_full_all,model_gdc_tareas,,1,1,1,1
-gdc_sector_full_all,gdc_sector_full_all,model_gdc_sector,,1,1,1,1

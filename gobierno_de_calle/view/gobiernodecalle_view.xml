@@ -19,32 +19,6 @@ SECUENCIA
         </record>
 
 <!--
-SECTOR
--->
-
-        <record model="ir.actions.act_window" id="sector_list_action">
-            <field name="name">Sectores</field>
-            <field name="res_model">gdc.sector</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="help" type="html">
-            <p class="oe_view_nocontent_create">Crear sectores</p>
-            </field>
-        </record>
-        
-        <record model="ir.ui.view" id="sector_view_form">
-            <field name="name">gdc.sector.form</field>
-            <field name="model">gdc.sector</field>
-            <field name="type">form</field>
-            <field name="priority" eval="16"/>
-            <field name="arch" type="xml">
-                <form string="Sector">
-                    <field name="name_sector" />
-                </form>
-            </field>
-        </record>
-
-<!--
 PROYECTOS
 -->
 
@@ -73,7 +47,7 @@ PROYECTOS
                     <field name="date_start"/>
                     <field name="date_end"/>
                     <field name="estado"/>
-                    <field name="progreso"/>
+                    <field name="progreso" widget="progressbar"/>
                     <field name="dias_proyecto"/>
                 </tree>
             </field>
@@ -101,6 +75,9 @@ PROYECTOS
                             <field name="priority"/>
                             <field name="presu_tentativo"/>
                             <field name="presu_real"/>
+                            <group>
+                            
+                            </group>
                         </group>
                         <group>
                             <field name="date_start" on_change="onchange_date_start(date_start)"/>
@@ -225,7 +202,7 @@ TAREAS
                     <field name="date_start_tarea"/>
                     <field name="date_end_tarea"/>
                     <field name="dias_tarea" />
-                    <field name="progreso_tarea" />
+                    <field name="progreso_tarea" widget="progressbar"/>
                 </tree>
             </field>
         </record>

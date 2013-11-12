@@ -16,8 +16,6 @@
             <field name="inherit_id" ref="base.view_company_form"/>
             <field name="arch" type="xml">
                 <field name="partner_id" position="before">
-                    <field name="sector_id" />
-                    <field name="secretaria" />
                     <field name="responsible_id" />
                     <field name="num_empleados" />
                 </field>

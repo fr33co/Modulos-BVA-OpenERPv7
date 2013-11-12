@@ -29,7 +29,6 @@
             </record>
             
             <menuitem id="configuration_menu" name="Configuration" parent="main_gobiernodecalle_menu" sequence="10"/>
-            <menuitem id="sector_menu" name="Sectores" parent="configuration_menu" action="sector_list_action" sequence="4"/>
             <menuitem id="contact_menu" name="Lugares a atender" parent="configuration_menu" action="partner_list_action" sequence="7"/>
             <menuitem id="contact_cat_menu" name="Etiquetas" parent="configuration_menu" action="category_list_action" sequence="5"/>
 

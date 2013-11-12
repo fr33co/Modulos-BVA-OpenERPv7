@@ -22,8 +22,6 @@ from openerp.osv import osv, fields
 class res_company(osv.Model):
     _inherit = "res.company"
     _columns = {
-            'sector_id': fields.many2one('gdc.sector', 'Sector de competencia', select=False),
-            'secretaria': fields.boolean('Es una secretaria?'),
             'responsible_id' : fields.many2one('res.users', 'Responsable', required=True),
             'twitter': fields.char('Cuenta Twitter', size=34, required=True),
             'num_empleados': fields.integer('Numero de Empleados', required=True),
