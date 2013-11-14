@@ -9,5 +9,5 @@
 			Registro
       Edicion
       Estadisticas''',
-    'data' : ["views/consejo.xml"],
+    'data' : ["views/consejo.xml","views/temas_lectura.xml","views/ocupacion.xml","views/potencialidad.xml"],
 }

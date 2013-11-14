@@ -1,0 +1,17 @@
+<openerp>
+	<data>
+		<!--Accionador para el menu de Ocupaciones-->
+		<record model="ir.actions.act_window" id="accion_lista_ocupaciones">
+			<field name="name">Ocupaciones</field>
+			<field name="res_model">consejocomunal.ocupaciones</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Registrar nueva Ocupación</p>
+			</field>
+		</record>
+		<!--Accionador para el menu de Ocupaciones-->
+
+		<menuitem id="ocupaciones" name="Ocupaciones" parent="menu_secundario_mantenimiento" action="accion_lista_ocupaciones"/>
+	</data>
+</openerp>
