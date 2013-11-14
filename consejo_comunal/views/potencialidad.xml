@@ -1,0 +1,17 @@
+<openerp>
+	<data>
+		<!--Accionador para el menu de Potencialidades-->
+		<record model="ir.actions.act_window" id="accion_lista_potencialidades">
+			<field name="name">Potencialidades</field>
+			<field name="res_model">consejocomunal.potencialidades</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Registrar nueva Potencialidad</p>
+			</field>
+		</record>
+		<!--Accionador para el menu de Potencialidades-->
+
+		<menuitem id="potencialidades" name="Potencialidades" parent="menu_secundario_mantenimiento" action="accion_lista_potencialidades"/>
+	</data>
+</openerp>

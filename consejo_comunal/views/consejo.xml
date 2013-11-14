@@ -2,7 +2,8 @@
 <openerp>
 	
 	<data>
-		
+			
+		<!--Accionador para el menu de Consejos-->
 		<record model="ir.actions.act_window" id="accion_lista_consejos">
 			<field name="name">Consejos</field>
 			<field name="res_model">consejocomunal.consejo</field>
@@ -12,6 +13,7 @@
 				<p class="oe_view_nocontent_create">Registrar el primer Consejo Comunal</p>
 			</field>
 		</record>
+		<!--Accionador para el menu de Consejos-->
 		
 		<record model="ir.ui.view" id="vista_formulario_consejos">
 			<field name="name">consejo.form</field>
@@ -96,10 +98,57 @@
 							<field name="escuelas_robin_ope" colspan="2" nolabel="0"/>
 							<field name="inces" colspan="2" nolabel="0"/>
 							<field name="inces_ope" colspan="2" nolabel="0"/>
+							<separator colspan="4"/>
+							<label string="Nota: Cuando la respuesta es Sí, debe indicar si está operativo o no" colspan="4"></label>
+							<separator colspan="4"/>
+							<separator colspan="4"/>
+							<label string="3) En su opinión, ¿cuántas personas en edad escolar de su consejo comunal no saben leer ni escribir?" colspan="2"></label>
+							<field name="analfabetas" colspan="1" nolabel="1"/>
+							<separator colspan="4"/>
+							<separator colspan="4"/>
+							<label string="4) Desde su perspectiva ¿el Consejo Comunal conoce la Escuela del Poder Popular?" colspan="2"></label>
+							<field name="escue_poder_popular" colspan="1" nolabel="1"/>
+							<separator colspan="4"/>
+							<separator colspan="4"/>
+							<label string="5) Los voceros y voceras ¿participan activamente en el proceso formativo de la Escuela del Poder Popular?" colspan="2"></label>
+							<field name="participacion_voceros" colspan="1" nolabel="1"/>
+							<separator colspan="4"/>
+							<separator colspan="4"/>
+							<label string="6) ¿Cuántos participan?" colspan="2"></label>
+							<field name="cuantos_voceros_part" colspan="1" nolabel="1"/>
+							<separator colspan="4"/>
+							<separator colspan="4"/>
+							<label string="7) ¿Existe algún grupo Plan Revolucionario de Lectura?" colspan="2"></label>
+							<field name="plan_r_lectura" colspan="1" nolabel="1"/>
+							<separator colspan="4"/>
+							<separator colspan="4"/>
+							<label string="8) ¿Existen otros espacios de lectura?" colspan="2"></label>
+							<field name="otros_espacios" colspan="1" nolabel="1"/>
+							<separator colspan="4"/>
+							<separator colspan="4"/>
+							<label string="9) De los siguientes temas, cuál es el más leído por el grupo revolucionario de lectura:" colspan="2"></label>
+							<field name="tema_mas_leido" colspan="1" nolabel="1" widget="selection"/>
+							<separator colspan="4"/>
+							<separator colspan="4"/>
+							<label string="10) En las actividades de distribución de libros por parte del Ministerio del Poder Popular para la Cultura. ¿Han recibido algún libro gratuito para las personas del ámbito geográfico del Consejo Comunal?" colspan="2"></label>
+							<field name="libros_gratuitos" colspan="1" nolabel="1"/>
 						</page>
 						<page string="Sección V">
-							<separator string="Área Organizativa del Consejo Comunal" colspan="4"/>
-							<field name="nombre_consejo" colspan="2" nolabel="1"/>
+							<separator string="Características Económicas" colspan="4"/>
+							<separator colspan="4"/>
+							<label string="1) ¿Cuáles cree usted que son las tres ocupaciones u oficios predominantes que ejercen los miembros del Consejo Comunal?" colspan="4"></label>
+							<field name="ocupacion1" colspan="2" nolabel="0" widget="selection"/>
+							<field name="ocupacion2" colspan="2" nolabel="0" widget="selection"/>
+							<field name="ocupacion3" colspan="2" nolabel="0" widget="selection"/>
+							<separator colspan="4"/>							
+							<label string="2) En el ámbito geográfico del consejo comunal, ¿cuales cree ud. que son las tres potencialidades socioproductivas?" colspan="4"></label>
+							<field name="potencialidad1" colspan="2" nolabel="0" widget="selection"/>
+							<field name="potencialidad2" colspan="2" nolabel="0" widget="selection"/>
+							<field name="potencialidad3" colspan="2" nolabel="0" widget="selection"/>
+							<separator colspan="4"/>							
+							<separator colspan="4"/>							
+							<label string="3) ¿Cuántas personas mayores de 15 años que habitan en el ámbito geográfico del Consejo Comunal, se encuentran en situación de desocupados?" colspan="2"></label>
+							<field name="desocupados15" colspan="3" nolabel="1"/>							
 						</page>
 						<page string="Sección VI">
 							<separator string="Área Organizativa del Consejo Comunal" colspan="4"/>
@@ -123,7 +172,7 @@
 		<menuitem id="menu_secundario_consejos" name="Consejos Comunales" parent="menu_principal_consejos"/>
 		
 		<menuitem id="menu_consejo" name="Consejos" parent="menu_secundario_consejos" action="accion_lista_consejos"/>
-		
+			
 	</data>
 	
 </openerp>
