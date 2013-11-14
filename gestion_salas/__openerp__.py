@@ -10,6 +10,7 @@
 	'data': [
 		'view/solicitud_salas.xml',
 		'view/salas.xml',
+		'view/sedes.xml',
 		#'view/info_opcional.xml'
 	],		
 }

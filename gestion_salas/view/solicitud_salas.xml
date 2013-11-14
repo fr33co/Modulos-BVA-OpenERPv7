@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
   <data>
- 		<!-- ###########  Modelo de secuencia de numero de solicitud ####################
+ 		<!-- ###########  Modelo de secuencia de numero de solicitud #################### -->
 		<record id="seq_type_solicitud_salas" model="ir.sequence.type">
             <field name="name">Solicitud de sala</field>
-            <field name="code">sala</field>
+            <field name="code">solicitar.sala</field>
         </record>
         <record id="seq_rma_repair" model="ir.sequence">
             <field name="name">Solicitud de sala</field>
-            <field name="code">sala</field>
+            <field name="code">solicitar.sala</field>
             <field name="prefix">SS</field>
             <field name="padding">5</field>
-        </record> -->
+        </record>
         
 		<!--Solicitud de Salas-->
 		 <record model="ir.actions.act_window" id="solicitud_list_action">
@@ -39,10 +39,10 @@
 							<field name="celular" />
 						</group>
 						<group string="Reservacion" colspan="1">
-							<field name="fh_inicio" on_change="onchange_inicio(fh_inicio)"/>
-							<field name="fh_final" on_change="onchange_final(fh_final)" />
+							<field name="fh_inicio" on_change="onchange_fh_inicio(fh_inicio)"/>
+							<field name="fh_final" on_change="onchange_fh_final(fh_final)"/>
 							<field name="motivo" />
-							<field name="salas" on_change="on_change_direccion(salas)"/>
+							<field name="salas" widget="selection" on_change="on_change_direccion(salas)" />
 						</group>
 						<group string="Solicitud" colspan="1">
 							<field name="c_solicitud" />
@@ -82,15 +82,13 @@
 			<field name="name">solicitar.tree</field>
 			<field name="model">solicitar.sala</field>
 			<field name="arch" type="xml">
-				<tree string=" s.sala.Tree">
+				<tree string="solicitud Tree">
 					<field name="c_solicitud" />
-					<field name="cedula" />
-					<field name="nombre" />
-					<field name="apellido" />
-					<field name="fh_inicio"/>
-					<field name="fh_final"/>
 					<field name="salas" />
-					<field name="f_solicitud" />
+					<field name="fh_inicio" />
+					<field name="fh_final" />
+					<field name="estado" />
+					<field name="ciudad" />
 				</tree>
 			</field>			
 		</record>

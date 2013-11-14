@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="seq_type_solicitud_reclamos" model="ir.sequence.type">
+            <field name="name">Codigo de Sedes BV</field>
+            <field name="code">sedes2</field>
+        </record>
+        <record id="seq_rma_repair" model="ir.sequence">
+            <field name="name">codigo.sedes</field>
+            <field name="code">sedes2</field>
+            <field name="prefix">BV</field>
+            <field name="padding">5</field>
+        </record>
+		<!--Menu lista de reclamos -->
+		<record model="ir.actions.act_window" id="sedes_list_action">
+		    <field name="name">sedes.bva</field>
+		    <field name="res_model">sedes2</field>
+		    <field name="view_type">form</field>
+		    <field name="view_mode">tree,form</field>
+		    <field name="help" type="html">
+				<p class="oe_view_nocontent_create">Registrar Sede</p>
+		    </field>
+		</record> 
+		
+		<!--Formulario de Sedes-->
+		<record model="ir.ui.view" id="sedes_form_view">
+			<field name="name">sedes.form</field>
+			<field name="model">sedes2</field>
+			<field name="arch" type="xml">
+				<form string="sedes Form">
+					<group col="3" colspan="3" string="Crear Sede">
+						<group string="Informacion de la Sede">
+							<field name="c_sede"  />
+							<field name="sede" />
+							<field name="telefono" />
+						</group>
+						<group string="Ubicacion">
+							<group>
+						        <field name="estado" />
+						        <field name="ciudad"  />
+						        <field name="municipio" />
+					        </group>
+					        <group>
+						        <field name="parroquia"/>
+						        <field name="sector" />
+					    	</group>
+					    </group>
+				    </group>
+				    <group colspan="4">
+						<field name="direccion" colspan="4"/>
+					</group>
+			        <notebook colspan="4">
+			            <page string="Descripcion de la Sede">
+			              <field name="descripcion_s" colspan="4" nolabel="1" />
+			            </page>
+			        </notebook>
+				</form>
+			</field>			
+		</record>
+		<record model="ir.ui.view" id="solicitud_sala_tree_view">
+			<field name="name">sedes.tree</field>
+			<field name="model">sedes2</field>
+			<field name="arch" type="xml">
+				<tree string="sedes Tree">
+					<field name="c_sede" />
+					<field name="sede" />
+					<field name="estado" />
+					<field name="ciudad" />
+				</tree>
+			</field>			
+		</record>
+		<menuitem id="Configuracion_Sedes_menu" name="Sedes" parent="main_Salas_menu" />
+		<menuitem id="registrar_sedes_menu" name="Registrar Sedes" parent="Configuracion_Sedes_menu" action="sedes_list_action" />
+	</data>
+</openerp>

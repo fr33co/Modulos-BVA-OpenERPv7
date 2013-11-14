@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
   <data>
+  		<record id="seq_type_registrar_salas" model="ir.sequence.type">
+            <field name="name">Registro de sala</field>
+            <field name="code">registrar.salas</field>
+        </record>
+        <record id="seq_rma_repair" model="ir.sequence">
+            <field name="name">Registro de sala</field>
+            <field name="code">registrar.salas</field>
+            <field name="prefix">CS</field>
+            <field name="padding">5</field>
+        </record>
+
 		<!--Registrar Salas-->
 		<record model="ir.actions.act_window" id="salas_list_action">
 		    <field name="name">Registrar Salas</field>
@@ -21,7 +32,7 @@
 						<group colspan="1">
 							<field name="c_sala" />
 							<field name="sala_nombre" />
-							<field name="sede" />
+							<field name="sede" widget="selection" on_change="on_change_direccion(sede)"/>
 						</group>
 						<group colspan="1">
 							<field name="estado" />
@@ -39,18 +50,6 @@
 					<group string="Opcional" colspan="4">
 						<field name="observaciones" colspan="4"/>
 					</group>
-					<!--<notebook colspan="4">
-						<page string="Observaciones"  >
-							<group>
-					        	<field name="observaciones" />
-					        </group>
-						</page>
-						<page name="info_opcional" string="Informacion Opcional">
-							<field name="facebook"/>
-							<field name="twitter" />
-							<field name="correo" />
-						</page>
-					</notebook>-->
 				</form>
 			</field>			
 		</record>
