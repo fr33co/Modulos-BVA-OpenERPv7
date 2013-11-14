@@ -8,19 +8,19 @@ class Solicitar_Sala(osv.Model):
 	_order = 'c_solicitud'
 	_rec_name = 'c_solicitud'
 	_columns = {
-		'nombre' : fields.char(string="Nombre", size=25, required=False),
-		'apellido' : fields.char(string="Apellido", size=25, required=False),
-		'cedula' : fields.char(string="Cedula", size=8, required=False),
-		'c_solicitud' : fields.char(string="Codigo de Solicitud", size=8, readonly=False, required=False),
-		'fh_inicio' : fields.datetime(string="Fecha/Hora Inicio", required=False),
+		'nombre' : fields.char(string="Nombre", size=25, required=True),
+		'apellido' : fields.char(string="Apellido", size=25, required=True),
+		'cedula' : fields.char(string="Cedula", size=8, required=True),
+		'c_solicitud' : fields.char(string="Codigo de Solicitud", size=8, readonly=False, required=True),
+		'fh_inicio' : fields.datetime(string="Fecha/Hora Inicio", required=True),
 		'motivo' : fields.selection((('1','Exposicion'), ('2','Reunion'), ('3', 'Cine Foro'), ('4','Charla'),('5','Presentacion de Tesis')),'Actvidad a realizar', required=False),
-		'fh_final' : fields.datetime(string="Fecha/Hora Conclusion", required=False),
+		'fh_final' : fields.datetime(string="Fecha/Hora Conclusion", required=True),
 		'descripcion' : fields.text(string="Descripcion"),
 		'telefono' : fields.char(string="Telefono Recidencia", size=11),
-		'celular' : fields.char(string="Celular", size=11, required=False),
+		'celular' : fields.char(string="Celular", size=11),
 		#'salas': fields.char(string="Salas", size=25, required=False), 
-		'salas':fields.many2one('registrar.salas', 'Salas',required=False),
-		'f_solicitud': fields.datetime('Fecha de Solicitud', readonly=False,  required=False),
+		'salas':fields.many2one('registrar.salas', 'Salas',required=True),
+		'f_solicitud': fields.datetime('Fecha de Solicitud', readonly=True,  required=True),
 		'facebook' : fields.char(string="Facebook", size=35),
 		'twitter' : fields.char(string="Twitter", size=35),
 		'facebook' : fields.char(string="Facebook", size=35),
@@ -30,7 +30,6 @@ class Solicitar_Sala(osv.Model):
 		'municipio' : fields.char(string="Municipio", size=25),
 		'parroquia' : fields.char(string="Parroquia", size=25),
 		'sector' : fields.char(string="Sector", size=25),
-
 
 	}
 	_defaults = {
@@ -51,24 +50,19 @@ class Solicitar_Sala(osv.Model):
 	        })
 	        return {'value' : values}
 
-	def onchange_inicio(self, cr, uid, ids, fh_inicio, context=None):
-            """
-            Onchange para validar que la fecha de inicio no es menor a la fecha de creacion
-            """
-            res = {}
-            now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            if fh_inicio < now:
-                res['warning'] = {'title': "Cuidado: Error!",'message' : "No puede seleccionar como fecha de inicio dias pasados",}
-                return res
-            return res
+	def onchange_fh_final(self, cr, uid, ids, fh_final, context=None):
 
-	def onchange_final(self, cr, uid, ids, fh_final, context=None):
-            """
-            Onchange para validar que la fecha final no es menor a lafecha de creacion
-            """
-            res = {}
-            now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            if fh_final < now:
-                res['warning'] = {'title': "Cuidado: Error!",'message' : "No puede seleccionar como fecha final dias pasados",}
-                return res
-            return res
+			res = {}
+			now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+			if fh_final < now:
+				res['warning'] = {'title': "Atencion: Error!",'message' : "No puede seleccionar como fecha finaldias anteriores a hoy",}
+				return res
+			return res	        
+
+	def onchange_fh_inicio(self, cr, uid, ids, fh_inicio, context=None):
+			res = {}
+			now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+			if fh_inicio < now:
+				res['warning'] = {'title': "Cuidado: Error!",'message' : "No puede seleccionar como fecha de inicio dias pasados",}
+				return res
+			return res
