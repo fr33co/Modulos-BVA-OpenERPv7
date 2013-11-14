@@ -59,10 +59,37 @@ class Conexion:
 
             return self.rows
 '''-----------------------------------------------------------------------------------------------'''
+class municipios(osv.Model):
+    _name = "municipios"
+    
+    _columns = {
+        'ciudad' : fields.char(string="Ciudad", size=25, required=True),
+        'estado' : fields.char(string="Estado", size=25, required=True),
+        'municipio' : fields.char(string="Municipio", size=25, required=True),
+        'codigo_m' : fields.char(string="Codigo del Municipio", size=3, required=True),
+        #'sede' :fields.many2one('stock.location', 'Sede'),
+    }
+    _order = 'municipio'
+    _rec_name = 'municipio'
 
+class parroquias(osv.Model):
+    _name = "parroquias"
+    
+    _columns = {
+        'ciudad' : fields.char(string="Ciudad", size=25, required=True),
+        'estado' : fields.char(string="Estado", size=25, required=True),
+        'municipio' : fields.char(string="Municipio", size=25, required=True),
+        'parroquia' : fields.char(string="Parroquia", size=25, required=True),
+        'codigo_p' : fields.char(string="Codigo de Parroquia", size=3, required=True),
+        #'sede' :fields.many2one('stock.location', 'Sede'),
+    }
+    _order = 'parroquia'
+    _rec_name = 'parroquia'
 
 class Casos(osv.Model): # Creacion del Modelo Monitor de Casos
+
 	_name = "monitor.caso"
+
 
 	_columns = {
 		'cedula' : fields.char(string="Cédula", size=8, required=True, translate=True),
@@ -71,8 +98,8 @@ class Casos(osv.Model): # Creacion del Modelo Monitor de Casos
 		'tlf' : fields.integer(string="Teléfono", size=20, required=True),
 		'urbanizacion' : fields.char(string="Urbanización", size=256, required=True),
 		#'municipio' : fields.integer(string="Municipio", size=20),
-		'municipio' : fields.integer(string="Municipio", size=20, required=True),
-		'parroquia' : fields.integer(string="Parroquia", size=20, required=True),
+		'municipio' : fields.many2one("municipios","Municipio", required=True),
+		'parroquia' : fields.many2one("parroquias","Parroquia", required=True),
 		'sector' : fields.char(string="Sector", size=256, required=True),
 		'tlf_local' : fields.integer(string="Teléfono Local", size=20),
 		'casa' : fields.char(string="Casa/Apt/Local/Galpón", size=256, required=True),

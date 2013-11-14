@@ -39,8 +39,8 @@
 									<field name="urbanizacion" placeholder="Urb/Barrio o Residencia"/>	
 								</group>
 								<group>
-									<field name="municipio"/>
-									<field name="parroquia"/>
+									<field name="municipio" widget="selection" /><!-- on_change="buscar(parroquia)" -->
+									<field name="parroquia" widget="selection"/>
 								    <field name="sector" placeholder="Sector"/>
 									<field name="tlf_local" placeholder="Teléfono Local"/>
 									<field name="casa" placeholder="Casa/Apt/local/Galp"/>
