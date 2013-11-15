@@ -151,16 +151,84 @@
 							<field name="desocupados15" colspan="3" nolabel="1"/>							
 						</page>
 						<page string="Sección VI">
-							<separator string="Área Organizativa del Consejo Comunal" colspan="4"/>
-<!--
-							<field name="nombre_consejo" colspan="2" nolabel="0"/>
--->
+							<separator string="Características de los Proyectos Comunitarios" colspan="4"/>
+							<separator string="" colspan="4"/>
+							<label string="1) En el último año en el ámbito geográfico del Consejo Comunal ¿ Se han realizado o realizan Proyectos Comunitarios?" colspan="2"/>
+							<field name="proyectos_ultimo_anyo" colspan="2" nolabel="1"/>
+							<separator string="" colspan="4"/>
+							<separator string="" colspan="4"/>
+							<label string="2) ¿ Cuántos Proyectos?" colspan="2"/>
+							<field name="numero_proyectos" colspan="2" nolabel="1"/>
+							<separator string="" colspan="4"/>
+							<separator string="" colspan="4"/>
+							<label string="3) ¿Cuántos son socio productivos?" colspan="2"/>
+							<field name="numero_proy_socioproduc" colspan="2" nolabel="1"/>
+							<separator string="" colspan="4"/>
+							<separator string="" colspan="4"/>
+							<label string="4) ¿A cuál o cuáles actividades socioproductivas se dedican?" colspan="4"/>
+							<separator string="" colspan="4"/>
+							<field name="agr_gan_caza_sil" colspan="2" nolabel="0"/>
+							<field name="pesca" colspan="2" nolabel="0"/>
+							<field name="minas" colspan="2" nolabel="0"/>
+							<field name="ind_manufactura" colspan="2" nolabel="0"/>
+							<field name="elect_gas_agua" colspan="2" nolabel="0"/>
+							<field name="construccion" colspan="2" nolabel="0"/>
+							<field name="comercio" colspan="2" nolabel="0"/>
+							<field name="rep_automotores" colspan="2" nolabel="0"/>
+							<field name="personal_enceres" colspan="2" nolabel="0"/>
+							<field name="hotel_res" colspan="2" nolabel="0"/>
+							<field name="trans_com" colspan="2" nolabel="0"/>
+							<field name="inmob_alquiler" colspan="2" nolabel="0"/>
+							<separator string="" colspan="4"/>
+							<separator string="" colspan="4"/>
+							<label string="5) Situación actual de los proyectos comunitarios (Debe ingresar la cantidad de proyectos comunitarios Según la situación en que se encuentren)" colspan="4"/>
+							<separator string="" colspan="4"/>
+							<field name="en_proyecto" colspan="2" nolabel="0"/>
+							<field name="en_ejecucion" colspan="2" nolabel="0"/>
+							<field name="ejecutado" colspan="2" nolabel="0"/>
+							<field name="en_tramite" colspan="2" nolabel="0"/>
+							<field name="en_elaboracion" colspan="2" nolabel="0"/>
+							<separator string="" colspan="4"/>
+							<separator string="" colspan="4"/>
+							<label string="6) ¿Cuántos de esos proyectos comunitarios han recibido transferencia de recursos financieros?" colspan="2"/>
+							<field name="proyectos_recursos" colspan="2" nolabel="1"/>
+							<separator string="" colspan="4"/>
+							<separator string="" colspan="4"/>
+							<label string="7 Seleccione las tres (3) principales fuentes de financiamiento de esos proyectos:" colspan="4"/>
+							<separator string="" colspan="4"/>
+							<field name="gobernacion" colspan="2" nolabel="0"/>
+							<field name="alcaldia" colspan="2" nolabel="0"/>
+							<field name="entes_priv" colspan="2" nolabel="0"/>
+							<field name="entes_est" colspan="2" nolabel="0"/>
+							<field name="ministerios" colspan="2" nolabel="0"/>
+							<field name="fondemi" colspan="2" nolabel="0"/>
+							<field name="safonacc" colspan="2" nolabel="0"/>
+							<field name="fundacomunal" colspan="2" nolabel="0"/>
+							<field name="otro_esp" colspan="2" nolabel="0"/>
 						</page>
 						<page string="Sección VII">
-							<separator string="Área Organizativa del Consejo Comunal" colspan="4"/>
-<!--
-							<field name="nombre_consejo" colspan="2" nolabel="0"/>
--->
+							<separator string="Características de las Misiones Sociales" colspan="4"/>
+							<separator string="" colspan="4"/>
+							<label string="1) Identifique las misiones sociales que existen y están operativas en su Consejo Comunal:" colspan="4"/>
+							<separator string="" colspan="4"/>
+							<field name="arbol" colspan="2" nolabel="0"/>
+							<field name="b_a_deportivo" colspan="2" nolabel="0"/>
+							<field name="b_adentro_I" colspan="2" nolabel="0"/>
+							<field name="b_adentro_II" colspan="2" nolabel="0"/>
+							<field name="b_adentro_II" colspan="2" nolabel="0"/>
+							<field name="ciencia" colspan="2" nolabel="0"/>
+							<field name="cristo" colspan="2" nolabel="0"/>
+							<field name="cultura" colspan="2" nolabel="0"/>
+							<field name="energetica" colspan="2" nolabel="0"/>
+							<field name="guaicaipuro" colspan="2" nolabel="0"/>
+							<field name="habitat" colspan="2" nolabel="0"/>
+							<field name="madres_b" colspan="2" nolabel="0"/>
+							<field name="mercal" colspan="2" nolabel="0"/>
+							<field name="milagro" colspan="2" nolabel="0"/>
+							<field name="miranda" colspan="2" nolabel="0"/>
+							<field name="musica" colspan="2" nolabel="0"/>
+							<field name="negra_hipolita" colspan="2" nolabel="0"/>
+							<field name="n_barrio" colspan="2" nolabel="0"/>
 						</page>
 					</notebook>
 				</form>
