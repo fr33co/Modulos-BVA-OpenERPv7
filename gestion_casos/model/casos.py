@@ -2,94 +2,99 @@
 from openerp.osv import osv, fields
 from datetime import datetime, timedelta # Importacion del objeto datetime, forma para validar la fecha de inicio con la fecha final
 import MySQLdb
-'''
-|----------------------------------------------------------------------------------------------
-|                               Clase Conexion a Kalkun
-|----------------------------------------------------------------------------------------------
-'''
-class Conexion:
-	# Metodo Constructor, Inicializacion de los Valores
-    def __init__(self, db_host='localhost', db_user='root', db_pass='123', db_name='kalkun'):
-        self.db_host = db_host
-        self.db_user = db_user
-        self.db_pass = db_pass
-        self.db_name = db_name
 
-    def conectar(self):
-        """Crear una conexión con la base de datos"""
-        self.db = MySQLdb.connect(host=self.db_host, user=self.db_user, passwd=self.db_pass, db=self.db_name)
+class Estado(osv.Model):
+    _name = "configuracion.estado"
 
-    def abrir_cursor(self):
-        """Abrir un cursor"""
-        self.cursor = self.db.cursor()
-
-    def ejecutar_consulta(self, query, values=''):
-        """Ejecutar una consulta"""
-        if values != '':
-            self.cursor.execute(query, values)
-        else:
-            self.cursor.execute(query)
-
-    def traer_datos(self):
-        """Traer todos los registros"""
-        self.rows = self.cursor.fetchall()
-
-    def send_commit(self, query):
-        """Enviar commit a la base de datos"""
-        sql = query.lower()
-        es_lectura = sql.count('select')
-        if es_lectura < 1:
-            self.db.commit()
-
-    def cerrar_cursor(self):
-        """Cerrar cursor"""
-        self.cursor.close()
-
-    def ejecutar(self, query, values=''):
-        """Compilar todos los procesos"""
-        # ejecuta todo el proceso solo si las propiedades han sido definidas
-        if (self.db_host and self.db_user and self.db_pass and self.db_name and
-            query):
-            self.conectar()
-            self.abrir_cursor()
-            self.ejecutar_consulta(query, values)
-            self.send_commit(query)
-            self.traer_datos()
-            self.cerrar_cursor()
-
-            return self.rows
-'''-----------------------------------------------------------------------------------------------'''
-class municipios(osv.Model):
-    _name = "municipios"
-    
     _columns = {
-        'ciudad' : fields.char(string="Ciudad", size=25, required=True),
-        'estado' : fields.char(string="Estado", size=25, required=True),
-        'municipio' : fields.char(string="Municipio", size=25, required=True),
-        'codigo_m' : fields.char(string="Codigo del Municipio", size=3, required=True),
-        #'sede' :fields.many2one('stock.location', 'Sede'),
+        'estado' : fields.char(string="Estado",size=100, required=True),
     }
-    _order = 'municipio'
-    _rec_name = 'municipio'
+    _order='estado'
+    _rec_name='estado'
 
-class parroquias(osv.Model):
-    _name = "parroquias"
-    
+class Municipio(osv.Model):
+    _name = "configuracion.municipio"
     _columns = {
-        'ciudad' : fields.char(string="Ciudad", size=25, required=True),
-        'estado' : fields.char(string="Estado", size=25, required=True),
-        'municipio' : fields.char(string="Municipio", size=25, required=True),
-        'parroquia' : fields.char(string="Parroquia", size=25, required=True),
-        'codigo_p' : fields.char(string="Codigo de Parroquia", size=3, required=True),
-        #'sede' :fields.many2one('stock.location', 'Sede'),
+        'estado' : fields.many2one('configuracion.estado','Estado',ondelete='cascade',required=True),
+        'municipio' : fields.char(string="Municipio",size=100, required=True),
     }
-    _order = 'parroquia'
-    _rec_name = 'parroquia'
+    _order='estado'
+    _rec_name='municipio'
+
+class Parroquia(osv.Model):
+    _name    = "configuracion.parroquia"
+    _columns = {
+    'estado': fields.related('municipio','estado', type = 'many2one',relation = 'configuracion.estado',string = 'Estado'),
+    'municipio':  fields.many2one('configuracion.municipio', 'Municipio'),
+    'parroquia' : fields.char(string="Parroquia",size=100, required=True),
+    }
+    _order='municipio'
+    _rec_name='parroquia'
 
 class Casos(osv.Model): # Creacion del Modelo Monitor de Casos
 
 	_name = "monitor.caso"
+	
+	'''
+	|-----------------------------------------------------------------------------------------
+	|                               Método private para estado (1)
+	|-----------------------------------------------------------------------------------------
+	'''
+	def _filtro_estados_1(self, cr, user_id, context=None):
+		cr.execute('SELECT estado FROM configuracion_estado')
+		t = () # declaramos una tupla vacía
+		for datos in cr.fetchall():
+			t = t + ((datos[0], datos[0]),) # anidamos todos los camps de
+											  # la tupla como a tuplas hijas
+		return t
+	
+	'''
+	|-----------------------------------------------------------------------------------------
+	|                               Método private para estado (2)
+	|-----------------------------------------------------------------------------------------
+	'''
+	def _filtro_estados_2(self, cr, user_id, context=None):
+		cr.execute('SELECT estado FROM configuracion_estado')
+		t = () # declaramos una tupla vacía
+		for datos in cr.fetchall():
+			t = t + ((datos[0], datos[0]),) # anidamos todos los camps de
+											  # la tupla como a tuplas hijas
+		return t
+		res['warning'] = {
+		'title'   : "Warning: problems",
+		'message' : "You need more seats for this session",
+		}
+		return res
 
+
+	
+	'''
+	|-----------------------------------------------------------------------------------------
+	|                              Método public select dependiente (2)
+	|-----------------------------------------------------------------------------------------
+	'''
+	def onchange_mun(self, cr, uid, ids, estado, context=None):
+		cr.execute('SELECT estado FROM configuracion_municipio WHERE estado = \'%s\'' % estado)
+		mun = () # declaramos una tupla vacía
+		for datos in cr.fetchall():
+			mun = mun + ((datos[0], datos[0]),) # anidamos todos los camps de
+											  # la tupla como a tuplas hijas
+		return t
+		
+	def onchange_campo(self, cr, uid, ids, estado):
+		val = {'estado':''}
+		if estado:
+			cr.execute('SELECT estado FROM configuracion_municipio WHERE estado = \'%s\'' % estado)
+			valor_campo = cr.fetchone()[0] # Recuperamos el campo para autocompletar
+			if valor_campo is None :
+				val = {'estado':'',} # si no existe asignamos un valor vacío
+			else : 
+				val = {'estado':valor_campo,}
+		return {'value':val} # retornamos el diccionario de valors per que 
+											 # se actualice todo el form
+		
+	'''------------------------------------------------------------------------------------'''
+	
 
 	_columns = {
 		'cedula' : fields.char(string="Cédula", size=8, required=True, translate=True),
@@ -97,18 +102,22 @@ class Casos(osv.Model): # Creacion del Modelo Monitor de Casos
 		'apellidos' : fields.char(string="Apellidos", size=256, required=True),
 		'tlf' : fields.integer(string="Teléfono", size=20, required=True),
 		'urbanizacion' : fields.char(string="Urbanización", size=256, required=True),
-		#'municipio' : fields.integer(string="Municipio", size=20),
-		'municipio' : fields.many2one("municipios","Municipio", required=True),
-		'parroquia' : fields.many2one("parroquias","Parroquia", required=True),
-		'sector' : fields.char(string="Sector", size=256, required=True),
+		#'estado' : fields.many2one("estados","Estado", required=True, select="1"),
+		'estado': fields.related('municipio','estado', type = 'many2one',relation = 'configuracion.estado',string = 'Estado', required=True, select="0"),
+		'municipio' :  fields.related('parroquia','municipio', type = 'many2one',relation = 'configuracion.municipio',string = 'Municipio', required=True, select="0"),
+		'parroquia' : fields.many2one("configuracion.parroquia","Parroquia", required=True, select="1"),
+		'sector' : fields.char(string="Sector", size=256, required=True, select="1"),
 		'tlf_local' : fields.integer(string="Teléfono Local", size=20),
 		'casa' : fields.char(string="Casa/Apt/Local/Galpón", size=256, required=True),
 		'nro_caso' : fields.integer(string="Nro de Caso", size=20, required=True),
-		'caso' : fields.char(string="Caso", size=256, required=True),
+		'fecha' : fields.date(string="Fecha de Registro"),
+		#'caso' : fields.char(string="Caso", size=256, required=True),
+		'caso' : fields.selection((('1','Alumbrado'),('2','Vialidad'),('3','Salud'),('4','Vivienda'),('5','Aseo'),('6','Educación')),'Caso', required=True),
 		'descripcion' : fields.char(string="Descripción del Caso", size=256, required=True),
-		'ub_municipio' : fields.integer(string="Municipio", size=20, required=True),
-		'ub_parroquia' : fields.integer(string="Parroquia", size=20, required=True),
-		'ub_sector' : fields.char(string="Parroquia", size=256, required=True),
+        
+		'ub_municipio' :  fields.related('parroquia','municipio', type = 'many2one',relation = 'configuracion.municipio',string = 'Municipio', required=True, select="0"),
+        'ub_parroquia' : fields.many2one("configuracion.parroquia","Parroquia", required=True, select="0"),
+		'ub_sector' : fields.char(string="Sector", size=256, required=True),
 		'ub_residencia' : fields.char(string="Urb/Barrio/Residencia", size=256, required=True),
 		'ub_calle' : fields.char(string="Calle/Av", size=256, required=True),
 		'ub_casa' : fields.char(string="Casa/Apt/Local/Galpón", size=256, required=True),
@@ -118,7 +127,6 @@ class Casos(osv.Model): # Creacion del Modelo Monitor de Casos
 		'comp_intitucional' : fields.char(string="Competencia Institucional", size=256, required=True),
 	}
 
-	
 
 class Seguimiento(osv.Model):
 	_name="preguntas.caso"

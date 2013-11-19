@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<!--****************************************************************************************-->
+<!--                                Fecha : 19/11/2013                                      -->
+<!--****************************************************************************************-->
 <openerp>
 	
 	<data>
@@ -11,14 +13,6 @@
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
 		</record>
-
-		<!--******************* sub menu Sistema de Seguimiento ****************************-->
-		<!--<record model="ir.actions.act_window" id="menu_seguimiento">
-			<field name="name"> Sistema de Seguimiento</field>
-			<field name="res_model">preguntas.caso</field>
-			<field name="view_type">form</field>
-			<field name="view_mode">tree,form</field>
-		</record>-->
 
 		<!--**************** Declaracion de la vista Monitor de Casos **********************-->
 		
@@ -39,11 +33,13 @@
 									<field name="urbanizacion" placeholder="Urb/Barrio o Residencia"/>	
 								</group>
 								<group>
-									<field name="municipio" widget="selection" /><!-- on_change="buscar(parroquia)" -->
-									<field name="parroquia" widget="selection"/>
+									<field name="estado" placeholder="Estado"/>
+									<field name="municipio" domain="[('estado','=',estado)]"/>
+									<field name="parroquia" domain="[('municipio','=',municipio)]"/>
 								    <field name="sector" placeholder="Sector"/>
 									<field name="tlf_local" placeholder="Teléfono Local"/>
 									<field name="casa" placeholder="Casa/Apt/local/Galp"/>
+									<field name="fecha" placeholder="Fecha de Registro"/>
 								</group>
 							</group>
 						</page>
@@ -60,16 +56,11 @@
 						</page>
 						<page string="Ubicación del Caso">
 							<group colspan="4" col="4" string="Ubicación del Caso">
-								<field name="ub_municipio"/>
-							
-								<field name="ub_parroquia"/>
-							
+								<field name="ub_municipio" placeholder="Municipio"/>
+								<field name="ub_parroquia"  domain="[('municipio','=',municipio)]"/>
 								<field name="ub_sector" placeholder="Sector"/>
-							
 								<field name="ub_residencia" placeholder="Urb/Barrio/Residencia"/>
-							
 								<field name="ub_calle" placeholder="Calle/Av"/>
-							
 								<field name="ub_casa" placeholder="Casa/Apt/Local/Galpón"/>
 							</group>
 						</page>
@@ -91,36 +82,11 @@
 			</field>
 		</record>
 
-		<!--<record model="ir.ui.view" id="preguntas_view">
-			<field name="name">preguntas.form</field>
-			<field name="model">preguntas.caso</field>
-			<field name="arch" type="xml">
-				<form string="Formulario de Preguntas">
-					<group colspan="2" col="2">
-						<field name="tlf_seguimiento"/>
-						<field name="pregunta"/>
-					</group>
-				</form>
-			</field>
-		</record>-->
-
-		<!--********************************************************************************-->
-		
-		<!--<record model="ir.ui.view" id="preguntas_tree">
-			<field name="name">casos.tree</field>
-			<field name="model">preguntas.caso</field>
-			<field name="arch" type="xml">
-				<tree string="Listar Curso">
-					<field name="tlf_seguimiento"/>
-					<field name="pregunta"/>
-				</tree>
-			</field>
-		</record>-->
 	<!--***************************** Menu registro de Casos ********************************-->
 
-	<menuitem id="menu_casos" name="Monitor de Casos" /> <!-- Monitor de Casos -->
+	<menuitem id="menu_casos" name="Gestión de Casos" /> <!-- Monitor de Casos -->
 
-	<menuitem id="item_casos" name="Monitor de Casos" parent="menu_casos" /> <!-- Monitor de Casos Enunciado -->
+	<menuitem id="item_casos" name="Gestión de Casos" parent="menu_casos" /> <!-- Monitor de Casos Enunciado -->
 
 
 	<menuitem id="courses_menu" name="Seguimiento de Casos" parent="item_casos" action="seg_casos" /> <!-- menu de Seguimiento de Casos -->
