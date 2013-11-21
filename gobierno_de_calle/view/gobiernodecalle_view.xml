@@ -188,9 +188,11 @@ PROYECTOS
                             <field name="incidencias"/>
                         </page>
                         <page string="Conclusiones">
+							<separator string="Defina las conclusiones" colspan="2"/>
                             <field name="conclusiones"/>
                         </page>
                         <page string="Acuerdos">
+							<separator string="Defina los acuerdos llegados" colspan="2"/>
                             <field name="acuerdos"/>
                         </page>
                     </notebook>
