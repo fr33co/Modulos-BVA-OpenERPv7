@@ -36,7 +36,6 @@ class gdc_fondos(osv.Model):
         'name': fields.char(string="Fondo de financiamiento", size=64, required=True), 
     }
 
-
 #############
 # Proyectos #
 #############
@@ -190,11 +189,10 @@ class gdc_proyectos(osv.Model):
             'codigo': lambda obj, cr, uid, context: obj.pool.get('ir.sequence').get(cr, uid, 'gdc.proyectos'),
             'estado': 'Borrador',
             'progreso': 0.0,
-            'date_created': lambda *a: datetime.now().strftime('%d-%m-%Y %H:%M:%S'),
+            'date_created': lambda *a: datetime.now().strftime('%d/%m/%Y %H:%M:%S'),
             'dias_proyecto': 'Aun no asignados. ',
             'priority': 'Baja',
     }
-
 
 ##########
 # Tareas #
@@ -302,7 +300,6 @@ class gdc_tareas(osv.Model):
                 fin = time.strptime(r.date_end_tarea,'%Y-%m-%d %H:%M:%S')
                 ahora = time.strptime(now,'%Y-%m-%d %H:%M:%S')
                 if r.date_start_tarea and r.date_end_tarea:
-                    print '11111111111111111111111111111'
                     delta_1 = datetime.datetime(ini[0], ini[1], ini[2]) - datetime.datetime(ahora[0], ahora[1], ahora[2])
                     calculo_delta1 = (100.0 * int(delta_1.days)) / int(r.dias_tarea)
                     print calculo_delta1
@@ -311,7 +308,6 @@ class gdc_tareas(osv.Model):
                     print calculo_delta2
                     self.write(cr, uid, ids, {'progreso_tarea': calculo_delta1})
                 else:
-                    print '222222222222222222222222222'
                     if now >= r.date_start_tarea and r.date_end_tarea:
                         self.write(cr, uid, ids, {'progreso_tarea': 100.0})
                     else:
