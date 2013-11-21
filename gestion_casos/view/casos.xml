@@ -1,98 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--****************************************************************************************-->
-<!--                                Fecha : 19/11/2013                                      -->
+<!--                                Fecha : 21/11/2013                                      -->
 <!--****************************************************************************************-->
 <openerp>
 	
-	<data>
-		<!--**************************** Accion del curso **********************************-->
+    <data>
+        <!--**************************** Accion del curso **********************************-->
 		
-		<record model="ir.actions.act_window" id="seg_casos">
-			<field name="name">Casos</field>
-			<field name="res_model">monitor.caso</field>
-			<field name="view_type">form</field>
-			<field name="view_mode">tree,form</field>
-		</record>
+        <record model="ir.actions.act_window" id="seg_casos">
+            <field name="name">Casos</field>
+            <field name="res_model">monitor.caso</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+        </record>
 
-		<!--**************** Declaracion de la vista Monitor de Casos **********************-->
+        <!--**************** Declaracion de la vista Monitor de Casos **********************-->
 		
-		<record model="ir.ui.view" id="casos_view">
-			<field name="name">casos.form</field>
-			<field name="model">monitor.caso</field>
-			<field name="arch" type="xml">
-				<form string="Casos Form">
-			<!--***************************************************************************-->
-					<notebook colspan="4">
-						<page string="Datos Personales">
-							<group colspan="4" col="4" string="Datos Personales">
-								<group>
-									<field name="cedula" placeholder="Cédula"/> 
-									<field name="nombres" placeholder="Nombres"/>
-									<field name="apellidos" placeholder="Apellidos"/>
-									<field name="tlf" placeholder="Teléfono Movil" readonly="1"/>
-									<field name="urbanizacion" placeholder="Urb/Barrio o Residencia"/>	
-								</group>
-								<group>
-									<field name="estado" placeholder="Estado"/>
-									<field name="municipio" domain="[('estado','=',estado)]"/>
-									<field name="parroquia" domain="[('municipio','=',municipio)]"/>
-								    <field name="sector" placeholder="Sector"/>
-									<field name="tlf_local" placeholder="Teléfono Local"/>
-									<field name="casa" placeholder="Casa/Apt/local/Galp"/>
-									<field name="fecha" placeholder="Fecha de Registro"/>
-								</group>
-							</group>
-						</page>
-						<page string="Datos del Caso">
-							<group colspan="4" col="4" string="Datos del Caso">
-								<group>
-									<field name="nro_caso" placeholder="Nro del Caso"/>
-									<field name="caso" placeholder="Caso"/>
-								</group>
-								<group>
-									<field name="descripcion" placeholder="Descripción del Caso"/>
-								</group>
-							</group>
-						</page>
-						<page string="Ubicación del Caso">
-							<group colspan="4" col="4" string="Ubicación del Caso">
-								<field name="ub_municipio" placeholder="Municipio"/>
-								<field name="ub_parroquia"  domain="[('municipio','=',municipio)]"/>
-								<field name="ub_sector" placeholder="Sector"/>
-								<field name="ub_residencia" placeholder="Urb/Barrio/Residencia"/>
-								<field name="ub_calle" placeholder="Calle/Av"/>
-								<field name="ub_casa" placeholder="Casa/Apt/Local/Galpón"/>
-							</group>
-						</page>
-						<page string="Seguimiento y Competencia del Caso">
-							<group colspan="4" col="4" string="Seguimiento y Competencia del Caso">
-								<field name="estatus" placeholder="Estatus del Caso"/>
+        <record model="ir.ui.view" id="casos_view">
+            <field name="name">casos.form</field>
+            <field name="model">monitor.caso</field>
+            <field name="arch" type="xml">
+                <form string="Casos Form">
+                    <!--***************************************************************************-->
+                    <group colspan="4" col="4" string="Datos Personales">
+                        <group>
+                            <field name="cedula" placeholder="Cédula"/> 
+                            <field name="nombres" placeholder="Nombres"/>
+                            <field name="apellidos" placeholder="Apellidos"/>
+                            <field name="tlf" placeholder="Teléfono Movil" readonly="1"/>
+                            <field name="urbanizacion" placeholder="Urb/Barrio o Residencia"/>	
+                        </group>
+                        <group>
+                            <field name="estado" placeholder="Estado"/>
+                            <field name="municipio" domain="[('estado','=',estado)]"/>
+                            <field name="parroquia" domain="[('municipio','=',municipio)]"/>
+                            <field name="sector" placeholder="Sector"/>
+                            <field name="tlf_local" placeholder="Teléfono Local"/>
+                            <field name="casa" placeholder="Casa/Apt/local/Galp"/>
+                            <field name="fecha" placeholder="Fecha de Registro"/>
+                        </group>
+                    </group>
+                    <notebook colspan="4">
+                        <page string="Datos del Caso">
+                            <group colspan="4" col="4" string="Datos del Caso">
+                                <group>
+                                    <field name="nro_caso" placeholder="Nro del Caso" readonly="1"/>
+                                    <field name="caso" placeholder="Caso"/>
+                                </group>
+                                <group>
+                                    <field name="descripcion" placeholder="Descripción del Caso"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Ubicación del Caso">
+                            <group colspan="4" col="4" string="Ubicación del Caso">
+                                <field name="ub_municipio" placeholder="Municipio"/>
+                                <field name="ub_parroquia"  domain="[('municipio','=',municipio)]"/>
+                                <field name="ub_sector" placeholder="Sector"/>
+                                <field name="ub_residencia" placeholder="Urb/Barrio/Residencia"/>
+                                <field name="ub_calle" placeholder="Calle/Av"/>
+                                <field name="ub_casa" placeholder="Casa/Apt/Local/Galpón"/>
+                            </group>
+                        </page>
+                        <page string="Seguimiento y Competencia del Caso">
+                            <group colspan="4" col="4" string="Seguimiento y Competencia del Caso">
+                                <field name="estatus" placeholder="Estatus del Caso"/>
 					
-								<field name="nro_seguimiento" placeholder="nro de Seguimiento"/>
+                                <field name="nro_seguimiento" placeholder="nro de Seguimiento" readonly="1"/>
 					
-								<field name="operador" placeholder="Operador del Caso"/>
+                                <field name="operador" placeholder="Operador del Caso"/>
 					
-								<field name="comp_intitucional" placeholder="Competencia Institucional"/>
-							</group>
-						</page>
-					</notebook>
+                                <field name="comp_intitucional" placeholder="Competencia Institucional"/>
+                            </group>
+                        </page>
+                    </notebook>
 					
-			<!--***************************************************************************-->
-				</form>
-			</field>
-		</record>
-
-	<!--***************************** Menu registro de Casos ********************************-->
-
-	<menuitem id="menu_casos" name="Gestión de Casos" /> <!-- Monitor de Casos -->
-
-	<menuitem id="item_casos" name="Gestión de Casos" parent="menu_casos" /> <!-- Monitor de Casos Enunciado -->
-
-
-	<menuitem id="courses_menu" name="Seguimiento de Casos" parent="item_casos" action="seg_casos" /> <!-- menu de Seguimiento de Casos -->
-
-	<!--<menuitem id="seg_encuenta" name="Formular Preguntas" parent="item_casos" action="menu_seguimiento" />-->
-
-</data>
+                    <!--***************************************************************************-->
+                </form>
+            </field>
+        </record>
+        <!--***************************** Menu registro de Casos ********************************-->
+        <menuitem id="main_menu_casos" name="Gestión de Casos" />
+        <menuitem id="menu_casos" name="Gestión de Casos" parent="main_menu_casos" />
+        <menuitem id="casos_menu" name="Seguimiento de Casos" parent="menu_casos" action="seg_casos" />
+    </data>
 </openerp>
 

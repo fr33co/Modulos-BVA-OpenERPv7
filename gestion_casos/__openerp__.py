@@ -14,7 +14,7 @@
     - Caso Educación
     - Registro de Casos""",
     'data' : [
-			'view/casos.xml', #Declaracion de la vista Monitor de Casos
-			#'view/partner.xml',
+    'view/casos.xml', #Declaracion de la vista Monitor de Casos
+    'view/configuracion.xml', #Declaracion de la vista Configuracion
 			],
 }

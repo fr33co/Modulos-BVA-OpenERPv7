@@ -32,7 +32,7 @@ import pprint
 
 
 class gammu_database(osv.osv):
-    _name = 'gammu.database'
+    _name = 'gammu.database' # Metodo de Conexion para el gestor de Gammus
     _description = 'Gammu-smsd Connection'
 
     _columns = {
@@ -46,7 +46,7 @@ class gammu_database(osv.osv):
         'status': fields.char('Status',size=64),
     }
 
-    def test_conn(self, cr, uid, ids, context=None):
+    def test_conn(self, cr, uid, ids, context=None): # Testear Conexion con Gammu
         """Parametros de conexion al servidor DB Gammu/Kalkun"""
 
         obj = self.browse(cr, uid, ids[0])
