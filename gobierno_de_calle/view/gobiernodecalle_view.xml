@@ -101,39 +101,46 @@ PROYECTOS
                         <group>
 							<field name="codigo" readonly="1"/>
                             <field name="date_created" readonly="1"/>
+                            <field name="dias_proyecto" readonly="1"/>
                             <field name="estado"/>
+							<field name="progreso" readonly="1" widget="progressbar"/>
                         </group>
                         <group>
                             <field name="actividad" string="Actividad"/>
                              <field name="cobertura"/>
+                             <field name="priority"/>
                              <field name="tipo_financiamiento"/>
-                        </group>
-                        <group>
-                            <field name="supervisor_id" domain="[('category_id.name','ilike','Supervisor')]"/>
-                            <field name="responsible_id" domain="[('category_id.name','ilike','Responsable')]"/>
-                            <field name="priority"/>
-                            <field name="presu_tentativo"/>
-                            <field name="presu_real"/>
-                            <group>
-                            
-                            </group>
-                        </group>
-                        <group>
-                            <field name="date_start" on_change="onchange_date_start(date_start)"/>
-                            <field name="date_end" on_change="onchange_date_end(date_end)"/>
-                            <field name="dias_proyecto" readonly="1"/>
-                            <field name="progreso" readonly="1" widget="progressbar"/>
                         </group>
                     </group>
                     <notebook>
-                        <page string="Descripcion">
-                            <field name="description" placeholder="Agregar descripcion..."/>
+                        <page string="Sección I">
+							<group>
+								 <group>
+									<separator string="Asignación de fechas" colspan="2"/>
+									<field name="date_start" on_change="onchange_date_start(date_start)"/>
+									<field name="date_end" on_change="onchange_date_end(date_end)"/>
+									<separator string="Presupuestos" colspan="2"/>
+									<field name="presu_tentativo"/>
+									<field name="presu_real"/>
+								</group>
+								<group>
+									<separator string="Asignación de responsables" colspan="2"/>
+									<field name="supervisor_id" domain="[('category_id.name','ilike','Supervisor')]"/>
+									<field name="responsible_id" domain="[('category_id.name','ilike','Responsable')]"/>
+									<separator string="Beneficiados del proyecto" colspan="2"/>
+									<field name="bene_tentativo" colspan="2"/>
+								</group>
+							</group>
                         </page>
-                        <page string="Destino y Cantidad de Beneficiados">
+                        <page string="Sección II">
+							<separator string="Descripción del proyecto" colspan="2"/>
+							<field name="description" placeholder="Agregar descripcion..."/>
+                        </page>
+                        <page string="Sección III">
                             <group>
-                                <group>
-                                    <label for="address_id" string="Lugar"/>
-                                       <div>
+								<group>
+                                    <separator string="Lugar de ejecución del proyecto" colspan="2"/>
+										<div>
                                            <field name="address_id" on_change="on_change_address_id(address_id)" domain="[('category_id.name','ilike','Lugar')]"/>
                                            <field name="street" placeholder="Direccion..."/>
                                            <field name="street2" placeholder="Cont. Direccion..."/>
@@ -146,32 +153,28 @@ PROYECTOS
                                        </div>
                                 </group>
                                 <group>
-                                    <field name="bene_tentativo"/>
-                                </group>
+									<separator string="Equipo de trabajo involucrado" colspan="2"/>
+									<field colspan="4" name="members_project" widget="many2many_kanban">
+										<kanban quick_create="false" create="true" delete="true">
+											<field name="name"/>
+											<templates>
+												<t t-name="kanban-box">
+													<div style="position: relative">
+														<a t-if="! read_only_mode" type="delete" style="position: absolute; right: 0; padding: 4px; diplay: inline-block">X</a>
+														<div class="oe_module_vignette">
+															<div class="oe_module_desc">
+																<field name="name"/>
+															</div>
+														</div>
+													</div>
+												</t>
+											</templates>
+										</kanban>
+									</field>
+								</group>
                             </group>
                         </page>
-                        <page string="Entes ejecutantes asignados" name="team">
-                            <group>
-                                <field colspan="4" name="members_project" widget="many2many_kanban">
-                                    <kanban quick_create="false" create="true" delete="true">
-                                        <field name="name"/>
-                                        <templates>
-                                            <t t-name="kanban-box">
-                                                <div style="position: relative">
-                                                    <a t-if="! read_only_mode" type="delete" style="position: absolute; right: 0; padding: 4px; diplay: inline-block">X</a>
-                                                    <div class="oe_module_vignette">
-                                                        <div class="oe_module_desc">
-                                                            <field name="name"/>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </t>
-                                        </templates>
-                                    </kanban>
-                                </field>
-                            </group>
-                        </page>
-                        <page string="Tareas">
+                        <page string="Visualizador de tareas">
                             <field name="tareas_ids" nolabel="1" colspan="4" mode="tree">
                                 <tree string="Tareas">
                                     <field name="name_tarea" />
@@ -181,7 +184,7 @@ PROYECTOS
                                 </tree>
                             </field>
                         </page>
-                        <page string="Incidencias">
+                        <page string="Visualizador de incidencias">
                             <field name="incidencias"/>
                         </page>
                         <page string="Conclusiones">
