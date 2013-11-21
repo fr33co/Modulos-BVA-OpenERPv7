@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--****************************************************************************************-->
+<!--                                Fecha : 19/11/2013                                      -->
+<!--****************************************************************************************-->
+<openerp>
+	
+    <data>
+        <!--**************************** Accion del curso **********************************-->
+		
+        <record model="ir.actions.act_window" id="configuracion_casos">
+            <field name="name">configuracion</field>
+            <field name="res_model">configuracion.caso</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--**************** Declaracion de la vista Monitor de Casos **********************-->
+		
+        <record model="ir.ui.view" id="configuracion_view">
+            <field name="name">configuracion.form</field>
+            <field name="model">configuracion.caso</field>
+            <field name="arch" type="xml">
+                <form string="configuracion Form">
+                    <!--***************************************************************************-->
+                    <group colspan="4" col="4" string="Estátus">
+                        <group>
+                            <field name="cod_estatus" placeholder="Código del Estátus"/> 
+                            <field name="status" placeholder="Descripción del Estátus"/>
+                        </group>
+                    </group>
+                    <!--***************************************************************************-->
+                </form>
+            </field>
+        </record>
+
+        <!--***************************** Menu registro de Casos ********************************-->
+
+
+        <menuitem id="main_menu_casos" name="Gestión de Casos" />
+        <menuitem id="configuracion_menu" name="Configuración de Casos" parent="menu_casos" action="configuracion_casos"/>
+
+    </data>
+</openerp>
+
