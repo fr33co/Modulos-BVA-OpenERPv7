@@ -128,7 +128,7 @@ class gdc_proyectos(osv.Model):
         'cobertura': fields.selection((('Direccionalidad','Direccionalidad'),('Nacional','Nacional'), ('Regional','Regional'), ('Municipal', 'Municipal')),'Cobertura', required=True),
         'priority': fields.selection((('Baja','Baja'), ('Normal','Normal'), ('Alta', 'Alta')),'Prioridad', required=True),
         'tipo_financiamiento': fields.many2one('gdc.fondos', 'Fondos de finaciamiento', required=True),
-        'estado': fields.selection((('Borrador','Borrador'), ('Propuesto','Propuesto'), ('Planificacion', 'Planificacion'), ('Progreso', 'Progreso'), ('Congelado', 'Congelado'), ('Terminado', 'Terminado'), ('Plantilla', 'Plantilla'), ('Archivado', 'Archivado'), ('Vencido', 'Vencido')),'Estado', required=True),
+        'estado': fields.selection((('Borrador','Borrador'), ('Progreso', 'Progreso'), ('Terminado', 'Terminado'), ('Congelado', 'Congelado'), ('Vencido', 'Vencido')),'Estado', required=True),
         'progreso': fields.float(string="Progreso"), 
         'dias_proyecto': fields.function(_compute_days, type='char', string='Dias asignados al proyecto'),
         'date_start': fields.datetime('Fecha estimada de inicio',select=True, required=True),
@@ -251,7 +251,7 @@ class gdc_tareas(osv.Model):
     _columns = {
         'name_tarea': fields.char(string="Tarea", size=50, required=False),
         'project_id2': fields.many2one('gdc.proyectos', 'Asignacion', required=False),
-        'estado_tarea': fields.selection((('Borrador','Borrador'), ('Propuesto','Propuesto'), ('Planificacion', 'Planificacion'), ('Progreso', 'Progreso'), ('Congelado', 'Congelado'), ('Terminado', 'Terminado'), ('Plantilla', 'Plantilla'), ('Archivado', 'Archivado'), ('Vencido', 'Vencido')),'Estado', required=True),
+        'estado_tarea': fields.selection((('Borrador','Borrador'), ('Progreso', 'Progreso'), ('Terminado', 'Terminado'), ('Congelado', 'Congelado'), ('Vencido', 'Vencido')),'Estado', required=True),
         'date_start_tarea': fields.datetime('Fecha de inicio',select=True),
         'date_end_tarea': fields.datetime('Fecha de finalizacion',select=True),
         'progreso_tarea': fields.float(string="Progreso de tarea"), 
