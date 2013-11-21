@@ -315,3 +315,22 @@ class gdc_tareas(osv.Model):
             else: 
                 result['warning'] = {'title': "Cuidado: Error!",'message' : "Fechas asignadas de forma incorrecta.",}
                 return result
+
+###############
+# Incidencias #
+###############
+    
+class gdc_incidencias(osv.Model):
+    """
+    Modelo para gestionar las tareas de las actividades
+    """
+    _name = "gdc.incidencias"
+    _rec_name = "name_incidencia"
+    _order="name_incidencia"
+    
+    _columns = {
+        'name_incidencia': fields.char(string="Incidencia", size=50, required=False),
+        'tarea_id': fields.many2one('gdc.tareas', 'tarea', required=False),
+        'date_reporter': fields.datetime('Fecha',select=True, required=True),
+        'description': fields.text('Description'),
+    }
