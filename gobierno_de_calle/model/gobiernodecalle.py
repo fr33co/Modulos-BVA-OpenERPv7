@@ -20,13 +20,30 @@ from datetime import datetime
 import time
 from openerp.osv import osv, fields
 
+############################
+# Fondos de financiamiento #
+############################
+
+class gdc_fondos(osv.Model):
+    """
+    Modelo para gestionar los fondos de financiamiento
+    """
+    _name = "gdc.fondos"
+    _rec_name = "name"
+    _order="name"
+
+    _columns = {
+        'name': fields.char(string="Fondo de financiamiento", size=64, required=True), 
+    }
+
+
 #############
 # Proyectos #
 #############
 
 class gdc_proyectos(osv.Model):
     """
-    Modelo para gestionar llas actividades
+    Modelo para gestionar las actividades
     """
     _name = "gdc.proyectos"
     _rec_name = "actividad"
@@ -110,6 +127,7 @@ class gdc_proyectos(osv.Model):
         'actividad': fields.char(string="Actividad", size=64, required=True), 
         'cobertura': fields.selection((('Direccionalidad','Direccionalidad'),('Nacional','Nacional'), ('Regional','Regional'), ('Municipal', 'Municipal')),'Cobertura', required=True),
         'priority': fields.selection((('Baja','Baja'), ('Normal','Normal'), ('Alta', 'Alta')),'Prioridad', required=True),
+        'tipo_financiamiento': fields.many2one('gdc.fondos', 'Fondos de finaciamiento', required=True),
         'estado': fields.selection((('Borrador','Borrador'), ('Propuesto','Propuesto'), ('Planificacion', 'Planificacion'), ('Progreso', 'Progreso'), ('Congelado', 'Congelado'), ('Terminado', 'Terminado'), ('Plantilla', 'Plantilla'), ('Archivado', 'Archivado'), ('Vencido', 'Vencido')),'Estado', required=True),
         'progreso': fields.float(string="Progreso"), 
         'dias_proyecto': fields.function(_compute_days, type='char', string='Dias asignados al proyecto'),
