@@ -138,7 +138,7 @@ class gdc_proyectos(osv.Model):
         'presu_tentativo': fields.integer('Presupuesto Tentativo'),
         'presu_real': fields.integer('Presupuesto Real'),
         'bene_tentativo': fields.integer('Cantidad de beneficiados tentativos', required=True),
-        'members_project': fields.many2many('res.company', 'project_company_rel', 'project_id', 'uid', 'Equipos de trabajo'),
+        'members_project': fields.many2many('res.company', 'project_company_rel', 'project_id', 'uid', 'Instituciones'),
         'address_id': fields.many2one('res.partner','Lugar', readonly=False, required=True, domain=[('category_id.name','ilike','Lugar')]),
         'street': fields.related('address_id','street',type='char',string='Direccion'),
         'street2': fields.related('address_id','street2',type='char',string='Cont. Direccion'),
