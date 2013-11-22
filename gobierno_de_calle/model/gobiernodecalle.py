@@ -135,8 +135,8 @@ class gdc_proyectos(osv.Model):
         'responsible_id' : fields.many2one('res.users', 'Responsable asignado', domain=[('category_id.name','ilike','Responsable')], required=True),
         'supervisor_id' : fields.many2one('res.company', 'Ente Supervisor', domain=[('category_id.name','ilike','Supervisor')], required=True),
         'description': fields.text('Description', required=True),
-        'presu_tentativo': fields.integer('Presupuesto Tentativo'),
-        'presu_real': fields.integer('Presupuesto Real'),
+        'presu_tentativo': fields.float('Presupuesto Tentativo  (Bs.)'),
+        'presu_real': fields.float('Presupuesto Real (Bs.)'),
         'bene_tentativo': fields.integer('Cantidad de beneficiados tentativos', required=True),
         'members_project': fields.many2many('res.company', 'project_company_rel', 'project_id', 'uid', 'Instituciones'),
         'address_id': fields.many2one('res.partner','Lugar', readonly=False, required=True, domain=[('category_id.name','ilike','Lugar')]),
@@ -218,6 +218,16 @@ class gdc_tareas(osv.Model):
     _rec_name = "name_tarea"
     _order="name_tarea"
 
+    def onchange_proyecto(self, cr, uid, ids, project_id2, context=None):
+        res = {}
+        gdc_project = self.pool.get('gdc.proyectos')
+        records = self.browse(cr, uid, ids, context=context)
+        for r in records:
+			gdc_project_src = gdc_project.read(cr, uid, r.project_id2.id, ['supervisor_id'], context)
+			if gdc_project_src['supervisor_id']:
+				self.write(cr, uid, ids, {'supervisor_id': gdc_project_src['supervisor_id'][0]})
+			return res
+            
     def onchange_date_start_tarea(self, cr, uid, ids, date_start_tarea, context=None):
         res = {}
         gdc_project = self.pool.get('gdc.proyectos')
@@ -267,6 +277,7 @@ class gdc_tareas(osv.Model):
         'progreso_tarea': fields.float(string="Progreso de tarea"), 
         'dias_tarea': fields.function(_compute_days_tarea, type='char', string='Dias asignados a la tarea'),
         'responsible_id' : fields.many2one('res.users', 'Responsable asignado', domain=['|',('is_company','=',False),('category_id.name','ilike','Responsable')], required=False),
+        'supervisor_id' : fields.many2one('res.company', 'Ente Supervisor', domain=[('category_id.name','ilike','Supervisor')], required=True),
         'members_tareas': fields.many2many('res.company', 'project_company_rel2', 'project_id2', 'uid2', 'Equipos de trabajo'),
         'description': fields.text('Description'),
         'informe_tareas': fields.binary('Informe'),
