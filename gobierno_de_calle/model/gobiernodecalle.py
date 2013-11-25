@@ -151,7 +151,7 @@ class gdc_proyectos(osv.Model):
         'conclusiones': fields.text('Conclusiones'),
         'acuerdos': fields.text('Acuerdos'),
         'incidencias': fields.text('Incidencias'),
-        'adjunto_gaceta': fields.binary('Adjuntar Gaceta'),
+        'adjunto_gaceta': fields.binary('Adjuntar Gaceta digital'),
     }
         
     def _check_dates_now(self, cr, uid, ids, context=None):
@@ -195,6 +195,16 @@ class gdc_proyectos(osv.Model):
             'dias_proyecto': 'Aun no asignados. ',
             'priority': 'Baja',
     }
+
+    def congelar_proyecto(self, cr, uid, ids, context=None):
+        result = {}
+        records = self.browse(cr, uid, ids, context=context)
+        self.write(cr, uid, ids, {'estado': 'Congelado'})
+        
+    def retomar_proyecto(self, cr, uid, ids, context=None):
+        result = {}
+        records = self.browse(cr, uid, ids, context=context)
+        self.write(cr, uid, ids, {'estado': 'Progreso'})
 
 ##########
 # Tareas #
