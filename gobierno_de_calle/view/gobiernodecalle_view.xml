@@ -110,6 +110,7 @@ PROYECTOS
                              <field name="cobertura"/>
                              <field name="priority"/>
                              <field name="tipo_financiamiento"/>
+                             <field name="adjunto_gaceta"/>  
                         </group>
                     </group>
                     <notebook>

@@ -151,6 +151,7 @@ class gdc_proyectos(osv.Model):
         'conclusiones': fields.text('Conclusiones'),
         'acuerdos': fields.text('Acuerdos'),
         'incidencias': fields.text('Incidencias'),
+        'adjunto_gaceta': fields.binary('Adjuntar Gaceta'),
     }
         
     def _check_dates_now(self, cr, uid, ids, context=None):
