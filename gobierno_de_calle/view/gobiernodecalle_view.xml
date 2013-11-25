@@ -102,8 +102,10 @@ PROYECTOS
 							<field name="codigo" readonly="1"/>
                             <field name="date_created" readonly="1"/>
                             <field name="dias_proyecto" readonly="1"/>
-                            <field name="estado"/>
+                            <field name="estado" attrs="{'readonly':[('estado', '!=', 'Borrador')]}"/>
 							<field name="progreso" readonly="1" widget="progressbar"/>
+                            <button name="congelar_proyecto" type="object" string="Congelar el proyecto" attrs="{'invisible':[('estado', '=', 'Congelado')]}"/>
+                            <button name="retomar_proyecto" type="object" string="Retomar el proyecto" attrs="{'invisible':[('estado', '=', 'Progreso')]}"/>
                         </group>
                         <group>
                             <field name="actividad" string="Actividad"/>
