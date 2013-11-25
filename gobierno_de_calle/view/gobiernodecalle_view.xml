@@ -185,7 +185,14 @@ PROYECTOS
                             </field>
                         </page>
                         <page string="Visualizador de incidencias">
-                            <field name="incidencias"/>
+                            <field name="incidencias_ids" nolabel="1" colspan="4" mode="tree">
+                                <tree string="Incidencias">
+									<field name="date_reporter"/>
+									<field name="tarea_id"/>
+                                    <field name="name_incidencia" />
+                                    <field name="description"/>
+                                </tree>
+                            </field>
                         </page>
                         <page string="Conclusiones">
 							<separator string="Defina las conclusiones" colspan="2"/>
