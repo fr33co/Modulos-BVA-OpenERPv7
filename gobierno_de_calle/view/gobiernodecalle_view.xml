@@ -195,11 +195,11 @@ PROYECTOS
                                 </tree>
                             </field>
                         </page>
-                        <page string="Conclusiones">
+                        <page string="Conclusiones" attrs="{'invisible':[('estado', '!=', 'Terminado')]}">
 							<separator string="Defina las conclusiones" colspan="2"/>
-                            <field name="conclusiones"/>
+                            <field name="conclusiones" />
                         </page>
-                        <page string="Acuerdos">
+                        <page string="Acuerdos" attrs="{'invisible':[('estado', '!=', 'Terminado')]}">
 							<separator string="Defina los acuerdos llegados" colspan="2"/>
                             <field name="acuerdos"/>
                         </page>
