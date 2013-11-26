@@ -76,7 +76,7 @@ PROYECTOS
                     <field name="codigo" />
                     <field name="actividad" />
                     <field name="supervisor_id"/>
-                    <field domain="[('domain','=','responsible_id')]" name="responsible_id"/>
+                    <field name="responsible_id"/>
                     <field name="cobertura" />
                     <field name="tipo_financiamiento"/>
                     <field name="address_id" />
