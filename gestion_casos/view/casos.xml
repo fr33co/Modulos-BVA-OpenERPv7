@@ -11,7 +11,7 @@
             <field name="name">Casos</field>
             <field name="res_model">monitor.caso</field>
             <field name="view_type">form</field>
-            <field name="view_mode">form</field>
+            <field name="view_mode">tree,form</field>
         </record>
 
         <!--**************** Declaracion de la vista Monitor de Casos **********************-->
@@ -25,9 +25,9 @@
                     <group colspan="4" col="4" string="Datos Personales">
                         <group>
                             <field name="cedula" placeholder="Cédula"/> 
-                            <field name="nombres" placeholder="Nombres"/>
+                            <field name="nombres" placeholder="Nombres" on_change="validar(nombres)"/>
                             <field name="apellidos" placeholder="Apellidos"/>
-                            <field name="tlf" placeholder="Teléfono Movil" readonly="1"/>
+                            <field name="tlf" placeholder="Teléfono Movil" on_change="onchage_datos_casos(tlf)"/>
                             <field name="urbanizacion" placeholder="Urb/Barrio o Residencia"/>	
                         </group>
                         <group>
@@ -37,7 +37,7 @@
                             <field name="sector" placeholder="Sector"/>
                             <field name="tlf_local" placeholder="Teléfono Local"/>
                             <field name="casa" placeholder="Casa/Apt/local/Galp"/>
-                            <field name="fecha" placeholder="Fecha de Registro"/>
+                            <field name="fecha" placeholder="Fecha de Registro" on_change="onchange_fecha(fecha)"/>
                         </group>
                     </group>
                     <notebook colspan="4">
@@ -55,7 +55,7 @@
                         <page string="Ubicación del Caso">
                             <group colspan="4" col="4" string="Ubicación del Caso">
                                 <field name="ub_municipio" placeholder="Municipio"/>
-                                <field name="ub_parroquia"  domain="[('municipio','=',municipio)]"/>
+                                <field name="ub_parroquia"  domain="[('municipio','=',ub_municipio)]"/>
                                 <field name="ub_sector" placeholder="Sector"/>
                                 <field name="ub_residencia" placeholder="Urb/Barrio/Residencia"/>
                                 <field name="ub_calle" placeholder="Calle/Av"/>

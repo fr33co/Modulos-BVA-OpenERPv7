@@ -22,8 +22,8 @@ from tools.translate import _
 import MySQLdb
 import time
 import sys
-import psycopg2
-import psycopg2.extras
+#~ import psycopg2
+#~ import psycopg2.extras
 import pprint
 
 #######################################
@@ -31,9 +31,9 @@ import pprint
 #######################################
 
 
-class gammu_database(osv.osv):
+class gammu_database(osv.osv): # Se declaran los valores usurio, cla
     _name = 'gammu.database' # Metodo de Conexion para el gestor de Gammus
-    _description = 'Gammu-smsd Connection'
+    _description = 'Conexion modelo gammu'
 
     _columns = {
         'name': fields.char('Name', size=64),
@@ -83,7 +83,7 @@ class gammu_database(osv.osv):
 
     if __name__ == "__main__":
         sys.exit(main())
-                
+                #~ 
 gammu_database()
 
 

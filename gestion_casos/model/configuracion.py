@@ -5,6 +5,8 @@ from pygtk import require
 import MySQLdb
 
 class Configuracion(osv.Model):
+	_order = "status"
+	_rec_name = "status"
 	_name="configuracion.caso"
 
 	_columns = {
@@ -14,9 +16,7 @@ class Configuracion(osv.Model):
 	
 	
         _sql_constraints = [
-        ('cod_estatus_unique','UNIQUE(cod_estatus)','Disculpe este Código ya existe...'),
-        ('status_unique','UNIQUE(status)','Disculpe este Estatus ya existe...'),
-	]
-        
-        _order = "status"
-        _rec_name = "status"
+			('cod_estatus_unique','UNIQUE(cod_estatus)','Disculpe este Código ya existe...'),
+			('status_unique','UNIQUE(status)','Disculpe este Estatus ya existe...'),
+		]
+     

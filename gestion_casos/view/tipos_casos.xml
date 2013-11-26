@@ -5,30 +5,30 @@
 <openerp>
 	
     <data>
-        <!--**************************** Accion del curso **********************************-->
+        <!--**************************** Accion del tipo de caso **********************************-->
 		
-        <record model="ir.actions.act_window" id="configuracion_casos">
-            <field name="name">configuracion</field>
-            <field name="res_model">configuracion.caso</field>
+        <record model="ir.actions.act_window" id="tipos_casos">
+            <field name="name">tipos</field>
+            <field name="res_model">tipos.caso</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">
-				<p class="oe_view_nocontent_create">Crear un Nuevo Estátus</p>
+				<p class="oe_view_nocontent_create">Crear un Nuevo caso</p>
 			</field>
         </record>
 
         <!--**************** Declaracion de la vista Monitor de Casos **********************-->
 		
-        <record model="ir.ui.view" id="configuracion_view">
-            <field name="name">configuracion.form</field>
-            <field name="model">configuracion.caso</field>
+        <record model="ir.ui.view" id="tipos_caso_view">
+            <field name="name">tipos.form</field>
+            <field name="model">tipos.caso</field>
             <field name="arch" type="xml">
-                <form string="configuracion Form">
+                <form string="Tipos de Casos Form">
                     <!--***************************************************************************-->
-                    <group colspan="4" col="4" string="Estátus">
+                    <group colspan="4" col="4" string="Casos">
                         <group>
-                            <field name="cod_estatus" placeholder="Código del Estátus"/> 
-                            <field name="status" placeholder="Descripción del Estátus"/>
+                            <field name="cod_caso" placeholder="Código del Caso"/> 
+                            <field name="caso" placeholder="Descripción del caso"/>
                         </group>
                     </group>
                     <!--***************************************************************************-->
@@ -40,7 +40,7 @@
 
 
         <menuitem id="main_menu_casos" name="Gestión de Casos" />
-        <menuitem id="configuracion_menu" name="Configuración de Estátus" parent="menu_casos" action="configuracion_casos"/>
+        <menuitem id="tipos_casos_menu" name="Configuración de Casos" parent="menu_casos" action="tipos_casos"/>
 
     </data>
 </openerp>

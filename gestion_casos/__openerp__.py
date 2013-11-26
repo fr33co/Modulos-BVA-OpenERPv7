@@ -15,6 +15,7 @@
     - Registro de Casos""",
     'data' : [
     'view/casos.xml', #Declaracion de la vista Monitor de Casos
-    'view/configuracion.xml', #Declaracion de la vista Configuracion
+    'view/configuracion.xml', #Declaracion de la vista Configuracion de Estátus
+    'view/tipos_casos.xml', #Declaracion de la vista Configuracion de Casos
 			],
 }
