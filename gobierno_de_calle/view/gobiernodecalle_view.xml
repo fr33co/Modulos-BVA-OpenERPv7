@@ -63,6 +63,7 @@ PROYECTOS
             <field name="res_model">gdc.proyectos</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form,calendar,gantt</field>
+            <field name="domain">[('responsible_id','=',uid)]</field>
             <field name="help" type="html">
             </field>
         </record>
@@ -242,6 +243,7 @@ TAREAS
             <field name="res_model">gdc.tareas</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form,calendar,gantt</field>
+            <field name="domain">[('responsible_id','=',uid)]</field>
             <field name="help" type="html">
             </field>
         </record>
