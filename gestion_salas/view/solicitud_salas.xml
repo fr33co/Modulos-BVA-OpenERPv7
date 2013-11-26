@@ -37,6 +37,7 @@
 							<field name="cedula" />
 							<field name="telefono" />
 							<field name="celular" />
+							<field name="correo" />
 						</group>
 						<group string="Reservacion" colspan="1">
 							<field name="fh_inicio" on_change="onchange_fh_inicio(fh_inicio)"/>
@@ -71,7 +72,6 @@
 						<page name="info_opcional" string="Informacion Opcional">
 							<field name="facebook"/>
 							<field name="twitter" />
-							<field name="correo" />
 						</page>
 					</notebook>
 				</form>
@@ -107,7 +107,6 @@
 		<menuitem id="main_Salas_menu" name="Gestion de Salas" /> 
 		<menuitem id="Gestion_Salas_menu" name="Gestion de Salas" parent="main_Salas_menu" />
 		<menuitem id="Solicitudes_menu" name="Solicitudes de Sala" parent="Gestion_Salas_menu" action="solicitud_list_action" />
-		<!-- <menuitem id="Salas_menu1" name="Salas" parent="Gestion_Salas_menu" action="salas_list_action" /> -->
 		
   </data>
 </openerp>
