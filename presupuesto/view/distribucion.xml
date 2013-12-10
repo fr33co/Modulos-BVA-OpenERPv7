@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.actions.act_window" id="distribucion_list_action">
+            <field name="name">Distribucion de Presupuesto</field>
+            <field name="res_model">presupuesto.distribucion</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Registrar Distribucion de Presupuesto</p>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="distribucion_form_view">
+            <field name="name">distribucion.form</field>
+            <field name="model">presupuesto.distribucion</field>
+            <field name="arch" type="xml">
+                <form string="Formulario de Distribucion de Presupuesto">
+                    <group colspan="2" col="2">
+                        <separator string="Distribucion de Presupuesto" colspan="2"/>
+                        <field name="proyecto"/>
+                        <field name="codigo_proyecto" />
+                        <field name="codigo_accion"  />
+                        <field name="accion" />
+                        <field name="partida" />
+                        <field name="descripcion" />
+                        <field name="monto_pre" />
+                        <field name="aceptar"/>
+                        <field name="fecha"/>
+                        <field name="disponibilidad"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <menuitem id="distribucion_menu" name="Distribucion de Presupuesto"  parent="presupuesto_menu" action="distribucion_list_action" />
+    </data>
+</openerp>
