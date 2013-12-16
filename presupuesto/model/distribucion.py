@@ -24,12 +24,9 @@ class Distribucion(osv.Model):
             return values
         obj_accion = self.pool.get('presupuesto.accion').browse(cr, uid, accion, context=context)
 
-        #print obj_accion.codigo_accion
-        #self.write(cr, uid, ids, {'codigo_accion': obj_accion.codigo_accion},context=context)
-        self.create(cr, uid, {'codigo_accion': obj_accion.codigo_accion})
-        """values.update({
+        values.update({
                 'codigo_accion' : obj_accion.codigo_accion,
-        })"""
+        })
         values.update({
                 'disponibilidad' : obj_accion.monto,
         })
