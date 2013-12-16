@@ -1,6 +1,6 @@
 from openerp.osv import osv, fields
 import random
-class Estado(osv.Model):
+class Partidas(osv.Model):
     _name = "presupuesto.partidas"
 
 

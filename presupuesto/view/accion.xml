@@ -10,7 +10,7 @@
                 <p class="oe_view_nocontent_create">Registrar Accion de Proyectos</p>
             </field>
         </record>
-        <record model="ir.ui.view" id="proyecto_tree_view">
+        <record model="ir.ui.view" id="accion_tree_view">
             <field name="name">accion.tree</field>
             <field name="model">presupuesto.accion</field>
             <field name="arch" type="xml">
@@ -28,15 +28,22 @@
             <field name="model">presupuesto.accion</field>
             <field name="arch" type="xml">
                 <form string="Formulario de Accion de Proyectos">
-                    <group colspan="2" col="2">
-                        <separator string="Accion de Proyectos" colspan="2"/>
-                        <field name="proyecto" on_change="on_change_proyecto(proyecto)"/>
-                        <!--<field name="codigo_proyecto" />-->
-                        <field name="codigo_accion"  />
-                        <field name="descripcion" />
-                         <field name="siglas" />
-                        <field name="unidad" />
-                        <field name="monto"/>
+                    <group colspan="3" col="3">
+                        <group colspan="4">
+                            <separator string="Accion de Proyectos" colspan="4"/>
+                            <field name="proyecto" on_change="on_change_proyecto(proyecto)"/>
+                        </group>
+                        <!--<group colspan="6" col="6">
+                                <field name="codigo_proyecto" colspan="2"/>-->
+                                <field name="codigo_accion"  colspan="2" />
+                                <!--<field name="codigo_a_p"  colspan="2"/>
+                        </group>-->
+                        <group colspan="4">
+                            <field name="descripcion" />
+                             <field name="siglas" />
+                            <field name="unidad" />
+                            <field name="monto"/>
+                        </group>
                     </group>
                 </form>
             </field>
