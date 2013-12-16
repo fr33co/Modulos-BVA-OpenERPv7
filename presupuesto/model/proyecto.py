@@ -13,6 +13,6 @@ class Proyecto(osv.Model):
     }
 
 
-    _order='codigo_proyecto'
+    _order='proyecto'
     _rec_name='proyecto'
 
