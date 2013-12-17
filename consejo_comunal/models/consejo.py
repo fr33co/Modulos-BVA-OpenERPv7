@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from openerp.osv import osv, fields
+#from openerp.addons.topologia.model import municipios, parroquias
 
 class Consejo(osv.Model):
 	_name = "consejocomunal.consejo"
@@ -9,9 +10,9 @@ class Consejo(osv.Model):
 		#Inicio de la seccion I (Identificacion Geografica)
 		'fecha_r' : fields.date(string="Fecha de Realización", required=True),
 		'nombre_emp' : fields.char(string="Nombre del Empadronador", size=25, required=True),
-		'municipio' : fields.selection((('1','Girardot'),('2','Libertador')),"Municipio", required=True),
-		'parroquia' : fields.selection((('1','Pedro José Ovalles'),('2','Palo Negro')),"Parroquia", required=True),
-		'localidad' : fields.char(string="Localidad", size=100, required=True, select=1),
+		'municipio' : fields.many2one('municipios',"Municipio", required=False),
+		'parroquia' : fields.many2one('parroquias',"Parroquia", required=False),
+		'localidad' : fields.char(string="Localidad", size=100, required=True),
 		'direccion' : fields.char(string="Dirección", size=256, required=True),
 		#Inicio de la Seccion II (Area Organizativa del Consejo Comunal)
 		'nombre_consejo' : fields.char(string="Nombre del Consejo Comunal", size=50, required=True),

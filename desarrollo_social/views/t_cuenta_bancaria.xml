@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	
+	<data>
+			
+		<!--Accionador para el menu de Tipos de Cuentas-->
+		<record model="ir.actions.act_window" id="accion_lista_t_cuenta">
+			<field name="name">Tipos de Cuentas Bancarias</field>
+			<field name="res_model">becados.tipocuenta</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Registrar Tipo de Cuenta</p>
+			</field>
+		</record>
+		<!--Accionador para el menu de Tipos de Cuentas-->
+		
+		<record model="ir.ui.view" id="vista_formulario_t_cuenta">
+			<field name="name">tipoCuenta.form</field>
+			<field name="model">becados.tipocuenta</field>
+			<field name="arch" type="xml">
+				<form string="Formulario de Tipos de Cuentas">
+					<group colspan="2" col="4">
+						<field name="t_cuenta" nolabel="0" colspan="2"/>
+					</group>
+				</form>
+			</field>
+		</record>
+		
+		<menuitem id="menu_t_cuentas" name="Tipo de Cuentas Bancarias" parent="menu_secundario_mantenimiento" action="accion_lista_t_cuenta"/>
+			
+	</data>
+	
+</openerp>
+
