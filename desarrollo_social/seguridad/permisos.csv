@@ -1,0 +1,3 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+Becado_full_manager,Becado_full_manager,model_Becado,group_manager_ds,1,1,1,1
+Becado_read_all,Becado_read_all,model_Becado,,1,0,0,0
