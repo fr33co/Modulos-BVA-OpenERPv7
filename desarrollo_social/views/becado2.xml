@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	
+	<data>
+			
+		<!--Accionador para el menu de Consejos-->
+		<record model="ir.actions.act_window" id="accion_lista_becados">
+			<field name="name">Becados</field>
+			<field name="res_model">becados</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Registrar Becado</p>
+			</field>
+		</record>
+		<!--Accionador para el menu de Becados-->
+		
+		<record model="ir.ui.view" id="vista_formulario_becados">
+			<field name="name">becado.form</field>
+			<field name="model">becados</field>
+			<field name="arch" type="xml">
+				<form string="Formulario de Becados">
+					<group colspan="4" col="3" string="Datos Personales">
+						<group colspan="1">
+							<field name="foto" nolabel="0" widget="image"/>
+						</group>
+						<group colspan="2">
+							<field name="cedula" colspan="2" width="10"/>
+							<field name="nombres" colspan="2"/>
+							<field name="apellidos" colspan="2"/>
+						</group>
+					</group>
+					<notebook colspan="4">
+						<page string="Datos Personales">
+							<separator string="Datos Personales del Becado" colspan="4"/>
+							<field name="sexo" colspan="2" nolabel="0"/>
+							<field name="fecha_nac" colspan="2" nolabel="0"/>
+							<field name="estado_civil" colspan="2" nolabel="0"/>
+							<!--<field name="cod_tel_movil" colspan="2" nolabel="0"/>
+							<field name="cod_tel_fijo" colspan="2" nolabel="0"/>-->
+							<field name="tel_movil" colspan="2" nolabel="0"/>
+							<field name="tel_fijo" colspan="2" nolabel="0"/>
+							<field name="correo" colspan="2" nolabel="0"/>
+							<field name="grado_instruc" colspan="2" nolabel="0"/>
+							<field name="twitter" colspan="2" nolabel="0"/>
+							<field name="titulo_obt" colspan="2" nolabel="0"/>
+							<field name="grupo_sangre" colspan="2" nolabel="0"/>
+							<field name="tipo_emp" colspan="2" nolabel="0"/>
+							<field name="estatus" colspan="2" nolabel="0"/>
+							<field name="tiempo_serv" colspan="2"/>
+							<field name="num_historial" colspan="2" nolabel="0"/>
+							<field name="lugar_nac" colspan="2" nolabel="0"/>
+							<field name="direccion" colspan="2" nolabel="0"/>
+						</page>
+						<page string="Becado/Empresa">
+							<field name="fecha_ing" colspan="2" nolabel="0"/>
+							<field name="fecha_egre" colspan="2" nolabel="0"/>
+							<field name="tipo_nomina" colspan="2" nolabel="0"/>
+							<field name="class_personal" colspan="2" nolabel="0"/>
+							<field name="cargo" colspan="2" nolabel="0"/>
+							<field name="departamento" colspan="2" nolabel="0"/>
+							<field name="sueldo" colspan="2" nolabel="0"/>
+							<field name="numero_cuenta" colspan="2" nolabel="0"/>
+							<field name="tipo_banco" colspan="2" nolabel="0"/>
+							<field name="ano_ant" colspan="2" nolabel="0"/>
+							<field name="Camisa" colspan="2" nolabel="0"/>
+							<field name="pantalon" colspan="2" nolabel="0"/>
+							<field name="zapato" colspan="2" nolabel="0"/>
+							<field name="caja_ahorro" colspan="2" nolabel="0"/>
+							<field name="prima_resp" colspan="2" nolabel="0"/>
+						</page>
+						<page string="Funciones del Becado">
+<!--
+							<field name="fecha" colspan="2" nolabel="0"/>
+							<field name="estudio" colspan="2" nolabel="0"/>
+							<field name="especifique" colspan="2" nolabel="0"/>
+							<field name="funciones" colspan="2" nolabel="0"/>
+							<field name="observaciones" colspan="2" nolabel="0"/>
+-->
+						</page>
+					</notebook>
+				</form>
+			</field>
+		</record>
+		
+		<menuitem id="menu_principal_becados" name="Desarrollo Social"/>
+		
+		<menuitem id="menu_secundario_becados" name="Desarrollo Social" parent="menu_principal_becados"/>
+		
+		<menuitem id="menu_becado" name="Becados" parent="menu_secundario_becados" action="accion_lista_becados"/>
+			
+	</data>
+	
+</openerp>
+

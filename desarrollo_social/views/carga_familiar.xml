@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	
+	<data>
+			
+		<!--Accionador para el menu de (Carga Familiar)-->
+		<record model="ir.actions.act_window" id="accion_lista_becados_carga_familiar">
+			<field name="name">Carga Familiar / Escriba la Cédula de Becado</field>
+			<field name="res_model">becado.carga.familiar</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Registrar Carga Familiar del Becado</p>
+			</field>
+		</record>
+		<!--Accionador para el menu de Becados (Carga Familiar)-->
+		
+		<record model="ir.ui.view" id="vista_formulario_becados_carga_familiar">
+			<field name="name">carga_familiar.form</field>
+			<field name="model">becado.carga.familiar</field>
+			<field name="arch" type="xml">
+				<form string="Formulario de Carga Familiar">
+
+				<!-- Datos pertenecientes al Becado-->
+					<separator string="Datos Personales del Becado" colspan="4"/>
+					<field name="cedula_becado" nolabel="0"  placeholder="Cédula"/>
+					<field name="segundo_nombre" colspan="2"  placeholder="Segundo Nombre"/>
+					<field name="primer_nombre" colspan="2"  placeholder="Primer Nombre"/>
+					
+					
+					<field name="segundo_apellido" colspan="2"  placeholder="Segundo Apellido"/>
+					<field name="primer_apellido" colspan="2"  placeholder="Primer Apellido"/>
+					
+
+				<!-- Datos pertenecientes al Becado-->
+					<notebook colspan="4">
+						<page string="Datos Personales del Familiar">
+							
+							<group colspan="4" col="3" string="Datos Personales del Familiar">
+								<group colspan="1" col="2">
+									<field name="cedula_familiar" placeholder="Cédula"/>
+									<field name="primer_nombres_familiar" placeholder="Primer Nombre"/>
+									<field name="segundo_nombre_familiar" placeholder="Segundo Apellido"/>
+									<field name="primer_apellido_familiar" placeholder="Primer Apellido"/>
+									<field name="segundo_apellido_familiar" placeholder="Segundo Apellido"/>
+									<field name="edad" placeholder="Edad"/>
+								</group>
+								<group colspan="1" col="2">
+									<field name="profesion_familiar" placeholder="Profesión u Oficio"/>
+									<field name="fecha_nac_familiar" on_change="validar_fecha(fecha_nac_familiar)"/>
+									<field name="sexo"/>
+									<field name="parentesco" placeholder="Seleccione..."/>
+									<field name="estudio"/>
+									<field name="fecha_union"/>
+								</group>
+							</group>
+						</page>
+
+					</notebook>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="carga_familiar_view">
+			<field name="name">carga_familiar.tree</field>
+			<field name="model">becado.carga.familiar</field>
+			<field name="arch" type="xml">
+				<tree string="Carga Familiar">
+					<field name="cedula_becado"/>
+					<field name="primer_nombre"/>
+					<field name="segundo_nombre"/>
+					<field name="primer_apellido"/>
+					<field name="segundo_apellido"/>
+				</tree>
+			</field>
+		</record>
+
+
+		
+		<menuitem name="Carga Familiar" id="menu_desarrollo_social_becado_carga_familiar" parent="menu_desarrollo_social"/>
+        <menuitem parent="menu_desarrollo_social_becado_carga_familiar" id="sub_menu_carga_familiar" action="accion_lista_becados_carga_familiar" name="Carga Familiar del Becado"/>
+			
+	</data>
+	
+</openerp>
+
