@@ -22,7 +22,29 @@ class Carga_familiar(osv.Model):
 		calculo = int(edades[0]) - int(ano_actual)
 
 		print calculo
-	
+
+	def on_change_datos_personales(self, cr, uid, ids, cedula_becado, context=None):
+		#print cedula_becado
+		values = {}
+		if not cedula_becado:
+			return values
+		obj_dp = self.pool.get('hr.employee')
+
+
+		busqueda = obj_dp.search(cr, uid, [('cedula','=',cedula_becado)])
+
+		busqueda_read = obj_dp.read(cr,uid,busqueda,context=context)
+
+		values.update({
+			'primer_nombre' : busqueda_read[0]['primer_nombre'],
+			'segundo_nombre' : busqueda_read[0]['segundo_nombre'],
+			'primer_apellido' : busqueda_read[0]['primer_apellido'],
+			'segundo_apellido' : busqueda_read[0]['segundo_apellido'],
+
+
+			})
+		return {'value' : values}
+
 	
 	_columns ={
 		#Sección I (Datos del Becado)

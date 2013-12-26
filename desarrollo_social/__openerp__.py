@@ -2,7 +2,7 @@
     'name' : "Desarrollo Social",
     'category' : "Desarrollo Social",
     'version' : "1.0",
-    'depends' : ['hr','hr_payroll'],
+    'depends' : ['base','hr','hr_payroll'],
     'author' : "Desarrollo y Aplicaciones",
     'description' : '''\
      El modulo de Desarrollo Social permite el manejo y gestion de los becados de las diferentes Bibliotecas Virtuales de Aragua:
