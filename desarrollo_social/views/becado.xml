@@ -7,7 +7,7 @@
 			<field name="res_model">hr.employee</field>
 			<field name="view_type">form</field>
 			<field name="domain">[('category_ids.name','ilike','Becado')]</field>
-			<field name="view_mode">tree,form</field>
+			<field name="view_mode">form</field>
 		</record>
 
 		<record id="vista_becados" model="ir.ui.view">
@@ -84,7 +84,7 @@
 					<field name="sueldo"/>
 				</field>
 				<field name="twitter" position="after">
-					<field name="correo"/>
+					<field name="correo" widget="email"/>
 				</field>
 				<field name="sueldo" position="after">
 					<field name="entidad_bancaria"/>
@@ -110,6 +110,24 @@
 
 			</field>
 		</record>
+
+
+		<!--<record model="ir.ui.view" id="accion_vista_becados_tree">
+			<field name="name">hr.employee.tree</field>
+			<field name="model">hr.employee</field>
+			<field name="inherit_id" ref="hr.view_employee_form"/>
+			<field name="arch" type="xml">
+				<tree string="Ficha General">
+					<xpath expr="/tree/field[@name='Nombre']" position="after">
+						<field name="cedula" String=""/>
+					</xpath>
+				</tree>
+			</field>
+		</record>-->
+
+		<!--<xpath expr="/tree/field[@name='Nombre']" position="after">
+			<field name="name" String=""/>
+		<xpath>-->
 
 		<menuitem name="Desarrollo Social" id="menu_desarrollo_social"/>
 		<menuitem name="Desarrollo Social" id="menu_desarrollo_social_main" parent="menu_desarrollo_social"/>
