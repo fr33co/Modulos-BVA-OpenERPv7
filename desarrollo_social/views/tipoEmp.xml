@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	
+	<data>
+			
+		<!--Accionador para el menu de tipo de empleado-->
+		<record model="ir.actions.act_window" id="accion_lista_tipoEmpleado">
+			<field name="name">Tipo de Empleado</field>
+			<field name="res_model">becados.tipoempleado</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Agregue un nuevo tipo de empleado</p>
+			</field>
+		</record>
+		<!--Accionador para el menu de tipo de empleado-->
+		
+		<record model="ir.ui.view" id="vista_formulario_tipoEmpleado">
+			<field name="name">tipoempleado.form</field>
+			<field name="model">becados.tipoempleado</field>
+			<field name="arch" type="xml"> 
+				<form string="Formulario de Tipo de Empleado">
+					<group colspan="2">
+						<field name="tipo_emp" nolabel="0" colspan="1"/>
+					</group>
+				</form>
+			</field>
+		</record>
+		
+		<menuitem id="menu_tipoEmpleado" name="Tipo de Empleado" parent="menu_principal_mantenimiento" action="accion_lista_tipoEmpleado"/>
+			
+	</data>
+	
+</openerp>
+
