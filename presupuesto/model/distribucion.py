@@ -5,10 +5,8 @@ from datetime import datetime, timedelta
 class Distribucion(osv.Model):
     _name = "presupuesto.distribucion"
 
-
-
     _columns = {
-        'proyecto': fields.related('accion','proyecto', type = 'many2one',relation = 'presupuesto.proyecto',string = 'Proyecto',required=True,),
+        'proyecto_id': fields.related('accion','proyecto_id', type = 'many2one',relation = 'presupuesto.proyecto',string = 'Proyecto',required=True,),
         'codigo_accion' : fields.char(string="Codigo del Accion",size=11,readonly=False),
         'accion' : fields.many2one('presupuesto.accion','Accion',ondelete='cascade',required=True),
         'partida' : fields.char(string="Partida Presupuestaria",size=12, required=True),
@@ -18,17 +16,17 @@ class Distribucion(osv.Model):
         'fecha' : fields.date(string="Fecha Apertura", required=True),
         'disponibilidad' : fields.float(string="Disponibilidad Actual",readonly=False),
         'monto_proyecto' : fields.float(string="Monto del Proyecto",readonly=False),
-        'incidencias_ids': fields.one2many('presupuesto.accion', 'distribucion_id', string="Incidencias"),
     }
 
     _defaults = {
-        'proyecto':lambda *a: 0,
+        'proyecto_id':lambda *a: 0,
     }
     def on_change_accion(self, cr, uid, ids, accion,context=None):
         values = {}
         if not accion:
             return values
         obj_accion    = self.pool.get('presupuesto.accion').browse(cr, uid, accion, context=context)
+
         obj_proyecto  = self.pool.get('presupuesto.proyecto')
         srch_proyecto = obj_proyecto.search(cr, uid, [('id','=', obj_accion.id)])
         rd_proyecto   = obj_proyecto.read(cr, uid, srch_proyecto, context=context)
@@ -60,6 +58,7 @@ class Distribucion(osv.Model):
                 'descripcion' : descripcion,
         })
         return {'value' : values}
+
     _order='codigo_accion'
     _rec_name='descripcion'
 
