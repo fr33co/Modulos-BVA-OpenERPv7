@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
-        <record model="ir.actions.act_window" id="proyecto_list_action">
-            <field name="name">Proyecto</field>
-            <field name="res_model">presupuesto.proyecto</field>
+        <record model="ir.actions.act_window" id="tras_tras_list_action">
+            <field name="name">Traslado/Traspaso</field>
+            <field name="res_model">presupuesto.traslado</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">
-                <p class="oe_view_nocontent_create">Registrar  Proyectos</p>
+                <p class="oe_view_nocontent_create">Actualizar Traslado/Traspaso</p>
             </field>
         </record>
-        <record model="ir.ui.view" id="proyecto_tree_view">
-            <field name="name">proyecto.tree</field>
-            <field name="model">presupuesto.proyecto</field>
+        <!--<record model="ir.ui.view" id="traslado_tree_view">
+            <field name="name">traslado.tree</field>
+            <field name="model">presupuesto.traslado</field>
             <field name="arch" type="xml">
                 <tree string="Proyectos">
                     <field name="codigo_proyecto"/>
@@ -35,10 +35,10 @@
                     </group>
                 </form>
             </field>
-        </record>
+        </record>-->
 
         <menuitem id="main_presupuesto_menu" name="Presupuesto" />
-        <menuitem id="presupuesto_menu" name="Actualizar" parent="main_presupuesto_menu" />
+        <menuitem id="presupuesto_menu" name="Modificacion Presupuestaria" parent="main_presupuesto_menu" />
         <menuitem id="proyectos_menu" name="Proyectos"  parent="presupuesto_menu" action="proyecto_list_action" />
     </data>
 </openerp>
