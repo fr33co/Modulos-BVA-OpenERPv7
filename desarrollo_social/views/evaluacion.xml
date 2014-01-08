@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	
+	<data>
+			
+		<!--Accionador para el menu de (Becado)-->
+		<record model="ir.actions.act_window" id="accion_lista_evaluacion">
+			<field name="name">Instrumento de Evaluación del Personal Becado</field>
+			<field name="res_model">evaluacion.becados</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Evaluar un Becado...</p>
+			</field>
+		</record>
+		<!--Accionador para el menu de Becados (Becado)-->
+		
+		<record model="ir.ui.view" id="vista_formulario_evaluacion">
+			<field name="name">Instrumento de Evaluación del Personal Becado</field>
+			<field name="model">evaluacion.becados</field>
+			<field name="arch" type="xml">
+				<form string="Formulario de evaluación">
+
+				<!-- Datos pertenecientes al Becado-->
+					<separator string="" colspan="4"/>
+					<field name="evaluado" nolabel="0" placeholder="Becado"/>
+					<field name="ci" nolabel="0" placeholder="Cédula del becado"/>
+					<field name="area" nolabel="0" placeholder="Area"/>
+					<field name="sede" nolabel="0" placeholder="Sede"/>
+					<field name="fecha_actual" nolabel="0"/>
+					<field name="evaluador" nolabel="0" placeholder="Evaluador"/>
+
+
+				<!-- Datos Tecnicos-->
+					<separator string="" colspan="4"/>
+					
+					<notebook colspan="4">
+						<!-- Seccion 1 -->
+						<page string="A : Aparencia personal">
+							
+							<group colspan="4">
+								<group string="">
+									<field name="puntaje_higiene" placeholder="Puntaje de Higiene"/>
+									<field name="puntaje_uniforme" placeholder="Puntaje de Uniforme"/>
+									<field name="puntaje_rpersonales" placeholder="Puntaje de Relaciones Personales"/>
+									<field name="puntaje_cortesia" placeholder="Puntaje de Cortesia"/>
+									<field name="puntaje_comunicacion" placeholder="Puntaje de Comunicación"/>
+									<field name="sub_total_1" placeholder="Sub total"/>
+								</group>
+								<group string="">
+								
+									
+								</group>
+							</group>
+							
+						</page>
+
+						<!-- Seccion 2 -->
+
+
+						<page string="B : Permanencia en la sala">
+							
+							<group colspan="4">
+								<group string="">
+									<field name="puntaje_atencion" placeholder="Puntaje de Atención al Cliente"/>
+									<field name="puntaje_resolucion" placeholder="Puntaje de Resolución de Problemas"/>
+									<field name="puntaje_uso" placeholder="Puntaje de Uso de Equipos Personales e Instituciones"/>
+									
+									<field name="sub_total_2" placeholder="Sub total"/>
+								</group>
+								<group string="">
+								
+									
+								</group>
+							</group>
+							
+						</page>
+
+						<!-- Seccion 3 -->
+
+						<page string="C : Organización">
+							
+							<group colspan="4">
+								<group string="">
+									<field name="puntaje_normas" placeholder="Puntaje de Atención al Cliente"/>
+									
+									
+									<field name="sub_total_3" placeholder="Sub total"/>
+								</group>
+								<group string="">
+								
+									
+								</group>
+							</group>
+							
+						</page>
+
+						<!-- Seccion 4 -->
+
+						<page string="D : Desempeño de actividades">
+							
+							<group colspan="4">
+								<group string="">
+									<field name="puntaje_manejo" placeholder="Manejo de las Herramientas Tecnológicas"/>
+									<field name="puntaje_iniciativa" placeholder="Iniciativa y Creatividad"/>
+									<field name="puntaje_pertenencia" placeholder="Sentido de Pertenencia con la Institución"/>
+									
+									<field name="sub_total_4" placeholder="Sub total"/>
+								</group>
+								<group string="">
+								
+									
+								</group>
+							</group>
+							
+						</page>
+
+					</notebook>
+
+				</form>
+			</field>
+		</record>
+
+		<!--<record model="ir.ui.view" id="carga_familiar_view">
+			<field name="name">novedad del becado.tree</field>
+			<field name="model">novedades.becados</field>
+			<field name="arch" type="xml">
+				<tree string="Novedades del Becado" colors="red:duration&gt;5;" editable="bottom" toolbar="1">
+					<field name="ci"/>
+					<field name="nombres"/>
+					<field name="apellidos"/>
+					<field name="duration" invisible="1"/>
+
+					<field name="novedad"/>
+					<field name="observacion"/>
+				</tree>
+			</field>
+		</record>-->
+
+
+		
+		<menuitem name="Instrumento de evaluación" id="menu_desarrollo_social_evaluacion" parent="menu_desarrollo_social"/>
+        <menuitem parent="menu_desarrollo_social_evaluacion" id="sub_menu_evaluacion" action="accion_lista_evaluacion" name="Evaluación"/>
+			
+	</data>
+	
+</openerp>
+
