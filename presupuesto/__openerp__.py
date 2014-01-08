@@ -8,10 +8,13 @@
             Description text
             """,
         'data': [
-        'view/proyecto.xml',
-        'view/accion.xml',
-        'view/distribucion.xml',
-        'view/partidas.xml',
+        'view/actualizacion/proyecto.xml',
+        'view/actualizacion/accion.xml',
+        'view/actualizacion/distribucion.xml',
+        'view/actualizacion/partidas.xml',
+        'view/modificacion_presupuesto/traslado_traspaso.xml',
+        'view/modificacion_presupuesto/creditos_adiconales.xml',
+         'view/configuracion/tipo_documento.xml',
         ],
        'js': ['static/src/js/lib.js'],
        'css': ['static/src/css/color.css'],

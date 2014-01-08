@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.actions.act_window" id="creditos_list_action">
+            <field name="name">Creditos Adicionales</field>
+            <field name="res_model">presupuesto.creditos</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Registrar  Creditos Adicionales</p>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="creditos_tree_view">
+            <field name="name">creditos.tree</field>
+            <field name="model">presupuesto.creditos</field>
+            <field name="arch" type="xml">
+                <tree string="Creditos Adicionales">
+                    <field name="id_tipo_doc"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="creditos_form_view">
+            <field name="name">creditos.form</field>
+            <field name="model">presupuesto.creditos</field>
+            <field name="arch" type="xml">
+                <form string="Formulario de Creditos Adicionales">
+                    <group colspan="6" col="6">
+                        <separator string="Creditos Adicionales" colspan="6"/>
+                        <field name="id_tipo_doc" colspan="2" width="100"/>
+                        <field name="numero" colspan="2" width="220"/>
+                        <field name="fecha" colspan="2"  width="220"/>
+                    </group>
+                    <group colspan="6" col="6">
+                        <field name="oficio" colspan="2" width="100"/>
+                        <field name="fecha_oficion" colspan="2" width="220"/>
+                        <field name="observacion" colspan="2"  width="220"/>
+                    </group>
+                    <group colspan="8" col="8">
+                        <field name="proyecto_accion"     colspan="2" width="100"/>
+                        <field name="cosulta_proyecto_accion"    colspan="2" width="100"/>
+                        <field name="cod_presupuesto"     colspan="2" width="100"/>
+                        <field name="desc_presupuesto" colspan="2" width="200" nolabel="1" readonly="1"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <menuitem id="creditos_menu" name="Creditos Adicionales"  parent="modificacion_presupuesto_menu" action="creditos_list_action" />
+    </data>
+</openerp>
