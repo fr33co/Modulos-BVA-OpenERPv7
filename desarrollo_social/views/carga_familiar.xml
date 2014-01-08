@@ -22,41 +22,48 @@
 				<form string="Formulario de Carga Familiar">
 
 				<!-- Datos pertenecientes al Becado-->
-					<separator string="Datos Personales del Becado" colspan="4"/>
-					<field name="cedula_becado"  nolabel="0"  placeholder="Cédula" on_change="on_change_datos_personales(cedula_becado)" icon="terp-personal"/>
-					<field name="segundo_nombre" colspan="2" readonly="1"  placeholder="Segundo Nombre"/>
+					<!--<separator string="Seleccionar Becado" colspan="4"/>-->
+					<!--<field name="becado"  nolabel="0"  placeholder="Becado" on_change="on_change_datos_personales(becado)" icon="terp-personal"/>-->
+					<!--<field name="cedula_becado"  nolabel="0"  placeholder="Cédula" on_change="on_change_datos_personales(cedula_becado)" icon="terp-personal"/>-->
+					<!--<field name="nombre_completo" nolabel="0" placeholder="Nombre Completo"/>-->
+					<!--<field name="segundo_nombre" colspan="2" readonly="1"  placeholder="Segundo Nombre"/>
 					<field name="primer_nombre" colspan="2" readonly="1"  placeholder="Primer Nombre"/>
 					
-					
 					<field name="segundo_apellido" readonly="1" colspan="2"  placeholder="Segundo Apellido"/>
-					<field name="primer_apellido" readonly="1" colspan="2"  placeholder="Primer Apellido"/>
+					<field name="primer_apellido" readonly="1" colspan="2"  placeholder="Primer Apellido"/>-->
 					
 
-				<!-- Datos pertenecientes al Becado-->
-					<notebook colspan="4">
-						<page string="Datos Personales del Familiar">
+				<!-- Datos pertenecientes al Familiar-->
+					<!--<notebook colspan="4">
+						<page string="Datos del Familiar">-->
 							
-							<group colspan="4" col="3" string="Datos Personales del Familiar">
-								<group colspan="1" col="2">
+							<group colspan="4" col="3" string="Datos del Familiar">
+								<group colspan="1" col="2" string="Información básica">
 									<field name="cedula_familiar" placeholder="Cédula"/>
 									<field name="primer_nombres_familiar" placeholder="Primer Nombre"/>
 									<field name="segundo_nombre_familiar" placeholder="Segundo Apellido"/>
 									<field name="primer_apellido_familiar" placeholder="Primer Apellido"/>
 									<field name="segundo_apellido_familiar" placeholder="Segundo Apellido"/>
-									<field name="edad" placeholder="Edad"/>
+									<field name="edad" placeholder="Edad" readonly="1"/>
 								</group>
-								<group colspan="1" col="2">
+								<group colspan="1" col="2" string="Información de Ocupación">
 									<field name="profesion_familiar" placeholder="Profesión u Oficio"/>
 									<field name="fecha_nac_familiar" on_change="validar_fecha(fecha_nac_familiar)"/>
-									<field name="sexo"/>
+									<field name="sexo" placeholder="Seleccione..."/>
 									<field name="parentesco" placeholder="Seleccione..."/>
 									<field name="estudio"/>
 									<field name="fecha_union"/>
 								</group>
+								<group colspan="1" col="2" string="Información de Contacto">
+									<field name="telefono_fijo"/>
+									<field name="telefono_movil"/>
+									<field name="correo"/>
+									<field name="direccion"/>
+								</group>
 							</group>
-						</page>
-
-					</notebook>
+							
+						<!--</page>
+					</notebook>-->
 				</form>
 			</field>
 		</record>
@@ -67,18 +74,21 @@
 			<field name="arch" type="xml">
 				<tree string="Carga Familiar">
 					<field name="cedula_becado"/>
+					<field name="nombre_completo"/>
+<!--
 					<field name="primer_nombre"/>
 					<field name="segundo_nombre"/>
 					<field name="primer_apellido"/>
 					<field name="segundo_apellido"/>
+-->
 				</tree>
 			</field>
 		</record>
 
 
 		
-		<menuitem name="Carga Familiar" id="menu_desarrollo_social_becado_carga_familiar" parent="menu_desarrollo_social" icon="terp-personal"/>
-        <menuitem parent="menu_desarrollo_social_becado_carga_familiar" id="sub_menu_carga_familiar" action="accion_lista_becados_carga_familiar" name="Carga Familiar del Becado"/>
+		<!--<menuitem name="Carga Familiar" id="menu_desarrollo_social_becado_carga_familiar" parent="menu_desarrollo_social" icon="terp-personal"/>
+        <menuitem parent="menu_desarrollo_social_becado_carga_familiar" id="sub_menu_carga_familiar" action="accion_lista_becados_carga_familiar" name="Carga Familiar del Becado"/>-->
 			
 	</data>
 	

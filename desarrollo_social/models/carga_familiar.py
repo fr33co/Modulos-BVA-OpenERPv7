@@ -11,6 +11,8 @@ class Carga_familiar(osv.Model):
 
 	def validar_fecha(self, cr, uid, ids, fecha_nac_familiar):
 
+		values = {}
+
 		edad = fecha_nac_familiar
 
 		edades = edad.split("-")
@@ -19,28 +21,43 @@ class Carga_familiar(osv.Model):
 
 		ano_actual = fecha_actual.year # Segmentamos la fecha y obtenemos el ano actual
 
-		calculo = int(edades[0]) - int(ano_actual)
+		mes_actual = fecha_actual.month
 
-		print calculo
+		dia_actual = mes_actual = fecha_actual.day
 
-	def on_change_datos_personales(self, cr, uid, ids, cedula_becado, context=None):
+
+		calculo = int(ano_actual) - int(edades[0])
+			
+		if int(edades[1] > int(mes_actual)):
+			calculo = calculo - 1
+		elif (int(edades[1]) == int(mes_actual)) and (int(edades[2]) > int(dia_actual)):
+			calculo = calculo - 1 
+
+		values.update({
+
+			'edad' : calculo,
+
+			})
+		return {'value' : values}
+
+	def on_change_datos_personales(self, cr, uid, ids, becado, context=None):
 		#print cedula_becado
 		values = {}
-		if not cedula_becado:
+		if not becado:
 			return values
 		obj_dp = self.pool.get('hr.employee')
 
 
-		busqueda = obj_dp.search(cr, uid, [('cedula','=',cedula_becado)])
+		busqueda = obj_dp.search(cr, uid, [('id','=',becado)])
 
 		busqueda_read = obj_dp.read(cr,uid,busqueda,context=context)
 
 		values.update({
-			'primer_nombre' : busqueda_read[0]['primer_nombre'],
-			'segundo_nombre' : busqueda_read[0]['segundo_nombre'],
-			'primer_apellido' : busqueda_read[0]['primer_apellido'],
-			'segundo_apellido' : busqueda_read[0]['segundo_apellido'],
-
+			#~ 'primer_nombre' : busqueda_read[0]['primer_nombre'],
+			#~ 'segundo_nombre' : busqueda_read[0]['segundo_nombre'],
+			#~ 'primer_apellido' : busqueda_read[0]['primer_apellido'],
+			#~ 'segundo_apellido' : busqueda_read[0]['segundo_apellido'],
+			'nombre_completo' : busqueda_read[0]['name_related'],
 
 			})
 		return {'value' : values}
@@ -48,30 +65,37 @@ class Carga_familiar(osv.Model):
 	
 	_columns ={
 		#Sección I (Datos del Becado)
-		'cedula_becado' : fields.char(string = "Cédula", size = 9, required = True, help="Cédula del Becado"),
-		'primer_nombre' : fields.char(string="Primer nombre", help="Ingrese el primer nombre", required = True),
-		'segundo_nombre' : fields.char(string="Segundo nombre", help="Ingrese el segundo nombre", required = True),
-		'primer_apellido' : fields.char(string="Primer apellido", help="Ingrese el primer apellido", required = True),
-		'segundo_apellido' : fields.char(string="Segundo apellido", help="Ingrese el segundo apellido", required = True),
-		'edad' : fields.char(string="Edad", help="Ingrese la Edad", required = True),
+		'becado' : fields.many2one('hr.employee','Becado',required=False, domain=[('category_ids.name','=','Becados')]),
+		'cedula_becado' : fields.char(string = "Cédula", size = 9, required = False, help="Cédula del Becado"),
+		'nombre_completo' : fields.char(string = "Nombre Completo", required = False, help="Nombre Completo del Becado"),
+		'primer_nombre' : fields.char(string="Primer nombre", help="Ingrese el primer nombre", required = False),
+		'segundo_nombre' : fields.char(string="Segundo nombre", help="Ingrese el segundo nombre", required = False),
+		'primer_apellido' : fields.char(string="Primer apellido", help="Ingrese el primer apellido", required = False),
+		'segundo_apellido' : fields.char(string="Segundo apellido", help="Ingrese el segundo apellido", required = False),
+		'edad' : fields.char(string="Edad", help="Ingrese la Edad", required = False),
 		
 		#Sección II (Datos del Familiar)
-		'cedula_familiar': fields.char(string = "Cédula", size = 9, required = True, help="Cédula del familiar"),
+		'cedula_familiar': fields.char(string = "Cédula Familiar", size = 9, required = False, help="Cédula del familiar"),
 		'primer_nombres_familiar' : fields.char(string="Primer nombre", help="Ingrese el primer nombre del Familiar", required = True),
 		'segundo_nombre_familiar' : fields.char(string="Segundo nombre", help="Ingrese el segundo nombre del Familiar", required = True),
 		'primer_apellido_familiar' : fields.char(string="Primer apellido", help="Ingrese el primer apellido del Familiar", required = True),
 		'segundo_apellido_familiar' : fields.char(string="Segundo apellido", help="Ingrese el segundo apellido del Familiar", required = True),
 		'fecha_nac_familiar': fields.date(string = "Fecha de Nacimiento", required = True),
-		'profesion_familiar' : fields.char(string="Profesión u Oficio", help="Ingrese la Profesión u Oficio del Familiar", required = True),
+		'profesion_familiar' : fields.char(string="Profesión u Oficio", help="Ingrese la Profesión u Oficio del Familiar", required = False),
 		'sexo' : fields.selection((('1','Masculino'),('2','Femenino')), "Sexo", required = True),
 		'parentesco' : fields.selection((('1','Hijo'),('2','Madres'),('3','Padre')), "Parentesco", required = True),
 		'estudio' : fields.boolean(string="Estudia Actualmente?"),
-		'fecha_union' : fields.date(string="Fecha de la Unión", required=True),
+		'fecha_union' : fields.date(string="Fecha de la Unión", required=False),
+		'telefono_fijo' : fields.char(string="Teléfono Fijo", size=12, required=False),
+		'telefono_movil' : fields.char(string="Teléfono Móvil", size=12, required=False),
+		'correo' : fields.char(string="Correo electrónico", size=20, required=False),
+		'direccion' : fields.text(string="Dirección", size=256, required=True),
+		
 	}
 
 	_sql_constraints = [
-	    ('cedula_becado_unique',
-	     'UNIQUE(cedula_becado)',
-	     'Disculpe el Registro ya existe'),
+	    ('cedula_familiar_unique',#cedula_becado_unique
+	     'UNIQUE(cedula_familiar)',#cedula_becado
+	     'Disculpe el familiar ya existe'),#Disculpe el Registro ya existe
 	]
 

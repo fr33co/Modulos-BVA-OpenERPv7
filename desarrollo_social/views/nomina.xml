@@ -15,11 +15,17 @@
 					<field name="model">hr.payslip</field>
 					<field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
 					<field name="arch" type="xml">
+							<!--<field name="employee_id" position="attributes">
+								<field name="employee_id" domain="[('category_ids.name','=','Becados')]"/>
+							</field>-->
 							<field name="name" position="before">
 								<field name="cedula"/>
 							</field>
-							<field name="employee_id" position="before">
-								<field name="categoria"/>
+							<field name="employee_id" position="after">
+								<group col="4" colspan="4">
+									<separator colspan="4"/>
+									<field name="categoria" nolabel="0"/>
+								</group>
 							</field>
 					</field>
 			</record>

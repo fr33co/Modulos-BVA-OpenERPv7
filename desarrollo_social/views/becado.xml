@@ -3,11 +3,11 @@
 	<data>
 
 		<record model="ir.actions.act_window" id="accion_vista_becados">
-			<field name="name">Desarrollo Social</field>
+		 	<field name="name">Desarrollo Social</field>
 			<field name="res_model">hr.employee</field>
 			<field name="view_type">form</field>
-			<field name="domain">[('category_ids.name','ilike','Becado')]</field>
-			<field name="view_mode">kanban,tree,form</field>
+			<field name="domain">[('category_ids.name','ilike','Becados')]</field>
+			<field name="view_mode">tree,form</field>
 		</record>
 
 		<record id="vista_becados" model="ir.ui.view">
@@ -15,21 +15,16 @@
 			<field name="model">hr.employee</field>
 			<field name="inherit_id" ref="hr.view_employee_form"/>
 			<field name="arch" type="xml">
-
 				<field name="identification_id" position="replace">
 					<field name="cedula"/>
 				</field>
-				<field name="country_id" position="before">
+				<field name="passport_id" position="after">
 					<field name="tiempo_servicio"/>
 				</field>
 				<field name="tiempo_servicio" position="after">
 					<field name="empleado"/>
 				</field>
-
-				<field name="otherid" position="replace">
-					<field name="primer_nombre"/>
-				</field>
-				<field name="primer_nombre" position="after">
+				<!--<field name="primer_nombre" position="after">
 					<field name="segundo_nombre"/>
 				</field>
 				<field name="segundo_nombre" position="after">
@@ -37,14 +32,23 @@
 				</field>
 				<field name="primer_apellido" position="after">
 					<field name="segundo_apellido"/>
-				</field>
+				</field>-->
 				<field name="address_home_id" position="after">
 					<field name="direccion"/>
 				</field>
-				<field name="segundo_apellido" position="after">
+				<field name="empleado" position="after">
 					<field name="grado_instruccion"/>
 				</field>
 				<field name="grado_instruccion" position="after">
+					<field name="titulo_obtenido"/>
+				</field>
+				<field name="titulo_obtenido" position="after">
+					<field name="estado_de_estudios"/>
+				</field>
+				<field name="estado_de_estudios" position="after">
+					<field name="estudios_actuales"/>
+				</field>
+				<field name="otherid" position="replace">
 					<field name="grupo_sanguineo"/>
 				</field>
 				<field name="direccion" position="before">
@@ -56,9 +60,6 @@
 				<field name="tlf_local" position="before">
 					<field name="twitter" class="oe_inline"/>
 				</field>
-				<field name="grupo_sanguineo" position="after">
-					<field name="titulo_obtenido"/>
-				</field>
 				<field name="marital" position="after">
 					<field name="fecha_ingreso"/>
 				</field>
@@ -68,11 +69,13 @@
 				<field name="department_id" position="after">
 					<field name="tipo_nomina"/>
 				</field>
+<!--
 				<field name="tipo_nomina" position="after">
 					<field name="class_personal"/>
 				</field>
+-->
 				<field name="birthday" position="after">
-					<field name="edad" class="oe_inline"/>
+					<field name="edad" class="oe_inline" readonly="1"/>
 				</field>
 				<!--<field name="class_personal" position="after">
 					<field name="cargo_desempenado"/>
@@ -81,7 +84,7 @@
 					<field name="cargo_desempenado"/>
 				</field>-->
 				<field name="bank_account_id" position="before">
-					<field name="sueldo"/>
+					<field name="asignacion"/>
 				</field>
 				<field name="twitter" position="after">
 					<field name="correo" widget="email"/>
@@ -92,7 +95,7 @@
 				<field name="tiempo_servicio" position="after">
 					<field name="ano_antiguedad" class="oe_inline"/>
 				</field>
-				<field name="titulo_obtenido" position="after">
+				<field name="estudios_actuales" position="after">
 					<field name="camisa" class="oe_inline"/>
 				</field>
 				<field name="camisa" position="after">
@@ -107,32 +110,51 @@
 				<field name="caja_ahorro" position="after">
 					<field name="prima_responsabilidad" class="oe_inline"/>
 				</field>
-
+				<field name="direccion" position="after">
+					<field name="cne"/>
+				</field>
+<!--
+				<field name="birthday" position="replace">
+					<field name="fecha_nacimiento" on_change="validar_fecha(fecha_nacimiento)"/>
+				</field>
+-->
+				<!--Nueva página para el "notebook"-->
+				<page string="HR Settings" position="after">
+					<page string="Carga Familiar">
+						<field name="familiar" nolabel="1" colspan="4" mode="tree">
+							<tree string="Registrar Familiares">
+							 <field name="cedula_familiar"/>
+							 <field name="primer_nombres_familiar"/>
+							 <field name="primer_apellido_familiar"/>
+							</tree>
+						</field>
+					</page>
+				</page>
+				<!--Nueva página para el "notebook"-->
+				
 			</field>
 		</record>
-
-
-		<!--<record model="ir.ui.view" id="accion_vista_becados_tree">
-			<field name="name">hr.employee.tree</field>
+		
+		<record model="ir.ui.view" id="vista_becados_tree">
+			<field name="name">Desarrollo Social</field>
 			<field name="model">hr.employee</field>
-			<field name="inherit_id" ref="hr.view_employee_form"/>
+			<field name="inherit_id" ref="hr.view_employee_tree"/>
 			<field name="arch" type="xml">
-				<tree string="Ficha General">
-					<xpath expr="/tree/field[@name='Nombre']" position="after">
-						<field name="cedula" String=""/>
-					</xpath>
-				</tree>
+					<field name="name" position="before">
+						<field name="cedula"/>
+					</field>
+					<field name="company_id" position="replace">
+						<field name="tlf_movil"/>
+					</field>
+					<field name="job_id" position="after">
+						<field name="category_ids"/>
+					</field>
 			</field>
-		</record>-->
-
-		<!--<xpath expr="/tree/field[@name='Nombre']" position="after">
-			<field name="name" String=""/>
-		<xpath>-->
-
+		</record>
 		<menuitem name="Desarrollo Social" id="menu_desarrollo_social"/>
 		<menuitem name="Desarrollo Social" id="menu_desarrollo_social_main" parent="menu_desarrollo_social"/>
-		<menuitem id="menu_principal_mantenimiento" name="Mantenimiento" parent="menu_desarrollo_social"/>
 		<menuitem parent="menu_desarrollo_social_main" id="becado" action="accion_vista_becados" name="Becado"/>
+		<menuitem id="menu_principal_mantenimiento" name="Mantenimiento" parent="menu_desarrollo_social"/>
 
 	</data>
 </openerp>
