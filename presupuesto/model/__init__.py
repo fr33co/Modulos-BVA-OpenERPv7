@@ -1,4 +1,3 @@
-import proyecto
-import accion
-import distribucion
-import partidas
+import actualizacion
+import modificacion_presupuesto
+import configuracion
