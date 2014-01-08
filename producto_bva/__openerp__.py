@@ -25,12 +25,13 @@
     'version': '1.1',
     'author': 'OpenERP SA',
     'category': 'Alamacenes',
-    'depends': ['product'],
+    'depends': ['product', 'stock'],
     'description': """
 
     """,
     'data': [
         'view/producto_bva.xml',
+
 
     ],
     'test': [
