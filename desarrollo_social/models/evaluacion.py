@@ -28,9 +28,9 @@ class Evaluacion(osv.Model):
 		'puntaje_comunicacion' : fields.selection((('1','4 Puntos'),('2','3 Puntos'),('3','2 Puntos'),('4','1 Puntos'),('5','0 Puntos')), "Comunicación verbal y no verbal", required = True),
 		'sub_total_1' : fields.char(string="sub-total", size=2, readonly=True),
 
-		'puntaje_atencion' : fields.selection((('1','4'),('2','3 '),('3','2'),('4','1'),('5','0')), "Atención al cliente", required = True),
-		'puntaje_resolucion' : fields.selection((('1','4 Puntos'),('2','3 Puntos'),('3','2 Puntos'),('4','1 Puntos'),('5','0 Puntos')), "Resolución de problemas", required = True),
-		'puntaje_uso' : fields.selection((('1','4 Puntos'),('2','3 Puntos'),('3','2 Puntos'),('4','1 Puntos'),('5','0 Puntos')), "Uso de equipos personales e institucionales", required = True),
+		'puntaje_atencion' : fields.selection((('1','10'),('2','9'),('3','8'),('4','7'),('5','6'),('6','5'),('7','4'),('7','3'),('8','2'),('9','1'),('10','0')), "Atención al cliente", required = True),
+		'puntaje_resolucion' : fields.selection((('1','10'),('2','9'),('3','8'),('4','7'),('5','6'),('6','5'),('7','4'),('7','3'),('8','2'),('9','1'),('10','0')), "Resolución de problemas", required = True),
+		'puntaje_uso' : fields.selection((('1','10'),('2','9'),('3','8'),('4','7'),('5','6'),('6','5'),('7','4'),('7','3'),('8','2'),('9','1'),('10','0')), "Uso de equipos personales e institucionales", required = True),
 		'sub_total_2' : fields.char(string="sub-total", size=2, readonly=True),
 
 		'puntaje_normas' : fields.selection((('1','4 Puntos'),('2','3 Puntos'),('3','2 Puntos'),('4','1 Puntos'),('5','0 Puntos')), "Normas y procedimientos", required = True),
@@ -40,7 +40,8 @@ class Evaluacion(osv.Model):
 		'puntaje_iniciativa' : fields.selection((('1','4 Puntos'),('2','3 Puntos'),('3','2 Puntos'),('4','1 Puntos'),('5','0 Puntos')), "Iniciativa y creatividad", required = True),
 		'puntaje_pertenencia' : fields.selection((('1','4 Puntos'),('2','3 Puntos'),('3','2 Puntos'),('4','1 Puntos'),('5','0 Puntos')), "Sentido de pertenencia con la institución", required = True),
 		'sub_total_4' : fields.char(string="sub-total", size=2, readonly=True),
-
+		'calificacion_cuantitativa' : fields.selection((('1','Bueno'),('2','Malo'),('3','Regular')), "Calificación", required = True),
+		'observacion_general' : fields.text(string="Observación", size=256, required=True),
 	}
 		
 
