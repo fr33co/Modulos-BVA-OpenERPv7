@@ -26,14 +26,19 @@ class Traslado(osv.Model):
         values = {}
         if not tipo_doc:
             return values
-        cr.execute("SELECT LTRIM(MAX(numero),'0') FROM presupuesto_traslado WHERE tipo_doc=%s", (tipo_doc,))
-        last_num = cr.fetchone()[0]
-        if last_num is None :
-             str_number = str(1)
-             last_num = str_number.rjust(7,'0')
+
+        sfl_id   = self.pool.get('presupuesto.traslado')
+        srch_id  = sfl_id.search(cr,uid,[('tipo_doc','=',tipo_doc)])
+        rd_id    = sfl_id.read(cr, uid, srch_id, context=context)
+
+        if not rd_id:
+            str_number = '1'
+            last_num = str_number.rjust(7,'0')
         else :
-             str_number = str(int(last_num) + 1)
-             last_num = str_number.rjust(7,'0')
+            last_num = rd_id[-1]['numero']
+            last_num = last_num.lstrip('0')
+            str_number = str(int(last_num) + 1)
+            last_num = str_number.rjust(7,'0')
 
         values.update({'numero' : last_num})
 
