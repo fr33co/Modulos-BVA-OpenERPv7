@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+			<record model="ir.actions.act_window" id="accion_vista_seleccion">
+					<field name="name">Proceso de Seleccion</field>
+					<field name="res_model">hr.applicant</field>
+					<field name="view_type">form</field>
+					<!--<field name="domain">[('categoria.name','ilike','Becado')]</field>-->
+					<field name="view_mode">tree,form,calendar,graph,kanban</field>
+			</record>
+    
+			<record id="vista_seleccion" model="ir.ui.view">
+					<field name="name">Proceso de Seleccion</field>
+					<field name="model">hr.applicant</field>
+					<field name="inherit_id" ref="hr_recruitment.crm_case_form_view_job"/>
+					<field name="arch" type="xml">
+						
+						<field name="email_from" position="before">
+							<field name="cedula"/>
+						</field>
+						<field name="type_id" position="after">
+							<field name="direccion_trabajo"/>
+						</field>
+						<field name="direccion_trabajo" position="after">
+							<field name="ano_experiencia"/>
+						</field>
+					</field>
+			</record>
+        
+        <menuitem name="Proceso de Selección" id="menu_desarrollo_social_seleccion" parent="menu_desarrollo_social"/>
+        <menuitem parent="menu_desarrollo_social_seleccion" id="seleccion_becado" action="accion_vista_seleccion" name="Solicitudes"/>
+        
+    </data>
+</openerp>

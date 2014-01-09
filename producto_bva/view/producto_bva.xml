@@ -6,6 +6,21 @@
 			<field name="model">product.product</field>
 			<field name="inherit_id" ref="product.product_normal_form_view" />
 			<field name="arch" type="xml">
+				<field name="default_code" position="replace">
+						<field name="codigo" on_change="on_change_codigo(codigo)"/>
+				</field>
+				<field name="codigo" position="after">
+						<field name="numero" on_change="on_change_identificacion(numero,codigo)" attrs="{'readonly':[('codigo','=','No se codifica')]}" />
+				</field>
+				<field name="list_price" position="replace">
+						<field name="v_unitario" />
+				</field>
+				<field name="numero" position="after">
+						<field name="v_total" />
+				</field>
+				<field name="ean13" position="replace">
+						<field name="nidentificacion" invisible="1"/>
+				</field>
 				<field name="description" position="before">
 					<group>
 						<group>
@@ -36,11 +51,8 @@
 				<field name="categ_id" position="replace">
 						<field name="s"/>
 				</field> 
-				<field name="type" position="replace">
-						<field name="qty_available"/>
-				</field> 
 				<field name="variants" position="replace">
-						<field name="default_code"/>
+						<field name="nidentificacion"/>
 				</field> 
 				<field name="uom_id" position="replace">
 						<field name="estado"/>
@@ -48,9 +60,18 @@
 				<field name="estado" position="after">
 						<field name="name"/>
 				</field> 
-				<field name="name" position="after">
-						<field name="standard_price" />
+				<field name="lst_price" position="replace">
+						<field name="v_unitario" />
 				</field>
+				<field name="v_unitario" position="after">
+						<field name="v_total" />
+				</field> 
+				<field name="virtual_available" position="replace">
+						<field name="virtual_available" invisible="1"/>
+				</field>
+				<field name="state" position="replace">
+						<field name="state" invisible="1" />
+				</field> 
 	        </field>
 		</record>	
    	</data>

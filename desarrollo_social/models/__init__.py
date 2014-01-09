@@ -1,9 +1,13 @@
 import becado
-import mantenimiento
-import departamento
-import t_cuenta_bancaria
-import banco
-import parentesco
-import concepto
-
+import nomina
+import tipoNomina
+import carga_familiar #Carga Familiar
+import clasPer
+import tipoEmp
+import gradoInstruccion
+import grupoSanguineo
+import novedades
+import proceso_seleccion
+import contrato
+import evaluacion
 

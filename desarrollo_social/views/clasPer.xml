@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	
+	<data>
+			
+		<!--Accionador para el menu de Clasificación del Personal-->
+		<record model="ir.actions.act_window" id="accion_lista_clasPer">
+			<field name="name">Clasificación del Personal</field>
+			<field name="res_model">becados.clasper</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Agregue una nueva clasificación para el personal</p>
+			</field>
+		</record>
+		<!--Accionador para el menu de Clasificación del Personal-->
+		
+		<record model="ir.ui.view" id="vista_formulario_tipoNomina">
+			<field name="name">clasper.form</field>
+			<field name="model">becados.clasper</field>
+			<field name="arch" type="xml"> 
+				<form string="Formulario de Clasificación del Personal">
+					<group colspan="2">
+						<field name="clas_personal" nolabel="0" colspan="1"/>
+					</group>
+				</form>
+			</field>
+		</record>
+		
+		<menuitem id="menu_clasPer" name="Clasificación del Personal" parent="menu_principal_mantenimiento" action="accion_lista_clasPer"/>
+			
+	</data>
+	
+</openerp>

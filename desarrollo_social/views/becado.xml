@@ -1,95 +1,160 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <openerp>
-	
 	<data>
-			
-		<!--Accionador para el menu de Consejos-->
-		<record model="ir.actions.act_window" id="accion_lista_becados">
-			<field name="name">Becados</field>
-			<field name="res_model">becados</field>
-			<field name="view_type">form</field>
-			<field name="view_mode">tree,form</field>
-			<field name="help" type="html">
-				<p class="oe_view_nocontent_create">Registrar Becado</p>
-			</field>
-		</record>
-		<!--Accionador para el menu de Becados-->
-		
-		<record model="ir.ui.view" id="vista_formulario_becados">
-			<field name="name">becado.form</field>
-			<field name="model">becados</field>
-			<field name="arch" type="xml">
-				<form string="Formulario de Becados">
-					<group colspan="4" col="3" string="Datos Personales">
-						<group colspan="1">
-							<field name="foto" nolabel="0" widget="image"/>
-						</group>
-						<group colspan="2">
-							<field name="cedula" colspan="2" width="10"/>
-							<field name="nombres" colspan="2"/>
-							<field name="apellidos" colspan="2"/>
-						</group>
-					</group>
-					<notebook colspan="4">
-						<page string="Datos Personales">
-							<separator string="Datos Personales del Becado" colspan="4"/>
-							<field name="sexo" colspan="2" nolabel="0"/>
-							<field name="fecha_nac" colspan="2" nolabel="0"/>
-							<field name="estado_civil" colspan="2" nolabel="0"/>
-							<!--<field name="cod_tel_movil" colspan="2" nolabel="0"/>
-							<field name="cod_tel_fijo" colspan="2" nolabel="0"/>-->
-							<field name="tel_movil" colspan="2" nolabel="0"/>
-							<field name="tel_fijo" colspan="2" nolabel="0"/>
-							<field name="correo" colspan="2" nolabel="0"/>
-							<field name="grado_instruc" colspan="2" nolabel="0"/>
-							<field name="twitter" colspan="2" nolabel="0"/>
-							<field name="titulo_obt" colspan="2" nolabel="0"/>
-							<field name="grupo_sangre" colspan="2" nolabel="0"/>
-							<field name="tipo_emp" colspan="2" nolabel="0"/>
-							<field name="estatus" colspan="2" nolabel="0"/>
-							<field name="tiempo_serv" colspan="2"/>
-							<field name="num_historial" colspan="2" nolabel="0"/>
-							<field name="lugar_nac" colspan="2" nolabel="0"/>
-							<field name="direccion" colspan="2" nolabel="0"/>
-						</page>
-						<page string="Becado/Empresa">
-							<field name="fecha_ing" colspan="2" nolabel="0"/>
-							<field name="fecha_egre" colspan="2" nolabel="0"/>
-							<field name="tipo_nomina" colspan="2" nolabel="0"/>
-							<field name="class_personal" colspan="2" nolabel="0"/>
-							<field name="cargo" colspan="2" nolabel="0"/>
-							<field name="departamento" colspan="2" nolabel="0"/>
-							<field name="sueldo" colspan="2" nolabel="0"/>
-							<field name="numero_cuenta" colspan="2" nolabel="0"/>
-							<field name="tipo_banco" colspan="2" nolabel="0"/>
-							<field name="ano_ant" colspan="2" nolabel="0"/>
-							<field name="Camisa" colspan="2" nolabel="0"/>
-							<field name="pantalon" colspan="2" nolabel="0"/>
-							<field name="zapato" colspan="2" nolabel="0"/>
-							<field name="caja_ahorro" colspan="2" nolabel="0"/>
-							<field name="prima_resp" colspan="2" nolabel="0"/>
-						</page>
-						<page string="Funciones del Becado">
-<!--
-							<field name="fecha" colspan="2" nolabel="0"/>
-							<field name="estudio" colspan="2" nolabel="0"/>
-							<field name="especifique" colspan="2" nolabel="0"/>
-							<field name="funciones" colspan="2" nolabel="0"/>
-							<field name="observaciones" colspan="2" nolabel="0"/>
--->
-						</page>
-					</notebook>
-				</form>
-			</field>
-		</record>
-		
-		<menuitem id="menu_principal_becados" name="Desarrollo Social"/>
-		
-		<menuitem id="menu_secundario_becados" name="Desarrollo Social" parent="menu_principal_becados"/>
-		
-		<menuitem id="menu_becado" name="Becados" parent="menu_secundario_becados" action="accion_lista_becados"/>
-			
-	</data>
-	
-</openerp>
 
+		<record model="ir.actions.act_window" id="accion_vista_becados">
+		 	<field name="name">Desarrollo Social</field>
+			<field name="res_model">hr.employee</field>
+			<field name="view_type">form</field>
+			<field name="domain">[('category_ids.name','ilike','Becados')]</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<record id="vista_becados" model="ir.ui.view">
+			<field name="name">Becado</field>
+			<field name="model">hr.employee</field>
+			<field name="inherit_id" ref="hr.view_employee_form"/>
+			<field name="arch" type="xml">
+				<field name="identification_id" position="replace">
+					<field name="cedula"/>
+				</field>
+				<field name="passport_id" position="after">
+					<field name="tiempo_servicio"/>
+				</field>
+				<field name="tiempo_servicio" position="after">
+					<field name="empleado"/>
+				</field>
+				<!--<field name="primer_nombre" position="after">
+					<field name="segundo_nombre"/>
+				</field>
+				<field name="segundo_nombre" position="after">
+					<field name="primer_apellido"/>
+				</field>
+				<field name="primer_apellido" position="after">
+					<field name="segundo_apellido"/>
+				</field>-->
+				<field name="address_home_id" position="after">
+					<field name="direccion"/>
+				</field>
+				<field name="empleado" position="after">
+					<field name="grado_instruccion"/>
+				</field>
+				<field name="grado_instruccion" position="after">
+					<field name="titulo_obtenido"/>
+				</field>
+				<field name="titulo_obtenido" position="after">
+					<field name="estado_de_estudios"/>
+				</field>
+				<field name="estado_de_estudios" position="after">
+					<field name="estudios_actuales"/>
+				</field>
+				<field name="otherid" position="replace">
+					<field name="grupo_sanguineo"/>
+				</field>
+				<field name="direccion" position="before">
+					<field name="tlf_movil"/>
+				</field>
+				<field name="tlf_movil" position="before">
+					<field name="tlf_local"/>
+				</field>
+				<field name="tlf_local" position="before">
+					<field name="twitter" class="oe_inline"/>
+				</field>
+				<field name="marital" position="after">
+					<field name="fecha_ingreso"/>
+				</field>
+				<field name="fecha_ingreso" position="after">
+					<field name="fecha_egreso"/>
+				</field>
+				<field name="department_id" position="after">
+					<field name="tipo_nomina"/>
+				</field>
+<!--
+				<field name="tipo_nomina" position="after">
+					<field name="class_personal"/>
+				</field>
+-->
+				<field name="birthday" position="after">
+					<field name="edad" class="oe_inline" readonly="1"/>
+				</field>
+				<!--<field name="class_personal" position="after">
+					<field name="cargo_desempenado"/>
+				</field>-->
+				<!--<field name="work_location" position="after">
+					<field name="cargo_desempenado"/>
+				</field>-->
+				<field name="bank_account_id" position="before">
+					<field name="asignacion"/>
+				</field>
+				<field name="twitter" position="after">
+					<field name="correo" widget="email"/>
+				</field>
+				<!--<field name="sueldo" position="after">
+					<field name="entidad_bancaria"/>
+				</field>-->
+				<field name="tiempo_servicio" position="after">
+					<field name="ano_antiguedad" class="oe_inline"/>
+				</field>
+				<field name="estudios_actuales" position="after">
+					<field name="camisa" class="oe_inline"/>
+				</field>
+				<field name="camisa" position="after">
+					<field name="pantalon" class="oe_inline"/>
+				</field>
+				<field name="pantalon" position="after">
+					<field name="zapato" class="oe_inline"/>
+				</field>
+				<field name="zapato" position="after">
+					<field name="caja_ahorro" class="oe_inline"/>
+				</field>
+				<field name="caja_ahorro" position="after">
+					<field name="prima_responsabilidad" class="oe_inline"/>
+				</field>
+				<field name="direccion" position="after">
+					<field name="cne"/>
+				</field>
+<!--
+				<field name="birthday" position="replace">
+					<field name="fecha_nacimiento" on_change="validar_fecha(fecha_nacimiento)"/>
+				</field>
+-->
+				<!--Nueva página para el "notebook"-->
+				<page string="HR Settings" position="after">
+					<page string="Carga Familiar">
+						<field name="familiar" nolabel="1" colspan="4" mode="tree">
+							<tree string="Registrar Familiares">
+							 <field name="cedula_familiar"/>
+							 <field name="primer_nombres_familiar"/>
+							 <field name="primer_apellido_familiar"/>
+							</tree>
+						</field>
+					</page>
+				</page>
+				<!--Nueva página para el "notebook"-->
+				
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="vista_becados_tree">
+			<field name="name">Desarrollo Social</field>
+			<field name="model">hr.employee</field>
+			<field name="inherit_id" ref="hr.view_employee_tree"/>
+			<field name="arch" type="xml">
+					<field name="name" position="before">
+						<field name="cedula"/>
+					</field>
+					<field name="company_id" position="replace">
+						<field name="tlf_movil"/>
+					</field>
+					<field name="job_id" position="after">
+						<field name="category_ids"/>
+					</field>
+			</field>
+		</record>
+		<menuitem name="Desarrollo Social" id="menu_desarrollo_social"/>
+		<menuitem name="Desarrollo Social" id="menu_desarrollo_social_main" parent="menu_desarrollo_social"/>
+		<menuitem parent="menu_desarrollo_social_main" id="becado" action="accion_vista_becados" name="Becado"/>
+		<menuitem id="menu_principal_mantenimiento" name="Mantenimiento" parent="menu_desarrollo_social"/>
+
+	</data>
+</openerp>

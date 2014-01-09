@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <openerp>
+        <data>
+            <record id="etiqueta1" model="res.partner.category">
+                <field name="name">Responsable</field>
+                <field name="active">True</field>
+            </record>
+            <record id="etiqueta2" model="res.partner.category">
+                <field name="name">Empleado</field>
+                <field name="active">True</field>
+            </record>
+            <record id="etiqueta3" model="res.partner.category">
+                <field name="name">Becado</field>
+                <field name="active">True</field>
+            </record>
+        </data>
+    </openerp>

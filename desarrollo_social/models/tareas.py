@@ -13,3 +13,7 @@ class BecadoTarea(osv.Model):
 		'funciones' : fields.text(string="Funciones Inherentes al Cargo", required=True),
 		'observaciones' : fields.text(string="Observaciones", help="Llenado por el(la) Gerente de Desarrollo Social", required=False),
 	}
+	
+	_defaults = {
+		'fecha': lambda *a: time.strftime('%d-%m-%Y'),
+	}

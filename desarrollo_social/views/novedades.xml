@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	
+	<data>
+			
+		<!--Accionador para el menu de (Becado)-->
+		<record model="ir.actions.act_window" id="accion_lista_novedades_becado">
+			<field name="name">Novedades / Escriba la Novedad del Becado</field>
+			<field name="res_model">novedades.becados</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Registrar novedad del Becado</p>
+			</field>
+		</record>
+		<!--Accionador para el menu de Becados (Becado)-->
+		
+		<record model="ir.ui.view" id="vista_formulario_novedad_becado">
+			<field name="name">Novedades del Becado</field>
+			<field name="model">novedades.becados</field>
+			<field name="arch" type="xml">
+				<form string="Formulario de Novedades">
+
+				<!-- Datos pertenecientes al Becado-->
+					<separator string="Novedad del Becado" colspan="4"/>
+					<field name="eje" nolabel="0" placeholder="Eje"/>
+					<field name="encargado" nolabel="0" placeholder="Encargado"/>
+					<field name="fecha_actual" nolabel="0"/>
+					
+
+				<!-- Datos pertenecientes al Becado-->
+					<notebook colspan="4">
+						<page string="Caracteristicas de la Novedad">
+							
+							<group colspan="4" col="3">
+								<group colspan="1" col="2">
+									<separator string="Datos personales" colspan="4"/>
+									<field name="ci" placeholder="C.I del Becado"/>
+									<field name="nombres" placeholder="Nombres"/>
+									<field name="apellidos" placeholder="Apellidos"/>
+									<field name="direccion" placeholder="Dirección de casa"/>
+									<field name="tlf_movil" placeholder="Teléfono movil"/>
+									<field name="correo" placeholder="Correo"/>
+								</group>
+
+								<group colspan="1" col="2">
+									<separator string="Caracteristica de la Novedad" colspan="4"/>
+									<field name="novedad" placeholder="Novedad"/>
+									<field name="observacion" placeholder="Observación"/>
+									<field name="observacion_general" placeholder="Observación General"/>
+								</group>
+
+							</group>
+						</page>
+
+					</notebook>
+
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="carga_familiar_view">
+			<field name="name">novedad del becado.tree</field>
+			<field name="model">novedades.becados</field>
+			<field name="arch" type="xml">
+				<tree string="Novedades del Becado" colors="red:duration&gt;5;" editable="bottom" toolbar="1">
+					<field name="ci"/>
+					<field name="nombres"/>
+					<field name="apellidos"/>
+					<field name="duration" invisible="1"/>
+
+					<field name="novedad"/>
+					<field name="observacion"/>
+				</tree>
+			</field>
+		</record>
+
+
+		
+		<menuitem name="Novedades de la Pre-Nómina" id="menu_desarrollo_social_novedades_becado" parent="menu_desarrollo_social" icon="terp-personal"/>
+        <menuitem parent="menu_desarrollo_social_novedades_becado" id="sub_menu_novedades_becado" action="accion_lista_novedades_becado" name="Novedades"/>
+			
+	</data>
+	
+</openerp>
+
