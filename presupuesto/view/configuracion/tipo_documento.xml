@@ -14,7 +14,7 @@
             <field name="name">documento.tree</field>
             <field name="model">presupuesto.documento</field>
             <field name="arch" type="xml">
-                <tree string="Proyectos">
+                <tree string="Tipo de Documentos">
                     <field name="id_documento"  />
                     <field name="siglas" />
                     <field name="documento"/>
@@ -22,7 +22,7 @@
                 </tree>
             </field>
         </record>
-        <record model="ir.ui.view" id="proyecto_form_view">
+        <record model="ir.ui.view" id="documento_form_view">
             <field name="name">documento.form</field>
             <field name="model">presupuesto.documento</field>
             <field name="arch" type="xml">
