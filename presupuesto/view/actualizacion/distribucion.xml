@@ -29,7 +29,7 @@
             <field name="name">distribucion.form</field>
             <field name="model">presupuesto.distribucion</field>
             <field name="arch" type="xml">
-                <form string="Formulario de Distribucion de Presupuesto">
+                <form string="Formulario de Distribucion de Presupuesto" version="7.0">
                     <group colspan="3" col="3">
                         <group colspan="4" col="4">
                             <separator string="Distribucion de Presupuesto" />

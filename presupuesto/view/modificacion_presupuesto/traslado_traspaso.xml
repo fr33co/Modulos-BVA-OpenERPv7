@@ -29,7 +29,7 @@
             <field name="name">traslado.form</field>
             <field name="model">presupuesto.traslado</field>
             <field name="arch" type="xml">
-                <form string="Formulario de Traslado/Traspaso">
+                <form string="Formulario de Traslado/Traspaso" version="7.0">
                     <group colspan="6" col="6">
                         <separator string="Traslado/Traspaso" colspan="6"/>
                         <field name="tipo_doc" colspan="2" width="100" on_change="get_last_numero(tipo_doc)"/>

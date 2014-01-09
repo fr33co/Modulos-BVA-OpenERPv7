@@ -7,7 +7,7 @@ class Proyecto(osv.Model):
     _columns = {
         'codigo_proyecto' : fields.char(string="Codigo del Proyecto:",size=100, required=True),
         'proyecto' : fields.char(string="Nombre del Proyecto:",size=100, required=True),
-        'monto' : fields.float(string="Montosss:",size=100, required=True),
+        'monto' : fields.float(string="Montos:",size=100, required=True),
         'descripcion' : fields.text(string="Descripcion:",size=300, required=True),
     }
 

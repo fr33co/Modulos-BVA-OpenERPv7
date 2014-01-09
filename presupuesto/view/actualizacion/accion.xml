@@ -27,7 +27,7 @@
             <field name="name">accion.form</field>
             <field name="model">presupuesto.accion</field>
             <field name="arch" type="xml">
-                <form string="Formulario de Accion de Proyectos">
+                <form string="Formulario de Accion de Proyectos" version="7.0">
                     <group >
                         <separator string="Accion de Proyectos" colspan="4"/>
                         <field name="proyecto_id" on_change="on_change_proyecto(proyecto_id)"/>

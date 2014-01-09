@@ -23,7 +23,7 @@
             <field name="name">creditos.form</field>
             <field name="model">presupuesto.creditos</field>
             <field name="arch" type="xml">
-                <form string="Formulario de Creditos Adicionales">
+                <form string="Formulario de Creditos Adicionales" version="7.0">
                     <group colspan="6" col="6">
                         <separator string="Creditos Adicionales" colspan="6"/>
                         <field name="id_tipo_doc" colspan="2" width="100"/>

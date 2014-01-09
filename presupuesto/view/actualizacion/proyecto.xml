@@ -10,8 +10,8 @@
                 <p class="oe_view_nocontent_create">Registrar Proyectos</p>
             </field>
         </record>
-        
-<!--
+
+
         <record model="ir.ui.view" id="proyecto_tree_view">
             <field name="name">proyecto.tree</field>
             <field name="model">presupuesto.proyecto</field>
@@ -23,12 +23,12 @@
                 </tree>
             </field>
         </record>
-        
+
         <record model="ir.ui.view" id="proyecto_form_view">
             <field name="name">proyecto.form</field>
             <field name="model">presupuesto.proyecto</field>
             <field name="arch" type="xml">
-                <form string="Formulario de Proyectos">
+                <form string="Formulario de Proyectos" version="7.0">
                     <group>
                         <field name="codigo_proyecto"/>
                         <field name="proyecto" />
@@ -38,11 +38,10 @@
                 </form>
             </field>
         </record>
--->
 
         <menuitem id="main_presupuesto_menu" name="Presupuesto" />
         <menuitem id="actualizar_menu" name="Actualizar" parent="main_presupuesto_menu" />
         <menuitem id="proyectos_menu" name="Proyectos"  parent="actualizar_menu" action="proyecto_list_action" />
-        
+
     </data>
 </openerp>
