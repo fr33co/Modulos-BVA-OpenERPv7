@@ -10,7 +10,8 @@ class Distribucion(osv.Model):
         'codigo_accion' : fields.char(string="Codigo del Accion",size=11,readonly=False),
         'accion' : fields.many2one('presupuesto.accion','Accion',ondelete='cascade',required=True),
         'partida' : fields.char(string="Partida Presupuestaria",size=12, required=True),
-        'descripcion' : fields.char(string="Partida",size=300, required=True),
+        #'descripcion' : fields.char(string="Partida",size=300, required=True),
+        'descripcion' : fields.many2one('presupuesto.partidas','Partidad',ondelete='cascade',required=True),
         'monto_pre' : fields.float(string="Monto del Presupuesto",size=12, required=True),
         'aceptar' : fields.selection((('1','Ambos'), ('2','Compras'), ('3', 'Servicios')),'Aceptar orden de', required=True),
         'fecha' : fields.date(string="Fecha Apertura", required=True),
@@ -18,9 +19,7 @@ class Distribucion(osv.Model):
         'monto_proyecto' : fields.float(string="Monto del Proyecto",readonly=False),
     }
 
-    _defaults = {
-        'proyecto_id':lambda *a: 0,
-    }
+
     def on_change_accion(self, cr, uid, ids, accion,context=None):
         values = {}
         if not accion:
@@ -35,15 +34,30 @@ class Distribucion(osv.Model):
 
         return {'value' : values}
 
-    def on_change_partida(self, cr, uid, ids, partida, context=None):
+    def on_change_partida(self, cr, uid, ids, partida,tipo='select', context=None):
+
         values = {}
         if not partida:
             return values
+
         obj_partida  = self.pool.get('presupuesto.partidas')
-        srch_partida =  obj_partida.search(cr, uid, [('codigo','=', partida)])
-        rd_partida   = obj_partida.read(cr, uid, srch_partida, context=context)
-        descripcion  = rd_partida[0]['descripcion']
-        values.update({'descripcion' : descripcion,})
+        if tipo == 'cod_partida':
+            srch_partida =  obj_partida.search(cr, uid, [('codigo','=', partida)])
+            rd_partida   = obj_partida.read(cr, uid, srch_partida, context=context)
+            if not rd_partida:
+                id_part = 0
+            else:
+                id_part  = rd_partida[0]['id']
+            values.update({'descripcion' : id_part})
+        else:
+            srch_partida =  obj_partida.search(cr, uid, [('id','=', partida)])
+            rd_partida   = obj_partida.read(cr, uid, srch_partida, context=context)
+            if not rd_partida:
+                descripcion = None
+            else:
+                descripcion  = rd_partida[0]['codigo']
+            values.update({'partida' : descripcion})
+
         return {'value' : values}
 
     def on_change_disminuirmonto(self, cr, uid, ids, partida, context=None):
