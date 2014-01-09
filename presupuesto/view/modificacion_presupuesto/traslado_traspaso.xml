@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.actions.act_window" id="tras_tras_list_action">
+            <field name="name">Traslado/Traspaso</field>
+            <field name="res_model">presupuesto.traslado</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Actualizar Traslado/Traspaso</p>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="traslado_tree_view">
+            <field name="name">traslado.tree</field>
+            <field name="model">presupuesto.traslado</field>
+            <field name="arch" type="xml">
+                <tree string="Traslado/Traspaso">
+                    <field name="tipo_doc"/>
+                    <field name="numero"/>
+                    <field name="categoria"/>
+                    <field name="cod_presupuesto"/>
+                    <field name="motivo"/>
+                    <field name="aumen_dism"/>
+                    <field name="aumen_dism"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="traslado_form_view">
+            <field name="name">traslado.form</field>
+            <field name="model">presupuesto.traslado</field>
+            <field name="arch" type="xml">
+                <form string="Formulario de Traslado/Traspaso">
+                    <group colspan="6" col="6">
+                        <separator string="Traslado/Traspaso" colspan="6"/>
+                        <field name="tipo_doc" colspan="2" width="100" on_change="get_last_numero(tipo_doc)"/>
+                        <field name="numero"   colspan="2" width="100"/>
+                        <field name="fecha"    colspan="2" width="220"/>
+                    </group>
+                    <group colspan="6" col="6">
+                        <field name="oficio"           colspan="2" width="100"/>
+                        <field name="fecha_resolucion" colspan="2" width="100"/>
+                        <field name="motivo"           colspan="2" width="220"/>
+                    </group>
+                     <group colspan="6" col="6">
+                        <field name="categoria"          colspan="2" width="100"/>
+                        <field name="consulta_categoria" colspan="2" width="100"/>
+                        <field name="cod_presupuesto"    colspan="2" width="220"/>
+                    </group>
+                    <group colspan="8" col="8">
+                        <field name="monto_movi"     colspan="2" width="100"/>
+                        <field name="monto_movi1"    colspan="2" width="50" nolabel="1" readonly="1"/>
+                        <field name="aumen_dism"     colspan="2" width="50" nolabel="1"/>
+                        <field name="disponibilidad" colspan="2" width="275" readonly="1"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <menuitem id="main_presupuesto_menu" name="Presupuesto" />
+        <menuitem id="modificacion_presupuesto_menu" name="Modificacion Presupuestaria" parent="main_presupuesto_menu" />
+        <menuitem id="traslado_traspaso_menu" name="Traslado/Traspaso"  parent="modificacion_presupuesto_menu" action="tras_tras_list_action" />
+    </data>
+</openerp>
