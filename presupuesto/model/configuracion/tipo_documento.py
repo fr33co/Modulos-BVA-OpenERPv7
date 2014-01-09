@@ -15,16 +15,18 @@ class Documento(osv.Model):
 
     def _get_last_id(self, cr, uid, ids, context = None):
 
-        cr.execute("SELECT LTRIM(MAX(id_documento),'0') AS ultimo_id  FROM presupuesto_documento")
-        last_id = cr.fetchone()[0]
-        if last_id is None :
-             str_number = str(1)
-             last_id = str_number.rjust(6,'0')
-             return last_id
+        sfl_id       = self.pool.get('presupuesto.documento')
+        srch_id      = sfl_id.search(cr,uid,[])
+        rd_id        = sfl_id.read(cr, uid, srch_id, context=context)
+        if rd_id:
+            id_documento = rd_id[-1]['id_documento']
+            last_id      = id_documento.lstrip('0')
+            str_number   = str(int(last_id) + 1)
+            last_id      = str_number.rjust(6,'0')
         else :
-             str_number = str(int(last_id) + 1)
-             last_id = str_number.rjust(6,'0')
-             return last_id
+            str_number = '1'
+            last_id    = str_number.rjust(6,'0')
+        return last_id
     _defaults = {
         'id_documento' : _get_last_id
     }
