@@ -115,7 +115,28 @@
 							
 						</page>
 
+						<!-- Seccion 4 -->
+
+						<page string="Calificación / Observación">
+							
+							<group colspan="4">
+								<group string="">
+									<separator string="" colspan="4"/>
+									<separator string="" colspan="4"/>
+									<field name="calificacion_cuantitativa" placeholder="Calificación"/>
+									<field name="observacion_general" placeholder="Observación General"/>
+								</group>
+								<group string="">
+								
+									
+								</group>
+							</group>
+							
+						</page>
+
 					</notebook>
+
+					<label string="AV SUCRE, EDIF BIBLIOTECA VIRTUAL, N 26 PISO PB, LOCAL S/N URB, SAN ISIDRO, MARACAY EDO. ARAGUA-VENEZUELA TELF.: (0243)2336068 / EXT: 101" colspan="2"/>
 
 				</form>
 			</field>
