@@ -26,7 +26,7 @@
             <field name="name">documento.form</field>
             <field name="model">presupuesto.documento</field>
             <field name="arch" type="xml">
-                <form string="Formulario de Documentos">
+                <form string="Formulario de Documentos" version="7.0">
                     <group colspan="2" col="2">
                         <separator string="Documentos" colspan="2"/>
                         <field name="id_documento" readonly="1"/>
