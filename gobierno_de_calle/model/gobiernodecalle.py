@@ -19,6 +19,7 @@
 from datetime import datetime
 import time
 from openerp.osv import osv, fields
+from tools.translate import _
 
 ############################
 # Fondos de financiamiento #
@@ -47,6 +48,7 @@ class gdc_proyectos(osv.Model):
     _name = "gdc.proyectos"
     _rec_name = "actividad"
     _order="actividad"
+    _inherit = ['mail.thread', 'ir.needaction_mixin']
     
     def on_change_address_id(self, cr, uid, ids, address_id, context=None):
         """
@@ -175,7 +177,16 @@ class gdc_proyectos(osv.Model):
             if leave['date_start'] and leave['date_end']:
                 if leave['date_start'] > leave['date_end']:
                     return False
+        self.send_note(cr, uid, ids, context=context)
         return True
+        
+
+    def send_note(self, cr, uid, ids, context=None):
+        """
+        Envio de notificaciones al crearse y asignar un proyecto
+        """
+        post_vars = {'partner_ids': [(4, 3)], 'notified_partner_ids': [(3)]}
+        self.message_post(cr, uid, ids, _('Atender lo mas pronto posible'),_("Se le ha asignado"), subtype='mt_comment', context=context, **post_vars)
 
     _constraints = [
         (_check_dates_now, 'Error! La fecha de inicio debe ser mayor o igual a la fecha de creacion del proyecto', ['date_start']),
