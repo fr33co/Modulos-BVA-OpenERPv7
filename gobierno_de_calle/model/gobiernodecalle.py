@@ -185,8 +185,20 @@ class gdc_proyectos(osv.Model):
         """
         Envio de notificaciones al crearse y asignar un proyecto
         """
+        # Notificaciones
         post_vars = {'partner_ids': [(4, 3)], 'notified_partner_ids': [(3)]}
         self.message_post(cr, uid, ids, _('Atender lo mas pronto posible'),_("Se le ha asignado"), subtype='mt_comment', context=context, **post_vars)
+        # Email
+        mail_server_obj = self.pool.get('ir.mail_server')
+        mail_message_obj = self.pool.get('mail.message')
+        mail_mail_obj = self.pool.get('mail.mail')
+        for id in ids:
+            mail_message_id = mail_message_obj.create(cr, uid, {'email_from': 'from_add', 'model': 'gdc.proyectos', 'res_id': id, 'subject': 'subject_name', 'body': 'your_html_body'}, context=context)
+            mail_server_ids = mail_server_obj.search(cr, uid, [], context=context)
+            mail_mail_id = mail_mail_obj.create(cr, uid, {'mail_message_id': mail_message_id, 'mail_server_id': mail_server_ids and mail_server_ids[0], 'state': 'outgoing', 'email_from': 'from_add', 'email_to': 'to_add', 'body_html': 'your_html_body'}, context=context)
+            if mail_mail_id:
+                mail_mail_obj.send(cr, uid, [mail_mail_id], context=context)
+        return True
 
     _constraints = [
         (_check_dates_now, 'Error! La fecha de inicio debe ser mayor o igual a la fecha de creacion del proyecto', ['date_start']),
