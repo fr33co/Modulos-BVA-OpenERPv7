@@ -13,7 +13,7 @@
                 <field name="name">Lugar</field>
                 <field name="active">True</field>
             </record>
-            <record id="etiqueta3" model="res.partner.category">
+            <record id="etiqueta4" model="res.partner.category">
                 <field name="name">Inspector</field>
                 <field name="active">True</field>
             </record>
