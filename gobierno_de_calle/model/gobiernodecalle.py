@@ -188,7 +188,6 @@ class gdc_proyectos(osv.Model):
         # Notificaciones
         
         for users_not in self.read(cr, uid, ids, ['responsible_id', 'supervisor_id', 'description'], context=context):
-            print users_not
             responsible = users_not['responsible_id'][0]
             supervisor = users_not['supervisor_id'][0]
             supervisor2 = self.pool.get('res.users').read(cr, uid, supervisor, ['partner_id'], context=context)        
