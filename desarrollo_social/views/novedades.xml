@@ -25,6 +25,7 @@
 					<separator string="Novedad del Becado" colspan="4"/>
 					<field name="eje" nolabel="0" placeholder="Eje"/>
 					<field name="encargado" nolabel="0" placeholder="Encargado"/>
+					<field name="sede" nolabel="0" placeholder="Encargado"/>
 					<field name="fecha_actual" nolabel="0"/>
 					
 
@@ -35,9 +36,9 @@
 							<group colspan="4" col="3">
 								<group colspan="1" col="2">
 									<separator string="Datos personales" colspan="4"/>
-									<field name="ci" placeholder="C.I del Becado"/>
+									<field name="ci" placeholder="C.I del Becado" on_change="on_change_datos_personales(ci)"/>
 									<field name="nombres" placeholder="Nombres"/>
-									<field name="apellidos" placeholder="Apellidos"/>
+									
 									<field name="direccion" placeholder="Dirección de casa"/>
 									<field name="tlf_movil" placeholder="Teléfono movil"/>
 									<field name="correo" placeholder="Correo"/>
@@ -63,10 +64,11 @@
 			<field name="name">novedad del becado.tree</field>
 			<field name="model">novedades.becados</field>
 			<field name="arch" type="xml">
-				<tree string="Novedades del Becado" colors="red:duration&gt;5;" editable="bottom" toolbar="1">
+				<tree string="Novedades del Becado" colors="#FF0000:eje=='1';#169A12:eje=='2'" editable="bottom" toolbar="1">
 					<field name="ci"/>
+					<field name="eje"/>
 					<field name="nombres"/>
-					<field name="apellidos"/>
+					
 					<field name="duration" invisible="1"/>
 
 					<field name="novedad"/>

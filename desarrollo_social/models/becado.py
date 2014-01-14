@@ -59,6 +59,8 @@ class Becado(osv.Model):
 		'fecha_egreso' : fields.date(string="Fecha de Egreso", required=False),
 		'tipo_nomina' : fields.many2one("becados.tiponomina", "Tipo de Nómina", required = True),
 		'class_personal' : fields.many2one("becados.clasper", "Clasificación del Personal", required = False),
+		'area' : fields.many2one("becados.areas", string="Area de desempeño", required=True),
+		'sede' : fields.many2one("becados.sedes", string="Sede", required=True),
 		'cargo_desempenado' : fields.selection((('1','0243'),('2','0244')), "Cargo Desempeñado", required = False),
 		'edad' : fields.char(string="Edad", size = 3, required=False),
 		'asignacion' : fields.float(string="Asignación", required=True),

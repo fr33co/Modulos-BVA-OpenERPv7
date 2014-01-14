@@ -11,12 +11,61 @@ class Novedades(osv.Model):
 	_order = 'encargado'
 	_rec_name = 'encargado'
 	
+	def on_change_datos_personales(self, cr, uid, ids, becado, context=None):
+		#print becado
+		values = {}
+		mensaje = {}
+		
+		if not becado:
+			return values
+		obj_dp = self.pool.get('hr.employee')
+
+		busqueda = obj_dp.search(cr, uid, [('cedula','=',becado)])
+
+		datos = obj_dp.read(cr,uid,busqueda,context=context)
+		
+		if not datos:
+			#print "No existe intente de nuevo"
+			
+			mensaje = {
+					'title'   : "Novedades del Becado",
+					'message' : "Disculpe esta cedula no existe en la ficha de becado, intente de nuevo ",
+			}
+			
+			
+			values.update({
+				
+				'nombres' : None,
+				'direccion' : None,
+				'tlf_movil' : None,
+				'correo' : None,
+
+				})
+			return {'value' : values,'warning' : mensaje}
+			
+
+		else:
+			
+			values.update({
+				
+				'nombres' : datos[0]['name_related'],
+				'direccion' : datos[0]['direccion'],
+				'tlf_movil' : datos[0]['tlf_movil'],
+				'correo' : datos[0]['correo'],
+
+				})
+			return {'value' : values}
+			
+		return 0
+
+	
 	_columns = {
 		'encargado' : fields.char(string="Encargado de Eje:", size=256, required=True),
 		'eje' : fields.selection((('1','Eje metro'),('2','Eje sur'),('3','Eje este'),('4','Eje centro'),('5','Eje costa')), "Eje", required = True),
+		'sede' : fields.char(string="Sede", size=256, required=True),
 		'fecha_actual' : fields.date(string="Fecha de Actual", required=True, readonly=True),
-		'nombres' : fields.char(string="Nombres", size=256, required=True),
-		'apellidos' : fields.char(string="Apellidos", size=256, required=True),
+		'nombres' : fields.char(string="Nombre completo", size=256, required=True),
+		
 		'ci' : fields.char(string="C.I", size=256, required=True),
 		'novedad' : fields.char(string="Novedad", size=256, required=True),
 		'observacion' : fields.char(string="Observación", size=256, required=True),

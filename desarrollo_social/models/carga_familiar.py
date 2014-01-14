@@ -41,7 +41,6 @@ class Carga_familiar(osv.Model):
 		return {'value' : values}
 
 	def on_change_datos_personales(self, cr, uid, ids, becado, context=None):
-		#print cedula_becado
 		values = {}
 		if not becado:
 			return values
