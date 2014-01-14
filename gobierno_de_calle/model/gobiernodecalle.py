@@ -183,15 +183,14 @@ class gdc_proyectos(osv.Model):
 
     def send_note(self, cr, uid, ids, context=None):
         """
-        Envio de notificaciones al crearse y asignar un proyecto
+        Envio de notificaciones y correos electronicos al crearse y asignar un proyecto
         """
         # Notificaciones
-        
         for users_not in self.read(cr, uid, ids, ['responsible_id', 'supervisor_id', 'description', 'actividad'], context=context):
             responsible = users_not['responsible_id'][0]
             supervisor = users_not['supervisor_id'][0]
-            supervisor2 = self.pool.get('res.users').read(cr, uid, supervisor, ['partner_id'], context=context)        
-            responsible2 = self.pool.get('res.users').read(cr, uid, responsible, ['partner_id'], context=context)  
+            supervisor2 = self.pool.get('res.users').read(cr, uid, supervisor, ['partner_id', 'email'], context=context)        
+            responsible2 = self.pool.get('res.users').read(cr, uid, responsible, ['partner_id', 'email'], context=context)
             post_vars = {'partner_ids': [(4, supervisor2['partner_id'][0]), (4, responsible2['partner_id'][0])], 'notified_partner_ids': [(supervisor2['partner_id'][0], responsible2['partner_id'][0])]}
             self.message_post(cr, uid, ids, _(users_not['description']),_("Proyecto asignado! Atender!"), subtype='mt_comment', context=context, **post_vars)
             # Email
@@ -199,9 +198,9 @@ class gdc_proyectos(osv.Model):
             mail_message_obj = self.pool.get('mail.message')
             mail_mail_obj = self.pool.get('mail.mail')
             for id in ids:
-                mail_message_id = mail_message_obj.create(cr, uid, {'email_from': 'aguadarrama@bva.org.ve', 'model': 'gdc.proyectos', 'res_id': id, 'subject': users_not['actividad'], 'body': users_not['description']}, context=context)
+                mail_message_id = mail_message_obj.create(cr, uid, {'email_from': supervisor2['email'], 'model': 'gdc.proyectos', 'res_id': id, 'subject': users_not['actividad'], 'body': users_not['description']}, context=context)
                 mail_server_ids = mail_server_obj.search(cr, uid, [], context=context)
-                mail_mail_id = mail_mail_obj.create(cr, uid, {'mail_message_id': mail_message_id, 'mail_server_id': mail_server_ids and mail_server_ids[0], 'state': 'outgoing', 'email_from': 'aguadarrama@bva.org.ve', 'email_to': 'aguadarrama@bva.org.ve', 'body_html': users_not['description']}, context=context)
+                mail_mail_id = mail_mail_obj.create(cr, uid, {'mail_message_id': mail_message_id, 'mail_server_id': mail_server_ids and mail_server_ids[0], 'state': 'outgoing', 'email_from': supervisor2['email'], 'email_to': responsible2['email'], 'body_html': users_not['description']}, context=context)
                 if mail_mail_id:
                     mail_mail_obj.send(cr, uid, [mail_mail_id], context=context)
             return True
