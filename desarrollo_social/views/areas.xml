@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	
+	<data>
+			
+		<!--Accionador para el menu de tipo de empleado-->
+		<record model="ir.actions.act_window" id="accion_lista_areas">
+			<field name="name">Áreas</field>
+			<field name="res_model">becados.areas</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Agregue una nueva área</p>
+			</field>
+		</record>
+		<!--Accionador para el menu de tipo de empleado-->
+		
+		<record model="ir.ui.view" id="vista_formulario_areas">
+			<field name="name">areas.form</field>
+			<field name="model">becados.areas</field>
+			<field name="arch" type="xml"> 
+				<form string="Formulario de Áreas">
+					<group colspan="2">
+						<field name="area" nolabel="0" colspan="1"/>
+					</group>
+				</form>
+			</field>
+		</record>
+		
+		<menuitem id="menu_areas" name="Áreas" parent="menu_principal_mantenimiento" action="accion_lista_areas"/>
+			
+	</data>
+	
+</openerp>
+
+

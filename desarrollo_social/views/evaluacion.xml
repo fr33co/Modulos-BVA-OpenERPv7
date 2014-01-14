@@ -19,18 +19,30 @@
 			<field name="name">Instrumento de Evaluación del Personal Becado</field>
 			<field name="model">evaluacion.becados</field>
 			<field name="arch" type="xml">
-				<form string="Formulario de evaluación">
+				<form string="Formulario de evaluación" version="7.0">
+
+					<header>
+  						<button name="action_draft" type="object" string="Reset to draft"
+          states="confirmed,done" />
+  						<button name="action_confirm" type="object" string="Confirm"
+          states="draft" class="oe_highlight" />
+  						
+          				<field name="state" widget="statusbar" />
+  
+					</header>
 
 				<!-- Datos pertenecientes al Becado-->
-					<separator string="" colspan="4"/>
-					<field name="evaluado" nolabel="0" placeholder="Becado"/>
-					<field name="ci" nolabel="0" placeholder="Cédula del becado"/>
-					<field name="area" nolabel="0" placeholder="Area"/>
-					<field name="sede" nolabel="0" placeholder="Sede"/>
-					<field name="fecha_actual" nolabel="0"/>
-					<field name="evaluador" nolabel="0" placeholder="Evaluador"/>
-
-
+						<group colspan="2">
+						
+						<field name="ci" nolabel="0" placeholder="Cédula del becado" class="oe_inline" on_change="datos_becado(ci)"/>
+						<field name="evaluado" nolabel="0" placeholder="Becado" class="oe_inline"/>
+						<field name="area" nolabel="0" placeholder="Area" class="oe_inline"/>
+						<field name="sede" nolabel="0" placeholder="Sede" class="oe_inline"/>
+						<field name="fecha_actual" nolabel="0" class="oe_inline"/>
+						<field name="evaluador" nolabel="0" placeholder="Evaluador" class="oe_inline"/>
+						<field name="total" class="oe_inline"/>
+					</group>
+					
 				<!-- Datos Tecnicos-->
 					<separator string="" colspan="4"/>
 					
@@ -40,12 +52,13 @@
 							
 							<group colspan="4">
 								<group string="">
-									<field name="puntaje_higiene" placeholder="Puntaje de Higiene"/>
-									<field name="puntaje_uniforme" placeholder="Puntaje de Uniforme"/>
-									<field name="puntaje_rpersonales" placeholder="Puntaje de Relaciones Personales"/>
-									<field name="puntaje_cortesia" placeholder="Puntaje de Cortesia"/>
-									<field name="puntaje_comunicacion" placeholder="Puntaje de Comunicación"/>
-									<field name="sub_total_1" placeholder="Sub total"/>
+									<field name="puntaje_higiene" placeholder="Puntaje de Higiene" on_change="promedio_personal(puntaje_higiene,puntaje_uniforme,puntaje_rpersonales,puntaje_cortesia,puntaje_comunicacion,sub_total_1,sub_total_2,sub_total_3,sub_total_4)"/>
+									<field name="puntaje_uniforme" placeholder="Puntaje de Uniforme" on_change="promedio_personal(puntaje_higiene,puntaje_uniforme,puntaje_rpersonales,puntaje_cortesia,puntaje_comunicacion,sub_total_1,sub_total_2,sub_total_3,sub_total_4)"/>
+									<field name="puntaje_rpersonales" placeholder="Puntaje de Relaciones Personales" on_change="promedio_personal(puntaje_higiene,puntaje_uniforme,puntaje_rpersonales,puntaje_cortesia,puntaje_comunicacion,sub_total_1,sub_total_2,sub_total_3,sub_total_4)"/>
+									<field name="puntaje_cortesia" placeholder="Puntaje de Cortesia" on_change="promedio_personal(puntaje_higiene,puntaje_uniforme,puntaje_rpersonales,puntaje_cortesia,puntaje_comunicacion,sub_total_1,sub_total_2,sub_total_3,sub_total_4)"/>
+									<field name="puntaje_comunicacion" placeholder="Puntaje de Comunicación" on_change="promedio_personal(puntaje_higiene,puntaje_uniforme,puntaje_rpersonales,puntaje_cortesia,puntaje_comunicacion,sub_total_1,sub_total_2,sub_total_3,sub_total_4)"/>
+									
+									<field name="sub_total_1" placeholder="Sub total" on_change="promedio_personal(puntaje_higiene,puntaje_uniforme,puntaje_rpersonales,puntaje_cortesia,puntaje_comunicacion,sub_total_1,sub_total_2,sub_total_3,sub_total_4)"/>
 								</group>
 								<group string="">
 								
@@ -57,16 +70,15 @@
 
 						<!-- Seccion 2 -->
 
-
 						<page string="B : Permanencia en la sala">
 							
 							<group colspan="4">
 								<group string="">
-									<field name="puntaje_atencion" placeholder="Puntaje de Atención al Cliente"/>
-									<field name="puntaje_resolucion" placeholder="Puntaje de Resolución de Problemas"/>
-									<field name="puntaje_uso" placeholder="Puntaje de Uso de Equipos Personales e Instituciones"/>
+									<field name="puntaje_atencion" placeholder="Puntaje de Atención al Cliente" on_change="porcentaje_sala(puntaje_atencion,puntaje_resolucion,puntaje_uso,sub_total_1,sub_total_2,sub_total_3,sub_total_4)"/>
+									<field name="puntaje_resolucion" placeholder="Puntaje de Resolución de Problemas" on_change="porcentaje_sala(puntaje_atencion,puntaje_resolucion,puntaje_uso,sub_total_1,sub_total_2,sub_total_3,sub_total_4)"/>
+									<field name="puntaje_uso" placeholder="Puntaje de Uso de Equipos Personales e Instituciones" on_change="porcentaje_sala(puntaje_atencion,puntaje_resolucion,puntaje_uso,sub_total_1,sub_total_2,sub_total_3,sub_total_4)"/>
 									
-									<field name="sub_total_2" placeholder="Sub total"/>
+									<field name="sub_total_2" placeholder="Sub total" on_change="porcentaje_sala(puntaje_atencion,puntaje_resolucion,puntaje_uso,sub_total_1,sub_total_2,sub_total_3,sub_total_4)"/>
 								</group>
 								<group string="">
 								
@@ -82,10 +94,9 @@
 							
 							<group colspan="4">
 								<group string="">
-									<field name="puntaje_normas" placeholder="Puntaje de Atención al Cliente"/>
+									<field name="puntaje_normas" placeholder="Normas y procedimientos" on_change="porcentaje_organizacion(puntaje_normas,sub_total_1,sub_total_2,sub_total_3,sub_total_4)"/>
 									
-									
-									<field name="sub_total_3" placeholder="Sub total"/>
+									<field name="sub_total_3" placeholder="Sub total" on_change="porcentaje_organizacion(puntaje_normas,sub_total_1,sub_total_2,sub_total_3,sub_total_4)"/>
 								</group>
 								<group string="">
 								
@@ -101,11 +112,11 @@
 							
 							<group colspan="4">
 								<group string="">
-									<field name="puntaje_manejo" placeholder="Manejo de las Herramientas Tecnológicas"/>
-									<field name="puntaje_iniciativa" placeholder="Iniciativa y Creatividad"/>
-									<field name="puntaje_pertenencia" placeholder="Sentido de Pertenencia con la Institución"/>
+									<field name="puntaje_manejo" placeholder="Manejo de las Herramientas Tecnológicas" on_change="porcentaje_desempeno_actividades(puntaje_manejo,puntaje_iniciativa,puntaje_pertenencia,sub_total_1,sub_total_2,sub_total_3,sub_total_4)"/>
+									<field name="puntaje_iniciativa" placeholder="Iniciativa y Creatividad" on_change="porcentaje_desempeno_actividades(puntaje_manejo,puntaje_iniciativa,puntaje_pertenencia,sub_total_1,sub_total_2,sub_total_3,sub_total_4)"/>
+									<field name="puntaje_pertenencia" placeholder="Sentido de Pertenencia con la Institución" on_change="porcentaje_desempeno_actividades(puntaje_manejo,puntaje_iniciativa,puntaje_pertenencia,sub_total_1,sub_total_2,sub_total_3,sub_total_4)"/>
 									
-									<field name="sub_total_4" placeholder="Sub total"/>
+									<field name="sub_total_4" placeholder="Sub total" on_change="porcentaje_desempeno_actividades(puntaje_manejo,puntaje_iniciativa,puntaje_pertenencia,sub_total_1,sub_total_2,sub_total_3,sub_total_4)"/>
 								</group>
 								<group string="">
 								
@@ -115,7 +126,7 @@
 							
 						</page>
 
-						<!-- Seccion 4 -->
+						<!-- Seccion 5 -->
 
 						<page string="Calificación / Observación">
 							
@@ -142,21 +153,21 @@
 			</field>
 		</record>
 
-		<!--<record model="ir.ui.view" id="carga_familiar_view">
-			<field name="name">novedad del becado.tree</field>
-			<field name="model">novedades.becados</field>
+		<record model="ir.ui.view" id="evaluacion_view">
+			<field name="name">evaluacion del becado.tree</field>
+			<field name="model">evaluacion.becados</field>
 			<field name="arch" type="xml">
-				<tree string="Novedades del Becado" colors="red:duration&gt;5;" editable="bottom" toolbar="1">
+				<tree string="Instrumento de Evaluación" colors="#FF0000:calificacion_cuantitativa=='1';#169A12:calificacion_cuantitativa=='2'">
 					<field name="ci"/>
-					<field name="nombres"/>
-					<field name="apellidos"/>
-					<field name="duration" invisible="1"/>
-
-					<field name="novedad"/>
-					<field name="observacion"/>
+					<field name="evaluado"/>
+					<field name="area"/>
+					<field name="sede"/>
+					<field name="evaluador"/>
+					<field name="calificacion_cuantitativa"/>
+					<field name="fecha_actual"/>
 				</tree>
 			</field>
-		</record>-->
+		</record>
 
 
 		

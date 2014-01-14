@@ -66,7 +66,13 @@
 				<field name="fecha_ingreso" position="after">
 					<field name="fecha_egreso"/>
 				</field>
+				<field name="department_id" position="before">
+					<field name="sede"/>
+				</field>
 				<field name="department_id" position="after">
+					<field name="area"/>
+				</field>
+				<field name="area" position="after">
 					<field name="tipo_nomina"/>
 				</field>
 <!--
@@ -105,10 +111,10 @@
 					<field name="zapato" class="oe_inline"/>
 				</field>
 				<field name="zapato" position="after">
-					<field name="caja_ahorro" class="oe_inline"/>
+					<field name="caja_ahorro" class="oe_inline" groups="base.group_hr_manager"/>
 				</field>
 				<field name="caja_ahorro" position="after">
-					<field name="prima_responsabilidad" class="oe_inline"/>
+					<field name="prima_responsabilidad" class="oe_inline" groups="base.group_hr_manager"/>
 				</field>
 				<field name="direccion" position="after">
 					<field name="cne"/>
@@ -125,7 +131,12 @@
 							<tree string="Registrar Familiares">
 							 <field name="cedula_familiar"/>
 							 <field name="primer_nombres_familiar"/>
-							 <field name="primer_apellido_familiar"/>
+							 <field name="primer_apellido_familiar"/>							 
+							 <field name="parentesco"/>							 
+							 <field name="telefono_fijo"/>							 
+							 <field name="telefono_movil"/>							 
+							 <field name="correo"/>							 
+							 <field name="direccion"/>							 
 							</tree>
 						</field>
 					</page>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	
+	<data>
+			
+		<!--Accionador para el menu de tipo de empleado-->
+		<record model="ir.actions.act_window" id="accion_lista_sedes">
+			<field name="name">Sedes</field>
+			<field name="res_model">becados.sedes</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Agregue una nueva sede</p>
+			</field>
+		</record>
+		<!--Accionador para el menu de tipo de empleado-->
+		
+		<record model="ir.ui.view" id="vista_formulario_sedes">
+			<field name="name">sedes.form</field>
+			<field name="model">becados.sedes</field>
+			<field name="arch" type="xml"> 
+				<form string="Formulario de Sedes">
+					<group colspan="2">
+						<field name="sede" nolabel="0" colspan="1"/>
+					</group>
+				</form>
+			</field>
+		</record>
+		
+		<menuitem id="menu_sedes" name="Sedes" parent="menu_principal_mantenimiento" action="accion_lista_sedes"/>
+			
+	</data>
+	
+</openerp>
+
+

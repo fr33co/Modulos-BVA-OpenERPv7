@@ -6,6 +6,8 @@ import clasPer
 import tipoEmp
 import gradoInstruccion
 import grupoSanguineo
+import sedes
+import areas
 import novedades
 import proceso_seleccion
 import contrato
