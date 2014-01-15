@@ -274,7 +274,6 @@ TAREAS
                         <group>
                             <field name="project_id2" on_change="onchange_proyecto(project_id2)"/>
                             <field name="name_tarea" />
-                            <field name="responsible_id" />
                             <field name="date_start_tarea" on_change="onchange_date_start_tarea(date_start_tarea)"/>
                             <field name="date_end_tarea" on_change="onchange_date_end_tarea(date_end_tarea)"/>
                         </group>

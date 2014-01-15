@@ -250,20 +250,19 @@ class gdc_tareas(osv.Model):
     def onchange_proyecto(self, cr, uid, ids, project_id2, context=None):
         res = {}
         gdc_project = self.pool.get('gdc.proyectos')
-        records = self.browse(cr, uid, ids, context=context)
-        for r in records:
-            gdc_project_src = gdc_project.read(cr, uid, r.project_id2.id, ['supervisor_id'], context)
-            if gdc_project_src['supervisor_id']:
-                self.write(cr, uid, ids, {'supervisor_id': gdc_project_src['supervisor_id'][0]})
-            return res
+        proyecto_brw = gdc_project.browse(cr, uid, project_id2, context=context)
+        proyecto_rd = gdc_project.read(cr, uid, proyecto_brw.id, ['supervisor_id', 'responsible_id'], context=context)
+        if proyecto_rd['supervisor_id'] and proyecto_rd['responsible_id']:
+            self.write(cr, uid, ids, {'supervisor_id': proyecto_rd['supervisor_id'][0], 'responsible_id': proyecto_rd['responsible_id'][0]})
+        return res
             
     def onchange_date_start_tarea(self, cr, uid, ids, date_start_tarea, context=None):
         res = {}
         gdc_project = self.pool.get('gdc.proyectos')
         records = self.browse(cr, uid, ids, context=context)
         for r in records:
-            gdc_project_src = gdc_project.read(cr, uid, r.project_id2.id, ['date_start'], context)
-            if date_start_tarea < gdc_project_src['date_start']:
+            gdc_project_rd = gdc_project.read(cr, uid, r.project_id2.id, ['date_start'], context)
+            if date_start_tarea < gdc_project_rd['date_start']:
                 res['warning'] = {'title': "Cuidado: Error!",'message' : "No puede seleccionar fechas menores a la inicio del proyecto.",}
                 return res
             return res
@@ -273,8 +272,8 @@ class gdc_tareas(osv.Model):
         gdc_project = self.pool.get('gdc.proyectos')
         records = self.browse(cr, uid, ids, context=context)
         for r in records:
-            gdc_project_src = gdc_project.read(cr, uid, r.project_id2.id, ['date_end'], context)
-            if date_end_tarea > gdc_project_src['date_end']:
+            gdc_project_rd = gdc_project.read(cr, uid, r.project_id2.id, ['date_end'], context)
+            if date_end_tarea > gdc_project_rd['date_end']:
                 res['warning'] = {'title': "Cuidado: Error!",'message' : "No puede seleccionar fechas mayores a la final del proyecto.",}
                 return res
             return res
@@ -306,7 +305,7 @@ class gdc_tareas(osv.Model):
         'progreso_tarea': fields.float(string="Progreso de tarea"), 
         'dias_tarea': fields.function(_compute_days_tarea, type='char', string='Dias asignados a la tarea'),
         'responsible_id' : fields.many2one('res.users', 'Responsable asignado', domain=['|',('is_company','=',False),('category_id.name','ilike','Responsable')], required=False),
-        'supervisor_id' : fields.many2one('res.company', 'Ente Supervisor', domain=[('category_id.name','ilike','Supervisor')], required=True),
+        'supervisor_id' : fields.many2one('res.company', 'Ente Supervisor', domain=[('category_id.name','ilike','Supervisor')], required=False),
         'members_tareas': fields.many2many('res.company', 'project_company_rel2', 'project_id2', 'uid2', 'Equipos de trabajo'),
         'description': fields.text('Description'),
         'informe_tareas': fields.binary('Informe'),
