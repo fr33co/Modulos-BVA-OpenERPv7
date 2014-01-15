@@ -186,13 +186,14 @@ class gdc_proyectos(osv.Model):
         Envio de notificaciones y correos electronicos al crearse y asignar un proyecto
         """
         # Notificaciones
-        for users_not in self.read(cr, uid, ids, ['responsible_id', 'supervisor_id', 'description', 'actividad'], context=context):
+        for users_not in self.read(cr, uid, ids, ['responsible_id', 'supervisor_id', 'description', 'actividad', 'priority'], context=context):
             responsible = users_not['responsible_id'][0]
             supervisor = users_not['supervisor_id'][0]
+            prioridad = users_not['priority']
             supervisor2 = self.pool.get('res.users').read(cr, uid, supervisor, ['partner_id', 'email'], context=context)        
             responsible2 = self.pool.get('res.users').read(cr, uid, responsible, ['partner_id', 'email'], context=context)
             post_vars = {'partner_ids': [(4, supervisor2['partner_id'][0]), (4, responsible2['partner_id'][0])], 'notified_partner_ids': [(supervisor2['partner_id'][0], responsible2['partner_id'][0])]}
-            self.message_post(cr, uid, ids, _(users_not['description']),_("Proyecto asignado! Atender!"), subtype='mt_comment', context=context, **post_vars)
+            self.message_post(cr, uid, ids, _(users_not['description']),_("Proyecto asignado con prioridad " + prioridad), subtype='mt_comment', context=context, **post_vars)
             # Email
             mail_server_obj = self.pool.get('ir.mail_server')
             mail_message_obj = self.pool.get('mail.message')
