@@ -1,7 +1,9 @@
+import random
 from openerp.osv import osv, fields
 
+
 class registrar_salas(osv.Model):
-	_name = "registrar.salas"
+	_name = "registrar"
 	_order = 'sala_nombre'
 	_rec_name = 'sala_nombre'
 	_columns = {
@@ -16,9 +18,28 @@ class registrar_salas(osv.Model):
 	'direccion' : fields.char(string="Direccion", size=100, required=True),
 	'observaciones' : fields.char(string="Observaciones"),		
 	}
+
+	def _get_last_id(self, cr, uid, ids, context = None):
+
+                sfl_id       = self.pool.get('registrar')
+                srch_id      = sfl_id.search(cr,uid,[])
+                rd_id        = sfl_id.read(cr, uid, srch_id, context=context)
+                if rd_id:
+                    id_documento = rd_id[-1]['c_sala']
+                    c_sala = id_documento[2:]
+                    last_id      = c_sala.lstrip('0')
+                    str_number   = str(int(last_id) + 1)
+                    last_id      = str_number.rjust(5,'0')
+                    codigo      = 'CS'+last_id
+                else :
+                    str_number = '1'
+                    last_id      = str_number.rjust(5,'0')
+                    codigo      = 'CS'+last_id
+                return codigo
+
 	_defaults = {
-	'c_sala': lambda obj, cr, uid, context: obj.pool.get('ir.sequence').get(cr, uid, 'registrar.salas'),
-	}
+        'c_sala' : _get_last_id
+    }
 
 	def on_change_direccion(self, cr, uid, ids, sede, context=None):
 

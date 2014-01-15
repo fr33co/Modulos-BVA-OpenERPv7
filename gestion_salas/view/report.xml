@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <report id="salas_report" string="Imprimir Salas" model="registrar" name="reporte salas"
+         rml="salas/report/reporte_salas.rml" />
+    </data>
+</openerp>

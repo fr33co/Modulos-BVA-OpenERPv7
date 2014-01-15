@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+		<!--Registrar Actividades-->
+		<record model="ir.actions.act_window" id="actividades_list_action">
+		    <field name="name">actividades.bva</field>
+		    <field name="res_model">actividades</field>
+		    <field name="view_type">form</field>
+		    <field name="view_mode">tree,form</field>
+		    <field name="help" type="html">
+				<p class="oe_view_nocontent_create">Registrar nueva Actividad</p>
+		    </field>
+		</record>
+
+		<menuitem id="configuraciones_menu" name="Configuraciones" parent="main_Salas_menu" />
+		<menuitem id="actividades_menu" name="Actividades" parent="configuraciones_menu" action="actividades_list_action" /> 
+
+  </data>
+</openerp>

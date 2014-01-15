@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
   <data>
-  		<record id="seq_type_registrar_salas" model="ir.sequence.type">
+  		<!-- <record id="seq_type_registrar_salas" model="ir.sequence.type">
             <field name="name">Registro de sala</field>
-            <field name="code">registrar.salas</field>
+            <field name="code">registrar</field>
         </record>
         <record id="seq_rma_repair" model="ir.sequence">
-            <field name="name">Registro de sala</field>
-            <field name="code">registrar.salas</field>
+            <field name="name">Registro.sala</field>
+            <field name="code">registrar</field>
             <field name="prefix">CS</field>
             <field name="padding">5</field>
-        </record>
+        </record> -->
 
 		<!--Registrar Salas-->
 		<record model="ir.actions.act_window" id="salas_list_action">
 		    <field name="name">Registrar Salas</field>
-		    <field name="res_model">registrar.salas</field>
+		    <field name="res_model">registrar</field>
 		    <field name="view_type">form</field>
 		    <field name="view_mode">tree,form</field>
 		    <field name="help" type="html">
@@ -25,7 +25,7 @@
 
 		<record model="ir.ui.view" id="salas_form_view">
 			<field name="name">registrar.form</field>
-			<field name="model">registrar.salas</field>
+			<field name="model">registrar</field>
 			<field name="arch" type="xml">
 				<form string="Registrar Form">
 					<group string="Informacion" col="3" colspan="3" >
@@ -56,7 +56,7 @@
 
 		<record model="ir.ui.view" id="sala_tree_view">
 			<field name="name">registrar.tree</field>
-			<field name="model">registrar.salas</field>
+			<field name="model">registrar</field>
 			<field name="arch" type="xml">
 				<tree string=" salas.Tree">
 							<field name="c_sala" />
@@ -71,6 +71,6 @@
 		<menuitem id="main_Salas_menu" name="Gestion de Salas" /> 
 		<menuitem id="Gestion_Salas_menu" name="Gestion de Salas" parent="main_Salas_menu" />
 		<menuitem id="Salas_menu" name="Salas" parent="Gestion_Salas_menu" action="salas_list_action" /> 
-		
+
   </data>
 </openerp>
