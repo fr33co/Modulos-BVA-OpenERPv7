@@ -11,6 +11,8 @@
 		'view/solicitud_salas.xml',
 		'view/salas.xml',
 		'view/sedes.xml',
-		#'view/info_opcional.xml'
+		'view/report.xml',
+		'view/reporte_solicitud.xml',
+		'view/actividades.xml',
 	],		
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 	<data>
-		<record id="seq_type_solicitud_reclamos" model="ir.sequence.type">
+		<!-- <record id="seq_type_solicitud_reclamos" model="ir.sequence.type">
             <field name="name">Codigo de Sedes BV</field>
             <field name="code">sedes2</field>
         </record>
@@ -10,7 +10,7 @@
             <field name="code">sedes2</field>
             <field name="prefix">BV</field>
             <field name="padding">5</field>
-        </record>
+        </record> -->
 		<!--Menu lista de reclamos -->
 		<record model="ir.actions.act_window" id="sedes_list_action">
 		    <field name="name">sedes.bva</field>

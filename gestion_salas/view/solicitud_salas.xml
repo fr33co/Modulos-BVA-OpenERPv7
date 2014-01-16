@@ -2,16 +2,16 @@
 <openerp>
   <data>
  		<!-- ###########  Modelo de secuencia de numero de solicitud #################### -->
-		<record id="seq_type_solicitud_salas" model="ir.sequence.type">
+		<!-- <record id="seq_type_solicitud_salas" model="ir.sequence.type">
             <field name="name">Solicitud de sala</field>
             <field name="code">solicitar.sala</field>
         </record>
         <record id="seq_rma_repair" model="ir.sequence">
-            <field name="name">Solicitud de sala</field>
+            <field name="name">Solicitud.sala</field>
             <field name="code">solicitar.sala</field>
             <field name="prefix">SS</field>
             <field name="padding">5</field>
-        </record>
+        </record> -->
         
 		<!--Solicitud de Salas-->
 		 <record model="ir.actions.act_window" id="solicitud_list_action">
@@ -30,14 +30,22 @@
 			<field name="model">solicitar.sala</field>
 			<field name="arch" type="xml">
 				<form string="Solicitud Form">
+				<!--	<header>
+						<button name="action_solicitud" type="object" string="Tramitando Solicitud" 
+						 states="Validada,Rechazada" />
+						<button name="action_validada" type="object" string="Solicitud Validada" 
+						 states="Rechazada" class="oe_highlight" />
+						<button name="action_rechazada" type="object" string="Solicitud Rechazada"
+						 states="Solicitud,Validada" class="oe_highlight"/>
+						<field name="states" widget="statusbar" />
+					</header>-->
 					<group col="3" colspan="3" >
 						<group string="Datos Personales" colspan="1">
+							<field name="cedula" on_change="on_change_cedula(cedula)"/>
 							<field name="nombre" />
 							<field name="apellido" />
-							<field name="cedula" />
 							<field name="telefono" />
 							<field name="celular" />
-							<field name="correo" />
 						</group>
 						<group string="Reservacion" colspan="1">
 							<field name="fh_inicio" on_change="onchange_fh_inicio(fh_inicio)"/>
@@ -50,8 +58,8 @@
 							<field name="f_solicitud" />
 						</group>
 					</group>
-					<group colspan="4">
-						<field name="descripcion" colspan="4"/>
+					<group colspan="3">
+						<field name="descripcion" colspan="2"/>
 					</group>
 					<notebook colspan="4">
 						<page string="Direccion"  >
@@ -72,17 +80,17 @@
 						<page name="info_opcional" string="Informacion Opcional">
 							<field name="facebook"/>
 							<field name="twitter" />
+							<field name="correo" />
 						</page>
 					</notebook>
 				</form>
 			</field>			
 		</record>
-
-		<record model="ir.ui.view" id="solicitud_sala_tree_view">
-			<field name="name">solicitar.tree</field>
+		<record model="ir.ui.view" id="solicitud_tree_view">
+			<field name="name">solicitar tree</field>
 			<field name="model">solicitar.sala</field>
 			<field name="arch" type="xml">
-				<tree string="solicitud Tree">
+				<tree string=" salas.Tree">
 					<field name="c_solicitud" />
 					<field name="salas" />
 					<field name="fh_inicio" />
@@ -103,10 +111,25 @@
                 </calendar>
             </field>
         </record>
+
+        <record model="ir.ui.view" id="buscar_solicitudes_id">
+			<field name="name">solicitud.salas.search</field>
+			<field name="model">solicitar.sala</field>
+			<field name="arch" type="xml">		
+				<search string="Busqueda Solicitudes de salas BVA">
+					<filter name="solicitudes" domain="[('c_solicitud','=', uid)]" string="Solicitudes de salas" icon="terp-partner" />
+					<field name="c_solicitud" />
+					<field name="estado" />
+					<field name="ciudad" />
+					<field name="salas" />
+				</search>
+			</field>			
+		</record>
         
 		<menuitem id="main_Salas_menu" name="Gestion de Salas" /> 
 		<menuitem id="Gestion_Salas_menu" name="Gestion de Salas" parent="main_Salas_menu" />
 		<menuitem id="Solicitudes_menu" name="Solicitudes de Sala" parent="Gestion_Salas_menu" action="solicitud_list_action" />
+		<!-- <menuitem id="Salas_menu1" name="Salas" parent="Gestion_Salas_menu" action="salas_list_action" /> -->
 		
   </data>
 </openerp>
