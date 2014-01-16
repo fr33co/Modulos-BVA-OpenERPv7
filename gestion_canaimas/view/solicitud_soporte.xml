@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+        
+		<!--Solicitud de Soporte Técnico para Canaimitas-->
+		 <record model="ir.actions.act_window" id="solicitud_canaima_list_action">
+		    <field name="name">Solicitud de Soporte</field>
+		    <field name="res_model">solicitud</field>
+		    <field name="view_type">form</field>
+		    <field name="view_mode">tree,form,calendar</field>
+		    <field name="help" type="html">
+				<p class="oe_view_nocontent_create">Crear solicitud para el prestamo de una sala</p>
+		    </field>
+		</record>
+
+		<!--Vista formulario Solicitud -->
+		<record model="ir.ui.view" id="solicitud_form_view">
+			<field name="name">solicitud.form</field>
+			<field name="model">solicitud</field>
+			<field name="arch" type="xml">
+				<form string="Solicitud Form">
+					<field name="c_solicitud" />
+					<field name="f_solicitud" />
+					<field name="f_entrega" on_change="onchange_fh_entrega(f_entrega)"/>
+					<group col="4" colspan="4" >
+						<group string="Datos del Alumno" colspan="1">
+							<field name="serial" placeholder="Serial de la Canaimita" />
+							<field name="modelo" placeholder="Modelo de la Canaimita" />
+							<field name="nombre" placeholder="Nombre del Alumno"/>
+							<field name="apellido" placeholder="Apellido del Alumno"/>
+							<field name="escuela" placeholder="Escuela del Alumno"/>
+							<field name="municipio" placeholder="Municipio del Alumno" />
+							<field name="parroquia" placeholder="Parroquia del Alumno"/>
+							<field name="direccion_r" colspan="2"  placeholder="Dirección de la escuela"/>
+						</group>
+						<group string="Datos del Representante" colspan="1">
+							<field name="nombre_r" placeholder="Nombre del Representante" />
+							<field name="apellido_r" placeholder="Apellido del Representante" />
+							<field name="cedula" placeholder="Cédula del Representante" />
+							<field name="telefono"  placeholder="Teléfono del Representante"/>
+							<field name="direccion_r" colspan="2"  placeholder="Dirección del Representante"/>
+						</group>
+						<group string="Chequeo de Componentes" colspan="1">
+							<field name="canaimita" />
+							<field name="cargador" />
+							<field name="bateria" />
+							<field name="caja" />
+							<field name="contrato" />
+						</group>
+					</group>
+					<group colspan="3">
+						<field name="descripcion" colspan="2"  placeholder="Descripción de la falla o averia"/>
+					</group>
+				</form>
+			</field>			
+		</record>
+
+		<record model="ir.ui.view" id="solicitud_tree_view">
+			<field name="name">solicitar tree</field>
+			<field name="model">solicitud</field>
+			<field name="arch" type="xml">
+				<tree string=" salas.Tree">
+					<field name="c_solicitud" />
+					<field name="cedula" />
+					<field name="f_solicitud" />
+					<field name="f_entrega" />
+				</tree>
+			</field>			
+		</record>
+
+        <record model="ir.ui.view" id="buscar_solicitudes_id">
+			<field name="name">solicitud.soporte.search</field>
+			<field name="model">solicitud</field>
+			<field name="arch" type="xml">		
+				<search string="Busqueda Solicitudes de soporte Canaimita">
+					<filter name="solicitudes" domain="[('c_solicitud','=', uid)]" string="Solicitudes de soporte" icon="terp-partner" />
+					<field name="c_solicitud" />
+					<field name="f_solicitud" />
+					<field name="f_entrega" />
+				</search>
+			</field>			
+		</record>
+        
+		<menuitem id="main_canaima_menu" name="Gestion de Canaimas" /> 
+		<menuitem id="soporte_canaima_menu" name="Solicitud de Soporte" parent="main_canaima_menu" />
+		<menuitem id="solicitudes_menu" name="Registrar Solicitud" parent="soporte_canaima_menu" action="solicitud_canaima_list_action" />
+		
+  </data>
+</openerp>
