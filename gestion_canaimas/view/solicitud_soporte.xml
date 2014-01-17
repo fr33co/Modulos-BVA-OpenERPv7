@@ -21,7 +21,8 @@
 				<form string="Solicitud Form">
 					<field name="c_solicitud" />
 					<field name="f_solicitud" />
-					<field name="f_entrega" on_change="onchange_fh_entrega(f_entrega)"/>
+					<field name="f_entrega" />
+					<field name="estado" />
 					<group col="4" colspan="4" >
 						<group string="Datos del Alumno" colspan="1">
 							<field name="serial" placeholder="Serial de la Canaimita" />
@@ -30,7 +31,7 @@
 							<field name="apellido" placeholder="Apellido del Alumno"/>
 							<field name="escuela" placeholder="Escuela del Alumno"/>
 							<field name="municipio" placeholder="Municipio del Alumno" />
-							<field name="parroquia" placeholder="Parroquia del Alumno"/>
+							<field name="parroquia" placeholder="Parroquia del Alumno" domain="[('municipio','=',municipio)]"/>
 							<field name="direccion_r" colspan="2"  placeholder="Dirección de la escuela"/>
 						</group>
 						<group string="Datos del Representante" colspan="1">
@@ -61,9 +62,15 @@
 			<field name="arch" type="xml">
 				<tree string=" salas.Tree">
 					<field name="c_solicitud" />
-					<field name="cedula" />
-					<field name="f_solicitud" />
-					<field name="f_entrega" />
+					<field name="serial" />
+					<field name="modelo" />
+					<field name="nombre" />
+					<field name="apellido" />
+					<field name="escuela" />
+					<field name="nombre_r" />
+					<field name="apellido_r" />
+					<field name="telefono" />
+					<field name="descripcion" />
 				</tree>
 			</field>			
 		</record>
@@ -75,8 +82,15 @@
 				<search string="Busqueda Solicitudes de soporte Canaimita">
 					<filter name="solicitudes" domain="[('c_solicitud','=', uid)]" string="Solicitudes de soporte" icon="terp-partner" />
 					<field name="c_solicitud" />
-					<field name="f_solicitud" />
-					<field name="f_entrega" />
+					<field name="serial" />
+					<field name="modelo" />
+					<field name="nombre" />
+					<field name="apellido" />
+					<field name="escuela" />
+					<field name="nombre_r" />
+					<field name="apellido_r" />
+					<field name="telefono" />
+					<field name="descripcion" />
 				</search>
 			</field>			
 		</record>

@@ -11,22 +11,26 @@ class Solicitud_Canaima(osv.Model):
 	_name = "solicitud"
 	_order = 'c_solicitud'
 	_rec_name = 'c_solicitud'
+
 	_columns = {
-		'serial' : fields.char(string="Serial Canaima", required=True),
-		'modelo' : fields.char(string="modelo", size=25, required=True),
+		'serial' : fields.char(string="Serial", required=True),
+		'modelo' : fields.char(string="Modelo", size=25, required=True),
+		'estado' : fields.char(string="Estado Solicitud", readonly=True),
 		'nombre' : fields.char(string="Nombre", size=25, required=True),
 		'cedula' : fields.char(string="Cédula", size=8, required=True),
 		'apellido' : fields.char(string="Apellido", size=25, required=True),
 		'escuela' : fields.char(string="Escuela", size=50, required=True),
-		'municipio' : fields.many2one('municipio', 'Municipios', required=True),
-		'parroquia' : fields.char(string="Parroquia", size=40),
+		'municipio' : fields.related('parroquia','municipio', type ='many2one', relation ='municipio', string = 'Municipio', required=True),
+		#'municipio' : fields.many2one('municipio', 'Municipios', required=True),
+		#'parroquia' : fields.char(string="Parroquia", size=40),
+		'parroquia' : fields.many2one('parroquia', 'Parroquias', required=True),
 		'direccion_i' : fields.text(string="Dirección Escuela"),
 		'direccion_r' : fields.text(string="Dirección"),
 		'nombre_r' : fields.char(string="Nombre Representante", size=25, required=True),
 		'apellido_r' : fields.char(string="Apellido Representante", size=25, required=True),
 		'telefono' : fields.char(string="Teléfono", size=11),
 		'descripcion' : fields.text(string="Descripción del Problema"),
-		'c_solicitud' : fields.char(string="Código de Solicitud", size=8, readonly=True, required=True),
+		'c_solicitud' : fields.char(string="Código", size=8, readonly=True, required=True),
 		'f_solicitud': fields.char('Fecha de Solicitud', readonly=True,  required=True),
 		'f_entrega': fields.date('Fecha de Entrega',  required=True),
 		'canaimita' : fields.boolean('Canaimita'),
@@ -36,6 +40,7 @@ class Solicitud_Canaima(osv.Model):
 		'contrato' : fields.boolean('Contrato'),
 		
 	}
+	
 	def _get_last_id(self, cr, uid, ids, context = None):
 
                 sfl_id       = self.pool.get('solicitud')
@@ -55,26 +60,26 @@ class Solicitud_Canaima(osv.Model):
                 return codigo
 
 	_defaults = {
-        'f_solicitud': lambda *a: time.strftime("%d-%B-%Y"),
+        'f_solicitud': lambda *a: time.strftime("%d-%m-%Y"),
         'c_solicitud' : _get_last_id
     }        
 
-	def onchange_fh_entrega(self, cr, uid, ids, f_entrega, context=None):
+	# def onchange_fh_entrega(self, cr, uid, ids, f_entrega, context=None):
 			 
-			res = {}
-			mensaje = {}
+	# 		res = {}
+	# 		mensaje = {}
 			        
-			now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-			valores = {'f_entrega' : now}
-			if f_entrega != None:
-				if f_entrega < now:
-					mensaje = {'title': "Cuidado: Error!",
-							'message' : "No puede seleccionar como fecha de entrega dias anterioes a hoy",
-					}
+	# 		now = datetime.now().strftime('%d-%m-%Y %H:%M:%S')
+	# 		valores = {'f_entrega' : now}
+	# 		if f_entrega != None:
+	# 			if f_entrega < now:
+	# 				mensaje = {'title': "Cuidado: Error!",
+	# 						'message' : "No puede seleccionar como fecha de entrega dias anterioes a hoy",
+	# 				}
 					
-					valores = {'f_entrega' : None}
-				else:
-					valores = {'f_entrega' : f_entrega}
+	# 				valores = {'f_entrega' : None}
+	# 			else:
+	# 				valores = {'f_entrega' : f_entrega}
 
-			res.update(valores)
-			return {'value' : res, 'warning' : mensaje}
+	# 		res.update(valores)
+	# 		return {'value' : res, 'warning' : mensaje}

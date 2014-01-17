@@ -17,22 +17,23 @@
 			<field name="name">reparacion.form</field>
 			<field name="model">reparacion</field>
 			<field name="arch" type="xml">
-				<form string="sedes Form" version="7.0">
+				<form string="Reparación Form" version="7.0">
 
 						<group col="3" colspan="3" >
 							<group colspan="1">
-                          			 <field name="c_solicitud" on_change="on_change_datos(c_solicitud)" colspan="1"/>
+                          			 <field name="c_solicitud" on_change="on_change_datos(c_solicitud)"/>
                         	</group>
 	                        <group colspan="1">
 	                            <field name="f_solicitud"/>
 	                        </group>
 	                        <group colspan="1">
-								<field name="f_entrega" colspan="1"/>
+								<field name="f_entrega"/>
 	                        </group>
 						</group>
 						<group col="3" colspan="3" >
 							<group string="Datos del Alumno" colspan="1">
 								<field name="serial"/>
+								<field name="modelo" />
 								<field name="nombre" />
 								<field name="apellido" />
 							</group>
@@ -63,14 +64,14 @@
 			<field name="name">reparacion.tree</field>
 			<field name="model">reparacion</field>
 			<field name="arch" type="xml">
-				<tree string="sedes Tree">
+				<tree string="Reparación Tree">
 					<field name="c_solicitud" />
 					<field name="f_entrega" />
 					<field name="estado" />
 				</tree>
 			</field>			
 		</record>
-		<menuitem id="main_canaima_menu" name="Gestion de Canaimas" /> 
+
 		<menuitem id="reparacion_canaima_menu" name="Reparaciones" parent="main_canaima_menu" />
 		<menuitem id="reparacion_menu" name="Registro de Reparaciones" parent="reparacion_canaima_menu" action="reparacion_list_action" />
 	</data>
