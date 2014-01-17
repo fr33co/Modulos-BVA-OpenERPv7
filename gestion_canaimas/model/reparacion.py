@@ -7,6 +7,7 @@ class registrar_sede(osv.Model):
 
 	_columns = {
         'serial' : fields.char(string="Serial Canaima", readonly=True),
+        'modelo' : fields.char(string="modelo", size=25, readonly=True),
         'nombre' : fields.char(string="Nombre", size=25, readonly=True),
         'apellido' : fields.char(string="Apellido", size=25, readonly=True),
         'nombre_r' : fields.char(string="Nombre Representante", size=25, readonly=True),
@@ -29,6 +30,7 @@ class registrar_sede(osv.Model):
             datos = self.pool.get('solicitud').browse(cr, uid, c_solicitud, context=context)
             values.update({
                 'serial' : datos.serial,
+                'modelo' : datos.modelo,
                 'nombre' : datos.nombre,
                 'apellido' : datos.apellido,
                 'nombre_r' : datos.nombre_r,

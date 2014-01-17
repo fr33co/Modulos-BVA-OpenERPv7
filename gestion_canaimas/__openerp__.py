@@ -12,5 +12,8 @@
 		'view/solicitud_soporte.xml',
 		'view/reparacion.xml',
 		'view/municipio.xml',
+		'view/parroquia.xml',
+		#'seguridad/grupos.xml',
+		#'seguridad/usuarios.xml',
 	],		
 }

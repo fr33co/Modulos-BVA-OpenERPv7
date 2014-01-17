@@ -1,0 +1,7 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+solicitud_full_Manager,solicitud_full_Manager,model_solicitud,group_admin_canaima,1,1,1,1 
+reparacion_full_Manager,reparacion_full_Manager,model_reparacion,group_admin_canaima,1,1,1,1 
+municipio_full_Manager,municipio_full_Manager,model_municipio,group_admin_canaima,1,1,1,1 
+solicitud_full_User1,solicitud_full_User1,model_solicitud,group_solicitud_canaima,1,1,1,1 
+municipio_full_User1,municipio_full_User1,model_municipio,group_solicitud_canaima,1,1,1,1
+reparacion_full_User2,reparacion_full_User2,model_reparacion,group_reparacion_canaima,1,1,1,1 
