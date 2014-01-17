@@ -12,7 +12,8 @@
 			Generación de Nóminas''',
     'data' : [
       "views/becado.xml",
-      "views/nomina.xml",
+      "views/nomina.xml", # nómina
+      "views/proceso_nomina.xml", # Procesos de nóminas
       "views/tipoNomina.xml",
       "views/carga_familiar.xml",
       "views/clasPer.xml",
@@ -26,8 +27,9 @@
       "views/contrato.xml",
       "views/evaluacion.xml",
       #"reportes/report_becados.xml",
-      #"seguridad/groups.xml", #Activar la carga de este archivo sólo al instalar, luego comentarlo.
-      #"seguridad/permisos.csv", #Activar la carga de este archivo sólo al instalar, luego comentarlo.
-      #"categorias/categorias.xml", #Activar la carga de este archivo sólo al instalar, luego comentarlo.
+      # "seguridad/groups.xml", #Activar la carga de este archivo sólo al instalar, luego comentarlo.
+      # "seguridad/users.xml", #Activar la carga de este archivo sólo al instalar, luego comentarlo.
+      # "seguridad/ir.model.access.csv",
+      # "categorias/categorias.xml", #Activar la carga de este archivo sólo al instalar, luego comentarlo.
     ],
 }

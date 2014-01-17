@@ -35,10 +35,12 @@ class Novedades(osv.Model):
 			
 			values.update({
 				
+				'ci' : None,
 				'nombres' : None,
 				'direccion' : None,
 				'tlf_movil' : None,
 				'correo' : None,
+				'sede' : None,
 
 				})
 			return {'value' : values,'warning' : mensaje}
@@ -48,6 +50,7 @@ class Novedades(osv.Model):
 			
 			values.update({
 				
+				'sede' : datos[0]['sede'],
 				'nombres' : datos[0]['name_related'],
 				'direccion' : datos[0]['direccion'],
 				'tlf_movil' : datos[0]['tlf_movil'],
@@ -62,7 +65,8 @@ class Novedades(osv.Model):
 	_columns = {
 		'encargado' : fields.char(string="Encargado de Eje:", size=256, required=True),
 		'eje' : fields.selection((('1','Eje metro'),('2','Eje sur'),('3','Eje este'),('4','Eje centro'),('5','Eje costa')), "Eje", required = True),
-		'sede' : fields.char(string="Sede", size=256, required=True),
+		#~ 'sede' : fields.char(string="Sede", size=256, required=True),
+		'sede' : fields.many2one('becados.sedes','Sede',required=True),
 		'fecha_actual' : fields.date(string="Fecha de Actual", required=True, readonly=True),
 		'nombres' : fields.char(string="Nombre completo", size=256, required=True),
 		

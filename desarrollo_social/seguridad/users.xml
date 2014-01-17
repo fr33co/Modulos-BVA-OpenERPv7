@@ -3,11 +3,13 @@
         <data>
             <record id="usuario_desarrollo_social1" model="res.users">
                 <field name="active">true</field>
+                <field name="name">desarrollosocial</field>
                 <field name="login">desarrollosocial</field>
                 <field name="password">123456</field>
             </record>
             <record id="usuario_desarrollo_social2" model="res.users">
                 <field name="active">true</field>
+                <field name="name">coordinadoreje</field>
                 <field name="login">coordinadoreje</field>
                 <field name="password">123456</field>
             </record>
