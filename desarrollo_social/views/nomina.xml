@@ -34,7 +34,7 @@
         <menuitem name="Desarrollo Social" id="menu_desarrollo_social"/>
 -->
         <menuitem name="Nómina" id="menu_desarrollo_social_nomina" parent="menu_desarrollo_social"/>
-        <menuitem parent="menu_desarrollo_social_nomina" id="nomina" action="accion_vista_nomina" name="Nómina del Becado"/>
+        <menuitem parent="menu_desarrollo_social_nomina" id="nomina" action="accion_vista_nomina" name="Nómina de los becados"/>
         
     </data>
 </openerp>

@@ -60,7 +60,7 @@
 			</field>
 		</record>
 
-		<record model="ir.ui.view" id="carga_familiar_view">
+		<record model="ir.ui.view" id="novedades_becados_view">
 			<field name="name">novedad del becado.tree</field>
 			<field name="model">novedades.becados</field>
 			<field name="arch" type="xml">

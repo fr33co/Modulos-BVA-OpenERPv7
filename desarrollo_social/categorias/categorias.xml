@@ -9,5 +9,9 @@
                 <field name="name">Becado</field>
                 <field name="active">True</field>
             </record>
+            <record id="categoria3" model="res.partner.category">
+                <field name="name">Coordinador_eje</field>
+                <field name="active">True</field>
+            </record>
         </data>
     </openerp>

@@ -162,6 +162,7 @@
 					</field>
 			</field>
 		</record>
+		
 		<menuitem name="Desarrollo Social" id="menu_desarrollo_social"/>
 		<menuitem name="Desarrollo Social" id="menu_desarrollo_social_main" parent="menu_desarrollo_social"/>
 		<menuitem parent="menu_desarrollo_social_main" id="becado" action="accion_vista_becados" name="Becado"/>
