@@ -22,7 +22,7 @@
                     <field name="f_solicitud" />
 					<field name="f_entrega" />
 					<field name="serial" />
-					<field name="status_ss" />
+					<field name="status" />
 				</tree>
 			</field>			
 		</record>
