@@ -1,3 +1,3 @@
-import reparacion
 import solicitud_soporte
+import solicitud_reparacion
 import municipios

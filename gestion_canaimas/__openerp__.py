@@ -1,16 +1,17 @@
 # -*- coding: utf-8 -*-
 {
-	'name' : "Soporte Técnico Canaimitas",
-	'category' : "Test",
+	'name' : "Solicitud y Soporte Técnico de Canaimitas",
+	'category' : "Others",
 	'version' :  "1.0",
 	'depends' : ['base'],
-	'autor' : "Marcel", 
+	'autor' : "Marcel Arcuri, Angel Guadarrama & A.C. Bibliotecas Virtuales de Aragua", 
 	'description' : """\
-		Modulo Soporte Técnico Canaimitas""",
-	
+		Modulo para la gestión de las solicitudes y soporte técnico para Canaimitas""",
 	'data': [
 		'view/solicitud_soporte.xml',
-		'view/reparacion.xml',
+		'view/solicitud_reparacion.xml',
 		'view/municipio.xml',
+		'security/groups.xml',
+		'security/ir.model.access.csv',
 	],		
 }

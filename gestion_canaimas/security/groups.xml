@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <openerp>
+        <data>
+            <record id="group_gc_manager" model="res.groups">
+                <field name="name">Gestion de Canaimas / Manager</field>
+            </record>
+            <record id="group_gestor_solicitudes" model="res.groups">
+                <field name="name">Gestion de Canaimas / Solicitud</field>
+            </record>
+            <record id="group_gestor_soporte" model="res.groups">
+                <field name="name">Gestion de Canaimas / Soporte</field>
+            </record>
+        </data>
+    </openerp>
