@@ -51,6 +51,7 @@
 			<field name="model">solicitud.soporte</field>
 			<field name="arch" type="xml">
 				<form string="Solicitud de soporte" version="7.0">
+                    <field name="id" invisible="1"/>
                     <group>
                         <group>
                             <field name="c_solicitud" />
@@ -58,7 +59,7 @@
                         </group>
                         <group>
                             <field name="f_solicitud" />
-                            <field name="f_entrega"/>
+                            <field name="f_entrega" attrs="{'readonly':[('id','!=', False)]}"/>
                             <field name="status"/>
                         </group>
                     </group>
@@ -67,43 +68,43 @@
                             <group>
                                 <group>
                                     <separator string="Datos del equipo y problemas:" colspan="2"/>
-                                    <field name="modelo" placeholder="Modelo de la Canaimita" />
-                                    <field name="serial" placeholder="Serial de la Canaimita" />
+                                    <field name="modelo" attrs="{'readonly':[('id','!=', False)]}" placeholder="Modelo de la Canaimita" />
+                                    <field name="serial" attrs="{'readonly':[('id','!=', False)]}" placeholder="Serial de la Canaimita" />
                                 </group>
                                 <group>
                                     <separator string="Componentes entregados:" colspan="2"/>
                                     <group>
-                                        <field name="canaimita" />
-                                        <field name="cargador" />
-                                        <field name="bateria" />
+                                        <field name="canaimita" attrs="{'readonly':[('id','!=', False)]}"/>
+                                        <field name="cargador" attrs="{'readonly':[('id','!=', False)]}"/>
+                                        <field name="bateria" attrs="{'readonly':[('id','!=', False)]}"/>
                                     </group>
                                     <group>
-                                        <field name="caja" />
-                                        <field name="contrato" />
-                                        <field name="otros" />
+                                        <field name="caja" attrs="{'readonly':[('id','!=', False)]}"/>
+                                        <field name="contrato" attrs="{'readonly':[('id','!=', False)]}"/>
+                                        <field name="otros" attrs="{'readonly':[('id','!=', False)]}"/>
                                     </group>
                                 </group>
                                 <separator string="Descripcion del problema según el usuario:" colspan="2"/>
-                                <field name="descripcion" nolabel="1" colspan="2"  placeholder="Descripción de la falla"/>
+                                <field name="descripcion" nolabel="1" colspan="2"  attrs="{'readonly':[('id','!=', False)]}"  placeholder="Descripción de la falla"/>
                             </group>
                         </page>
                         <page string="Datos del estudiante">
                             <group>
                                 <group>
                                     <separator string="Datos personales del estudiante:" colspan="2"/>
-                                    <field name="nombre" placeholder="Nombre del Alumno"/>
-                                    <field name="apellido" placeholder="Apellido del Alumno"/>
-                                    <field name="t_educ" placeholder="Tipo"/>
-                                    <field name="grado" domain= "[('tipo','=',t_educ)]" placeholder="Grado que estudia actualmente"/>
+                                    <field name="nombre" attrs="{'readonly':[('id','!=', False)]}" placeholder="Nombre del Alumno"/>
+                                    <field name="apellido" attrs="{'readonly':[('id','!=', False)]}" placeholder="Apellido del Alumno"/>
+                                    <field name="t_educ" attrs="{'readonly':[('id','!=', False)]}" placeholder="Tipo"/>
+                                    <field name="grado" attrs="{'readonly':[('id','!=', False)]}" domain= "[('tipo','=',t_educ)]" placeholder="Grado que estudia actualmente"/>
                                 </group>
                                 <group>
                                     <separator string="Dirección del centro educativo:" colspan="2"/>
-                                    <field name="escuela" placeholder="Escuela del Alumno"/>
-                                    <field name="pais" invisible="1"/>
-                                    <field name="estado" domain= "[('country_id','=',pais)]" placeholder="Estado" />
-                                    <field name="municipio" domain= "[('state_id','=',estado)]" placeholder="Municipio del Alumno" />
-                                    <field name="parroquia" domain= "[('municipalities_id','=',municipio)]" placeholder="Parroquia del Alumno"/>
-                                    <field name="direccion_i" colspan="2"  placeholder="Dirección de la escuela"/>
+                                    <field name="escuela" attrs="{'readonly':[('id','!=', False)]}" placeholder="Escuela del Alumno"/>
+                                    <field name="pais" attrs="{'readonly':[('id','!=', False)]}" invisible="1"/>
+                                    <field name="estado" attrs="{'readonly':[('id','!=', False)]}" domain= "[('country_id','=',pais)]" placeholder="Estado" />
+                                    <field name="municipio" attrs="{'readonly':[('id','!=', False)]}" domain= "[('state_id','=',estado)]" placeholder="Municipio del Alumno" />
+                                    <field name="parroquia" attrs="{'readonly':[('id','!=', False)]}" domain= "[('municipalities_id','=',municipio)]" placeholder="Parroquia del Alumno"/>
+                                    <field name="direccion_i" attrs="{'readonly':[('id','!=', False)]}" colspan="2"  placeholder="Dirección de la escuela"/>
                                 </group>
                             </group>
                         </page>
@@ -111,19 +112,19 @@
                             <group>
                                 <group>
                                     <separator string="Datos personales del representante:" colspan="2"/>
-                                    <field name="nombre_r" placeholder="Nombre del Representante" />
-                                    <field name="apellido_r" placeholder="Apellido del Representante" />
-                                    <field name="cedula" placeholder="Cédula del Representante" />
-                                    <field name="telefono"  placeholder="Teléfono del Representante"/>
-                                    <field name="correo"  placeholder="Correo del Representante"/>
+                                    <field name="nombre_r" attrs="{'readonly':[('id','!=', False)]}" placeholder="Nombre del Representante" />
+                                    <field name="apellido_r" attrs="{'readonly':[('id','!=', False)]}" placeholder="Apellido del Representante" />
+                                    <field name="cedula" attrs="{'readonly':[('id','!=', False)]}" placeholder="Cédula del Representante" />
+                                    <field name="telefono" attrs="{'readonly':[('id','!=', False)]}" placeholder="Teléfono del Representante"/>
+                                    <field name="correo" attrs="{'readonly':[('id','!=', False)]}" placeholder="Correo del Representante"/>
                                 </group>
                                 <group>
                                     <separator string="Dirección donde habita:" colspan="2"/>
                                     <field name="pais_r" invisible="1"/>
-                                    <field name="estado_r" domain= "[('country_id','=',pais_r)]"/>
-                                    <field name="municipio_r" domain= "[('state_id','=',estado_r)]"/>
-                                    <field name="parroquia_r" domain= "[('municipalities_id','=',municipio_r)]"/>
-                                    <field name="direccion_r" colspan="2"  placeholder="Dirección del Representante"/>
+                                    <field name="estado_r" attrs="{'readonly':[('id','!=', False)]}" domain= "[('country_id','=',pais_r)]"/>
+                                    <field name="municipio_r" attrs="{'readonly':[('id','!=', False)]}" domain= "[('state_id','=',estado_r)]"/>
+                                    <field name="parroquia_r" attrs="{'readonly':[('id','!=', False)]}" domain= "[('municipalities_id','=',municipio_r)]"/>
+                                    <field name="direccion_r" attrs="{'readonly':[('id','!=', False)]}" colspan="2"  placeholder="Dirección del Representante"/>
                                 </group>
                             </group>
                         </page>
