@@ -26,7 +26,7 @@
 from openerp.osv import osv, fields
 from tools.translate import _
 
-class state(osv.Model):
+class res_country_state(osv.Model):
     '''
     Model added to manipulate separately the States on Partner address.
     '''

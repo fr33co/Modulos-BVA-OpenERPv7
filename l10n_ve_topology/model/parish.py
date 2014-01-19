@@ -25,7 +25,7 @@
 from openerp.osv import osv, fields
 from tools.translate import _
 
-class parish(osv.Model):
+class res_country_parish(osv.Model):
     _name ='res.country.parish'
     _description='Model to manipulate Parish'
     

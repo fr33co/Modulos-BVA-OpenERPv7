@@ -26,7 +26,7 @@
 from openerp.osv import osv, fields
 from tools.translate import _
 
-class sector(osv.Model):
+class res_country_sector(osv.Model):
 
     _name = 'res.contry.sector'
     _description = 'Sector'

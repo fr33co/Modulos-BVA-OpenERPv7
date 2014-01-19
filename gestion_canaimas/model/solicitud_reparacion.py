@@ -15,7 +15,7 @@ class solicitud_reparacion(osv.Model):
         'modelo' : fields.char(string="Modelo", size=25, readonly=True),
         'status_ss' : fields.char(string="Status de la solicitud", size=25, readonly=True),
         'descripcion' : fields.text(string="Descripción del Problema", readonly=True),
-        'tecnico' : fields.many2one('res.users', 'Técnico', required=True),
+        'tecnico' : fields.many2one('res.users', 'Técnico', required=True, readonly=True),
         'solucion' : fields.text(string="Solución"),
         'status': fields.selection((('Revisar','Revisar'),('Atendiendo','Atendiendo'),('Reparada','Reparada'), ('Remitida','Remitida')),'Status Soporte', required=True)
         }
@@ -34,3 +34,7 @@ class solicitud_reparacion(osv.Model):
             'f_entrega': datos.f_entrega,
         })
         return {'value' : values}
+
+    _defaults = {
+        'tecnico': lambda s, cr, uid, c: uid,
+    }       

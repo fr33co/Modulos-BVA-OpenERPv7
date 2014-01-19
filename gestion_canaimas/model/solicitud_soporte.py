@@ -11,13 +11,13 @@ class solicitud_soporte(osv.Model):
     _name = "solicitud.soporte"
     _order = 'c_solicitud'
     _rec_name = 'c_solicitud'
-    
+
     _columns = {
         'c_solicitud' : fields.char(string="Código de Solicitud", size=255, readonly=True, required=True),
-        'user_register': fields.many2one('res.users', 'Registrado por:'),
+        'user_register': fields.many2one('res.users', 'Registrado por:', readonly=True),
         'f_solicitud': fields.char('Fecha de Solicitud', readonly=True,  required=True),
         'f_entrega': fields.date('Fecha de Entrega',  required=True),
-        'modelo' : fields.char(string="Modelo", size=25, required=True),
+        'modelo' : fields.many2one('solicitud.modelo', string="Modelo", required=True),
         'serial' : fields.char(string="Serial", required=True),
         'descripcion' : fields.text(string="Descripción del Problema"),
         'canaimita' : fields.boolean('Portatil'),
@@ -29,7 +29,8 @@ class solicitud_soporte(osv.Model):
         'status': fields.selection((('Revisar','Revisar'),('Atendiendo','Atendiendo'),('Reparada','Reparada'), ('Remitida','Remitida')),'Status', required=True, readonly=True),
         'nombre' : fields.char(string="Nombre", size=25, required=True),
         'apellido' : fields.char(string="Apellido", size=25, required=True),
-        'grado' : fields.char(string="Grado de estudio", size=25, required=True),
+        't_educ': fields.many2one('solicitud.tipo.edu', 'Tipo de educación', required=True),
+        'grado' : fields.many2one('solicitud.grado', string="Grado de estudio", required=True),
         'escuela' : fields.char(string="Escuela", size=50, required=True),
         'pais' : fields.many2one('res.country', 'Pais', required=True),
         'estado' : fields.many2one('res.country.state', 'Estado', required=True),
@@ -54,4 +55,5 @@ class solicitud_soporte(osv.Model):
         'status': 'Revisar',
         'pais': 240,
         'pais_r': 240,
+        'user_register': lambda s, cr, uid, c: uid,
     }        
