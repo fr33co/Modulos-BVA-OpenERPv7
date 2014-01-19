@@ -8,10 +8,10 @@
     'description' : """\
         Modulo para la gestión de las solicitudes y soporte técnico para Canaimitas""",
     'data': [
-        'view/tipos_grados_modelos_view.xml',
         'data/tipos_grados_modelos.xml',
         'view/solicitud_soporte.xml',
         'view/solicitud_reparacion.xml',
+        'view/tipos_grados_modelos_view.xml',
         'security/groups.xml',
         'security/ir.model.access.csv',
         ],

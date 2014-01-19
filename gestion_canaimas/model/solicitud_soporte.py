@@ -15,8 +15,8 @@ class solicitud_soporte(osv.Model):
     _columns = {
         'c_solicitud' : fields.char(string="Código de Solicitud", size=255, readonly=True, required=True),
         'user_register': fields.many2one('res.users', 'Registrado por:', readonly=True),
-        'f_solicitud': fields.char('Fecha de Solicitud', readonly=True,  required=True),
-        'f_entrega': fields.date('Fecha de Entrega',  required=True),
+        'f_solicitud': fields.char('Fecha de Solicitud', readonly=True, required=True),
+        'f_entrega': fields.date('Fecha de Entrega', required=True),
         'modelo' : fields.many2one('solicitud.modelo', string="Modelo", required=True),
         'serial' : fields.char(string="Serial", required=True),
         'descripcion' : fields.text(string="Descripción del Problema"),
@@ -26,7 +26,7 @@ class solicitud_soporte(osv.Model):
         'caja' : fields.boolean('Caja'),
         'contrato' : fields.boolean('Contrato'),
         'otros' : fields.boolean('Otros'),
-        'status': fields.selection((('Revisar','Revisar'),('Atendiendo','Atendiendo'),('Reparada','Reparada'), ('Remitida','Remitida')),'Status', required=True, readonly=True),
+        'status': fields.selection((('Revisar','Revisar'),('Atendiendo','Atendiendo'),('Reparada','Reparada'), ('Remitida','Remitida'), ('Entregada','Entregada')),'Status', required=True, readonly=True),
         'nombre' : fields.char(string="Nombre", size=25, required=True),
         'apellido' : fields.char(string="Apellido", size=25, required=True),
         't_educ': fields.many2one('solicitud.tipo.edu', 'Tipo de educación', required=True),
@@ -56,4 +56,4 @@ class solicitud_soporte(osv.Model):
         'pais': 240,
         'pais_r': 240,
         'user_register': lambda s, cr, uid, c: uid,
-    }        
+    }     
