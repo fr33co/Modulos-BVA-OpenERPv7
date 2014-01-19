@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+        
+<!--Soporte Técnico para Canaimitas-->
+
+		<record model="ir.actions.act_window" id="reparacion_list_action">
+		    <field name="name">Soporte Tecnico</field>
+		    <field name="res_model">solicitud.reparacion</field>
+		    <field name="view_type">form</field>
+		    <field name="view_mode">tree,form</field>
+		</record> 
+
+<!--Tree Soporte Técnico para Canaimitas-->
+
+		<record model="ir.ui.view" id="reparacion_tree_view">
+			<field name="name">solicitud.reparacion.tree</field>
+			<field name="model">solicitud.reparacion</field>
+			<field name="arch" type="xml">
+				<tree string="Soporte">
+					<field name="c_solicitud"/>
+                    <field name="f_solicitud" />
+					<field name="f_entrega" />
+					<field name="serial" />
+					<field name="status_ss" />
+				</tree>
+			</field>			
+		</record>
+
+<!--Formulario Soporte Técnico para Canaimitas-->
+
+		<record model="ir.ui.view" id="reparacion_form_view">
+			<field name="name">solicitud.reparacion.form</field>
+			<field name="model">solicitud.reparacion</field>
+			<field name="arch" type="xml">
+				<form string="Soporte" version="7.0">
+                    <group>
+                        <group>
+                            <field name="c_solicitud" on_change="on_change_datos(c_solicitud)"/>
+                        </group>
+                        <group>
+                            <field name="f_solicitud"/>
+                            <field name="f_entrega"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Solicitud de soporte">
+                            <group>
+                                <group string="Datos del equipo:">
+                                    <field name="serial"/>
+                                    <field name="modelo" />
+                                    <field name="status_ss"/>
+                                </group>
+                                <group string="Descripcion del problema:">
+                                    <field name="descripcion" nolabel="1"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Datos relacionados al soporte:">
+                            <group string="Técnico encargado" col="4" colspan="2">
+                                <field name="tecnico" placeholder="Nombre del Técnico a cargo"/>
+                                <field name="status"/>
+                            </group>
+                            <separator string="Descripcion del soporte o diagnostico realizado:"/>						
+                            <field name="solucion" nolabel="1" placeholder="Solucion y/o Información sobre la reparación" />
+                        </page>
+                    </notebook>
+				</form>
+			</field>			
+		</record>
+
+<!--Menu-->
+
+		<menuitem id="main_canaima_menu" name="Gestion de Canaimas" /> 
+		<menuitem id="reparacion_canaima_menu" name="Reparaciones" parent="main_canaima_menu" />
+		<menuitem id="reparacion_menu" name="Registro de Reparaciones" parent="reparacion_canaima_menu" action="reparacion_list_action" />
+        
+	</data>
+</openerp>
