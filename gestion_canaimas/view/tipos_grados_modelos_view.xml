@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+     
+<!--Action Grado-->
+
+        <record model="ir.actions.act_window" id="grado_list_action">
+            <field name="name">Registrar Grado</field>
+            <field name="res_model">solicitud.grado</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record> 
+
+<!--Formulario de grado-->
+
+        <record model="ir.ui.view" id="grado_form_view">
+            <field name="name">Registrar Grado</field>
+            <field name="model">solicitud.grado</field>
+            <field name="arch" type="xml">
+                <form string="Registrar Grado">
+                    <field name="tipo"/>
+                    <field name="grado"/>
+                </form>
+            </field>
+        </record>
+
+<!--Tree de grado-->
+
+        <record model="ir.ui.view" id="grado_tree_view">
+            <field name="name">Registrar Grado</field>
+            <field name="model">solicitud.grado</field>
+            <field name="arch" type="xml">
+                <tree string="Registrar Grado">
+                    <field name="tipo"/>
+                    <field name="grado"/>
+                </tree>
+            </field>
+        </record>
+
+<!--Action Modelos-->
+
+        <record model="ir.actions.act_window" id="modelos_list_action">
+            <field name="name">Registrar Modelo</field>
+            <field name="res_model">solicitud.modelo</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record> 
+
+<!--Formulario de Modelo-->
+
+        <record model="ir.ui.view" id="modelo_form_view">
+            <field name="name">Registrar Modelo</field>
+            <field name="model">solicitud.modelo</field>
+            <field name="arch" type="xml">
+                <form string="Registrar Modelo">
+                    <field name="modelo"/>
+                </form>
+            </field>
+        </record>
+
+<!--Tree de Modelo-->
+
+        <record model="ir.ui.view" id="modelo_tree_view">
+            <field name="name">Registrar Modelo</field>
+            <field name="model">solicitud.modelo</field>
+            <field name="arch" type="xml">
+                <tree string="Registrar Modelo">
+                    <field name="modelo" />
+                </tree>
+            </field>
+        </record>
+
+
+<!--Action Tipos de Educacion-->
+
+        <record model="ir.actions.act_window" id="tipos_list_action">
+            <field name="name">Registrar Tipo</field>
+            <field name="res_model">solicitud.tipo.edu</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record> 
+
+<!--Formulario Tipos de Educacion-->
+
+        <record model="ir.ui.view" id="tipos_form_view">
+            <field name="name">Registrar Tipo</field>
+            <field name="model">solicitud.tipo.edu</field>
+            <field name="arch" type="xml">
+                <form string="Registrar Tipo">
+                    <field name="tipo"/>
+                </form>
+            </field>
+        </record>
+
+<!--Tree Tipos de Educacion-->
+
+        <record model="ir.ui.view" id="tipos_tree_view">
+            <field name="name">Registrar Modelo</field>
+            <field name="model">solicitud.tipo.edu</field>
+            <field name="arch" type="xml">
+                <tree string="Registrar Tipos">
+                    <field name="tipo" />
+                </tree>
+            </field>
+        </record>
+
+        <menuitem id="menu2_conf" name="Configuración" parent="main_canaima_menu" />
+        <menuitem id="tipos_menu" name="Tipos de Educación" parent="menu2_conf" action="tipos_list_action" sequence='1'/>
+        <menuitem id="grado_menu" name="Grados" parent="menu2_conf" action="grado_list_action" sequence="2"/>
+        <menuitem id="modelo_menu" name="Modelos" parent="menu2_conf" action="modelos_list_action" sequence="3"/>
+        
+
+    </data>
+</openerp>

@@ -26,7 +26,7 @@
 from openerp.osv import osv, fields
 from tools.translate import _
 
-class city(osv.Model):
+class res_country_city(osv.Model):
     '''
     Model added to manipulate separately the Cities on Partner address.
     '''

@@ -93,6 +93,7 @@
                                     <separator string="Datos personales del estudiante:" colspan="2"/>
                                     <field name="nombre" placeholder="Nombre del Alumno"/>
                                     <field name="apellido" placeholder="Apellido del Alumno"/>
+                                    <field name="t_educ" placeholder="Tipo"/>
                                     <field name="grado" placeholder="Grado que estudia actualmente"/>
                                 </group>
                                 <group>

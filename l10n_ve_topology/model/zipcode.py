@@ -25,7 +25,7 @@
 from openerp.osv import osv, fields
 from tools.translate import _
 
-class zipcode(osv.Model):
+class res_country_zipcode(osv.Model):
     '''
     Model added to manipulate separately the Zip Code on Partner address.
     '''

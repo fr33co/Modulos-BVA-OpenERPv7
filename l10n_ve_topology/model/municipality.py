@@ -25,7 +25,7 @@
 from openerp.osv import osv, fields
 from tools.translate import _
 
-class municipality(osv.Model):
+class res_country_municipality(osv.Model):
     '''
     Model added to manipulate separately the municipalities on Partner address.
     '''
