@@ -39,7 +39,7 @@
     "category" : "Generic Modules/Localization",
     "data" : [
                     "data/states_ve_data.xml",
-                    #~ "data/city_ve_data.xml",
+                    "data/city_ve_data.xml",
                     "data/municipality_data.xml",
                     "data/parish_ve_data.xml",
                     "data/zip_code_data.xml"

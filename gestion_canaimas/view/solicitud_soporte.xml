@@ -98,6 +98,7 @@
                                 <group>
                                     <separator string="Dirección del centro educativo:" colspan="2"/>
                                     <field name="escuela" placeholder="Escuela del Alumno"/>
+                                    <field name="estado" placeholder="Estado" />
                                     <field name="municipio" placeholder="Municipio del Alumno" />
                                     <field name="parroquia" placeholder="Parroquia del Alumno"/>
                                     <field name="direccion_r" colspan="2"  placeholder="Dirección de la escuela"/>
@@ -116,6 +117,7 @@
                                 </group>
                                 <group>
                                     <separator string="Dirección donde habita:" colspan="2"/>
+                                    <field name="estado_r"/>
                                     <field name="municipio_r"/>
                                     <field name="parroquia_r"/>
                                     <field name="direccion_r" nolabel="1" colspan="2"  placeholder="Dirección del Representante"/>
