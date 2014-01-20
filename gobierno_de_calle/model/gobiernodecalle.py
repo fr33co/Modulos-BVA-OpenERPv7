@@ -137,8 +137,8 @@ class gdc_proyectos(osv.Model):
         'responsible_id' : fields.many2one('res.users', 'Responsable asignado', domain=[('category_id.name','ilike','Responsable')], required=True),
         'supervisor_id' : fields.many2one('res.company', 'Ente Supervisor', domain=[('category_id.name','ilike','Supervisor')], required=True),
         'description': fields.text('Description', required=True),
-        'presu_tentativo': fields.float('Presupuesto Tentativo  (Bs.)'),
-        'presu_real': fields.float('Presupuesto Real (Bs.)'),
+        'presu_tentativo': fields.float('Presupuesto Tentativo  (Bs.)', required=True),
+        'presu_real': fields.float('Presupuesto Real (Bs.)', required=True),
         'bene_tentativo': fields.integer('Cantidad de beneficiados tentativos', required=True),
         'members_project': fields.many2many('res.company', 'project_company_rel', 'project_id', 'uid', 'Instituciones'),
         'address_id': fields.many2one('res.partner','Lugar', readonly=False, required=True, domain=[('category_id.name','ilike','Lugar')]),
@@ -248,14 +248,20 @@ class gdc_tareas(osv.Model):
     _order="name_tarea"
 
     def onchange_proyecto(self, cr, uid, ids, project_id2, context=None):
-        res = {}
+        values = {}
         gdc_project = self.pool.get('gdc.proyectos')
         proyecto_brw = gdc_project.browse(cr, uid, project_id2, context=context)
         proyecto_rd = gdc_project.read(cr, uid, proyecto_brw.id, ['supervisor_id', 'responsible_id'], context=context)
         if proyecto_rd['supervisor_id'] and proyecto_rd['responsible_id']:
-            self.write(cr, uid, ids, {'supervisor_id': proyecto_rd['supervisor_id'][0], 'responsible_id': proyecto_rd['responsible_id'][0]})
-        return res
-            
+            #~ self.write(cr, uid, ids, {'supervisor_id': proyecto_rd['supervisor_id'][0], 'responsible_id': proyecto_rd['responsible_id'][0]})
+            values.update({
+            'supervisor_id' : proyecto_rd['supervisor_id'][0],
+            'responsible_id' : proyecto_rd['responsible_id'][0],
+            })
+            return {'value' : values}
+        else: 
+            return values
+
     def onchange_date_start_tarea(self, cr, uid, ids, date_start_tarea, context=None):
         res = {}
         gdc_project = self.pool.get('gdc.proyectos')
