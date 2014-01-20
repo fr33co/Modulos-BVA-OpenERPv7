@@ -253,7 +253,6 @@ class gdc_tareas(osv.Model):
         proyecto_brw = gdc_project.browse(cr, uid, project_id2, context=context)
         proyecto_rd = gdc_project.read(cr, uid, proyecto_brw.id, ['supervisor_id', 'responsible_id'], context=context)
         if proyecto_rd['supervisor_id'] and proyecto_rd['responsible_id']:
-            #~ self.write(cr, uid, ids, {'supervisor_id': proyecto_rd['supervisor_id'][0], 'responsible_id': proyecto_rd['responsible_id'][0]})
             values.update({
             'supervisor_id' : proyecto_rd['supervisor_id'][0],
             'responsible_id' : proyecto_rd['responsible_id'][0],
@@ -388,6 +387,7 @@ class gdc_incidencias(osv.Model):
     _columns = {
         'name_incidencia': fields.char(string="Incidencia", size=50, required=False),
         'tarea_id': fields.many2one('gdc.tareas', 'tarea', required=False),
+        'project_id': fields.many2one('gdc.proyectos', 'tarea', required=False),
         'date_reporter': fields.datetime('Fecha',select=True, required=True),
         'description': fields.text('Description'),
     }
