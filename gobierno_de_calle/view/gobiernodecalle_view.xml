@@ -98,6 +98,10 @@ PROYECTOS
             <field name="priority" eval="16"/>
             <field name="arch" type="xml">
                 <form string="Asignacion" version="7.0">
+                    <header attrs="{'invisible':[('estado', '=', 'Borrador')]}">
+                        <button name="congelar_proyecto" string="Congelar el proyecto" type="object" class="oe_highlight" attrs="{'invisible':[('estado', '=', 'Congelado')]}"/>
+                        <button name="retomar_proyecto" string="Retomar el proyecto" type="object" attrs="{'invisible':[('estado', '=', 'Progreso')]}"/>
+                    </header>
                     <group>
                         <group>
                             <field name="codigo" readonly="1"/>
@@ -105,10 +109,6 @@ PROYECTOS
                             <field name="dias_proyecto" readonly="1"/>
                             <field name="estado" attrs="{'readonly':[('estado', '!=', 'Borrador')]}"/>
                             <field name="progreso" readonly="1" widget="progressbar"/>
-                            <group attrs="{'invisible':[('estado', '=', 'Borrador')]}">
-                                <button name="congelar_proyecto" type="object" string="Congelar el proyecto" attrs="{'invisible':[('estado', '=', 'Congelado')]}"/>
-                                <button name="retomar_proyecto" type="object" string="Retomar el proyecto" attrs="{'invisible':[('estado', '=', 'Progreso')]}"/>
-                            </group>
                         </group>
                         <group>
                             <field name="actividad" string="Actividad"/>
@@ -243,9 +243,7 @@ TAREAS
             <field name="res_model">gdc.tareas</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form,calendar,gantt</field>
-<!--
             <field name="domain">['|', ('responsible_id','=',uid), ('supervisor_id','=',uid)]</field>
--->
             <field name="help" type="html">
             </field>
         </record>
@@ -272,6 +270,10 @@ TAREAS
             <field name="model">gdc.tareas</field>
             <field name="arch" type="xml">
                 <form string="Tareas" version="7.0">
+                    <header attrs="{'invisible':[('estado_tarea', '=', 'Borrador')]}">
+                        <button name="begin_tarea" string="Comenzar la tarea" type="object" class="oe_highlight" attrs="{'invisible':[('estado_tarea', '=', 'Progreso')]}"/>
+                        <button name="begin_tarea" string="Finalizar la tarea" type="object"/>
+                    </header>
                     <group>
                         <group>
                             <field name="project_id2" on_change="onchange_proyecto(project_id2)"/>
@@ -286,13 +288,9 @@ TAREAS
                             <field name="dias_tarea" />
                             <field name="progreso_tarea" readonly="1" widget="progressbar"/>
                         </group>
-                        <group>
-                            <button name="begin_tarea" type="object" string="Comenzar la tarea" />
-                            <button name="begin_tarea" type="object" string="Finalizar la tarea" />
-                        </group>
                     </group>
                     <notebook>
-                        <page string="Descripcion">
+                        <page string="Descripcion de la tarea">
                             <field name="description" placeholder="Agregar descripcion..."/>
                         </page>
                         <page string="Entes ejecutantes asignados" name="team">
