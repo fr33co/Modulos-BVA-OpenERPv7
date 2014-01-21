@@ -149,7 +149,7 @@ class gdc_proyectos(osv.Model):
         'city': fields.related('address_id','city',type='char',string='Ciudad'),
         'country_id': fields.related('address_id', 'country_id', type='many2one', relation='res.country', string='Pais', readonly=False),
         'tareas_ids': fields.one2many('gdc.tareas', 'project_id2', string="Tareas"),
-        'incidencias_ids': fields.one2many('gdc.incidencias', 'tarea_id', string="Incidencias"),
+        'incidencias_ids': fields.one2many('gdc.incidencias', 'project_id', string="Incidencias"),
         'conclusiones': fields.text('Conclusiones'),
         'acuerdos': fields.text('Acuerdos'),
         'incidencias': fields.text('Incidencias'),
@@ -384,6 +384,15 @@ class gdc_incidencias(osv.Model):
     _rec_name = "name_incidencia"
     _order="name_incidencia"
     
+    def onchange_tarea(self, cr, uid, ids, tarea_id, context=None):
+        values = {}
+        gdc_tareas = self.pool.get('gdc.tareas')
+        tareas_brw = gdc_tareas.browse(cr, uid, tarea_id, context=context)
+        values.update({
+        'project_id' : tareas_brw.project_id2.id,
+        })
+        return {'value' : values}
+
     _columns = {
         'name_incidencia': fields.char(string="Incidencia", size=50, required=False),
         'tarea_id': fields.many2one('gdc.tareas', 'tarea', required=False),
