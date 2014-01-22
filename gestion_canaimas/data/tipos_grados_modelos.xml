@@ -67,5 +67,8 @@
             <record id="modelo3" model="solicitud.modelo">
                 <field name="modelo">MG101A4</field>
             </record>
+            <record id="modelo4" model="solicitud.modelo">
+                <field name="modelo">Desconocido</field>
+            </record>
         </data>
     </openerp>

@@ -26,6 +26,7 @@ class solicitud_soporte(osv.Model):
         'caja' : fields.boolean('Caja'),
         'contrato' : fields.boolean('Contrato'),
         'otros' : fields.boolean('Otros'),
+        'reportado' : fields.selection((('Si','Si'),('No','No')),'¿Esta reportado?', help="Debe especificar si esta reportado en 0800-CANAIMA-00", required=True),
         'status': fields.selection((('Revisar','Revisar'),('Atendiendo','Atendiendo'),('Reparada','Reparada'), ('Remitida','Remitida'), ('Entregada','Entregada')),'Status', required=True, readonly=True),
         'nombre' : fields.char(string="Nombre", size=25, required=True),
         'apellido' : fields.char(string="Apellido", size=25, required=True),

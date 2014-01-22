@@ -69,8 +69,10 @@
                     <notebook>
                         <page string="Datos de la computadora">
                             <group>
+                                
                                 <group>
                                     <separator string="Datos del equipo y problemas:" colspan="2"/>
+                                    <field name="reportado" attrs="{'readonly':[('id','!=', False)]}"/>
                                     <field name="modelo" attrs="{'readonly':[('id','!=', False)]}" placeholder="Modelo de la Canaimita" />
                                     <field name="serial" attrs="{'readonly':[('id','!=', False)]}" placeholder="Serial de la Canaimita" />
                                 </group>
@@ -87,8 +89,8 @@
                                         <field name="otros" attrs="{'readonly':[('id','!=', False)]}"/>
                                     </group>
                                 </group>
-                                <separator string="Descripcion del problema según el usuario:" colspan="2"/>
-                                <field name="descripcion" nolabel="1" colspan="2"  attrs="{'readonly':[('id','!=', False)]}"  placeholder="Descripción de la falla"/>
+                                <separator string="Descripcion del problema según el usuario:" colspan="4"/>
+                                <field name="descripcion" nolabel="1" colspan="4"  attrs="{'readonly':[('id','!=', False)]}"  placeholder="Descripción de la falla"/>
                             </group>
                         </page>
                         <page string="Datos del estudiante">
