@@ -9,9 +9,11 @@ class solicitud_reparacion(osv.Model):
 
     def on_change_datos(self, cr, uid, ids, c_solicitud, context=None):
         values = {}
+        solicitud_soporte = self.pool.get('solicitud.soporte')
         if not c_solicitud:
             return values
-        datos = self.pool.get('solicitud.soporte').browse(cr, uid, c_solicitud, context=context)
+        datos = solicitud_soporte.browse(cr, uid, c_solicitud, context=context)
+        print datos.id
         values.update({
             'serial' : datos.serial,
             'modelo' : datos.modelo.modelo,
@@ -19,9 +21,12 @@ class solicitud_reparacion(osv.Model):
             'descripcion' : datos.descripcion,
             'f_solicitud': datos.f_solicitud,
             'f_entrega': datos.f_entrega,
+            'status': 'Atendiendo',
         })
+        solicitud_soporte.write(cr, uid, datos.id, {'status': 'Atendiendo'})
         return {'value' : values}
-                
+        
+        
     _columns = {
         'c_solicitud' : fields.many2one('solicitud.soporte', 'Código de Solicitud', required=True),
         'f_solicitud': fields.char('Fecha de Solicitud', readonly=False),
