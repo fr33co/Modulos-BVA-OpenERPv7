@@ -18,7 +18,7 @@ class solicitud_grado(osv.Model):
     
 class solicitud_tipo_edu(osv.Model):
     _name = "solicitud.tipo.edu"
-    _order = 'tipo'
+    _order = 'id'
     _rec_name = 'tipo'
     
     _columns = {
