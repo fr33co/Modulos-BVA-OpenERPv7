@@ -6,6 +6,9 @@
                 <field name="tipo">Básica</field>
             </record>
             <record id="tipo2" model="solicitud.tipo.edu">
+                <field name="tipo">Media</field>
+            </record>
+            <record id="tipo3" model="solicitud.tipo.edu">
                 <field name="tipo">Diversificada</field>
             </record>
             
@@ -48,11 +51,11 @@
             </record>
             <record id="grado10" model="solicitud.grado">
                 <field name="grado">Cuarto Año Diversificado</field>
-                <field name="tipo" ref="tipo2"/>
+                <field name="tipo" ref="tipo3"/>
             </record>
             <record id="grado11" model="solicitud.grado">
                 <field name="grado">Quinto Año Diversificado</field>
-                <field name="tipo" ref="tipo2"/>
+                <field name="tipo" ref="tipo3"/>
             </record>
             <!--MODELO-->
             <record id="modelo1" model="solicitud.modelo">
