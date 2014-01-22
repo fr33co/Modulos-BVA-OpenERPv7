@@ -31,6 +31,7 @@
 			<field name="model">solicitud.soporte</field>
 			<field name="arch" type="xml">
 				<tree string="Solicitud de soporte">
+					<field name="institucion" />
 					<field name="c_solicitud" />
 					<field name="f_solicitud" />
 					<field name="f_entrega" />
@@ -55,6 +56,7 @@
                     <field name="id" invisible="1"/>
                     <group>
                         <group>
+                            <field name="institucion"/>
                             <field name="c_solicitud" />
                             <field name="user_register" />
                         </group>
