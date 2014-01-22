@@ -36,23 +36,23 @@
 				<form string="Soporte" version="7.0">
                     <group>
                         <group>
-                            <field name="c_solicitud" on_change="on_change_datos(c_solicitud)"/>
+                            <field name="c_solicitud" on_change="on_change_datos(c_solicitud)" attrs="{'readonly':[('c_solicitud','!=', False)]}"/>
                         </group>
                         <group>
-                            <field name="f_solicitud"/>
-                            <field name="f_entrega"/>
+                            <field name="f_solicitud" attrs="{'readonly':[('c_solicitud','!=', False)]}"/>
+                            <field name="f_entrega" attrs="{'readonly':[('c_solicitud','!=', False)]}"/>
                         </group>
                     </group>
                     <notebook>
                         <page string="Solicitud de soporte">
                             <group>
                                 <group string="Datos del equipo:">
-                                    <field name="serial"/>
-                                    <field name="modelo" />
-                                    <field name="status_ss"/>
+                                    <field name="serial" attrs="{'readonly':[('c_solicitud','!=', False)]}"/>
+                                    <field name="modelo" attrs="{'readonly':[('c_solicitud','!=', False)]}"/>
+                                    <field name="status_ss" attrs="{'readonly':[('c_solicitud','!=', False)]}"/>
                                 </group>
                                 <group string="Descripcion del problema:">
-                                    <field name="descripcion" nolabel="1"/>
+                                    <field name="descripcion" nolabel="1" attrs="{'readonly':[('c_solicitud','!=', False)]}"/>
                                 </group>
                             </group>
                         </page>
