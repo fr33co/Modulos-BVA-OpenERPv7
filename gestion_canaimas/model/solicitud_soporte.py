@@ -47,6 +47,8 @@ class solicitud_soporte(osv.Model):
         'municipio_r' : fields.many2one('res.country.municipality', 'Municipio', required=True),
         'parroquia_r' : fields.many2one('res.country.parish', 'Parroquia', required=True),
         'direccion_r' : fields.text(string="Dirección", required=True),
+        'tecnico' : fields.many2one('res.users', 'Técnico Encargado:', required=True),
+        'descripcion_tecnico' : fields.text(string="Descripción del Técnico", required=True),
         }
         
     _defaults = {

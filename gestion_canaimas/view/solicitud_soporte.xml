@@ -39,6 +39,7 @@
 					<field name="nombre_r" />
 					<field name="apellido_r" />
 					<field name="telefono" />
+					<field name="tecnico" invisible="[('status','=','Revisar')]"/>
 					<field name="status" />
 				</tree>
 			</field>			
@@ -125,6 +126,15 @@
                                     <field name="municipio_r" attrs="{'readonly':[('id','!=', False)]}" domain= "[('state_id','=',estado_r)]"/>
                                     <field name="parroquia_r" attrs="{'readonly':[('id','!=', False)]}" domain= "[('municipalities_id','=',municipio_r)]"/>
                                     <field name="direccion_r" attrs="{'readonly':[('id','!=', False)]}" colspan="2"  placeholder="Dirección del Representante"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Información proporcionada por el técnico" attrs="{'invisible':[('status', '=', 'Revisar')]}">
+                            <group>
+                                <group>
+                                    <field name="tecnico" attrs="{'readonly':[('status','=', False)]}"/>
+                                    <separator string="Descripción del caso según el técnico:" colspan="2"/>
+                                    <field name="descripcion_tecnico" nolabel="1"/>
                                 </group>
                             </group>
                         </page>
