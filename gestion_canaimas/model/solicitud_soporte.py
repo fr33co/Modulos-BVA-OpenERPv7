@@ -47,8 +47,9 @@ class solicitud_soporte(osv.Model):
         'municipio_r' : fields.many2one('res.country.municipality', 'Municipio', required=True),
         'parroquia_r' : fields.many2one('res.country.parish', 'Parroquia', required=True),
         'direccion_r' : fields.text(string="Dirección", required=True),
-        'tecnico' : fields.many2one('res.users', 'Técnico Encargado:', required=True),
-        'descripcion_tecnico' : fields.text(string="Descripción del Técnico", required=True),
+        'institucion' : fields.many2one('res.company', 'Institución', required=True, readonly=True),
+        'tecnico' : fields.many2one('res.users', 'Técnico Encargado:', required=False),
+        'descripcion_tecnico' : fields.text(string="Descripción del Técnico", required=False),
         }
         
     _defaults = {
@@ -58,4 +59,5 @@ class solicitud_soporte(osv.Model):
         'pais': 240,
         'pais_r': 240,
         'user_register': lambda s, cr, uid, c: uid,
+        'institucion': lambda s, cr, uid, c: s.pool.get('res.company')._company_default_get(cr, uid, 'res.users', context=c),
     }     
