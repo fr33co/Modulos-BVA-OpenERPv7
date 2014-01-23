@@ -14,14 +14,14 @@
             <field name="name">traslado.tree</field>
             <field name="model">presupuesto.traslado</field>
             <field name="arch" type="xml">
-                <tree string="Traslado/Traspaso" colors="blue:aumentar&gt;0;red:disminuir&gt;0">
-                    <field name="tipo_doc"/>
+                <tree string="Traslado/Traspaso"  colors="blue:aumentar&gt;0;red:disminuir&gt;0">
+                    <field name="id_tipo_doc"/>
                     <field name="numero"/>
-                    <field name="categoria"/>
+                    <field name="codigo_proyecto_accion"/>
                     <field name="cod_presupuesto"/>
                     <field name="motivo"/>
-                    <field name="aumentar" string="Aumento"  />
-                    <field name="disminuir"  string="Disminucion"  />
+                    <field name="aumentar" string="Aumento" sum="Total Tax Included" />
+                    <field name="disminuir"  string="Disminucion" sum="Total Tax Included" />
                 </tree>
             </field>
         </record>
@@ -29,28 +29,40 @@
             <field name="name">traslado.form</field>
             <field name="model">presupuesto.traslado</field>
             <field name="arch" type="xml">
-                <form string="Formulario de Traslado/Traspaso" version="7.0">
-                    <group colspan="6" col="6">
-                        <separator string="Traslado/Traspaso" colspan="6" />
-                        <field name="tipo_doc" colspan="2" width="100" on_change="get_last_numero(tipo_doc)"/>
-                        <field name="numero"   colspan="2" width="100" on_change="on_change_get_row(numero,tipo_doc)"/>
-                        <field name="fecha"    colspan="2" width="220"/>
+                <form string="Formulario de Traslado/Traspaso"  version="7.0">
+                    <separator string="Traslado/Traspaso" />
+                    <group string="informacion" colspan="3" col="3">
+                        <group colspan="1">
+                            <field name="id_tipo_doc" widget="selection" class="oe_inline" on_change="get_last_numero(id_tipo_doc)"/>
+                            <field name="oficio" class="oe_inline"/>
+                        </group>
+                        <group colspan="1">
+                            <field name="numero" class="oe_inline" on_change="on_change_get_row(numero,id_tipo_doc)"/>
+                            <field name="fecha_resolucion" />
+                        </group>
+                        <group colspan="1">
+                            <field name="fecha"  />
+                        </group>
                     </group>
-                    <group colspan="6" col="6">
-                        <field name="oficio"           colspan="2" width="100"/>
-                        <field name="fecha_resolucion" colspan="2" width="100"/>
-                        <field name="motivo"           colspan="2" width="220"/>
+                    <group>
+                        <field name="motivo" colspan="2" />
                     </group>
-                     <group colspan="8" col="8">
-                        <field name="categoria"          colspan="2" width="150" on_change="on_change_accion(categoria,'cod_accion')"/>
-                        <field name="consulta_categoria" colspan="2" width="150" on_change="on_change_accion(consulta_categoria,'accion')"/>
-                        <field name="cod_presupuesto"    colspan="2" width="100" on_change="on_change_partida(cod_presupuesto)"/>
-                        <field name="par_presu"          colspan="2" width="220" nolabel="1" />
-                    </group>
-                    <group colspan="6" col="6">
-                        <field name="aumen_dism"  colspan="2" width="200" class="oe_inline" />
-                        <field name="aumentar"      colspan="2" attrs="{'invisible':[('aumen_dism','=','disminuye')]}"   />
-                        <field name="disminuir"       colspan="2" attrs="{'invisible':[('aumen_dism','in',('aumento',False))]}"    />
+
+                    <group string="informacion2" colspan="3" col="3">
+                        <group colspan="1">
+                            <field name="codigo_proyecto_accion" class="oe_inline" on_change="on_change_accion(codigo_proyecto_accion,'cod_accion')" width="100"/>
+                        </group>
+                        <group colspan="1">
+                            <field name="id_proyecto_accion" class="oe_inline" on_change="on_change_accion(id_proyecto_accion,'accion')"/>
+                            <field name="aumen_dism" class="oe_inline"/>
+                            <field name="aumentar" class="oe_inline" attrs="{'invisible':[('aumen_dism','=','2')]}"   />
+                            <field name="disminuir" class="oe_inline" attrs="{'invisible':[('aumen_dism','in',('1',False))]}"    />
+                        </group>
+                        <group colspan="1">
+                                <field name="cod_presupuesto" class="oe_inline" on_change="on_change_partida(cod_presupuesto)"/>
+                                <field name="par_presu" class="oe_inline" />
+                                <field name="disponibilidad" class="oe_inline" />
+                        </group>
                     </group>
                 </form>
             </field>

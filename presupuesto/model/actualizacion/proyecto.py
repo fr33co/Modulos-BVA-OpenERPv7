@@ -23,6 +23,9 @@ class Proyecto(osv.Model):
         'descripcion' : fields.text(string="Descripcion:",size=300, required=True),
     }
 
+     # Validar una unica clave por cada proyecto
+    _sql_constraints = [('UNICA','unique(codigo_proyecto)', 'El Codigo del Proyecto ya se encuentra registrado')]
+
     """
         Ordenar por proyecto y llamar el nombre del proyecto
     """
