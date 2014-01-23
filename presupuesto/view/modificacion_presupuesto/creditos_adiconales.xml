@@ -24,23 +24,34 @@
             <field name="model">presupuesto.creditos</field>
             <field name="arch" type="xml">
                 <form string="Formulario de Creditos Adicionales" version="7.0">
-                    <group colspan="6" col="6">
-                        <separator string="Creditos Adicionales" colspan="6"/>
-                        <field name="id_tipo_doc" colspan="2" width="100"/>
-                        <field name="numero" colspan="2" width="220"/>
-                        <field name="fecha" colspan="2"  width="220"/>
-                    </group>
-                    <group colspan="6" col="6">
-                        <field name="oficio" colspan="2" width="100"/>
-                        <field name="fecha_oficion" colspan="2" width="220"/>
-                        <field name="observacion" colspan="2"  width="220"/>
-                    </group>
-                    <group colspan="8" col="8">
-                        <field name="proyecto_accion"     colspan="2" width="100"/>
-                        <field name="cosulta_proyecto_accion"    colspan="2" width="100"/>
-                        <field name="cod_presupuesto"     colspan="2" width="100"/>
-                        <field name="desc_presupuesto" colspan="2" width="200" nolabel="1" readonly="1"/>
-                    </group>
+                    <!-- <group> -->
+                        <group string="Creditos Adicionales" colspan="3" col="3">
+                            <group >
+                                <field name="id_tipo_doc" class="oe_inline" widget="selection" on_change="get_last_numero(id_tipo_doc)"/>
+                                <field name="numero" class="oe_inline" />
+                                <field name="fecha" class="oe_inline"/>
+                            </group>
+                            <group >
+                                <field name="oficio" class="oe_inline"/>
+                                <field name="fecha_oficion" class="oe_inline"/>
+        
+                            </group>
+                            <group >
+                                <field name="proyecto_accion" class="oe_inline" on_change="on_change_accion(proyecto_accion,'cod_accion')" />
+                                <field name="id_proyecto_accion" class="oe_inline" widget="selection" on_change="on_change_accion(id_proyecto_accion,'accion')"/>
+                            </group>
+                        </group>
+                        <group >
+                            <field name="observacion" />
+                        </group>
+                        <separator/>
+                        <group colspan="6" col="6">
+
+                            <field name="cod_presupuesto"  on_change="on_change_partida(cod_presupuesto)" colspan="2"/>
+                            <field name="desc_presupuesto" colspan="2" width="250" nolabel="1" readonly="1"/>
+                            <field name="disponibilidad" colspan="2"  nolabel="1" readonly="1"/>
+                        </group>
+                    <!-- </group> -->
                 </form>
             </field>
         </record>
