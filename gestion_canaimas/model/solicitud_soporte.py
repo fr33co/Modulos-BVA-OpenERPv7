@@ -30,7 +30,7 @@ class solicitud_soporte(osv.Model):
         'status': fields.selection((('Revisar','Revisar'),('Atendiendo','Atendiendo'),('Reparada','Reparada'), ('Remitida','Remitida'), ('Entregada','Entregada')),'Status', required=True, readonly=True),
         'nombre' : fields.char(string="Nombre", size=25, required=True),
         'apellido' : fields.char(string="Apellido", size=25, required=True),
-        't_educ': fields.many2one('solicitud.tipo.edu', 'Tipo de educación', required=True),
+        't_educ': fields.many2one('solicitud.tipo.edu', 'Etapa', required=True),
         'grado' : fields.many2one('solicitud.grado', string="Grado de estudio", required=True),
         'escuela' : fields.char(string="Institución Educativa", size=50, required=True),
         'pais' : fields.many2one('res.country', 'Pais', required=True),

@@ -22,7 +22,7 @@ class solicitud_tipo_edu(osv.Model):
     _rec_name = 'tipo'
     
     _columns = {
-        'tipo' : fields.char(string="Tipo", size=45, required=True),
+        'tipo' : fields.char(string="Etapa", size=45, required=True),
         }
     
     _sql_constraints = [
