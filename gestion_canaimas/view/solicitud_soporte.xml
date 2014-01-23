@@ -30,7 +30,7 @@
 			<field name="name">Solicitud</field>
 			<field name="model">solicitud.soporte</field>
 			<field name="arch" type="xml">
-				<tree string="Solicitud de soporte">
+				<tree string="Solicitud de soporte" colors="red:status in ('Revisar');blue:status in ('Atendiendo');green:status=='Entregada';gray:status==('Reparada','Remitida')">
 					<field name="institucion" />
 					<field name="c_solicitud" />
 					<field name="f_solicitud" />
