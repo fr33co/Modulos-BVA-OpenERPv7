@@ -62,7 +62,10 @@ class Becado(osv.Model):
 		'area' : fields.many2one("becados.areas", string="Area de desempeño", required=True),
 		'sede' : fields.many2one("becados.sedes", string="Sede", required=True),
 		'cargo_desempenado' : fields.selection((('1','0243'),('2','0244')), "Cargo Desempeñado", required = False),
+		'coordinador_eje' : fields.many2one("hr.employee","Coordinador de Eje",required=False, domain=[('category_ids.name','=','Coordinador_eje')]),
+		'coordinador_sede' : fields.many2one("hr.employee","Coordinador de Sede",required=False, domain=[('category_ids.name','=','Coordinador_sede')]),
 		'edad' : fields.char(string="Edad", size = 3, required=False),
+		
 		'asignacion' : fields.float(string="Asignación", required=True),
 		'correo' : fields.char(string="Correo", size = 30, required=True),
 		'entidad_bancaria' : fields.selection((('1','0243'),('2','0244')), "Entidad Bancaria", required = False),

@@ -1,1 +1,1 @@
-import report_becados
+import novedad

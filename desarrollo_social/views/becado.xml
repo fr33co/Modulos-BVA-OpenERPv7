@@ -75,11 +75,12 @@
 				<field name="area" position="after">
 					<field name="tipo_nomina"/>
 				</field>
-<!--
-				<field name="tipo_nomina" position="after">
-					<field name="class_personal"/>
+				<field name="coach_id" position="after">
+					<field name="coordinador_eje" widget="selection" groups="desarrollo_social.desarrollosocial"/>
 				</field>
--->
+				<field name="coordinador_eje" position="after">
+					<field name="coordinador_sede" widget="selection" groups="desarrollo_social.desarrollosocial"/>
+				</field>
 				<field name="birthday" position="after">
 					<field name="edad" class="oe_inline" readonly="1"/>
 				</field>
@@ -162,7 +163,6 @@
 					</field>
 			</field>
 		</record>
-		
 		<menuitem name="Desarrollo Social" id="menu_desarrollo_social"/>
 		<menuitem name="Desarrollo Social" id="menu_desarrollo_social_main" parent="menu_desarrollo_social"/>
 		<menuitem parent="menu_desarrollo_social_main" id="becado" action="accion_vista_becados" name="Becado"/>

@@ -64,13 +64,13 @@ class Novedades(osv.Model):
 	
 	_columns = {
 		'encargado' : fields.char(string="Encargado de Eje:", size=256, required=True),
-		'eje' : fields.selection((('1','Eje metro'),('2','Eje sur'),('3','Eje este'),('4','Eje centro'),('5','Eje costa')), "Eje", required = True),
+		'eje' : fields.selection((('Metro','Eje metro'),('Sur','Eje sur'),('Este','Eje este'),('Centro','Eje centro'),('Costa','Eje costa')), "Eje", required = True),
 		#~ 'sede' : fields.char(string="Sede", size=256, required=True),
 		'sede' : fields.many2one('becados.sedes','Sede',required=True),
-		'fecha_actual' : fields.date(string="Fecha de Actual", required=True, readonly=True),
+		'fecha_actual' : fields.char(string="Fecha de Actual", required=True, readonly=True),
 		'nombres' : fields.char(string="Nombre completo", size=256, required=True),
 		
-		'ci' : fields.char(string="C.I", size=256, required=True),
+		'ci' : fields.char(string="Cédula", size=256, required=True),
 		'novedad' : fields.char(string="Novedad", size=256, required=True),
 		'observacion' : fields.char(string="Observación", size=256, required=True),
 		'observacion_general' : fields.text(string="Observación General", size=256, required=True),
@@ -87,6 +87,7 @@ class Novedades(osv.Model):
 
 
 	_defaults = {
-		'fecha_actual': lambda *a: time.strftime('%Y-%m-%d'),
+		'fecha_actual': lambda *a: time.strftime("%d de %B del %Y"),# formato corecto al español
+
 	} 
 
