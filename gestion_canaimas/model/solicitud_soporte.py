@@ -32,7 +32,7 @@ class solicitud_soporte(osv.Model):
         'apellido' : fields.char(string="Apellido", size=25, required=True),
         't_educ': fields.many2one('solicitud.tipo.edu', 'Tipo de educación', required=True),
         'grado' : fields.many2one('solicitud.grado', string="Grado de estudio", required=True),
-        'escuela' : fields.char(string="Escuela", size=50, required=True),
+        'escuela' : fields.char(string="Institución Educativa", size=50, required=True),
         'pais' : fields.many2one('res.country', 'Pais', required=True),
         'estado' : fields.many2one('res.country.state', 'Estado', required=True),
         'municipio' : fields.many2one('res.country.municipality', 'Municipio', required=True),
