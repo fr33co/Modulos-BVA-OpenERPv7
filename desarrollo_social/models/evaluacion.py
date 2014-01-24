@@ -158,6 +158,84 @@ class Evaluacion(osv.Model):
 		
 		return 0
 		
+		
+		'''def datos_becado(self, cr, uid, ids, cedula_becado, context=None):
+		
+		valores = {}
+		
+		alerta = {}
+		
+		if not cedula_becado:
+			return valores
+		
+		#Preparación de los modelos donde se realizarán las búsquedas
+		modelo1 = self.pool.get('evaluacion.becados')
+		modelo2 = self.pool.get('hr.employee')
+		
+		#Ejecución de las búsquedas
+		busqueda1 = modelo1.search(cr, uid, [('ci','=',cedula_becado)])
+		busqueda2 = modelo2.search(cr, uid, [('cedula','=',cedula_becado)])
+		
+		
+		if busqueda1:
+			busqueda_leer1 = modelo1.read(cr, uid, busqueda1, context=context)
+			#fecha = "Fecha de evaluación:"+str(busqueda_leer1[0]['fecha_actual'])
+			#print fecha
+			if(busqueda_leer1[0]['state'] == "confirmed" and self.limite_mes(busqueda_leer1[0]['fecha_actual']) == 0):
+				#print busqueda_leer1[0]['state']
+				alerta = {
+					'title' : "Advertencia",
+					'message' : "El becado ya ha sido evaluado, introdúzca otra cédula",
+				}
+				valores.update({
+					'ci' : "",
+					'evaluado' : "",
+					'area' : "",
+					'sede' : "",
+				})
+				return {'value' : valores, 'warning' : alerta}
+			elif(busqueda_leer1[0]['state'] == "draft"):
+				#print busqueda_leer1[0]['state']
+				valores.update({
+					'evaluado' : busqueda_leer1[0]['evaluado'],
+					'area' : busqueda_leer1[0]['area'],
+					'sede' : busqueda_leer1[0]['sede'],
+				})
+				return {'value' : valores}
+		elif busqueda2:
+			#Leer resultados y armar diccionario
+			busqueda_leer2 = modelo2.read(cr, uid, busqueda2, context=context)
+			
+			valores.update({
+				'evaluado' : busqueda_leer2[0]['name_related'],
+				'area' : busqueda_leer2[0]['area'],
+				'sede' : busqueda_leer2[0]['sede'],
+			})	
+			return {'value' : valores}
+		
+		return 0'''
+		
+	def limite_mes(self, fecha_evaluacion):
+		#fecha_actual = date.today()
+		fecha_act = "2014-02-21"
+		fecha_actual = fecha_act.split("-")
+		
+		evaluacion = 0
+		
+		fecha_eval = fecha_evaluacion.split("-")
+		
+		#mes_actual = fecha_actual.month
+		anyo_actual = fecha_actual[0]
+
+		#dia_actual = fecha_actual.day
+		mes_actual = fecha_actual[1]
+		
+		if int(fecha_eval[0]) <= int(anyo_actual):
+			if int(fecha_eval[1]) < int(mes_actual):
+				evaluacion = 1
+				
+		return evaluacion
+		
 	# Listar las cédulas de los becados registrados
 	
 	#~ def lista_becados(self, cr, user_id, context=None):
@@ -204,10 +282,14 @@ class Evaluacion(osv.Model):
 
 	def action_draft(self, cr, uid, ids, context=None):
 	    #set to "draft" state
-	    return self.write(cr, uid, ids, {'estado':'draft'}, context=context)
+	    return self.write(cr, uid, ids, {'state':'draft'}, context=context)
 	def action_confirm(self, cr, uid, ids, context=None):
 	    #set to "confirmed" state
-	    return self.write(cr, uid, ids, {'estado':'confirmed'}, context=context)
+	    return self.write(cr, uid, ids, {'state':'confirmed'}, context=context)
+
+	
+	
+
 	
 
 
@@ -241,7 +323,7 @@ class Evaluacion(osv.Model):
 		'puntaje_iniciativa' : fields.selection((('10','10'),('9','9'),('8','8'),('7','7'),('6','6'),('5','5'),('4','4'),('3','3'),('2','2'),('1','1'),('0','0')), "Iniciativa y creatividad", required = True),
 		'puntaje_pertenencia' : fields.selection((('10','10'),('9','9'),('8','8'),('7','7'),('6','6'),('5','5'),('4','4'),('3','3'),('2','2'),('1','1'),('0','0')), "Sentido de pertenencia con la institución", required = True),
 		'sub_total_4' : fields.char(string="sub-total", size=10, readonly=False),
-		'calificacion_cuantitativa' : fields.selection((('1','Bueno'),('2','Malo'),('3','Regular')), "Calificación", required = True),
+		'calificacion_cuantitativa' : fields.selection((('Bueno','Bueno'),('Malo','Malo'),('Regular','Regular')), "Calificación", required = True),
 		'observacion_general' : fields.text(string="Observación", size=256, required=True),
 		'total' : fields.char(string="Puntuación total", readonly=False),
 		'state' : fields.selection([('draft','Borrador'),
@@ -255,7 +337,8 @@ class Evaluacion(osv.Model):
 
 
 	_defaults = {
-		'fecha_actual': lambda *a: time.strftime('%d-%m-%Y'),
+		'fecha_actual': lambda *a: time.strftime("%d de %B del %Y"),# formato corecto al español
+
 		'state': 'draft',
 
 	} 

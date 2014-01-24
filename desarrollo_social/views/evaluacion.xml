@@ -22,12 +22,13 @@
 				<form string="Formulario de evaluación" version="7.0">
 
 					<header>
-  						<button name="action_draft" type="object" string="Reset to draft"
-          states="confirmed,done" />
-  						<button name="action_confirm" type="object" string="Confirm"
-          states="draft" class="oe_highlight" />
+  						<button name="action_draft" type="object" string="Resetear"
+          state="confirmed" icon="gtk-execute" />
+  						<button name="action_confirm" type="object" string="Evaluado"
+          state="draft" class="oe_highlight" icon="gtk-yes" confirm="¿Esta seguro que desea evaluar el becado?"/>
+
   						
-          				<field name="state" widget="statusbar" />
+          				<field name="state" widget="statusbar" statusbar_visible="draft,progress,wait,done" statusbar_colors='{"progress":"blue"}' />
   
 					</header>
 
@@ -153,17 +154,31 @@
 			</field>
 		</record>
 
+		<record model="ir.ui.view" id="buscar_evaluacion"><!-- Filtro para la busqueda de evaluacion -->
+			<field name="name">busqueda.search</field>
+			<field name="model">evaluacion.becados</field>
+			<field name="arch" type="xml">		
+				<search string="Busqueda de evaluacion">
+					<filter name="ci" domain="[('ci','=', uid)]" string="Busqueda de evaluacion del becado" icon="terp-partner" />
+					<field name="ci" />
+					<field name="evaluado" />
+					<field name="area" />
+				</search>
+			</field>			
+		</record>
+
 		<record model="ir.ui.view" id="evaluacion_view">
 			<field name="name">evaluacion del becado.tree</field>
 			<field name="model">evaluacion.becados</field>
 			<field name="arch" type="xml">
-				<tree string="Instrumento de Evaluación" colors="#FF0000:calificacion_cuantitativa=='1';#169A12:calificacion_cuantitativa=='2'">
+				<tree string="Instrumento de Evaluación" colors="#FF0000:state=='draft';#169A12:state=='confirmed'">
 					<field name="ci"/>
 					<field name="evaluado"/>
 					<field name="area"/>
 					<field name="sede"/>
 					<field name="evaluador"/>
 					<field name="calificacion_cuantitativa"/>
+					<field name="state"/>
 					<field name="fecha_actual"/>
 				</tree>
 			</field>

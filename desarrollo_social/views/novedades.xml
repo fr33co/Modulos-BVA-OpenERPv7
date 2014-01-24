@@ -36,7 +36,7 @@
 							<group colspan="4" col="3">
 								<group colspan="1" col="2">
 									<separator string="Datos personales" colspan="4"/>
-									<field name="ci" placeholder="C.I del Becado" on_change="on_change_datos_personales(ci)"/>
+									<field name="ci" placeholder="C.I del Becado" default_focus="1" on_change="on_change_datos_personales(ci)"/>
 									<field name="nombres" placeholder="Nombres"/>
 									
 									<field name="direccion" placeholder="Dirección de casa"/>
@@ -60,11 +60,11 @@
 			</field>
 		</record>
 
-		<record model="ir.ui.view" id="novedades_becados_view">
+		<record model="ir.ui.view" id="novedades_becado_view">
 			<field name="name">novedad del becado.tree</field>
 			<field name="model">novedades.becados</field>
 			<field name="arch" type="xml">
-				<tree string="Novedades del Becado" colors="#FF0000:eje=='1';#169A12:eje=='2'" editable="bottom" toolbar="1">
+				<tree string="Novedades del Becado" colors="#FF0000:eje=='Metro';#169A12:eje=='Sur'" toolbar="1">
 					<field name="ci"/>
 					<field name="eje"/>
 					<field name="nombres"/>
@@ -73,8 +73,22 @@
 
 					<field name="novedad"/>
 					<field name="observacion"/>
+					<field name="fecha_actual"/>
 				</tree>
 			</field>
+		</record>
+
+		<record model="ir.ui.view" id="buscar_novedades"><!-- Filtro para la busqueda de novedades -->
+			<field name="name">busqueda.search</field>
+			<field name="model">novedades.becados</field>
+			<field name="arch" type="xml">		
+				<search string="Busqueda de novedades">
+					<filter name="ci" domain="[('ci','=', uid)]" string="Busqueda de novedades del becado" icon="terp-partner" />
+					<field name="ci" />
+					<field name="eje" />
+					<field name="nombres" />
+				</search>
+			</field>			
 		</record>
 
 
