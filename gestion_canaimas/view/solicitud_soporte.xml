@@ -147,6 +147,20 @@
 			</field>			
 		</record>
         
+        <record model="ir.ui.view" id="solicitud_soporte search</record">
+            <field name="name">solicitud_soporte.search</field>
+            <field name="model">solicitud.soporte</field>
+            <field name="arch" type="xml">
+                <search string="Filtros Solicitud de Soporte">
+                    <filter string="Status" icon="terp-partner"
+                        name="status"
+                        domain= "[('status','=',status)]"
+                        help="Filtro por estado"/>
+                    <field name="status"/>
+                </search>
+            </field>
+        </record>
+        
 <!--Menu-->
 
 		<menuitem id="main_canaima_menu" name="Gestion de Canaimas" /> 
