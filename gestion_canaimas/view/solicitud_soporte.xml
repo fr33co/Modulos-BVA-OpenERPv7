@@ -147,7 +147,7 @@
 			</field>			
 		</record>
         
-        <record model="ir.ui.view" id="solicitud_soporte search</record">
+        <record model="ir.ui.view" id="solicitud_soporte search_view">
             <field name="name">solicitud_soporte.search</field>
             <field name="model">solicitud.soporte</field>
             <field name="arch" type="xml">
