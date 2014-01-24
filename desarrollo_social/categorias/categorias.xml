@@ -1,16 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
     <openerp>
         <data>
-            <record id="categoria1" model="res.partner.category">
-                <field name="name">Empleado</field>
-                <field name="active">True</field>
-            </record>
-            <record id="categoria2" model="res.partner.category">
+<!--
+            <record id="categoria1" model="hr.employee.category">
                 <field name="name">Becado</field>
                 <field name="active">True</field>
             </record>
-            <record id="categoria3" model="res.partner.category">
+            <record id="categoria2" model="hr.employee.category">
+                <field name="name">Empleado</field>
+                <field name="active">True</field>
+            </record>
+-->
+            <record id="categoria5" model="hr.employee.category">
+                <field name="name">Obrero</field>
+                <field name="active">True</field>
+            </record>
+            <record id="categoria3" model="hr.employee.category">
                 <field name="name">Coordinador_eje</field>
+                <field name="active">True</field>
+            </record>
+            <record id="categoria4" model="hr.employee.category">
+                <field name="name">Coordinador_sede</field>
                 <field name="active">True</field>
             </record>
         </data>

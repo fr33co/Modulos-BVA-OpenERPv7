@@ -26,13 +26,12 @@
       "views/proceso_seleccion.xml",
       "views/contrato.xml",
       "views/evaluacion.xml",
-      "reportes/evaluacion/report_evaluacion.xml", # Reporte para casos de novedad del becado
-      "reportes/novedad/report_becados.xml", # Reporte para casos de novedad del becado
       #"reportes/report_becados.xml",
-      # "seguridad/groups.xml", #Activar la carga de este archivo sólo al instalar, luego comentarlo.
-      # "seguridad/users.xml", #Activar la carga de este archivo sólo al instalar, luego comentarlo.
-      # "seguridad/ir.model.access.csv",
-      
-      #"categorias/categorias.xml", #Activar la carga de este archivo sólo al instalar, luego comentarlo.
+      #"seguridad/groups.xml", #Activar la carga de este archivo sólo al instalar, luego comentarlo.
+      #"seguridad/users.xml", #Activar la carga de este archivo sólo al instalar, luego comentarlo.
+      #"seguridad/ir.model.access.csv",
+      "categorias/categorias.xml", #Activar la carga de este archivo sólo al instalar, luego comentarlo.
+			"reportes/evaluacion/report_evaluacion.xml", # Reporte para casos de novedad del becado
+      "reportes/novedad/report_becados.xml", # Reporte para casos de novedad del becado
     ],
 }
