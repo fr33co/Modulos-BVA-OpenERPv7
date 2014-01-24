@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<openerp>
+    <data noupdate="1">
+    
+	<!-- Chart template -->
+    <record id="l10n_ve_chart_template" model="account.chart.template">
+	    <field name="name">Venezuela - Plan Contable SISB</field>
+	    <field name="account_root_id" ref="sisb0"/>
+	    <field name="tax_code_root_id" ref="atc_iva0"/>
+	    <field name="bank_account_view_id" ref="sisb1110102"/>
+	    
+	    <field name="property_account_receivable" ref="sisb112030101"/>
+        <field name="property_account_payable" ref="sisb211040102"/>
+        <field name="property_account_expense_categ" ref="sisb664050105"/>
+        <field name="property_account_income_categ" ref="sisb514020301"/>
+        
+        <field name="property_retencion_islr_payable" ref="sisb214990101"/>
+        <field name="property_retencion_islr_receivable" ref="sisb112039906"/>
+	</record>
+    </data>
+</openerp>
