@@ -5,14 +5,12 @@
 from openerp.osv import osv, fields
 
 class Area(osv.Model):
-	_name="becados.areas"
+	_name="becados.status"
 
-	_order = 'area'
+	_order = 'status'
 	
-	_rec_name = 'area'
+	_rec_name = 'status'
 	
 	_columns = {
-		'area': fields.char(string = "Área", size = 150, required = True),
+		'status': fields.char(string = "Status", size = 150, required = True),
 	}
-
-

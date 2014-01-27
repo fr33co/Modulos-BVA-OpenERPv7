@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
     <openerp>
         <data>
-<!--
             <record id="categoria1" model="hr.employee.category">
                 <field name="name">Becado</field>
                 <field name="active">True</field>
@@ -10,16 +9,15 @@
                 <field name="name">Empleado</field>
                 <field name="active">True</field>
             </record>
--->
-            <record id="categoria5" model="hr.employee.category">
+            <record id="categoria3" model="hr.employee.category">
                 <field name="name">Obrero</field>
                 <field name="active">True</field>
             </record>
-            <record id="categoria3" model="hr.employee.category">
+            <record id="categoria4" model="hr.employee.category">
                 <field name="name">Coordinador_eje</field>
                 <field name="active">True</field>
             </record>
-            <record id="categoria4" model="hr.employee.category">
+            <record id="categoria5" model="hr.employee.category">
                 <field name="name">Coordinador_sede</field>
                 <field name="active">True</field>
             </record>
