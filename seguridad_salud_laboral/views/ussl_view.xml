@@ -45,8 +45,8 @@
             <field name="model">hr.holidays.diseases</field>
             <field name="arch" type="xml">
                 <form string="Enfermedad">
-                    <field name="name_diseases"/>
                     <field name="name_diseases_type_id"/>
+                    <field name="name_diseases"/>
                 </form>
             </field>
         </record>
@@ -56,8 +56,8 @@
             <field name="model">hr.holidays.diseases</field>
             <field name="arch" type="xml">
                 <tree string="Enfermedad">
-                    <field name="name_diseases"/>
                     <field name="name_diseases_type_id"/>
+                    <field name="name_diseases"/>
                 </tree>
             </field>
         </record>
@@ -70,8 +70,8 @@
             <field name="inherit_id" ref="hr_holidays.allocation_leave_new"/>
             <field name="arch" type="xml">
                 <field name="holiday_status_id" position="after">
-                    <field name="holiday_status_id" invisible="1" />
-                    <field name="name_diseases_id" attrs="{'invisible':[('holiday_status_id','!=',2)]}" />
+                    <field name="name_diseases_type_id" attrs="{'invisible':[('holiday_status_id','!=',2)]}"/>
+                    <field name="name_diseases_id" attrs="{'invisible':[('name_diseases_type_id','=',False)]}" />
                 </field>
             </field>
         </record>
@@ -82,7 +82,8 @@
             <field name="inherit_id" ref="hr_holidays.edit_holiday_new"/>
             <field name="arch" type="xml">
                 <field name="holiday_status_id" position="after">
-                    <field name="name_diseases_id" attrs="{'invisible':[('holiday_status_id','!=',2)]}" />
+                    <field name="name_diseases_type_id" attrs="{'invisible':[('holiday_status_id','!=',2)]}"/>
+                    <field name="name_diseases_id" attrs="{'invisible':[('name_diseases_type_id','=',False)]}" />
                 </field>
             </field>
         </record>
@@ -93,18 +94,8 @@
             <field name="inherit_id" ref="hr_holidays.view_holiday_simple"/>
             <field name="arch" type="xml">
                 <field name="holiday_status_id" position="after">
+                    <field name="name_diseases_type_id"/>
                     <field name="name_diseases_id" />
-                </field>
-            </field>
-        </record>
-        
-        <record id="vista_ussl_herencia4" model="ir.ui.view">
-            <field name="name">Allocation Request</field>
-            <field name="model">hr.holidays</field>
-            <field name="inherit_id" ref="hr_holidays.allocation_leave_new"/>
-            <field name="arch" type="xml">
-                <field name="holiday_status_id" position="after">
-                    <field name="name_diseases_id" attrs="{'invisible':[('holiday_status_id','!=',2)]}"/>
                 </field>
             </field>
         </record>
@@ -115,7 +106,8 @@
             <field name="inherit_id" ref="hr_holidays.view_holiday_allocation_tree"/>
             <field name="arch" type="xml">
                 <field name="holiday_status_id" position="after">
-                    <field name="name_diseases_id"/>
+                    <field name="name_diseases_type_id"/>
+                    <field name="name_diseases_id" />
                 </field>
             </field>
         </record>
