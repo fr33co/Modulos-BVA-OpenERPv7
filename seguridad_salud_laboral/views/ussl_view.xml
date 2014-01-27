@@ -1,7 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
-    
+
+<!--TIPOS DE ENFERMEDADES-->
+
+        <record model="ir.actions.act_window" id="accion_hr_holidays_diseases_types">
+            <field name="name">Tipos de Enfermedades</field>
+            <field name="res_model">hr.holidays.diseases.types</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_holidays_diseases_types_form">
+            <field name="name">TiposEnfermedades.form</field>
+            <field name="model">hr.holidays.diseases.types</field>
+            <field name="arch" type="xml">
+                <form string="Tipo de Enfermedad">
+                    <field name="type_diseases"/>
+                </form>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="hr_holidays_diseases_types_tree">
+            <field name="name">TiposEnfermedades.tree</field>
+            <field name="model">hr.holidays.diseases.types</field>
+            <field name="arch" type="xml">
+                <tree string="Tipo de Enfermedad">
+                    <field name="type_diseases"/>
+                </tree>
+            </field>
+        </record>
+
+<!--ENFERMEDAD-->
+
         <record model="ir.actions.act_window" id="accion_hr_holidays_diseases">
             <field name="name">Enfermedades</field>
             <field name="res_model">hr.holidays.diseases</field>
@@ -9,16 +40,30 @@
             <field name="view_mode">tree,form</field>
         </record>
         
-        <record model="ir.ui.view" id="vista_formulario_consejos">
+        <record model="ir.ui.view" id="hr_holidays_diseases_form">
             <field name="name">Enfermedades.form</field>
             <field name="model">hr.holidays.diseases</field>
             <field name="arch" type="xml">
-                <form string="Formulario de Consejos">
+                <form string="Enfermedad">
                     <field name="name_diseases"/>
+                    <field name="name_diseases_type_id"/>
                 </form>
             </field>
         </record>
         
+        <record model="ir.ui.view" id="hr_holidays_diseases_tree">
+            <field name="name">Enfermedades.form</field>
+            <field name="model">hr.holidays.diseases</field>
+            <field name="arch" type="xml">
+                <tree string="Enfermedad">
+                    <field name="name_diseases"/>
+                    <field name="name_diseases_type_id"/>
+                </tree>
+            </field>
+        </record>
+
+<!--HERENCIAS HR_HOLIDAYS-->
+
         <record id="vista_ussl_herencia1" model="ir.ui.view">
             <field name="name">Allocation Request</field>
             <field name="model">hr.holidays</field>
@@ -75,7 +120,8 @@
             </field>
         </record>
 
-        <menuitem name="Enfermedades" action="accion_hr_holidays_diseases" id="menu_hr_holidays_diseases" parent="hr.menu_hr_configuration" sequence="11"/>
+        <menuitem name="Tipos de Enfermedad" action="accion_hr_holidays_diseases_types" id="menu_hr_holidays_diseases_types" parent="hr.menu_hr_configuration" sequence="11"/>
+        <menuitem name="Enfermedades" action="accion_hr_holidays_diseases" id="menu_hr_holidays_diseases" parent="hr.menu_hr_configuration" sequence="12"/>
 
     </data>
 </openerp>

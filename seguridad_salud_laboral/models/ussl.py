@@ -16,4 +16,14 @@ class hr_holidays_diseases(osv.Model):
     
     _columns = {
         'name_diseases' : fields.char(string="Enfermedad", required=True),
+        'name_diseases_type_id' : fields.many2one('hr.holidays.diseases.types', string="Tipo de Enfermedad", required=True)
+    }
+    
+class hr_holidays_diseases_types(osv.Model):
+    _name = "hr.holidays.diseases.types"
+    _order = "type_diseases"
+    _rec_name = "type_diseases"
+    
+    _columns = {
+        'type_diseases' : fields.char(string="Tipo de Enfermedad", required=True),
     }
