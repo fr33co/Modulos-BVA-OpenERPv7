@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    
+        <record model="ir.actions.act_window" id="accion_hr_holidays_diseases">
+            <field name="name">Enfermedades</field>
+            <field name="res_model">hr.holidays.diseases</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <record model="ir.ui.view" id="vista_formulario_consejos">
+            <field name="name">Enfermedades.form</field>
+            <field name="model">hr.holidays.diseases</field>
+            <field name="arch" type="xml">
+                <form string="Formulario de Consejos">
+                    <field name="name_diseases"/>
+                </form>
+            </field>
+        </record>
+        
+        <record id="vista_ussl_herencia1" model="ir.ui.view">
+            <field name="name">Allocation Request</field>
+            <field name="model">hr.holidays</field>
+            <field name="inherit_id" ref="hr_holidays.allocation_leave_new"/>
+            <field name="arch" type="xml">
+                <field name="holiday_status_id" position="after">
+                    <field name="holiday_status_id" invisible="1" />
+                    <field name="name_diseases_id" attrs="{'invisible':[('holiday_status_id','!=',2)]}" />
+                </field>
+            </field>
+        </record>
+        
+        <record id="vista_ussl_herencia2" model="ir.ui.view">
+            <field name="name">Allocation Request</field>
+            <field name="model">hr.holidays</field>
+            <field name="inherit_id" ref="hr_holidays.edit_holiday_new"/>
+            <field name="arch" type="xml">
+                <field name="holiday_status_id" position="after">
+                    <field name="name_diseases_id" attrs="{'invisible':[('holiday_status_id','!=',2)]}" />
+                </field>
+            </field>
+        </record>
+        
+        <record id="vista_ussl_herencia3" model="ir.ui.view">
+            <field name="name">Allocation Request</field>
+            <field name="model">hr.holidays</field>
+            <field name="inherit_id" ref="hr_holidays.view_holiday_simple"/>
+            <field name="arch" type="xml">
+                <field name="holiday_status_id" position="after">
+                    <field name="name_diseases_id" />
+                </field>
+            </field>
+        </record>
+
+        <menuitem name="Enfermedades" action="accion_hr_holidays_diseases" id="menu_hr_holidays_diseases" parent="hr.menu_hr_configuration" sequence="11"/>
+
+    </data>
+</openerp>
