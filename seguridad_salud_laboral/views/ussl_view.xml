@@ -52,6 +52,28 @@
                 </field>
             </field>
         </record>
+        
+        <record id="vista_ussl_herencia4" model="ir.ui.view">
+            <field name="name">Allocation Request</field>
+            <field name="model">hr.holidays</field>
+            <field name="inherit_id" ref="hr_holidays.allocation_leave_new"/>
+            <field name="arch" type="xml">
+                <field name="holiday_status_id" position="after">
+                    <field name="name_diseases_id" attrs="{'invisible':[('holiday_status_id','!=',2)]}"/>
+                </field>
+            </field>
+        </record>
+        
+        <record id="vista_ussl_herencia5" model="ir.ui.view">
+            <field name="name">Allocation Request</field>
+            <field name="model">hr.holidays</field>
+            <field name="inherit_id" ref="hr_holidays.view_holiday_allocation_tree"/>
+            <field name="arch" type="xml">
+                <field name="holiday_status_id" position="after">
+                    <field name="name_diseases_id"/>
+                </field>
+            </field>
+        </record>
 
         <menuitem name="Enfermedades" action="accion_hr_holidays_diseases" id="menu_hr_holidays_diseases" parent="hr.menu_hr_configuration" sequence="11"/>
 
