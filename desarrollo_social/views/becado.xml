@@ -125,6 +125,18 @@
 				<field name="direccion" position="after">
 					<field name="cne"/>
 				</field>
+				<field name="cne" position="after">
+					<field name="centro_votacion" attrs="{'invisible': [('cne', '!=', '1') ] }"/>
+				</field>
+				<field name="active" position="after">
+					<field name="status"/>
+				</field>
+				<field name="status" position="after">
+					<field name="desc_status" attrs="{'invisible':[('status','in',(1,False))]}"/>
+				</field>
+				<field name="active" position="attributes">
+					<field name="active" attrs="{'invisible':[('status','!=',1)]}"/>
+				</field>
 <!--
 				<field name="birthday" position="replace">
 					<field name="fecha_nacimiento" on_change="validar_fecha(fecha_nacimiento)"/>
@@ -148,7 +160,6 @@
 					</page>
 				</page>
 				<!--Nueva página para el "notebook"-->
-				
 			</field>
 		</record>
 		

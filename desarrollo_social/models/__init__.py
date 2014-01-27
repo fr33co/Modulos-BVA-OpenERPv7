@@ -13,3 +13,4 @@ import proceso_seleccion
 import contrato
 import evaluacion
 import proceso_nomina
+import status

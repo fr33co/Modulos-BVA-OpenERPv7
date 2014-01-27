@@ -65,7 +65,8 @@ class Becado(osv.Model):
 		'coordinador_eje' : fields.many2one("hr.employee","Coordinador de Eje",required=False, domain=[('category_ids.name','=','Coordinador_eje')]),
 		'coordinador_sede' : fields.many2one("hr.employee","Coordinador de Sede",required=False, domain=[('category_ids.name','=','Coordinador_sede')]),
 		'edad' : fields.char(string="Edad", size = 3, required=False),
-		
+		'status' : fields.many2one("becados.status","Status",required=False),
+		'desc_status' : fields.char(string="Descripción", size=100, required=False,help="Escriba aquí detalles y razones del status seleccionado"),
 		'asignacion' : fields.float(string="Asignación", required=True),
 		'correo' : fields.char(string="Correo", size = 30, required=True),
 		'entidad_bancaria' : fields.selection((('1','0243'),('2','0244')), "Entidad Bancaria", required = False),
@@ -77,7 +78,8 @@ class Becado(osv.Model):
 		'prima_responsabilidad' : fields.float(string="Prima de Responsabilidad", required=True),
 		'estado_de_estudios' : fields.boolean("¿Estudia Actualmente?"),
 		'estudios_actuales' : fields.char(string="Especifique qué estudia",required=False),
-		'cne' : fields.boolean("¿Está inscrito en el CNE?"),
+		'cne' : fields.selection((('1','Si'),('2','No')), "¿Está inscrito en el CNE?", required = False),
+		'centro_votacion' : fields.text(string="Centro de votación"),
 		#'fecha_nacimiento' : fields.date(string="Fecha de nacimiento", required=True),
 		'familiar' : fields.one2many("becado.carga.familiar","becado",string="Carga Familiar"),
 	}

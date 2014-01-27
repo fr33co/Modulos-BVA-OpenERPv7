@@ -22,6 +22,7 @@
       "views/grupoSanguineo.xml",
       "views/sedes.xml",
       "views/areas.xml",
+      "views/status.xml",
       "views/novedades.xml",
       "views/proceso_seleccion.xml",
       "views/contrato.xml",
@@ -30,7 +31,7 @@
       #"seguridad/groups.xml", #Activar la carga de este archivo sólo al instalar, luego comentarlo.
       #"seguridad/users.xml", #Activar la carga de este archivo sólo al instalar, luego comentarlo.
       #"seguridad/ir.model.access.csv",
-      "categorias/categorias.xml", #Activar la carga de este archivo sólo al instalar, luego comentarlo.
+      #"categorias/categorias.xml", #Activar la carga de este archivo sólo al instalar, luego comentarlo.
 			"reportes/evaluacion/report_evaluacion.xml", # Reporte para casos de novedad del becado
       "reportes/novedad/report_becados.xml", # Reporte para casos de novedad del becado
     ],
