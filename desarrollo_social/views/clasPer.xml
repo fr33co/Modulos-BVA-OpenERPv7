@@ -27,9 +27,7 @@
 			</field>
 		</record>
 		
-<!--
-		<menuitem id="menu_clasPer" name="Clasificación del Personal" parent="menu_principal_mantenimiento" action="accion_lista_clasPer"/>
--->
+		<!-- <menuitem id="menu_clasPer" name="Clasificación del Personal" parent="menu_principal_mantenimiento" action="accion_lista_clasPer"/> -->
 			
 	</data>
 	

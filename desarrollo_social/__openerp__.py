@@ -22,6 +22,7 @@
       "views/grupoSanguineo.xml",
       "views/sedes.xml",
       "views/areas.xml",
+      "views/tipo_beca.xml",
       "views/status.xml",
       "views/novedades.xml",
       "views/proceso_seleccion.xml",
@@ -34,5 +35,6 @@
       #"categorias/categorias.xml", #Activar la carga de este archivo sólo al instalar, luego comentarlo.
 			"reportes/evaluacion/report_evaluacion.xml", # Reporte para casos de novedad del becado
       "reportes/novedad/report_becados.xml", # Reporte para casos de novedad del becado
+      "reportes/constancia/constancia.xml", # Reporte para la emisión de constancia
     ],
 }

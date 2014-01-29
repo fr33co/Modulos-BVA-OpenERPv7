@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	
+	<data>
+			
+		<!--Accionador para el menu de tipo de becas-->
+		<record model="ir.actions.act_window" id="accion_lista_tipoBeca">
+			<field name="name">Tipos de Beca</field>
+			<field name="res_model">becados.tipobeca</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Agregue un nuevo tipo de beca</p>
+			</field>
+		</record>
+		<!--Accionador para el menu de tipo de becas-->
+		
+		<record model="ir.ui.view" id="vista_formulario_tipoBecas">
+			<field name="name">tipobeca.form</field>
+			<field name="model">becados.tipobeca</field>
+			<field name="arch" type="xml"> 
+				<form string="Formulario de Tipo de Becas">
+					<group colspan="2">
+						<field name="tipo_beca" nolabel="0" colspan="1"/>
+					</group>
+				</form>
+			</field>
+		</record>
+		
+		<menuitem id="menu_tipoBeca" name="Tipo de Beca" parent="menu_principal_mantenimiento" action="accion_lista_tipoBeca"/>
+			
+	</data>
+	
+</openerp>
+
+

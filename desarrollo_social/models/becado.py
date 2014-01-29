@@ -43,7 +43,8 @@ class Becado(osv.Model):
 	_columns = {
 		'cedula' : fields.char(string="Cédula", size = 8, required=True),
 		'tiempo_servicio' : fields.char(string="Tiempo de Servicio", size = 8, required=False),
-		'empleado': fields.many2one("becados.tipoempleado", "Tipo de Beca", required = True),
+		'empleado': fields.many2one("becados.tipoempleado", "Tipo de Empleado", required = False),
+		'tipo_beca' : fields.many2one("becados.tipobeca", "Tipo de Beca", required = False),
 		'primer_nombre' : fields.char(string="Primer Nombre", size = 8, required=False),
 		'segundo_nombre' : fields.char(string="Segundo Nombre", size = 8, required=False),
 		'primer_apellido' : fields.char(string="Primer Apellido", size = 8, required=False),
@@ -80,6 +81,15 @@ class Becado(osv.Model):
 		'estudios_actuales' : fields.char(string="Especifique qué estudia",required=False),
 		'cne' : fields.selection((('1','Si'),('2','No')), "¿Está inscrito en el CNE?", required = False),
 		'centro_votacion' : fields.text(string="Centro de votación"),
+		'carga_familiar' : fields.selection((('1','Dispone'),('2','No Dispone')), "¿Tiene Carga Familiar?", required = True),
 		#'fecha_nacimiento' : fields.date(string="Fecha de nacimiento", required=True),
 		'familiar' : fields.one2many("becado.carga.familiar","becado",string="Carga Familiar"),
+		
+		#Campo para formato PDF
+		'fecha_actual' : fields.char(string="FECHA", size = 50, required=False),
 	}
+	
+	_defaults = {
+		'fecha_actual': lambda *a: time.strftime("(%d) días del mes %B del año %Y"),# formato corecto al español
+
+	} 

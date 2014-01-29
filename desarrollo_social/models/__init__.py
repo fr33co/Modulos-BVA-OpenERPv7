@@ -8,6 +8,7 @@ import gradoInstruccion
 import grupoSanguineo
 import sedes
 import areas
+import tipo_beca
 import novedades
 import proceso_seleccion
 import contrato
