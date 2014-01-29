@@ -24,6 +24,9 @@
 				<field name="tiempo_servicio" position="after">
 					<field name="empleado"/>
 				</field>
+				<field name="empleado" position="after">
+					<field name="tipo_beca"/>
+				</field>
 				<!--<field name="primer_nombre" position="after">
 					<field name="segundo_nombre"/>
 				</field>
@@ -46,7 +49,7 @@
 					<field name="estado_de_estudios"/>
 				</field>
 				<field name="estado_de_estudios" position="after">
-					<field name="estudios_actuales"/>
+					<field name="estudios_actuales" attrs="{'invisible': [('estado_de_estudios', '!=', True) ] }"/>
 				</field>
 				<field name="otherid" position="replace">
 					<field name="grupo_sanguineo"/>
@@ -76,10 +79,12 @@
 					<field name="tipo_nomina"/>
 				</field>
 				<field name="coach_id" position="after">
-					<field name="coordinador_eje" widget="selection" groups="desarrollo_social.desarrollosocial"/>
+					<field name="coordinador_eje" widget="selection"/>
+					<!--groups="desarrollo_social.desarrollosocial"-->
 				</field>
 				<field name="coordinador_eje" position="after">
-					<field name="coordinador_sede" widget="selection" groups="desarrollo_social.desarrollosocial"/>
+					<field name="coordinador_sede" widget="selection"/>
+					<!--groups="desarrollo_social.desarrollosocial"-->
 				</field>
 <!--
 				<field name="tipo_nomina" position="after">
@@ -87,7 +92,7 @@
 				</field>
 -->
 				<field name="birthday" position="after">
-					<field name="edad" class="oe_inline" readonly="1"/>
+					<field name="edad" class="oe_inline"/>
 				</field>
 				<!--<field name="class_personal" position="after">
 					<field name="cargo_desempenado"/>
@@ -129,13 +134,18 @@
 					<field name="centro_votacion" attrs="{'invisible': [('cne', '!=', '1') ] }"/>
 				</field>
 				<field name="active" position="after">
-					<field name="status"/>
+					<field name="status" attrs="{'invisible':[('active','=',True)]}"/>
 				</field>
 				<field name="status" position="after">
-					<field name="desc_status" attrs="{'invisible':[('status','in',(1,False))]}"/>
+					<field name="desc_status" attrs="{'invisible':[('active','=',True)]}"/>
 				</field>
-				<field name="active" position="attributes">
-					<field name="active" attrs="{'invisible':[('status','!=',1)]}"/>
+				<field name="category_ids" position="after">
+				<label for="carga_familiar" class="oe_edit_only"/>
+					<field name="carga_familiar" class="oe_inline" nolabel="0"/>
+				</field>
+				<!--Campo oculto para formato PDF -->
+				<field name="carga_familiar" position="after">
+					<field name="fecha_actual" invisible="1"/>
 				</field>
 <!--
 				<field name="birthday" position="replace">
@@ -144,7 +154,7 @@
 -->
 				<!--Nueva página para el "notebook"-->
 				<page string="HR Settings" position="after">
-					<page string="Carga Familiar">
+					<page string="Carga Familiar" attrs="{'invisible': [('carga_familiar', '!=', '1') ] }">
 						<field name="familiar" nolabel="1" colspan="4" mode="tree">
 							<tree string="Registrar Familiares">
 							 <field name="cedula_familiar"/>
@@ -160,6 +170,7 @@
 					</page>
 				</page>
 				<!--Nueva página para el "notebook"-->
+				
 			</field>
 		</record>
 		

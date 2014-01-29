@@ -13,7 +13,7 @@
   
 	<blockTableStyle id="blocktablestyle4">
     
-    <lineStyle kind="GRID" colorName="#130505" thickness="1" start="0,0" stop="-1,-1" />
+    <lineStyle kind="GRID" colorName="#B9B5B5" thickness="0" start="0,0" stop="-1,-1" />
 	</blockTableStyle>
 
   
@@ -37,12 +37,12 @@
     </initialize>
     <paraStyle name="P1" fontName="Helvetica"/>
     <paraStyle name="P2" fontName="Helvetica" alignment="CENTER"/>
-    <paraStyle name="terp_default_8" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="terp_default_8" fontName="Helvetica" fontSize="9.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
     <paraStyle name="terp_default_9" fontName="Helvetica" fontSize="9.0" leading="10" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0"/>
     <paraStyle name="P3" fontName="Helvetica" fontSize="14.0" leading="17" alignment="CENTER"/>
     <paraStyle name="terp_header_Centre" fontName="Helvetica-Bold" fontSize="12.0" leading="15" alignment="CENTER" spaceBefore="12.0" spaceAfter="6.0"/>
-    <paraStyle name="P4" fontName="Helvetica" alignment="CENTER"/>
-    <paraStyle name="P5" fontName="Helvetica" fontSize="10.0" leading="13" alignment="LEFT"/>
+    <paraStyle name="P4" fontName="Helvetica" alignment="CENTER" fontSize="9.0" leading="10" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P5" fontName="Helvetica" fontSize="9.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
     <paraStyle name="Standard" fontName="Helvetica"/>
     <paraStyle name="Heading" fontName="Helvetica" fontSize="14.0" leading="17" spaceBefore="12.0" spaceAfter="6.0"/>
     <paraStyle name="Text body" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
@@ -58,28 +58,19 @@
     
     <blockTable colWidths="518" style="blocktablestyle4" border="1">
       <tr>
-        <td>
-          <para style="terp_header_Centre" textColor="#130505">Novedades de la Pre-Nómina</para>
+        <td background="red">
+          <para style="terp_header_Centre" textColor="#130505">Novedad de la Pre-Nómina</para>
         </td>
       </tr>
       <tr>
       <td>
-		<illustration height="51.0" width="134.0">
-            <image x="340" y="0" file="../../img/logo_bva.png" height="51.0" width="134.0"/>
+		<illustration height="1.0" width="140.0">
+            <image x="-17" y="80" file="../../img/logo_bva.png" height="600.0" width="530"/>
           </illustration>
       </td>
       </tr>
-      <tr>
-        <td>
-          <para style="Table Contents">
-            <font color="white"> </font>
-          </para>
-        </td>
-      </tr>
+      
     </blockTable>
-    
-    
-    
     
     <blockTable colWidths="518" style="blocktablestyle4" border="1">
       <tr>
@@ -282,7 +273,56 @@
     <blockTable colWidths="482.0" style="Tabla2">
       <tr>
         <td>
-          Observaciones: [[ becados.observacion_general ]]
+          <para style="P5">Observaciones: [[ becados.observacion_general ]]</para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
         </td>
       </tr>
       <tr>
@@ -314,34 +354,27 @@
     <para style="P5">
       <font color="white"> </font>
     </para>
-    <para style="P5">
-      <font color="white"> </font>
-    </para>
-    
-    <para style="P5">Dirección: Av. Sucre Complejo Cultural Santos Michelena. Edif. Bibliotecas Virtuales, Maracay Edo. Aragua Venezuela.</para>
-    <para style="P4">
-      <font face="Helvetica" size="10.0">www.bibliotecasvirtuales.org.ve</font>
-      <font face="Helvetica" size="10.0"> Teléfono: 0243-237-01-74 / Fax: 0243-232-20-62</font>
-    </para>
-    <para style="P5">
-      <font color="white"> </font>
-    </para>
-    <para style="P5">
-      <font color="white"> </font>
-    </para>
     <blockTable colWidths="500.0" style="Tabla2">
-      <tr>
-        <td>
-          <barCode xdim="5cm">*${object.ean13}*</barCode>
-          
-        </td>
-      </tr>
+      
       <tr>
         <td>
           <para style="Table Contents">
             <font color="white"> </font>
           </para>
         </td>
+      </tr>
+      <tr>
+      <td>
+      <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+    <illustration height="1.0" width="140.0">
+            <image x="-29.5" y="-170" file="../../img/footer_bva.png" height="600.0" width="530"/>
+          </illustration>
+      </td>
       </tr>
     </blockTable>
     
