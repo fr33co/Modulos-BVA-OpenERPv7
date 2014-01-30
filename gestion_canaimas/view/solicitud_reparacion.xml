@@ -17,7 +17,7 @@
 			<field name="name">solicitud.reparacion.tree</field>
 			<field name="model">solicitud.reparacion</field>
 			<field name="arch" type="xml">
-				<tree string="Soporte">
+				<tree string="Soporte" colors="blue:status=='Reparada';#666666:status=='Remitir';">
 					<field name="c_solicitud"/>
                     <field name="f_solicitud" />
 					<field name="f_entrega" />
@@ -39,36 +39,51 @@
                             <field name="c_solicitud" on_change="on_change_datos(c_solicitud)"/>
                         </group>
                         <group>
-                            <field name="f_solicitud"/>
-                            <field name="f_entrega" />
+                            <field name="f_solicitud" class="oe_inline"/>
+                            <field name="f_entrega" class="oe_inline"/>
                         </group>
                     </group>
                     <notebook>
                         <page string="Solicitud de soporte">
                             <group>
-                                <group string="Datos del equipo:">
-                                    <field name="serial" />
-                                    <field name="modelo"/>
-                                    <field name="status_ss"/>
-                                </group>
-                                <group string="Descripcion del problema:">
-                                    <field name="descripcion" nolabel="1" />
+                                <group>
+                                    <group string="Datos del equipo:">
+                                        <field name="serial"/>
+                                        <field name="modelo" />
+                                        <field name="status_ss"/>
+                                    </group>
+                                    <group string="Descripcion del problema:">
+                                        <field name="descripcion" nolabel="1"/>
+                                    </group>
                                 </group>
                             </group>
-                        </page>
-                        <page string="Datos relacionados al soporte:">
-                            <group string="Técnico encargado" col="4" colspan="2">
-                                <field name="tecnico" placeholder="Nombre del Técnico a cargo"/>
-                                <field name="status"/>
+                            <separator/>
+                            <group>
+                                <group>
+                                    <field name="tecnico" placeholder="Nombre del Técnico a cargo"/>
+                                    <field name="status" /> 
+                                    <button name="actualizar_status" string="Modificar Estado" type="object" icon="gtk-execute" confirm="¿Esta usted de acuerdo con cambiar el ESTADO de la Solicitud?"/>                      
+                                </group>
+                                <field name="solucion" nolabel="1" placeholder="Solucion y/o Información sobre la reparación" />
                             </group>
-                            <separator string="Descripcion del soporte o diagnostico realizado:"/>						
-                            <field name="solucion" nolabel="1" placeholder="Solucion y/o Información sobre la reparación" />
                         </page>
                     </notebook>
 				</form>
 			</field>			
 		</record>
-
+        
+<!-- Filtro de solicitudes de reparaciones (cod de solicitud y nombre del representante) -->
+        <record model="ir.ui.view" id="buscar_solicitudes_canaimas_id">
+            <field name="name">Solicitud</field>
+            <field name="model">solicitud.reparacion</field>
+            <field name="arch" type="xml">      
+                <search string="Busqueda Solicitudes de Soporte Canaimas">
+                    <filter name="reparaciones" domain="[('c_solicitud','=', uid)]" string="Solicitudes de Reparación" icon="terp-partner" />
+                    <field name="c_solicitud" />
+                    <field name="status" />
+                </search>
+            </field>            
+        </record>
 <!--Menu-->
 
 		<menuitem id="main_canaima_menu" name="Gestion de Canaimas" /> 

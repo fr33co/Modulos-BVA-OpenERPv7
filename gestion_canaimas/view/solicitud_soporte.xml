@@ -30,17 +30,16 @@
 			<field name="name">Solicitud</field>
 			<field name="model">solicitud.soporte</field>
 			<field name="arch" type="xml">
-				<tree string="Solicitud de soporte" colors="red:status in ('Revisar');blue:status in ('Atendiendo');green:status=='Entregada';gray:status==('Reparada','Remitida')">
-					<field name="institucion" />
+				<tree string="Solicitud de soporte" colors="red:status=='Atendiendo';blue:status=='Reparada';black:status=='Remitida';green:status=='Entregada';orange:status=='Devuelta'">
 					<field name="c_solicitud" />
 					<field name="f_solicitud" />
 					<field name="f_entrega" />
 					<field name="serial" />
 					<field name="modelo" />
+                    <field name="cedula" />
 					<field name="nombre_r" />
 					<field name="apellido_r" />
 					<field name="telefono" />
-					<field name="tecnico" invisible="[('status','=','Revisar')]"/>
 					<field name="status" />
 				</tree>
 			</field>			
@@ -53,26 +52,30 @@
 			<field name="model">solicitud.soporte</field>
 			<field name="arch" type="xml">
 				<form string="Solicitud de soporte" version="7.0">
+                    <header> 
+                        <!--botones de la barra de estado de solicitud -->
+                        <button name="action_listo" type="object" string="Entregada"
+                         status="Atendiendo" class="oe_highlight" attrs="{'invisible':[('status','in', ('Atendiendo','Remitir','Entregada','Devuelta'))]}" confirm="¿Esta usted seguro de cambiar el ESTADO a Entregada?"/>
+                        <button name="action_devuelta" type="object" string="Devuelta"
+                         status="Devuelta" class="oe_highlight" attrs="{'invisible':[('status','in', ('Atendiendo','Reparada','Entregada','Devuelta'))]}" confirm="¿Esta usted de acuerdo con cambiar el ESTADO a Devuelta?"/>
+                         <field name="status" widget="statusbar"/>
+                    </header>
                     <field name="id" invisible="1"/>
                     <group>
                         <group>
-                            <field name="institucion"/>
                             <field name="c_solicitud" />
                             <field name="user_register" />
                         </group>
                         <group>
                             <field name="f_solicitud" />
                             <field name="f_entrega" attrs="{'readonly':[('id','!=', False)]}"/>
-                            <field name="status"/>
                         </group>
                     </group>
                     <notebook>
                         <page string="Datos de la computadora">
                             <group>
-                                
                                 <group>
                                     <separator string="Datos del equipo y problemas:" colspan="2"/>
-                                    <field name="reportado" attrs="{'readonly':[('id','!=', False)]}"/>
                                     <field name="modelo" attrs="{'readonly':[('id','!=', False)]}" placeholder="Modelo de la Canaimita" />
                                     <field name="serial" attrs="{'readonly':[('id','!=', False)]}" placeholder="Serial de la Canaimita" />
                                 </group>
@@ -89,8 +92,8 @@
                                         <field name="otros" attrs="{'readonly':[('id','!=', False)]}"/>
                                     </group>
                                 </group>
-                                <separator string="Descripcion del problema según el usuario:" colspan="4"/>
-                                <field name="descripcion" nolabel="1" colspan="4"  attrs="{'readonly':[('id','!=', False)]}"  placeholder="Descripción de la falla"/>
+                                <separator string="Descripcion del problema según el usuario:" colspan="2"/>
+                                <field name="descripcion" nolabel="1" colspan="2"  attrs="{'readonly':[('id','!=', False)]}"  placeholder="Descripción de la falla"/>
                             </group>
                         </page>
                         <page string="Datos del estudiante">
@@ -133,32 +136,32 @@
                                 </group>
                             </group>
                         </page>
-                        <page string="Información proporcionada por el técnico" attrs="{'invisible':[('status', '=', 'Revisar')]}">
-                            <group>
-                                <group>
-                                    <field name="tecnico" attrs="{'readonly':[('status','=', False)]}"/>
-                                    <separator string="Descripción del caso según el técnico:" colspan="2"/>
-                                    <field name="descripcion_tecnico" nolabel="1"/>
-                                </group>
-                            </group>
+                        <!-- Pestaña solo visible una ves que el estado de la solicitud cambie de atendida -->
+                        <page string="Datos de la Reparación" attrs="{'invisible': [('status','==', 'Atendiendo')]}">
+                                <separator string="Descripcion del soporte o diagnostico realizado:"/>
+                                <field name="solucion" />
                         </page>
                     </notebook>
 				</form>
 			</field>			
 		</record>
-        
-        <record model="ir.ui.view" id="solicitud_soporte search_view">
-            <field name="name">solicitud_soporte.search</field>
+
+<!-- Filtro de solicitudes de soporte (por fechas, cod de solicitud y nombre del representante) -->
+        <record model="ir.ui.view" id="buscar_reparaciones_canaimas_id">
+            <field name="name">Solicitud</field>
             <field name="model">solicitud.soporte</field>
-            <field name="arch" type="xml">
-                <search string="Filtros Solicitud de Soporte">
-                    <filter string="Status" icon="terp-partner"
-                        name="status"
-                        domain= "[('status','=',status)]"
-                        help="Filtro por estado"/>
-                    <field name="status"/>
+            <field name="arch" type="xml">      
+                <search string="Busqueda Solicitudes de Soporte Canaimas">
+                    <filter name="solicitudes" domain="[('c_solicitud','=', uid)]" string="Solicitudes de Soporte" icon="terp-partner" />
+                    <field name="c_solicitud" />
+                    <field name="status" />
+                    <field name="f_solicitud" />
+                    <field name="f_entrega" />
+                    <field name="cedula" />
+                    <field name="nombre_r" />
+                    <field name="apellido_r" />
                 </search>
-            </field>
+            </field>            
         </record>
         
 <!--Menu-->
