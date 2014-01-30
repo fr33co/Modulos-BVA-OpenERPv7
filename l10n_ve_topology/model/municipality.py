@@ -51,4 +51,3 @@ class res_country_municipality(osv.Model):
         return self.name_get(cr, user, ids, context)
 
     _order = 'code'
-

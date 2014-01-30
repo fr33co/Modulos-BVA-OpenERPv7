@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+<!-- Company -->
+        <record model="ir.ui.view" id="companies_form_add_location">
+            <field name="name">companies_form_add_location</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/notebook/page/group/group" position="replace">
+                    <group>
+                        <field name="partner_id" readonly="1" required="0" groups="base.group_no_one"/>
+                        <label for="street" string="Address"/>
+                        <div>
+                            <field name="country_id" placeholder="Country" class="oe_no_button" options='{"no_open": True}' on_change="on_change_country(country_id)"/>
+                            <div>
+                                <field name="state_id" class="oe_no_button" placeholder="State" options='{"no_open": True}'/>
+                                <field name="municipality_id" domain= "[('state_id','=',state_id)]" placeholder="Municipality" style="width: 49.2%%"/>
+                                <field name="city_id" domain= "[('state_id','=',state_id)]" placeholder="City" style="width: 49.2%%"/>
+<!--
+                                <field name="sector_id" placeholder="Sector"/>
+-->
+                                <field name="parish_id" domain= "[('municipalities_id','=',municipality_id)]"  placeholder="Parish"/>
+                                <field name="zipcode_id" placeholder="ZIP"/>
+                            </div>
+                            <field name="street" placeholder="Dirección..."/>
+                            <field name="street2" placeholder="Continuación dirección..." />
+                        </div>
+                        <label for="rml_header1"/>
+                        <div>
+                            <field name="rml_header1" placeholder="e.g. Global Business Solutions"/>
+                        </div>
+                        <field name="website" widget="url" placeholder="e.g. www.openerp.com"
+                            on_change="onchange_footer(custom_footer, phone, fax, email, website, vat, company_registry, bank_ids)"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>
