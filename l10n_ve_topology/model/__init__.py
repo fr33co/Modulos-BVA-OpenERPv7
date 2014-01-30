@@ -28,3 +28,6 @@ import state
 import parish
 import zipcode
 #~ import sector
+import res_company
+import res_partner
+

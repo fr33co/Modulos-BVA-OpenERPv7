@@ -22,19 +22,15 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
-
 from openerp.osv import osv, fields
 from tools.translate import _
 
-class res_country_sector(osv.Model):
-    _name = 'res.country.sector'
-    _description = 'Sector'
+class res_company(osv.Model):
+    _inherit ='res.company'
     _columns = {
-        'name': fields.char('Sector', size=128, help="In this field enter the name of the Sector"),
-        'city':fields.related('city_id',type="many2one",relation='res.partner',help="In this field you enter the city to which the sector is associated"),
-        'municipality':fields.related('municipality_id',type="many2one",relation='res.partner', help="In this field enter the name of the municipality which is associated with the parish"),
-        'parish':fields.related('parish_id',type="many2one",relation='res.partner',help="In this field you enter the parish to which the sector is associated"),
-        'zipcode':fields.related('zipcode_id',type="many2one",string='Zip Code',relation='res.partner',help="in this field is selected Zip Code associated with this sector"),
-        'state':fields.related('state_id',type="many2one", relation='res.partner',help="In this field enter the name of state associated with the country"),
-        'country':fields.related('country_id',type="many2one", relation='res.partner',help="In this field enter the name of Country"),
+        'city_id': fields.many2one('res.country.city', 'Ciudad', required=True),
+        'municipality_id': fields.many2one('res.country.municipality', 'Municipio', required=True),
+        'parish_id': fields.many2one('res.country.parish', 'Parroquia', required=True),
+        #~ 'sector_id': fields.many2one('res.contry.sector', 'ZIP', required=False),
+        'zipcode_id': fields.many2one('res.country.zipcode', 'ZIP', required=False),
     }
