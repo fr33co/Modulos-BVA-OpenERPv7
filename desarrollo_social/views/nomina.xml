@@ -22,10 +22,12 @@
 								<field name="cedula"/>
 							</field>
 							<field name="employee_id" position="after">
-								<group col="4" colspan="4">
-									<separator colspan="4"/>
-									<field name="categoria" nolabel="0"/>
-								</group>
+								<h3>
+									<group col="4" colspan="4">
+										<separator colspan="4"/>
+										<field name="categoria" nolabel="0"/>
+									</group>
+								</h3>
 							</field>
 					</field>
 			</record>
