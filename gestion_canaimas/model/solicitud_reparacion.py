@@ -20,13 +20,15 @@ class solicitud_reparacion(osv.Model):
         if not c_solicitud:
             return values
         datos = self.pool.get('solicitud.soporte').browse(cr, uid, c_solicitud, context=context)
+        entrega = datos.f_entrega.split("-")
+        fecha2= entrega[2]+"/"+entrega[1]+"/"+entrega[0]
         values.update({
             'serial' : datos.serial,
             'modelo' : datos.modelo.modelo,
             'status_ss' : datos.status,
             'descripcion' : datos.descripcion,
             'f_solicitud': datos.f_solicitud,
-            'f_entrega': datos.f_entrega,
+            'f_entrega': fecha2,
         })
         return {'value' : values}
 
