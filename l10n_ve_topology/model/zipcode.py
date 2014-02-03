@@ -29,7 +29,9 @@ class res_country_zipcode(osv.Model):
     '''
     Model added to manipulate separately the Zip Code on Partner address.
     '''
+    
     _name = 'res.country.zipcode'
+    
     _columns = {
         'name': fields.char('Zip Code', size=128, required=True, select=1, help="The ZipCode written as four numbers, Example: 1010\n"),
     }

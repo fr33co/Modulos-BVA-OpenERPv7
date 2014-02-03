@@ -43,8 +43,9 @@
                     "data/municipality_data.xml",
                     "data/parish_ve_data.xml",
                     "data/zip_code_data.xml",
-                    #~ "view/sector_view.xml",
+                    "view/sector_view.xml",
                     "view/company.xml",
+                    "view/partner.xml",
                     "security/ir.model.access.csv",
         ],
 }

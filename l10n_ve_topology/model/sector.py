@@ -27,14 +27,16 @@ from openerp.osv import osv, fields
 from tools.translate import _
 
 class res_country_sector(osv.Model):
+    
     _name = 'res.country.sector'
     _description = 'Sector'
+
     _columns = {
-        'name': fields.char('Sector', size=128, help="In this field enter the name of the Sector"),
-        'city':fields.related('city_id',type="many2one",relation='res.partner',help="In this field you enter the city to which the sector is associated"),
-        'municipality':fields.related('municipality_id',type="many2one",relation='res.partner', help="In this field enter the name of the municipality which is associated with the parish"),
-        'parish':fields.related('parish_id',type="many2one",relation='res.partner',help="In this field you enter the parish to which the sector is associated"),
-        'zipcode':fields.related('zipcode_id',type="many2one",string='Zip Code',relation='res.partner',help="in this field is selected Zip Code associated with this sector"),
-        'state':fields.related('state_id',type="many2one", relation='res.partner',help="In this field enter the name of state associated with the country"),
-        'country':fields.related('country_id',type="many2one", relation='res.partner',help="In this field enter the name of Country"),
+        'name': fields.char('Sector', size=128, required=True,help="In this field enter the name of the Sector"),
+        'city':fields.related('city_id',type="many2one",required=True,relation='res.partner',help="In this field you enter the city to which the sector is associated"),
+        'municipality':fields.related('municipality_id',type="many2one",relation='res.partner',required=True, help="In this field enter the name of the municipality which is associated with the parish"),
+        'parish':fields.related('parish_id',type="many2one",required=True,relation='res.partner',help="In this field you enter the parish to which the sector is associated"),
+        'zipcode':fields.related('zipcode_id',type="many2one",string='Zip Code',relation='res.partner',required=True,help="in this field is selected Zip Code associated with this sector"),
+        'state':fields.related('state_id',type="many2one",required=True, relation='res.partner',help="In this field enter the name of state associated with the country"),
+        'country':fields.related('country_id',type="many2one",required=True, relation='res.partner',help="In this field enter the name of Country"),
     }

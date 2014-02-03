@@ -18,10 +18,8 @@
                                 <field name="state_id" class="oe_no_button" placeholder="State" options='{"no_open": True}'/>
                                 <field name="municipality_id" domain= "[('state_id','=',state_id)]" placeholder="Municipality" style="width: 49.2%%"/>
                                 <field name="city_id" domain= "[('state_id','=',state_id)]" placeholder="City" style="width: 49.2%%"/>
-<!--
-                                <field name="sector_id" placeholder="Sector"/>
--->
                                 <field name="parish_id" domain= "[('municipalities_id','=',municipality_id)]"  placeholder="Parish"/>
+                                <field name="sector_id" placeholder="Sector"/>
                                 <field name="zipcode_id" placeholder="ZIP"/>
                             </div>
                             <field name="street" placeholder="Dirección..."/>

@@ -22,12 +22,13 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
+
 import city
 import municipality
 import state
 import parish
 import zipcode
-#~ import sector
+import sector
 import res_company
 import res_partner
 
