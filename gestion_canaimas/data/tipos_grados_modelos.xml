@@ -6,9 +6,11 @@
                 <field name="tipo">Básica</field>
             </record>
             <record id="tipo2" model="solicitud.tipo.edu">
+                <field name="tipo">Media</field>
+            </record>
+            <record id="tipo3" model="solicitud.tipo.edu">
                 <field name="tipo">Diversificada</field>
             </record>
-            
             <!--GRADO-->
             <record id="grado1" model="solicitud.grado">
                 <field name="grado">Primer Grado</field>
@@ -35,24 +37,24 @@
                 <field name="tipo" ref="tipo1"/>
             </record>
             <record id="grado7" model="solicitud.grado">
-                <field name="grado">Primer Año Diversificado</field>
+                <field name="grado">Primer Año</field>
                 <field name="tipo" ref="tipo2"/>
             </record>
             <record id="grado8" model="solicitud.grado">
-                <field name="grado">Segundo Año Diversificado</field>
+                <field name="grado">Segundo Año</field>
                 <field name="tipo" ref="tipo2"/>
             </record>
             <record id="grado9" model="solicitud.grado">
-                <field name="grado">Tercer Año Diversificado</field>
+                <field name="grado">Tercer Año</field>
                 <field name="tipo" ref="tipo2"/>
             </record>
             <record id="grado10" model="solicitud.grado">
-                <field name="grado">Cuarto Año Diversificado</field>
-                <field name="tipo" ref="tipo2"/>
+                <field name="grado">Cuarto Año</field>
+                <field name="tipo" ref="tipo3"/>
             </record>
             <record id="grado11" model="solicitud.grado">
-                <field name="grado">Quinto Año Diversificado</field>
-                <field name="tipo" ref="tipo2"/>
+                <field name="grado">Quinto Año</field>
+                <field name="tipo" ref="tipo3"/>
             </record>
             <!--MODELO-->
             <record id="modelo1" model="solicitud.modelo">
