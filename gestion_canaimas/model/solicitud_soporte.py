@@ -9,33 +9,28 @@ from datetime import datetime, timedelta
 # Clase Solicitud de reparacion de Canaima
 class solicitud_soporte(osv.Model):
 
-#  Nombre del objeto
+    #  Nombre del objeto
     _name = "solicitud.soporte"
 
-#  Ordenar por codigo de solicitud y de ser llamado por otro  objeto muestre codigo de solicitud
+    #  Ordenar por codigo de solicitud y de ser llamado por otro  objeto muestre codigo de solicitud
     _order = 'c_solicitud'
     _rec_name = 'c_solicitud'
 
-# Acciones de cada uno de los botones de la barra de estado de solicitud
+    # Acciones de cada uno de los botones de la barra de estado de solicitud
     def action_atendiendo(self, cr, uid, ids, context = None):
-
-                return self.write(cr, uid, ids, {'status':'Atendiendo'}, context=context)
+        return self.write(cr, uid, ids, {'status':'Atendiendo'}, context=context)
 
     def action_remitir(self, cr, uid, ids, context = None):
-
-                return self.write(cr, uid, ids, {'status':'Remitir'}, context=context)
+        return self.write(cr, uid, ids, {'status':'Remitir'}, context=context)
 
     def action_confirmado(self, cr, uid, ids, context = None):
+        return self.write(cr, uid, ids, {'status':'Reparada'}, context=context)
 
-                return self.write(cr, uid, ids, {'status':'Reparada'}, context=context)
-    
     def action_listo(self, cr, uid, ids, context = None):
-
-                return self.write(cr, uid, ids, {'status':'Entregada'}, context=context)
+        return self.write(cr, uid, ids, {'status':'Entregada'}, context=context)
 
     def action_devuelta(self, cr, uid, ids, context = None):
-
-                return self.write(cr, uid, ids, {'status':'Devuelta'}, context=context)
+        return self.write(cr, uid, ids, {'status':'Devuelta'}, context=context)
                 
     _columns = {
         'c_solicitud' : fields.char(string="Código de Solicitud", size=255, readonly=True, required=True),
@@ -78,12 +73,12 @@ class solicitud_soporte(osv.Model):
         
     """
     Por defecto declaramos: 
-        -El formato del campo de fecha de solicitud por dia, mes y año
-        -El estatus de la solicitud inicie como Atendiendo
-        -El campo Registrado cargue el nombre del usuario logeado
-        -El pais por defecto vamos a filtrar.
+            -El formato del campo de fecha de solicitud por dia, mes y año
+            -El estatus de la solicitud inicie como Atendiendo
+            -El campo Registrado cargue el nombre del usuario logeado
+            -El pais por defecto vamos a filtrar.
     """
-    
+        
     _defaults = {
         'f_solicitud': lambda *a: time.strftime("%d/%m/%Y"),
         'c_solicitud': lambda obj, cr, uid, context: obj.pool.get('ir.sequence').get(cr, uid, 'solicitud.soporte'),
