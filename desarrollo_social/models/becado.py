@@ -88,10 +88,10 @@ class Becado(osv.Model):
 		#Campo para formato PDF
 		'fecha_actual' : fields.char(string="FECHA", size = 50, required=False),
 		
-		'grupo' : fields.many2one("res.groups", "Grupo", required=True, readonly=True),
+		'usuario' : fields.many2one("res.users", "Usuario", required=True, readonly=True),
 	}
 	
 	_defaults = {
 		'fecha_actual': lambda *a: time.strftime("(%d) días del mes %B del año %Y"),# formato corecto al español
-		'grupo': lambda s, cr, uid, c: uid,
+		'usuario': lambda s, cr, uid, c: uid,
 	} 
