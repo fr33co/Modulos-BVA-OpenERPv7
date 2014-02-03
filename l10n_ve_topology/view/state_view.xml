@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+
+<!--STATES-->
+
         <record model="ir.ui.view" id="view_state_form_inherit">
             <field name="name">res.country.state.form.form.inherit</field>
             <field name="model">res.country.state</field>
@@ -14,22 +17,10 @@
                             <field name="city_ids" nolabel="1"/>
                         </page>
                         <page string="Municipalities">
-                            <field name="municipalities_ids" nolabel="1" context="{'tree_view_ref':'view_municipalities_tree_state'}"/>
+                            <field name="municipalities_ids" nolabel="1"/>
                         </page>
                     </notebook>
                 </xpath>
-            </field>
-        </record>
-
-        <record id="view_municipalities_tree_state" model="ir.ui.view">
-            <field name="name">res.municipality.tree</field>
-            <field name="model">res.municipality</field>
-            <field name="type">tree</field>
-            <field name="arch" type="xml">
-                <tree string="municipalities">
-                    <field name="name"/>
-                    <field name="code"/>
-                </tree>
             </field>
         </record>
 

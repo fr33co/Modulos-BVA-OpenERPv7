@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+<!-- Partner -->
+
+        <record model="ir.ui.view" id="partner_form_add_location">
+            <field name="name">partner_form_add_location</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/group/group" position="replace">
+                    <group>
+                        <field name="use_parent_address" class="oe_edit_only oe_inline"
+                                       on_change="onchange_address(use_parent_address, parent_id)"
+                                       attrs="{'invisible': [('parent_id','=', False),('use_parent_address','=',False)]}"/>
+                                <label for="use_parent_address" class="oe_edit_only" attrs="{'invisible': [('parent_id','=', False),('use_parent_address','=',False)]}"/>
+                                <button name="open_parent" type="object" string="(edit company address)" class="oe_link oe_edit_only"
+                                        attrs="{'invisible': ['|',('parent_id','=', False),('use_parent_address','=',False)]}"/>
+                        <label for="street" string="Address"/>
+                        <div>
+                            <field name="country_id" placeholder="Country" class="oe_no_button" options='{"no_open": True}'/>
+                            <div>
+                                <field name="state_id" domain= "[('country_id','=',country_id)]" class="oe_no_button" placeholder="State" options='{"no_open": True}'/>
+                                <field name="municipality_id" domain= "[('state_id','=',state_id)]" placeholder="Municipality" style="width: 49.2%%"/>
+                                <field name="city_id" domain= "[('state_id','=',state_id)]" placeholder="City" style="width: 49.2%%"/>
+                                <field name="city" invisible="1" domain= "[('state_id','=',state_id)]" placeholder="City" style="width: 49.2%%"/>
+                                <field name="parish_id" domain= "[('municipalities_id','=',municipality_id)]"  placeholder="Parish"/>
+                                <field name="sector_id" placeholder="Sector"/>
+                                <field name="zipcode_id" placeholder="ZIP"/>
+                                <field name="zip" invisible="1" placeholder="ZIP"/>
+                            </div>
+                            <field name="street" placeholder="Dirección..."/>
+                            <field name="street2" placeholder="Continuación dirección..." />
+                        </div>
+                        <field name="website" widget="url" placeholder="e.g. www.openerp.com"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

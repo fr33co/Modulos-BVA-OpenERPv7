@@ -29,14 +29,18 @@ class res_country_municipality(osv.Model):
     '''
     Model added to manipulate separately the municipalities on Partner address.
     '''
+    
     _description='Model to manipulate Municipalities'
     _name ='res.country.municipality'
+    _order = 'name'
+    
     _columns = {
         'name': fields.char('Municipality Name', size=64, required=True,help="In this field enter the name of the Municipality\n"),
         'code': fields.char('Municipalities Code', size=3,help='The municipality code in three numbers, Example: 001 for Libertador .\n', required=True),
         'state_id': fields.many2one('res.country.state', 'State', required=True , help="In this field enter the name of the state to which the municipality is associated \n"),
-        #'parish_ids':fields.one2many('res.parish','municipalities_id','Parish',required=True, help="In this field enter the name of the parishes of municipality \n"),
+        'parish_ids':fields.one2many('res.country.parish','municipalities_id','Parish',required=True, help="In this field enter the name of the parishes of municipality \n"),
     }
+    
     def name_search(self, cr, user, name='', args=None, operator='ilike',
             context=None, limit=80):
         if not args:
@@ -50,4 +54,4 @@ class res_country_municipality(osv.Model):
                     limit=limit, context=context)
         return self.name_get(cr, user, ids, context)
 
-    _order = 'code'
+    

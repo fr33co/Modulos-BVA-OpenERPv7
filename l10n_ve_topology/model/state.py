@@ -30,9 +30,11 @@ class res_country_state(osv.Model):
     '''
     Model added to manipulate separately the States on Partner address.
     '''
+    
     _inherit = 'res.country.state'
+    
     _columns = {
-        'city_ids':fields.one2many('res.city','state_id','Cities',help="In this field selects the cities associated with the state\n"),
-        'municipalities_ids': fields.one2many('res.municipality',"state_id",'State', required=True,help="In this field enter the name of the associated municipalities to the state"),
+        'city_ids':fields.one2many('res.country.city', 'state_id','Cities',help="In this field selects the cities associated with the state\n"),
+        'municipalities_ids': fields.one2many('res.country.municipality',"state_id",'State', required=True,help="In this field enter the name of the associated municipalities to the state"),
         
     }

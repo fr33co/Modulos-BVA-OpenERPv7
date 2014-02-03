@@ -25,24 +25,19 @@ from tools.translate import _
 
 class res_partner(osv.Model):
     
-    def _get_city_name(self, cr, uid, ids, field_name, arg, context=None):
-        if context is None:
-            context={}
-        res={}
-        for obj in self.browse(cr, uid, ids):
-            if obj.city_id:
-                res[obj.id] = obj.city_id.name
-            else:
-                res[obj.id] = ''
-        return res
-
     _inherit='res.partner'
+
+    #~ def on_change_country(self, cr, uid, ids, country_id, context=None):
+        #~ currency_id = self._get_euro(cr, uid, context=context)
+        #~ if country_id:
+            #~ currency_id = self.pool.get('res.country').browse(cr, uid, country_id, context=context).currency_id.id
+        #~ return {'value': {'currency_id': currency_id}}
+
     _columns = {
-        'municipality_id':fields.many2one('res.country.municipality','Municipality', help="In this field enter the name of the municipality which is associated with the parish", domain= "[('state_id','=',state_id)]"),
-        'parish_id':fields.many2one('res.country.parish','Parish',help="In this field you enter the parish to which the sector is associated",domain= "[('municipalities_id','=',municipality_id)]" ),
-        'zipcode_id':fields.many2one('res.country.zipcode',string='Zip Code',help="in this field is selected Zip Code associated with this sector"),
-        #~ 'sector_id':fields.many2one('res.country.sector',string='Sector',required=False,help="in this field select the Sector associated with this Municipality"),
-        'city_id':fields.many2one('res.country.city',string='City',domain= "[('state_id','=',state_id)]",help="in this field select the city associated with this State"),
-        'city':fields.function(_get_city_name, method=True, type='char', string='City', size=256, domain= "[('state_id','=',state_id)]",store=True),
+        'city_id': fields.many2one('res.country.city', 'Ciudad', required=True),
+        'municipality_id': fields.many2one('res.country.municipality', 'Municipio', required=True),
+        'parish_id': fields.many2one('res.country.parish', 'Parroquia', required=True),
+        'sector_id': fields.many2one('res.country.sector', 'ZIP', required=False),
+        'zipcode_id': fields.many2one('res.country.zipcode', 'ZIP', required=False),
     }
 

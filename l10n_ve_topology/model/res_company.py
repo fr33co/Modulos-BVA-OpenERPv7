@@ -26,11 +26,13 @@ from openerp.osv import osv, fields
 from tools.translate import _
 
 class res_company(osv.Model):
+    
     _inherit ='res.company'
+
     _columns = {
         'city_id': fields.many2one('res.country.city', 'Ciudad', required=True),
         'municipality_id': fields.many2one('res.country.municipality', 'Municipio', required=True),
         'parish_id': fields.many2one('res.country.parish', 'Parroquia', required=True),
-        #~ 'sector_id': fields.many2one('res.contry.sector', 'ZIP', required=False),
+        'sector_id': fields.many2one('res.country.sector', 'ZIP', required=False),
         'zipcode_id': fields.many2one('res.country.zipcode', 'ZIP', required=False),
     }
