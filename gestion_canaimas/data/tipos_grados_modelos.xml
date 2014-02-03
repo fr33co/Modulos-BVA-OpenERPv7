@@ -58,7 +58,7 @@
             <record id="modelo1" model="solicitud.modelo">
                 <field name="modelo">mg101a3</field>
             </record>
-            <record id="modelo1" model="solicitud.modelo">
+            <record id="modelo2" model="solicitud.modelo">
                 <field name="modelo">mg101a4</field>
             </record>
         </data>
