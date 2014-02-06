@@ -49,7 +49,8 @@ class gdc_proyectos(osv.Model):
     _rec_name = "actividad"
     _order="actividad"
     _inherit = ['mail.thread', 'ir.needaction_mixin']
-    
+  
+  
     def on_change_address_id(self, cr, uid, ids, address_id, context=None):
         """
         Onchange para traer toda la informacion de la direccion
@@ -61,11 +62,15 @@ class gdc_proyectos(osv.Model):
         values.update({
             'street' : address.street,
             'street2' : address.street2,
-            'city' : address.city,
+            'city_id' : address.city_id.id,
+            'municipality_id' : address.municipality_id.id,
+            'parish_id' : address.parish_id.id,
+            'zipcode_id' : address.zipcode_id.id,
+            'sector_id' : address.sector_id.id,
             'country_id' : address.country_id and address.country_id.id or False,
             'state_id' : address.state_id and address.state_id.id or False,
-            'zip' : address.zip,
         })
+        print values
         return {'value' : values}
     
     def onchange_date_start(self, cr, uid, ids, date_start, context=None):
@@ -141,13 +146,18 @@ class gdc_proyectos(osv.Model):
         'presu_real': fields.float('Presupuesto Real (Bs.)', required=True),
         'bene_tentativo': fields.integer('Cantidad de beneficiados tentativos', required=True),
         'members_project': fields.many2many('res.company', 'project_company_rel', 'project_id', 'uid', 'Instituciones'),
+        
         'address_id': fields.many2one('res.partner','Lugar', readonly=False, required=True, domain=[('category_id.name','ilike','Lugar')]),
         'street': fields.related('address_id','street',type='char',string='Direccion'),
         'street2': fields.related('address_id','street2',type='char',string='Cont. Direccion'),
         'state_id': fields.related('address_id','state_id',type='many2one', relation="res.country.state", string='Estado'),
-        'zip': fields.related('address_id','zip',type='char',string='Codigo Postal'),
-        'city': fields.related('address_id','city',type='char',string='Ciudad'),
+        'zipcode_id': fields.related('address_id','zipcode_id',type='many2one', relation="res.country.zipcode", string='Zipcode'),
+        'city_id': fields.related('address_id','city_id',type='many2one', relation="res.country.city", string='City'),
+        'municipality_id': fields.related('address_id','municipality_id',type='many2one', relation="res.country.municipality", string='Municipality'),        
+        'parish_id': fields.related('address_id','parish_id',type='many2one', relation="res.country.parish", string='Parish'),
+        'sector_id': fields.related('address_id','sector_id',type='many2one', relation="res.country.sector", string='Sector'),
         'country_id': fields.related('address_id', 'country_id', type='many2one', relation='res.country', string='Pais', readonly=False),
+        
         'tareas_ids': fields.one2many('gdc.tareas', 'project_id2', string="Tareas"),
         'incidencias_ids': fields.one2many('gdc.incidencias', 'project_id', string="Incidencias"),
         'conclusiones': fields.text('Conclusiones'),

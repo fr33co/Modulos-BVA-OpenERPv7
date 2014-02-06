@@ -147,15 +147,21 @@ PROYECTOS
                                 <group>
                                     <separator string="Lugar de ejecución del proyecto" colspan="2"/>
                                         <div>
-                                           <field name="address_id" on_change="on_change_address_id(address_id)" domain="[('category_id.name','ilike','Lugar')]"/>
-                                           <field name="street" placeholder="Direccion..."/>
-                                           <field name="street2" placeholder="Cont. Direccion..."/>
-                                           <div class="address_format">
-                                               <field name="city" placeholder="Ciudad" style="width: 40%%"/>
-                                               <field name="state_id" class="oe_no_button" placeholder="Estado" style="width: 37%%" options='{"no_open": true}'/>
-                                               <field name="zip" placeholder="Codigo Postal" style="width: 20%%"/>
-                                           </div>    
-                                           <field name="country_id" placeholder="Pais" class="oe_no_button" options='{"no_open": true}'/>
+                                            <field name="address_id" on_change="on_change_address_id(address_id)" domain="[('category_id.name','ilike','Lugar')]"/>
+                                            <label for="street" string="Dirección"/>
+                                            <div>
+                                                <field name="country_id" placeholder="País" class="oe_no_button" options='{"no_open": True}'/>
+                                                <div>
+                                                    <field name="state_id" domain= "[('country_id','=',country_id)]" class="oe_no_button" placeholder="Estado" options='{"no_open": True}'/>
+                                                    <field name="municipality_id" domain= "[('state_id','=',state_id)]" placeholder="Municipio" style="width: 49.2%%"/>
+                                                    <field name="city_id" domain= "[('state_id','=',state_id)]" placeholder="Ciudad" style="width: 49.2%%"/>
+                                                    <field name="parish_id" domain= "[('municipalities_id','=',municipality_id)]"  placeholder="Parroquia"/>
+                                                    <field name="sector_id" placeholder="Sector"/>
+                                                    <field name="zipcode_id" placeholder="Codígo Postal"/>
+                                                </div>
+                                                <field name="street" placeholder="Dirección..."/>
+                                                <field name="street2" placeholder="Continuación dirección..." />
+                                            </div>
                                        </div>
                                 </group>
                                 <group>
