@@ -1,0 +1,179 @@
+<?xml version="1.0"?>
+<document filename="test.pdf">
+  <template pageSize="(595.0,842.0)" title="Test" author="Martin Simon" allowSplitting="20">
+    <pageTemplate id="first">
+      <frame id="first" x1="57.0" y1="57.0" width="481" height="728"/>
+    </pageTemplate>
+  </template>
+  <stylesheet>
+    <blockTableStyle id="Standard_Outline">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+    <blockTableStyle id="Tabla1">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      <lineStyle kind="LINEBEFORE" colorName="#ffffff" start="0,0" stop="0,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#ffffff" start="0,0" stop="0,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#ffffff" start="0,0" stop="0,0"/>
+      <lineStyle kind="LINEBELOW" colorName="#ffffff" start="0,-1" stop="0,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#ffffff" start="0,1" stop="0,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#ffffff" start="0,1" stop="0,-1"/>
+      <lineStyle kind="LINEBELOW" colorName="#ffffff" start="0,-1" stop="0,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#ffffff" start="0,2" stop="0,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#ffffff" start="0,2" stop="0,-1"/>
+      <lineStyle kind="LINEBELOW" colorName="#ffffff" start="0,-1" stop="0,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#ffffff" start="0,3" stop="0,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#ffffff" start="0,3" stop="0,-1"/>
+      <lineStyle kind="LINEBELOW" colorName="#ffffff" start="0,-1" stop="0,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#ffffff" start="0,4" stop="0,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#ffffff" start="0,4" stop="0,-1"/>
+      <lineStyle kind="LINEBELOW" colorName="#ffffff" start="0,-1" stop="0,-1"/>
+    </blockTableStyle>
+    <initialize>
+      <paraStyle name="all" alignment="justify"/>
+    </initialize>
+    <paraStyle name="P1" alignment="JUSTIFY" fontName="Arial" fontSize="9.0" leading="10" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P2" fontName="Helvetica" alignment="CENTER" fontSize="9.0" leading="10" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P3" fontName="Helvetica" fontSize="9.0" leading="10" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P4" fontName="Helvetica" alignment="JUSTIFY"/>
+    <paraStyle name="P5" fontName="Helvetica" alignment="CENTER"/>
+    <paraStyle name="Standard" fontName="Helvetica"/>
+    <paraStyle name="Heading" fontName="Helvetica" fontSize="14.0" leading="17" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="Text body" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="List" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="Caption" fontName="Helvetica" fontSize="12.0" leading="15" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="Index" fontName="Helvetica"/>
+    <paraStyle name="Table Contents" fontName="Helvetica" fontSize="9.0" leading="10" spaceBefore="0.0" spaceAfter="0.0"/>
+    
+  </stylesheet>
+  <story>
+    <para style="Standard">[[ repeatIn(objects,'employee') ]]</para>
+    <illustration height="1.0" width="140.0">
+      <image x="-6" y="50" file="../../img/logo_bva.png" height="600.0" width="530.0"/>
+    </illustration>
+    <para style="Standard">
+      <font color="white"> </font>
+    </para>
+    <para style="Standard">
+      <font color="white"> </font>
+    </para>
+    <para style="P5">CONSTANCIA DE BECA AYUDANTÍA</para>
+    <para style="P5">_____________________________________________________________________________________________</para>
+    <para style="Standard">
+      <font color="white"> </font>
+    </para>
+    <blockTable colWidths="482.0" style="Tabla1">
+      <tr>
+        <td>
+          <para style="P1">
+            <font color="white"> </font>
+          </para>
+          <para style="P1">La Gerencia de Desarrollo Social de la Asociación Civil Bibliotecas Virtuales de Aragua, certifica por medio de la presente, que la persona cuyos datos se suministran a continuación quien es beneficiario(a) del <font face="Helvetica">PROGRAMA BECA AYUDANTÍA</font>:</para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+          <para style="P2">Nombres y Apellidos:      [[ employee.name ]]</para>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+          <para style="P2">Cédula de Identidad: V-      [[ employee.cedula ]]</para>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+          <para style="P2">Fecha de Ingreso:      [[ formatLang(employee.fecha_ingreso,date=True) ]]</para>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+          <para style="P2">Unidad:      [[ employee.tipo_beca.tipo_beca ]]</para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+          <para style="Table Contents">Constancia que se expide sin tachadura y sin enmienda, en la ciudad de Maracay, a los [[ employee.fecha_actual ]]</para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+          <para style="P3">Atentamente</para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+          <para style="P2">Yaireth Castellanos</para>
+          <para style="P2">Gerente de Desarrollo Social</para>
+          <para style="P2">AC. Bibliotecas Virtuales de Aragua</para>
+        </td>
+      </tr>
+    </blockTable>
+    <para style="Table Contents">
+        <font color="white"> </font>
+    </para>
+    <para style="Table Contents">
+        <font color="white"> </font>
+    </para>
+    <para style="Table Contents">
+        <font color="white"> </font>
+    </para>
+    <para style="Table Contents">
+        <font color="white"> </font>
+    </para>
+    <para style="Table Contents">
+        <font color="white"> </font>
+    </para>
+    
+    <illustration height="10.0" width="140.0">
+      <image x="-9.5" y="-180" file="../../img/footer_bva.png" height="600.0" width="530"/>
+    </illustration>
+  </story>
+</document>
+

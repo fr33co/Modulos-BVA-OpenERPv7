@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+			<!-- <record model="ir.actions.act_window" id="accion_vista_contrato_empleado">
+					<field name="name">Contrato de Empleado</field>
+					<field name="res_model">hr.applicant</field>
+					<field name="view_type">form</field>
+					<field name="domain">[('categoria.name','ilike','Becado')]</field>
+					<field name="view_mode">tree,form</field>
+			</record> -->
+    
+			<record id="vista_contrato_empleado" model="ir.ui.view">
+					<field name="name">Contrato de Empleado</field>
+					<field name="model">hr.applicant</field>
+					<field name="inherit_id" ref="hr_recruitment.crm_case_form_view_job"/>
+					<field name="arch" type="xml">
+						<data>
+							<xpath expr="//group/field[@name='partner_id']" position="after">
+								<field name="hola"/>
+							</xpath>
+
+							<xpath expr="//field[@name='partner_name']" position="replace">
+								<field name="fecha_actual"/>
+							</xpath>
+
+
+						</data>
+						<!-- <field name="partner_id" position="after">
+							<field name="hola"/>
+						</field> -->
+						
+					</field>
+			</record>
+        
+        <!-- <menuitem parent="menu_desarrollo_social_seleccion" id="seleccion_contrato_empleado" action="accion_vista_contrato_empleado" name="Contrato"/> -->
+        
+    </data>
+</openerp>

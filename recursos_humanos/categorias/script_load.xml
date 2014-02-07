@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <openerp>
+        <data>
+<!--===================================================================-->
+                                <!-- Estatus-->
+<!--===================================================================-->
+            <record id="state_user1" model="becados.status">
+                <field name="status">Activo</field>
+                <field name="active">True</field>
+            </record>
+
+            <record id="state_user2" model="becados.status">
+                <field name="status">Suspendido</field>
+                <field name="active">True</field>
+            </record>
+
+            <record id="state_user3" model="becados.status">
+                <field name="status">Periódo de gracia</field>
+                <field name="active">True</field>
+            </record>
+
+            <record id="state_user4" model="becados.status">
+                <field name="status">Permiso no remunerado</field>
+                <field name="active">True</field>
+            </record>
+
+            <record id="state_user5" model="becados.status">
+                <field name="status">Permiso de Reposo</field>
+                <field name="active">True</field>
+            </record>
+<!--===================================================================-->
+                        <!-- Departamentos -->
+<!--===================================================================-->
+
+            <record id="hr_depart_name_1" model="hr.department">
+                <field name="name">Recursos Humanos</field>
+                <field name="active">True</field>
+            </record>
+            <record id="hr_depart_name_2" model="hr.department">
+                <field name="name">Desarrollo y Aplicaciones</field>
+                <field name="active">True</field>
+            </record>
+            <record id="hr_depart_name_3" model="hr.department">
+                <field name="name">Tecnología</field>
+                <field name="active">True</field>
+            </record>
+            <record id="hr_depart_name_4" model="hr.department">
+                <field name="name">Soporte</field>
+                <field name="active">True</field>
+            </record>
+            <record id="hr_depart_name_5" model="hr.department">
+                <field name="name">Telecomunicaciones</field>
+                <field name="active">True</field>
+            </record>
+            <record id="hr_depart_name_6" model="hr.department">
+                <field name="name">Mantenimiento</field>
+                <field name="active">True</field>
+            </record>
+            <record id="hr_depart_name_7" model="hr.department">
+                <field name="name">Tesorería</field>
+                <field name="active">True</field>
+            </record>
+            <record id="hr_depart_name_8" model="hr.department">
+                <field name="name">Administración</field>
+                <field name="active">True</field>
+            </record>
+            <record id="hr_depart_name_9" model="hr.department">
+                <field name="name">Audiovisuales</field>
+                <field name="active">True</field>
+            </record>
+<!--===================================================================-->
+                        <!-- Grupo sanguineo -->
+<!--===================================================================-->
+            <record id="group_sanguineo_1" model="becados.gruposanguineo">
+                <field name="grupo_sang">O-</field>
+                <field name="active">True</field>
+            </record>
+            <record id="group_sanguineo_2" model="becados.gruposanguineo">
+                <field name="grupo_sang">O+</field>
+                <field name="active">True</field>
+            </record>
+            <record id="group_sanguineo_3" model="becados.gruposanguineo">
+                <field name="grupo_sang">A-</field>
+                <field name="active">True</field>
+            </record>
+            <record id="group_sanguineo_4" model="becados.gruposanguineo">
+                <field name="grupo_sang">A+</field>
+                <field name="active">True</field>
+            </record>
+            <record id="group_sanguineo_5" model="becados.gruposanguineo">
+                <field name="grupo_sang">B-</field>
+                <field name="active">True</field>
+            </record>
+            <record id="group_sanguineo_6" model="becados.gruposanguineo">
+                <field name="grupo_sang">B+</field>
+                <field name="active">True</field>
+            </record>
+            <record id="group_sanguineo_7" model="becados.gruposanguineo">
+                <field name="grupo_sang">AB-</field>
+                <field name="active">True</field>
+            </record>
+            <record id="group_sanguineo_8" model="becados.gruposanguineo">
+                <field name="grupo_sang">AB+</field>
+                <field name="active">True</field>
+            </record>
+<!--===================================================================-->
+                        <!-- Entidades bancarias -->
+<!--===================================================================-->
+            <record id="banck_id_1" model="res.bank">
+                <field name="name">Venezuela</field>
+                <field name="active">True</field>
+            </record>
+            <record id="banck_id_2" model="res.bank">
+                <field name="name">Mercantil</field>
+                <field name="active">True</field>
+            </record>
+            <record id="banck_id_3" model="res.bank">
+                <field name="name">Banesco</field>
+                <field name="active">True</field>
+            </record>
+            <record id="banck_id_4" model="res.bank">
+                <field name="name">Provincial</field>
+                <field name="active">True</field>
+            </record>
+            <record id="banck_id_5" model="res.bank">
+                <field name="name">Bicentenario</field>
+                <field name="active">True</field>
+            </record>
+            <record id="banck_id_6" model="res.bank">
+                <field name="name">CorpBanca</field>
+                <field name="active">True</field>
+            </record>
+            <record id="banck_id_7" model="res.bank">
+                <field name="name">Universal</field>
+                <field name="active">True</field>
+            </record>
+            <record id="banck_id_8" model="res.bank">
+                <field name="name">Exterior</field>
+                <field name="active">True</field>
+            </record>
+            <record id="banck_id_9" model="res.bank">
+                <field name="name">Caribe</field>
+                <field name="active">True</field>
+            </record>
+            <record id="banck_id_10" model="res.bank">
+                <field name="name">Caroni</field>
+                <field name="active">True</field>
+            </record>
+            <record id="banck_id_11" model="res.bank">
+                <field name="name">Canarias</field>
+                <field name="active">True</field>
+            </record>
+<!--===================================================================-->
+
+        </data>
+    </openerp>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <report id="novedades_reportes" string="Novedad del becado"
+            model="novedades.becados" name="Novedad del becado"
+            rml="desarrollo_social/reportes/novedad/reportes.rml" />
+    </data>
+</openerp>
+

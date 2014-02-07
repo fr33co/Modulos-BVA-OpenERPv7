@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+			<record model="ir.actions.act_window" id="action_concepts">
+					<field name="name">Concepto</field>
+					<field name="res_model">hr.concepts</field>
+					<field name="view_type">form</field>
+					<field name="view_mode">tree,form</field>
+			</record>
+    
+			<record id="view_concepts" model="ir.ui.view">
+					<field name="name">Concepto</field>
+					<field name="model">hr.concepts</field>
+					<field name="arch" type="xml">
+						<form string="Formulario de Concepto" version="7.0">
+
+								<table style="width:600px;" border="0">
+									<tr>
+										<td colspan="2" style="text-align:center;" class="oe_horizontal_separator">
+											<b>Tabla de Conceptos</b>
+										</td>
+									</tr>
+									<tr>
+										<td style="align:center;">
+											<b>Código:</b>
+										</td>
+										<td>
+											<field name="codigo" style="width:25%%" on_change="search_code_hr_concepts(codigo)"/>
+										</td>
+									</tr>
+									<tr>
+										<td style="align:center;">
+											<b>Fórmula:</b>
+										</td>
+										<td>
+											<field name="formula" style="width:50%%"/>
+										</td>
+									</tr>
+									<tr>
+										<td style="align:center;">
+											<b>Descripción:</b>
+										</td>
+										<td>
+											<field name="concepto"/>
+										</td>
+										</tr>
+								</table>
+
+						</form>
+						
+					</field>
+			</record>
+
+			<!-- Forma de busqueda para concepto-->
+			<record model="ir.ui.view" id="search_concepts"><!-- Filtro para la busqueda de evaluacion -->
+				<field name="name">busqueda.search</field>
+				<field name="model">hr.concepts</field>
+				<field name="arch" type="xml">		
+					<search string="Busqueda de Conceptos">
+						<filter name="codigo" domain="[('codigo','=', uid)]" string="Busqueda de Conceptos" icon="terp-partner" />
+						<field name="codigo" />
+						<field name="formula" />
+						<field name="concepto" />
+					</search>
+				</field>			
+			</record>
+
+			<record model="ir.ui.view" id="concepts_tree">
+			<field name="name">Concepto.tree</field>
+			<field name="model">hr.concepts</field>
+			<field name="arch" type="xml">
+				<tree string="Lista de conceptos">
+					<!-- colors="#FF0000:state=='draft';#169A12:state=='confirmed'" -->
+					<field name="codigo"/>
+					<field name="formula"/>
+					<field name="concepto"/>
+				</tree>
+			</field>
+		</record>
+        
+        <menuitem parent="hr.menu_hr_configuration" id="sub_menu_concepts" action="action_concepts" name="Conceptos"/>
+        
+    </data>
+</openerp>

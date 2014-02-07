@@ -1,0 +1,399 @@
+<?xml version="1.0"?>
+<document filename="test.pdf">
+  <template pageSize="(595.0,842.0)" title="Test" author="Martin Simon" allowSplitting="20">
+    <pageTemplate id="first">
+      <frame id="first" x1="57.0" y1="57.0" width="481" height="728"/>
+      
+    </pageTemplate>
+  </template>
+  <stylesheet>
+  
+	<blockTableStyle id="blocktablestyle4">
+		<blockValign value="TOP"/>
+		<lineStyle kind="GRID" colorName="#B9B5B5" thickness="0" start="0,0" stop="-1,-1" fontSize="10.0" />
+	</blockTableStyle>
+
+  <blockTableStyle id="blocktablestyle5">
+    <blockValign value="TOP"/>
+    <lineStyle kind="GRID" colorName="#FFFFFF" thickness="-1" start="0,0" stop="-1,-1" fontSize="10.0" />
+  </blockTableStyle>
+  
+    <blockTableStyle id="Standard_Outline">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+    <blockTableStyle id="Tabla1">
+      <blockTopPadding value="0"/>
+      <blockBottomPadding value="0"/>
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+    <blockTableStyle id="Tabla6">
+      <blockAlignment value="LEFT"/>
+
+    </blockTableStyle>
+    
+    <blockTableStyle id="Tabla4">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+    <blockTableStyle id="Tabla5">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+    <initialize>
+      <paraStyle name="all" alignment="justify"/>
+    </initialize>
+    <paraStyle name="P1" fontName="Helvetica"/>
+    <paraStyle name="terp_header_Centre" fontName="Helvetica" fontSize="10.0" leading="15" alignment="CENTER" spaceBefore="10.0" spaceAfter="6.0"/>
+    <paraStyle name="P2" fontName="Helvetica" alignment="CENTER" fontSize="9.0" leading="10" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="firma" fontName="Helvetica" alignment="RIGHT" fontSize="9.0" leading="10" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P3" fontName="Helvetica" alignment="CENTER" fontSize="9.0" leading="10" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P4" fontName="Helvetica" alignment="CENTER"/>
+    <paraStyle name="P5" fontName="Helvetica" fontSize="10.0" leading="13" alignment="LEFT"/>
+    <paraStyle name="P6" fontName="Helvetica" fontSize="13.0" leading="16" alignment="CENTER"/>
+    <paraStyle name="Standard" fontName="Helvetica"/>
+    <paraStyle name="Heading" fontName="Helvetica" fontSize="14.0" leading="17" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="Text body" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="List" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="Caption" fontName="Helvetica" fontSize="12.0" leading="15" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="Index" fontName="Helvetica"/>
+    <paraStyle name="Table Contents" fontName="Helvetica" fontSize="9.0" leading="10" spaceBefore="0.0" spaceAfter="0.0"/>
+    
+  </stylesheet>
+  <story>
+  
+    <para style="Text body">[[ repeatIn(objects,'becados') ]]</para>
+    <blockTable colWidths="241.0,241.0" style="Tabla6">
+      <tr>
+        <td>
+        <para style="P3">
+            <font color="white"> </font>
+          </para>
+        </td>
+        <td>
+          <para style="P3">
+            <font color="white"> </font>
+          </para>
+        </td>
+      </tr>
+      <tr>
+      <td>
+    <illustration height="1.0" width="200.0">
+            <image x="-35" y="90" file="../../img/logo_bva.png" height="600.0" width="530"/>
+          </illustration>
+      </td>
+      </tr>
+    </blockTable>
+
+    <blockTable colWidths="145.0,95.0,112.0,131.0" style="blocktablestyle5">
+      <tr>
+        <td>
+          Evaluado:  [[ becados.evaluado ]]    C.I:  [[ becados.ci ]]   Area de desempeño:  [[ becados.area.area ]]   
+          Sede:  [[ becados.sede.sede ]]   Fecha:  [[ becados.fecha_actual ]]   Evaluador:  [[ becados.evaluador ]]
+        </td>
+        <td>
+          <para style="P3"><font face="Helvetica"></font></para>
+        </td>
+        <td>
+          <para style="P1"></para>
+        </td>
+        <td>
+          <para style="Table Contents"></para>
+        </td>
+      </tr>
+      
+    </blockTable>
+    
+    <blockTable colWidths="350.0,65.0,67.0" style="blocktablestyle4">
+      <tr>
+        <td>
+          <para style="P2">A: Apariencia personal (valor 20 puntos)</para>
+        </td>
+        <td>
+          <para style="P2">Valor</para>
+        </td>
+        <td>
+          <para style="P2">Puntaje</para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="Table Contents">I. Higiene personal</para>
+        </td>
+        <td>
+          <para style="P3">4 ptos</para>
+        </td>
+        <td>
+          <para style="P2">[[ becados.puntaje_higiene ]]</para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="Table Contents">II. Uso de uniforme</para>
+        </td>
+        <td>
+          <para style="P3">4 ptos</para>
+        </td>
+        <td>
+          <para style="P3">[[ becados.puntaje_uniforme ]]</para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="Table Contents">III. Relaciones interpersonales</para>
+        </td>
+        <td>
+          <para style="P3">4 ptos</para>
+        </td>
+        <td>
+          <para style="P3">[[ becados.puntaje_rpersonales ]]</para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="Table Contents">IV. Normas de cortesía</para>
+        </td>
+        <td>
+          <para style="P3">4 ptos</para>
+        </td>
+        <td>
+          <para style="P3">[[ becados.puntaje_cortesia ]]</para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="Table Contents">V. Comunicación verbal y no verbal </para>
+        </td>
+        <td>
+          <para style="P3">4 ptos</para>
+        </td>
+        <td>
+          <para style="P3">[[ becados.puntaje_comunicacion ]]</para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="P1">Sub-Total</para>
+        </td>
+        <td>
+          <para style="P3">20 ptos</para>
+        </td>
+        <td>
+          <para style="P3">[[ becados.sub_total_1 ]]</para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="P2">B: Permanencia en la sala(valor 30 ptos)</para>
+        </td>
+        <td>
+          <para style="P2">Valor</para>
+        </td>
+        <td>
+          <para style="P2">Puntaje</para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="Table Contents">I. Atención al cliente</para>
+        </td>
+        <td>
+          <para style="P3">10 ptos</para>
+        </td>
+        <td>
+          <para style="P3">[[ becados.puntaje_atencion ]]</para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="Table Contents">II Resolución de problemas</para>
+        </td>
+        <td>
+          <para style="P3">10 ptos</para>
+        </td>
+        <td>
+          <para style="P3">[[ becados.puntaje_resolucion ]]</para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="Table Contents">III Uso de equipos personales e institucionales</para>
+        </td>
+        <td>
+          <para style="P3">10 ptos</para>
+        </td>
+        <td>
+          <para style="P3">[[ becados.puntaje_uso ]]</para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="P1">Sub-Total</para>
+        </td>
+        <td>
+          <para style="P3">30 ptos</para>
+        </td>
+        <td>
+          <para style="P3">[[ becados.sub_total_2 ]]</para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="P2">C: Organización (valor 20 ptos)</para>
+        </td>
+        <td>
+          <para style="P2">Valor</para>
+        </td>
+        <td>
+          <para style="P2">Puntaje</para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="Table Contents">I. Normas y procedimientos</para>
+        </td>
+        <td>
+          <para style="P3">20 ptos</para>
+        </td>
+        <td>
+          <para style="P3">[[ becados.puntaje_normas ]]</para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="P1">Sub-Total</para>
+        </td>
+        <td>
+          <para style="P3">20 ptos</para>
+        </td>
+        <td>
+          <para style="P3">[[ becados.sub_total_3 ]]</para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="P2">D. Desempeño de actividades</para>
+        </td>
+        <td>
+          <para style="P2">Valor</para>
+        </td>
+        <td>
+          <para style="P2">Puntaje</para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="Table Contents">I. Manejo de las herramientas tecnológicas </para>
+        </td>
+        <td>
+          <para style="P3">10 ptos</para>
+        </td>
+        <td>
+          <para style="P3">[[ becados.puntaje_manejo ]]</para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="Table Contents">II. Iniciativa y creatividad</para>
+        </td>
+        <td>
+          <para style="P3">10 ptos</para>
+        </td>
+        <td>
+          <para style="P3">[[ becados.puntaje_iniciativa ]]</para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="Table Contents">III. Sentido de pertenencía con la institución</para>
+        </td>
+        <td>
+          <para style="P3">10 ptos</para>
+        </td>
+        <td>
+          <para style="P3">[[ becados.puntaje_pertenencia ]]</para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="P1">Sub-Total</para>
+        </td>
+        <td>
+          <para style="P3">30 ptos</para>
+        </td>
+        <td>
+          <para style="P3">[[ becados.sub_total_4 ]]</para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="P1">Total de A+B+C+D</para>
+        </td>
+        <td>
+          <para style="Table Contents">
+            <font color="red"> </font>
+          </para>
+        </td>
+        <td>
+          <para style="P3">[[ becados.total ]]</para>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <para style="Table Contents">Observación:    [[ becados.observacion_general ]]</para>
+        </td>
+        <td>
+          <para style="Table Contents">
+            <font color="white"></font>
+          </para>
+        </td>
+        <td>
+          <para style="P3"></para>
+        </td>
+      </tr>
+
+    </blockTable>
+    <para style="P3">
+            <font color="white"> </font>
+          </para>
+          <para style="P3">
+            <font color="white"> </font>
+          </para>
+          <para style="P3">
+            <font color="white"> </font>
+          </para>
+          <para style="P3">
+            <font color="white"> </font>
+          </para>
+          <para style="P3">
+            <font color="white"> </font>
+          </para>
+    <blockTable colWidths="90.0,200.0" style="Tabla4">
+      <tr>
+        <td>
+          <para style="P2">Firma evaluador</para>
+          <para style="P3">
+            <font color="white"> </font>
+          </para>
+          <para style="P3">________________</para>
+        </td>
+        <td>
+          <para style="P2">Firma evaluado</para>
+          <para style="P3">
+            <font color="white"> </font>
+          </para>
+          <para style="P3">_________________</para>
+        </td>
+      </tr>
+    </blockTable>
+    <para style="Standard">
+      <font color="white"> </font>
+    </para>
+    	<illustration height="1.0" width="140.0">
+            <image x="-9.5" y="-110" file="../../img/footer_bva.png" height="600.0" width="530"/>
+        </illustration>
+  </story>
+</document>
+

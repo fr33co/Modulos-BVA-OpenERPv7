@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <report id="evaluacion_reportes" string="Instrumento de evaluación del becado"
+            model="evaluacion.becados" name="Evaluación del becado"
+            rml="desarrollo_social/reportes/evaluacion/reporte_evaluacion.rml" />
+    </data>
+</openerp>
+
+
