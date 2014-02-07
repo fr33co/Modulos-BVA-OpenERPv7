@@ -27,7 +27,9 @@
 			</field>
 		</record>
 		
+<!--
 		<menuitem id="menu_areas" name="Áreas" parent="menu_principal_mantenimiento" action="accion_lista_areas"/>
+-->
 			
 	</data>
 	

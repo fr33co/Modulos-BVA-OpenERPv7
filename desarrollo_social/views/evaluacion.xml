@@ -37,7 +37,9 @@
 						
 						<field name="ci" nolabel="0" placeholder="Cédula del becado" class="oe_inline" on_change="datos_becado(ci)"/>
 						<field name="evaluado" nolabel="0" placeholder="Becado" class="oe_inline"/>
+<!--
 						<field name="area" nolabel="0" placeholder="Area" class="oe_inline"/>
+-->
 						<field name="sede" nolabel="0" placeholder="Sede" class="oe_inline"/>
 						<field name="fecha_actual" nolabel="0" class="oe_inline"/>
 						<field name="evaluador" nolabel="0" placeholder="Evaluador" class="oe_inline"/>
@@ -162,7 +164,9 @@
 					<filter name="ci" domain="[('ci','=', uid)]" string="Busqueda de evaluacion del becado" icon="terp-partner" />
 					<field name="ci" />
 					<field name="evaluado" />
+<!--
 					<field name="area" />
+-->
 				</search>
 			</field>			
 		</record>
@@ -174,7 +178,9 @@
 				<tree string="Instrumento de Evaluación" colors="#FF0000:state=='draft';#169A12:state=='confirmed'">
 					<field name="ci"/>
 					<field name="evaluado"/>
+<!--
 					<field name="area"/>
+-->
 					<field name="sede"/>
 					<field name="evaluador"/>
 					<field name="calificacion_cuantitativa"/>

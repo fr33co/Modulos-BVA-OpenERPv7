@@ -89,7 +89,7 @@
     <blockTable colWidths="145.0,95.0,112.0,131.0" style="blocktablestyle5">
       <tr>
         <td>
-          Evaluado:  [[ becados.evaluado ]]    C.I:  [[ becados.ci ]]   Area de desempeño:  [[ becados.area.area ]]   
+          Evaluado:  [[ becados.evaluado ]]    C.I:  [[ becados.ci ]]      
           Sede:  [[ becados.sede.sede ]]   Fecha:  [[ becados.fecha_actual ]]   Evaluador:  [[ becados.evaluador ]]
         </td>
         <td>
@@ -174,13 +174,13 @@
       </tr>
       <tr>
         <td>
-          <para style="P1">Sub-Total</para>
+          <para style="P1"><font color="red">Sub-Total</font></para>
         </td>
         <td>
-          <para style="P3">20 ptos</para>
+          <para style="P3"><font color="red">20 ptos</font></para>
         </td>
         <td>
-          <para style="P3">[[ becados.sub_total_1 ]]</para>
+          <para style="P3"><font color="red">[[ becados.sub_total_1 ]]</font></para>
         </td>
       </tr>
       <tr>
@@ -229,13 +229,13 @@
       </tr>
       <tr>
         <td>
-          <para style="P1">Sub-Total</para>
+          <para style="P1"><font color="red">Sub-Total</font></para>
         </td>
         <td>
-          <para style="P3">30 ptos</para>
+          <para style="P3"><font color="red">30 ptos</font></para>
         </td>
         <td>
-          <para style="P3">[[ becados.sub_total_2 ]]</para>
+          <para style="P3"><font color="red">[[ becados.sub_total_2 ]]</font></para>
         </td>
       </tr>
       <tr>
@@ -262,13 +262,13 @@
       </tr>
       <tr>
         <td>
-          <para style="P1">Sub-Total</para>
+          <para style="P1"><font color="red">Sub-Total</font></para>
         </td>
         <td>
-          <para style="P3">20 ptos</para>
+          <para style="P3"><font color="red">20 ptos</font></para>
         </td>
         <td>
-          <para style="P3">[[ becados.sub_total_3 ]]</para>
+          <para style="P3"><font color="red">[[ becados.sub_total_3 ]]</font></para>
         </td>
       </tr>
       <tr>
@@ -317,18 +317,18 @@
       </tr>
       <tr>
         <td>
-          <para style="P1">Sub-Total</para>
+          <para style="P1"><font color="red">Sub-Total</font></para>
         </td>
         <td>
-          <para style="P3">30 ptos</para>
+          <para style="P3"><font color="red">30 ptos</font></para>
         </td>
         <td>
-          <para style="P3">[[ becados.sub_total_4 ]]</para>
+          <para style="P3"><font color="red">[[ becados.sub_total_4 ]]</font></para>
         </td>
       </tr>
       <tr>
         <td>
-          <para style="P1">Total de A+B+C+D</para>
+          <para style="P1"><font color="red">Total de A+B+C+D</font></para>
         </td>
         <td>
           <para style="Table Contents">
@@ -336,13 +336,13 @@
           </para>
         </td>
         <td>
-          <para style="P3">[[ becados.total ]]</para>
+          <para style="P3"><font color="red">[[ becados.total ]]</font></para>
         </td>
       </tr>
       
       <tr>
         <td>
-          <para style="Table Contents">Observación:    [[ becados.observacion_general ]]</para>
+          <para style="Table Contents"><font color="red">Observación:    [[ becados.observacion_general ]]</font></para>
         </td>
         <td>
           <para style="Table Contents">

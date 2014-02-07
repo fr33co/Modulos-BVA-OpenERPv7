@@ -151,7 +151,7 @@ class Evaluacion(osv.Model):
 			
 			valores.update({
 				'evaluado' : busqueda_leer[0]['name_related'],
-				'area' : busqueda_leer[0]['area'],
+				#'area' : busqueda_leer[0]['area'],
 				'sede' : busqueda_leer[0]['sede'],
 			})	
 			return {'value' : valores}
@@ -288,12 +288,6 @@ class Evaluacion(osv.Model):
 	    return self.write(cr, uid, ids, {'state':'confirmed'}, context=context)
 
 	
-	
-
-	
-
-
-	
 	_columns = {
 		# Datos Basicos
 		'evaluado' : fields.char(string="Evaluado", size=50, required=True),
@@ -324,7 +318,7 @@ class Evaluacion(osv.Model):
 		'puntaje_pertenencia' : fields.selection((('10','10'),('9','9'),('8','8'),('7','7'),('6','6'),('5','5'),('4','4'),('3','3'),('2','2'),('1','1'),('0','0')), "Sentido de pertenencia con la institución", required = True),
 		'sub_total_4' : fields.char(string="sub-total", size=10, readonly=False),
 		'calificacion_cuantitativa' : fields.selection((('Bueno','Bueno'),('Malo','Malo'),('Regular','Regular')), "Calificación", required = True),
-		'observacion_general' : fields.text(string="Observación", size=256, required=True),
+		'observacion_general' : fields.text(string="Observación", size=256, required=False),
 		'total' : fields.char(string="Puntuación total", readonly=False),
 		'state' : fields.selection([('draft','Borrador'),
                             ('confirmed','Evaluado')], string="Estado"),
