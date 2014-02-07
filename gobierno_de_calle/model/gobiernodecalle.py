@@ -164,6 +164,7 @@ class gdc_proyectos(osv.Model):
         'acuerdos': fields.text('Acuerdos'),
         'incidencias': fields.text('Incidencias'),
         'adjunto_gaceta': fields.binary('Adjuntar Gaceta digital'),
+        'adjunto_gaceta_name': fields.char('Adjuntar Gaceta digital'),
     }
         
     def _check_dates_now(self, cr, uid, ids, context=None):
@@ -226,13 +227,14 @@ class gdc_proyectos(osv.Model):
     ]
     
     _defaults = {
-            'supervisor_id': 1,
+            'supervisor_id': lambda s, cr, uid, c: uid,
             'codigo': lambda obj, cr, uid, context: obj.pool.get('ir.sequence').get(cr, uid, 'gdc.proyectos'),
             'estado': 'Borrador',
             'progreso': 0.0,
             'date_created': lambda *a: datetime.now().strftime('%d/%m/%Y %H:%M:%S'),
             'dias_proyecto': 'Aun no asignados. ',
             'priority': 'Baja',
+            'adjunto_gaceta_name': 'soporte.pdf',
     }
 
     def congelar_proyecto(self, cr, uid, ids, context=None):
@@ -406,7 +408,12 @@ class gdc_incidencias(osv.Model):
     _columns = {
         'name_incidencia': fields.char(string="Incidencia", size=50, required=False),
         'tarea_id': fields.many2one('gdc.tareas', 'tarea', required=False),
+        'reporter_id' : fields.many2one('res.users', 'Usuario', required=True),
         'project_id': fields.many2one('gdc.proyectos', 'tarea', required=False),
         'date_reporter': fields.datetime('Fecha',select=True, required=True),
         'description': fields.text('Description'),
+    }
+
+    _defaults = {
+        'reporter_id': lambda s, cr, uid, c: uid,
     }
