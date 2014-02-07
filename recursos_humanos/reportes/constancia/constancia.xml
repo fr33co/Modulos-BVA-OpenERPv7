@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <report id="reporte_constancia" string="Constancia"
+            model="hr.employee" name="Formato de constancia"
+            rml="desarrollo_social/reportes/constancia/constancia.rml" />
+    </data>
+</openerp>
+

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	
+	<data>
+			
+		<!--Accionador para el menu de status-->
+		<record id="vista_bank" model="ir.ui.view">
+			<field name="name">Tipo Banco</field>
+			<field name="model">res.partner.bank</field>
+			<field name="inherit_id" ref="desarrollo_social.vista_becados"/>
+			<field name="arch" type="xml">
+
+				<field name="centro_votacion" position="after">
+					<div class="oe_horizontal_separator" style="width:250%%">
+						Espacio Geográfico
+					</div>
+					<newline/>
+					<field name="estado" domain= "[('country_id','=',country_id)]"/>
+				</field>
+				
+
+			</field>
+		</record>
+			
+	</data>
+	
+</openerp>

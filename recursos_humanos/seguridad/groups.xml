@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <openerp>
+        <data>
+            <record id="grupo_desarrollo_social1" model="res.groups">
+                <field name="name">Desarrollo Social / desarrollosocial</field>
+            </record>
+            <record id="grupo_desarrollo_social2" model="res.groups">
+                <field name="name">Desarrollo Social / coordinadoreje</field>
+            </record>
+        </data>
+    </openerp>

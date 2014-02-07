@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+			<record model="ir.actions.act_window" id="accion_vista_nomina">
+					<field name="name">Nomina</field>
+					<field name="res_model">hr.payslip</field>
+					<field name="view_type">form</field>
+					<field name="domain">[('categoria.name','ilike','Becado')]</field>
+					<field name="view_mode">tree,form</field>
+			</record>
+    
+			<record id="vista_nomina" model="ir.ui.view">
+					<field name="name">Nomina</field>
+					<field name="model">hr.payslip</field>
+					<field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+					<field name="arch" type="xml">
+							<!--<field name="employee_id" position="attributes">
+								<field name="employee_id" domain="[('category_ids.name','=','Becados')]"/>
+							</field>-->
+							<field name="name" position="before">
+								<field name="cedula"/>
+							</field>
+							<field name="employee_id" position="after">
+								<group col="4" colspan="4">
+									<separator colspan="4"/>
+									<field name="categoria" nolabel="0"/>
+								</group>
+							</field>
+					</field>
+			</record>
+        
+<!--
+        <menuitem name="Desarrollo Social" id="menu_desarrollo_social"/>
+-->
+        <menuitem name="Nómina" id="menu_desarrollo_social_nomina" parent="menu_desarrollo_social"/>
+        <menuitem parent="menu_desarrollo_social_nomina" id="nomina" action="accion_vista_nomina" name="Nómina del Becado"/>
+        
+    </data>
+</openerp>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+			<record model="ir.actions.act_window" id="accion_vista_seguridad_laboral">
+					<field name="name">Seguridad y Salud Laboral</field>
+					<field name="res_model">hr.holidays</field>
+					<field name="view_type">form</field>
+					<!--<field name="domain">[('categoria.name','ilike','Becado')]</field>-->
+					<field name="view_mode">tree,form</field>
+			</record>
+    
+			<record id="vista_contrato" model="ir.ui.view">
+					<field name="name">Seguridad y Salud Laboral</field>
+					<field name="model">hr.holidays</field>
+					<field name="inherit_id" ref="hr_holidays.edit_holiday_new"/>
+					<field name="arch" type="xml">
+						
+						<field name="name" position="after">
+							<field name="fecha_actual"/>
+						</field>
+						
+					</field>
+			</record>
+        
+        <menuitem parent="hr.menu_hr_main" id="sub_menu_seguridad_salud_laboral" action="accion_vista_seguridad_laboral" name="Festivos"/>
+        
+    </data>
+</openerp>
