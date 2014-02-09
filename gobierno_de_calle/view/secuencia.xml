@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+    <data>
+
+<!--SECUENCIA-->
+
+        <record id="seq_type_proyectos" model="ir.sequence.type">
+            <field name="name">Proyectos</field>
+            <field name="code">gdc.proyectos</field>
+        </record>
+        <record id="seq_proyectos" model="ir.sequence">
+            <field name="name">Repair Order</field>
+            <field name="code">gdc.proyectos</field>
+            <field name="prefix">GDC</field>
+            <field name="padding">6</field>
+        </record>
+
+    </data>
+</openerp>

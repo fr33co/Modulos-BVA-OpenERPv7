@@ -26,6 +26,7 @@
     'description' : """
                     """,
     'data' : [
+        'view/secuencia.xml',
         'view/gobiernodecalle_view.xml',
         'view/res_partner_view.xml',
         'view/res_company_view.xml',

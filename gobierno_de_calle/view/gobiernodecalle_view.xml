@@ -3,24 +3,7 @@
 <openerp>
     <data>
 
-<!--
-SECUENCIA
--->
-
-        <record id="seq_type_proyectos" model="ir.sequence.type">
-            <field name="name">Proyectos</field>
-            <field name="code">gdc.proyectos</field>
-        </record>
-        <record id="seq_proyectos" model="ir.sequence">
-            <field name="name">Repair Order</field>
-            <field name="code">gdc.proyectos</field>
-            <field name="prefix">GDC</field>
-            <field name="padding">6</field>
-        </record>
-
-<!--
-FONDO DE FINANCIAMIENTO
--->
+<!--FONDO DE FINANCIAMIENTO-->
 
         <record model="ir.actions.act_window" id="financiamiento_list_action">
             <field name="name">Fondos de financiamiento</field>
@@ -54,9 +37,7 @@ FONDO DE FINANCIAMIENTO
             </field>
         </record>
 
-<!--
-PROYECTOS
--->
+<!--PROYECTOS-->
 
         <record model="ir.actions.act_window" id="proyectos_list_action">
             <field name="name">Proyectos</field>
@@ -73,20 +54,16 @@ PROYECTOS
             <field name="model">gdc.proyectos</field>
             <field name="arch" type="xml">
                 <tree string="Proyectos" colors="red:estado in ('Propuesto', 'Vencido');blue:estado in ('Planificacion', 'Progreso');green:estado=='Terminado';gray:estado in ('Archivado', 'Plantilla');orange:estado=='Congelado'">
-                    <field name="date_created" />
                     <field name="codigo" />
                     <field name="actividad" />
-                    <field name="supervisor_id"/>
                     <field name="responsible_id"/>
                     <field name="cobertura" />
-                    <field name="tipo_financiamiento"/>
-                    <field name="address_id" />
                     <field name="priority"/>
                     <field name="date_start"/>
                     <field name="date_end"/>
+                    <field name="dias_proyecto"/>
                     <field name="estado"/>
                     <field name="progreso" widget="progressbar"/>
-                    <field name="dias_proyecto"/>
                 </tree>
             </field>
         </record>
@@ -115,7 +92,7 @@ PROYECTOS
                              <field name="cobertura"/>
                              <field name="priority"/>
                              <field name="tipo_financiamiento"/>
-                             <field name="adjunto_gaceta" string="Adjuntar Gaceta digital (PDF)" filename="adjunto_gaceta_name"/>
+                             <field name="adjunto_gaceta" string="Adjuntar soporte digital (PDF)" filename="adjunto_gaceta_name"/>
                         </group>
                     </group>
                     <notebook>
@@ -192,7 +169,7 @@ PROYECTOS
                                     <field name="name_tarea" />
                                     <field name="date_start_tarea"/>
                                     <field name="date_end_tarea"/>
-                                    <field name="progreso_tarea"/>
+                                    <field name="progreso_tarea" widget="progressbar"/>
                                 </tree>
                             </field>
                         </page>
@@ -240,9 +217,7 @@ PROYECTOS
             </field>
         </record>
 
-<!--
-TAREAS
--->
+<!--TAREAS-->
 
         <record model="ir.actions.act_window" id="tareas_list_action">
             <field name="name">Tareas</field>
@@ -258,7 +233,7 @@ TAREAS
             <field name="name">gdc.tareas.tree</field>
             <field name="model">gdc.tareas</field>
             <field name="arch" type="xml">
-                <tree string="Tareas">
+                <tree string="Tareas" colors="green:estado_tarea=='Terminado'">
                     <field name="project_id2" />
                     <field name="name_tarea" />
                     <field name="responsible_id" />
@@ -266,6 +241,7 @@ TAREAS
                     <field name="date_start_tarea"/>
                     <field name="date_end_tarea"/>
                     <field name="dias_tarea" />
+                    <field name="estado_tarea" invisible="1"/>
                     <field name="progreso_tarea" widget="progressbar"/>
                 </tree>
             </field>
@@ -276,9 +252,10 @@ TAREAS
             <field name="model">gdc.tareas</field>
             <field name="arch" type="xml">
                 <form string="Tareas" version="7.0">
-                    <header attrs="{'invisible':[('estado_tarea', '=', 'Borrador')]}">
+                    <field name="id" invisible="1"/>
+                    <header attrs="{'invisible':[('id','=', False)]}">
                         <button name="begin_tarea" string="Comenzar la tarea" type="object" class="oe_highlight" attrs="{'invisible':[('estado_tarea', '=', 'Progreso')]}"/>
-                        <button name="begin_tarea" string="Finalizar la tarea" type="object"/>
+                        <button name="finish_tarea" string="Finalizar la tarea" attrs="{'invisible':[('estado_tarea', '=', 'terminado')]}" type="object"/>
                     </header>
                     <group>
                         <group>
@@ -286,8 +263,8 @@ TAREAS
                             <field name="responsible_id" invisible="1"/>
                             <field name="supervisor_id" invisible="1"/>
                             <field name="name_tarea" />
-                            <field name="date_start_tarea" on_change="onchange_date_start_tarea(date_start_tarea)"/>
-                            <field name="date_end_tarea" on_change="onchange_date_end_tarea(date_end_tarea)"/>
+                            <field name="date_start_tarea" on_change="onchange_date_start_tarea(project_id2, date_start_tarea)"/>
+                            <field name="date_end_tarea" on_change="onchange_date_end_tarea(project_id2, date_end_tarea)"/>
                         </group>
                         <group>
                             <field name="estado_tarea" />
@@ -352,9 +329,7 @@ TAREAS
             </field>
         </record>
 
-<!--
-INCIDENCIAS
--->
+<!--INCIDENCIAS-->
 
         <record model="ir.actions.act_window" id="incidencias_list_action">
             <field name="name">Incidencias</field>
@@ -412,5 +387,6 @@ INCIDENCIAS
         
         <menuitem id="configuration_menu" name="Configuration" parent="main_gobiernodecalle_menu" sequence="10"/>
         <menuitem id="fondos_menu" name="Fondos de financiamiento" parent="configuration_menu" action="financiamiento_list_action"/>
+        
     </data>
 </openerp>
