@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <report id="reporte_solicitud_canaima" string="Reporte Solicitud" model="solicitud.soporte" name="Reporte de Solicitud" rml="gestion_canaimas/report/reporte_soporte.rml" />
+    </data>
+</openerp>

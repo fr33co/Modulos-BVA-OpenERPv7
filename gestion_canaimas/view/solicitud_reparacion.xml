@@ -23,6 +23,8 @@
 					<field name="f_entrega" />
 					<field name="serial" />
 					<field name="status" />
+                    <field name="hardware" />
+                    <field name="software" />
 				</tree>
 			</field>			
 		</record>
@@ -52,7 +54,7 @@
                                         <field name="modelo" />
                                         <field name="status_ss"/>
                                     </group>
-                                    <group string="Descripcion del problema:">
+                                    <group string="Descripción del problema:">
                                         <field name="descripcion" nolabel="1"/>
                                     </group>
                                 </group>
@@ -61,8 +63,10 @@
                             <group>
                                 <group>
                                     <field name="tecnico" placeholder="Nombre del Técnico a cargo"/>
-                                    <field name="status" /> 
-                                    <button name="actualizar_status" string="Modificar Estado" type="object" icon="gtk-execute" confirm="¿Esta usted de acuerdo con cambiar el ESTADO de la Solicitud?"/>                      
+                                    <field name="hardware" />
+                                    <field name="software" />
+                                    <field name="status" class="oe_inline" />
+                                    <button name="actualizar_status" string="Modificar Estado" type="object" icon="gtk-execute" confirm="¿Esta usted de acuerdo con cambiar el ESTADO de la Solicitud?"/>               
                                 </group>
                                 <field name="solucion" nolabel="1" placeholder="Solucion y/o Información sobre la reparación" />
                             </group>
@@ -81,6 +85,9 @@
                     <filter name="reparaciones" domain="[('c_solicitud','=', uid)]" string="Solicitudes de Reparación" icon="terp-partner" />
                     <field name="c_solicitud" />
                     <field name="status" />
+                    <field name="serial" />
+                    <field name="hardware" />
+                    <field name="software" />
                 </search>
             </field>            
         </record>

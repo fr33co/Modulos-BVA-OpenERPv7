@@ -1,19 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
-
-<!--Secuencia-->
-
-        <record id="seq_type_proyectos" model="ir.sequence.type">
-            <field name="name">Solicitud de soporte</field>
-            <field name="code">solicitud.soporte</field>
-        </record>
-        <record id="seq_proyectos" model="ir.sequence">
-            <field name="name">Solicitud de soporte</field>
-            <field name="code">solicitud.soporte</field>
-            <field name="prefix">SSC</field>
-            <field name="padding">6</field>
-        </record>
         
 <!--Solicitud de Soporte Técnico para Canaimitas-->
         
@@ -22,6 +9,9 @@
 		    <field name="res_model">solicitud.soporte</field>
 		    <field name="view_type">form</field>
 		    <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+
+            </field>
 		</record>
 
 <!--Vista tree Solicitud -->
@@ -78,6 +68,7 @@
                                     <separator string="Datos del equipo y problemas:" colspan="2"/>
                                     <field name="modelo" attrs="{'readonly':[('id','!=', False)]}" placeholder="Modelo de la Canaimita" />
                                     <field name="serial" attrs="{'readonly':[('id','!=', False)]}" placeholder="Serial de la Canaimita" />
+                                    <!-- <field name="id_graph" /> on_change="on_change_id(modelo)"-->
                                 </group>
                                 <group>
                                     <separator string="Componentes entregados:" colspan="2"/>
@@ -124,6 +115,7 @@
                                     <field name="apellido_r" attrs="{'readonly':[('id','!=', False)]}" placeholder="Apellido del Representante" />
                                     <field name="cedula" attrs="{'readonly':[('id','!=', False)]}" placeholder="Cédula del Representante" />
                                     <field name="telefono" attrs="{'readonly':[('id','!=', False)]}" placeholder="Teléfono del Representante"/>
+                                    <field name="telefono2" attrs="{'readonly':[('id','!=', False)]}" placeholder="Teléfono Alternativo"/>
                                     <field name="correo" attrs="{'readonly':[('id','!=', False)]}" placeholder="Correo del Representante"/>
                                 </group>
                                 <group>
@@ -163,9 +155,7 @@
                 </search>
             </field>            
         </record>
-        
 <!--Menu-->
-
 		<menuitem id="main_canaima_menu" name="Gestion de Canaimas" /> 
 		<menuitem id="soporte_canaima_menu" name="Solicitud de Soporte" parent="main_canaima_menu" />
 		<menuitem id="solicitudes_menu" name="Registrar Solicitud" parent="soporte_canaima_menu" action="solicitud_canaima_list_action" />
