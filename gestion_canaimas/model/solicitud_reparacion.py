@@ -9,7 +9,7 @@ class solicitud_reparacion(osv.Model):
 
     # Se Ordena por Codigo de solicitud  
     _order = 'c_solicitud'
-   # _rec_name = ''
+    _rec_name = 'status'
 
     """
     Metodo que trae la informacion de las solicitud de soporte de la clase solicitud_soporte
