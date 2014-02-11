@@ -31,7 +31,25 @@ class solicitud_soporte(osv.Model):
 
     def action_devuelta(self, cr, uid, ids, context = None):
         return self.write(cr, uid, ids, {'status':'Devuelta'}, context=context)
-                
+
+    def _get_last_id(self, cr, uid, ids, context = None):
+
+        sfl_id       = self.pool.get('solicitud.soporte')
+        srch_id      = sfl_id.search(cr,uid,[])
+        rd_id        = sfl_id.read(cr, uid, srch_id, context=context)
+        if rd_id:
+            id_documento = rd_id[-1]['c_solicitud']
+            c_solicitud = id_documento[3:]
+            last_id      = c_solicitud.lstrip('0')
+            str_number   = str(int(last_id) + 1)
+            last_id      = str_number.rjust(6,'0')
+            codigo      = 'SSC'+last_id
+        else :
+            str_number = '1'
+            last_id      = str_number.rjust(6,'0')
+            codigo      = 'SSC'+last_id
+        return codigo
+
     _columns = {
         'c_solicitud' : fields.char(string="Código de Solicitud", size=255, readonly=True, required=True),
         'user_register': fields.many2one('res.users', 'Registrado por:', readonly=True),
@@ -60,15 +78,15 @@ class solicitud_soporte(osv.Model):
         'nombre_r' : fields.char(string="Nombre Representante", size=25, required=True),
         'apellido_r' : fields.char(string="Apellido Representante", size=25, required=True),
         'cedula' : fields.char(string="Cédula", size=10, required=True),
-        'telefono' : fields.char(string="Teléfono", size=11, required=True),	
+        'telefono' : fields.char(string="Teléfono 1", size=11, required=True),	
+        'telefono2' : fields.char(string="Teléfono 2", size=11, required=False),    
         'correo' : fields.char(string="Correo Electronico", size=30),
         'pais_r' : fields.many2one('res.country', 'Pais', required=True),
         'estado_r' : fields.many2one('res.country.state', 'Estado', required=True),
         'municipio_r' : fields.many2one('res.country.municipality', 'Municipio', required=True),
         'parroquia_r' : fields.many2one('res.country.parish', 'Parroquia', required=True),
         'direccion_r' : fields.text(string="Dirección", required=True),
-        #'tecnico' : fields.char(string="Técnico", required=False, readonly=True),
-        'solucion' : fields.text(string="Solución", required=False, readonly=True),
+        'solucion' : fields.text(string="Solución", required=False, readonly=True),  
         }
         
     """
@@ -81,7 +99,7 @@ class solicitud_soporte(osv.Model):
         
     _defaults = {
         'f_solicitud': lambda *a: time.strftime("%d/%m/%Y"),
-        'c_solicitud': lambda obj, cr, uid, context: obj.pool.get('ir.sequence').get(cr, uid, 'solicitud.soporte'),
+        'c_solicitud': _get_last_id,
         'status': 'Atendiendo',
         'pais': 240,
         'pais_r': 240,

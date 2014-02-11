@@ -1,0 +1,224 @@
+<?xml version="1.0"?>
+<document filename="test.pdf">
+  <template pageSize="(612.0,792.0)" title="Test" author="Marcel Arcuri" allowSplitting="20">
+    <pageTemplate id="first">
+      <frame id="first" x1="57.0" y1="57.0" width="498" height="678"/>
+    </pageTemplate>
+  </template>
+  <stylesheet>
+
+    <blockTableStyle id="Standard_Outline">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+
+    <blockTableStyle id="Tabla2">
+      <blockBackground colorName="black" start="0,0" stop="-1,0"/>
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      <lineStyle kind="GRID" strokeColor="black" colorName="#000000" thickness="0" start="0,0" stop="-1,-1" />
+      <fill color="red"/>
+    </blockTableStyle>
+
+    <blockTableStyle id="Tabla1">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      <lineStyle kind="GRID" colorName="#000000" thickness="0" start="0,0" stop="-1,-1" />
+    </blockTableStyle>
+
+    <blockTableStyle id="Tabla3">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+
+    <initialize>
+      <paraStyle name="all" alignment="justify"/>
+    </initialize>
+    <paraStyle name="P1" fontName="Helvetica" alignment="CENTER"/>
+    <paraStyle name="P2" fontName="Helvetica" alignment="JUSTIFY"/>
+    <paraStyle name="P3" fontName="Helvetica-Bold" alignment="CENTER"/>
+    <paraStyle name="P4" fontName="Helvetica"/>
+    <paraStyle name="P5" fontName="Helvetica" alignment="CENTER" textColor="#000000"/>
+    <paraStyle name="P6" fontName="Helvetica"/>
+    <paraStyle name="P7" fontName="Helvetica"/>
+    <paraStyle name="P8" fontName="Helvetica" alignment="CENTER"/>
+    <paraStyle name="P9" fontName="Helvetica" alignment="JUSTIFY"/>
+    <paraStyle name="P10" fontName="Helvetica" alignment="CENTER"/>
+    <paraStyle name="P11" fontName="Helvetica" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P12" fontName="Helvetica"/>
+    <paraStyle name="P14" fontName="Helvetica" alignment="CENTER"/>
+    <paraStyle name="P15" fontName="Helvetica-Bold" alignment="LEFT" />
+    <paraStyle name="Standard" fontName="Helvetica"/>
+    <paraStyle name="Heading" fontName="Helvetica" fontSize="14.0" leading="17" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="Text body" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="List" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="Caption" fontName="Helvetica" fontSize="12.0" leading="15" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="Index" fontName="Helvetica"/>
+    <paraStyle name="Table Contents" fontName="Helvetica"/>
+    
+  </stylesheet>
+  <story>
+    [[ repeatIn(objects, 'c') ]]
+
+    <illustration height="74.0" width="494.0">
+      <image x="-6" y="20" file="../img/logo_bva.png" height="600" width="540"/>
+    </illustration>
+
+    <para style="P3">Solicitud de Soporte </para>
+    <para style="P1">
+      <font color="white"> </font>
+    </para>
+
+    <blockTable colWidths="249.0,249.0" style="Tabla2">
+      <tr >
+        <td colspan="2">
+          <para style="P15">  <font color="white"> Información de la Solicitud </font></para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="P9">Código de solicitud: [[ c.c_solicitud]]</para>
+        </td>
+        <td>
+          <para style="P9">Fecha de Solicitud: [[ c.f_solicitud]]</para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="P9">Registrado por: [[ c.user_register.name]]</para>
+        </td>
+        <td>
+          <para style="P9">Fecha de Entrega: [[ formatLang(c.f_entrega,date=True) ]]</para>
+        </td>
+      </tr>
+    </blockTable>
+    <para style="P2">
+      <font color="white"> </font>
+    </para>
+    <blockTable colWidths="249.0,249.0" style="Tabla2">
+      <tr>
+        <td>
+          <para style="P3"><font color="white">Datos del Representante</font></para>
+        </td>
+        <td>
+          <para style="P3"><font color="white">Datos y Componentes del Equipo</font></para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="P6">
+            <font face="Helvetica">Nombre: [[ c.nombre_r]] </font>
+          </para>
+        </td>
+        <td>
+            <para style="P7">Modelo: [[ c.modelo.modelo]]</para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="P6">
+            <font face="Helvetica">Apellido: [[ c.apellido_r]]</font>
+          </para>
+        </td>
+        <td>
+          <para style="P7">Serial: [[ c.serial]] </para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="P7">Cédula: [[ c.cedula]]</para>
+        </td>
+        <td>
+          <!-- <para style="P7">Componentes entregados:</para> -->
+          <para style="P7">Portatil:__, Cargador:__, Bateria:__, Caja:__, Contrato:__. </para>
+          <!-- <para style="P7" >Portatil [[ c.canaimita if canaimita = TRUE {SI}]</para> -->
+          <!--<para style="P7"> Cargador [[ c.cargador]], Bateria [[ c.bateria]]Caja [[ c.caja]], Contrato [[ c.contrato]]</para> -->
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="P7">Teléfono: [[ c.telefono]] / [[ c.telefono2]] </para>
+        </td>
+        <td colspan="2">
+          <para style="P6">
+            <font color="white"> </font>
+          </para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="P7">Correo electrónico: [[ c.correo]] </para>
+        </td>
+        <td rowspan="2">
+          <para style="P6">
+            <font color="white"> </font>
+          </para>
+        </td>
+      </tr>
+      <tr>
+        <td rowspan="2">
+          <para style="P11">
+            <font face="Helvetica">Dirección: Estado [[ c.estado_r.name]], Municipio [[ c.municipio_r.name]], Parroquia [[ c.parroquia_r.name]], [[ c.direccion_r]]</font>
+          </para>
+        </td>
+      </tr>
+    </blockTable>
+    <para style="Standard">
+      <font color="white"> </font>
+    </para>
+    <blockTable colWidths="249.0,249.0" style="Tabla2">
+      <tr>
+        <td>
+          <para style="P3">
+            <font color="white">Descripción del problema</font>
+          </para>
+        </td>
+        <td>
+          <para style="P3">
+              <font color="white">Diagnóstico y/o solución</font>
+          </para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="P12">
+            <font face="Helvetica">[[ c.descripcion]] </font>
+          </para>
+        </td>
+        <td>
+          <para style="P12">
+            <font face="Helvetica">Descripción: [[ c.solucion]] </font>
+          </para>
+        </td>
+      </tr>
+    </blockTable>
+    <para style="P6">
+            <font color="white"> </font>
+    </para>
+    <para style="P6">
+            <font color="white"> </font>
+    </para>
+    <para style="P6">
+            <font color="white"> </font>
+    </para>
+    <para style="P6">
+            <font color="white"> </font>
+    </para>
+    <para style="P6">
+            <font color="white"> </font>
+    </para>
+    <para style="P6">
+            <font color="white"> </font>
+    </para>
+     <para style="P6">
+            <font color="white"> </font>
+    </para>
+    <para style="P14">
+            <font face="Helvetica">Firma y Sello: ____________________ </font>
+    </para>
+    <illustration height="74.0" width="499.0">
+      <image x="-10" y="-80" file="../img/bot_bva.png" height="600" width="540"/>
+    </illustration>
+  </story>
+</document>
+

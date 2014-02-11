@@ -10,9 +10,12 @@
     'data': [
         'data/tipos_grados_modelos.xml',
         'view/solicitud_soporte.xml',
+        'report/reporte_soporte.xml',
         'view/solicitud_reparacion.xml',
         'view/tipos_grados_modelos_view.xml',
+        #'view/tipos_de_fallas.xml',
         'security/groups.xml',
         'security/ir.model.access.csv',
+
         ],
 }

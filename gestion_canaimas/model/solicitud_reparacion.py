@@ -9,7 +9,7 @@ class solicitud_reparacion(osv.Model):
 
     # Se Ordena por Codigo de solicitud  
     _order = 'c_solicitud'
-    #_rec_name = 'tecnico' no utilizado por ahora
+   # _rec_name = ''
 
     """
     Metodo que trae la informacion de las solicitud de soporte de la clase solicitud_soporte
@@ -38,13 +38,17 @@ class solicitud_reparacion(osv.Model):
     del Problema.
     """
     def actualizar_status(self, cr, uid, ids, context=None):
-        estado_i = self.pool.get('solicitud.soporte') 
+        obj = self.browse(cr, uid, ids, context=None)
+        obj_estado = self.pool.get('solicitud.soporte')
         estado_s = self.browse(cr, uid, ids)[0]
-        name  = estado_s.status
-        solucionc = estado_s.solucion
-        tecnicos = estado_s.tecnico
-        estado_i.write(cr, uid, ids, {'status': name, 'solucion': solucionc, 'tecnico' : tecnicos}, context = None)
-        return True  
+        for r2 in obj:
+            rd_estado = obj_estado.read(cr, uid, r2.c_solicitud.id, context=context)
+            resultado = rd_estado['c_solicitud']
+            status2  = estado_s.status
+            solucionc = estado_s.solucion
+            tecnicos = estado_s.tecnico
+            cr.execute("UPDATE solicitud_soporte SET status=%s, solucion=%s WHERE c_solicitud=%s;", (status2, solucionc, resultado,))
+        return True
 
     _columns = {
         'c_solicitud' : fields.many2one('solicitud.soporte', 'Código de Solicitud', domain="[('status','ilike','Atendiendo')]", required=True),
@@ -55,8 +59,9 @@ class solicitud_reparacion(osv.Model):
         'status_ss' : fields.char(string="Status de la solicitud", readonly=False),
         'descripcion' : fields.text(string="Descripción del Problema", readonly=False),
         'tecnico' : fields.many2one('res.users', 'Técnico', required=False, readonly=False),
-        'solucion' : fields.text(string="Solución", required=True),
-        #'valor' : fields.char(string="valor"),
+        'solucion' : fields.text(string="Solución", required=True),        
+        'hardware' : fields.boolean('Hardware'),
+        'software' : fields.boolean('Software'),
         'status': fields.selection([('Reparada','Reparada'), ('Remitir','Remitir')], string="Estado de Solicitud"),
         }
     
@@ -64,3 +69,5 @@ class solicitud_reparacion(osv.Model):
     _defaults = {
         'tecnico': lambda s, cr, uid, c: uid,
     }       
+
+
