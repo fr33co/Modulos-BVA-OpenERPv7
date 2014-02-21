@@ -15,3 +15,4 @@ import contrato
 import evaluacion
 import proceso_nomina
 import status
+import calculo_nomina

@@ -19,7 +19,7 @@
 			<field name="name">carga_familiar.form</field>
 			<field name="model">becado.carga.familiar</field>
 			<field name="arch" type="xml">
-				<form string="Formulario de Carga Familiar">
+				<form string="Formulario de Carga Familiar" version="7.0">
 
 				<!-- Datos pertenecientes al Becado-->
 					<!--<separator string="Seleccionar Becado" colspan="4"/>-->

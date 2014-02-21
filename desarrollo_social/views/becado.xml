@@ -19,7 +19,7 @@
 					<field name="cedula"/>
 				</field>
 				<field name="cedula" position="after">
-					<field name="usuario" invisible="1"/>
+					<field name="grupo" invisible="0"/>
 				</field>
 				<field name="passport_id" position="after">
 					<field name="tiempo_servicio"/>
@@ -144,11 +144,14 @@
 				<field name="cne" position="after">
 					<field name="centro_votacion" attrs="{'invisible': [('cne', '!=', '1') ] }"/>
 				</field>
+				<field name="active" position="replace">
+					<field name="active" invisible="1"/>
+				</field>
 				<field name="active" position="after">
-					<field name="status" attrs="{'invisible':[('active','=',True)]}"/>
+					<field name="status"/>
 				</field>
 				<field name="status" position="after">
-					<field name="desc_status" attrs="{'invisible':[('active','=',True)]}"/>
+					<field name="desc_status" attrs="{'invisible':[('status','in',('1',False))]}"/>
 				</field>
 				<field name="category_ids" position="after">
 				<label for="carga_familiar" class="oe_edit_only"/>

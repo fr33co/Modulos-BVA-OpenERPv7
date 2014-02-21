@@ -6,7 +6,7 @@
 					<field name="name">Nomina</field>
 					<field name="res_model">hr.payslip</field>
 					<field name="view_type">form</field>
-					<field name="domain">[('categoria.name','ilike','Becado')]</field>
+					<field name="domain">[('categoria','ilike','1')]</field>
 					<field name="view_mode">tree,form</field>
 			</record>
     
@@ -29,6 +29,39 @@
 									</group>
 								</h3>
 							</field>
+							<page string="Details By Salary Rule Category" position="replace">
+								<page string="Details By Salary Rule Category" attrs="{'invisible': [('categoria', '=', '1') ] }">
+										<field name="details_by_salary_rule_category" context="{'group_by':'category_id'}" domain="[('appears_on_payslip', '=', True)]">
+												<tree string="Payslip Lines" colors="blue:total == 0">
+														<field name="category_id"/>
+														<field name="name"/>
+														<field name="code"/>
+														<field name="total"/>
+												</tree>
+										</field>
+							 </page>
+							</page>
+							<page string="Other Information" position="replace">
+								<page string="Other Information" attrs="{'invisible': [('categoria', '=', '1') ] }">
+										<group>
+												<group string="Miscellaneous">
+														<field name="company_id" groups="base.group_multi_company"/>
+														<field name="payslip_run_id" domain="[('state','=','draft')]"/>
+												</group>
+												<group name="accounting" string="Accounting">
+														<field name="paid" readonly="1"/>
+												</group>
+										</group>
+										<div colspan="4">
+												<field name="note" Placeholder="Add an internal note..."/>
+										</div>
+							 </page>
+							</page>
+<!--
+							<field name="line_ids" position="replace">
+								<field name="asignacion"/>
+							</field>
+-->
 					</field>
 			</record>
         

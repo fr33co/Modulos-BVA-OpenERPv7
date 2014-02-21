@@ -2,14 +2,15 @@
     'name' : "Desarrollo Social",
     'category' : "Desarrollo Social",
     'version' : "1.0",
-    'depends' : ['base','hr','hr_payroll','hr_recruitment','hr_contract'],
-    'author' : "Desarrollo y Aplicaciones",
+    'depends' : ['base','hr','hr_payroll','hr_recruitment','hr_contract','l10n_ve_topology'],
+    'author' : "Departamento de Desarrollo y Aplicaciones",
     'description' : '''\
      El modulo de Desarrollo Social permite el manejo y gestion de los becados de las diferentes Bibliotecas Virtuales de Aragua:
 			Registro
       Edicion
       Generación de Reportes
-			Generación de Nóminas''',
+			Generación de Nóminas
+		 Depende del módulo de Recursos Humanos desarrollado en el departamento y del modelo hr.employee''',
     'data' : [
       "views/becado.xml",
       "views/nomina.xml", # nómina
@@ -28,6 +29,7 @@
       "views/proceso_seleccion.xml",
       "views/contrato.xml",
       "views/evaluacion.xml",
+      "views/calculo_nomina.xml",
       #"reportes/report_becados.xml",
       "seguridad/groups.xml", #Activar la carga de este archivo sólo al instalar, luego comentarlo.
       #""seguridad/users.xml", #Activar la carga de este archivo sólo al instalar, luego comentarlo.

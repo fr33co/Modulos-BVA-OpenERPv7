@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+			<record model="ir.actions.act_window" id="accion_vista_calculo_nomina">
+					<field name="name">Cálculo de Nómina</field>
+					<field name="res_model">hr.payslip.line</field>
+					<field name="view_type">form</field>
+<!--
+					<field name="domain">[('categoria','ilike','1')]</field>
+-->
+					<field name="view_mode">tree,form</field>
+			</record>
+    
+			<record id="vista_calculo_nomina_form" model="ir.ui.view">
+					<field name="name">Cálculo de Nómina</field>
+					<field name="model">hr.payslip.line</field>
+					<field name="inherit_id" ref="hr_payroll.view_hr_payslip_line_form"/>
+					<field name="arch" type="xml">
+						<field name="category_id" position="after">
+							<field name="asignacion"/>
+						</field>
+					</field>
+			</record>
+			
+			<record id="vista_calculo_nomina_tree" model="ir.ui.view">
+					<field name="name">Cálculo de Nómina</field>
+					<field name="model">hr.payslip.line</field>
+					<field name="inherit_id" ref="hr_payroll.view_hr_payslip_line_tree"/>
+					<field name="arch" type="xml">
+						<tree string="Salary Structure" position="replace">
+							<tree string="Salary Structure" editable="bottom" colors="blue:total == 0">
+								<field name="category_id"/>
+								<field name="asignacion"/>
+								<field name="employee_id" invisible="1"/>
+								<field name="sequence"/>
+								<field name="name"/>
+								<field name="code"/>
+								<field name="quantity"/>
+								<field name="rate"/>
+								<field name="amount"/>
+								<field name="total"/>
+								<field name="amount_select" invisible="1"/>
+								<field name="register_id" invisible="1"/>
+							</tree>
+						</tree>
+<!--
+						<field name="category_id" position="after">
+							<field name="asignacion"/>
+						</field>
+-->
+					</field>
+			</record>
+        
+<!--
+        <menuitem name="Desarrollo Social" id="menu_desarrollo_social"/>
+-->
+<!--
+			<menuitem name="Nómina" id="menu_desarrollo_social_nomina" parent="menu_desarrollo_social"/>
+			<menuitem parent="menu_desarrollo_social_nomina" id="nomina" action="accion_vista_nomina" name="Nómina del Becado"/>
+-->
+        
+    </data>
+</openerp>

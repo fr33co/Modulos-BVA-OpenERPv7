@@ -42,7 +42,7 @@ class Becado(osv.Model):
 	
 	_columns = {
 		'cedula' : fields.char(string="Cédula", size = 8, required=True),
-		'tiempo_servicio' : fields.char(string="Tiempo de Servicio", size = 8, required=False),
+		'tiempo_servicio' : fields.char(string="Tiempo de Servicio", size = 50, required=False),
 		'empleado': fields.many2one("becados.tipoempleado", "Tipo de Empleado", required = False),
 		'tipo_beca' : fields.many2one("becados.tipobeca", "Tipo de Beca", required = False),
 		'primer_nombre' : fields.char(string="Primer Nombre", size = 8, required=False),
@@ -66,8 +66,9 @@ class Becado(osv.Model):
 		'coordinador_eje' : fields.many2one("hr.employee","Coordinador de Eje",required=False, domain=[('category_ids.name','=','Coordinador_eje')]),
 		'coordinador_sede' : fields.many2one("hr.employee","Coordinador de Sede",required=False, domain=[('category_ids.name','=','Coordinador_sede')]),
 		'edad' : fields.char(string="Edad", size = 3, required=False),
-		'status' : fields.many2one("becados.status","Status",required=False),
-		'desc_status' : fields.char(string="Descripción", size=100, required=False,help="Escriba aquí detalles y razones del status seleccionado"),
+		#'status' : fields.many2one("becados.status","Status",required=False),
+		'status' : fields.selection((('1','Activo'),('2','Periódo de gracia'),('3','Permiso de reposo'),('4','Permiso no remunerado'),('5','Suspendido'),('6','Vacaciones')), "Estatus", required = False),
+		'desc_status' : fields.char(string="Descripción", size=100, required=False,help="Escriba aquí detalles y razones del estatus seleccionado"),
 		'asignacion' : fields.float(string="Asignación", required=True),
 		'correo' : fields.char(string="Correo", size = 30, required=True),
 		'entidad_bancaria' : fields.selection((('1','0243'),('2','0244')), "Entidad Bancaria", required = False),
@@ -90,10 +91,11 @@ class Becado(osv.Model):
 		#Campo para formato PDF
 		'fecha_actual' : fields.char(string="FECHA", size = 50, required=False),
 		
-		'usuario' : fields.many2one("res.users", "Usuario", required=True, readonly=True),
+		'grupo' : fields.many2one("res.groups", "Grupos", required=True, readonly=True),
 	}
 	
 	_defaults = {
 		'fecha_actual': lambda *a: time.strftime("(%d) días del mes %B del año %Y"),# formato corecto al español
-		'usuario': lambda s, cr, uid, c: uid,
+		'status' : '1',
+		'grupo': lambda s, cr, uid, c: uid,
 	} 
