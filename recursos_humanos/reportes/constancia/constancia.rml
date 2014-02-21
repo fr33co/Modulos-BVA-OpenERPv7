@@ -38,6 +38,7 @@
     <paraStyle name="P3" fontName="Helvetica" fontSize="9.0" leading="10" spaceBefore="0.0" spaceAfter="0.0"/>
     <paraStyle name="P4" fontName="Helvetica" alignment="JUSTIFY"/>
     <paraStyle name="P5" fontName="Helvetica" alignment="CENTER"/>
+    <paraStyle name="negrita" fontName="Helvetica-Bold" alignment="CENTER" fontSize="14.0"/>
     <paraStyle name="Standard" fontName="Helvetica"/>
     <paraStyle name="Heading" fontName="Helvetica" fontSize="14.0" leading="17" spaceBefore="12.0" spaceAfter="6.0"/>
     <paraStyle name="Text body" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
@@ -48,7 +49,7 @@
     
   </stylesheet>
   <story>
-    <para style="Standard">[[ repeatIn(objects,'employee') ]]</para>
+    <para style="Standard">[[ repeatIn(objects,'e') ]]</para>
     <illustration height="1.0" width="140.0">
       <image x="-6" y="50" file="../../img/logo_bva.png" height="600.0" width="530.0"/>
     </illustration>
@@ -58,7 +59,7 @@
     <para style="Standard">
       <font color="white"> </font>
     </para>
-    <para style="P5">CONSTANCIA DE BECA AYUDANTÍA</para>
+    <para style="negrita">CONSTANCIA</para>
     <para style="P5">_____________________________________________________________________________________________</para>
     <para style="Standard">
       <font color="white"> </font>
@@ -69,7 +70,52 @@
           <para style="P1">
             <font color="white"> </font>
           </para>
-          <para style="P1">La Gerencia de Desarrollo Social de la Asociación Civil Bibliotecas Virtuales de Aragua, certifica por medio de la presente, que la persona cuyos datos se suministran a continuación quien es beneficiario(a) del <font face="Helvetica">PROGRAMA BECA AYUDANTÍA</font>:</para>
+          <para style="P1">La Asociación Civil Bibliotecas Virtuales de Aragua, certifica por medio de la presente, que la persona cuyos datos se suministran a continuación trabaja en esta institución:</para>
+        </td>Table Content
+      </tr>
+      <tr>
+        <td>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+
+            <!-- <image width="37" height="40">[[ e.image_medium or removeParentNode('image') ]]</image> -->
+          <para style="P2">Nombres y Apellidos:      [[ e.name ]]</para>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+          <para style="P2">Cédula de Identidad: V-      [[ e.cedula ]]</para>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+          <para style="P2">Fecha de Ingreso:      [[ formatLang(e.fecha_ingreso,date=True) ]]</para>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+          <para style="P2">Cargo:      [[ e.job_id.name ]]</para>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+          <para style="P2">Unidad:      [[ e.department_id.name ]]</para>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+          <para style="P2">Sueldo Mensual:      [[ e.asignacion ]]</para>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+          <para style="P2">Otros Complementos:</para>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+          <para style="P2">Bono de Alimentación:</para>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+          <para style="P2">Total Asignaciones:</para>
         </td>
       </tr>
       <tr>
@@ -86,19 +132,7 @@
           <para style="Table Contents">
             <font color="white"> </font>
           </para>
-          <para style="P2">Nombres y Apellidos:      [[ employee.name ]]</para>
-          <para style="Table Contents">
-            <font color="white"> </font>
-          </para>
-          <para style="P2">Cédula de Identidad: V-      [[ employee.cedula ]]</para>
-          <para style="Table Contents">
-            <font color="white"> </font>
-          </para>
-          <para style="P2">Fecha de Ingreso:      [[ formatLang(employee.fecha_ingreso,date=True) ]]</para>
-          <para style="Table Contents">
-            <font color="white"> </font>
-          </para>
-          <para style="P2">Unidad:      [[ employee.tipo_beca.tipo_beca ]]</para>
+          <para style="Table Contents">Constancia que se expide sin tachadura y sin enmienda, en Maracay, a los [[ e.fecha_actual ]]</para>
         </td>
       </tr>
       <tr>
@@ -115,7 +149,7 @@
           <para style="Table Contents">
             <font color="white"> </font>
           </para>
-          <para style="Table Contents">Constancia que se expide sin tachadura y sin enmienda, en la ciudad de Maracay, a los [[ employee.fecha_actual ]]</para>
+          <para style="P2">Atentamente</para>
         </td>
       </tr>
       <tr>
@@ -132,25 +166,8 @@
           <para style="Table Contents">
             <font color="white"> </font>
           </para>
-          <para style="P3">Atentamente</para>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <para style="Table Contents">
-            <font color="white"> </font>
-          </para>
-          <para style="Table Contents">
-            <font color="white"> </font>
-          </para>
-          <para style="Table Contents">
-            <font color="white"> </font>
-          </para>
-          <para style="Table Contents">
-            <font color="white"> </font>
-          </para>
-          <para style="P2">Yaireth Castellanos</para>
-          <para style="P2">Gerente de Desarrollo Social</para>
+          <para style="P2">Lcda. María Gabriela Barreto</para>
+          <para style="P2">Gerente de Recursos Humanos</para>
           <para style="P2">AC. Bibliotecas Virtuales de Aragua</para>
         </td>
       </tr>
@@ -172,7 +189,7 @@
     </para>
     
     <illustration height="10.0" width="140.0">
-      <image x="-9.5" y="-180" file="../../img/footer_bva.png" height="600.0" width="530"/>
+      <image x="-10" y="-100" file="../../img/footer_bva.png" height="600.0" width="530"/>
     </illustration>
   </story>
 </document>

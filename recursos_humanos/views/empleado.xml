@@ -6,7 +6,7 @@
 		 	<field name="name">Recursos Humanos</field>
 			<field name="res_model">hr.employee</field>
 			<field name="view_type">form</field>
-			<!-- <field name="domain">[('categoria','ilike','2')]</field> -->
+			<field name="domain">[('categoria','ilike','2')]</field>
 			<field name="view_mode">tree,form</field>
 		</record>
 
@@ -67,7 +67,20 @@
 
 				<xpath expr="//field[@name='name']" position="replace">
 
-					<h4><field name="name"/></h4>
+
+					<table border="0" width="600">
+						<tr>
+							<td>
+								<h4><field name="name" default_focus="1"/></h4>
+								<font style="color:white;">|</font>
+							</td>
+							<td>
+								<button name="get_employee_filter" string="Actualizar servicio:" type="object" icon="gtk-apply"/>
+							</td>
+						</tr>
+					</table>
+
+					
 				</xpath>
 
 				<xpath expr="//field[@name='passport_id']" position="replace">
@@ -81,7 +94,12 @@
 
 				<xpath expr="//field[@name='country_id']" position="replace">
 
-					<field name="country_id" readonly="0"/>
+					<field name="country_id" invisible="1" />
+				</xpath>
+
+				<xpath expr="//field[@name='estado']" position="before">
+
+					<field name="country_id"/>
 				</xpath>
 
 				<xpath expr="//field[@name='empleado']" position="replace">
@@ -89,10 +107,60 @@
 					<field name="empleado" attrs="{'invisible': [('categoria', '!=', '2') ] }"/>
 				</xpath>
 
-				<xpath expr="//field[@name='job_id']" position="replace">
+				<xpath expr="//field[@name='cedula']" position="before">
 
-					<field name="job_id" attrs="{'invisible': [('categoria', '!=', '2') ] }"/>
+					<field name="rif" attrs="{'invisible': [('categoria', '!=', '2') ] }"/>
 				</xpath>
+
+				<xpath expr="//field[@name='tipo_nomina']" position="after">
+
+					<field name="class_personal" attrs="{'invisible': [('categoria', '!=', '2') ] }"/>
+				</xpath>
+
+				<xpath expr="//field[@name='tiempo_servicio']" position="replace">
+
+					<field name="tiempo_servicio" class="fecha" readonly="0"/>
+				</xpath>
+
+				<!-- <xpath expr="//field[@name='carga_familiar']" position="after">
+					<newline/>
+					<group>
+					<div style="margin-left: 550px;margin-top:20px;width:300px;">
+					<table border="1">
+						<tr>
+							<td>
+								<button name="get_employee_filter" string="Actualizar año de servicio:" type="object" icon="gtk-apply"/>
+							</td>
+						</tr>
+					</table>
+					</div>
+				</group>
+
+				</xpath> -->
+
+				<xpath expr="//group/group/field[@name='birthday']" position="replace">
+
+					<field name="birthday" on_change="validar_fecha_nac_employee(birthday)"/>
+				</xpath>
+
+				<xpath expr="//group/group/field[@name='edad']" position="replace">
+
+					<field name="edad" style="width:25%%"/>
+				</xpath>
+
+				<xpath expr="//group/group/field[@name='status']" position="replace">
+
+					<field name="status"/>
+				</xpath>
+
+				<xpath expr="//group/group/field[@name='desc_status']" position="replace">
+
+					<field name="desc_status"/>
+
+				</xpath>
+
+				
+				
 
 			</field>
 		</record>
@@ -111,9 +179,9 @@
 			</field>
 		</record>
 
-		<!--<menuitem name="Recursos Humanos" id="menu_recursos_humanos" />
+		<!-- <menuitem name="Recursos Humanos" id="menu_recursos_humanos" />
 		<menuitem name="Recursos Humanos" id="recursos_humanos_main" parent="menu_recursos_humanos"/>
-		<menuitem parent="recursos_humanos_main" id="empleado" action="accion_vista_empleado" name="Empleado" icon="terp-partner"/>-->
+		<menuitem parent="recursos_humanos_main" id="empleado" action="accion_vista_empleado" name="Empleados" icon="terp-partner"/> -->
 
 	</data>
 </openerp>

@@ -26,7 +26,7 @@
 											<b>Código:</b>
 										</td>
 										<td>
-											<field name="codigo" style="width:25%%" on_change="search_code_hr_concepts(codigo)"/>
+											<field name="codigo" style="width:25%%" on_change="search_hr_concepts(codigo)"/>
 										</td>
 									</tr>
 									<tr>
@@ -42,7 +42,7 @@
 											<b>Descripción:</b>
 										</td>
 										<td>
-											<field name="concepto"/>
+											<field name="concepto" on_change="search_hr_concepts(concepto)"/>
 										</td>
 										</tr>
 								</table>

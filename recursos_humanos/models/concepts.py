@@ -11,31 +11,55 @@ class Sede(osv.Model):
 	
 	_rec_name = 'concepto'
 
-
-	def search_code_hr_concepts(self, cr, uid, ids, codigo, context=None):
+	# MÉTODO DE BUSQUEDA PARA CONCEPTOS
+	
+	def search_hr_concepts(self, cr, uid, ids, argument_search, context=None):
 
 		values = {}
 		mensaje = {}
 		
-		if not codigo:
+		if not argument_search:
+			
 			return values
 		obj_dp = self.pool.get('hr.concepts')
-
-		busqueda = obj_dp.search(cr, uid, [('codigo','=',codigo)])
-
-		datos = obj_dp.read(cr,uid,busqueda,context=context)
 		
+		#======================== Busqueda por código ============================
 
-		if int(datos[0]['codigo']):
+		search_obj_code = obj_dp.search(cr, uid, [('codigo','=',argument_search)])
+
+		datos_code = obj_dp.read(cr,uid,search_obj_code,context=context)
+		
+		#======================= Busqueda por descripcion ========================
+		
+		search_obj_concept = obj_dp.search(cr, uid, [('concepto','=',argument_search)])
+
+		datos_concept = obj_dp.read(cr,uid,search_obj_concept,context=context)
+		
+		#=========================================================================		
+
+		if datos_code:
 			
 			mensaje = {
-					'title'   : "Codigo de Concepto",
-					'message' : "Disculpe este codigo ya esta asignado al concepto "+datos[0]['concepto']+", intente de nuevo...",
+					'title'   : "Código de Concepto",
+					'message' : "Disculpe este codigo ya esta asignado al concepto "+datos_code[0]['concepto']+", intente de nuevo...",
 			}
 
 			values.update({
 				
 				'codigo' : None,
+
+				})
+								
+		elif datos_concept:
+			
+			mensaje = {
+					'title'   : "Descripción del Concepto",
+					'message' : "Disculpe esta descripcion ya esta asignado al concepto "+datos_concept[0]['codigo']+", intente de nuevo...",
+			}
+
+			values.update({
+				
+				'concepto' : None,
 
 				})
 			

@@ -2,38 +2,29 @@
 <openerp>
     <data>
     
-			<!-- <record model="ir.actions.act_window" id="accion_vista_contrato_empleado">
+			<record model="ir.actions.act_window" id="accion_vista_contrato_empleado">
 					<field name="name">Contrato de Empleado</field>
-					<field name="res_model">hr.applicant</field>
+					<field name="res_model">hr.contract</field>
 					<field name="view_type">form</field>
-					<field name="domain">[('categoria.name','ilike','Becado')]</field>
+					<!-- <field name="domain">[('categoria','ilike','2')]</field> -->
+
 					<field name="view_mode">tree,form</field>
-			</record> -->
+			</record>
     
 			<record id="vista_contrato_empleado" model="ir.ui.view">
 					<field name="name">Contrato de Empleado</field>
-					<field name="model">hr.applicant</field>
-					<field name="inherit_id" ref="hr_recruitment.crm_case_form_view_job"/>
+					<field name="model">hr.contract</field>
+					<field name="inherit_id" ref="desarrollo_social.vista_contrato"/>
 					<field name="arch" type="xml">
-						<data>
-							<xpath expr="//group/field[@name='partner_id']" position="after">
-								<field name="hola"/>
-							</xpath>
-
-							<xpath expr="//field[@name='partner_name']" position="replace">
-								<field name="fecha_actual"/>
-							</xpath>
-
-
-						</data>
-						<!-- <field name="partner_id" position="after">
-							<field name="hola"/>
-						</field> -->
+						
+						<field name="type_id" position="after">
+							<field name="prueba" invisible="1"/>
+						</field>
 						
 					</field>
 			</record>
         
-        <!-- <menuitem parent="menu_desarrollo_social_seleccion" id="seleccion_contrato_empleado" action="accion_vista_contrato_empleado" name="Contrato"/> -->
+        <!-- <menuitem parent="recursos_humanos_main" id="seleccion_contrato_empleado" action="accion_vista_contrato_empleado" name="Contratos"/> -->
         
     </data>
 </openerp>
