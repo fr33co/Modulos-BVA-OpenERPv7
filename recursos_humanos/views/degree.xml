@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+			<record model="ir.actions.act_window" id="action_degree">
+					<field name="name">Grado</field>
+					<field name="res_model">hr.degree</field>
+					<field name="view_type">form</field>
+					<field name="view_mode">tree,form</field>
+			</record>
+    
+			<record id="view_degree" model="ir.ui.view">
+					<field name="name">Grado</field>
+					<field name="model">hr.degree</field>
+					<field name="arch" type="xml">
+						<form string="Formulario de Grado" version="7.0">
+
+								<table style="width:300px;" border="0">
+									<tr>
+										<td colspan="2" style="text-align:center;" class="oe_horizontal_separator">
+											<b>Tabla de Grado</b>
+										</td>
+									</tr>
+									<tr>
+										<td style="align:center;">
+											<b>Tipo de Grado:</b>
+										</td>
+										<td>
+											<field name="tipo" style="width:100%%"/>
+										</td>
+									</tr>
+									<tr>
+										<td style="align:center;">
+											<b>Grado:</b>
+										</td>
+										<td>
+											<field name="grado" style="width:100%%"/>
+										</td>
+									</tr>
+								</table>
+						</form>
+						
+					</field>
+			</record>
+
+			<!-- Forma de busqueda para concepto-->
+			<record model="ir.ui.view" id="search_degree"><!-- Filtro para la busqueda de evaluacion -->
+				<field name="name">busqueda.search</field>
+				<field name="model">hr.degree</field>
+				<field name="arch" type="xml">		
+					<search string="Busqueda de Grado">
+						<filter name="tipo" domain="[('tipo','=', uid)]" string="Busqueda de tipo Grado de Instrucción" icon="terp-partner" />
+						<field name="tipo" />
+						<field name="grado" />
+					</search>
+				</field>			
+			</record>
+
+			<record model="ir.ui.view" id="degree_tree">
+			<field name="name">Grado.tree</field>
+			<field name="model">hr.degree</field>
+			<field name="arch" type="xml">
+				<tree string="Lista de Grado">
+					<!-- colors="#FF0000:state=='draft';#169A12:state=='confirmed'" -->
+					<field name="tipo"/>
+					<field name="grado"/>
+				</tree>
+			</field>
+		</record>
+        
+        <menuitem parent="hr.menu_hr_configuration" id="sub_menu_degree" action="action_degree" name="Grados"/>
+        
+    </data>
+</openerp>

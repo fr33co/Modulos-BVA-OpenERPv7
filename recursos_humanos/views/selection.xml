@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<record model="ir.actions.act_window" id="accion_vista_seleccion">
+		 	<field name="name">Proceso de Selección</field>
+			<field name="res_model">hr.applicant</field>
+			<field name="view_type">form</field>
+			<!-- <field name="domain">[('categoria','ilike','2')]</field> -->
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<record id="vista_seleccion_employee" model="ir.ui.view">
+			<field name="name">empleado</field>
+			<field name="model">hr.applicant</field>
+			<field name="inherit_id" ref="desarrollo_social.vista_seleccion"/>
+			<field name="arch" type="xml">
+
+				<field name="cedula" position="after">
+					<field name="hola"/>
+				</field>
+				
+
+			</field>
+		</record>
+
+		<!-- <menuitem name="Proceso de Selección" id="recursos_humanos_main_selection" parent="menu_recursos_humanos"/>
+		<menuitem parent="recursos_humanos_main_selection" id="selection" action="accion_vista_seleccion" name="Solicitudes" icon="terp-partner"/> -->
+
+	</data>
+</openerp>

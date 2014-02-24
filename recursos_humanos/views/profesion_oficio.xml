@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+			<record model="ir.actions.act_window" id="action_level_degree">
+					<field name="name">Grado</field>
+					<field name="res_model">hr.level.instruction</field>
+					<field name="view_type">form</field>
+					<field name="view_mode">tree,form</field>
+			</record>
+    
+			<record id="view_level_degree" model="ir.ui.view">
+					<field name="name">Grado</field>
+					<field name="model">hr.level.instruction</field>
+					<field name="arch" type="xml">
+						<form string="Formulario de Grado de Instrucción" version="7.0">
+
+								<table style="width:300px;" border="0">
+									<tr>
+										<td colspan="2" style="text-align:center;" class="oe_horizontal_separator">
+											<b>Tabla de Tipo de Grado</b>
+										</td>
+									</tr>
+									<tr>
+										<td style="align:center;">
+											<b>Tipo de Grado:</b>
+										</td>
+										<td>
+											<field name="tipo" style="width:100%%"/>
+										</td>
+									</tr>
+								</table>
+						</form>
+						
+					</field>
+			</record>
+
+			<!-- Forma de busqueda para tipo de grado-->
+			<record model="ir.ui.view" id="search_level_degree"><!-- Filtro para la busqueda de evaluacion -->
+				<field name="name">busqueda.search</field>
+				<field name="model">hr.level.instruction</field>
+				<field name="arch" type="xml">		
+					<search string="Busqueda de Grado de Instrucción">
+						<filter name="tipo" domain="[('tipo','=', uid)]" string="Busqueda de tipo Grado de Instrucción" icon="terp-partner"/>
+						<field name="tipo" />
+					</search>
+				</field>			
+			</record>
+
+			<record model="ir.ui.view" id="level_degree_tree">
+			<field name="name">Grado instruccion.tree</field>
+			<field name="model">hr.level.instruction</field>
+			<field name="arch" type="xml">
+				<tree string="Lista de Tipo de Grado">
+					<!-- colors="#FF0000:state=='draft';#169A12:state=='confirmed'" -->
+					<field name="tipo"/>
+				</tree>
+			</field>
+		</record>
+        
+        <menuitem parent="hr.menu_hr_configuration" id="sub_menu__level_degree" action="action_level_degree" name="Tipo de Grados"/>
+        
+    </data>
+</openerp>

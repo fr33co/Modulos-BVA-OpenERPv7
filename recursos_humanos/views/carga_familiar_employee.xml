@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+			<!-- <record model="ir.actions.act_window" id="accion_vista_contrato_empleado">
+					<field name="name">Contrato de Empleado</field>
+					<field name="res_model">hr.applicant</field>
+					<field name="view_type">form</field>
+					<field name="domain">[('categoria.name','ilike','Becado')]</field>
+					<field name="view_mode">tree,form</field>
+			</record> -->
+    
+			<record id="view_employee_form" model="ir.ui.view">
+					<field name="name">Carga Familiar</field>
+					<field name="model">becado.carga.familiar</field>
+					<field name="inherit_id" ref="desarrollo_social.vista_formulario_becados_carga_familiar"/>
+					<field name="arch" type="xml">
+
+							<xpath expr="//group[@string='Datos del Familiar']" position="before">
+
+								<group colspan="1" col="2" string="Datos de Nacionalidad">
+
+									<table border="0" style="650px;border-color:#F2F2F2;">
+										<tr>
+											<td rowspan="2" style="width:120px;">
+												<field name="image_family" widget="image" class="oe_left oe_avatar" nolabel="0"/>
+											</td>
+											<td class="parrafo"><b>Nacionalidad <font style="color:white;">|</font></b></td>
+											<td><field name="nac"/></td>
+											<td><b><font style="color:white;">|</font>Municipio<font style="color:white;">|</font></b></td>
+											<td><field name="municipio" domain= "[('state_id','=',estado)]"/></td>
+										</tr>
+										<tr>
+											<td><b>Estado</b></td>
+											<td><field name="estado"/></td>
+											<td><b><font style="color:white;">|</font>Parroquia</b></td>
+											<td><field name="parroquia" domain= "[('municipalities_id','=',municipio)]"/></td>
+										</tr>
+									</table>
+
+									
+								</group>
+							</xpath>
+
+							<field name="cedula_familiar" position="replace">
+								<field name="cedula_familiar" on_change="search_hr_carga_familiar(cedula_familiar)"/>
+							</field>
+
+							<field name="estudio" position="after">
+								<field name="especifique_estudio" attrs="{'invisible': [('estudio', '!=', True) ] }"/>
+							</field>
+
+							<field name="especifique_estudio" position="after">
+								<field name="lugar_nac"/>
+							</field>
+							<field name="segundo_apellido_familiar" position="after">
+								<field name="grupo_sanguineo"/>
+							</field>
+
+							<field name="profesion_familiar" position="replace">
+								<field name="nivel_instruccion"/>
+							</field>
+
+							<field name="nivel_instruccion" position="after">
+								<field name="grado"/>
+							</field>
+
+					</field>
+			</record>
+        
+        <!-- <menuitem parent="menu_desarrollo_social_seleccion" id="seleccion_contrato_empleado" action="accion_vista_contrato_empleado" name="Contrato"/> -->
+        
+    </data>
+</openerp>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <openerp>
+        <data>
+            <record id="group_recursos_humanos_manager" model="res.groups">
+                <field name="name">Recursos Humanos / manager</field>
+            </record>
+        </data>
+    </openerp>

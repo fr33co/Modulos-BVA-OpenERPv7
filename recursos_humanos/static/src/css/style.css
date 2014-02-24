@@ -3,3 +3,7 @@
 	-moz-border-radius:7px;
 	border-radius:7px;
 }
+
+.oe_form_field.fecha,input{
+	background-color: #D4E3ED; !import
+}
