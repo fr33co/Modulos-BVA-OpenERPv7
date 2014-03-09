@@ -272,6 +272,11 @@
                         </group>
                     </group>
                     <notebook>
+                        <page string="Resumen del proyecto">
+                            <field name="date_start_proyecto"/>
+                            <field name="date_end_proyecto"/>
+                            <field name="estado_proyecto"/>
+                        </page>
                         <page string="Descripcion de la tarea">
                             <field name="description" placeholder="Agregar descripcion..."/>
                         </page>
