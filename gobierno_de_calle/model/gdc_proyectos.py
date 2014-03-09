@@ -101,15 +101,17 @@ class gdc_proyectos(osv.Model):
         'dias_proyecto': fields.function(_compute_days, type='char', string='Cantidad de dias'),
         'date_start': fields.datetime('Fecha inicio',select=True, required=True),
         'date_end': fields.datetime('Fecha final',select=True, required=True),
-        'supervisor_id' : fields.many2one('res.company', 'Ente Supervisor', domain=[('category_id.name','ilike','Supervisor')], required=True),        
-        'ejecutor_id' : fields.many2one('res.company', 'Ente Ejecutor', required=True),
+        'supervisor_id' : fields.many2one('res.company', 'Institución supervisor', domain=[('category_id.name','ilike','Supervisor')], required=True),        
+        'ejecutor_id' : fields.many2one('res.company', 'Institución ejecutante', required=True),
         'responsible_id' : fields.many2one('res.users', 'Responsable', domain=[('category_id.name','ilike','Responsable')], required=True),
         'description': fields.text('Description', required=True),
         'presu_tentativo': fields.float('Presupuesto Tentativo  (Bs.)', required=True),
         'presu_real': fields.float('Presupuesto Real (Bs.)', required=True),
-        'bene_tentativo': fields.integer('Cantidad de beneficiados tentativos', required=True),
+        'bene_medible': fields.selection((('Generico','Generico'), ('Especifico','Especifico')),'Tipo de medición', required=True),
+        'bene_tentativo': fields.integer('Cantidad de beneficiados tentativos', required=False),
+        'bene_masculinos': fields.integer('Cantidad de beneficiados masculinos', required=False),
+        'bene_femeninos': fields.integer('Cantidad de beneficiados femeninos', required=False),
         'members_project': fields.many2many('res.company', 'project_company_rel', 'project_id', 'uid', 'Instituciones'),
-        
         'address_id': fields.many2one('res.partner','Lugar', readonly=False, required=True, domain=[('category_id.name','ilike','Lugar')]),
         'street': fields.related('address_id','street',type='char',string='Direccion'),
         'street2': fields.related('address_id','street2',type='char',string='Cont. Direccion'),
@@ -129,20 +131,6 @@ class gdc_proyectos(osv.Model):
         'adjunto_gaceta': fields.binary('Adjuntar Gaceta digital'),
         'adjunto_gaceta_name': fields.char('Adjuntar Gaceta digital'),
     }
-      
-        
-    def _check_dates_now(self, cr, uid, ids, context=None):
-        """
-        SQL Constraints para validar que la fecha de inicio 
-        debe ser mayor o igual a la fecha de creacion del proyecto
-        """
-        now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        for leave in self.read(cr, uid, ids, ['date_start'], context=context):
-            if leave['date_start']:
-                if leave['date_start']:
-                    return False
-        return True
-        
         
     def _check_dates(self, cr, uid, ids, context=None):
         """
@@ -156,7 +144,6 @@ class gdc_proyectos(osv.Model):
         self.send_note(cr, uid, ids, context=context)
         return True
         
-
     def send_note(self, cr, uid, ids, context=None):
         """
         Envio de notificaciones y correos electronicos al crearse y asignar un proyecto
@@ -184,7 +171,6 @@ class gdc_proyectos(osv.Model):
 
 
     _constraints = [
-        (_check_dates_now, 'Error! La fecha de inicio debe ser mayor o igual a la fecha de creacion del proyecto', ['date_start']),
         (_check_dates, 'Error! La fecha de inicio debe ser menor que la fecha final.', ['date_start', 'date_end']),
     ]
     
@@ -192,7 +178,6 @@ class gdc_proyectos(osv.Model):
     _sql_constraints = [
         ('actividad_unique','UNIQUE(actividad)','La actividad debe ser unica. Intente copiar el proyecto'),
     ]
-    
     
     _defaults = {
             'supervisor_id': lambda s, cr, uid, c: uid,
