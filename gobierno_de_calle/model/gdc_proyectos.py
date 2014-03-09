@@ -56,32 +56,6 @@ class gdc_proyectos(osv.Model):
         })
         print values
         return {'value' : values}
-    
-    
-    def onchange_date_start(self, cr, uid, ids, date_start, context=None):
-        """
-        Onchange para validar que la fecha de inicio no es menor a la 
-        fecha de creacion
-        """
-        res = {}
-        now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')        
-        if date_start < now:
-            res['warning'] = {'title': "Cuidado: Error!",'message' : "No puede seleccionar como fecha de inicio dias pasados",}
-            return res
-        return res
-        
-        
-    def onchange_date_end(self, cr, uid, ids, date_end, context=None):
-        """
-        Onchange para validar que la fecha final no es menor a la 
-        fecha de creacion
-        """
-        res = {}
-        now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        if date_end < now:
-            res['warning'] = {'title': "Cuidado: Error!",'message' : "No puede seleccionar como fecha final dias pasados",}
-            return res
-        return res
             
     def _compute_days(self, cr, uid, ids, field, arg, context=None):
         """
@@ -127,8 +101,9 @@ class gdc_proyectos(osv.Model):
         'dias_proyecto': fields.function(_compute_days, type='char', string='Cantidad de dias'),
         'date_start': fields.datetime('Fecha inicio',select=True, required=True),
         'date_end': fields.datetime('Fecha final',select=True, required=True),
+        'supervisor_id' : fields.many2one('res.company', 'Ente Supervisor', domain=[('category_id.name','ilike','Supervisor')], required=True),        
+        'ejecutor_id' : fields.many2one('res.company', 'Ente Ejecutor', required=True),
         'responsible_id' : fields.many2one('res.users', 'Responsable', domain=[('category_id.name','ilike','Responsable')], required=True),
-        'supervisor_id' : fields.many2one('res.company', 'Ente Supervisor', domain=[('category_id.name','ilike','Supervisor')], required=True),
         'description': fields.text('Description', required=True),
         'presu_tentativo': fields.float('Presupuesto Tentativo  (Bs.)', required=True),
         'presu_real': fields.float('Presupuesto Real (Bs.)', required=True),
@@ -164,7 +139,7 @@ class gdc_proyectos(osv.Model):
         now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         for leave in self.read(cr, uid, ids, ['date_start'], context=context):
             if leave['date_start']:
-                if leave['date_start'] <= now:
+                if leave['date_start']:
                     return False
         return True
         
