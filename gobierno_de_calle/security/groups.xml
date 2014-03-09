@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
     <openerp>
         <data>
-            <record id="group_manager_gdc" model="res.groups">
-                <field name="name">Gobierno de Calle / Manager</field>
+            <record id="group_administrador_gdc" model="res.groups">
+                <field name="name">Gobierno de Calle / Administrador</field>
+            </record>
+            <record id="group_responsable_gdc" model="res.groups">
+                <field name="name">Gobierno de Calle / Responsable</field>
+            </record>
+            <record id="group_ejecutor_gdc" model="res.groups">
+                <field name="name">Gobierno de Calle / Ejecutor</field>
             </record>
         </data>
     </openerp>

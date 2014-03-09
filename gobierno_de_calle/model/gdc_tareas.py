@@ -37,11 +37,12 @@ class gdc_tareas(osv.Model):
         values = {}
         gdc_project = self.pool.get('gdc.proyectos')
         proyecto_brw = gdc_project.browse(cr, uid, project_id2, context=context)
-        proyecto_rd = gdc_project.read(cr, uid, proyecto_brw.id, ['supervisor_id', 'responsible_id'], context=context)
+        proyecto_rd = gdc_project.read(cr, uid, proyecto_brw.id, ['ejecutor_id', 'supervisor_id', 'responsible_id'], context=context)
         if proyecto_rd['supervisor_id'] and proyecto_rd['responsible_id']:
             values.update({
             'supervisor_id' : proyecto_rd['supervisor_id'][0],
             'responsible_id' : proyecto_rd['responsible_id'][0],
+            'ejecutor_id' : proyecto_rd['ejecutor_id'][0],
             })
             return {'value' : values}
         else: 
@@ -100,7 +101,8 @@ class gdc_tareas(osv.Model):
         'progreso_tarea': fields.float(string="Progreso de tarea"), 
         'dias_tarea': fields.function(_compute_days_tarea, type='char', string='Dias asignados a la tarea'),
         'responsible_id' : fields.many2one('res.users', 'Responsable asignado', domain=['|',('is_company','=',False),('category_id.name','ilike','Responsable')], required=False),
-        'supervisor_id' : fields.many2one('res.company', 'Ente Supervisor', domain=[('category_id.name','ilike','Supervisor')], required=False),
+        'supervisor_id' : fields.many2one('res.company', 'Ente Supervisor', domain=[('category_id.name','ilike','Supervisor')], required=False),        
+        'ejecutor_id' : fields.many2one('res.company', 'Ente Ejecutor', domain=[('category_id.name','ilike','Supervisor')], required=False),
         'members_tareas': fields.many2many('res.company', 'project_company_rel2', 'project_id2', 'uid2', 'Equipos de trabajo'),
         'description': fields.text('Description'),
         'informe_tareas': fields.binary('Informe'),
