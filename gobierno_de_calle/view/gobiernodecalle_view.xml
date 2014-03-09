@@ -80,7 +80,6 @@
                         <group>
                             <field name="codigo" readonly="1"/>
                             <field name="date_created" readonly="1"/>
-                            <field name="dias_proyecto" readonly="1"/>
                             <field name="estado" attrs="{'readonly':[('estado', '!=', 'Borrador')]}"/>
                             <field name="progreso" readonly="1" widget="progressbar"/>
                         </group>
@@ -99,6 +98,7 @@
                                 <separator string="Asignación de fechas" colspan="2"/>
                                 <field name="date_start"/>
                                 <field name="date_end"/>
+                                <field name="dias_proyecto" readonly="1"/>
                                 <separator string="Presupuestos" colspan="2"/>
                                 <field name="presu_tentativo"/>
                                 <field name="presu_real"/>
@@ -109,7 +109,10 @@
                                 <field name="ejecutor_id" domain="[('category_id.name','ilike','Supervisor')]"/>
                                 <field name="responsible_id" domain="[('category_id.name','ilike','Responsable')]"/>
                                 <separator string="Beneficiados del proyecto" colspan="2"/>
-                                <field name="bene_tentativo" colspan="2"/>
+                                <field name="bene_medible" colspan="2"/>
+                                <field name="bene_tentativo" colspan="2" attrs="{'invisible':['|', ('bene_medible', '=', False),('bene_medible','=','Especifico')]}"/>
+                                <field name="bene_masculinos" colspan="2" attrs="{'invisible':['|', ('bene_medible', '=', False),('bene_medible','=','Generico')]}"/>
+                                <field name="bene_femeninos" colspan="2" attrs="{'invisible':['|', ('bene_medible', '=', False),('bene_medible','=','Generico')]}"/>
                             </group>
                         </group>
                         </page>
