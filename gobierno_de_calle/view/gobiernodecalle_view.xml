@@ -54,14 +54,11 @@
             <field name="model">gdc.proyectos</field>
             <field name="arch" type="xml">
                 <tree string="Proyectos" colors="red:estado in ('Propuesto', 'Vencido');blue:estado in ('Planificacion', 'Progreso');green:estado=='Terminado';gray:estado in ('Archivado', 'Plantilla');orange:estado=='Congelado'">
-                    <field name="codigo" />
                     <field name="actividad" />
+                    <field name="ejecutor_id"/>
                     <field name="responsible_id"/>
                     <field name="cobertura" />
                     <field name="priority"/>
-                    <field name="date_start"/>
-                    <field name="date_end"/>
-                    <field name="dias_proyecto"/>
                     <field name="estado"/>
                     <field name="progreso" widget="progressbar"/>
                 </tree>
@@ -100,8 +97,8 @@
                         <group>
                              <group>
                                 <separator string="Asignación de fechas" colspan="2"/>
-                                <field name="date_start" on_change="onchange_date_start(date_start)"/>
-                                <field name="date_end" on_change="onchange_date_end(date_end)"/>
+                                <field name="date_start"/>
+                                <field name="date_end"/>
                                 <separator string="Presupuestos" colspan="2"/>
                                 <field name="presu_tentativo"/>
                                 <field name="presu_real"/>
@@ -109,6 +106,7 @@
                             <group>
                                 <separator string="Asignación de responsables" colspan="2"/>
                                 <field name="supervisor_id" domain="[('category_id.name','ilike','Supervisor')]"/>
+                                <field name="ejecutor_id" domain="[('category_id.name','ilike','Supervisor')]"/>
                                 <field name="responsible_id" domain="[('category_id.name','ilike','Responsable')]"/>
                                 <separator string="Beneficiados del proyecto" colspan="2"/>
                                 <field name="bene_tentativo" colspan="2"/>
