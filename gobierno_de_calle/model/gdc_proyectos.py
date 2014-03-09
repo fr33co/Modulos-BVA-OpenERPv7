@@ -101,7 +101,7 @@ class gdc_proyectos(osv.Model):
         'dias_proyecto': fields.function(_compute_days, type='char', string='Cantidad de dias'),
         'date_start': fields.datetime('Fecha inicio',select=True, required=True),
         'date_end': fields.datetime('Fecha final',select=True, required=True),
-        'supervisor_id' : fields.many2one('res.company', 'Institución supervisor', domain=[('category_id.name','ilike','Supervisor')], required=True),        
+        'supervisor_id' : fields.many2one('res.company', 'Institución supervisora', domain=[('category_id.name','ilike','Supervisor')], required=True),        
         'ejecutor_id' : fields.many2one('res.company', 'Institución ejecutante', required=True),
         'responsible_id' : fields.many2one('res.users', 'Responsable', domain=[('category_id.name','ilike','Responsable')], required=True),
         'description': fields.text('Description', required=True),
@@ -180,7 +180,7 @@ class gdc_proyectos(osv.Model):
     ]
     
     _defaults = {
-            'supervisor_id': lambda s, cr, uid, c: uid,
+            'supervisor_id': 1,
             'codigo': lambda obj, cr, uid, context: obj.pool.get('ir.sequence').get(cr, uid, 'gdc.proyectos'),
             'estado': 'Borrador',
             'progreso': 0.0,

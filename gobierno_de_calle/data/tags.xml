@@ -2,19 +2,19 @@
     <openerp>
         <data>
             <record id="etiqueta1" model="res.partner.category">
-                <field name="name">Supervisor</field>
+                <field name="name">Administrador</field>
                 <field name="active">True</field>
             </record>
             <record id="etiqueta2" model="res.partner.category">
-                <field name="name">Responsable</field>
+                <field name="name">Supervisor</field>
                 <field name="active">True</field>
             </record>
             <record id="etiqueta3" model="res.partner.category">
-                <field name="name">Lugar</field>
+                <field name="name">Responsable</field>
                 <field name="active">True</field>
             </record>
             <record id="etiqueta4" model="res.partner.category">
-                <field name="name">Inspector</field>
+                <field name="name">Lugar</field>
                 <field name="active">True</field>
             </record>
         </data>

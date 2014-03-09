@@ -44,7 +44,6 @@
             <field name="res_model">gdc.proyectos</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form,calendar,gantt</field>
-            <field name="domain">['|', ('responsible_id','=',uid), ('supervisor_id','=',uid)]</field>
             <field name="help" type="html">
             </field>
         </record>
@@ -80,7 +79,7 @@
                         <group>
                             <field name="codigo" readonly="1"/>
                             <field name="date_created" readonly="1"/>
-                            <field name="estado" attrs="{'readonly':[('estado', '!=', 'Borrador')]}"/>
+                            <field name="estado" readonly="1"/>
                             <field name="progreso" readonly="1" widget="progressbar"/>
                         </group>
                         <group>
@@ -105,7 +104,7 @@
                             </group>
                             <group>
                                 <separator string="Asignación de responsables" colspan="2"/>
-                                <field name="supervisor_id" domain="[('category_id.name','ilike','Supervisor')]"/>
+                                <field name="supervisor_id" readonly="1" domain="[('category_id.name','ilike','Supervisor')]"/>
                                 <field name="ejecutor_id" domain="[('category_id.name','ilike','Supervisor')]"/>
                                 <field name="responsible_id" domain="[('category_id.name','ilike','Responsable')]"/>
                                 <separator string="Beneficiados del proyecto" colspan="2"/>
@@ -225,7 +224,6 @@
             <field name="res_model">gdc.tareas</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form,calendar,gantt</field>
-            <field name="domain">['|', ('responsible_id','=',uid), ('supervisor_id','=',uid)]</field>
             <field name="help" type="html">
             </field>
         </record>
