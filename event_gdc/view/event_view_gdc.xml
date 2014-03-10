@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <openerp>
     <data>
@@ -8,7 +8,7 @@
             <field name="model">event.event</field>
             <field name="inherit_id" ref="event.view_event_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//form/sheet/group/group/notebook" position="replace">
+                <xpath expr="//form/sheet/notebook" position="replace">
                     <notebook>
                         <page string="Event Description">
                             <field name="note" colspan="4" nolabel="1"/>

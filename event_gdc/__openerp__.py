@@ -26,6 +26,6 @@
     'description' : """
                     """,
     'data' : [
-        #~ 'view/event_view_gdc.xml',
+        'view/event_view_gdc.xml',
     ],
 }
