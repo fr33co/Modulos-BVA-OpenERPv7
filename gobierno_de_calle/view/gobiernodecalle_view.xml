@@ -376,6 +376,8 @@
                                 <field name="name_incidencia" />
                                 <field name="date_reporter" />
                                 <field name="reporter_id"/>
+                                <field name="verificar_solicitud"/>
+                                <field name="solicitud_cambio" attrs="{'invisible':[('verificar_solicitud', '=', False)]}" />
                             </group>
                         </group>
                         <separator string="Especifique las caracteristicas de la incidencia" colspan="2"/>

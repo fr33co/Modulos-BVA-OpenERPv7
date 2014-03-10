@@ -65,6 +65,8 @@ class gdc_incidencias(osv.Model):
         'project_id': fields.many2one('gdc.proyectos', 'Proyecto', required=False),
         'date_reporter': fields.datetime('Fecha',select=True, required=True),
         'description': fields.text('Description'),
+        'verificar_solicitud': fields.boolean('¿Desea congelar o modificar procesos?'),
+        'solicitud_cambio': fields.selection((('Proyecto','Proyecto'), ('Tarea', 'Tarea')),'Cambiar estatus a:', required=False),
     }
 
     _defaults = {
