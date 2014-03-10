@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="inherit_notebook_form">
+            <field name="name">inherit_notebook_form</field>
+            <field name="model">event.event</field>
+            <field name="inherit_id" ref="event.view_event_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/group/group/notebook" position="replace">
+                    <notebook>
+                        <page string="Event Description">
+                            <field name="note" colspan="4" nolabel="1"/>
+                        </page>
+                        <page string="Acuerdos">
+                            <field name="acuerdos" colspan="4" nolabel="1"/>
+                        </page>
+                        <page string="Conclusiones">
+                            <field name="conclusiones" colspan="4" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+        
+    </data>
+</openerp>

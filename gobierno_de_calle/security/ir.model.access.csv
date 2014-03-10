@@ -6,3 +6,6 @@ gdc_incidencias_full_all,gdc_incidencias_full_all,model_gdc_incidencias,group_re
 gdc_fondos_full_all,gdc_fondos_full_all,model_gdc_fondos,group_responsable_gdc,1,1,1,1
 gdc_areas_full_all,gdc_areas_full_all,model_gdc_areas,group_responsable_gdc,1,1,1,1
 access_email_template_account_manager,ir.mail_server,base.model_ir_mail_server,group_responsable_gdc,1,1,1,1
+access_event_manager,event.event,event.model_event_event,group_responsable_gdc,1,1,1,1
+access_event_type_manager,event.type,event.model_event_type,group_responsable_gdc,1,1,1,1
+access_event_registration_manager,event.registration,event.model_event_registration,group_responsable_gdc,1,1,1,1
