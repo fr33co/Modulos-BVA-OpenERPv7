@@ -57,12 +57,12 @@ class gdc_incidencias(osv.Model):
 
     _columns = {
         'name_incidencia': fields.char(string="Incidencia", size=50, required=False),
-        'tarea_id': fields.many2one('gdc.tareas', 'tarea', required=False),
+        'tarea_id': fields.many2one('gdc.tareas', 'Tarea', required=False),
         'date_start_tarea': fields.datetime('Fecha de inicio',select=True),
         'date_end_tarea': fields.datetime('Fecha de finalizacion',select=True),
         'state_tarea': fields.char(string="Estado de la tarea", required=False),
         'reporter_id' : fields.many2one('res.users', 'Usuario', required=True),
-        'project_id': fields.many2one('gdc.proyectos', 'tarea', required=False),
+        'project_id': fields.many2one('gdc.proyectos', 'Proyecto', required=False),
         'date_reporter': fields.datetime('Fecha',select=True, required=True),
         'description': fields.text('Description'),
     }
