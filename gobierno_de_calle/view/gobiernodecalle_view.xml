@@ -366,12 +366,18 @@
                         <group>
                             <group>
                                 <field name="project_id" invisible="1"/>
-                                <field name="date_reporter" />
-                                <field name="reporter_id"/>
+                                <field name="tarea_id" on_change="onchange_tarea(tarea_id)"/>
+                                <separator string="Resumen de la tarea" colspan="2"/>
+                                <field name="date_start_tarea" readonly="1"/>
+                                <field name="date_end_tarea" readonly="1"/>
+                                <field name="state_tarea" readonly="1"/>
                             </group>
                             <group>
-                                <field name="tarea_id" on_change="onchange_tarea(tarea_id)"/>
                                 <field name="name_incidencia" />
+                                <field name="date_reporter" />
+                                <field name="reporter_id"/>
+                                <field name="verificar_solicitud"/>
+                                <field name="solicitud_cambio" attrs="{'invisible':[('verificar_solicitud', '=', False)]}" />
                             </group>
                         </group>
                         <separator string="Especifique las caracteristicas de la incidencia" colspan="2"/>
