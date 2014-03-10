@@ -88,6 +88,7 @@
             <field name="arch" type="xml">
                 <tree string="Proyectos" colors="red:estado in ('Propuesto', 'Vencido');blue:estado in ('Planificacion', 'Progreso');green:estado=='Terminado';gray:estado in ('Archivado', 'Plantilla');orange:estado=='Congelado'">
                     <field name="actividad" />
+                    <field name="area_atencion"/>
                     <field name="ejecutor_id"/>
                     <field name="responsible_id"/>
                     <field name="cobertura" />
@@ -298,9 +299,9 @@
                             <field name="supervisor_id" invisible="1"/>
                             <field name="ejecutor_id" invisible="1"/>
                             <separator string="Resumen del proyecto" colspan="2"/>
-                            <field name="date_start_proyecto" readonly="1"/>
-                            <field name="date_end_proyecto" readonly="1"/>
-                            <field name="estado_proyecto" readonly="1"/>
+                            <field name="date_start_proyecto" />
+                            <field name="date_end_proyecto" />
+                            <field name="estado_proyecto" />
                         </group>
                         <group>
                             <field name="name_tarea" />

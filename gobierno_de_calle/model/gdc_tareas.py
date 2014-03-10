@@ -64,7 +64,9 @@ class gdc_tareas(osv.Model):
         if not project_id2:
             return values
         datos = self.pool.get('gdc.proyectos').browse(cr, uid, project_id2, context=context)
-        if date_end_tarea < datos.date_end:
+        if date_end_tarea > datos.date_end:
+            print date_end_tarea
+            print datos.date_end
             values['warning'] = {'title': "Cuidado: Error!",'message' : "No puede seleccionar fechas mayores a la final del proyecto.",}
             return values
         else:
@@ -94,7 +96,7 @@ class gdc_tareas(osv.Model):
         'name_tarea': fields.char(string="Tarea", size=50, required=True),
         'project_id2': fields.many2one('gdc.proyectos', 'Asignacion', required=True),
         'estado_tarea': fields.selection((('Borrador','Borrador'), ('Progreso', 'Progreso'), ('Terminado', 'Terminado'), ('Congelado', 'Congelado'), ('Vencido', 'Vencido')),'Estado', required=True),
-        'estado_proyecto': fields.char(string="Estado", required=True),
+        'estado_proyecto': fields.char(string="Estado", required=False),
         'date_start_proyecto': fields.datetime('Fecha de inicio',select=True),
         'date_start_tarea': fields.datetime('Fecha de inicio',select=True),
         'date_end_proyecto': fields.datetime('Fecha de finalizacion',select=True),
