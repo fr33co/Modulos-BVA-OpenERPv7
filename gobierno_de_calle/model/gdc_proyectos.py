@@ -122,7 +122,6 @@ class gdc_proyectos(osv.Model):
         'parish_id': fields.related('address_id','parish_id',type='many2one', relation="res.country.parish", string='Parish'),
         'sector_id': fields.related('address_id','sector_id',type='many2one', relation="res.country.sector", string='Sector'),
         'country_id': fields.related('address_id', 'country_id', type='many2one', relation='res.country', string='Pais', readonly=False),
-        
         'tareas_ids': fields.one2many('gdc.tareas', 'project_id2', string="Tareas"),
         'incidencias_ids': fields.one2many('gdc.incidencias', 'project_id', string="Incidencias"),
         'conclusiones': fields.text('Conclusiones'),
@@ -130,7 +129,8 @@ class gdc_proyectos(osv.Model):
         'incidencias': fields.text('Incidencias'),
         'adjunto_gaceta': fields.binary('Adjuntar Gaceta digital'),
         'adjunto_gaceta_name': fields.char('Adjuntar Gaceta digital'),
-    }
+        'area_atencion': fields.many2one('gdc.areas','Area de Atención', required=True),
+        }
         
     def _check_dates(self, cr, uid, ids, context=None):
         """

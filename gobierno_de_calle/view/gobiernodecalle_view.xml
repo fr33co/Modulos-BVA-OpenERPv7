@@ -36,6 +36,40 @@
                 </form>
             </field>
         </record>
+        
+<!--AREAS DE ATENCION-->
+
+        <record model="ir.actions.act_window" id="areas_list_action">
+            <field name="name">Areas de atencion</field>
+            <field name="res_model">gdc.areas</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Crear area de atencion.
+              </p>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="areas_tree_view">
+            <field name="name">gdc.areas.tree</field>
+            <field name="model">gdc.areas</field>
+            <field name="arch" type="xml">
+                <tree string="Areas de Atencion">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+       
+        <record model="ir.ui.view" id="areas_form_view">
+            <field name="name">gdc.areas.form</field>
+            <field name="model">gdc.fondos</field>
+            <field name="arch" type="xml">
+                <form string="Areas de Atención">
+                    <field name="name" />
+                </form>
+            </field>
+        </record>
 
 <!--PROYECTOS-->
 
@@ -83,7 +117,8 @@
                             <field name="progreso" readonly="1" widget="progressbar"/>
                         </group>
                         <group>
-                            <field name="actividad" string="Actividad"/>
+                             <field name="actividad" string="Actividad"/>
+                             <field name="area_atencion"/>
                              <field name="cobertura"/>
                              <field name="priority"/>
                              <field name="tipo_financiamiento"/>
@@ -397,6 +432,7 @@
         
         <menuitem id="configuration_menu" name="Configuration" parent="main_gobiernodecalle_menu" sequence="10"/>
         <menuitem id="fondos_menu" name="Fondos de financiamiento" parent="configuration_menu" action="financiamiento_list_action"/>
+        <menuitem id="areas_menu" name="Areas de Atencion" parent="configuration_menu" action="areas_list_action"/>
         
     </data>
 </openerp>

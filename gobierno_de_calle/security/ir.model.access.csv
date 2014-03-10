@@ -1,6 +1,8 @@
 id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
-gdc_proyectos_full_manager,gdc_proyectos_full_manager,model_gdc_proyectos,,1,1,1,1
-gdc_proyectos_read_all,gdc_proyectos_read_all,model_gdc_proyectos,,1,1,1,1
-gdc_tareas_full_all,gdc_tareas_full_all,model_gdc_tareas,,1,1,1,1
-gdc_incidencias_full_all,gdc_incidencias_full_all,model_gdc_incidencias,,1,1,1,1
-gdc_fondos_full_all,gdc_fondos_full_all,model_gdc_fondos,,1,1,1,1
+gdc_proyectos_full_manager,gdc_proyectos_full_manager,model_gdc_proyectos,group_responsable_gdc,1,1,1,1
+gdc_proyectos_read_all,gdc_proyectos_read_all,model_gdc_proyectos,group_responsable_gdc,1,1,1,1
+gdc_tareas_full_all,gdc_tareas_full_all,model_gdc_tareas,group_responsable_gdc,1,1,1,1
+gdc_incidencias_full_all,gdc_incidencias_full_all,model_gdc_incidencias,group_responsable_gdc,1,1,1,1
+gdc_fondos_full_all,gdc_fondos_full_all,model_gdc_fondos,group_responsable_gdc,1,1,1,1
+gdc_areas_full_all,gdc_areas_full_all,model_gdc_areas,group_responsable_gdc,1,1,1,1
+access_email_template_account_manager,ir.mail_server,base.model_ir_mail_server,group_responsable_gdc,1,1,1,1
