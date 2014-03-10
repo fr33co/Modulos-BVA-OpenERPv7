@@ -42,9 +42,25 @@ class gdc_incidencias(osv.Model):
         })
         return {'value' : values}
 
+    def onchange_tarea(self, cr, uid, ids, tarea_id, context=None):
+        values = {}
+        if not tarea_id:
+            return values
+        datos = self.pool.get('gdc.tareas').browse(cr, uid, tarea_id, context=context)
+        values.update({
+            'project_id' : datos.project_id2.id,
+            'date_start_tarea' : datos.date_start_tarea,
+            'date_end_tarea' : datos.date_end_tarea,
+            'state_tarea' : datos.estado_tarea,
+        })
+        return {'value' : values}
+
     _columns = {
         'name_incidencia': fields.char(string="Incidencia", size=50, required=False),
         'tarea_id': fields.many2one('gdc.tareas', 'tarea', required=False),
+        'date_start_tarea': fields.datetime('Fecha de inicio',select=True),
+        'date_end_tarea': fields.datetime('Fecha de finalizacion',select=True),
+        'state_tarea': fields.char(string="Estado de la tarea", required=False),
         'reporter_id' : fields.many2one('res.users', 'Usuario', required=True),
         'project_id': fields.many2one('gdc.proyectos', 'tarea', required=False),
         'date_reporter': fields.datetime('Fecha',select=True, required=True),
