@@ -185,6 +185,8 @@ class gdc_proyectos(osv.Model):
     
     _defaults = {
             'supervisor_id': 1,
+            'responsible_id': lambda s, cr, uid, c: uid,
+            'ejecutor_id':  lambda self,cr,uid,c: self.pool.get('res.users').browse(cr, uid, uid, c).company_id.id,
             'codigo': lambda obj, cr, uid, context: obj.pool.get('ir.sequence').get(cr, uid, 'gdc.proyectos'),
             'estado': 'Borrador',
             'progreso': 0.0,
