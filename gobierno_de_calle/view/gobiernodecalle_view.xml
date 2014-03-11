@@ -341,10 +341,10 @@
                                 </field>
                             </group>
                         </page>
-                        <page string="Subida de informe">
+                        <page string="Adjuntos - Informe">
                             <field name="informe_tareas"/>
                         </page>
-                        <page string="Subida de imagenes">
+                        <page string="Adjuntos - Imagenes">
                             <field name="image" widget='image'/>
                         </page>
                     </notebook>
