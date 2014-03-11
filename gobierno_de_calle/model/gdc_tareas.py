@@ -108,8 +108,21 @@ class gdc_tareas(osv.Model):
         'ejecutor_id' : fields.many2one('res.company', 'Ente Ejecutor', domain=[('category_id.name','ilike','Supervisor')], required=False),
         'members_tareas': fields.many2many('res.company', 'project_company_rel2', 'project_id2', 'uid2', 'Equipos de trabajo'),
         'description': fields.text('Description',required=True),
-        'informe_tareas': fields.binary('Informe'),
-        'image': fields.binary("Foto", help="Seleccione una imagen"),
+        'tipo_documento': fields.selection((('PDF','PDF'), ('DOC','DOC'), ('ODT','ODT'), ('XLS', 'XLS'), ('ODS','ODS')),'Tipo de documento', required=False),
+        'adjunto_gaceta_pdf': fields.binary('Adjuntar Gaceta digital'),
+        'adjunto_gaceta_name_pdf': fields.char('Adjuntar Gaceta digital'),
+        'adjunto_gaceta_doc': fields.binary('Adjuntar Gaceta digital'),
+        'adjunto_gaceta_name_doc': fields.char('Adjuntar Gaceta digital'),
+        'adjunto_gaceta_odt': fields.binary('Adjuntar Gaceta digital'),
+        'adjunto_gaceta_name_odt': fields.char('Adjuntar Gaceta digital'),
+        'adjunto_gaceta_xls': fields.binary('Adjuntar Gaceta digital'),
+        'adjunto_gaceta_name_xls': fields.char('Adjuntar Gaceta digital'),
+        'adjunto_gaceta_ods': fields.binary('Adjuntar Gaceta digital'),
+        'adjunto_gaceta_name_ods': fields.char('Adjuntar Gaceta digital'),
+        'image1': fields.binary("Foto 1", help="Seleccione una imagen"),
+        'image2': fields.binary("Foto 2", help="Seleccione una imagen"),
+        'image3': fields.binary("Foto 3", help="Seleccione una imagen"),
+        'image4': fields.binary("Foto 4", help="Seleccione una imagen"),
     }
 
 
@@ -133,6 +146,11 @@ class gdc_tareas(osv.Model):
     _defaults = {
             'estado_tarea': 'Borrador',
             'progreso_tarea': 0.0,
+            'adjunto_gaceta_name_pdf': 'soporte.pdf',
+            'adjunto_gaceta_name_doc': 'soporte.doc',
+            'adjunto_gaceta_name_odt': 'soporte.odt',
+            'adjunto_gaceta_name_xls': 'soporte.xls',
+            'adjunto_gaceta_name_ods': 'soporte.ods',
     }
 
     def begin_tarea(self, cr, uid, ids, context=None):
