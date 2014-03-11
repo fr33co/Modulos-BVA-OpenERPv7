@@ -123,7 +123,11 @@
                              <field name="cobertura"/>
                              <field name="priority"/>
                              <field name="tipo_financiamiento"/>
-                             <field name="adjunto_gaceta" string="Adjuntar soporte digital (PDF)" filename="adjunto_gaceta_name"/>
+                             <field name="verificar_soporte" />
+                             <field name="tipo_documento" attrs="{'invisible':[('verificar_soporte', '!=', True)]}"/>
+                             <field name="adjunto_gaceta_pdf" string="Adjuntar soporte digital (.pdf)" filename="adjunto_gaceta_name_pdf" attrs="{'invisible':[('tipo_documento', '!=', 'PDF')]}"/>
+                             <field name="adjunto_gaceta_doc" string="Adjuntar soporte digital (.doc)" filename="adjunto_gaceta_name_doc" attrs="{'invisible':[('tipo_documento', '!=', 'DOC')]}"/>
+                             <field name="adjunto_gaceta_pdf" string="Adjuntar soporte digital (.xls)" filename="adjunto_gaceta_name_xls" attrs="{'invisible':[('tipo_documento', '!=', 'XLS')]}"/>
                         </group>
                     </group>
                     <notebook>

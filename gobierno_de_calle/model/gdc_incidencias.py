@@ -71,4 +71,5 @@ class gdc_incidencias(osv.Model):
 
     _defaults = {
         'reporter_id': lambda s, cr, uid, c: uid,
+        'date_reporter': fields.date.context_today,
     }

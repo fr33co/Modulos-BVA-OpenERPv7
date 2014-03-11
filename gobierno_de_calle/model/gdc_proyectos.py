@@ -127,8 +127,14 @@ class gdc_proyectos(osv.Model):
         'conclusiones': fields.text('Conclusiones'),
         'acuerdos': fields.text('Acuerdos'),
         'incidencias': fields.text('Incidencias'),
-        'adjunto_gaceta': fields.binary('Adjuntar Gaceta digital'),
-        'adjunto_gaceta_name': fields.char('Adjuntar Gaceta digital'),
+        'verificar_soporte': fields.boolean('¿Desea adjuntar soporte?'),
+        'tipo_documento': fields.selection((('PDF','PDF'), ('DOC','DOC'), ('XLS', 'XLS')),'Tipo de documento', required=False),
+        'adjunto_gaceta_pdf': fields.binary('Adjuntar Gaceta digital'),
+        'adjunto_gaceta_name_pdf': fields.char('Adjuntar Gaceta digital'),
+        'adjunto_gaceta_doc': fields.binary('Adjuntar Gaceta digital'),
+        'adjunto_gaceta_name_doc': fields.char('Adjuntar Gaceta digital'),
+        'adjunto_gaceta_xls': fields.binary('Adjuntar Gaceta digital'),
+        'adjunto_gaceta_name_xls': fields.char('Adjuntar Gaceta digital'),
         'area_atencion': fields.many2one('gdc.areas','Area de Atención', required=True),
         }
         
@@ -193,7 +199,9 @@ class gdc_proyectos(osv.Model):
             'date_created': lambda *a: datetime.now().strftime('%d/%m/%Y %H:%M:%S'),
             'dias_proyecto': 'Aun no asignados. ',
             'priority': 'Baja',
-            'adjunto_gaceta_name': 'soporte.pdf',
+            'adjunto_gaceta_name_pdf': 'soporte.pdf',
+            'adjunto_gaceta_name_doc': 'soporte.doc',
+            'adjunto_gaceta_name_xls': 'soporte.xls',
     }
 
 
