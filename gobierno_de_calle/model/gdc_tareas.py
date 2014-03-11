@@ -98,16 +98,16 @@ class gdc_tareas(osv.Model):
         'estado_tarea': fields.selection((('Borrador','Borrador'), ('Progreso', 'Progreso'), ('Terminado', 'Terminado'), ('Congelado', 'Congelado'), ('Vencido', 'Vencido')),'Estado', required=True),
         'estado_proyecto': fields.char(string="Estado", required=False),
         'date_start_proyecto': fields.datetime('Fecha de inicio',select=True),
-        'date_start_tarea': fields.datetime('Fecha de inicio',select=True),
+        'date_start_tarea': fields.datetime('Fecha de inicio',select=True, required=True),
         'date_end_proyecto': fields.datetime('Fecha de finalizacion',select=True),
-        'date_end_tarea': fields.datetime('Fecha de finalizacion',select=True),
+        'date_end_tarea': fields.datetime('Fecha de finalizacion',select=True,required=True),
         'progreso_tarea': fields.float(string="Progreso de tarea"), 
         'dias_tarea': fields.function(_compute_days_tarea, type='char', string='Dias asignados a la tarea'),
         'responsible_id' : fields.many2one('res.users', 'Responsable asignado', domain=['|',('is_company','=',False),('category_id.name','ilike','Responsable')], required=False),
         'supervisor_id' : fields.many2one('res.company', 'Ente Supervisor', domain=[('category_id.name','ilike','Supervisor')], required=False),        
         'ejecutor_id' : fields.many2one('res.company', 'Ente Ejecutor', domain=[('category_id.name','ilike','Supervisor')], required=False),
         'members_tareas': fields.many2many('res.company', 'project_company_rel2', 'project_id2', 'uid2', 'Equipos de trabajo'),
-        'description': fields.text('Description'),
+        'description': fields.text('Description',required=True),
         'informe_tareas': fields.binary('Informe'),
         'image': fields.binary("Foto", help="Seleccione una imagen"),
     }
@@ -134,7 +134,6 @@ class gdc_tareas(osv.Model):
             'estado_tarea': 'Borrador',
             'progreso_tarea': 0.0,
     }
-
 
     def begin_tarea(self, cr, uid, ids, context=None):
         result = {}
