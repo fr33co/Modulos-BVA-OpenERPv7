@@ -102,7 +102,7 @@ class gdc_proyectos(osv.Model):
         'date_start': fields.datetime('Fecha inicio',select=True, required=True),
         'date_end': fields.datetime('Fecha final',select=True, required=True),
         'supervisor_id' : fields.many2one('res.company', 'Institución supervisora', domain=[('category_id.name','ilike','Supervisor')], required=True),        
-        'ejecutor_id' : fields.many2one('res.company', 'Institución ejecutante', required=True),
+        'ejecutor_id' : fields.many2one('res.company', 'Institución ejecutante', domain=[('category_id.name','ilike','Supervisor')], required=True),
         'responsible_id' : fields.many2one('res.users', 'Responsable', domain=[('category_id.name','ilike','Responsable')], required=True),
         'description': fields.text('Description', required=True),
         'presu_tentativo': fields.float('Presupuesto Tentativo  (Bs.)', required=True),
