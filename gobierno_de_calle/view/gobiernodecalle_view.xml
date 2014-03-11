@@ -127,7 +127,9 @@
                              <field name="tipo_documento" attrs="{'invisible':[('verificar_soporte', '!=', True)]}"/>
                              <field name="adjunto_gaceta_pdf" string="Adjuntar soporte digital (.pdf)" filename="adjunto_gaceta_name_pdf" attrs="{'invisible':[('tipo_documento', '!=', 'PDF')]}"/>
                              <field name="adjunto_gaceta_doc" string="Adjuntar soporte digital (.doc)" filename="adjunto_gaceta_name_doc" attrs="{'invisible':[('tipo_documento', '!=', 'DOC')]}"/>
-                             <field name="adjunto_gaceta_pdf" string="Adjuntar soporte digital (.xls)" filename="adjunto_gaceta_name_xls" attrs="{'invisible':[('tipo_documento', '!=', 'XLS')]}"/>
+                             <field name="adjunto_gaceta_odt" string="Adjuntar soporte digital (.odt)" filename="adjunto_gaceta_name_odt" attrs="{'invisible':[('tipo_documento', '!=', 'ODT')]}"/>
+                             <field name="adjunto_gaceta_xls" string="Adjuntar soporte digital (.xls)" filename="adjunto_gaceta_name_xls" attrs="{'invisible':[('tipo_documento', '!=', 'XLS')]}"/>
+                             <field name="adjunto_gaceta_ods" string="Adjuntar soporte digital (.ods)" filename="adjunto_gaceta_name_ods" attrs="{'invisible':[('tipo_documento', '!=', 'ODS')]}"/>
                         </group>
                     </group>
                     <notebook>
@@ -342,10 +344,37 @@
                             </group>
                         </page>
                         <page string="Adjuntos - Informe">
-                            <field name="informe_tareas"/>
+                            <group>
+                                <group>
+                                    <separator string="Tipo de documento" colspan="2"/>
+                                    <field name="tipo_documento"/>
+                                </group>
+                                <group>
+                                    <separator string="Seleccione el archivo a subir" colspan="2" attrs="{'invisible':[('tipo_documento', '!=', 'PDF')]}"/>
+                                    <field name="adjunto_gaceta_pdf" string="Adjuntar soporte digital (.pdf)" filename="adjunto_gaceta_name_pdf" attrs="{'invisible':[('tipo_documento', '!=', 'PDF')]}"/>
+                                    <separator string="Seleccione el archivo a subir" colspan="2" attrs="{'invisible':[('tipo_documento', '!=', 'DOC')]}"/>
+                                    <field name="adjunto_gaceta_doc" string="Adjuntar soporte digital (.doc)" filename="adjunto_gaceta_name_doc" attrs="{'invisible':[('tipo_documento', '!=', 'DOC')]}"/>
+                                    <separator string="Seleccione el archivo a subir" colspan="2" attrs="{'invisible':[('tipo_documento', '!=', 'ODT')]}"/>
+                                    <field name="adjunto_gaceta_odt" string="Adjuntar soporte digital (.odt)" filename="adjunto_gaceta_name_odt" attrs="{'invisible':[('tipo_documento', '!=', 'ODT')]}"/>
+                                    <separator string="Seleccione el archivo a subir" colspan="2" attrs="{'invisible':[('tipo_documento', '!=', 'XLS')]}"/>
+                                    <field name="adjunto_gaceta_xls" string="Adjuntar soporte digital (.xls)" filename="adjunto_gaceta_name_xls" attrs="{'invisible':[('tipo_documento', '!=', 'XLS')]}"/>
+                                    <separator string="Seleccione el archivo a subir" colspan="2" attrs="{'invisible':[('tipo_documento', '!=', 'ODS')]}"/>
+                                    <field name="adjunto_gaceta_ods" string="Adjuntar soporte digital (.ods)" filename="adjunto_gaceta_name_ods" attrs="{'invisible':[('tipo_documento', '!=', 'ODS')]}"/>
+                                </group>
+                            </group>
                         </page>
                         <page string="Adjuntos - Imagenes">
-                            <field name="image" widget='image'/>
+                            <separator string="Seleccione la(s) imagen(es) a subir - Maximo 4" colspan="2"/>
+                            <group>
+                            <group>
+                            <field name="image1" widget='image'/>
+                            <field name="image2" widget='image'/>
+                            </group>
+                            <group>
+                            <field name="image3" widget='image'/>
+                            <field name="image4" widget='image'/>
+                            </group>
+                            </group>
                         </page>
                     </notebook>
                 </form>

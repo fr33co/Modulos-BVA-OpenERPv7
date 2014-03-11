@@ -128,13 +128,17 @@ class gdc_proyectos(osv.Model):
         'acuerdos': fields.text('Acuerdos'),
         'incidencias': fields.text('Incidencias'),
         'verificar_soporte': fields.boolean('¿Desea adjuntar soporte?'),
-        'tipo_documento': fields.selection((('PDF','PDF'), ('DOC','DOC'), ('XLS', 'XLS')),'Tipo de documento', required=False),
+        'tipo_documento': fields.selection((('PDF','PDF'), ('DOC','DOC'), ('ODT','ODT'), ('XLS', 'XLS'), ('ODS','ODS')),'Tipo de documento', required=False),
         'adjunto_gaceta_pdf': fields.binary('Adjuntar Gaceta digital'),
         'adjunto_gaceta_name_pdf': fields.char('Adjuntar Gaceta digital'),
         'adjunto_gaceta_doc': fields.binary('Adjuntar Gaceta digital'),
         'adjunto_gaceta_name_doc': fields.char('Adjuntar Gaceta digital'),
+        'adjunto_gaceta_odt': fields.binary('Adjuntar Gaceta digital'),
+        'adjunto_gaceta_name_odt': fields.char('Adjuntar Gaceta digital'),
         'adjunto_gaceta_xls': fields.binary('Adjuntar Gaceta digital'),
         'adjunto_gaceta_name_xls': fields.char('Adjuntar Gaceta digital'),
+        'adjunto_gaceta_ods': fields.binary('Adjuntar Gaceta digital'),
+        'adjunto_gaceta_name_ods': fields.char('Adjuntar Gaceta digital'),
         'area_atencion': fields.many2one('gdc.areas','Area de Atención', required=True),
         }
         
@@ -201,7 +205,9 @@ class gdc_proyectos(osv.Model):
             'priority': 'Baja',
             'adjunto_gaceta_name_pdf': 'soporte.pdf',
             'adjunto_gaceta_name_doc': 'soporte.doc',
+            'adjunto_gaceta_name_odt': 'soporte.odt',
             'adjunto_gaceta_name_xls': 'soporte.xls',
+            'adjunto_gaceta_name_ods': 'soporte.ods',
     }
 
 
