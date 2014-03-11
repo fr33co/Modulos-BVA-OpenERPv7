@@ -125,7 +125,6 @@ class gdc_tareas(osv.Model):
         'image4': fields.binary("Foto 4", help="Seleccione una imagen"),
     }
 
-
     def _check_dates_tareas(self, cr, uid, ids, context=None):
         """
         SQL Constraints para validar que La fecha de inicio debe ser 
@@ -136,12 +135,34 @@ class gdc_tareas(osv.Model):
                 if leave['date_start_tarea'] > leave['date_end_tarea']:
                     return False
         return True
-
+        
+    def _check_dates_tarea_start(self, cr, uid, ids, context=None):
+        """
+        SQL Constraints para validar que La fecha de inicio debe ser 
+        menor que la fecha final
+        """
+        for leave in self.read(cr, uid, ids, ['date_start_tarea', 'date_start_proyecto'], context=context):
+            if leave['date_start_tarea'] and leave['date_start_proyecto']:
+                if leave['date_start_tarea'] < leave['date_start_proyecto']:
+                    return False
+        return True
+        
+    def _check_dates_tarea_end(self, cr, uid, ids, context=None):
+        """
+        SQL Constraints para validar que La fecha de inicio debe ser 
+        menor que la fecha final
+        """
+        for leave in self.read(cr, uid, ids, ['date_end_tarea', 'date_end_proyecto'], context=context):
+            if leave['date_end_tarea'] and leave['date_end_proyecto']:
+                if leave['date_end_tarea'] > leave['date_end_proyecto']:
+                    return False
+        return True
 
     _constraints = [
         (_check_dates_tareas, 'Error! La fecha de inicio debe ser menor que la fecha final.', ['date_start_tarea', 'date_end_tarea']),
+        (_check_dates_tarea_start, 'Error! La fecha de inicio de la tarea no puede ser menor a la del proyecto.', ['date_start_tarea', 'date_start_proyecto']),
+        (_check_dates_tarea_end, 'Error! La fecha final de la tarea no puede ser mayor a la del proyecto.', ['date_end_tarea', 'date_end_proyecto']),
     ]
-    
     
     _defaults = {
             'estado_tarea': 'Borrador',
