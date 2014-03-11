@@ -24,3 +24,8 @@ class Partner(osv.Model):
     _columns = {
         'twitter': fields.char('Cuenta Twitter', size=34, required=False),
     }
+
+    _defaults = {
+        'country_id': 240,
+        'state_id': 55,
+    }

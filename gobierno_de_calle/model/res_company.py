@@ -29,3 +29,8 @@ class res_company(osv.Model):
             'deuda': fields.integer('Monto de la deuda', required=True),
             'category_id': fields.many2one('res.partner.category', 'Etiqueta', required=True),
     }
+
+    _defaults = {
+        'country_id': 240,
+        'state_id': 55,
+    }
