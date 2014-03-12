@@ -94,7 +94,7 @@ class gdc_tareas(osv.Model):
             
     _columns = {
         'name_tarea': fields.char(string="Tarea", size=50, required=True),
-        'project_id2': fields.many2one('gdc.proyectos', 'Asignacion', required=True),
+        'project_id2': fields.many2one('gdc.proyectos', 'Proyecto', required=True),
         'estado_tarea': fields.selection((('Planificado','Planificado'), ('Terminado', 'Terminado'), ('No concluida', 'No concluida')),'Estado', required=True),
         'estado_proyecto': fields.char(string="Estado (Proyecto)", required=False),
         'date_start_proyecto': fields.datetime('Fecha de inicio (Proyecto)',select=True),
@@ -176,36 +176,19 @@ class gdc_tareas(osv.Model):
 
     def finish_tarea(self, cr, uid, ids, context=None):
         result = {}
-        import datetime
-        now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S') 
         gdc_project = self.pool.get('gdc.proyectos')
-        records = self.browse(cr, uid, ids, context=context)
-        for r in records:
-            gdc_project_src = gdc_project.read(cr, uid, r.project_id2.id, ['date_start', 'date_end', 'progreso', 'dias_proyecto'], context)
-            if gdc_project_src['date_start'] <= r.date_start_tarea and gdc_project_src['date_end'] >= r.date_end_tarea and r.date_end_tarea > r.date_start_tarea:
-                calculo = (100.0 * int(r.dias_tarea)) / int(gdc_project_src['dias_proyecto'])
-                porcentaje = "%.2f" % calculo
-                total = int(gdc_project_src['progreso']) + float(porcentaje)
-                gdc_project.write(cr, uid, r.project_id2.id, {'progreso': total, 'estado': 'Progreso'})
-                self.write(cr, uid, ids, {'estado_tarea': 'Progreso'})
-                ini = time.strptime(r.date_start_tarea,'%Y-%m-%d %H:%M:%S')
-                fin = time.strptime(r.date_end_tarea,'%Y-%m-%d %H:%M:%S')
-                ahora = time.strptime(now,'%Y-%m-%d %H:%M:%S')
-                if r.date_start_tarea and r.date_end_tarea:
-                    delta_1 = datetime.datetime(ini[0], ini[1], ini[2]) - datetime.datetime(ahora[0], ahora[1], ahora[2])
-                    calculo_delta1 = (100.0 * int(delta_1.days)) / int(r.dias_tarea)
-                    print calculo_delta1
-                    delta_2 = datetime.datetime(fin[0], fin[1], fin[2]) - datetime.datetime(ahora[0], ahora[1], ahora[2])
-                    calculo_delta2 = (100.0 * int(delta_2.days)) / int(r.dias_tarea)
-                    print calculo_delta2
-                    self.write(cr, uid, ids, {'progreso_tarea': calculo_delta1})
-                else:
-                    if now >= r.date_start_tarea and r.date_end_tarea:
-                        self.write(cr, uid, ids, {'progreso_tarea': 100.0})
-                    else:
-                        self.write(cr, uid, ids, {'progreso_tarea': 0.0})
-            else: 
-                result['warning'] = {'title': "Cuidado: Error!",'message' : "Fechas asignadas de forma incorrecta.",}
-                return result
-
+        gdc_tareas = self.pool.get('gdc.tareas')
+        #~ self.write(cr, uid, ids, {'estado_tarea': 'Terminado', 'progreso_tarea': 100})
+        for r in self.read(cr, uid, ids, ['project_id2'], context=context):
+            qty_tareas_totales = len(gdc_tareas.search(cr, uid, [('project_id2', '=', r['project_id2'][0])], context=context))
+            qty_tareas_ejecutadas_id = gdc_tareas.search(cr, uid, [('project_id2', '=', r['project_id2'][0])], context=context)
+            print qty_tareas_totales
+            print qty_tareas_ejecutadas_id
+            for executed in qty_tareas_ejecutadas_id:
+                print executed
+            #~ porcentaje = (100 * 1) / qty_tareas
+            #~ print str(porcentaje) + " %"
+            #~ self.write(cr, uid, ids, {'estado_tarea': 'Terminado', 'progreso_tarea': 100})
+            #~ print r['project_id2'][0]
+            #~ gdc_project.write(cr, uid, r['project_id2'][0], {'estado': 'Progreso', 'progreso': porcentaje})
 
