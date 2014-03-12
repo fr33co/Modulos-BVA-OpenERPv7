@@ -95,11 +95,11 @@ class gdc_tareas(osv.Model):
     _columns = {
         'name_tarea': fields.char(string="Tarea", size=50, required=True),
         'project_id2': fields.many2one('gdc.proyectos', 'Asignacion', required=True),
-        'estado_tarea': fields.selection((('Borrador','Borrador'), ('Progreso', 'Progreso'), ('Terminado', 'Terminado'), ('Congelado', 'Congelado'), ('Vencido', 'Vencido')),'Estado', required=True),
-        'estado_proyecto': fields.char(string="Estado", required=False),
-        'date_start_proyecto': fields.datetime('Fecha de inicio',select=True),
+        'estado_tarea': fields.selection((('Planificado','Planificado'), ('Terminado', 'Terminado'), ('No concluida', 'No concluida')),'Estado', required=True),
+        'estado_proyecto': fields.char(string="Estado (Proyecto)", required=False),
+        'date_start_proyecto': fields.datetime('Fecha de inicio (Proyecto)',select=True),
         'date_start_tarea': fields.datetime('Fecha de inicio',select=True, required=True),
-        'date_end_proyecto': fields.datetime('Fecha de finalizacion',select=True),
+        'date_end_proyecto': fields.datetime('Fecha de finalizacion (Proyecto)',select=True),
         'date_end_tarea': fields.datetime('Fecha de finalizacion',select=True,required=True),
         'progreso_tarea': fields.float(string="Progreso de tarea"), 
         'dias_tarea': fields.function(_compute_days_tarea, type='char', string='Dias asignados a la tarea'),
@@ -165,7 +165,7 @@ class gdc_tareas(osv.Model):
     ]
     
     _defaults = {
-            'estado_tarea': 'Borrador',
+            'estado_tarea': 'Planificado',
             'progreso_tarea': 0.0,
             'adjunto_gaceta_name_pdf': 'soporte.pdf',
             'adjunto_gaceta_name_doc': 'soporte.doc',
@@ -174,7 +174,7 @@ class gdc_tareas(osv.Model):
             'adjunto_gaceta_name_ods': 'soporte.ods',
     }
 
-    def begin_tarea(self, cr, uid, ids, context=None):
+    def finish_tarea(self, cr, uid, ids, context=None):
         result = {}
         import datetime
         now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S') 
@@ -207,8 +207,5 @@ class gdc_tareas(osv.Model):
             else: 
                 result['warning'] = {'title': "Cuidado: Error!",'message' : "Fechas asignadas de forma incorrecta.",}
                 return result
-
-    def finish_tarea(self, cr, uid, ids, context=None):
-        self.write(cr, uid, ids, {'estado_tarea': 'Terminado', 'progreso_tarea': 100.0})
 
 
