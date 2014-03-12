@@ -295,8 +295,7 @@
                 <form string="Tareas" version="7.0">
                     <field name="id" invisible="1"/>
                     <header attrs="{'invisible':[('id','=', False)]}">
-                        <button name="begin_tarea" string="Comenzar la tarea" type="object" class="oe_highlight" attrs="{'invisible':[('estado_tarea', '=', 'Progreso')]}"/>
-                        <button name="finish_tarea" string="Finalizar la tarea" attrs="{'invisible':[('estado_tarea', '=', 'terminado')]}" type="object"/>
+                        <button name="finish_tarea" string="Finalizar tarea" class="oe_highlight" attrs="{'invisible':[('estado_tarea', '=', 'Terminado')]}" type="object"/>
                     </header>
                     <group>
                         <group>
@@ -314,7 +313,7 @@
                             <field name="date_start_tarea" on_change="onchange_date_start_tarea(project_id2, date_start_tarea)"/>
                             <field name="date_end_tarea" on_change="onchange_date_end_tarea(project_id2, date_end_tarea)"/>
                             <field name="dias_tarea" />
-                            <field name="estado_tarea" />
+                            <field name="estado_tarea" readonly="1"/>
                             <field name="progreso_tarea" readonly="1" widget="progressbar"/>
                         </group>
                     </group>
