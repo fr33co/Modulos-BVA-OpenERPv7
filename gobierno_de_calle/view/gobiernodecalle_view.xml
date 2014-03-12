@@ -294,7 +294,7 @@
                 <form string="Tareas" version="7.0">
                     <field name="id" invisible="1"/>
                     <header attrs="{'invisible':[('id','=', False)]}">
-                        <button name="finish_tarea" string="Finalizar tarea" class="oe_highlight" attrs="{'invisible':[('estado_tarea', '=', 'Terminado')]}" type="object"/>
+                        <button name="finish_tarea" string="Finalizar tarea" class="oe_highlight" type="object"/>
                     </header>
                     <group>
                         <group>

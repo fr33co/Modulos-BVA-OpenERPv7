@@ -178,17 +178,19 @@ class gdc_tareas(osv.Model):
         result = {}
         gdc_project = self.pool.get('gdc.proyectos')
         gdc_tareas = self.pool.get('gdc.tareas')
-        #~ self.write(cr, uid, ids, {'estado_tarea': 'Terminado', 'progreso_tarea': 100})
+        self.write(cr, uid, ids, {'estado_tarea': 'Terminado', 'progreso_tarea': 100})
         for r in self.read(cr, uid, ids, ['project_id2'], context=context):
             qty_tareas_totales = len(gdc_tareas.search(cr, uid, [('project_id2', '=', r['project_id2'][0])], context=context))
-            qty_tareas_ejecutadas_id = gdc_tareas.search(cr, uid, [('project_id2', '=', r['project_id2'][0])], context=context)
+            print 'TAREAS TOTALES'
             print qty_tareas_totales
+            qty_tareas_ejecutadas_id = gdc_tareas.search(cr, uid, [('project_id2', '=', r['project_id2'][0])], context=context)
+            print 'ID DE LAS TAREAS TOTALES'
             print qty_tareas_ejecutadas_id
-            for executed in qty_tareas_ejecutadas_id:
-                print executed
-            #~ porcentaje = (100 * 1) / qty_tareas
-            #~ print str(porcentaje) + " %"
-            #~ self.write(cr, uid, ids, {'estado_tarea': 'Terminado', 'progreso_tarea': 100})
-            #~ print r['project_id2'][0]
-            #~ gdc_project.write(cr, uid, r['project_id2'][0], {'estado': 'Progreso', 'progreso': porcentaje})
+            tareas_rd = gdc_tareas.search(cr, uid, ['|', ('project_id2', '=', r['project_id2'][0]), ('id', 'in', qty_tareas_ejecutadas_id), ('estado_tarea', '=', 'Terminado')], context=context)
+            print 'TAREAS TERMINADAS'
+            tareas_terminadas = len(tareas_rd)
+            print tareas_terminadas
+            porcentaje = (100 * tareas_terminadas) / qty_tareas_totales
+            print str(porcentaje) + " %"
+            gdc_project.write(cr, uid, r['project_id2'][0], {'estado': 'Progreso', 'progreso': porcentaje})
 
