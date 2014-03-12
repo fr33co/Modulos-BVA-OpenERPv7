@@ -281,7 +281,6 @@
                     <field name="supervisor_id" />
                     <field name="date_start_tarea"/>
                     <field name="date_end_tarea"/>
-                    <field name="dias_tarea" />
                     <field name="estado_tarea" invisible="1"/>
                     <field name="progreso_tarea" widget="progressbar"/>
                 </tree>
@@ -312,7 +311,7 @@
                             <field name="name_tarea" />
                             <field name="date_start_tarea" on_change="onchange_date_start_tarea(project_id2, date_start_tarea)"/>
                             <field name="date_end_tarea" on_change="onchange_date_end_tarea(project_id2, date_end_tarea)"/>
-                            <field name="dias_tarea" />
+                            <field name="dias_tarea" invisible="1"/>
                             <field name="estado_tarea" readonly="1"/>
                             <field name="progreso_tarea" readonly="1" widget="progressbar"/>
                         </group>
@@ -458,7 +457,7 @@
 
         <menuitem id="main_gobiernodecalle_menu" name="Gobierno de calle y Direccionalidad" sequence="120"/>
 
-        <menuitem id="proyectos_menu" name="Actividades" parent="main_gobiernodecalle_menu" sequence="10"/>
+        <menuitem id="proyectos_menu" name="Proyectos" parent="main_gobiernodecalle_menu" sequence="10"/>
         <menuitem id="asigancion_menu" name="Asignacion" parent="proyectos_menu" action="proyectos_list_action" sequence="1"/>
         <menuitem id="tareas_menu" name="Tareas" parent="proyectos_menu" action="tareas_list_action" sequence="3"/>
         <menuitem id="incidencias_menu" name="Incidencias" parent="proyectos_menu" action="incidencias_list_action" sequence="4"/>
