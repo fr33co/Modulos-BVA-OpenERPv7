@@ -221,3 +221,8 @@ class gdc_proyectos(osv.Model):
         result = {}
         records = self.browse(cr, uid, ids, context=context)
         self.write(cr, uid, ids, {'estado': 'Progreso'})
+        
+    def finalizar_proyecto(self, cr, uid, ids, context=None):
+        result = {}
+        records = self.browse(cr, uid, ids, context=context)
+        self.write(cr, uid, ids, {'estado': 'Terminado'})

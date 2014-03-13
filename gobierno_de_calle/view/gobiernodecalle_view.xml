@@ -107,8 +107,9 @@
             <field name="arch" type="xml">
                 <form string="Asignacion" version="7.0">
                     <header attrs="{'invisible':[('estado', '=', 'Borrador')]}">
-                        <button name="congelar_proyecto" string="Congelar el proyecto" type="object" class="oe_highlight" attrs="{'invisible':[('estado', '=', 'Congelado')]}"/>
-                        <button name="retomar_proyecto" string="Retomar el proyecto" type="object" attrs="{'invisible':[('estado', '=', 'Progreso')]}"/>
+                        <button name="finalizar_proyecto" string="Finalizar proyecto" type="object" class="oe_highlight"/>
+                        <button name="congelar_proyecto" string="Congelar proyecto" type="object" class="oe_highlight"/>
+                        <button name="retomar_proyecto" string="Retomar proyecto" type="object"/>
                     </header>
                     <group>
                         <group>
@@ -294,7 +295,7 @@
                 <form string="Tareas" version="7.0">
                     <field name="id" invisible="1"/>
                     <header attrs="{'invisible':[('id','=', False)]}">
-                        <button name="finish_tarea" string="Finalizar tarea" class="oe_highlight" type="object"/>
+                        <button name="finish_tarea" string="Finalizar tarea" class="oe_highlight" attrs="{'invisible':[('estado_tarea', '=', 'Terminado')]}" type="object"/>
                     </header>
                     <group>
                         <group>
@@ -365,12 +366,12 @@
                             <separator string="Seleccione la(s) imagen(es) a subir - Maximo 4" colspan="2"/>
                             <group>
                             <group>
-                            <field name="image1" widget='image'/>
-                            <field name="image2" widget='image'/>
+                            <field name="image1" img_height="100" img_width="100" widget='image'/>
+                            <field name="image2" img_height="100" img_width="100" widget='image'/>
                             </group>
                             <group>
-                            <field name="image3" widget='image'/>
-                            <field name="image4" widget='image'/>
+                            <field name="image3" img_height="100" img_width="100" widget='image'/>
+                            <field name="image4" img_height="100" img_width="100" widget='image'/>
                             </group>
                             </group>
                         </page>
@@ -444,7 +445,7 @@
                                 <field name="date_reporter" readonly="1"/>
                                 <field name="reporter_id" />
                                 <field name="verificar_solicitud"/>
-                                <field name="solicitud_cambio" attrs="{'invisible':[('verificar_solicitud', '=', False)]}" />
+                                <field name="solicitud_cambio" on_change="onchange_solicitud_cambio(tarea_id,solicitud_cambio)" attrs="{'invisible':[('verificar_solicitud', '=', False)]}" />
                             </group>
                         </group>
                         <separator string="Especifique las caracteristicas de la incidencia" colspan="2"/>
