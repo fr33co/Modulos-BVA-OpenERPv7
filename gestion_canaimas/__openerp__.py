@@ -12,8 +12,11 @@
         'view/solicitud_soporte.xml',
         'report/reporte_soporte.xml',
         'view/solicitud_reparacion.xml',
+        #'view/grafico_status.xml',
+        'view/grafico_modelo.xml',
+        #'view/grafico_municipio_solicitante.xml',
         'view/tipos_grados_modelos_view.xml',
-        #'view/tipos_de_fallas.xml',
+        #'view/escuelas_aragua.xml',
         'security/groups.xml',
         'security/ir.model.access.csv',
 

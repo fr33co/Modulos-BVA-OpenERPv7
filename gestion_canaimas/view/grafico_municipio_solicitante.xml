@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    	<!--Solicitud de Soporte Técnico para Canaimitas-->
+        
+		 <record model="ir.actions.act_window" id="grafica_municipio_solicitante_list_action">
+		    <field name="name">Solicitud de Soporte</field>
+		    <field name="res_model">solicitud.soporte</field>
+		    <field name="view_type">form</field>
+		    <field name="view_mode">graph</field>
+            <field name="help" type="html">
+
+            </field>
+		</record>
+    	<!-- Vista Gráficas-->
+        <record model="ir.ui.view" id="solicitud_graph_view">
+            <field name="name">Solicitud</field>
+            <field name="model">solicitud.soporte</field>
+            <field name="arch" type="xml">
+                <graph string="Estadisticas de Solicitud" type="bar">
+                    <field name="municipio_r" />
+                    <field name="grafico" operator="+"/>
+                </graph>
+            </field>            
+        </record>
+
+<!--Menu-->
+		<menuitem id="grafica_municipio_menu" name="Gráfico por Municipio" parent="graficas_menu" action="grafica_municipio_solicitante_list_action" />
+		
+    </data>
+</openerp>

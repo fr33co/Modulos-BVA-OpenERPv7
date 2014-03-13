@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    	<!--Solicitud de Soporte Técnico para Canaimitas-->
+        
+		 <record model="ir.actions.act_window" id="grafica_modelo_list_action">
+		    <field name="name">Solicitud de Soporte</field>
+		    <field name="res_model">solicitud.soporte</field>
+		    <field name="view_type">form</field>
+		    <field name="view_mode">graph</field>
+            <field name="help" type="html">
+
+            </field>
+		</record>
+    	<!-- Vista Gráficas-->
+        <record model="ir.ui.view" id="solicitud2_graph_view">
+            <field name="name">Solicitud</field>
+            <field name="model">solicitud.soporte</field>
+            <field name="arch" type="xml">
+                <graph string="Estadisticas de Solicitud" type="bar">
+                    <field name="modelo" />
+                    <field name="grafico" operator="+"/>
+                </graph>
+            </field>            
+        </record>
+
+<!--Menu-->
+        <menuitem id="graficas_menu" name="Gráficos" parent="main_canaima_menu" sequence="3" />
+		<menuitem id="grafica_modelo_menu" name="Gráfico por Modelo" parent="graficas_menu" action="grafica_modelo_list_action" />
+		
+    </data>
+</openerp>
