@@ -25,16 +25,32 @@ from tools.translate import _
 # Cambios     #
 ###############
 
-class gdc_solicitud_cambios(osv.Model):
+class gdc_solicitud_proyectos(osv.Model):
     """
     Modelo para gestionar las tareas de las actividades
     """
-    _name = "gdc.solicitud.cambios"
+    _name = "gdc.solicitud.proyectos"
     _rec_name = "project_id"
     _order="project_id"
     
     _columns = {
         'project_id': fields.many2one('gdc.proyectos', 'Proyecto', required=False),
+        'justification': fields.text('Justificacion'),
+        'date': fields.datetime('Fecha solicitud',select=True),
+        'user_id' : fields.many2one('res.users', 'Usuario', required=False),
+        'solicitud': fields.selection((('Aprobar','Aprobar'), ('Denegar', 'Denegar')),'Status', required=False),
+    }
+    
+
+class gdc_solicitud_tareas(osv.Model):
+    """
+    Modelo para gestionar las tareas de las actividades
+    """
+    _name = "gdc.solicitud.tareas"
+    _rec_name = "tarea_id"
+    _order="tarea_id"
+    
+    _columns = {
         'tarea_id': fields.many2one('gdc.tareas', 'Tarea', required=False),
         'justification': fields.text('Justificacion'),
         'date': fields.datetime('Fecha solicitud',select=True),

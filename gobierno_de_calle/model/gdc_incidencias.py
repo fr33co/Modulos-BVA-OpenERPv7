@@ -48,12 +48,14 @@ class gdc_incidencias(osv.Model):
 
     def onchange_solicitud_cambio(self, cr, uid, ids, tarea_id, solicitud_cambio, context=None):
         values = {}
-        solicitud_obj = self.pool.get('gdc.solicitud.cambios')
         if not tarea_id:
             return values
         datos = self.pool.get('gdc.tareas').browse(cr, uid, tarea_id, context=context)
-        solicitud_obj.write(cr, uid, ids, {'project_id': datos.project_id2.id, 'tarea_id': tarea_id})
-
+        solicitud_obj = self.pool.get('gdc.solicitud.cambios')
+        if solicitud_cambio == 'Proyecto':
+            solicitud_obj.write(cr, uid, ids, {'project_id': datos.project_id2.id})
+        else:
+            solicitud_obj.write(cr, uid, ids, {'tarea_id': tarea_id})
 
     _columns = {
         'name_incidencia': fields.char(string="Incidencia", size=50, required=False),
