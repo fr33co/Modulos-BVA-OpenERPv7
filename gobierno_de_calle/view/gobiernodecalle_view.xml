@@ -457,47 +457,80 @@
 
 <!--SOLICITUD DE CAMBIOS-->
 
-        <record model="ir.actions.act_window" id="cambios_list_action">
-            <field name="name">Solicitudes</field>
-            <field name="res_model">gdc.solicitud.cambios</field>
+    <!--PROYECTOS-->
+
+        <record model="ir.actions.act_window" id="cambios_proyectos_list_action">
+            <field name="name">Solicitudes / Proyectos</field>
+            <field name="res_model">gdc.solicitud.proyectos</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form,calendar</field>
             <field name="help" type="html">
             </field>
         </record>
 
-        <record model="ir.ui.view" id="cambios_tree_view">
-            <field name="name">gdc.solicitud.cambios.tree</field>
-            <field name="model">gdc.solicitud.cambios</field>
+        <record model="ir.ui.view" id="cambios_proyectos_tree_view">
+            <field name="name">gdc.solicitud.proyectos.tree</field>
+            <field name="model">gdc.solicitud.proyectos</field>
             <field name="arch" type="xml">
                 <tree string="Solicitudes">
-                    <field name="project_id" />
-                    <field name="tarea_id" />
-                    <field name="justification" />
-                    <field name="date" />
-                    <field name="user_id" />
-                    <field name="solicitud" />
+                    <field name="project_id"/>
+                    <field name="user_id"/>
+                    <field name="date"/>
+                    <field name="justification"/>
+                    <field name="solicitud"/>
                 </tree>
             </field>
         </record>
 
-        <record model="ir.ui.view" id="cambios_form_view">
-            <field name="name">gdc.solicitud.cambios.form</field>
-            <field name="model">gdc.solicitud.cambios</field>
+        <record model="ir.ui.view" id="cambios_proyectos_form_view">
+            <field name="name">gdc.solicitud.proyectos.form</field>
+            <field name="model">gdc.solicitud.proyectos</field>
             <field name="arch" type="xml">
                 <form string="Solicitudes" version="7.0">
-                    <group>
-                        <group>
-                            <group>
-                                <field name="project_id" />
-                                <field name="tarea_id" />
-                                <field name="justification" />
-                                <field name="date" />
-                                <field name="user_id" />
-                                <field name="solicitud" />
-                            </group>
-                        </group>
-                    </group>
+                    <field name="project_id"/>
+                    <field name="user_id"/>
+                    <field name="date"/>
+                    <field name="justification"/>
+                    <field name="solicitud"/>
+                </form>
+            </field>
+        </record>
+    
+    <!--TAREAS-->
+        
+        <record model="ir.actions.act_window" id="cambios_tareas_list_action">
+            <field name="name">Solicitudes / Tareas</field>
+            <field name="res_model">gdc.solicitud.tareas</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar</field>
+            <field name="help" type="html">
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="cambios_tareas_tree_view">
+            <field name="name">gdc.solicitud.tareas.tree</field>
+            <field name="model">gdc.solicitud.tareas</field>
+            <field name="arch" type="xml">
+                <tree string="Solicitudes">
+                    <field name="tarea_id"/>
+                    <field name="user_id"/>
+                    <field name="date"/>
+                    <field name="justification"/>
+                    <field name="solicitud"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="cambios_tareas_form_view">
+            <field name="name">gdc.solicitud.tareas.form</field>
+            <field name="model">gdc.solicitud.tareas</field>
+            <field name="arch" type="xml">
+                <form string="Solicitudes" version="7.0">
+                    <field name="tarea_id"/>
+                    <field name="user_id"/>
+                    <field name="date"/>
+                    <field name="justification"/>
+                    <field name="solicitud"/>
                 </form>
             </field>
         </record>
@@ -509,7 +542,9 @@
         <menuitem id="asigancion_menu" name="Asignacion" parent="proyectos_menu" action="proyectos_list_action" sequence="1"/>
         <menuitem id="tareas_menu" name="Tareas" parent="proyectos_menu" action="tareas_list_action" sequence="3"/>
         <menuitem id="incidencias_menu" name="Incidencias" parent="proyectos_menu" action="incidencias_list_action" sequence="4"/>
-        <menuitem id="cambios_menu" name="Solicitudes" parent="proyectos_menu" action="cambios_list_action" sequence="5"/>
+        <menuitem id="cambios_menu" name="Solicitudes para cambio" parent="proyectos_menu" sequence="5"/>
+        <menuitem id="cambios_proyecto_menu" name="Proyectos" parent="cambios_menu" action="cambios_proyectos_list_action"/>
+        <menuitem id="cambios_tareas_menu" name="Tareas" parent="cambios_menu" action="cambios_tareas_list_action"/>
         
         <menuitem id="configuration_menu" name="Configuration" parent="main_gobiernodecalle_menu" sequence="10"/>
         <menuitem id="fondos_menu" name="Fondos de financiamiento" parent="configuration_menu" action="financiamiento_list_action"/>
