@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+     
+<!--Action Escuelas-->
+
+        <record model="ir.actions.act_window" id="escuelas_list_action">
+            <field name="name">Registrar Escuela</field>
+            <field name="res_model">escuelas</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record> 
+
+<!--Formulario de Escuelas-->
+
+        <record model="ir.ui.view" id="escuela_form_view">
+            <field name="name">Registrar Escuela</field>
+            <field name="model">escuelas</field>
+            <field name="arch" type="xml">
+                <form string="Registrar Escuela" version="7.0">
+                    <table>
+                        <tr>
+                            <field name="pais" invisible="1"/><td><b>Estados</b></td>
+                            <td>
+                            <field name="estado" domain= "[('country_id','=',pais)]"/>
+                            </td>
+                            <td><b>Municipios</b></td>
+                            <td>
+                            <field name="municipio" domain= "[('state_id','=',estado)]"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Escuelas</b></td>
+                            <td colspan="3">
+                            <field name="escuela" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Dirección</b></td>
+                            <td colspan="3">
+                            <field name="d_escuela" />
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </field>
+        </record>
+
+<!--Tree de grado-->
+
+        <record model="ir.ui.view" id="escuela_tree_view">
+            <field name="name">Registrar Escuela</field>
+            <field name="model">escuelas</field>
+            <field name="arch" type="xml">
+                <tree string="Registrar Escuela">
+                     <field name="municipio"/>
+                    <field name="escuela"/>
+                </tree>
+            </field>
+        </record>
+
+        <menuitem id="escuelas_menu" name="Escuelas" parent="menu2_conf" action="escuelas_list_action" sequence="4"/>
+        
+    </data>
+</openerp>

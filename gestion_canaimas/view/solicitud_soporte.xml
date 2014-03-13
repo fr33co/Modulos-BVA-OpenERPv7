@@ -66,7 +66,7 @@
                             <group>
                                 <group>
                                     <separator string="Datos del equipo y problemas:" colspan="2"/>
-                                    <field name="modelo" attrs="{'readonly':[('id','!=', False)]}" placeholder="Modelo de la Canaimita" />
+                                    <field name="modelo" attrs="{'readonly':[('id','!=', False)]}" placeholder="Modelo de la Canaimita" widget="selection"/>
                                     <field name="serial" attrs="{'readonly':[('id','!=', False)]}" placeholder="Serial de la Canaimita" />
                                     <!-- <field name="id_graph" /> on_change="on_change_id(modelo)"-->
                                 </group>
@@ -93,8 +93,8 @@
                                     <separator string="Datos personales del estudiante:" colspan="2"/>
                                     <field name="nombre" attrs="{'readonly':[('id','!=', False)]}" placeholder="Nombre del Alumno"/>
                                     <field name="apellido" attrs="{'readonly':[('id','!=', False)]}" placeholder="Apellido del Alumno"/>
-                                    <field name="t_educ" attrs="{'readonly':[('id','!=', False)]}" placeholder="Tipo"/>
-                                    <field name="grado" attrs="{'readonly':[('id','!=', False)]}" domain= "[('tipo','=',t_educ)]" placeholder="Grado que estudia actualmente"/>
+                                    <field name="t_educ" attrs="{'readonly':[('id','!=', False)]}" placeholder="Tipo" widget="selection"/>
+                                    <field name="grado" attrs="{'readonly':[('id','!=', False)]}" domain= "[('tipo','=',t_educ)]" placeholder="Grado que estudia actualmente" />
                                 </group>
                                 <group>
                                     <separator string="Dirección del centro educativo:" colspan="2"/>
@@ -155,9 +155,22 @@
                 </search>
             </field>            
         </record>
+
+<!-- Vista Gráficas-->
+<!--         <record model="ir.ui.view" id="solicitud_graph_view">
+            <field name="name">Solicitud</field>
+            <field name="model">solicitud.soporte</field>
+            <field name="arch" type="xml">
+                <graph string="Estadisticas de Solicitud" type="bar">
+                    <field name="status" />
+                    <field name="grafico" operator="+"/>
+                </graph>
+            </field>            
+        </record> -->
+
 <!--Menu-->
 		<menuitem id="main_canaima_menu" name="Gestion de Canaimas" /> 
-		<menuitem id="soporte_canaima_menu" name="Solicitud de Soporte" parent="main_canaima_menu" />
+		<menuitem id="soporte_canaima_menu" name="Solicitud de Soporte" parent="main_canaima_menu" sequence="1" />
 		<menuitem id="solicitudes_menu" name="Registrar Solicitud" parent="soporte_canaima_menu" action="solicitud_canaima_list_action" />
 		
     </data>

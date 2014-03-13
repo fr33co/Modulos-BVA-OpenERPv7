@@ -6,12 +6,19 @@
                 <field name="tipo">Básica</field>
             </record>
             <record id="tipo2" model="solicitud.tipo.edu">
-                <field name="tipo">Media</field>
+                <field name="tipo">Media Diversificada y Profesional</field>
             </record>
             <record id="tipo3" model="solicitud.tipo.edu">
-                <field name="tipo">Diversificada</field>
+                <field name="tipo">Superior</field>
+            </record>
+            <record id="tipo4" model="solicitud.tipo.edu">
+                <field name="tipo">Preescolar</field>
             </record>
             <!--GRADO-->
+            <record id="preescolar1" model="solicitud.grado">
+                <field name="grado">Primer Nivel</field>
+                <field name="tipo" ref="tipo4"/>
+            </record>
             <record id="grado1" model="solicitud.grado">
                 <field name="grado">Primer Grado</field>
                 <field name="tipo" ref="tipo1"/>
@@ -37,23 +44,43 @@
                 <field name="tipo" ref="tipo1"/>
             </record>
             <record id="grado7" model="solicitud.grado">
-                <field name="grado">Primer Año</field>
-                <field name="tipo" ref="tipo2"/>
+                <field name="grado">Septimo Grado</field>
+                <field name="tipo" ref="tipo1"/>
             </record>
             <record id="grado8" model="solicitud.grado">
-                <field name="grado">Segundo Año</field>
-                <field name="tipo" ref="tipo2"/>
+                <field name="grado">Octavo Grado</field>
+                <field name="tipo" ref="tipo1"/>
             </record>
             <record id="grado9" model="solicitud.grado">
-                <field name="grado">Tercer Año</field>
-                <field name="tipo" ref="tipo2"/>
+                <field name="grado">Noveno Grado</field>
+                <field name="tipo" ref="tipo1"/>
             </record>
             <record id="grado10" model="solicitud.grado">
                 <field name="grado">Cuarto Año</field>
-                <field name="tipo" ref="tipo3"/>
+                <field name="tipo" ref="tipo2"/>
             </record>
             <record id="grado11" model="solicitud.grado">
                 <field name="grado">Quinto Año</field>
+                <field name="tipo" ref="tipo2"/>
+            </record>
+            <record id="grado12" model="solicitud.grado">
+                <field name="grado">Sexto Año</field>
+                <field name="tipo" ref="tipo2"/>
+            </record>
+             <record id="grado13" model="solicitud.grado">
+                <field name="grado">Técnico Superior</field>
+                <field name="tipo" ref="tipo3"/>
+            </record>
+            <record id="grado14" model="solicitud.grado">
+                <field name="grado">Ingenieria</field>
+                <field name="tipo" ref="tipo3"/>
+            </record>
+            <record id="grado15" model="solicitud.grado">
+                <field name="grado">Licenciatura</field>
+                <field name="tipo" ref="tipo3"/>
+            </record>
+            <record id="grado16" model="solicitud.grado">
+                <field name="grado">Otros</field>
                 <field name="tipo" ref="tipo3"/>
             </record>
             <!--MODELO-->
@@ -62,6 +89,12 @@
             </record>
             <record id="modelo2" model="solicitud.modelo">
                 <field name="modelo">mg101a4</field>
+            </record>
+            <record id="modelo3" model="solicitud.modelo">
+                <field name="modelo">mg101a4-icp</field>
+            </record>
+            <record id="modelo4" model="solicitud.modelo">
+                <field name="modelo">mg10t</field>
             </record>
         </data>
     </openerp>

@@ -32,6 +32,10 @@ class solicitud_soporte(osv.Model):
     def action_devuelta(self, cr, uid, ids, context = None):
         return self.write(cr, uid, ids, {'status':'Devuelta'}, context=context)
 
+# """
+# Metodo que genera el codigo se solicitud donde se busca el ultimo valor encontrado en la BD
+# y se le suma 1.
+# """
     def _get_last_id(self, cr, uid, ids, context = None):
 
         sfl_id       = self.pool.get('solicitud.soporte')
@@ -67,7 +71,7 @@ class solicitud_soporte(osv.Model):
         'status': fields.selection((('Atendiendo','Atendiendo'),('Remitir','Remitir'), ('Reparada','Reparada'), ('Entregada','Entregada'),('Devuelta','Devuelta')),'Status', required=True, readonly=True),
         'nombre' : fields.char(string="Nombre", size=25, required=True),
         'apellido' : fields.char(string="Apellido", size=25, required=True),
-        't_educ': fields.many2one('solicitud.tipo.edu', 'Tipo de educación', required=True),
+        't_educ': fields.many2one('solicitud.tipo.edu', 'Tipo de Nivel', required=True),
         'grado' : fields.many2one('solicitud.grado', string="Grado de estudio", required=True),
         'escuela' : fields.char(string="Escuela", size=50, required=True),
         'pais' : fields.many2one('res.country', 'Pais', required=True),
@@ -87,6 +91,8 @@ class solicitud_soporte(osv.Model):
         'parroquia_r' : fields.many2one('res.country.parish', 'Parroquia', required=True),
         'direccion_r' : fields.text(string="Dirección", required=True),
         'solucion' : fields.text(string="Solución", required=False, readonly=True),  
+        #'grafico' : fields.function(_grafica_modelos, type='integer', string='Conteo por modelo', store=True),
+        'grafico': fields.integer('Modelos', track_visibility='always'),
         }
         
     """
@@ -104,4 +110,5 @@ class solicitud_soporte(osv.Model):
         'pais': 240,
         'pais_r': 240,
         'user_register': lambda s, cr, uid, c: uid,
+        'grafico': 1,
     }     
