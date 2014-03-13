@@ -476,7 +476,6 @@
                     <field name="project_id"/>
                     <field name="user_id"/>
                     <field name="date"/>
-                    <field name="justification"/>
                     <field name="solicitud"/>
                 </tree>
             </field>
@@ -487,11 +486,19 @@
             <field name="model">gdc.solicitud.proyectos</field>
             <field name="arch" type="xml">
                 <form string="Solicitudes" version="7.0">
-                    <field name="project_id"/>
-                    <field name="user_id"/>
-                    <field name="date"/>
-                    <field name="justification"/>
-                    <field name="solicitud"/>
+                    <header>
+                        <button name="" string="Aprobar" class="oe_highlight" type="object"/>
+                        <button name="" string="Denegar" class="oe_highlight" type="object"/>
+                    </header>
+                    <group>
+                        <group>
+                            <field name="date" readonly="1"/>
+                            <field name="user_id" readonly="1"/>
+                            <field name="project_id" readonly="1"/>
+                        </group>
+                        <separator string="Justificación" colspan="2"/>
+                        <field name="justification" nolabel="1" readonly="1"/>
+                    </group>
                 </form>
             </field>
         </record>
@@ -515,7 +522,6 @@
                     <field name="tarea_id"/>
                     <field name="user_id"/>
                     <field name="date"/>
-                    <field name="justification"/>
                     <field name="solicitud"/>
                 </tree>
             </field>
@@ -526,11 +532,19 @@
             <field name="model">gdc.solicitud.tareas</field>
             <field name="arch" type="xml">
                 <form string="Solicitudes" version="7.0">
-                    <field name="tarea_id"/>
-                    <field name="user_id"/>
-                    <field name="date"/>
-                    <field name="justification"/>
-                    <field name="solicitud"/>
+                    <header>
+                        <button name="" string="Aprobar" class="oe_highlight" type="object"/>
+                        <button name="" string="Denegar" class="oe_highlight" type="object"/>
+                    </header>
+                    <group>
+                        <group>
+                            <field name="date" readonly="1"/>
+                            <field name="user_id" readonly="1"/>
+                            <field name="tarea_id" readonly="1"/>
+                        </group>
+                        <separator string="Justificación" colspan="2"/>
+                        <field name="justification" nolabel="1" readonly="1"/>
+                    </group>
                 </form>
             </field>
         </record>
