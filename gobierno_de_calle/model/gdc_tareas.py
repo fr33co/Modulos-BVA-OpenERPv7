@@ -181,16 +181,9 @@ class gdc_tareas(osv.Model):
         self.write(cr, uid, ids, {'estado_tarea': 'Terminado', 'progreso_tarea': 100})
         for r in self.read(cr, uid, ids, ['project_id2'], context=context):
             qty_tareas_totales = len(gdc_tareas.search(cr, uid, [('project_id2', '=', r['project_id2'][0])], context=context))
-            print 'TAREAS TOTALES'
-            print qty_tareas_totales
             qty_tareas_ejecutadas_id = gdc_tareas.search(cr, uid, [('project_id2', '=', r['project_id2'][0])], context=context)
-            print 'ID DE LAS TAREAS TOTALES'
-            print qty_tareas_ejecutadas_id
             tareas_rd = gdc_tareas.search(cr, uid, ['|', ('project_id2', '=', r['project_id2'][0]), ('id', 'in', qty_tareas_ejecutadas_id), ('estado_tarea', '=', 'Terminado')], context=context)
-            print 'TAREAS TERMINADAS'
             tareas_terminadas = len(tareas_rd)
-            print tareas_terminadas
             porcentaje = (100 * tareas_terminadas) / qty_tareas_totales
-            print str(porcentaje) + " %"
             gdc_project.write(cr, uid, r['project_id2'][0], {'estado': 'Progreso', 'progreso': porcentaje})
 

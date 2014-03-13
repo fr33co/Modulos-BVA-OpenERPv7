@@ -35,15 +35,6 @@ class gdc_incidencias(osv.Model):
     
     def onchange_tarea(self, cr, uid, ids, tarea_id, context=None):
         values = {}
-        gdc_tareas = self.pool.get('gdc.tareas')
-        tareas_brw = gdc_tareas.browse(cr, uid, tarea_id, context=context)
-        values.update({
-        'project_id' : tareas_brw.project_id2.id,
-        })
-        return {'value' : values}
-
-    def onchange_tarea(self, cr, uid, ids, tarea_id, context=None):
-        values = {}
         if not tarea_id:
             return values
         datos = self.pool.get('gdc.tareas').browse(cr, uid, tarea_id, context=context)
@@ -54,6 +45,15 @@ class gdc_incidencias(osv.Model):
             'state_tarea' : datos.estado_tarea,
         })
         return {'value' : values}
+
+    def onchange_solicitud_cambio(self, cr, uid, ids, tarea_id, solicitud_cambio, context=None):
+        values = {}
+        if not tarea_id:
+            return values
+        datos = self.pool.get('gdc.tareas').browse(cr, uid, tarea_id, context=context)
+        print tarea_id
+        print datos.project_id2.id
+
 
     _columns = {
         'name_incidencia': fields.char(string="Incidencia", size=50, required=False),
