@@ -16,15 +16,28 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from datetime import datetime
+import time
+from openerp.osv import osv, fields
+from tools.translate import _
 
-import res_users
-import res_partner
-import gdc_fondos
-import gdc_proyectos
-import gdc_tareas
-import gdc_incidencias
-import gdc_solicitud_cambios
-import gdc_areas
-import res_company
+###############
+# Cambios     #
+###############
 
-
+class gdc_solicitud_cambios(osv.Model):
+    """
+    Modelo para gestionar las tareas de las actividades
+    """
+    _name = "gdc.solicitud.cambios"
+    _rec_name = "project_id"
+    _order="project_id"
+    
+    _columns = {
+        'project_id': fields.many2one('gdc.proyectos', 'Proyecto', required=False),
+        'tarea_id': fields.many2one('gdc.tareas', 'Tarea', required=False),
+        'justification': fields.text('Justificacion'),
+        'date': fields.datetime('Fecha solicitud',select=True),
+        'user_id' : fields.many2one('res.users', 'Usuario', required=False),
+        'solicitud': fields.selection((('Aprobar','Aprobar'), ('Denegar', 'Denegar')),'Status', required=False),
+    }
