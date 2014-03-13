@@ -66,9 +66,8 @@
                             <group>
                                 <group>
                                     <separator string="Datos del equipo y problemas:" colspan="2"/>
-                                    <field name="modelo" attrs="{'readonly':[('id','!=', False)]}" placeholder="Modelo de la Canaimita" widget="selection"/>
+                                    <field name="modelo" placeholder="Modelo de la Canaimita" widget="selection"/>
                                     <field name="serial" attrs="{'readonly':[('id','!=', False)]}" placeholder="Serial de la Canaimita" />
-                                    <!-- <field name="id_graph" /> on_change="on_change_id(modelo)"-->
                                 </group>
                                 <group>
                                     <separator string="Componentes entregados:" colspan="2"/>
@@ -93,8 +92,8 @@
                                     <separator string="Datos personales del estudiante:" colspan="2"/>
                                     <field name="nombre" attrs="{'readonly':[('id','!=', False)]}" placeholder="Nombre del Alumno"/>
                                     <field name="apellido" attrs="{'readonly':[('id','!=', False)]}" placeholder="Apellido del Alumno"/>
-                                    <field name="t_educ" attrs="{'readonly':[('id','!=', False)]}" placeholder="Tipo" widget="selection"/>
-                                    <field name="grado" attrs="{'readonly':[('id','!=', False)]}" domain= "[('tipo','=',t_educ)]" placeholder="Grado que estudia actualmente" />
+                                    <field name="t_educ" placeholder="Tipo" widget="selection"/>
+                                    <field name="grado" domain= "[('tipo','=',t_educ)]" placeholder="Grado que estudia actualmente" />
                                 </group>
                                 <group>
                                     <separator string="Dirección del centro educativo:" colspan="2"/>
