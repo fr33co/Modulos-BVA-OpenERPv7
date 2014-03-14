@@ -38,7 +38,7 @@ class gdc_solicitud_proyectos(osv.Model):
         'justification': fields.text('Justificacion'),
         'date': fields.datetime('Fecha solicitud',select=True),
         'user_id' : fields.many2one('res.users', 'Usuario', required=False),
-        'solicitud': fields.selection((('Aprobar','Aprobar'), ('Denegar', 'Denegar')),'Status', required=False),
+        'solicitud': fields.selection((('En espera','En espera'), ('Aprobar','Aprobar'), ('Denegar', 'Denegar')),'Status', required=False),
     }
     
 
@@ -55,5 +55,5 @@ class gdc_solicitud_tareas(osv.Model):
         'justification': fields.text('Justificacion'),
         'date': fields.datetime('Fecha solicitud',select=True),
         'user_id' : fields.many2one('res.users', 'Usuario', required=False),
-        'solicitud': fields.selection((('Aprobar','Aprobar'), ('Denegar', 'Denegar')),'Status', required=False),
+        'solicitud': fields.selection((('En espera','En espera'), ('Aprobar','Aprobar'), ('Denegar', 'Denegar')),'Status', required=False),
     }
