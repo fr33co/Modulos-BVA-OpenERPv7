@@ -81,7 +81,7 @@ class gdc_incidencias(osv.Model):
         'reporter_id' : fields.many2one('res.users', 'Usuario', required=True),
         'project_id': fields.many2one('gdc.proyectos', 'Proyecto', required=False),
         'date_reporter': fields.datetime('Fecha',select=True, required=True),
-        'description': fields.text('Description'),
+        'description': fields.text('Description', required=True),
         'verificar_solicitud': fields.boolean('¿Desea congelar el proceso?'),
         'selec_pro_tar': fields.selection((('Proyecto','Proyecto'), ('Tarea', 'Tarea')),'Desea notificar incidencia a:', required=True),
     }

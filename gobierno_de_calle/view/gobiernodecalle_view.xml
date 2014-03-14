@@ -441,13 +441,13 @@
                             <group>
                                 <field name="project_id" attrs="{'invisible':[('selec_pro_tar', '!=', 'Proyecto')]}" on_change="onchange_proyecto(project_id)"/>
                                 <field name="tarea_id" attrs="{'invisible':[('selec_pro_tar', '!=', 'Tarea')]}" on_change="onchange_tarea(tarea_id)"/>
-                                <field name="date_start_tarea" attrs="{'invisible':[('selec_pro_tar', '!=', 'Tarea')]}" readonly="1"/>
-                                <field name="date_start_proyecto" attrs="{'invisible':[('selec_pro_tar', '!=', 'Proyecto')]}" readonly="1"/>
-                                <field name="date_end_tarea" attrs="{'invisible':[('selec_pro_tar', '!=', 'Tarea')]}" readonly="1"/>
-                                <field name="date_end_proyecto" attrs="{'invisible':[('selec_pro_tar', '!=', 'Proyecto')]}" readonly="1"/>
-                                <field name="state_tarea" attrs="{'invisible':[('selec_pro_tar', '!=', 'Tarea')]}" readonly="1"/>
-                                <field name="state_proyecto" attrs="{'invisible':[('selec_pro_tar', '!=', 'Proyecto')]}" readonly="1"/>
-                                <field name="verificar_solicitud"/>
+                                <field name="date_start_tarea" attrs="{'invisible':[('selec_pro_tar', '!=', 'Tarea')]}" readonly="0"/>
+                                <field name="date_start_proyecto" attrs="{'invisible':[('selec_pro_tar', '!=', 'Proyecto')]}" readonly="0"/>
+                                <field name="date_end_tarea" attrs="{'invisible':[('selec_pro_tar', '!=', 'Tarea')]}" readonly="0"/>
+                                <field name="date_end_proyecto" attrs="{'invisible':[('selec_pro_tar', '!=', 'Proyecto')]}" readonly="0"/>
+                                <field name="state_tarea" attrs="{'invisible':[('selec_pro_tar', '!=', 'Tarea')]}" readonly="0"/>
+                                <field name="state_proyecto" attrs="{'invisible':[('selec_pro_tar', '!=', 'Proyecto')]}" readonly="0"/>
+                                <field name="verificar_solicitud" attrs="{'invisible':[('selec_pro_tar', '=', False)]}"/>
                             </group>
                         </group>
                         <separator string="Especifique las caracteristicas de la incidencia" colspan="2"/>
