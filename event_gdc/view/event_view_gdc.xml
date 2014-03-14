@@ -19,7 +19,60 @@
                         <page string="Conclusiones">
                             <field name="conclusiones" colspan="4" nolabel="1"/>
                         </page>
+                        <page string="Instituciones Invitadas" attrs="{'invisible':[('visible_grupo', '!=', True)]}">
+                            <separator string="Seleccione las instituciones que podrán ver el evento" colspan="2"/>
+                            <field colspan="4" name="members_project" widget="many2many_kanban">
+                                <kanban quick_create="false" create="true" delete="true">
+                                    <field name="name"/>
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div style="position: relative">
+                                                <a t-if="! read_only_mode" type="delete" style="position: absolute; right: 0; padding: 4px; diplay: inline-block">X</a>
+                                                <div class="oe_module_vignette">
+                                                    <div class="oe_module_desc">
+                                                        <field name="name"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                            </field>
+                        </page>
                     </notebook>
+                </xpath>
+                <field name="company_id" position="after">
+                     <field name="visible_grupo"/>
+                </field>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="inherit_address_form">
+            <field name="name">inherit_address_form</field>
+            <field name="model">event.event</field>
+            <field name="inherit_id" ref="event.view_event_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/group/group" position="replace">
+                    <group>
+                        <separator string="Lugar del evento" colspan="2"/>
+                            <div>
+                                <field name="address_id" on_change="on_change_address_id(address_id)" domain="[('category_id.name','ilike','Lugar')]"/>
+                                <label for="street" string="Dirección"/>
+                                <div>
+                                    <field name="country_id" placeholder="País" class="oe_no_button" options='{"no_open": True}'/>
+                                    <div>
+                                        <field name="state_id" domain= "[('country_id','=',country_id)]" class="oe_no_button" placeholder="Estado" options='{"no_open": True}'/>
+                                        <field name="municipality_id" domain= "[('state_id','=',state_id)]" placeholder="Municipio" style="width: 49.2%%"/>
+                                        <field name="city_id" domain= "[('state_id','=',state_id)]" placeholder="Ciudad" style="width: 49.2%%"/>
+                                        <field name="parish_id" domain= "[('municipalities_id','=',municipality_id)]"  placeholder="Parroquia"/>
+                                        <field name="sector_id" placeholder="Sector"/>
+                                        <field name="zipcode_id" placeholder="Codígo Postal"/>
+                                    </div>
+                                    <field name="street" placeholder="Dirección..."/>
+                                    <field name="street2" placeholder="Continuación dirección..." />
+                                </div>
+                           </div>
+                    </group>
                 </xpath>
             </field>
         </record>

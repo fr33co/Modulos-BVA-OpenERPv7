@@ -24,4 +24,16 @@ class event_event(osv.Model):
     _columns = {
         'acuerdos': fields.text('Acuerdos', readonly=False, states={'done': [('readonly', True)]}),
         'conclusiones': fields.text('Conclusiones', readonly=False, states={'done': [('readonly', True)]}),
+        'visible_grupo': fields.boolean('¿Seleccionar instituciones?'),
+        'address_id': fields.many2one('res.partner','Lugar', readonly=False, required=True, domain=[('category_id.name','ilike','Lugar')]),
+        'members_project': fields.many2many('res.company', 'project_company_rel', 'project_id', 'uid', 'Instituciones'),
+        'street': fields.related('address_id','street',type='char',string='Direccion'),
+        'street2': fields.related('address_id','street2',type='char',string='Cont. Direccion'),
+        'state_id': fields.related('address_id','state_id',type='many2one', relation="res.country.state", string='Estado'),
+        'zipcode_id': fields.related('address_id','zipcode_id',type='many2one', relation="res.country.zipcode", string='Zipcode'),
+        'city_id': fields.related('address_id','city_id',type='many2one', relation="res.country.city", string='City'),
+        'municipality_id': fields.related('address_id','municipality_id',type='many2one', relation="res.country.municipality", string='Municipality'),        
+        'parish_id': fields.related('address_id','parish_id',type='many2one', relation="res.country.parish", string='Parish'),
+        'sector_id': fields.related('address_id','sector_id',type='many2one', relation="res.country.sector", string='Sector'),
+        'country_id': fields.related('address_id', 'country_id', type='many2one', relation='res.country', string='Pais', readonly=False),
     }
