@@ -33,6 +33,18 @@ class gdc_incidencias(osv.Model):
     _rec_name = "name_incidencia"
     _order="name_incidencia"
     
+    def onchange_proyecto(self, cr, uid, ids, project_id, context=None):
+        values = {}
+        if not project_id:
+            return values
+        datos = self.pool.get('gdc.proyectos').browse(cr, uid, project_id, context=context)
+        values.update({
+            'date_start_proyecto' : datos.date_start,
+            'date_end_proyecto' : datos.date_end,
+            'state_proyecto' : datos.estado,
+        })
+        return {'value' : values}
+        
     def onchange_tarea(self, cr, uid, ids, tarea_id, context=None):
         values = {}
         if not tarea_id:
@@ -58,17 +70,20 @@ class gdc_incidencias(osv.Model):
             solicitud_obj.write(cr, uid, ids, {'tarea_id': tarea_id})
 
     _columns = {
-        'name_incidencia': fields.char(string="Incidencia", size=50, required=False),
+        'name_incidencia': fields.char(string="Incidencia", size=50, required=True),
         'tarea_id': fields.many2one('gdc.tareas', 'Tarea', required=False),
         'date_start_tarea': fields.datetime('Fecha de inicio',select=True),
+        'date_start_proyecto': fields.datetime('Fecha de inicio',select=True),
         'date_end_tarea': fields.datetime('Fecha de finalizacion',select=True),
+        'date_end_proyecto': fields.datetime('Fecha de finalizacion',select=True),
         'state_tarea': fields.char(string="Estado de la tarea", required=False),
+        'state_proyecto': fields.char(string="Estado de la tarea", required=False),
         'reporter_id' : fields.many2one('res.users', 'Usuario', required=True),
         'project_id': fields.many2one('gdc.proyectos', 'Proyecto', required=False),
         'date_reporter': fields.datetime('Fecha',select=True, required=True),
         'description': fields.text('Description'),
-        'verificar_solicitud': fields.boolean('¿Desea congelar o modificar procesos?'),
-        'solicitud_cambio': fields.selection((('Proyecto','Proyecto'), ('Tarea', 'Tarea')),'Cambiar estatus a:', required=False),
+        'verificar_solicitud': fields.boolean('¿Desea congelar el proceso?'),
+        'selec_pro_tar': fields.selection((('Proyecto','Proyecto'), ('Tarea', 'Tarea')),'Desea notificar incidencia a:', required=True),
     }
 
     _defaults = {
