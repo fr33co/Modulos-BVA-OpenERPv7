@@ -36,3 +36,7 @@ class gdc_areas(osv.Model):
     _columns = {
         'name': fields.char(string="Area de atención", size=64, required=True), 
     }
+    
+    _sql_constraints = [
+        ('name_unique','UNIQUE(name)','Ya existe esta area de financiamiento'),
+    ]

@@ -433,19 +433,21 @@
                     <group>
                         <group>
                             <group>
-                                <field name="project_id" invisible="1"/>
-                                <field name="tarea_id" on_change="onchange_tarea(tarea_id)"/>
-                                <separator string="Resumen de la tarea" colspan="2"/>
-                                <field name="date_start_tarea" readonly="1"/>
-                                <field name="date_end_tarea" readonly="1"/>
-                                <field name="state_tarea" readonly="1"/>
-                            </group>
-                            <group>
                                 <field name="name_incidencia" />
                                 <field name="date_reporter" readonly="1"/>
-                                <field name="reporter_id" />
+                                <field name="reporter_id" readonly="1"/>
+                                <field name="selec_pro_tar"/>
+                            </group>
+                            <group>
+                                <field name="project_id" attrs="{'invisible':[('selec_pro_tar', '!=', 'Proyecto')]}" on_change="onchange_proyecto(project_id)"/>
+                                <field name="tarea_id" attrs="{'invisible':[('selec_pro_tar', '!=', 'Tarea')]}" on_change="onchange_tarea(tarea_id)"/>
+                                <field name="date_start_tarea" attrs="{'invisible':[('selec_pro_tar', '!=', 'Tarea')]}" readonly="1"/>
+                                <field name="date_start_proyecto" attrs="{'invisible':[('selec_pro_tar', '!=', 'Proyecto')]}" readonly="1"/>
+                                <field name="date_end_tarea" attrs="{'invisible':[('selec_pro_tar', '!=', 'Tarea')]}" readonly="1"/>
+                                <field name="date_end_proyecto" attrs="{'invisible':[('selec_pro_tar', '!=', 'Proyecto')]}" readonly="1"/>
+                                <field name="state_tarea" attrs="{'invisible':[('selec_pro_tar', '!=', 'Tarea')]}" readonly="1"/>
+                                <field name="state_proyecto" attrs="{'invisible':[('selec_pro_tar', '!=', 'Proyecto')]}" readonly="1"/>
                                 <field name="verificar_solicitud"/>
-                                <field name="solicitud_cambio" on_change="onchange_solicitud_cambio(tarea_id,solicitud_cambio)" attrs="{'invisible':[('verificar_solicitud', '=', False)]}" />
                             </group>
                         </group>
                         <separator string="Especifique las caracteristicas de la incidencia" colspan="2"/>
