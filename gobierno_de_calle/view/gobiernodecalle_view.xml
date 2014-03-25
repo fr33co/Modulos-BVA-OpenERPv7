@@ -148,7 +148,7 @@
                             <group>
                                 <separator string="Asignación de responsables" colspan="2"/>
                                 <field name="supervisor_id" readonly="1" domain="[('category_id.name','ilike','Supervisor')]"/>
-                                <field name="ejecutor_id" domain="[('category_id.name','ilike','Supervisor')]"/>
+                                <field name="ejecutor_id" domain="[('category_id.name','ilike','Responsable')]"/>
                                 <field name="responsible_id" domain="[('category_id.name','ilike','Responsable')]"/>
                                 <separator string="Beneficiados del proyecto" colspan="2"/>
                                 <field name="bene_medible" colspan="2"/>
