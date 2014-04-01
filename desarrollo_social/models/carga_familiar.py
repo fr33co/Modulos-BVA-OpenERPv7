@@ -82,7 +82,7 @@ class Carga_familiar(osv.Model):
 		'fecha_nac_familiar': fields.date(string = "Fecha de Nacimiento", required = True),
 		'profesion_familiar' : fields.char(string="Profesión u Oficio", help="Ingrese la Profesión u Oficio del Familiar", required = False),
 		'sexo' : fields.selection((('1','Masculino'),('2','Femenino')), "Sexo", required = True),
-		'parentesco' : fields.selection((('1','Hijo'),('2','Madre'),('3','Padre')), "Parentesco", required = True),
+		'parentesco' : fields.selection((('1','Hijo(a)'),('2','Madre'),('3','Padre'),('4','Esposo(a)'),('5','Unión Estable')), "Parentesco", required = True),
 		'estudio' : fields.boolean(string="Estudia Actualmente?"),
 		'fecha_union' : fields.date(string="Fecha de la Unión", required=False),
 		'telefono_fijo' : fields.char(string="Teléfono Fijo", size=12, required=False),

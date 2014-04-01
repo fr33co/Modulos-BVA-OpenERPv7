@@ -12,7 +12,10 @@ class tipoBeca(osv.Model):
 	_rec_name = 'tipo_beca'
 	
 	_columns = {
-		'tipo_beca': fields.char(string = "Tipo de Beca", size = 150, required = True),
+		'cod_t_beca' : fields.char(string="Código",required=False),
+		'tipo_beca' : fields.char(string = "Tipo de Beca", size = 150, required = True),
+		'asignacion' : fields.float(string="Asignación",required=False),
+		'descripcion' : fields.text(string = "Descripción", required=False, help = "Indique las funciones inherentes al tipo de beca"),
 	}
 
 

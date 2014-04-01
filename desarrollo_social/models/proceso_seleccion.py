@@ -14,8 +14,6 @@ class Solicitudes(osv.Model):
 	
 	_columns = {
 		'cedula' : fields.char(string="Cédula", size = 8, required=True),
-		'direccion_trabajo' : fields.text(string="Dirección", size = 8, required=True),
-		'ano_experiencia' : fields.char(string="Año de experiencia", size = 1, required=True),
+		'direccion_trabajo' : fields.text(string="Dirección", size = 256, required=True),
+		'ano_experiencia' : fields.char(string="Año de experiencia", required=False),
 	}
-	
-	

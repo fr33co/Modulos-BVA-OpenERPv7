@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	
+	<data>
+			
+		<!--Accionador para el menu de Nivel Educativo-->
+		<record model="ir.actions.act_window" id="accion_lista_nivel_edu">
+			<field name="name">Niveles Educativos</field>
+			<field name="res_model">becados.niveleduc</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Agregue un nuevo Nivel Educativo</p>
+			</field>
+		</record>
+		<!--Accionador para el menu de Nivel Educativoo-->
+		
+		<record model="ir.ui.view" id="vista_formulario_nivel_edu">
+			<field name="name">nivel_educ.form</field>
+			<field name="model">becados.niveleduc</field>
+			<field name="arch" type="xml"> 
+				<form string="Formulario de Niveles Educativos">
+					<group colspan="2">
+						<field name="grado_instruc" nolabel="0" colspan="1"/>
+						<field name="nivel_edu" nolabel="0" colspan="1"/>
+					</group>
+				</form>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="vista_tree_nivel_edu">
+			<field name="name">seleccion.form</field>
+			<field name="model">becados.niveleduc</field>
+			<field name="arch" type="xml">
+				<tree string="Lista de Niveles Educativos">
+					<field name="grado_instruc"/>
+					<field name="nivel_edu"/>
+				</tree>
+			</field>
+		</record>
+		
+		<menuitem id="menu_niveles_edu" name="Nivel Educativo" parent="menu_principal_mantenimiento" action="accion_lista_nivel_edu"/>
+			
+	</data>
+	
+</openerp>
+
+

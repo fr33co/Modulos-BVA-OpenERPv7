@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	
+	<data>
+			
+		<!--Accionador para el menu de ejes-->
+		<record model="ir.actions.act_window" id="accion_lista_ejes">
+			<field name="name">Ejes</field>
+			<field name="res_model">becados.ejes</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Agregue un nuevo Eje</p>
+			</field>
+		</record>
+		<!--Accionador para el menu de ejes-->
+		
+		<record model="ir.ui.view" id="vista_formulario_ejes">
+			<field name="name">ejes.form</field>
+			<field name="model">becados.ejes</field>
+			<field name="arch" type="xml"> 
+				<form string="Formulario de Ejes">
+					<group colspan="2">
+						<field name="eje" nolabel="0" colspan="1"/>
+					</group>
+				</form>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="vista_tree_ejes">
+			<field name="name">ejes.tree</field>
+			<field name="model">becados.ejes</field>
+			<field name="arch" type="xml">
+				<tree string="Lista de Ejes">
+					<field name="eje"/>
+				</tree>
+			</field>
+		</record>
+		
+		<menuitem id="menu_ejes" name="Ejes" parent="menu_principal_mantenimiento" action="accion_lista_ejes"/>
+			
+	</data>
+	
+</openerp>
+
+
+

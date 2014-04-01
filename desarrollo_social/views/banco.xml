@@ -21,14 +21,14 @@
 			<field name="arch" type="xml">
 				<form string="Formulario de Bancos">
 					<group colspan="2" col="4">
-						<field name="nombre_corto" nolabel="0" colspan="2"/>
+						<field name="codigo" nolabel="0" colspan="2"/>
 						<field name="banco" nolabel="0" colspan="2"/>
 					</group>
 				</form>
 			</field>
 		</record>
 		
-		<menuitem id="menu_bancos" name="Entidades Bancarias" parent="menu_secundario_mantenimiento" action="accion_lista_bancos"/>
+		<menuitem id="menu_bancos" name="Entidades Bancarias" parent="menu_principal_mantenimiento" action="accion_lista_bancos"/>
 			
 	</data>
 	

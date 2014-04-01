@@ -2,15 +2,17 @@
 <openerp>
     <data>
     
-			<record model="ir.actions.act_window" id="accion_vista_nomina">
+			<record model="ir.actions.act_window" id="accion_vista_nomina_becado">
 					<field name="name">Nomina</field>
 					<field name="res_model">hr.payslip</field>
 					<field name="view_type">form</field>
+
 					<field name="domain">[('categoria','ilike','1')]</field>
+
 					<field name="view_mode">tree,form</field>
 			</record>
     
-			<record id="vista_nomina" model="ir.ui.view">
+			<record id="vista_nomina_form_employee" model="ir.ui.view">
 					<field name="name">Nomina</field>
 					<field name="model">hr.payslip</field>
 					<field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
@@ -30,7 +32,7 @@
 								</h3>
 							</field>
 							<page string="Details By Salary Rule Category" position="replace">
-								<page string="Details By Salary Rule Category" attrs="{'invisible': [('categoria', '=', '1') ] }">
+								<page string="Details By Salary Rule Category" attrs="{'invisible': [('categoria', '=', '1')] }">
 										<field name="details_by_salary_rule_category" context="{'group_by':'category_id'}" domain="[('appears_on_payslip', '=', True)]">
 												<tree string="Payslip Lines" colors="blue:total == 0">
 														<field name="category_id"/>
@@ -68,8 +70,8 @@
 <!--
         <menuitem name="Desarrollo Social" id="menu_desarrollo_social"/>
 -->
-        <menuitem name="Nómina" id="menu_desarrollo_social_nomina" parent="menu_desarrollo_social"/>
-        <menuitem parent="menu_desarrollo_social_nomina" id="nomina" action="accion_vista_nomina" name="Nómina del Becado"/>
+        <menuitem name="Nómina" id="menu_desarrollo_social_nomina" parent="menu_desarrollo_social" sequence="2"/>
+        <menuitem parent="menu_desarrollo_social_nomina" id="nomina_employee" action="accion_vista_nomina_becado" name="Nómina del Becado"/>
         
     </data>
 </openerp>

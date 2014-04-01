@@ -12,5 +12,6 @@ class tipoNomina(osv.Model):
 	_rec_name = 'tipo_nomina'
 
 	_columns = {
+		'cod_nom' : fields.char(string="Código",required=False),
 		'tipo_nomina': fields.char(string = "Tipo de Nómina", size = 150, required = True),
 	}

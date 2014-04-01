@@ -6,7 +6,10 @@
 		 	<field name="name">Desarrollo Social</field>
 			<field name="res_model">hr.employee</field>
 			<field name="view_type">form</field>
-			<field name="domain">['|',('categoria','ilike','1'),('category_ids.name','ilike','Becado')]</field>
+<!--
+			<field name="domain">[('status','ilike','1'),'|',('categoria','ilike','1'),('category_ids.name','ilike','Becado')]</field>
+-->
+			<field name="domain">[('categoria','ilike','1')]</field>
 			<field name="view_mode">tree,form</field>
 		</record>
 
@@ -16,46 +19,25 @@
 			<field name="inherit_id" ref="hr.view_employee_form"/>
 			<field name="arch" type="xml">
 				<field name="identification_id" position="replace">
-					<field name="cedula"/>
+					<field name="cedula" on_change="datos_seleccionado(cedula)"/>
 				</field>
 				<field name="cedula" position="after">
-					<field name="grupo" invisible="0"/>
+					<field name="grupo"/>
 				</field>
-				<field name="passport_id" position="after">
-					<field name="tiempo_servicio"/>
+				<field name="passport_id" position="replace">
+					<field name="passport_id" attrs="{'invisible': [('categoria', '=', '1') ] }"/>
 				</field>
-				<field name="tiempo_servicio" position="after">
-					<field name="empleado" attrs="{'invisible': [('categoria', '=', '1') ] }"/>
+				<field name='passport_id' position="after">
+					<field name="tiempo_servicio" attrs="{'invisible': [('categoria', '=', '1') ] }"/>
 				</field>
-				<field name="empleado" position="after">
-					<field name="tipo_beca"/>
-				</field>
-				<!--<field name="primer_nombre" position="after">
-					<field name="segundo_nombre"/>
-				</field>
-				<field name="segundo_nombre" position="after">
-					<field name="primer_apellido"/>
-				</field>
-				<field name="primer_apellido" position="after">
-					<field name="segundo_apellido"/>
-				</field>-->
 				<field name="address_home_id" position="after">
 					<field name="direccion"/>
 				</field>
-				<field name="empleado" position="after">
-					<field name="grado_instruccion" />
-				</field>
-				<field name="grado_instruccion" position="after">
-					<field name="titulo_obtenido"/>
-				</field>
-				<field name="titulo_obtenido" position="after">
-					<field name="estado_de_estudios"/>
-				</field>
-				<field name="estado_de_estudios" position="after">
-					<field name="estudios_actuales" attrs="{'invisible': [('estado_de_estudios', '!=', True) ] }"/>
-				</field>
 				<field name="otherid" position="replace">
 					<field name="grupo_sanguineo"/>
+				</field>
+				<field name="address_home_id" position="replace">
+					<field name="address_home_id" invisible="1"/>
 				</field>
 				<field name="direccion" position="before">
 					<field name="tlf_movil"/>
@@ -66,64 +48,25 @@
 				<field name="tlf_local" position="before">
 					<field name="twitter" class="oe_inline"/>
 				</field>
-				<field name="marital" position="after">
-					<field name="fecha_ingreso"/>
-				</field>
-				<field name="fecha_ingreso" position="after">
-					<field name="fecha_egreso"/>
-				</field>
 				<field name="address_id" position="replace">
 					<field name="address_id" invisible="1"/>
 				</field>
 				<field name="work_email" position="replace">
 					<field name="work_email" invisible="1"/>
 				</field>
-				<field name="department_id" position="before">
-					<field name="sede"/>
-				</field>
-<!--
-				<field name="department_id" position="after">
-					<field name="area"/>
-				</field>
--->
-				<field name="sede" position="after">
-					<field name="tipo_nomina"/>
-				</field>
-				<field name="coach_id" position="after">
-					<field name="coordinador_eje" widget="selection"/>
-					<!--groups="desarrollo_social.desarrollosocial"-->
-				</field>
-				<field name="coordinador_eje" position="after">
-					<field name="coordinador_sede" widget="selection"/>
-					<!--groups="desarrollo_social.desarrollosocial"-->
-				</field>				
-<!--
-				<field name="tipo_nomina" position="after">
-					<field name="class_personal"/>
-				</field>
--->
-				<field name="birthday" position="after">
-					<field name="edad" class="oe_inline"/>
-				</field>
-				<!--<field name="class_personal" position="after">
-					<field name="cargo_desempenado"/>
-				</field>-->
-				<!--<field name="work_location" position="after">
-					<field name="cargo_desempenado"/>
-				</field>-->
+				<xpath expr="//group/group/field[@name='bank_account_id']" position="replace">
+					<field name="bank_account_id" attrs="{'invisible': [('categoria', '=', '1') ] }"/>
+				</xpath>
 				<field name="bank_account_id" position="before">
-					<field name="asignacion"/>
+					<field name="asignacion" attrs="{'invisible': [('categoria', '=', '1') ] }"/>
 				</field>
 				<field name="twitter" position="after">
 					<field name="correo" widget="email"/>
 				</field>
-				<!--<field name="sueldo" position="after">
-					<field name="entidad_bancaria"/>
-				</field>-->
 				<field name="tiempo_servicio" position="after">
 					<field name="ano_antiguedad" class="oe_inline"/>
 				</field>
-				<field name="estudios_actuales" position="after">
+				<field name="ano_antiguedad" position="after">
 					<field name="camisa" class="oe_inline"/>
 				</field>
 				<field name="camisa" position="after">
@@ -147,31 +90,101 @@
 				<field name="active" position="replace">
 					<field name="active" invisible="1"/>
 				</field>
-				<field name="active" position="after">
-					<field name="status"/>
-				</field>
-				<field name="status" position="after">
-					<field name="desc_status" attrs="{'invisible':[('status','in',('1',False))]}"/>
-				</field>
 				<field name="category_ids" position="after">
-				<label for="carga_familiar" class="oe_edit_only"/>
-					<field name="carga_familiar" class="oe_inline" nolabel="0"/>
+				<label for="carga_familiar" class="oe_edit_only" attrs="{'invisible':[('categoria','=','1')]}"/>
+					<field name="carga_familiar" class="oe_inline" nolabel="0" attrs="{'invisible':[('categoria','=','1')]}"/>
 				</field>
-				<field name="gender" position="replace">
+				<field name="grupo" position="after">
 					<field name="sexo"/>
 				</field>
+				<field name="sexo" position="after">
+					<field name="place_of_birth"/>
+					<field name="birthday"/>
+					<field name="edad"/>
+					<field name="marital"/>
+				</field>
+				<field name="grupo_sanguineo" position="after">
+					<field name="discapacidad" attrs="{'invisible':[('categoria','!=','1')]}"/>
+				</field>
+				<field name="discapacidad" position="after">
+					<field name="tipo_discapacidad" attrs="{'invisible':[('categoria','!=','1'),('discapacidad','!=','1')]}"/>
+				</field>
+				<field name="tipo_discapacidad" position="after">
+					<field name="carga_familiar2" attrs="{'invisible':[('categoria','!=','1')]}"/>
+				</field>
+				<field name="carga_familiar2" position="after">
+					<field name="children" attrs="{'invisible':[('categoria','!=','1')]}"/>
+				</field>
+				<group string="Status" position="replace"><!--Ocultamiento de grupos innecesarios-->
+					<group invisible="1">
+						<field name="gender"/>
+						<field name="marital"/>
+					</group>
+				</group>
+				<group string="Birth" position="replace">
+					<group invisible="1">
+						<field name="birthday"/>
+					</group>
+				</group><!--Ocultamiento de grupos innecesarios-->
 				<!--Campo oculto para formato PDF -->
 				<field name="carga_familiar" position="after">
 					<field name="fecha_actual" invisible="1"/>
 				</field>
-<!--
-				<field name="birthday" position="replace">
-					<field name="fecha_nacimiento" on_change="validar_fecha(fecha_nacimiento)"/>
-				</field>
--->
-				<!--Nueva página para el "notebook"-->
-				<page string="HR Settings" position="after">
-					<page string="Carga Familiar" attrs="{'invisible': [('carga_familiar', '!=', '1') ] }">
+				
+				<!--Nuevas páginas para el "notebook"-->
+				<page string="Personal Information" position="after">
+					<page string="Información Académica">
+						<group>
+							<group>
+								<field name="grado_instruccion" nolabel="0" colspan="2"/>
+								<field name="nivel_edu" nolabel="0" colspan="2" domain="[('grado_instruc','=', grado_instruccion)]"/>
+								<field name="estado_de_estudios" nolabel="0" colspan="2"/>
+								<field name="inst_educ" nolabel="0" colspan="2" attrs="{'invisible': [('estado_de_estudios', '=', False)] }"/>
+								<field name="estudios_actuales" nolabel="0" colspan="2" attrs="{'invisible': [('estado_de_estudios', '=', False)] }"/>
+							</group>
+							<group></group>
+						</group>
+					</page>
+					
+					<page string="Representante/Contacto" attrs="{'invisible': [('categoria', '!=', '1')] }">
+						<group string="Datos básicos">
+							<group>
+								<field name="nombre_contacto" nolabel="0" colspan="2"/>
+								<field name="direccion_contacto" nolabel="0" colspan="2"/>
+							</group>
+							<group>
+								<field name="telefono_contacto" nolabel="0" colspan="2"/>
+								<field name="correo_contacto" nolabel="0" colspan="2"/>
+							</group>
+						</group>
+					</page>
+					
+					<page string="Información Institucional">
+						<group>
+							<group>
+								<field name="fecha_ingreso"/>
+								<field name="fecha_egreso" attrs="{'invisible':[('status','!=','7')]}"/>
+								<field name="entidad_bancaria"/>														
+								<field name="numero_cuenta"/>							
+								<field name="tipo_cuenta"/>
+								<field name="status"/>
+								<field name="desc_status" attrs="{'invisible':[('status','!=','1')]}"/>							
+							</group>
+							<group>
+								<field name="department_id" attrs="{'invisible': [('categoria', '=', '1') ] }"/>
+								<field name="job_id" attrs="{'invisible': [('categoria', '=', '1') ] }"/>
+								<field name="empleado" attrs="{'invisible': [('categoria', '=', '1') ] }"/>
+								<field name="tipo_beca" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>
+								<field name="tipo_nomina"/>
+								<field name="ejes" widget="selection" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>
+								<field name="sede" widget="selection" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>							
+								<field name="coordinador_eje" widget="selection" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>							
+								<field name="coordinador_sede" widget="selection" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>
+							</group>
+						</group>
+					</page>
+					
+					<page string="Carga Familiar" attrs="{'invisible': [('carga_familiar', '!=', '1')] }">
 						<field name="familiar" nolabel="1" colspan="4" mode="tree">
 							<tree string="Registrar Familiares">
 							 <field name="cedula_familiar"/>
@@ -186,7 +199,46 @@
 						</field>
 					</page>
 				</page>
-				<!--Nueva página para el "notebook"-->
+				<!--Nuevas páginas para el "notebook"-->
+				
+				<!--Ocultar pestañe de Información Pública-->
+				<page string="Public Information" position="replace">
+					<page string="Public Information" invisible="1">
+							<group>
+									<group string="Contact Information">
+											<field name="address_id" on_change="onchange_address_id(address_id)" context="{'show_address': 1}" options="{&quot;always_reload&quot;: True, &quot;highlight_first_line&quot;: True}"/>
+											<field name="work_email" widget="email"/>
+											<field name="work_phone"/>
+											<field name="mobile_phone"/>
+											<field name="work_location"/>
+									</group>
+									<group string="Position">
+											<field name="department_id" on_change="onchange_department_id(department_id)"/>
+											<field name="job_id" options="{&quot;no_open&quot;: True}" domain="[('state','!=','old')]" context="{'form_view_ref': 'hr.view_hr_job_employee_form'}"/>
+											<field name="parent_id"/>
+											<field name="coach_id"/>
+									</group>
+									<group>
+											<field name="company_id" groups="base.group_multi_company" on_change="onchange_company(company_id)"/>
+											<field name="user_id" on_change="onchange_user(user_id)" string="Related User"/>
+									</group>
+							</group>
+							<field name="notes" placeholder="Other Information ..." colspan="4"/>
+					</page>
+				</page>
+				<!--Ocultar pestañe de Información Pública-->
+				
+				<!--Reemplazo de la pestaña de Configuración RRHH por una restringida para Desarrollo Social-->
+				<page string="HR Settings" position="replace">
+					<page string="HR Settings" groups="base.group_hr_user" attrs="{'invisible': [('categoria', '=', '1') ] }">
+							<group>
+									<group string="Active" name="active_group">
+											<field name="active"/>
+									</group>
+							</group>
+					</page>
+				</page>
+				<!--Reemplazo de la pestaña de Configuración RRHH por una restringida para Desarrollo Social-->
 				
 			</field>
 		</record>
@@ -217,13 +269,22 @@
 					<field name="work_phone" position="replace">
 						<field name="tlf_local"/>
 					</field>
+					<field name="sede" position="before">
+						<field name="ejes"/>
+					</field>
+					<field name="sede" position="after">
+						<field name="tipo_nomina"/>
+					</field>
+					<field name="tipo_nomina" position="after">
+						<field name="tipo_beca"/>
+					</field>
 			</field>
 		</record>
 		
 		<menuitem name="Desarrollo Social" id="menu_desarrollo_social"/>
-		<menuitem name="Desarrollo Social" id="menu_desarrollo_social_main" parent="menu_desarrollo_social"/>
-		<menuitem parent="menu_desarrollo_social_main" id="becado" action="accion_vista_becados" name="Becado"/>
-		<menuitem id="menu_principal_mantenimiento" name="Mantenimiento" parent="menu_desarrollo_social"/>
+		<menuitem name="Becado" id="menu_desarrollo_social_main" parent="menu_desarrollo_social" sequence="1"/>
+		<menuitem parent="menu_desarrollo_social_main" id="becado" action="accion_vista_becados" name="Ficha Personal"/>
+		<menuitem id="menu_principal_mantenimiento" name="Mantenimiento" parent="menu_desarrollo_social" sequence="3"/>
 
 	</data>
 </openerp>

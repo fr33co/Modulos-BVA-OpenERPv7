@@ -28,8 +28,12 @@
 					</field>
 			</record>
         
+<!--
         <menuitem name="Proceso de Selección" id="menu_desarrollo_social_seleccion" parent="menu_desarrollo_social"/>
+-->
+<!--
         <menuitem parent="menu_desarrollo_social_seleccion" id="seleccion_becado" action="accion_vista_seleccion" name="Solicitudes"/>
+-->
         
     </data>
 </openerp>

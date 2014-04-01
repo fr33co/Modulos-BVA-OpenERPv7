@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	
+	<data>
+			
+		<!--Accionador para el modelo de Nómina individual de becados-->
+		<record model="ir.actions.act_window" id="accion_lista_areas">
+			<field name="name">Nómina de becado</field>
+			<field name="res_model">becados.nominaindividual</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Agregue una nueva Nómina</p>
+			</field>
+		</record>
+		<!--Accionador para el modelo de Nómina individual de becados-->
+		
+		<record model="ir.ui.view" id="vista_formulario_areas">
+			<field name="name">nominaindividual.form</field>
+			<field name="model">becados.nominaindividual</field>
+			<field name="arch" type="xml"> 
+				<form string="Formulario de Nómina individual">
+					<group colspan="4" col="4">
+						<group colspan="2">
+							<field name="codigo"/>
+						</group>
+						<group colspan="2">
+							<field name="becado" nolabel="0" colspan="1"/>
+						</group>
+					</group>
+					<group colspan="4" col="4">
+						<group colspan="2">
+							<field name="anyo" nolabel="0" colspan="1"/>
+						</group>
+						<group colspan="2">
+							<field name="mes" nolabel="0" colspan="1"/>
+							<field name="nomina" invisible="1"/>
+						</group>
+					</group>
+					<group colspan="4" col="4">
+						<group colspan="2">
+							<field name="tipo_beca" nolabel="0" colspan="1"/>
+						</group>
+						<group colspan="2">
+							<field name="asignacion" nolabel="0" colspan="1"/>
+						</group>
+					</group>
+				</form>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="vista_formulario_areas">
+			<field name="name">nominaindividual.tree</field>
+			<field name="model">becados.nominaindividual</field>
+			<field name="arch" type="xml"> 
+				<tree string="Formulario de Nómina individual" editable="bottom">
+					<field name="codigo"/>
+					<field name="becado"/>
+					<field name="anyo"/>
+					<field name="mes"/>
+					<field name="tipo_beca"/>
+					<field name="asignacion"/>
+				</tree>
+			</field>
+		</record>
+			
+	</data>
+	
+</openerp>

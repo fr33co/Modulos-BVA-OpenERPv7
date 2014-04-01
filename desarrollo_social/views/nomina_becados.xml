@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	
+	<data>
+	
+		<record model="ir.actions.act_window" id="accion_vista_nomina_becado2">
+			<field name="name">Nómina de Becados</field>
+			<field name="res_model">becados.nomina</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Generar nueva nómina</p>
+			</field>
+		</record>
+	
+		<record id="vista_nomina_form_becado" model="ir.ui.view">
+			<field name="name">nomina.form</field>
+			<field name="model">becados.nomina</field>
+			<field name="arch" type="xml">
+				<form string="Formulario de Nómina de Becados" version="7.0">
+					<header>
+						
+						<!--Botones para la generación de reportes txt y xsl-->
+						<button name="action_archivar_prenomina" type="object" string="Archivar Pre-nómina" attrs="{'invisible':[('stage_id','!=','prenomina')]}" confirm="¿Esta usted seguro de archivar la pre-nómina?" help="Generar archivos de la pre-nómina"/>
+						<button name="action_archivar_nomina" type="object" string="Archivar Nómina" attrs="{'invisible':[('stage_id','!=','nomina')]}" confirm="¿Esta usted seguro de archivar la nómina?" help="Generar archivos de la nómina"/>
+						<button name="action_archivar_cierre" type="object" string="Archivar Cierre" attrs="{'invisible':[('stage_id','!=','cierre')]}" confirm="¿Esta usted seguro de archivar el cierre de la nómina?" help="Generar archivos del cierre de la nómina"/>
+						
+						<!--Botones de la barra de estado de solicitud -->
+						<button name="action_prenomina" type="object" string="Pre-nómina"
+						 stage_id="prenomina" attrs="{'invisible':[('stage_id','in',('prenomina','nomina','cierre'))]}" confirm="¿Esta usted seguro de pasar al siguiente proceso?" help="Pasar a estado de pre-nómina"/>
+						<button name="action_nomina" type="object" string="Nómina"
+						 stage_id="prenomina" attrs="{'invisible':[('stage_id','in',('nomina','cierre','cancelado'))]}" confirm="¿Esta usted seguro de pasar al siguiente proceso?" help="Pasar a estado de nómina"/>
+						<button name="action_cierre" type="object" string="Cerrar"
+						 stage_id="nomina" attrs="{'invisible':[('stage_id','in',('prenomina','cierre','cancelado'))]}" confirm="¿Esta usted seguro de pasar al siguiente proceso?" help="Cerrar la nómina"/>
+						
+						<!--Botón de cancelación de la nómina seleccionada-->
+						<button name="action_cancelar" type="object" string="Cancelar"
+						 stage_id="prenomina,nomina,cierre" class="oe_highlight" confirm="¿Esta usted seguro de pasar al siguiente proceso?" help="Cancelar la nómina"/>
+						
+						<!--Campo de la barra de estado de solicitud-->
+						<field name="stage_id" widget="statusbar"/>
+						
+					</header>
+					<group col="4" colspan="4">
+						<group>
+<!--
+							<field name="id" nolabel="0" colspan="2" invisible="0">
+-->
+							<field name="anyo" nolabel="0" colspan="2"/>
+						</group>
+						<group>
+							<field name="mes" nolabel="0" colspan="2"/>
+						</group>
+					</group>
+<!--
+					<group col="4" colspan="4">
+						<group>
+							<field name="tipo_beca" nolabel="0" colspan="2"/>
+							<field name="tipo_nomina" nolabel="0" colspan="2"/>
+							<field name="status" nolabel="0" colspan="2"/>
+						</group>
+						<group>
+							<field name="ejes" nolabel="0" colspan="2"/>
+							<field name="sedes" nolabel="0" colspan="2"/>
+						</group>
+					</group>
+-->			
+					<group col="4" colspan="4">
+						<group string="Selección de Becados">
+							<field name="becados" nolabel="1" mode="tree" readonly="0"/>
+						</group>
+					</group>
+						<button name="generar_nominas" type="object" string="Generar nóminas" stage_id="prenomina" attrs="{'invisible':[('stage_id','in',('cierre','cancelado'))]}"/>
+					<group col="4" colspan="4">
+						<group string="Nóminas Individuales">
+							<notebook>
+								<page string="Nóminas individuales">
+									<field name="nomina_individual" nolabel="1"/>
+								</page>
+								<page string="Archivos generados">
+									<field name="archivos" nolabel="1">
+										<tree string="Archivos Generados" editable="bottom">
+											<field name="name"/>
+											<field name="datas"/>
+											<field name="user_id"/>
+											<field name="create_date" groups="base.group_no_one"/>
+											<field name="write_date" groups="base.group_no_one"/>
+											<field name="type"/>
+										</tree>
+									</field>
+								</page>
+							</notebook>
+						</group>
+					</group>
+				</form>
+			</field>
+		</record>
+		
+		<record id="vista_nomina_tree_becado" model="ir.ui.view">
+			<field name="name">nomina.tree</field>
+			<field name="model">becados.nomina</field>
+			<field name="arch" type="xml">
+				<tree string="Lista de Nómina de Becados">
+					<field name="anyo"/>
+					<field name="mes"/>
+					<field name="stage_id"/>
+<!--
+					<field name="tipo_beca"/>
+					<field name="tipo_nomina"/>
+					<field name="status"/>
+					<field name="ejes"/>
+					<field name="sedes"/>
+-->
+				</tree>
+			</field>
+		</record>
+			
+<!--
+			<menuitem name="Desarrollo Social" id="menu_desarrollo_social"/>
+-->
+<!--
+			<menuitem name="Nómina" id="menu_desarrollo_social_nomina" parent="menu_desarrollo_social"/>
+-->
+		<menuitem parent="menu_desarrollo_social_nomina" id="nomina_becado2" action="accion_vista_nomina_becado2" name="Nómina de Becados"/>
+			
+	</data>
+</openerp>
+
