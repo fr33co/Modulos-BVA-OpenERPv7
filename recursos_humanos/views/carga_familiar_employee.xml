@@ -64,6 +64,16 @@
 							<field name="nivel_instruccion" position="after">
 								<field name="grado"/>
 							</field>
+							<field name="fecha_nac_familiar" position="replace">
+								<field name="fecha_nac_familiar" on_change="search_hr_day_birth(fecha_nac_familiar)"/>
+							</field>
+							<field name="edad" position="replace">
+								<field name="edad" required="1"/>
+							</field>
+							<field name="fecha_union" position="replace">
+								<field name="fecha_union" attrs="{'invisible': [('parentesco', '!=', '4') ] }"/>
+							</field>
+
 
 					</field>
 			</record>

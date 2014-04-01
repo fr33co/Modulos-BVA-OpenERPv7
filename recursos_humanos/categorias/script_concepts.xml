@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <openerp>
+        <data>
+        	<record id="concepts_1" model="hr.concepts">
+        		<field name="codigo">007</field>
+                <field name="formula">msueldo/2</field>
+                <field name="concepto">Beca salario</field>
+            </record>
+            <record id="concepts_2" model="hr.concepts">
+        		<field name="codigo">008</field>
+                <field name="formula">msueldo/30*12</field>
+                <field name="concepto">Sueldo Obrero Fijo</field>
+            </record>
+        </data>
+    </openerp>

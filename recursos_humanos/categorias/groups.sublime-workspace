@@ -1,0 +1,404 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"re",
+				"replace"
+			],
+			[
+				"on",
+				"on_change"
+			],
+			[
+				"Grad",
+				"gradoinstruccion"
+			],
+			[
+				"wid",
+				"widget"
+			],
+			[
+				"hr",
+				"hr_employee"
+			],
+			[
+				"c",
+				"charge"
+			],
+			[
+				"sal",
+				"salary_model"
+			],
+			[
+				"job",
+				"job_id"
+			],
+			[
+				"id",
+				"ids"
+			],
+			[
+				"gra",
+				"grado_instruccion"
+			],
+			[
+				"jo",
+				"job_id"
+			],
+			[
+				"da",
+				"datos_cod"
+			],
+			[
+				"de",
+				"degree_id"
+			],
+			[
+				"char",
+				"charge_id"
+			],
+			[
+				"se",
+				"search_browse"
+			],
+			[
+				"sa",
+				"salary_model"
+			],
+			[
+				"ch",
+				"charge"
+			],
+			[
+				"ma",
+				"many_load_salary"
+			],
+			[
+				"cha",
+				"charge"
+			],
+			[
+				"ce",
+				"cedula"
+			],
+			[
+				"sta",
+				"status_onchange"
+			],
+			[
+				"co",
+				"context"
+			],
+			[
+				"te",
+				"text-align"
+			],
+			[
+				"st",
+				"status"
+			],
+			[
+				"E",
+				"Estatus"
+			],
+			[
+				"pr",
+				"print"
+			],
+			[
+				"str",
+				"string"
+			],
+			[
+				"Se",
+				"Servicio"
+			],
+			[
+				"pro",
+				"proceso_seleccion"
+			],
+			[
+				"segu",
+				"segurity"
+			],
+			[
+				"for",
+				"formula"
+			],
+			[
+				"emp",
+				"empleado"
+			],
+			[
+				"S",
+				"Seguridad"
+			],
+			[
+				"bac",
+				"background-color"
+			],
+			[
+				"gor",
+				"groups"
+			],
+			[
+				"sea",
+				"search_emp"
+			],
+			[
+				"ui",
+				"uid"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/models/carga_familiar_employee.py",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/views/carga_familiar_employee.xml",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/categorias/script_concepts.xml",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/__openerp__.py",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/categorias/script_load.xml",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/categorias/script_date_concept.xml",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/categorias/concepts.xml",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/categorias/groups.xml",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/models/onchange_slip.py",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/views/onchange_slip.xml",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/views/empleado.xml",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/models/change_salary_employee.py",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/views/change_salary_employee.xml",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/views/change_status.xml",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/models/change_status.py",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/models/empleado.py",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/models/__init__.py",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/models/concepts.py",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/views/degree.xml",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/views/concepts.xml",
+		"/home/jesus/Escritorio/ano_bisiesto.py",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/views/selection.xml",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/models/selection.py",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/models/contrato.py",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/views/contrato.xml",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/views/profesion_oficio.xml",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/models/profesion_oficio.py",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/models/degree.py",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/views/profecion_oficio.xml",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/models/proceso_seleccion.py",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/segurity/groups.xml",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/segurity/acceso.csv",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/segurity/ir.view.access.csv",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/segurity/ir.model.access.csv",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/reportes/constancia/constancia.xml",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/seguridad/groups.xml",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/segurity/users.xml",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/segurity/permisos.csv",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/reportes/constancia/constancia.rml",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/seguridad/permisos.csv",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/seguridad/res.groups.csv",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/seguridad/users.xml",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/reportes/constancia/constancia.py",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/reportes/constancia/__init__.py",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/static/src/css/style.css",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/views/tipo_employee.xml",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/models/tipo_employee.py",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/models/conceptos.py",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/categorias/script_status.xml",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/models/nomina.py",
+		"/home/jesus/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap",
+		"/home/jesus/.config/sublime-text-3/Packages/Default/Default (Linux).sublime-keymap",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/views/seguridad_salud_laboral.xml",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/models/seguridad_salud_laboral.py",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/categorias/categorias.xml",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/recursos_humanos/__init__.py",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/hr/__openerp__.py",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/hr/static/src/css/hr.css",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/hr/hr.py",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/hr/hr_view.xml",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/desarrollo_social/__openerp__.py",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/desarrollo_social/categorias/categorias.xml",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/desarrollo_social/views/becado.xml",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/desarrollo_social/models/becado.py",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/hr/category/category_groups.xml",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/hr/category_groups/category_groups.xml",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/desarrollo_social/models/carga_familiar.py",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/desarrollo_social/models/evaluacion.py",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/desarrollo_social/views/carga_familiar.xml",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/hr/hr_demo.xml",
+		"/home/jesus/Escritorio/openerp-7.0/openerp/addons/hr/hr_data.xml"
+	],
+	"find":
+	{
+		"height": 25.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"name_employee_filter",
+			"\"/>",
+			"hr.employee",
+			"<!-- <field name=\"domain\">[('categoria','ilike','2')]</field> -->\n			<field name=\"view_mode\">tree,form</field>",
+			"hr.level.instruction",
+			"hr.degree",
+			"import_data",
+			"grupo_desarrollo_social1",
+			"desarrollosocial",
+			"Table Contents",
+			"value",
+			"caja_ahorro",
+			"ciu",
+			"country_id",
+			"}",
+			"      \"",
+			"seleccion_contrato",
+			"session_login",
+			"category_ids",
+			"active",
+			"attrs",
+			"session_login",
+			"login",
+			"hr.employee",
+			"default"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"hr.applicant",
+			"hr.degree",
+			"hr.level.instruction",
+			"group_recursos_humanos_manager",
+			"manager",
+			"<menuitem parent=\"menu_desarrollo_social_seleccion\" id=\"seleccion_contrato\" action=\"accion_vista_contrato\" name=\"Contrato\"/>"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 25.0
+	},
+	"input":
+	{
+		"height": 33.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "groups.sublime-project",
+	"replace":
+	{
+		"height": 46.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": false,
+	"side_bar_width": 171.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

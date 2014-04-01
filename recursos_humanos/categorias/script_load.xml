@@ -324,25 +324,80 @@
                         <!-- Filtro para domain -->
 <!--===================================================================-->
 
-            <!-- <record id="domain_1" model="ir.filters">
-                <field name="is_default">TRUE</field>
-                <field name="model_id">hr.employee</field>
-                <field name="domain">[('categoria','ilike','1')]</field>
-                <field name="user_id">20</field>
-                <field name="name">Desarrollo Social</field>
-                <field name="context">{}</field>
-            </record> -->
-
             <record id="domain_2" model="ir.filters">
-                <field name="is_default">TRUE</field>
+                <field name="is_default">FALSE</field>
                 <field name="model_id">hr.employee</field>
-                <field name="domain">[('categoria','ilike','2')]</field>
-                <field name="user_id">1</field>
+                <field name="domain">[('categoria','=','2')]</field>
+                <field name="user_id">26</field>
                 <field name="name">Recursos Humanos</field>
                 <field name="context">{}</field>
             </record>
 
+            <!-- <record id="domain_class_personal_1" model="ir.filters">
+                <field name="is_default">FALSE</field>
+                <field name="model_id">hr.employee</field>
+                <field name="domain">[('class_personal.clas_personal','ilike','Administrativo')]</field>
+                <field name="user_id"></field>
+                <field name="name">Personal administrativo</field>
+                <field name="context">{}</field>
+            </record>
 
+            <record id="domain_class_personal_2" model="ir.filters">
+                <field name="is_default">FALSE</field>
+                <field name="model_id">hr.employee</field>
+                <field name="domain">[('class_personal.clas_personal','ilike','Directivo')]</field>
+                <field name="user_id"></field>
+                <field name="name">Personal directivo</field>
+                <field name="context">{}</field>
+            </record>
+
+            <record id="domain_class_personal_3" model="ir.filters">
+                <field name="is_default">FALSE</field>
+                <field name="model_id">hr.employee</field>
+                <field name="domain">[('class_personal.clas_personal','ilike','Obrero Fijo')]</field>
+                <field name="user_id"></field>
+                <field name="name">Personal Obrero</field>
+                <field name="context">{}</field>
+            </record> -->
+
+        <!-- Proceso de validación para listar por el estatus Activo -->
+
+            <record id="hr_applicant" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">hr.applicant</field>
+                <field name="domain">[('status','ilike','1')]</field>
+                <field name="user_id"></field>
+                <field name="name">Proceso de Selección</field>
+                <field name="context">{}</field>
+            </record>
 <!--===================================================================-->
+                        <!-- Grado de Instrucción -->
+<!--===================================================================-->
+            <record id="grado_instruc_1" model="becados.gradoinstruccion">
+                <field name="grado_instruc">Bachiller</field>
+            </record>
+            <record id="grado_instruc_2" model="becados.gradoinstruccion">
+                <field name="grado_instruc">Universitario</field>
+            </record>
+            <record id="grado_instruc_3" model="becados.gradoinstruccion">
+                <field name="grado_instruc">Técnico Medio</field>
+            </record>
+            <record id="grado_instruc_4" model="becados.gradoinstruccion">
+                <field name="grado_instruc">Técnico Universitario</field>
+            </record>
+            <record id="grado_instruc_5" model="becados.gradoinstruccion">
+                <field name="grado_instruc">universitario(a) / Licenciado(a)</field>
+            </record>
+            <record id="grado_instruc_6" model="becados.gradoinstruccion">
+                <field name="grado_instruc">Especialización / Diplomado</field>
+            </record>
+            <record id="grado_instruc_7" model="becados.gradoinstruccion">
+                <field name="grado_instruc">Maestria</field>
+            </record>
+            <record id="grado_instruc_8" model="becados.gradoinstruccion">
+                <field name="grado_instruc">Doctorado</field>
+            </record>
+<!--===================================================================-->
+
         </data>
     </openerp>

@@ -8,7 +8,7 @@ from openerp.osv import fields, osv
 
 class Solicitudes(osv.Model):
 	
-	'''Herenciando a hr.payslip (Nomina de Becado)'''
+	'''Herenciando a hr.payslip (Proceso de selección)'''
 	
 	_inherit = 'hr.applicant'
 	

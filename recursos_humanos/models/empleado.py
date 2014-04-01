@@ -105,34 +105,86 @@ class Empleado(osv.Model):
 						# calcular la edad
 	#################################################################
 
-	def validar_fecha_nac_employee(self, cr, uid, ids, fecha_nac_p, context=None):
-		print fecha_nac_p
+	def data_employee(self, cr, uid, ids, argument_search,item, context=None):
+		
 		values = {}
+		mensaje = {}
 
-		edad = fecha_nac_p
+		obj_dp = self.pool.get('hr.employee')
 
-		edades = edad.split("-")
+		if item == "1":
 
-		fecha_actual = date.today()# Obtenemos el Ano actual der servidor
+			edad = argument_search
 
-		ano_actual = fecha_actual.year # Segmentamos la fecha y obtenemos el ano actual
+			edades = edad.split("-")
 
-		mes_actual = fecha_actual.month
+			fecha_actual = date.today()# Obtenemos el Ano actual der servidor
 
-		dia_actual = mes_actual = fecha_actual.day
+			ano_actual = fecha_actual.year # Segmentamos la fecha y obtenemos el ano actual
+
+			mes_actual = fecha_actual.month
+
+			dia_actual = mes_actual = fecha_actual.day
 
 
-		calculo = int(ano_actual) - int(edades[0])
+			calculo = int(ano_actual) - int(edades[0])
+				
+			if int(edades[1] > int(mes_actual)):
+				calculo = calculo - 1
+			elif (int(edades[1]) == int(mes_actual)) and (int(edades[2]) > int(dia_actual)):
+				calculo = calculo - 1 
+
+			values.update({
+
+				'edad' : calculo,
+			})
+
+		elif item == "2":
 			
-		if int(edades[1] > int(mes_actual)):
-			calculo = calculo - 1
-		elif (int(edades[1]) == int(mes_actual)) and (int(edades[2]) > int(dia_actual)):
-			calculo = calculo - 1 
+			if not argument_search:
+				return values
+			#======================== Busqueda por código ============================
 
-		values.update({
+			search_obj_code = obj_dp.search(cr, uid, [('cedula','=',argument_search)])
 
-			'edad' : calculo,
-		})
+			datos_code = obj_dp.read(cr,uid,search_obj_code,context=context)
+
+			if datos_code:
+				
+				mensaje = {
+						'title'   : "Cédula",
+						'message' : "Disculpe el registro ya existe, intente de nuevo...",
+				}
+
+				values.update({
+					
+					'cedula' : None,
+
+					})
+
+		return {'value' : values,'warning' : mensaje}
+
+	def search_department(self, cr, uid, ids, argument_search, context=None): # Proceso de busqueda de un manager(Gerente)
+
+		values = {}
+		
+		if not argument_search:
+			
+			return values
+		obj_dp = self.pool.get('hr.department')
+		
+		#======================== Busqueda por código ============================
+
+		search_obj_code = obj_dp.search(cr, uid, [('id','=',argument_search)])
+
+		datos_code = obj_dp.read(cr,uid,search_obj_code,context=context)
+		#=========================================================================
+		if datos_code:
+			
+			values.update({
+				
+				'gerente' : datos_code[0]['gerente'],
+				})
 
 		return {'value' : values}
 
@@ -144,6 +196,8 @@ class Empleado(osv.Model):
 		'municipio' : fields.many2one("res.country.municipality", "Municipio", required = True, select="0"),
 		'parroquia' : fields.many2one("res.country.parish", "Parroquia", required = True, select="0"),
 		'rif' : fields.char(string="Rif", size = 50, required=False),
+		'gerente' : fields.char(string="Gerente", size=50),
+		'fecha_nacimiento' : fields.date(string="Fecha de nacimiento", required=False),
 		
 		
 	}
@@ -152,6 +206,8 @@ class Empleado(osv.Model):
 	_defaults = {
 
 		'country_id' : 240,
+		'estado' : 55,
 		'cne' : '2',
 		'carga_familiar' : '2',
+		'status' : '1',
 	} 

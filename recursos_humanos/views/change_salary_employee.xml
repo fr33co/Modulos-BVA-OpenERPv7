@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+			<record model="ir.actions.act_window" id="action_onchange_salary">
+					<field name="name">Cambio de Sueldo a Empleados</field>
+					<field name="res_model">hr.change.salary</field>
+					<field name="view_type">form</field>
+					<field name="view_mode">tree,form</field>
+			</record>
+    
+			<record id="view_change_salary" model="ir.ui.view">
+					<field name="name">Cambio de Sueldo a Empleados</field>
+					<field name="model">hr.change.salary</field>
+					<field name="arch" type="xml">
+						<form string="Formulario de Cambio de Sueldo" version="7.0">
+
+							<center>
+								<table style="width:600px;" border="0">
+									<tr>
+										<td colspan="2" style="text-align:center;" class="oe_horizontal_separator">
+											<b>Cambio de Sueldo Masivo</b>
+										</td>
+									</tr>
+									<tr>
+										<td style="align:center;">
+											<b>Sueldo:</b>
+										</td>
+										<td>
+											<field name="salary" style="width:27%%"/>
+										</td>
+									</tr>
+									<tr attrs="{'invisible': [('item', '!=', True) ] }">
+										<td style="align:center;">
+											<b>Año de experiencia:</b>
+										</td>
+										<td>
+											<field name="experience" style="width:27%%"/>
+										</td>
+									</tr>
+									 <tr>
+										<td style="align:center;">
+											<b>Cargo:</b>
+										</td>
+										<td>
+											<field name="charge" widget="selection" on_change="search_hr_data(charge,'1')"/>
+										</td>
+									</tr>
+									<tr>
+										<td style="align:center;">
+											<b>Grado de Instrucción:</b>
+										</td>
+										<td>
+											<field name="degree_instruction" widget="selection" on_change="search_hr_data(degree_instruction,'2')"/>
+										</td>
+									</tr>
+									<tr>
+										<td style="align:center;">
+											<b>Fecha:</b>
+										</td>
+										<td>
+											<field name="date_now" on_change="search_hr_data(date_now,'3')"/>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="2" style="background-color:#F2F2F2;text-align:center;">
+											<b>Motivo del Cambio</b>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="2">
+											<field name="change_salary"/>
+										</td>
+									</tr>								
+									<tr>
+										<td>
+											<button name="reason_change_salary" string="Cambio de sueldo" type="object" icon="gtk-apply"/>
+										</td>
+										<td>
+											<field name="item"/>
+
+										</td>
+									</tr> 
+								</table>
+							</center>
+
+						</form>
+						
+					</field>
+			</record>
+
+			<!-- Forma de busqueda para Cambio de Sueldo-->
+			<record model="ir.ui.view" id="search_onchange_status">
+				<field name="name">busqueda.search</field>
+				<field name="model">hr.change.salary</field>
+				<field name="arch" type="xml">		
+					<search string="Busqueda de Cambio de Sueldo">
+						<filter name="salary" domain="[('salary','=', uid)]" string="Busqueda de Cambio de Sueldo" icon="terp-partner" />
+						<field name="salary" />
+						<field name="charge"/>
+						<field name="degree_instruction"/>
+						<field name="date_now"/>
+						<field name="change_salary"/>
+					</search>
+				</field>			
+			</record>
+
+			<record model="ir.ui.view" id="change_salary_tree">
+				<field name="name">Cambio de Sueldo a Empleados</field>
+				<field name="model">hr.change.salary</field>
+				<field name="arch" type="xml">
+					<tree string="Lista de Cambio de Sueldo de Empleados">
+						<field name="salary" />
+						<field name="charge"/>
+						<field name="degree_instruction"/>
+						<field name="date_now"/>
+						<field name="change_salary"/>
+					</tree>
+				</field>
+			</record>
+        <!-- menu_hr_configuration -->
+        <menuitem parent="hr.menu_hr_configuration" id="sub_menu_change_salary" action="action_onchange_salary" name="Cambio de sueldo masivo"/>
+        
+    </data>
+</openerp>

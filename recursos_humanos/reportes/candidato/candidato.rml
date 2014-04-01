@@ -1,0 +1,244 @@
+<?xml version="1.0"?>
+<document filename="test.pdf">
+  <template pageSize="(595.0,842.0)" title="Test" author="Martin Simon" allowSplitting="20">
+    <pageTemplate id="first">
+      <frame id="first" x1="57.0" y1="57.0" width="481" height="728"/>
+    </pageTemplate>
+  </template>
+  <stylesheet>
+    <blockTableStyle id="Standard_Outline">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+    <blockTableStyle id="Tabla1">
+      <blockValign value="TOP"/>
+		<lineStyle kind="GRID" colorName="#FFFFFF" thickness="0" start="0,0" stop="-1,-1" fontSize="9.0" />
+    </blockTableStyle>
+    
+    <blockTableStyle id="Tabla2">
+		<blockValign value="TOP"/>
+		<blockBackground colorName="#DBD9D9" start="0,0" stop="3,0"/>
+		<lineStyle kind="GRID" colorName="#B9B5B5" thickness="0" start="0,0" stop="-1,-1" fontSize="9.0" />
+    </blockTableStyle>
+    <initialize>
+      <paraStyle name="all" alignment="justify"/>
+    </initialize>
+  <paraStyle name="P1" fontName="Helvetica"/>
+  <paraStyle name="terp_header_Centre" fontName="Helvetica-Bold" fontSize="12.0" leading="15" alignment="CENTER" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="terp_header_Centre" fontName="Helvetica" fontSize="10.0" leading="15" alignment="CENTER" spaceBefore="10.0" spaceAfter="6.0"/>
+    <paraStyle name="P2" fontName="Helvetica" alignment="CENTER" fontSize="9.0" leading="10" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="firma" fontName="Helvetica" alignment="RIGHT" fontSize="9.0" leading="10" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P3" fontName="Helvetica" alignment="RIGHT" fontSize="9.0" leading="10" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P4" fontName="Helvetica" alignment="CENTER"/>
+    <paraStyle name="P5" fontName="Helvetica" fontSize="10.0" leading="13" alignment="LEFT"/>
+    <paraStyle name="P6" fontName="Helvetica" fontSize="13.0" leading="16" alignment="CENTER"/>
+    <paraStyle name="Standard" fontName="Helvetica"/>
+    <paraStyle name="Heading" fontName="Helvetica" fontSize="14.0" leading="17" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="Text body" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="List" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="Caption" fontName="Helvetica" fontSize="12.0" leading="15" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="Index" fontName="Helvetica"/>
+    <paraStyle name="Table Contents" fontName="Helvetica" fontSize="9.0" leading="10" spaceBefore="0.0" spaceAfter="0.0"/>
+
+  </stylesheet>
+  <story>
+  <para style="Standard">[[ repeatIn(objects,'e') ]]</para>
+    <illustration height="72.0" width="482.0">
+      <image x="-6" y="71" file="../../img/logo_bva.png" height="600.0" width="530.0"/>
+    </illustration>
+    <para style="P4">CANDIDATO</para>
+    <para style="P4">________________________________________________________________________________________________</para>
+    <blockTable colWidths="482.0" style="Tabla1">
+      <tr>
+        <td>
+          <para style="P1">
+            <font color="white"> </font>
+          </para>
+          <para style="P1">La Gerencia de Recursos Humanos de la Asociación Civil Bibliotecas Virtuales de Aragua, certifica por medio de la presente, que la persona cuyos datos se suministran a continuación es <font face="Helvetica">candidato a formar parte de dicha institución</font></para>
+        </td>
+      </tr>
+     
+      <tr>
+        <td>
+          <blockTable colWidths="119.0,119.0,119.0,119.0" style="Tabla1">
+            <tr>
+              <td>
+                <blockTable colWidths="468.0" style="Tabla1">
+    				<tr>
+           				<td>
+            				<para style="P3">Fecha: [[ e.date_now ]]</para>
+           				</td>
+        			</tr>
+    			</blockTable>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <blockTable colWidths="468.0" style="Tabla2">
+    				<tr>
+           				<td>
+            				<para style="terp_header_Centre">Datos personales</para>
+           				</td>
+        			</tr>
+    			</blockTable>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <para style="P2">Cédula</para>
+              </td>
+              <td>
+                <para style="P2">Nombre completo</para>
+              </td>
+              <td>
+                <para style="P2">Grado de instrucción</para>
+              </td>
+              <td>
+                <para style="P2">Teléfono movil</para>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <para style="P2">
+                  [[ e.cedula ]]
+                </para>
+              </td>
+              <td>
+                <para style="P2">
+                  [[ e.partner_name ]]
+                </para>
+              </td>
+              <td>
+                <para style="P2">
+                  [[ e.grado_instruccion.grado_instruc ]]
+                </para>
+              </td>
+              <td>
+                <para style="P2">
+                  [[ e.partner_mobile ]]
+                </para>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>
+                <blockTable colWidths="468.0" style="Tabla2">
+    				<tr>
+           				<td>
+            				<para style="terp_header_Centre">Datos de ubicación</para>
+           				</td>
+        			</tr>
+    			</blockTable>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <para style="P2">Estado</para>
+              </td>
+              <td>
+                <para style="P2">Municipio</para>
+              </td>
+              <td>
+                <para style="P2">Parroquia</para>
+              </td>
+              <td>
+                <para style="P2">Dirección</para>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <para style="P2">
+                  [[ e.estado.name ]]
+                </para>
+              </td>
+              <td>
+                <para style="P2">
+                  [[ e.municipality.name ]]
+                </para>
+              </td>
+              <td>
+                <para style="P2">
+                  [[ e.parish.name ]]
+                </para>
+              </td>
+              <td>
+                <para style="P2">
+                  [[ e.direccion_trabajo ]]
+                </para>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <blockTable colWidths="468.0" style="Tabla2">
+    				<tr>
+           				<td>
+            				<para style="terp_header_Centre">Datos de la empresa</para>
+           				</td>
+        			</tr>
+    			</blockTable>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <para style="P2">Cargo solicitado</para>
+              </td>
+              <td>
+                <para style="P2">Departamento</para>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <para style="P2">
+                  [[ e.job_id.name ]]
+                </para>
+              </td>
+              <td>
+                <para style="P2">
+                  [[ e.department_id.name ]]
+                </para>
+              </td>
+            </tr>
+          </blockTable>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+          <para style="P2">Atentamente</para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+          <para style="Table Contents">
+            <font color="white"> </font>
+          </para>
+          <para style="P2">Lcda. María Gabriela Barreto</para>
+          <para style="P2">Gerente de Recursos Humanos</para>
+          <para style="P2">AC. Bibliotecas Virtuales de Aragua</para>
+        </td>
+      </tr>
+    </blockTable>
+    <para style="Standard">
+      <font color="white"> </font>
+    </para>
+
+    <illustration height="71.0" width="482.0">
+      <image x="-10" y="-135" file="../../img/bot_bva.png" height="600.0" width="535"/>
+    </illustration>
+  </story>
+</document>
+
