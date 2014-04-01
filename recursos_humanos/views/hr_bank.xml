@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+			<record model="ir.actions.act_window" id="accion_bank">
+				<field name="name">Entidades Bancarias</field>
+				<field name="res_model">res.partner.bank</field>
+				<field name="view_type">form</field>
+				<field name="view_mode">tree,form</field>
+			</record>
+    
+			<record id="views_proceso_bank" model="ir.ui.view">
+				<field name="name">Entidades Bancarias</field>
+				<field name="model">res.partner.bank</field>
+				<field name="inherit_id" ref="account.view_partner_bank_form_inherit"/>
+				<field name="arch" type="xml">
+
+					<field name="state" position="replace">
+						<field name="state" invisible="1"/>
+					</field>
+					<field name="state" position="after">
+						<field name="type_account" style="width:50%%"/>
+					</field>
+					<field name="acc_number" position="replace">
+						<field name="acc_number" style="width:50%%"/>
+					</field>
+
+				</field>
+			</record>
+    </data>
+</openerp>
+

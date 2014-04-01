@@ -27,7 +27,7 @@
 											<b>Cédula:</b>
 										</td>
 										<td>
-											<field name="cedula_employee" on_change="search_onchange_status(cedula_employee)" style="width:27%%"/>
+											<field name="cedula_employee" on_change="search_onchange_status(cedula_employee,'1')" style="width:27%%"/>
 										</td>
 									</tr>
 									<tr>
@@ -43,7 +43,7 @@
 											<b>Cargo:</b>
 										</td>
 										<td>
-											<field name="charge" widget="selection"/>
+											<field name="charge" on_change="search_onchange_status(charge,'2')" widget="selection"/>
 										</td>
 									</tr>
 									<tr>
@@ -59,7 +59,7 @@
 											<b>Fecha:</b>
 										</td>
 										<td>
-											<field name="date_onchange" style="width:50%%"/>
+											<field name="date_onchange" on_change="search_onchange_status(date_onchange,'3')" style="width:50%%"/>
 										</td>
 									</tr>
 									<tr>
@@ -118,7 +118,7 @@
 					</tree>
 				</field>
 			</record>
-        
+        <!-- menu_hr_configuration -->
         <menuitem parent="hr.menu_hr_configuration" id="sub_menu_reason_change" action="action_onchange_status" name="Cambio de Estátus"/>
         
     </data>

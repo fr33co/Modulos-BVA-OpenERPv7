@@ -39,6 +39,16 @@
 									</tr>
 									<tr>
 										<td style="align:center;">
+											<b>Partida presupuestaria:</b>
+										</td>
+										<td>
+<!--
+											<field name="items"/>
+-->
+										</td>
+									</tr>
+									<tr>
+										<td style="align:center;">
 											<b>Descripción:</b>
 										</td>
 										<td>
@@ -62,6 +72,9 @@
 						<field name="codigo" />
 						<field name="formula" />
 						<field name="concepto" />
+<!--
+						<field name="items"/>
+-->
 					</search>
 				</field>			
 			</record>
@@ -74,6 +87,9 @@
 					<!-- colors="#FF0000:state=='draft';#169A12:state=='confirmed'" -->
 					<field name="codigo"/>
 					<field name="formula"/>
+<!--
+					<field name="items"/>
+-->
 					<field name="concepto"/>
 				</tree>
 			</field>

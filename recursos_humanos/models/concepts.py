@@ -7,9 +7,9 @@ from openerp.osv import osv, fields
 class Sede(osv.Model):
 	_name="hr.concepts"
 
-	_order = 'concepto'
+	_order = 'codigo'
 	
-	_rec_name = 'concepto'
+	_rec_name = 'codigo'
 
 	# MÉTODO DE BUSQUEDA PARA CONCEPTOS
 	
@@ -69,6 +69,7 @@ class Sede(osv.Model):
 		'codigo': fields.char(string = "Código", size = 4, required = True),
 		'concepto': fields.text(string = "Concepto", size = 256, required = True),
 		'formula': fields.char(string = "Fórmula", size = 200, required = True),
+		#~ 'items' : fields.many2one("presupuesto.partidas", "Partida presupuestaria", required = False),
 	}
 
 	_defaults = {

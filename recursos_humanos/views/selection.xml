@@ -2,11 +2,11 @@
 <openerp>
 	<data>
 
-		<record model="ir.actions.act_window" id="accion_vista_seleccion">
+		<record model="ir.actions.act_window" id="accion_vista_seleccion_employee">
 		 	<field name="name">Proceso de Selección</field>
 			<field name="res_model">hr.applicant</field>
 			<field name="view_type">form</field>
-			<!-- <field name="domain">[('categoria','ilike','2')]</field> -->
+			<field name="domain">[('status','ilike','Activo')]</field>
 			<field name="view_mode">tree,form</field>
 		</record>
 
@@ -16,11 +16,172 @@
 			<field name="inherit_id" ref="desarrollo_social.vista_seleccion"/>
 			<field name="arch" type="xml">
 
-				<field name="cedula" position="after">
-					<field name="hola"/>
+				<field name="partner_id" position="before">
+					<field name="date_now"/>
 				</field>
-				
+				<field name="type_id" position="replace">
+					<field name="grado_instruccion"/>
+				</field>
 
+				<!-- Sección de espacio Geográfico -->
+
+				<field name="reference" position="after">
+					<div class="oe_horizontal_separator" style="width:270%%">
+						Espacio Geográfico
+					</div>
+					<newline/>
+					<field name="estado" domain= "[('country_id','=',country)]"/>
+				</field>
+
+				<field name="estado" position="before">
+					<field name="country"/>
+				</field>
+				<field name="estado" position="after">
+					<field name="municipality" domain= "[('state_id','=',estado)]"/>
+				</field>
+				<field name="municipality" position="after">
+					<field name="parish" domain= "[('municipalities_id','=',municipality)]"/>
+				</field>
+				<field name="categ_ids" position="replace">
+					<field name="categ_ids" invisible="1"/>
+				</field>
+				<field name="description" position="replace">
+					<field name="description" invisible="1"/>
+				</field>
+
+				<field name="date_now" position="after">
+					<field name="status" invisible="1"/>
+				</field>
+
+				<xpath expr="//separator[@string='Application Summary']" position="replace">
+					<separator string="Application Summary" invisible="1"/>
+				</xpath>
+
+				<xpath expr="//field[@name='partner_id']" position="replace">
+					<field name="partner_id" invisible="1"/>
+				</xpath>
+
+				<!-- Botton de accion para depurar un candidato -->
+
+				<xpath expr="//button[@name='case_close_with_emp']" position="replace">
+
+					<button name="case_close_emp" string="Crear empleado" type="object" icon="gtk-apply" class="oe_highlight" attrs="{'invisible':['|', ('emp_id','!=',False), ('state','=','cancel')]}"/>
+				</xpath>
+
+ 				<xpath expr="//group[@string='Contract']" position="after">
+ 					<notebook colspan="4">
+						<page string="Resumen de la solicitud">
+							<field name="description" required="1"/>
+						</page>
+
+						<page string="Habilidades y actitudes">
+							<center>
+							<table border="0" style="width:730px;">
+								<tr>
+									<td colspan="4" style="text-align:center;" class="oe_horizontal_separator">
+										Habilidades
+									</td>
+									<td colspan="4" style="text-align:center;" class="oe_horizontal_separator">
+										Actividades
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<field name="admin"/>
+									</td>
+									<td>
+										<b>Administración</b>
+									</td>
+									<td>
+										<field name="c_oral"/>
+									</td>
+									<td>
+										<b>Comunicación oral</b>
+									</td>
+									<td>
+										<field name="act"/>
+									</td>
+									<td>
+										<b>Actitud al cambio</b>
+									</td>
+									<td>
+										<field name="resp"/>
+									</td>
+									<td>
+										<b>Responsabilidad</b>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<field name="cap"/>
+									</td>
+									<td>
+										<b>Capacidad analítica</b>
+									</td>
+									<td>
+										<field name="lid"/>
+									</td>
+									<td>
+										<b>Liderazgo</b>
+									</td>
+									<td>
+										<field name="inic"/>
+									</td>
+									<td>
+										<b>Iniciativa/Creatividad</b>
+									</td>
+									<td>
+										<field name="trab_e"/>
+									</td>
+									<td>
+										<b>Trabajo en equipo</b>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<field name="com"/>
+									</td>
+									<td>
+										<b>Comunicación escrita</b>
+									</td>
+									<td>
+										<field name="neg"/>
+									</td>
+									<td>
+										<b>Negociación</b>
+									</td>
+									<td>
+										<field name="mot"/>
+									</td>
+									<td>
+										<b>Motivación</b>
+									</td>
+									<td>
+										<field name="otros_b"/>
+									</td>
+									<td>
+										<b>Otros</b>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<field name="trab"/>
+									</td>
+									<td>
+										<b>Trabajo bajo presión</b>
+									</td>
+									<td>
+										<field name="otros_a"/>
+									</td>
+									<td>
+										<b>Otros</b>
+									</td>
+								</tr>
+							</table>
+						</center>
+						</page>
+					</notebook>
+				</xpath>
 			</field>
 		</record>
 

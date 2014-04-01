@@ -9,8 +9,7 @@ class Nomina(osv.Model):
 	_inherit = 'hr.payslip'
 	
 	_columns = {
-		'categoria' : fields.many2one('hr.employee.category', 'Categoría', required=True),
-		'cedula' : fields.char(string="Cédula", size = 8, required=True),
+		'class_personal' : fields.many2one('becados.clasper', 'Personal', required=False),
 	}
 	
 	#~ _default = {

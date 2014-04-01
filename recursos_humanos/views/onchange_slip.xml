@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+			<record model="ir.actions.act_window" id="action_onchange_slip">
+					<field name="name">Cambio de Nómina del Empleado</field>
+					<field name="res_model">hr.change.slip</field>
+					<field name="view_type">form</field>
+					<field name="view_mode">tree,form</field>
+			</record>
+    
+			<record id="view_change_slip" model="ir.ui.view">
+					<field name="name">Cambio de Nómina del Empleado</field>
+					<field name="model">hr.change.slip</field>
+					<field name="arch" type="xml">
+						<form string="Formulario de Cambio de Nómina" version="7.0">
+							
+							<center>
+								<table style="width:600px;" border="0">
+									<tr>
+										<td colspan="2" style="text-align:center;" class="oe_horizontal_separator">
+											<b>Cambio de Nómina | Tipo de Empleado</b>
+										</td>
+									</tr>
+									<tr>
+										<td style="align:center;">
+											<b>Cédula:</b>
+										</td>
+										<td>
+											<field name="cedula_employee" on_change="search_onchange_slip(cedula_employee)" style="width:27%%"/>
+										</td>
+									</tr>
+									<tr>
+										<td style="align:center;">
+											<b>Nombres:</b>
+										</td>
+										<td>
+											<field name="nom"/>
+										</td>
+									</tr>
+									<tr>
+										<td style="align:center;">
+											<b>Cargo:</b>
+										</td>
+										<td>
+											<field name="charge" widget="selection"/>
+										</td>
+									</tr>
+									<tr>
+										<td style="align:center;">
+											<b>Nómina nueva (cambio):</b>
+										</td>
+										<td>
+											<field name="slip" style="width:50%%" widget="selection"/>
+										</td>
+									</tr>
+									
+									<tr>
+										<td style="align:center;">
+											<b>Tipo de Empleado:</b>
+										</td>
+										<td>
+											<field name="type_employee" widget="selection"/>
+										</td>
+									</tr>
+									<tr>
+										<td style="align:center;">
+											<b>Fecha:</b>
+										</td>
+										<td>
+											<field name="date_onchange" on_change="change_slip_date(date_onchange)" style="width:50%%"/>
+										</td>
+									</tr>
+
+
+
+									<tr>
+										<td colspan="2" style="background-color:#F2F2F2;text-align:center;">
+											<b>Motivo del Cambio</b>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="2">
+											<field name="slip_change"/>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<font style="color:white;">|</font>
+										</td>
+										<td>
+											<button name="reason_change_slip" string="Cambio de Nómina" type="object" icon="gtk-apply" style="margin-left:280px;"/>
+										</td>
+									</tr>
+								</table>
+							</center>
+
+						</form>
+						
+					</field>
+			</record>
+
+			<!-- Forma de busqueda para cambio de Nómina-->
+			<record model="ir.ui.view" id="search_change_slip">
+				<field name="name">busqueda.search</field>
+				<field name="model">hr.change.slip</field>
+				<field name="arch" type="xml">		
+					<search string="Busqueda de Cambio de Nómina">
+						<filter name="cedula_employee" domain="[('cedula_employee','=', uid)]" string="Busqueda de Cambio de Nómina" icon="terp-partner" />
+						<field name="cedula_employee" />
+						<field name="nom"/>
+						<field name="charge"/>
+						<field name="slip"/>
+						<field name="type_employee"/>
+						<field name="date_onchange"/>
+						<field name="slip_change"/>
+					</search>
+				</field>			
+			</record>
+
+			<record model="ir.ui.view" id="change_slip_tree">
+				<field name="name">Cambio de Nómina del Empleado.tree</field>
+				<field name="model">hr.change.slip</field>
+				<field name="arch" type="xml">
+					<tree string="Lista de Cambio de Nómina">
+						<field name="cedula_employee" />
+						<field name="nom"/>
+						<field name="charge"/>
+						<field name="slip"/>
+						<field name="type_employee"/>
+						<field name="date_onchange"/>
+						<field name="slip_change"/>
+					</tree>
+				</field>
+			</record>
+        
+        <menuitem parent="hr.menu_hr_configuration" id="sub_menu_onchange_slip" action="action_onchange_slip" name="Cambio de Nómina"/>
+        
+    </data>
+</openerp>

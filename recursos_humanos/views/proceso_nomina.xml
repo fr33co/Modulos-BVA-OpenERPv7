@@ -2,26 +2,118 @@
 <openerp>
     <data>
     
-			<record model="ir.actions.act_window" id="accion_vista_proceso_nomina">
+			<record model="ir.actions.act_window" id="accion_proceso_nomina">
 				<field name="name">Procesamiento de Nómina</field>
 				<field name="res_model">hr.payslip.run</field>
 				<field name="view_type">form</field>
 				<field name="view_mode">tree,form</field>
 			</record>
-    
-			<record id="vista_proceso_nomina" model="ir.ui.view">
-				<field name="name">Nomina</field>
+
+    		<!-- Vinculo para procesamiento de nóminas -->
+
+			<record id="views_proceso_nomina" model="ir.ui.view">
+				<field name="name">Procesamiento de Nómina</field>
 				<field name="model">hr.payslip.run</field>
-				<field name="inherit_id" ref="hr_payroll.hr_payslip_run_form"/>
+				<field name="inherit_id" ref="desarrollo_social.vista_proceso_nomina"/>
 				<field name="arch" type="xml">
-					<field name="credit_note" position="before">
-						<h2><field name="fecha" class="oe_inline"/></h2>
+					<field name="fecha" position="replace">
+						<field name="fecha" invisible="1"/>
+					</field>
+
+					<field name="credit_note" position="replace">
+						<field name="credit_note" invisible="1"/>
+					</field>
+
+					<xpath expr="//label[@class='oe_edit_only']" position="replace">
+
+						<label for="name" class="oe_edit_only" invisible="1"/>
+						<div class="oe_horizontal_separator">
+							Nombre de la nómina
+						</div>
+					</xpath>
+
+					<xpath expr="//separator[@string='Payslips']" position="replace">
+						<separator string="Nóminas de los Empleados"/>
+					</xpath>
+
+					<!-- Accion de botones -->
+					<xpath expr="//button[@name='close_payslip_run']" position="replace">
+						<button name="close_payslip_run" type="object" string="Cerrar nómina" states="draft" class="oe_highlight" confirm="¿Esta seguro que desea cerrar la nómina?" icon="gtk-apply"/>
+					</xpath>
+
+					<xpath expr="//button[@name='473']" position="replace">
+						 <button name="473" type="action" states="draft" string="Generate Payslips" class="oe_highlight" confirm="¿Desea generar las nóminas de todos los empleados?" icon="gtk-apply"/>
+
+						 <button name="generate_list_slip_all" type="object" string="Listado de la nómina" class="oe_highlight" confirm="¿Desea generar la lista de todos los empleados, correspondientes a la nómina?" icon="gtk-apply"/>
+					</xpath>
+
+					<field name="date_end" position="after">
+						<notebook colspan="4">
+    					<page string="Características de la nómina">
+        					<newline/>
+							<newline/>
+							<table border="0">
+								<tr>
+									<td>Nómina</td>
+									<td>
+										<field name="type_slip" widget="selection"/>
+									</td>
+								</tr>
+								<tr>
+									<td>Personal</td>
+									<td>
+										<field name="class_personal" widget="selection"/>
+									</td>
+								</tr>
+								<tr>
+									<td>Diario de salarios / Abono</td>
+									<td>
+										<field name="credit_note"/>
+									</td>
+								</tr>
+							</table>
+    					</page>
+
+    					<!-- <page string="Nóminas">
+    						<separator string="Payslips"/>
+    					</page> -->
+
+					</notebook>
 					</field>
 				</field>
-			</record> 
+			</record>
 
-			<menuitem parent="menu_desarrollo_social_nomina" id="proceso_nomina" action="accion_vista_proceso_nomina" name="Procesamientos de nóminas"/>
-        
+			<!-- Herencia de payslip.employee -->
+
+			<record id="views_proceso_nomina_employees" model="ir.ui.view">
+				<field name="name">Generación de Nómina</field>
+				<field name="model">hr.payslip.employees</field>
+				<field name="inherit_id" ref="hr_payroll.view_hr_payslip_by_employees"/>
+				<field name="arch" type="xml">
+					<xpath expr="//button[@string='Generate']" position="replace">
+						<button icon="gtk-execute" string="Generar nómina" name="generate_payroll" type="object" class="oe_highlight" confirm="¿Esta usted de acuerdo de generar la nómina?"/>
+					</xpath>
+
+					<xpath expr="//group/separator[@string='Employees']" position="replace">
+						<separator string="Listado de Empleados" colspan="4"/>
+					</xpath>
+
+				</field>
+			</record>
+
+			<record model="ir.ui.view" id="slip_tree">
+				<field name="name">Procesamiento de Nómina</field>
+				<field name="model">hr.payslip.run</field>
+				<field name="inherit_id" ref="hr_payroll.hr_payslip_run_tree"/>
+				<field name="arch" type="xml">
+					<field name="date_end" position="after">
+						<field name="type_slip"/>
+					</field>
+					<field name="type_slip" position="after">
+						<field name="class_personal"/>
+					</field>
+				</field>
+			</record>
     </data>
 </openerp>
 

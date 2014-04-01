@@ -1,40 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+		<record model="ir.actions.act_window" id="accion_views_payslip">
+			<field name="name">Nominas</field>
+			<field name="res_model">hr.payslip</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
     
-			<record model="ir.actions.act_window" id="accion_vista_nomina">
-					<field name="name">Nomina</field>
-					<field name="res_model">hr.payslip</field>
-					<field name="view_type">form</field>
-					<field name="domain">[('categoria.name','ilike','Becado')]</field>
-					<field name="view_mode">tree,form</field>
-			</record>
-    
-			<record id="vista_nomina" model="ir.ui.view">
-					<field name="name">Nomina</field>
-					<field name="model">hr.payslip</field>
-					<field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
-					<field name="arch" type="xml">
-							<!--<field name="employee_id" position="attributes">
-								<field name="employee_id" domain="[('category_ids.name','=','Becados')]"/>
-							</field>-->
-							<field name="name" position="before">
-								<field name="cedula"/>
-							</field>
-							<field name="employee_id" position="after">
-								<group col="4" colspan="4">
-									<separator colspan="4"/>
-									<field name="categoria" nolabel="0"/>
-								</group>
-							</field>
-					</field>
-			</record>
-        
-<!--
-        <menuitem name="Desarrollo Social" id="menu_desarrollo_social"/>
--->
-        <menuitem name="Nómina" id="menu_desarrollo_social_nomina" parent="menu_desarrollo_social"/>
-        <menuitem parent="menu_desarrollo_social_nomina" id="nomina" action="accion_vista_nomina" name="Nómina del Becado"/>
-        
+		<record id="views_nomina_payslip" model="ir.ui.view">
+			<field name="name">Nominas</field>
+			<field name="model">hr.payslip</field>
+			<field name="inherit_id" ref="desarrollo_social.vista_nomina_form_employee"/>
+			<field name="arch" type="xml">
+
+				<field name="categoria" position="replace">
+					<field name="categoria" invisible="1"/>
+				</field>
+				<field name="employee_id" position="replace">
+					<field name="employee_id" widget="selection"/>
+				</field>
+				<!-- <xpath expr="//field[@name='employee_id']" position="after">
+					<field name="class_personal" widget="selection"/>
+				</xpath> -->
+			</field>
+		</record>
+
+		<!-- Vista tree de herencia de hr.payslip -->
+		<!-- <record model="ir.ui.view" id="payslip_tree">
+			<field name="name">Nóminas</field>
+			<field name="model">hr.payslip</field>
+			<field name="inherit_id" ref="hr_payroll.view_hr_payslip_tree"/>
+			<field name="arch" type="xml">
+				<field name="date_to" position="after">
+					<field name="class_personal"/>
+				</field>
+			</field>
+		</record> -->
+
     </data>
 </openerp>

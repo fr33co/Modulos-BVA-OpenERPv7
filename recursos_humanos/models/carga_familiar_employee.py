@@ -49,40 +49,72 @@ class Contrato_empleado(osv.Model):
 
 	def search_hr_day_birth(self, cr, uid, ids, argument_search, context=None):
 
-		# print argument_search
+		values = {}
+		mensaje = {}
 
-		age = argument_search.split("-")
+		edad = argument_search
 
-		print age[1]
+		edades = edad.split("-")
 
-		# values = {}
-		# mensaje = {}
-		
-		# if not argument_search:
+		fecha_actual = date.today()# Obtenemos el Ano actual der servidor
+
+		ano_actual = fecha_actual.year # Segmentamos la fecha y obtenemos el ano actual
+
+		mes_actual = fecha_actual.month
+
+		dia_actual = mes_actual = fecha_actual.day
+
+
+		calculo = int(ano_actual) - int(edades[0])
+
 			
-		# 	return values
-		# obj_dp = self.pool.get('becado.carga.familiar')
-		
-		# #======================== Busqueda por código ============================
+		if int(edades[1] > int(mes_actual)):
+			calculo = calculo - 1
 
-		# search_obj_code = obj_dp.search(cr, uid, [('cedula_familiar','=',argument_search)])
+			if int(calculo) > 21:
 
-		# datos_code = obj_dp.read(cr,uid,search_obj_code,context=context)
+				mensaje = {
+					'title'   : "Carga Familiar",
+					'message' : "Disculpe no se puede registrar el familiar exede el limite de edad...",
+				}
 
-		# if datos_code:
-			
-		# 	mensaje = {
-		# 			'title'   : "Cédula",
-		# 			'message' : "Disculpe este cedula ya se encuentra registrada, intente de nuevo...",
-		# 	}
-
-		# 	values.update({
+				values.update({
 				
-		# 		'cedula_familiar' : None,
+					'edad' : None,
 
-		# 		})
-			
-		# return {'value' : values,'warning' : mensaje}
+				})
+			else:
+				values.update({
+
+					'edad' : calculo,
+
+				})
+
+		elif (int(edades[1]) == int(mes_actual)) and (int(edades[2]) > int(dia_actual)):
+			calculo = calculo - 1
+
+			if int(calculo) > 21:
+
+				mensaje = {
+					'title'   : "Carga Familiar",
+					'message' : "Disculpe no se puede registrar el familiar exede el limite de edad...",
+				}
+
+				values.update({
+				
+					'edad' : None,
+
+				})
+			else:
+				values.update({
+
+					'edad' : calculo,
+
+				})
+
+		
+		return {'value' : values,'warning' : mensaje}
+
 
 	
 	_columns = {
@@ -90,7 +122,7 @@ class Contrato_empleado(osv.Model):
 		'especifique_estudio' : fields.char(string="Especifique", size = 200, readonly=False),
 		'lugar_nac' : fields.char(string="Lugar de nacimiento", size = 256, required=True),
 		'nac' : fields.many2one('res.country', 'Nacionalidad'),
-		'estado' : fields.many2one("res.country.state", "Estado", required = True, select="0"),
+		'estado' : fields.many2one("res.country.state", "Estado", required = True, select="0" ,domain= "[('country_id','=',nac)]"),
 		'municipio' : fields.many2one("res.country.municipality", "Municipio", required = True, select="0"),
 		'parroquia' : fields.many2one("res.country.parish", "Parroquia", required = True, select="0"),
 		'grupo_sanguineo': fields.many2one("becados.gruposanguineo", "Grupo Sanguineo", required = False),

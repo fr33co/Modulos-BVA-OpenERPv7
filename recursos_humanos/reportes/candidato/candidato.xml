@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <report id="reporte_candidato_a_empleado" string="Candidato"
+            model="hr.applicant" name="Candidato"
+            rml="recursos_humanos/reportes/candidato/candidato.rml" />
+    </data>
+</openerp>
+
