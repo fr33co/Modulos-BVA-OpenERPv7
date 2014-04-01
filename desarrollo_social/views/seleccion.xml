@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	
+	<data>
+			
+		<!--Accionador para el menu de selección-->
+		<record model="ir.actions.act_window" id="accion_lista_seleccion">
+			<field name="name">Selección de Personal</field>
+			<field name="res_model">becados.seleccion</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Seleccione un nuevo solicitante</p>
+			</field>
+		</record>
+		<!--Accionador para el menu de selección-->
+		
+		<record model="ir.ui.view" id="vista_formulario_seleccion">
+			<field name="name">seleccion.form</field>
+			<field name="model">becados.seleccion</field>
+			<field name="arch" type="xml"> 
+				<form string="Formulario de Selección de Personal">
+					<group colspan="4" col="4">
+						<group colspan="2">
+							<field name="solicitante" nolabel="0" colspan="1" widget="selection" on_change="cedula_solicitante(solicitante)"/>
+							<field name="cedula" nolabel="0" colspan="1" on_change="solicitante(cedula)"/>
+						</group>
+						<group colspan="2">
+						
+						</group>
+					</group>
+					<notebook>
+							<page string="Información">
+								<field name="tipo_beca" nolabel="0" colspan="1" widget="selection"/>
+								<field name="plan_pago" nolabel="0" colspan="1"/>
+								<field name="notas" nolabel="0" colspan="1"/>
+							</page>
+					</notebook>
+				</form>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="vista_tree_seleccion">
+			<field name="name">seleccion.form</field>
+			<field name="model">becados.seleccion</field>
+			<field name="arch" type="xml">
+				<tree string="Lista del personal seleccionado">
+					<field name="solicitante"/>
+					<field name="cedula"/>
+					<field name="tipo_beca"/>
+					<field name="plan_pago"/>
+					<field name="notas"/>
+				</tree>
+			</field>
+		</record>
+
+<!--
+		<menuitem id="menu_seleccion" name="Selección" parent="menu_desarrollo_social_seleccion" action="accion_lista_seleccion"/>
+-->
+
+	</data>
+	
+</openerp>

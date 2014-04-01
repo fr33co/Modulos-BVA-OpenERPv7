@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	
+	<data>
+			
+		<!--Accionador para el menu de instituciones eductivas-->
+		<record model="ir.actions.act_window" id="accion_lista_instituciones">
+			<field name="name">Instituciones Educactivas</field>
+			<field name="res_model">becados.institucioneduc</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Agregue una nueva Institución Educativa</p>
+			</field>
+		</record>
+		<!--Accionador para el menu de instituciones eductivas-->
+		
+		<record model="ir.ui.view" id="vista_formulario_instituciones">
+			<field name="name">institucioneduc.form</field>
+			<field name="model">becados.institucioneduc</field>
+			<field name="arch" type="xml"> 
+				<form string="Formulario de Instituciones Educativas">
+					<group colspan="2">
+						<field name="nombre_corto" nolabel="0" colspan="1"/>
+						<field name="institucion_edu" nolabel="0" colspan="1"/>
+					</group>
+				</form>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="vista_tree_instituciones">
+			<field name="name">institucioneduc.form</field>
+			<field name="model">becados.institucioneduc</field>
+			<field name="arch" type="xml">
+				<tree string="Lista de Instituciones Educativas">
+					<field name="nombre_corto"/>
+					<field name="institucion_edu"/>
+				</tree>
+			</field>
+		</record>
+		
+<!--
+		<menuitem id="menu_areas" name="Áreas" parent="menu_principal_mantenimiento" action="accion_lista_areas"/>
+-->
+			
+	</data>
+	
+</openerp>
+
+

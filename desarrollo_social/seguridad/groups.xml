@@ -1,11 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <openerp>
-        <data>
-            <record id="grupo_desarrollo_social1" model="res.groups">
-                <field name="name">Desarrollo Social / desarrollosocial</field>
-            </record>
-            <record id="grupo_desarrollo_social2" model="res.groups">
-                <field name="name">Desarrollo Social / coordinadoreje</field>
-            </record>
-        </data>
-    </openerp>
+	<openerp>
+		<data>
+			<!--Registro de grupos iniciales-->
+			<record id="grupo_desarrollo_social1" model="res.groups">
+					<field name="name">Desarrollo Social / desarrollosocial</field>
+			</record>
+			<record id="grupo_desarrollo_social2" model="res.groups">
+					<field name="name">Desarrollo Social / coordinadoreje</field>
+			</record>
+			<!--Registro de grupos iniciales-->
+			
+			<!--Registro de reglas iniciales-->
+<!--
+			<record id="borrar_solo_cancelados" model="ir.rule">
+				<field name="name">Solo elimina nominas canceladas</field>
+				<field name="model_id" ref="model_becados_nomina"/>
+				<field name="groups" eval="[(4,ref('desarrollo_social.group_desarrollosocial'))]"/>
+				<field name="perm_read" eval="0"/>
+				<field name="perm_read" eval="0"/>
+				<field name="perm_read" eval="0"/>
+				<field name="perm_read" eval="1"/>
+				<field name="domain_force">[('stage','=','cancelado')]</field>
+			</record>
+-->
+			<!--Registro de reglas iniciales-->
+		</data>
+	</openerp>

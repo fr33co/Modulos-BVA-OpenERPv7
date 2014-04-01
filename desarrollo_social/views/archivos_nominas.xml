@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	
+	<data>
+			
+		<!--Accionador para el modelo de Nómina individual de becados-->
+		<record model="ir.actions.act_window" id="accion_lista_archivos_nomina">
+			<field name="name">Archivos de nómina</field>
+			<field name="res_model">ir.attachment</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Agregue un nuevo archivo</p>
+			</field>
+		</record>
+		<!--Accionador para el modelo de Nómina individual de becados-->
+		
+		<record model="ir.ui.view" id="vista_formulario_archivos_nomina">
+			<field name="name">attachment.form</field>
+			<field name="model">ir.attachment</field>
+			<field name="inherit_id" ref="base.view_attachment_form"/>
+			<field name="arch" type="xml"> 
+				<field name="partner_id" position="replace">
+					<field name="partner_id" invisible="1"/>
+				</field>
+				<field name="parent_id" position="replace">
+					<field name="parent_id" invisible="1"/>
+				</field>
+			</field>
+		</record>
+		
+<!--
+		<record model="ir.ui.view" id="vista_tree_archivos_nomina">
+			<field name="name">attachment.tree</field>
+			<field name="model">ir.attachment</field>
+			<field name="inherit_id" ref="document.view_document_file_tree"/>
+			<field name="arch" type="xml"> 
+				<tree string="Attachments" position="replace">
+					<tree colors="blue:type in ('url',)" string="Attachments">
+						<field name="name"/>
+						<field name="parent_id"/>
+						<field name="user_id"/>
+						<field name="company_id"/>
+						<field name="create_date" groups="base.group_no_one"/>
+						<field name="write_date" groups="base.group_no_one"/>
+						<field name="partner_id"/>
+						<field name="type"/>
+					</tree>
+				</tree>
+			</field>
+		</record>
+-->
+		
+<!--
+		<menuitem id="menu_areas" name="Áreas" parent="menu_principal_mantenimiento" action="accion_lista_areas"/>
+-->
+			
+	</data>
+	
+</openerp>

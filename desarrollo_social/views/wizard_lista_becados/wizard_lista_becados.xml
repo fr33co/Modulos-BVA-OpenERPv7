@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	
+	<data>
+		
+		<record model="ir.actions.act_window" id="listar_becados_wizard_action">
+			<field name="name">Lista de becados</field>
+			<field name="res_model">becados.crear.wizard</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+		
+		<record model="ir.ui.view" id="vista_formulario_lista_becados">
+			<field name="name">nominaindividual.form</field>
+			<field name="model">becados.crear.wizard</field>
+			<field name="arch" type="xml"> 
+				<form string="Formulario de Nómina individual">
+					<group colspan="4" col="4">
+						<group colspan="2">
+							<button type="special" special="cancel" string="Cancelar" icon="gtk-cancel"/>
+							<button type="object" name="action_add_becado" string="Añadir Becados" icon="gtk-ok" confirm="¿Está seguro que desea agregar los becados?"/>
+						</group>
+						<group colspan="2">
+						</group>
+					</group>
+					<group colspan="4" col="4">
+						<group string="Listar becados">
+							<field name="becados" nolabel="1"/>
+						</group>
+					</group>
+				</form>
+			</field>
+		</record>
+		
+<!--
+		<menuitem name="Listar becados" parent="menu_desarrollo_social_nomina" id="menu_listar_becados_wizard" action="listar_becados_wizard_action"/>
+-->
+		<act_window id="listar_becados_wizard_action" name="Añadir Becados" src_model="becados.nomina" res_model="becados.crear.wizard" view_mode="form" target="new" key2="client_action_multi"/>
+		
+	</data>
+	
+</openerp>

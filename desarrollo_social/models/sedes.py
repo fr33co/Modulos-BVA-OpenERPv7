@@ -12,6 +12,7 @@ class Sede(osv.Model):
 	_rec_name = 'sede'
 	
 	_columns = {
+		'eje' : fields.many2one("becados.ejes", "Eje", required = True),
 		'sede': fields.char(string = "Sede", size = 150, required = True),
 	}
 

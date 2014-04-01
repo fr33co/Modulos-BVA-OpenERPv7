@@ -21,9 +21,21 @@
 			<field name="arch" type="xml"> 
 				<form string="Formulario de Sedes">
 					<group colspan="2">
+						<field name="eje" nolabel="0" colspan="1"/>
 						<field name="sede" nolabel="0" colspan="1"/>
 					</group>
 				</form>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="vista_tree_sedes">
+			<field name="name">sedes.tree</field>
+			<field name="model">becados.sedes</field>
+			<field name="arch" type="xml">
+				<tree string="Lista de Sedes">
+					<field name="eje"/>
+					<field name="sede"/>
+				</tree>
 			</field>
 		</record>
 		

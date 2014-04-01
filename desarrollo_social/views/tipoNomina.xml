@@ -21,9 +21,21 @@
 			<field name="arch" type="xml"> 
 				<form string="Formulario de Tipo de Nómina">
 					<group colspan="2">
+						<field name="cod_nom" nolabel="0" colspan="1"/>
 						<field name="tipo_nomina" nolabel="0" colspan="1"/>
 					</group>
 				</form>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="vista_tree_tipoNomina">
+			<field name="name">tiponomina.tree</field>
+			<field name="model">becados.tiponomina</field>
+			<field name="arch" type="xml"> 
+				<tree string="Lista de Tipos de Nóminas">
+						<field name="cod_nom" nolabel="0" colspan="1"/>
+						<field name="tipo_nomina" nolabel="0" colspan="1"/>
+				</tree>
 			</field>
 		</record>
 		

@@ -24,7 +24,9 @@
 			</record>
         
         
+<!--
         <menuitem parent="menu_desarrollo_social_seleccion" id="seleccion_contrato" action="accion_vista_contrato" name="Contrato"/>
+-->
         
     </data>
 </openerp>

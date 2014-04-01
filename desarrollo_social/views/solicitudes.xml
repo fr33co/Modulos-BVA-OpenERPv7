@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	
+	<data>
+			
+		<!--Accionador para el menu de selección-->
+		<record model="ir.actions.act_window" id="accion_lista_solicitudes">
+			<field name="name">Solicitudes</field>
+			<field name="res_model">becados.solicitudes</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Registre una nueva solicitud</p>
+			</field>
+		</record>
+		<!--Accionador para el menu de selección-->
+		
+		<record model="ir.ui.view" id="vista_formulario_solicitudes">
+			<field name="name">solicitudes.form</field>
+			<field name="model">becados.solicitudes</field>
+			<field name="arch" type="xml"> 
+				<form string="Formulario de Solicitud" version="7.0">
+					<header>
+					<!--botones de la barra de estado de solicitud -->
+						<button name="action_demanda_inicial" type="object" string="Demanda inicial de beca"
+						 stage_id="Primera entrevista,Segunda Entrevista,Beca propuesta" class="oe_highlight" confirm="¿Esta usted seguro de pasar al siguiente proceso?" help="Reiniciar como Demanda inicial de beca"/>
+						<button name="action_primera_entrevista" type="object" string="Primera entrevista"
+						 stage_id="Demanda inicial de beca,Segunda entrevista" class="oe_highlight" attrs="{'invisible':[('stage_id','=', 'Beca propuesta')]}" confirm="¿Esta usted seguro de pasar al siguiente proceso?" help="Pasar a la primera entrevista"/>
+						<button name="action_segunda_entrevista" type="object" string="Segunda entrevista"
+						 stage_id="Primera entrevista,Beca propuesta" class="oe_highlight" attrs="{'invisible':[('stage_id','in', ('Demanda inicial de beca','Beca propuesta'))]}" confirm="¿Esta usted seguro de pasar al siguiente proceso?" help="Pasar a la segunda entrevista"/>
+						<button name="action_beca_propuesta" type="object" string="Proponer para beca"
+						 stage_id="Segunda entrevista" class="oe_highlight" attrs="{'invisible':[('stage_id','in', ('Demanda inicial de beca','Primera entrevista','Beca propuesta'))]}" confirm="¿Esta usted seguro de pasar al siguiente proceso?" help="Marcar como propuesto para beca"/>
+						<field name="stage_id" widget="statusbar"/>
+					</header>
+					<group colspan="4" col="4">
+						<group colspan="2">
+							<field name="cedula"  nolabel="0"/>
+							<field name="solicitante" nolabel="0"/>
+							<field name="email" nolabel="0"/>
+							<field name="telefono" nolabel="0"/>
+							<field name="movil" nolabel="0"/>
+							<field name="direccion" nolabel="0"/>
+							<field name="grado_instruc" nolabel="0"/>
+							<field name="experiencia" nolabel="0"/>
+						</group>
+						<group colspan="2">
+							<field name="sede" nolabel="0"/>
+							<field name="responsable" nolabel="0"/>
+							<field name="prox_accion" nolabel="0"/>
+							<field name="apreciacion" nolabel="0" attrs="{'invisible':[('stage_id','!=','Segunda entrevista')]}"/>
+							<field name="origen" nolabel="0"/>
+							<field name="recomendacion" nolabel="0" attrs="{'invisible':[('origen','in',('externo',False))]}"/>
+							<field name="fecha_solicitud" nolabel="0"/>
+							<field name="resumen" nolabel="0"/>
+						</group>
+					</group>
+				</form>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="vista_tree_solicitudes">
+			<field name="name">Solicitudes</field>
+			<field name="model">becados.solicitudes</field>
+			<field name="arch" type="xml">
+				<tree string="Lista de Solicitudes">
+					<field name="cedula"/>
+					<field name="solicitante"/>
+					<field name="grado_instruc"/>
+					<field name="sede"/>
+					<field name="responsable"/>
+					<field name="prox_accion"/>
+					<field name="origen"/>
+					<field name="fecha_solicitud"/>
+					<field name="stage_id"/>
+				</tree>
+			</field>
+		</record>
+
+<!--
+		<menuitem name="Proceso de Selección" id="menu_desarrollo_social_seleccion" parent="menu_desarrollo_social"/>
+	
+		<menuitem id="menu_solicitudes" name="Solicitutes" parent="menu_desarrollo_social_seleccion" action="accion_lista_solicitudes"/>
+-->
+
+	</data>
+	
+</openerp>
+

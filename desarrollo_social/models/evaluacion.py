@@ -141,7 +141,7 @@ class Evaluacion(osv.Model):
 			valores.update({
 				'ci' : "",
 				'evaluado' : "",
-				'area' : "",
+				#'area' : "",
 				'sede' : "",
 			})
 			return {'value' : valores, 'warning' : alerta}
@@ -292,7 +292,7 @@ class Evaluacion(osv.Model):
 		# Datos Basicos
 		'evaluado' : fields.char(string="Evaluado", size=50, required=True),
 		'ci' : fields.char(string="Cédula", size=8, required=True),
-		'area' : fields.many2one("becados.areas", string="Area de desempeño", required=True),
+		'area' : fields.many2one("becados.areas", string="Area de desempeño", required=False),
 		'sede' : fields.many2one("becados.sedes", string="Sede", required=True),
 		'fecha_actual' : fields.char(string="Fecha", size=256, readonly=True),
 		'evaluador' : fields.char(string="Evaluador", size=256, required=True),
@@ -331,7 +331,7 @@ class Evaluacion(osv.Model):
 
 
 	_defaults = {
-		'fecha_actual': lambda *a: time.strftime("%d de %B del %Y"),# formato corecto al español
+		'fecha_actual': lambda *a: time.strftime("%d de %B del %Y"),# formato correcto al español
 
 		'state': 'draft',
 
