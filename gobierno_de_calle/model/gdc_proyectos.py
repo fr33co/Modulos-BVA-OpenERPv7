@@ -104,6 +104,8 @@ class gdc_proyectos(osv.Model):
         'supervisor_id' : fields.many2one('res.company', 'Institución supervisora', domain=[('category_id.name','ilike','Supervisor')], required=True),        
         'ejecutor_id' : fields.many2one('res.company', 'Institución ejecutante', domain=[('category_id.name','ilike','Supervisor')], required=True),
         'responsible_id' : fields.many2one('res.users', 'Responsable', domain=[('category_id.name','ilike','Responsable')], required=True),
+        'responsible_despacho' : fields.many2one('res.users', 'Responsable Despacho 1', required=True),
+        'responsible_despacho2' : fields.many2one('res.users', 'Responsable Despacho 2', required=True),
         'description': fields.text('Description', required=True),
         'presu_tentativo': fields.float('Presupuesto Tentativo  (Bs.)', required=True),
         'presu_real': fields.float('Presupuesto Real (Bs.)', required=True),
@@ -196,6 +198,8 @@ class gdc_proyectos(osv.Model):
     _defaults = {
             'supervisor_id': 1,
             'responsible_id': lambda s, cr, uid, c: uid,
+            'responsible_despacho': 11,
+            'responsible_despacho2': 16,
             'ejecutor_id':  lambda self,cr,uid,c: self.pool.get('res.users').browse(cr, uid, uid, c).company_id.id,
             'codigo': lambda obj, cr, uid, context: obj.pool.get('ir.sequence').get(cr, uid, 'gdc.proyectos'),
             'estado': 'Borrador',
