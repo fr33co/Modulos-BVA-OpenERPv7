@@ -41,27 +41,80 @@ class NominaBecados(osv.Model):
 			print "mes de la pre-nómina: "+str(mes)+"\n"
 			print "Stage de la pre-nómina: "+str(stage)+"\n"
 			
-			#~ cedula = ""
-			#~ name = ""
-			#~ tipo_beca = ""
 			for becado in x_browse_id.becados:#Recorrer los registros dentro del campo 'becados' del modelo de Nómina
-				print str(becado.cedula)+" "+str(becado.name_related.encode("utf-8"))+" "+str(becado.tipo_beca.tipo_beca.encode("utf-8"))
-				#~ cedula = cedula + str(becado.cedula)
-				#~ name = name + str(becado.name_related.encode("utf-8"))
-				#~ tipo_beca = tipo_beca + str(becado.tipo_beca.tipo_beca.encode("utf-8"))
-				codigo = str(mes)+str(anyo)+str(becado.cedula)
+				cedula = becado.cedula
+				name = becado.name_related
+				tipo_beca = becado.tipo_beca.tipo_beca
+				
+				#Validar si pasaron campos vacíos... si es así se rellenan con una cadena alusiva
+				#Si no se hace esto se corre el riesgo de que se prodúzca un error al imprimir
+				if cedula == False or cedula == "":
+					cedula = "vacio"
+					
+				if name == False or name == "":
+					name = "vacio"
+					
+				if tipo_beca == False or tipo_beca == "":
+					tipo_beca = "vacio"
+				
+				#Nota: esta impresión es una prueba para visualizar los registros por consola
+				print str(cedula)+" "+str(name.encode("utf-8"))+" "+str(tipo_beca.encode("utf-8"))
+				
+				#Preparación de los datos compuestos
+				codigo = str(mes)+str(anyo)+str(cedula)
 				tipo_beca = becado.tipo_beca.id
-				id_att = obj_proceso_nomina.create(cr, uid, {
-					'nomina': id_nomina, 
-					'codigo': codigo,
-					'becado': becado.id,
-					'anyo': anyo,
-					'mes': mes,
-					'tipo_beca': tipo_beca,
-					'asignacion': 0,
-					}, context=context)
-	
-		
+				
+				#Validar si pasaron campos vacíos... si es así se rellenan con una cadena alusiva
+				#Si no se hace esto se corre el riesgo de que se prodúzca un error al imprimir
+				if cedula == False or cedula == "":
+					cedula = "vacio"
+					
+				if name == False or name == "":
+					name = "vacio"
+					
+				if tipo_beca == False or tipo_beca == "":
+					tipo_beca = "vacio"
+				
+				#Verificamos si la nómina individual del becado ya fue generada (se toma en cuenta el código)
+				search_nomina1 = obj_proceso_nomina.search(cr, uid, [('codigo','=',codigo)], count=False)
+				
+				if not search_nomina1: #Verificar esto, al parecer impide que se listen algunas nóminas individuales 
+				
+					id_att = obj_proceso_nomina.create(cr, uid, {
+						'nomina': id_nomina, 
+						'codigo': codigo,
+						'becado': becado.id,
+						'anyo': anyo,
+						'mes': mes,
+						'tipo_beca': tipo_beca,
+						'asignacion': 0,
+						}, context=context)
+				
+				else:
+					print "La nómina ya existe..."
+			
+			print "\n"
+			#Ahora verificamos si las nóminas individuales se corresponden con la lista de becados seleccionados.
+			#Si alguna de éllas no pertenece a ningún becado de la lista, procedemos a eliminarla de la lista de nóminas
+			for nomina in x_browse_id.nomina_individual:
+				print nomina.codigo	+ " " + nomina.becado.cedula
+				contador = 0 #Contador para validar si la nómina pertenece a algún becado seleccionado
+				for becado2 in x_browse_id.becados:
+					print ""+becado2.cedula
+					if becado2.cedula == nomina.becado.cedula:
+						print becado2.cedula+"=="+nomina.becado.cedula
+						contador = contador + 1
+					else:
+						contador = contador 
+				print contador
+				print nomina.id
+				
+				if contador <= 0:
+					obj_proceso_nomina.unlink(cr, uid, nomina.id, context=None)
+					# Revisar: Hasta los momentos se actualiza la lista de nóminas individuales según el número de becados, 
+					#pero ocurre un error si no se ha guardado la nómina después de borrar un becado de la lista e intentar generar de nuevo la nómina.
+					
+		#~ 
 	#Función para la generación de los reportes .txt y xsl de la pre-nómina----------------------------------------------------------	
 	def action_archivar_prenomina(self, cr, uid, ids, context):
 		
@@ -104,8 +157,8 @@ class NominaBecados(osv.Model):
 					for nomina in self.browse(cr, uid, ids, context=None):
 						#Recorro los registros que están dentro del campo 'becados' de la nómina actual
 						data = ""
-						for becado in nomina.becados:
-							datos = str(becado.cedula)+" "+str(becado.name_related.encode("utf-8"))+" "+str(becado.status)+"\n"
+						for becado in nomina.nomina_individual:
+							datos = str(becado.codigo)+" "+str(becado.becado.cedula)+" "+str(becado.becado.name_related.encode("utf-8"))+" "+str(becado.becado.status)+" "+str(becado.tipo_beca.id)+" "+str(becado.asignacion)+"\n"
 							#~ llenar_archivo = open(nombre_archivo,'a')
 							#~ llenar_archivo.write(datos)							
 							#~ llenar_archivo.close()
@@ -146,8 +199,8 @@ class NominaBecados(osv.Model):
 					for nomina in self.browse(cr, uid, ids, context=None):
 						#Recorro los registros que están dentro del campo 'becados' de la nómina actual
 						data = ""
-						for becado in nomina.becados:
-							datos = str(becado.cedula)+" "+str(becado.name_related.encode("utf-8"))+" "+str(becado.status)+"\n"
+						for becado in nomina.nomina_individual:
+							datos = str(becado.codigo)+" "+str(becado.becado.cedula)+" "+str(becado.becado.name_related.encode("utf-8"))+" "+str(becado.becado.status)+" "+str(becado.tipo_beca.id)+" "+str(becado.asignacion)+"\n"
 							data = data + datos
 						print data
 					id_att = self.registro_archivo(cr, uid, id_nomina, mes, data, stage, context)
@@ -185,8 +238,8 @@ class NominaBecados(osv.Model):
 					for nomina in self.browse(cr, uid, ids, context=None):
 						#Recorro los registros que están dentro del campo 'becados' de la nómina actual
 						data = ""
-						for becado in nomina.becados:
-							datos = str(becado.cedula)+" "+str(becado.name_related.encode("utf-8"))+" "+str(becado.status)+"\n"
+						for becado in nomina.nomina_individual:
+							datos = str(becado.codigo)+" "+str(becado.becado.cedula)+" "+str(becado.becado.name_related.encode("utf-8"))+" "+str(becado.becado.status)+" "+str(becado.tipo_beca.id)+" "+str(becado.asignacion)+"\n"
 							data = data + datos
 						print data
 					id_att = self.registro_archivo(cr, uid, id_nomina, mes, data, stage, context)

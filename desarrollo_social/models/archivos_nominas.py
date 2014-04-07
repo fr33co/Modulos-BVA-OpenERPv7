@@ -11,4 +11,3 @@ class NominaBecadoIndividual(osv.Model):
 	_columns = {
 		'nomina' : fields.many2one("becados.nomina", "Nómina", required=False),
 	}
-	

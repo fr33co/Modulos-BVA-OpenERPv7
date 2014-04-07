@@ -36,18 +36,17 @@
 						<field name="categoria" style="width:100%%"/>
 				</xpath>
 				
+<!--
 				<xpath expr="//field[@name='sede']" position="replace">
-
 					<field name="sede" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>
 				</xpath>
+-->
 
 				<xpath expr="//field[@name='coordinador_eje']" position="replace">
-
 					<field name="coordinador_eje" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>
 				</xpath>
 
 				<xpath expr="//field[@name='coordinador_sede']" position="replace">
-
 					<field name="coordinador_sede" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>
 				</xpath>
 
@@ -157,8 +156,7 @@
 				</xpath>
 
 				<xpath expr="//field[@name='department_id']" position="replace">
-
-					<field name="department_id" on_change="search_department(department_id)"/>
+					<field name="department_id" on_change="search_department(department_id)" attrs="{'invisible': [('categoria', '!=', '2') ] }"/>
 				</xpath>
 				<xpath expr="//field[@name='empleado']" position="before">
 

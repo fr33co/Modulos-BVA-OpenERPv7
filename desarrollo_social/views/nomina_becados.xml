@@ -72,7 +72,7 @@
 					</group>
 						<button name="generar_nominas" type="object" string="Generar nóminas" stage_id="prenomina" attrs="{'invisible':[('stage_id','in',('cierre','cancelado'))]}"/>
 					<group col="4" colspan="4">
-						<group string="Nóminas Individuales">
+						<group string="Nóminas">
 							<notebook>
 								<page string="Nóminas individuales">
 									<field name="nomina_individual" nolabel="1"/>
