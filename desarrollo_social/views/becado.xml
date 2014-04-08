@@ -107,7 +107,7 @@
 					<field name="discapacidad" attrs="{'invisible':[('categoria','!=','1')]}"/>
 				</field>
 				<field name="discapacidad" position="after">
-					<field name="tipo_discapacidad" attrs="{'invisible':[('categoria','!=','1'),('discapacidad','!=','1')]}"/>
+					<field name="tipo_discapacidad" attrs="{'invisible':['|',('categoria','!=','1'),('discapacidad','!=','1')]}"/>
 				</field>
 				<field name="tipo_discapacidad" position="after">
 					<field name="carga_familiar2" attrs="{'invisible':[('categoria','!=','1')]}"/>
@@ -213,8 +213,10 @@
 											<field name="work_location"/>
 									</group>
 									<group string="Position">
+<!--
 											<field name="department_id" on_change="onchange_department_id(department_id)"/>
 											<field name="job_id" options="{&quot;no_open&quot;: True}" domain="[('state','!=','old')]" context="{'form_view_ref': 'hr.view_hr_job_employee_form'}"/>
+-->
 											<field name="parent_id"/>
 											<field name="coach_id"/>
 									</group>

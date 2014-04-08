@@ -71,7 +71,9 @@
         <menuitem name="Desarrollo Social" id="menu_desarrollo_social"/>
 -->
         <menuitem name="Nómina" id="menu_desarrollo_social_nomina" parent="menu_desarrollo_social" sequence="2"/>
+<!--
         <menuitem parent="menu_desarrollo_social_nomina" id="nomina_employee" action="accion_vista_nomina_becado" name="Nómina del Becado"/>
+-->
         
     </data>
 </openerp>

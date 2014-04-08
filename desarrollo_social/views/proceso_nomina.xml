@@ -20,7 +20,9 @@
 				</field>
 			</record> 
 
+<!--
 			<menuitem parent="menu_desarrollo_social_nomina" id="proceso_nomina" action="accion_vista_proceso_nomina" name="Procesamientos de nóminas"/>
+-->
         
     </data>
 </openerp>

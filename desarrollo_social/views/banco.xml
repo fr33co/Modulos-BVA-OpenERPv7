@@ -15,7 +15,7 @@
 		</record>
 		<!--Accionador para el menu de Departamentos-->
 		
-		<record model="ir.ui.view" id="vista_formulario_departamentos">
+		<record model="ir.ui.view" id="vista_formulario_bancos">
 			<field name="name">bancos.form</field>
 			<field name="model">becados.bancos</field>
 			<field name="arch" type="xml">
