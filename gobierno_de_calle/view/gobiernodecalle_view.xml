@@ -77,8 +77,8 @@
             <field name="name">Proyectos</field>
             <field name="res_model">gdc.proyectos</field>
             <field name="view_type">form</field>
-            <field name="domain">['|', ('responsible_id','=',uid), '|', ('responsible_despacho','=',uid), ('responsible_despacho2','=',uid)]</field>
             <field name="view_mode">tree,form,calendar,gantt</field>
+            <field name="domain">['|', ('responsible_id','=',uid), '|', ('responsible_despacho','=',uid), ('responsible_despacho2','=',uid)]</field>
             <field name="help" type="html">
             </field>
         </record>
@@ -153,8 +153,8 @@
                                 <field name="supervisor_id" readonly="1" domain="[('category_id.name','ilike','Supervisor')]"/>
                                 <field name="ejecutor_id" domain="[('category_id.name','ilike','Responsable')]"/>
                                 <field name="responsible_id" domain="[('category_id.name','ilike','Responsable')]"/>
-                                <field name="responsible_despacho" invisible="1"/>
-                                <field name="responsible_despacho2" invisible="1"/>
+                                <field name="responsible_despacho" domain="[('category_id.name','ilike','Responsable')]" invisible="1"/>
+                                <field name="responsible_despacho2" domain="[('category_id.name','ilike','Responsable')]" invisible="1"/>
                                 <separator string="Beneficiados del proyecto" colspan="2"/>
                                 <field name="bene_medible" colspan="2"/>
                                 <field name="bene_tentativo" colspan="2" attrs="{'invisible':['|', ('bene_medible', '=', False),('bene_medible','=','Especifico')]}"/>
