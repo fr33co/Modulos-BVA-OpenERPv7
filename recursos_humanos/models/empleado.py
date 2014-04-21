@@ -164,29 +164,29 @@ class Empleado(osv.Model):
 
 		return {'value' : values,'warning' : mensaje}
 
-	def search_department(self, cr, uid, ids, argument_search, context=None): # Proceso de busqueda de un manager(Gerente)
-
-		values = {}
-		
-		if not argument_search:
-			
-			return values
-		obj_dp = self.pool.get('hr.department')
-		
-		#======================== Busqueda por código ============================
-
-		search_obj_code = obj_dp.search(cr, uid, [('id','=',argument_search)])
-
-		datos_code = obj_dp.read(cr,uid,search_obj_code,context=context)
-		#=========================================================================
-		if datos_code:
-			
-			values.update({
-				
-				'gerente' : datos_code[0]['gerente'],
-				})
-
-		return {'value' : values}
+	#~ def search_department(self, cr, uid, ids, argument_search, context=None): # Proceso de busqueda de un manager(Gerente)
+#~ 
+		#~ values = {}
+		#~ 
+		#~ if not argument_search:
+			#~ 
+			#~ return values
+		#~ obj_dp = self.pool.get('hr.department')
+		#~ 
+		#~ #======================== Busqueda por código ============================
+#~ 
+		#~ search_obj_code = obj_dp.search(cr, uid, [('id','=',argument_search)])
+#~ 
+		#~ datos_code = obj_dp.read(cr,uid,search_obj_code,context=context)
+		#~ #=========================================================================
+		#~ if datos_code:
+			#~ 
+			#~ values.update({
+				#~ 
+				#~ 'gerente' : datos_code[0]['gerente'],
+				#~ })
+#~ 
+		#~ return {'value' : values}
 
 	#################################################################
 
@@ -196,7 +196,7 @@ class Empleado(osv.Model):
 		'municipio' : fields.many2one("res.country.municipality", "Municipio", required = True, select="0"),
 		'parroquia' : fields.many2one("res.country.parish", "Parroquia", required = True, select="0"),
 		'rif' : fields.char(string="Rif", size = 50, required=False),
-		'gerente' : fields.char(string="Gerente", size=50),
+		#~ 'gerente' : fields.char(string="Gerente", size=50),
 		'fecha_nacimiento' : fields.date(string="Fecha de nacimiento", required=False),
 		
 		
@@ -210,4 +210,5 @@ class Empleado(osv.Model):
 		'cne' : '2',
 		'carga_familiar' : '2',
 		'status' : '1',
+		#'bank_account_id' : 1,
 	} 

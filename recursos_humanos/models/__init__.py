@@ -19,3 +19,4 @@ import change_salary_employee
 import onchange_slip
 import hr_departament # Departamento a cargo de las Gerencias
 import hr_bank
+import hr_document

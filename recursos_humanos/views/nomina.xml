@@ -20,23 +20,26 @@
 				<field name="employee_id" position="replace">
 					<field name="employee_id" widget="selection"/>
 				</field>
-				<!-- <xpath expr="//field[@name='employee_id']" position="after">
-					<field name="class_personal" widget="selection"/>
-				</xpath> -->
+				<xpath expr="//field[@name='name']" position="replace">
+					<field name="name" invisible="1"/>
+				</xpath>
+				<xpath expr="//field[@name='cedula']" position="replace">
+					<field name="cedula" invisible="1"/>
+				</xpath>
 			</field>
 		</record>
 
 		<!-- Vista tree de herencia de hr.payslip -->
-		<!-- <record model="ir.ui.view" id="payslip_tree">
+		<record model="ir.ui.view" id="payslip_tree">
 			<field name="name">Nóminas</field>
 			<field name="model">hr.payslip</field>
 			<field name="inherit_id" ref="hr_payroll.view_hr_payslip_tree"/>
 			<field name="arch" type="xml">
-				<field name="date_to" position="after">
-					<field name="class_personal"/>
+				<field name="name" position="replace">
+					<field name="name" invisible="1"/>
 				</field>
 			</field>
-		</record> -->
+		</record>
 
     </data>
 </openerp>

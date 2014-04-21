@@ -36,49 +36,57 @@
 						<separator string="Nóminas de los Empleados"/>
 					</xpath>
 
+					<xpath expr="//field[@name='state']" position="replace">
+						<field name="state" widget="statusbar"/>
+					</xpath>
+
+					<xpath expr="//button[@name='draft_payslip_run']" position="replace">
+						<button string="Editar nómina" name="draft_payslip_run" type="object" states="close" icon="gtk-apply" confirm="¿Esta seguro que desea editar la nómina?"/>
+					</xpath>
+
 					<!-- Accion de botones -->
 					<xpath expr="//button[@name='close_payslip_run']" position="replace">
 						<button name="close_payslip_run" type="object" string="Cerrar nómina" states="draft" class="oe_highlight" confirm="¿Esta seguro que desea cerrar la nómina?" icon="gtk-apply"/>
 					</xpath>
 
-					<xpath expr="//button[@name='473']" position="replace">
-						 <button name="473" type="action" states="draft" string="Generate Payslips" class="oe_highlight" confirm="¿Desea generar las nóminas de todos los empleados?" icon="gtk-apply"/>
+					<xpath expr="//button[@string='Generate Payslips']" position="after">
 
-						 <button name="generate_list_slip_all" type="object" string="Listado de la nómina" class="oe_highlight" confirm="¿Desea generar la lista de todos los empleados, correspondientes a la nómina?" icon="gtk-apply"/>
+						<button name="generate_txt_slip" type="object" string="Generar diskette al banco" confirm="¿Desea generar el TXT de todos los empleados, correspondientes a la nómina?" icon="gtk-apply" attrs="{'invisible': [('state', '!=', 'close') ] }"/>
+
+						<button name="generate_xsl_slip" type="object" string="Generar XSL" confirm="¿Desea generar el XSL de todos los empleados, correspondientes a la nómina?" icon="gtk-apply"/>
+
+						<button name="generate_list_slip" type="object" string="Imprimir Pre-nómina" confirm="¿Desea generar el XSL de todos los empleados, correspondientes a la nómina?" icon="gtk-apply"/>
+					
 					</xpath>
 
 					<field name="date_end" position="after">
 						<notebook colspan="4">
-    					<page string="Características de la nómina">
-        					<newline/>
-							<newline/>
-							<table border="0">
-								<tr>
-									<td>Nómina</td>
-									<td>
-										<field name="type_slip" widget="selection"/>
-									</td>
-								</tr>
-								<tr>
-									<td>Personal</td>
-									<td>
-										<field name="class_personal" widget="selection"/>
-									</td>
-								</tr>
-								<tr>
-									<td>Diario de salarios / Abono</td>
-									<td>
-										<field name="credit_note"/>
-									</td>
-								</tr>
-							</table>
-    					</page>
-
-    					<!-- <page string="Nóminas">
-    						<separator string="Payslips"/>
-    					</page> -->
-
-					</notebook>
+	    					<page string="Características de la nómina">
+	        					<newline/>
+								<newline/>
+								<table border="0">
+									<tr>
+										<td>Nómina <a href=""></a></td>
+										<td>
+											<field name="type_slip" widget="selection"/>
+										</td>
+									</tr>
+									<tr>
+										<td>Personal</td>
+										<td>
+											<field name="class_personal" widget="selection"/>
+										</td>
+									</tr>
+									<tr>
+										<td>Diario de salarios / Abono</td>
+										<td>
+											<field name="credit_note"/>
+										</td>
+									</tr>
+								</table>
+	    					</page>
+	    					
+						</notebook>
 					</field>
 				</field>
 			</record>
@@ -91,7 +99,7 @@
 				<field name="inherit_id" ref="hr_payroll.view_hr_payslip_by_employees"/>
 				<field name="arch" type="xml">
 					<xpath expr="//button[@string='Generate']" position="replace">
-						<button icon="gtk-execute" string="Generar nómina" name="generate_payroll" type="object" class="oe_highlight" confirm="¿Esta usted de acuerdo de generar la nómina?"/>
+						<button icon="gtk-execute" string="Generar nómina" name="compute_sheet" type="object" class="oe_highlight" confirm="¿Esta usted de acuerdo de generar la nómina?"/>
 					</xpath>
 
 					<xpath expr="//group/separator[@string='Employees']" position="replace">
@@ -116,4 +124,3 @@
 			</record>
     </data>
 </openerp>
-

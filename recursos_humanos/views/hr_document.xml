@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+			<record model="ir.actions.act_window" id="action_document_file">
+					<field name="name">Documentos adjuntos a las nóminas</field>
+					<field name="res_model">ir.attachment</field>
+					<field name="view_type">form</field>
+					<field name="view_mode">tree,form</field>
+			</record>
+    
+			<record id="view_document_file" model="ir.ui.view">
+					<field name="name">Documentos adjuntos a las nóminas</field>
+					<field name="model">ir.attachment</field>
+					<field name="inherit_id" ref="base.view_attachment_form"/>
+					<field name="arch" type="xml">
+
+						<xpath expr="//label[@class='oe_edit_only']" position="replace">
+
+							<label for="name" class="oe_edit_only" invisible="1"/>
+
+							<div class="oe_horizontal_separator">
+							 Nombre del documento adjunto 
+							</div>
+						</xpath>
+
+						<xpath expr="//field[@name='name']" position="replace">
+							<field name="name" class="oe_edit_only" readonly="1"/>
+						</xpath>
+						<xpath expr="//group/field[@name='type']" position="replace">
+							<field name="type" readonly="1"/>
+						</xpath>
+						
+					</field>
+			</record>
+
+			<menuitem name="Documentos de la nómina" id="filter_document" parent="hr_payroll.menu_hr_root_payroll"/>
+        	<menuitem parent="filter_document" id="sub_menu_document" action="action_document_file" name="Documentos"/>
+        
+    </data>
+</openerp>

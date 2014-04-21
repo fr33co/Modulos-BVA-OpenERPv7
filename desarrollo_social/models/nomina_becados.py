@@ -5,6 +5,9 @@ from datetime import date
 from openerp.osv import fields, osv
 import base64#Necesario para la generación del .txt
 from xml.etree.ElementTree import Element, SubElement, ElementTree, tostring#Necesario para la generación del .xsl
+from fpdf import FPDF
+import fpdf
+import pdf_nominas
 
 class NominaBecados(osv.Model):
 	
@@ -36,6 +39,7 @@ class NominaBecados(osv.Model):
 			id_nomina = x_browse_id.id #Leer el identificaddor de la nómina actual
 			anyo = x_browse_id.anyo
 			mes = x_browse_id.mes #Leer el mes de la nómina actual
+			tiponomina = x_browse_id.tipo_nomina #Leer el tipo de nómina de la nómina actual
 			stage = x_browse_id.stage_id #Leer el estado de la nómina actual
 			print "Id de la pre-nómina: "+str(id_nomina)+"\n"
 			print "mes de la pre-nómina: "+str(mes)+"\n"
@@ -44,37 +48,14 @@ class NominaBecados(osv.Model):
 			for becado in x_browse_id.becados:#Recorrer los registros dentro del campo 'becados' del modelo de Nómina
 				cedula = becado.cedula
 				name = becado.name_related
-				tipo_beca = becado.tipo_beca.tipo_beca
+				tipo_beca = becado.tipo_beca.id
+				asignacion = becado.tipo_beca.asignacion
 				
-				#Validar si pasaron campos vacíos... si es así se rellenan con una cadena alusiva
-				#Si no se hace esto se corre el riesgo de que se prodúzca un error al imprimir
-				if cedula == False or cedula == "":
-					cedula = "vacio"
-					
-				if name == False or name == "":
-					name = "vacio"
-					
-				if tipo_beca == False or tipo_beca == "":
-					tipo_beca = "vacio"
-				
-				#Nota: esta impresión es una prueba para visualizar los registros por consola
-				print str(cedula)+" "+str(name.encode("utf-8"))+" "+str(tipo_beca.encode("utf-8"))
+				print cedula + " " + name + " " + str(tipo_beca)
 				
 				#Preparación de los datos compuestos
 				codigo = str(mes)+str(anyo)+str(cedula)
-				tipo_beca = becado.tipo_beca.id
-				
-				#Validar si pasaron campos vacíos... si es así se rellenan con una cadena alusiva
-				#Si no se hace esto se corre el riesgo de que se prodúzca un error al imprimir
-				if cedula == False or cedula == "":
-					cedula = "vacio"
-					
-				if name == False or name == "":
-					name = "vacio"
-					
-				if tipo_beca == False or tipo_beca == "":
-					tipo_beca = "vacio"
-				
+								
 				#Verificamos si la nómina individual del becado ya fue generada (se toma en cuenta el código)
 				search_nomina1 = obj_proceso_nomina.search(cr, uid, [('codigo','=',codigo)], count=False)
 				
@@ -87,7 +68,7 @@ class NominaBecados(osv.Model):
 						'anyo': anyo,
 						'mes': mes,
 						'tipo_beca': tipo_beca,
-						'asignacion': 0,
+						'asignacion': asignacion,
 						}, context=context)
 				
 				else:
@@ -112,9 +93,9 @@ class NominaBecados(osv.Model):
 				if contador <= 0:
 					obj_proceso_nomina.unlink(cr, uid, nomina.id, context=None)
 					# Revisar: Hasta los momentos se actualiza la lista de nóminas individuales según el número de becados, 
-					#pero ocurre un error si no se ha guardado la nómina después de borrar un becado de la lista e intentar generar de nuevo la nómina.
-					
-		#~ 
+					#pero ocurre un error si no se ha guardado la nómina después de borrar un becado de la lista y se intenta generar de nuevo la nómina.
+
+
 	#Función para la generación de los reportes .txt y xsl de la pre-nómina----------------------------------------------------------	
 	def action_archivar_prenomina(self, cr, uid, ids, context):
 		
@@ -123,6 +104,7 @@ class NominaBecados(osv.Model):
 		for x_browse_id in browse_id:#Recorrer el arreglo para seleccionar el campo necesario
 			id_nomina = x_browse_id.id #Leer el identificaddor de la nómina actual
 			mes = x_browse_id.mes #Leer el mes de la nómina actual
+			tiponomina = x_browse_id.tipo_nomina.tipo_nomina #Leer el tipo de nómina de la nómina actual
 			stage = x_browse_id.stage_id #Leer el estado de la nómina actual 
 			print "Id de la nómina: "+str(id_nomina)+"\n"
 			print "mes de la nómina: "+str(mes)+"\n"
@@ -157,14 +139,31 @@ class NominaBecados(osv.Model):
 					for nomina in self.browse(cr, uid, ids, context=None):
 						#Recorro los registros que están dentro del campo 'becados' de la nómina actual
 						data = ""
+						data1 = []
 						for becado in nomina.nomina_individual:
 							datos = str(becado.codigo)+" "+str(becado.becado.cedula)+" "+str(becado.becado.name_related.encode("utf-8"))+" "+str(becado.becado.status)+" "+str(becado.tipo_beca.id)+" "+str(becado.asignacion)+"\n"
+							datos1 = []
+							datos1.append(str(becado.codigo))
+							datos1.append(str(becado.becado.cedula))
+							datos1.append(str(becado.becado.name_related.encode("utf-8")))
+							datos1.append(str(becado.becado.status))
+							datos1.append(str(becado.tipo_beca.id))
+							datos1.append(str(becado.asignacion))
 							#~ llenar_archivo = open(nombre_archivo,'a')
 							#~ llenar_archivo.write(datos)							
 							#~ llenar_archivo.close()
 							data = data + datos
+							data1.append(datos1)
+							
 						print data
-					id_att = self.registro_archivo(cr, uid, id_nomina, mes, data, stage, context)
+						print datos1
+						
+						
+					#Ejecutamos el método de registro del txt 
+					id_att = self.registro_archivo(cr, uid, id_nomina, tiponomina, mes, data, stage, context)
+					
+					#Ejecutamos el método de generación de reportes en PDF
+					gen_pdf = self.generar_pdf(data1)
 			
 			else:
 				print "No se encontró ningún registro"
@@ -178,6 +177,7 @@ class NominaBecados(osv.Model):
 		for x_browse_id in browse_id:#Recorrer el arreglo para seleccionar el campo necesario
 			id_nomina = x_browse_id.id #Leer el identificaddor de la nómina actual
 			mes = x_browse_id.mes #Leer el mes de la nómina actual
+			tiponomina = x_browse_id.tipo_nomina.tipo_nomina #Leer el tipo de nómina de la nómina actual
 			stage = x_browse_id.stage_id #Leer el estado de la nómina actual
 			print "Id de la pre-nómina: "+str(id_nomina)+"\n"
 			print "mes de la pre-nómina: "+str(mes)+"\n"
@@ -203,7 +203,7 @@ class NominaBecados(osv.Model):
 							datos = str(becado.codigo)+" "+str(becado.becado.cedula)+" "+str(becado.becado.name_related.encode("utf-8"))+" "+str(becado.becado.status)+" "+str(becado.tipo_beca.id)+" "+str(becado.asignacion)+"\n"
 							data = data + datos
 						print data
-					id_att = self.registro_archivo(cr, uid, id_nomina, mes, data, stage, context)
+					id_att = self.registro_archivo(cr, uid, id_nomina, tiponomina, mes, data, stage, context)
 					
 			else:
 				print "No se encontró ningún registro"
@@ -217,6 +217,7 @@ class NominaBecados(osv.Model):
 		for x_browse_id in browse_id:#Recorrer el arreglo para seleccionar el campo necesario
 			id_nomina = x_browse_id.id #Leer el identificaddor de la nómina actual
 			mes = x_browse_id.mes #Leer el mes de la nómina actual
+			tiponomina = x_browse_id.tipo_nomina.tipo_nomina #Leer el tipo de nómina de la nómina actual
 			stage = x_browse_id.stage_id #Leer el estado de la nómina actual
 			print "Id de la pre-nómina: "+str(id_nomina)+"\n"
 			print "mes de la pre-nómina: "+str(mes)+"\n"
@@ -242,21 +243,21 @@ class NominaBecados(osv.Model):
 							datos = str(becado.codigo)+" "+str(becado.becado.cedula)+" "+str(becado.becado.name_related.encode("utf-8"))+" "+str(becado.becado.status)+" "+str(becado.tipo_beca.id)+" "+str(becado.asignacion)+"\n"
 							data = data + datos
 						print data
-					id_att = self.registro_archivo(cr, uid, id_nomina, mes, data, stage, context)
+					id_att = self.registro_archivo(cr, uid, id_nomina, tiponomina, mes, data, stage, context)
 		
 		else:
 				print "No se encontró ningún registro"
 				
 				
 	#Función para el registro de los archivos generados de la nómina-----------------------------------------------------------------
-	def registro_archivo(self, cr, uid, nomina, mes, data, stage, context):
+	def registro_archivo(self, cr, uid, nomina, tipo_nomina, mes, data, stage, context):
 		#Registro del .txt					
 		#~ fecha = time.strftime('%d%m%y')
 		print data
-		dia = time.strftime('%d')
+		#~ dia = time.strftime('%d')
 		anyo = time.strftime('%Y')
-		fecha = dia+"-"+mes+"-"+anyo
-		nombre_archivo = str(stage)+ "-" + fecha +'.'+ 'txt'
+		fecha = mes+"-"+anyo
+		nombre_archivo = str(stage) + "-" + tipo_nomina + "-" + fecha +'.'+ 'txt'
 		id_att = self.pool.get('ir.attachment').create(cr, uid, {
 			'nomina': nomina, 
 			'name': nombre_archivo,
@@ -268,9 +269,50 @@ class NominaBecados(osv.Model):
 		return id_att
 		
 		
+	#Fucnión para la generación de reportes en PDF de la nómina
+	def generar_pdf(self,data1):
+		regs = len(data1)
+		print "Cantidad de registros: "+str(regs)+"\n"
+		print data1
+		print "\n"
+		for reg in data1:
+			print reg
+			print "\n"
+			
+		pdf = FPDF(orientation='L',unit='mm',format='letter') #Da error si intento llamar a la clase PDF() importada desde pdf_nominas en vez de FPDF()
+		pdf.add_page()
+		pdf.set_font('Arial','B',16)
+		pdf.cell(15,10,'Codigo')
+		pdf.cell(40,10,'Becado')
+		pdf.cell(40,10,'Anyo')
+		pdf.cell(40,10,'Mes')
+		pdf.cell(40,10,'Tipo de Beca')
+		pdf.cell(40,10,'Asignacion')
+		pdf.ln()
+		
+		#~ i = 0
+		
+		for linea in data1:
+			#~ print i
+			#Probar con los datos que vienen en data1 y verificar por qué se muestra desde 'prueba2'
+			pdf.cell(15,10,'prueba1')
+			pdf.cell(40,10,'prueba2')
+			pdf.cell(40,10,'prueba3')
+			pdf.cell(40,10,'prueba4')
+			pdf.cell(40,10,'prueba5')
+			pdf.cell(40,10,'prueba6')
+			pdf.ln()
+
+			#~ i = i +1
+		 
+		pdf.output('openerp/addons/desarrollo_social/reportes/nominas/tuto1.pdf','F')		 
+
+		print "<script>document.location = 'openerp/addons/desarrollo_social/reportes/nominas/tuto1.pdf';</script>"		
+		
 	_columns = {
 		'anyo' : fields.char(string="Año",required=True),
 		'mes' : fields.selection((('Enero','Enero'),('Febrero','Febrero'),('Marzo','Marzo'),('Abril','Abril'),('Mayo','Mayo'),('Junio','Junio'),('Julio','Julio'),('Agosto','Agosto'),('Septiembre','Septiembre'),('Octubre','Octubre'),('Noviembre','Noviembre'),('Diciembre','Diciembre')),"Mes",required=True),
+		'tipo_nomina' : fields.many2one('becados.tiponomina','Tipo de Nómina',required=True),
 		#~ 'status' : fields.selection((('1','Activo'),('2','Periódo de gracia'),('3','Permiso de reposo'),('4','Permiso no remunerado'),('5','Suspendido'),('6','Vacaciones'),('7','Egresado')), "Estatus", required = False),
 		#~ 'tipo_nomina' : fields.many2one("becados.tiponomina","Tipo de Nómina",required=False),
 		#~ 'tipo_beca' : fields.many2one("becados.tipobeca","Tipo de Beca",required=False),
@@ -290,6 +332,7 @@ class NominaBecados(osv.Model):
 	_defaults = {
 		'stage_id' : 'prenomina',
 		'anyo' : lambda *a: time.strftime("%Y"),
+		'tipo_nomina' : '1'
 		#~ 'status' : '1',
 	}
 
