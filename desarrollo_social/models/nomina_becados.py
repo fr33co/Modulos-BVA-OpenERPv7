@@ -8,6 +8,7 @@ from xml.etree.ElementTree import Element, SubElement, ElementTree, tostring#Nec
 from fpdf import FPDF
 import fpdf
 import pdf_nominas
+import xlwt
 
 class NominaBecados(osv.Model):
 	
@@ -163,7 +164,10 @@ class NominaBecados(osv.Model):
 					id_att = self.registro_archivo(cr, uid, id_nomina, tiponomina, mes, data, stage, context)
 					
 					#Ejecutamos el método de generación de reportes en PDF
-					gen_pdf = self.generar_pdf(data1)
+					gen_pdf = self.generar_pdf(cr, uid, id_nomina, tiponomina, mes, data1, stage, context)
+					
+					#Ejecutamos el método de generación de reportes en XLS
+					gen_xls = self.generar_xls(cr, uid, id_nomina, tiponomina, mes, data1, stage, context)
 			
 			else:
 				print "No se encontró ningún registro"
@@ -270,7 +274,7 @@ class NominaBecados(osv.Model):
 		
 		
 	#Fucnión para la generación de reportes en PDF de la nómina
-	def generar_pdf(self,data1):
+	def generar_pdf(self, cr, uid, nomina, tipo_nomina, mes, data1, stage, context):
 		regs = len(data1)
 		print "Cantidad de registros: "+str(regs)+"\n"
 		print data1
@@ -304,11 +308,66 @@ class NominaBecados(osv.Model):
 			pdf.ln()
 
 			#~ i = i +1
-		 
-		pdf.output('openerp/addons/desarrollo_social/reportes/nominas/tuto1.pdf','F')		 
+		#Generación del nombre del reporte
+		anyo = time.strftime('%Y')
+		fecha = mes+"-"+anyo
+		nombre_archivo = str(stage) + "-" + tipo_nomina + "-" + fecha +'.'+ 'pdf'
+		
+		#Guardar reporte en una ruta específica
+		pdf.output('openerp/addons/desarrollo_social/reportes/nominas/'+nombre_archivo,'F')
+		
+		#Abrir el archivo del reporte para poder registrarlo
+		archivo = open('openerp/addons/desarrollo_social/reportes/nominas/'+nombre_archivo)
+		
+		#Registro del archivo de reporte en la base de datos
+		id_att = self.pool.get('ir.attachment').create(cr, uid, {
+			'nomina': nomina, 
+			'name': nombre_archivo,
+			'res_name': nombre_archivo,
+			'datas': base64.encodestring(archivo.read()),
+			'datas_fname': nombre_archivo,
+			'res_model': 'becados.nomina',
+			}, context=context)		 
 
 		print "<script>document.location = 'openerp/addons/desarrollo_social/reportes/nominas/tuto1.pdf';</script>"		
+	
+	
+	#Función para la generación de reportes en XLS de la nómina	
+	def generar_xls(self, cr, uid, nomina, tipo_nomina, mes, data1, stage, context):
 		
+		#Generación del nombre del reporte
+		anyo = time.strftime('%Y')
+		fecha = mes+"-"+anyo
+		nombre_archivo = str(stage) + "-" + tipo_nomina + "-" + fecha +'.'+ 'xls'
+		
+		#Generación del reporte (Pendiente por cargar la data)
+		style0 = xlwt.easyxf('font: name Times New Roman, colour red, bold on')
+		style1 = xlwt.easyxf('',num_format_str='D-M-YY')
+		wb = xlwt.Workbook()
+		ws = wb.add_sheet('A Test Sheet',cell_overwrite_ok=True)
+		ws.write(0, 0, 'Test', style0)
+		ws.write(1, 0, date.today(), style1)
+		ws.write(2, 0, 4)
+		ws.write(2, 1, 1)
+		ws.write(2, 2, xlwt.Formula("A3+B3"))
+		#Guardar reporte en una ruta específica
+		wb.save('openerp/addons/desarrollo_social/reportes/nominas/'+nombre_archivo)
+		
+		#Abrir el archivo del reporte para poder registrarlo
+		archivo = open('openerp/addons/desarrollo_social/reportes/nominas/'+nombre_archivo)
+		
+		#Registro del archivo de reporte en la base de datos
+		id_att = self.pool.get('ir.attachment').create(cr, uid, {
+			'nomina': nomina, 
+			'name': nombre_archivo,
+			'res_name': nombre_archivo,
+			'datas': base64.encodestring(archivo.read()),
+			'datas_fname': nombre_archivo,
+			'res_model': 'becados.nomina',
+			}, context=context)
+			
+	
+	#Definición de las columnas del modelo
 	_columns = {
 		'anyo' : fields.char(string="Año",required=True),
 		'mes' : fields.selection((('Enero','Enero'),('Febrero','Febrero'),('Marzo','Marzo'),('Abril','Abril'),('Mayo','Mayo'),('Junio','Junio'),('Julio','Julio'),('Agosto','Agosto'),('Septiembre','Septiembre'),('Octubre','Octubre'),('Noviembre','Noviembre'),('Diciembre','Diciembre')),"Mes",required=True),

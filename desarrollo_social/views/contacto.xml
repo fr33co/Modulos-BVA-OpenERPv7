@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	
+	<data>
+			
+		<!--Accionador para el menu de contactos-->
+		<record model="ir.actions.act_window" id="accion_lista_contactos">
+			<field name="name">Contacto</field>
+			<field name="res_model">becados.contactos</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Agregue un nuevo contacto</p>
+			</field>
+		</record>
+		<!--Accionador para el menu de contactos-->
+		
+		<record model="ir.ui.view" id="vista_formulario_contactos">
+			<field name="name">contactos.form</field>
+			<field name="model">becados.contactos</field>
+			<field name="arch" type="xml"> 
+				<form string="Formulario de Contactos">
+					<group colspan="2">
+						<field name="cedula_contacto" nolabel="0" colspan="1"/>
+						<field name="nombre_contacto" nolabel="0" colspan="1"/>							 
+						<field name="direccion_contacto" nolabel="0" colspan="1"/>							 
+						<field name="telefono_contacto" nolabel="0" colspan="1"/>							 
+						<field name="correo_contacto" nolabel="0" colspan="1"/>						 
+						<field name="parentesco" nolabel="0" colspan="1"/>
+					</group>
+				</form>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="vista_tree_contactos">
+			<field name="name">contactos.tree</field>
+			<field name="model">becados.contactos</field>
+			<field name="arch" type="xml"> 
+				<tree string="Lista de Contactos">
+					<field name="cedula_contacto"/>
+					<field name="nombre_contacto"/>							 
+					<field name="direccion_contacto"/>							 
+					<field name="telefono_contacto"/>							 
+					<field name="correo_contacto"/>						 
+					<field name="parentesco"/>
+				</tree>
+			</field>
+		</record>
+			
+	</data>
+	
+</openerp>
+
+
+

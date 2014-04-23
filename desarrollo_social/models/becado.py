@@ -18,14 +18,35 @@ class Becado(osv.Model):
 		
 		valores = {}
 		
-		nombre1 = str(campo1)
-		nombre2 = str(campo2)
-		apellido1 = str(campo3)
-		apellido2 = str(campo4)
+		#----------------------------------------
+		if not campo1:
+			nombre1 = ""
+		else:
+			nombre1 = str(campo1.encode("utf-8"))
+		
+		#----------------------------------------	
+		if not campo2:
+			nombre2 = ""
+		else:
+			nombre2 = str(campo2.encode("utf-8"))
+			
+		#----------------------------------------
+		if not campo3:
+			apellido1 = ""
+		else:
+			apellido1 = str(campo3.encode("utf-8"))
+			
+		#----------------------------------------
+		if not campo4:
+			apellido2 = ""
+		else:
+			apellido2 = str(campo4.encode("utf-8"))
+			
+		#----------------------------------------
 		
 		arreglo = []
 		
-		arreglo.append(nombre1 )
+		arreglo.append(nombre1)
 		arreglo.append(nombre2) 
 		arreglo.append(apellido1) 
 		arreglo.append(apellido2)
@@ -158,8 +179,8 @@ class Becado(osv.Model):
 		'ejes' : fields.many2one("becados.ejes", "Eje", required = False),
 		'sede' : fields.many2one("becados.sedes", "Sede/Unidad Asignada", required=False),
 		'cargo_desempenado' : fields.selection((('1','0243'),('2','0244')), "Cargo Desempeñado", required = False),
-		'coordinador_eje' : fields.many2one("hr.employee","Coordinador de Eje",required=False, domain=[('category_ids.name','=','Coordinador_eje')]),
-		'coordinador_sede' : fields.many2one("hr.employee","Coordinador de Sede",required=False, domain=[('category_ids.name','=','Coordinador_sede')]),
+		'coordinador_eje' : fields.many2one("hr.employee","Coordinador de Eje",required=False, domain=[('categoria','=','4')]),
+		'coordinador_sede' : fields.many2one("hr.employee","Coordinador de Sede",required=False, domain=[('categoria','=','5')]),
 		#'status' : fields.many2one("becados.status","Status",required=False),
 		'status' : fields.selection((('1','Activo'),('2','Periódo de gracia'),('3','Permiso de reposo'),('4','Permiso no remunerado'),('5','Suspendido'),('6','Vacaciones'),('7','Egresado')), "Estatus", required = False),
 		'desc_status' : fields.char(string="Descripción", size=100, required=False,help="Escriba aquí detalles y razones del estatus seleccionado"),
@@ -179,6 +200,7 @@ class Becado(osv.Model):
 		'direccion_contacto' : fields.text(string="Dirección",size=256,required=False), 
 		'telefono_contacto' : fields.char(string="Teléfono",size=12,required=False),
 		'correo_contacto' : fields.char(string="Correo",size=50,required=False),
+		'contacto' : fields.one2many("becados.contactos","becado",string="Contactos",required=False),
 		#Campos extra-------------------------------------------------------------------------
 		'fecha_actual' : fields.char(string="FECHA", size = 50, required=False),#Campo para formato PDF
 		'grupo' : fields.many2one("res.groups", "Grupos", required=True, readonly=True),	
@@ -188,7 +210,7 @@ class Becado(osv.Model):
 		'fecha_actual': lambda *a: time.strftime("(%d) días del mes %B del año %Y"),# formato corecto al español
 		'status' : '1',
 		'grupo': lambda s, cr, uid, c: uid,
-		'categoria' : '1',
+		#~ 'categoria' : '1',
 		#~ 'tipo_beca' : '1',
 		#~ 'entidad_bancaria' : '1',
 		#~ 'tipo_cuenta' : '1'

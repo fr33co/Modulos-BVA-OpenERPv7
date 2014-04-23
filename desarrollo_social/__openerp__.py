@@ -35,6 +35,7 @@
       "views/ejes.xml",
       "views/institucion_edu.xml",
       "views/banco.xml",
+      "views/contacto.xml",
       "views/nomina_becados.xml",
       "views/nomina_becado_individual.xml",
       "views/archivos_nominas.xml",

@@ -26,3 +26,4 @@ import nomina_becados
 import nomina_becado_individual
 import archivos_nominas
 import wizard_lista_becados
+import contacto
