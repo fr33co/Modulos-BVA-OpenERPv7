@@ -51,9 +51,11 @@
 				<field name="passport_id" position="replace">
 					<field name="passport_id" attrs="{'invisible': [('categoria', '=', '1') ] }"/>
 				</field>
+<!--
 				<field name='passport_id' position="after">
 					<field name="tiempo_servicio" attrs="{'invisible': [('categoria', '=', '1') ] }"/>
 				</field>
+-->
 				<field name="address_home_id" position="after">
 					<field name="direccion"/>
 				</field>
@@ -78,19 +80,21 @@
 				<field name="work_email" position="replace">
 					<field name="work_email" invisible="1"/>
 				</field>
-				<xpath expr="//group/group/field[@name='bank_account_id']" position="replace">
+				<field name='bank_account_id' position="replace">
 					<field name="bank_account_id" attrs="{'invisible': [('categoria', '=', '1') ] }"/>
-				</xpath>
+				</field>
 				<field name="bank_account_id" position="before">
 					<field name="asignacion" attrs="{'invisible': [('categoria', '=', '1') ] }"/>
 				</field>
 				<field name="twitter" position="after">
 					<field name="correo" widget="email"/>
 				</field>
+<!--
 				<field name="tiempo_servicio" position="after">
 					<field name="ano_antiguedad" class="oe_inline"/>
 				</field>
-				<field name="ano_antiguedad" position="after">
+-->
+				<field name="passport_id" position="after">
 					<field name="camisa" class="oe_inline"/>
 				</field>
 				<field name="camisa" position="after">
@@ -171,16 +175,7 @@
 					</page>
 					
 					<page string="Representante/Contacto" attrs="{'invisible': [('categoria', '!=', '1')] }">
-						<group string="Datos básicos">
-							<group>
-								<field name="nombre_contacto" nolabel="0" colspan="2"/>
-								<field name="direccion_contacto" nolabel="0" colspan="2"/>
-							</group>
-							<group>
-								<field name="telefono_contacto" nolabel="0" colspan="2"/>
-								<field name="correo_contacto" nolabel="0" colspan="2"/>
-							</group>
-						</group>
+						<field name="contacto"/>
 					</page>
 					
 					<page string="Información Institucional">
@@ -188,9 +183,11 @@
 							<group>
 								<field name="fecha_ingreso"/>
 								<field name="fecha_egreso" attrs="{'invisible':[('status','!=','7')]}"/>
-								<field name="entidad_bancaria"/>														
-								<field name="numero_cuenta"/>							
-								<field name="tipo_cuenta"/>
+								<field name="tiempo_servicio" attrs="{'invisible': [('categoria', '=', '1') ] }"/>
+								<field name="ano_antiguedad" class="oe_inline" attrs="{'invisible': [('categoria', '=', '1') ] }"/>
+								<field name="entidad_bancaria" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>														
+								<field name="numero_cuenta" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>							
+								<field name="tipo_cuenta" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>
 								<field name="status"/>
 								<field name="desc_status" attrs="{'invisible':['|',('status','=','1'),('status','=',False)]}"/>							
 							</group>
