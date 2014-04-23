@@ -11,6 +11,6 @@ class Banco(osv.Model):
 	
 	_columns = {
 		'codigo' : fields.char(string="Código", size=10, required=False),
-		'banco' : fields.char(string="Entidad Bancaria", size=50, required=True),
+		'banco' : fields.char(string="Entidad Bancaria", size=50, required=False),
 	}
 

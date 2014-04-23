@@ -18,10 +18,34 @@
 			<field name="model">hr.employee</field>
 			<field name="inherit_id" ref="hr.view_employee_form"/>
 			<field name="arch" type="xml">
+<!--
+				<field name="name" position="replace">
+					<field name="name" invisible="1"/>
+				</field>
+-->
+				
+<!--
+				<xpath expr="//field[@name='name']" position="replace">
+					<field name="name" invisible="1"/>
+				</xpath>
+-->
+				
 				<field name="identification_id" position="replace">
 					<field name="cedula" on_change="datos_seleccionado(cedula)"/>
 				</field>
 				<field name="cedula" position="after">
+					<field name="primer_nombre" on_change="constructor_name(primer_nombre,segundo_nombre,primer_apellido,segundo_apellido)"/>
+				</field>
+				<field name="primer_nombre" position="after">
+					<field name="segundo_nombre" on_change="constructor_name(primer_nombre,segundo_nombre,primer_apellido,segundo_apellido)"/>
+				</field>
+				<field name="segundo_nombre" position="after">
+					<field name="primer_apellido" on_change="constructor_name(primer_nombre,segundo_nombre,primer_apellido,segundo_apellido)"/>
+				</field>
+				<field name="primer_apellido" position="after">
+					<field name="segundo_apellido" on_change="constructor_name(primer_nombre,segundo_nombre,primer_apellido,segundo_apellido)"/>
+				</field>
+				<field name="segundo_apellido" position="after">
 					<field name="grupo"/>
 				</field>
 				<field name="passport_id" position="replace">
@@ -168,16 +192,16 @@
 								<field name="numero_cuenta"/>							
 								<field name="tipo_cuenta"/>
 								<field name="status"/>
-								<field name="desc_status" attrs="{'invisible':[('status','!=','1')]}"/>							
+								<field name="desc_status" attrs="{'invisible':['|',('status','=','1'),('status','=',False)]}"/>							
 							</group>
 							<group>
 								<field name="department_id" attrs="{'invisible': [('categoria', '=', '1') ] }"/>
 								<field name="job_id" attrs="{'invisible': [('categoria', '=', '1') ] }"/>
 								<field name="empleado" attrs="{'invisible': [('categoria', '=', '1') ] }"/>
 								<field name="tipo_beca" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>
-								<field name="tipo_nomina"/>
-								<field name="ejes" widget="selection" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>
-								<field name="sede" widget="selection" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>							
+								<field name="tipo_nomina" attrs="{'invisible': [('categoria', '=', '1') ] }"/>
+								<field name="ejes" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>
+								<field name="sede" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>							
 								<field name="coordinador_eje" widget="selection" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>							
 								<field name="coordinador_sede" widget="selection" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>
 							</group>
@@ -274,10 +298,12 @@
 					<field name="sede" position="before">
 						<field name="ejes"/>
 					</field>
+<!--
 					<field name="sede" position="after">
 						<field name="tipo_nomina"/>
 					</field>
-					<field name="tipo_nomina" position="after">
+-->
+					<field name="sede" position="after">
 						<field name="tipo_beca"/>
 					</field>
 			</field>

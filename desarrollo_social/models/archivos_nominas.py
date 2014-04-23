@@ -7,6 +7,7 @@ from openerp.osv import osv, fields
 class NominaBecadoIndividual(osv.Model):
 	
 	_inherit = 'ir.attachment'
+	_order = 'write_date desc'
 	
 	_columns = {
 		'nomina' : fields.many2one("becados.nomina", "Nómina", required=False),

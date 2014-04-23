@@ -4,7 +4,7 @@
 	<data>
 			
 		<!--Accionador para el modelo de Nómina individual de becados-->
-		<record model="ir.actions.act_window" id="accion_lista_areas">
+		<record model="ir.actions.act_window" id="accion_lista_nomina_individual">
 			<field name="name">Nómina de becado</field>
 			<field name="res_model">becados.nominaindividual</field>
 			<field name="view_type">form</field>
@@ -15,7 +15,7 @@
 		</record>
 		<!--Accionador para el modelo de Nómina individual de becados-->
 		
-		<record model="ir.ui.view" id="vista_formulario_areas">
+		<record model="ir.ui.view" id="vista_formulario_nomina_individual">
 			<field name="name">nominaindividual.form</field>
 			<field name="model">becados.nominaindividual</field>
 			<field name="arch" type="xml"> 
@@ -39,7 +39,7 @@
 					</group>
 					<group colspan="4" col="4">
 						<group colspan="2">
-							<field name="tipo_beca" nolabel="0" colspan="1"/>
+							<field name="tipo_beca" nolabel="0" colspan="1" on_change="carga_asignacion(tipo_beca)"/>
 						</group>
 						<group colspan="2">
 							<field name="asignacion" nolabel="0" colspan="1"/>
@@ -49,7 +49,7 @@
 			</field>
 		</record>
 		
-		<record model="ir.ui.view" id="vista_formulario_areas">
+		<record model="ir.ui.view" id="vista_tree_nomina_individual">
 			<field name="name">nominaindividual.tree</field>
 			<field name="model">becados.nominaindividual</field>
 			<field name="arch" type="xml"> 
@@ -58,7 +58,7 @@
 					<field name="becado"/>
 					<field name="anyo"/>
 					<field name="mes"/>
-					<field name="tipo_beca"/>
+					<field name="tipo_beca" on_change="carga_asignacion(tipo_beca)"/>
 					<field name="asignacion"/>
 				</tree>
 			</field>

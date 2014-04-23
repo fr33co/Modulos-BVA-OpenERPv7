@@ -69,7 +69,7 @@ class Sede(osv.Model):
 		'codigo': fields.char(string = "Código", size = 4, required = True),
 		'concepto': fields.text(string = "Concepto", size = 256, required = True),
 		'formula': fields.char(string = "Fórmula", size = 200, required = True),
-		#~ 'items' : fields.many2one("presupuesto.partidas", "Partida presupuestaria", required = False),
+		#'items' : fields.many2one("presupuesto.partidas", "Partida presupuestaria", required = False),
 	}
 
 	_defaults = {

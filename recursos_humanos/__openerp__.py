@@ -2,7 +2,7 @@
     'name' : "Recursos Humanos",
     'category' : "Recursos Humanos",
     'version' : "6.1",
-    'depends' : ['base','hr','hr_payroll','hr_recruitment','hr_contract','hr_holidays','l10n_ve_topology','desarrollo_social'],
+    'depends' : ['base','hr','hr_payroll','hr_recruitment','hr_contract','hr_holidays','l10n_ve_topology','desarrollo_social','account'],
     'author' : "Ing en Sistemas: Jesús G. Laya R",
     'description' : '''
      El módulo de Recursos Humanos permite el manejo y gestión de los Empleados de las diferentes Bibliotecas Virtuales de Aragua Nota: Depende de Desarrollo Social:
@@ -11,7 +11,7 @@
       Generación de Reportes
 			Generación de Nóminas'
       Generación de archivos TXT
-      Ultima Actualización: 26 de Marzo del 2014''',
+      Ultima Actualización: 13 de Abril del 2014''',
     'data' : [
       "views/empleado.xml",
       #"views/seguridad_salud_laboral.xml",
@@ -30,6 +30,7 @@
       "views/onchange_slip.xml",
       "views/hr_departament.xml",
       "views/hr_bank.xml",
+      "views/hr_document.xml", # Herencia de ir_attachment (Documentos adjuntos)
       #~ "views/proceso_seleccion.xml",
 
       # "views/tipoNomina.xml",

@@ -134,7 +134,8 @@
 				</field>
 			</record>
         
-        <menuitem parent="hr.menu_hr_configuration" id="sub_menu_onchange_slip" action="action_onchange_slip" name="Cambio de Nómina"/>
+        <menuitem name="Cambio de Nómina"  parent="hr_payroll.menu_hr_root_payroll" id="sub_menu_onchange_slip" />
+        <menuitem parent="sub_menu_onchange_slip" id="sub_menu_slip_hr_employee" action="action_onchange_slip" name="Cambio de Nóminas"/>
         
     </data>
 </openerp>

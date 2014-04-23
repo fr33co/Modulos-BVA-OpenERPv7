@@ -11,6 +11,6 @@ class Departament(osv.Model):
 	_inherit = 'hr.department'
 	
 	_columns = {
-		'gerente' : fields.char(string="Gerente",required=True),
+		'gerente' : fields.char(string="Gerente",required=False),
 	}
 

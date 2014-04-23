@@ -11,8 +11,46 @@ class Becado(osv.Model):
 	_order = "empleado"
 	
 	_inherit = 'hr.employee'
-
-
+	
+	#------------------------------------------------------------------------------------------------------------------------------
+	#Función para la generación del nombre completo del becado en base a los nombres y apellidos proporcionados en la ficha
+	def constructor_name(self, cr, uid, ids, campo1, campo2, campo3, campo4, context=None):
+		
+		valores = {}
+		
+		nombre1 = str(campo1)
+		nombre2 = str(campo2)
+		apellido1 = str(campo3)
+		apellido2 = str(campo4)
+		
+		arreglo = []
+		
+		arreglo.append(nombre1 )
+		arreglo.append(nombre2) 
+		arreglo.append(apellido1) 
+		arreglo.append(apellido2)
+		
+		print arreglo
+		
+		nombre_completo = ""
+		
+		for nom_ape in arreglo:
+			
+			if nom_ape != 'False':
+				
+				nombre_completo += nom_ape+" "
+				
+		print nombre_completo
+		
+		
+		valores.update({
+			'name' : nombre_completo
+		})
+		
+		return {'value':valores}
+		
+	#------------------------------------------------------------------------------------------------------------------------------
+  #Funcion para calcular la edad del becado
 	def validar_fecha(self, cr, uid, ids, fecha_nacimiento):
 
 		values = {}
@@ -80,6 +118,10 @@ class Becado(osv.Model):
 	_columns = {
 		#Información personal-----------------------------------------------------------------
 		'cedula' : fields.char(string="Cédula", size = 8, required=True),
+		'primer_nombre' : fields.char(string="Primer nombre", size=50, required=True),
+		'segundo_nombre' : fields.char(string="Segundo nombre", size=50, required=False),
+		'primer_apellido' : fields.char(string="Primer apellido", size=50, required=True),
+		'segundo_apellido' : fields.char(string="Segundo apellido", size=50, required=False),
 		'tiempo_servicio' : fields.char(string="Tiempo de Servicio", size = 50, required=False),
 		'direccion' : fields.text(string="Dirección", size = 256, required=True),
 		'correo' : fields.char(string="Correo", size = 30, required=True),
@@ -108,7 +150,7 @@ class Becado(osv.Model):
 		#Información institucional------------------------------------------------------------
 		'fecha_ingreso' : fields.date(string="Fecha de Ingreso", required=True),
 		'fecha_egreso' : fields.date(string="Fecha de Egreso", required=False),
-		'tipo_nomina' : fields.many2one("becados.tiponomina", "Tipo de Nómina", required = True),
+		'tipo_nomina' : fields.many2one("becados.tiponomina", "Tipo de Nómina", required = False),
 		'class_personal' : fields.many2one("becados.clasper", "Clasificación del Personal", required = False),
 		'empleado': fields.many2one("becados.tipoempleado", "Tipo de Empleado", required = False),
 		'tipo_beca' : fields.many2one("becados.tipobeca", "Tipo de Beca", required = False),
@@ -146,5 +188,8 @@ class Becado(osv.Model):
 		'fecha_actual': lambda *a: time.strftime("(%d) días del mes %B del año %Y"),# formato corecto al español
 		'status' : '1',
 		'grupo': lambda s, cr, uid, c: uid,
-		'categoria' : '1'
+		'categoria' : '1',
+		#~ 'tipo_beca' : '1',
+		#~ 'entidad_bancaria' : '1',
+		#~ 'tipo_cuenta' : '1'
 	} 

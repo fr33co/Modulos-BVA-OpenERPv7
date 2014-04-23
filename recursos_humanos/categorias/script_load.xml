@@ -239,6 +239,7 @@
                         <!-- Tipo de Cargo -->
 <!--===================================================================-->
 
+<!--
             <record id="tipo_cargo_1" model="hr.job">
                 <field name="name">Analista I</field>
             </record>
@@ -299,6 +300,7 @@
             <record id="tipo_cargo_19" model="hr.job">
                 <field name="name">Consultorio Gurídico (E)</field>
             </record>
+-->
 <!--===================================================================-->
                     <!--Clasificación del Personal-->
 <!--===================================================================-->
@@ -325,7 +327,7 @@
 <!--===================================================================-->
 
             <record id="domain_2" model="ir.filters">
-                <field name="is_default">FALSE</field>
+                <field name="is_default">TRUE</field>
                 <field name="model_id">hr.employee</field>
                 <field name="domain">[('categoria','=','2')]</field>
                 <field name="user_id">26</field>
@@ -398,6 +400,11 @@
                 <field name="grado_instruc">Doctorado</field>
             </record>
 <!--===================================================================-->
-
+            <!-- <record id="bank_id" model="res.partner.bank">
+                <field name="acc_number">00000000000000000000</field>
+                <field name="partner_id">1</field>
+                <field name="type_account">2</field>
+            </record> -->
+<!--===================================================================-->
         </data>
     </openerp>

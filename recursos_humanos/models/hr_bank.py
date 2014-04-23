@@ -19,6 +19,7 @@ class Bank(osv.Model):
 	_defaults = {
 
 		'state' : "bank",
+		'acc_number' : "00000000000000000000",
 	}
 	
 	
