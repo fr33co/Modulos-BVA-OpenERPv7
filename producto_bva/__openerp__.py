@@ -25,14 +25,28 @@
     'version': '1.1',
     'author': 'OpenERP SA',
     'category': 'Alamacenes',
-    'depends': ['product', 'stock'],
+    'depends': ['base','product', 'stock'],
     'description': """
 
     """,
     'data': [
         'view/producto_bva.xml',
-
-
+        #'view/inventario_bva.xml',
+        'view/categoria_producto.xml',
+        'view/almacen.xml',
+        'view/configuraciones.xml',
+        'view/desincorporaciones.xml',
+        'view/nota_entrega.xml',
+        'view/movimientos_bva.xml',
+        'data/clasificacion_data2.xml',
+        'data/ubicaciones_data.xml',
+        'data/desincorporaciones_data.xml',
+        'data/incorporaciones_data.xml',
+        #'reports/inventario_materiales.xml',
+        'reports/desincorporaciones_bva.xml',
+        #'reports/inventario_bienes.xml',
+        'reports/nota_entrega.xml',
+        'reports/reporte_mov_bva.xml',
     ],
     'test': [
       

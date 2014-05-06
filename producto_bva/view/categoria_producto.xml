@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  	<data>
+<!-- Herencia de vista Form de Categoria de Productos donde se le agrega los campos de clasificacion -->
+  		<record model="ir.ui.view" id="category_form_bva_view">
+			<field name="name">categoria.form.bva</field>
+			<field name="model">product.category</field>
+			<field name="inherit_id" ref="product.product_category_form_view" />
+			<field name="arch" type="xml">
+				<data>
+					<xpath expr="//div[@class='oe_title']" position="replace">
+						<group colspan="4">
+							<group colspan="1">
+								<div class="oe_title">
+								<label for="name" string="Clasificación del Bien" class="oe_edit_only"/>
+								<h4><field name="name"  style="width: 150%%"/></h4>
+								</div>
+							</group>
+							<group colspan="1">
+								<table>
+									<tr>
+										<td><label for="g" string="G"/></td>
+										<td><label for="sg" string="SG"/></td>
+										<td><label for="s" string="S"/> </td>
+									</tr>
+									<tr>
+										<td><field name="g" style="width: 5%%" nolabel="0" placeholder="Grupo"/></td>
+										<td><field name="sg" style="width: 5%%" nolabel="0" placeholder="Sub Grupo"/></td>
+										<td><field name="s" style="width: 5%%" nolabel="0" placeholder="Sección"/></td>
+									</tr>
+								</table>
+							</group>
+						</group>
+					</xpath>
+	 			</data>
+
+			</field>		
+		</record>
+
+<!-- Herencia de vista Tree de Categoria de Productos donde se le agrega los campos de clasificacion -->
+ 		<record model="ir.ui.view" id="category_tree_bva_view">
+			<field name="name">categoria.tree.bva</field>
+			<field name="model">product.category</field>
+			<field name="inherit_id" ref="product.product_category_tree_view" />
+			<field name="arch" type="xml">
+				<tree toolbar="True" string="Product Categories" position="replace">
+					<tree toolbar="True" string="Product Categories" >
+						<field name="name"/>
+						<field name="g" />
+						<field name="sg" />
+						<field name="s" />
+						<field name="parent_id" />
+					</tree>	
+				</tree>
+			</field>
+		</record>
+
+<!-- Herencia de vista Form de Categoria de Productos donde se le agrega los campos de clasificacion -->
+		<record model="ir.ui.view" id="category_list_bva_view">
+			<field name="name">categoria.tree.bva</field>
+			<field name="model">product.category</field>
+			<field name="inherit_id" ref="product.product_category_list_view" />
+			<field name="arch" type="xml">
+				<tree string="Product Categories" position="replace">
+					<tree string="Clasifiacione de los bieness" >
+						<field name="name"/>
+						<field name="g" />
+						<field name="sg" />
+						<field name="s" />
+						<field name="parent_id" />
+					</tree>
+				</tree>
+			</field>
+		</record>
+
+<!-- Herencia de vista Busqueda de Categoria de Productos para poder filtar -->
+		<record id="producto_search_form_view" model="ir.ui.view">
+			<field name="name">product.search.form</field>
+			<field name="model">product.category</field>
+			<field name="inherit_id" ref="product.product_category_search_view" />
+			<field name="arch" type="xml">
+				<field name="name" position="after">
+					<field name="g" />
+					<field name="sg" />
+					<field name="s" />
+				</field>
+			</field>
+		</record>
+	</data>
+</openerp>

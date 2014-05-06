@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+<document filename="test.pdf">
+  <template pageSize="(612.0,792.0)" title="Test" author="Marcel Arcuri" allowSplitting="20">
+    <pageTemplate id="first">
+      <frame id="first" x1="57.0" y1="57.0" width="498" height="678"/>
+    </pageTemplate>
+  </template>
+  <stylesheet>
+
+    <blockTableStyle id="Standard_Outline">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+
+    <blockTableStyle id="Tabla2">
+      <blockBackground colorName="black" start="0,0" stop="-1,0"/>
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      <lineStyle kind="GRID" strokeColor="black" colorName="#000000" thickness="0" start="0,0" stop="-1,-1" />
+      <fill color="red"/>
+    </blockTableStyle>
+
+    <blockTableStyle id="Tabla1" >
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      <lineStyle kind="GRID" colorName="#000000" thickness="0" start="0,0" stop="-1,-1" />
+    </blockTableStyle>
+
+    <blockTableStyle id="Tabla3" align="LEFT">
+      <blockAlignment value="RIGHT"/>
+      <blockValign value="TOP"/>
+      <lineStyle kind="GRID" colorName="#000000" thickness="0" start="0,0" stop="-1,-1" />
+    </blockTableStyle>
+
+    <initialize>
+      <paraStyle name="all" alignment="justify"/>
+    </initialize>
+    <paraStyle name="P1" fontName="Helvetica" alignment="CENTER"/>
+    <paraStyle name="P2" fontName="Helvetica" alignment="JUSTIFY"/>
+    <paraStyle name="P3" fontName="Helvetica-Bold" alignment="CENTER"/>
+    <paraStyle name="P4" fontName="Helvetica"/>
+    <paraStyle name="P5" fontName="Helvetica" alignment="CENTER" textColor="#000000"/>
+    <paraStyle name="P6" fontName="Helvetica"/>
+    <paraStyle name="P7" fontName="Helvetica"/>
+    <paraStyle name="P8" fontName="Helvetica" alignment="CENTER"/>
+    <paraStyle name="P9" fontName="Helvetica" alignment="JUSTIFY"/>
+    <paraStyle name="P10" fontName="Helvetica" alignment="CENTER"/>
+    <paraStyle name="P11" fontName="Helvetica" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P12" fontName="Helvetica"/>
+    <paraStyle name="P14" fontName="Helvetica-Bold" alignment="CENTER" fontSize="9.0"/>
+    <paraStyle name="P15" fontName="Helvetica-Bold" alignment="LEFT" fontSize="9.0"/>
+    <paraStyle name="Standard" fontName="Helvetica"/>
+    <paraStyle name="Heading" fontName="Helvetica" fontSize="14.0" leading="17" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="Text body" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="List" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="Caption" fontName="Helvetica" fontSize="12.0" leading="15" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="Index" fontName="Helvetica"/>
+    <paraStyle name="Table Contents" fontName="Helvetica"/>
+    <paraStyle name="terp_default_2" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="2.0" leading="3" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    
+  </stylesheet>
+  <story>
+    [[ repeatIn(objects, 'c') ]]
+
+    <illustration height="74.0" width="494.0">
+      <image x="-6" y="20" file="../img/logo_bva.png" height="600" width="540"/>
+    </illustration>
+
+    <para style="P3">INVENTARIO DE ALMACEN</para>
+    <para style="P1">
+      <font color="white"> </font>
+    </para>
+
+    <blockTable colWidths="310.0,180.0" style="Tabla1">
+      <tr>
+        <td colspan="2">
+          <para style="P15"> <font color="black">Área Solicitante:[[ c.ubicacion.name]] </font></para>
+        </td>
+        <td colspan="2">
+          <para style="P15"><font color="black"> Fecha: [[formatLang(c.date,date_time=True)]]</font></para>
+        </td>
+      </tr>
+    </blockTable>
+    <para style="P2">
+      <font color="white"> </font>
+    </para>
+    <blockTable colWidths="90.0,25.0" style="Tabla3" align="LEFT">
+      <tr>
+        <td colspan="2">
+          <para style="P15"> <font color="black">T. Materiales </font></para>
+        </td>
+        <td colspan="2">
+          <para style="P15"><font color="black"> </font></para>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <para style="P15"> <font color="black">Limpieza: </font></para>
+        </td>
+        <td colspan="2">
+          <para style="P15"><font color="black"> </font></para>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <para style="P15"> <font color="black">Oficina: </font></para>
+        </td>
+        <td colspan="2">
+          <para style="P15"><font color="black"> </font></para>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <para style="P15"> <font color="black">Otros: </font></para>
+        </td>
+        <td colspan="2">
+          <para style="P15"><font color="black"> </font></para>
+        </td>
+      </tr>
+    </blockTable>
+    <para style="Standard">
+      <font color="white"> </font>
+    </para> 
+    <blockTable colWidths="50.0,100.0,340.0" style="Tabla1">
+      <tr>
+        <td colspan="1">
+          <para style="P15" alignment="CENTER"> <font color="black">ITEM </font></para>
+        </td>
+        <td colspan="1">
+          <para style="P15" alignment="CENTER"><font color="black">Cantidad</font></para>
+        </td>
+         <td colspan="1">
+          <para style="P15" alignment="CENTER"><font color="black">Descripción del Material</font></para>
+        </td>
+      </tr>
+    </blockTable>
+    <section>
+       <para style="terp_default_2">[[ repeatIn(c.almacen, 'p') ]]</para>
+       <blockTable colWidths="50.0,100.0,340.0" style="Tabla1">
+        <tr>
+          <td colspan="1">
+            <para style="P15" alignment="CENTER"> <font color="black">[[ p.id ]]</font></para>
+          </td>
+          <td colspan="1">
+            <para style="P15" alignment="CENTER"><font color="black">[[ p.cantidad ]][[ p.unidad.name ]]</font></para>
+          </td>
+           <td colspan="1">
+            <para style="P15"><font color="black">[[ p.descripcion.descripcion]]</font></para>
+          </td>
+        </tr>
+      </blockTable>
+    </section>
+    
+
+  </story>
+</document>

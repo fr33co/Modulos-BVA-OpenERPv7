@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  	<data>
+<!-- Herencia de vista Form de Movimientos de Productos -->
+  		<record model="ir.ui.view" id="movimientos_form_bva_view">
+			<field name="name">movimientos.form.bva</field>
+			<field name="model">stock.move</field>
+			<field name="inherit_id" ref="stock.view_move_form" />
+			<field name="arch" type="xml">
+				<data>
+					<xpath expr="///group[@string='Details']" position="before">
+						<group>
+							<field name="correlativo" class="oe_inline"/>
+							<field name="justificacion" class="oe_inline" />
+							<field name="vigilante" class="oe_inline" />
+						</group>
+						<separator/>
+	 				</xpath>
+					<xpath expr="////field[@name='product_id']" position="replace">
+						<field name="product_id" on_change="onchange_product_id(product_id,location_id,location_dest_id, False)"/>
+	 				</xpath>
+					<xpath expr="////field[@name='name']" position="after">
+						<field name="g" invisible="1"/>
+						<field name="sg" invisible="1" />
+						<field name="s" invisible="1" />
+						<field name="estado" invisible="1"/>
+						<field name="bva" invisible="1"/>
+						<field name="v_total" invisible="1"/>
+	 				</xpath>
+					<xpath expr="////field[@name='create_date']" position="after">
+						<field name="enviado"/>
+	 				</xpath>
+					<xpath expr="////field[@name='type']" position="replace">
+						<field name="tipo_envio" class="oe_inline"/>
+	 				</xpath>
+					<xpath expr="////field[@name='date']" position="after">
+						<field name="recibido"/>
+						<field name="nota"/>
+						<field name="f_correlativo" invisible="1"/>
+	 				</xpath>
+	 			</data>
+			</field>		
+		</record>
+	</data>
+</openerp>

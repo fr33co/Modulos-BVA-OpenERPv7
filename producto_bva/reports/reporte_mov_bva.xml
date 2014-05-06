@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <report id="reporte_movimientos_bienes" string="Movimiento de Bienes" model="stock.move" name="Reporte Movimientos" rml="producto_bva/reports/reporte_mov_bva.rml" />
+    </data>
+</openerp>

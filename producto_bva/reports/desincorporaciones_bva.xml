@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <report id="reporte_desincorporaciones_bva" string="Imprimir Desincorporaciones" model="desincorporaciones.bva" name="Reporte Desincorporaciones de Elementos" rml="producto_bva/reports/desincorporaciones_bva.rml" />
+    </data>
+</openerp>

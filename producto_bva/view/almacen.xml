@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	<!--  Registro de Materiales -->	
+		<record model="ir.actions.act_window" id="materiales_almacen_list_action">
+			<field name="name">Material Almacen</field>
+			<field name="res_model">materiales.almacen</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				    <p class="oe_view_nocontent_create">Realizar materiales de Almacen</p>
+			</field>
+		</record>
+		
+	<!--  Vista Form Registro de Materiales -->	
+		<record model="ir.ui.view" id="almacenp_form_view">
+			<field name="name">almacen form</field>
+			<field name="model">materiales.almacen</field>
+			<field name="arch" type="xml">
+				<form string="Materiales Form" version="7.0">
+					<group>
+						<group colspan="4">	
+							<field name="codigo" class="oe_inline" colspan="1"/>
+							<field name="user_register" class="oe_inline" colspan="1" />
+						</group>
+						<notebook>
+							<page string="Registro de Materiales">
+								<group col="2" colspan="2" string="Materiales">
+									<group>
+										<field name="descripcion" class="oe_inline" colspan="2"/>
+										<field name="t_materiales" class="oe_inline" colspan="1"/>
+										<field name="unidad" class="oe_inline" colspan="1"/>
+									</group>
+								</group>
+							</page>
+						</notebook>
+					</group>
+				</form>
+			</field>			
+		</record>
+
+	<!--  Vista Tree Registro de Materiales -->	
+		<record model="ir.ui.view" id="materiales_almacen_tree_bva_view">
+			<field name="name">materiales.almacen.tree.bva</field>
+			<field name="model">materiales.almacen</field>
+			<field name="arch" type="xml">
+				<tree string="Incorporaciones" >
+					<field name="descripcion" />
+					<field name="t_materiales"/>
+				</tree>				 
+			</field>
+		</record>
+		
+	<!-- Filtro para buscar por descripción o tipo de material -->
+		<record model="ir.ui.view" id="buscar_materiales_bva">
+			<field name="name">busqueda de materiales </field>
+			<field name="model">materiales.almacen</field>
+			<field name="arch" type="xml">      
+				<search string="Busqueda Materiales">
+					 <field name="descripcion" />
+					 <field name="t_materiales" />
+				</search>
+			</field>            
+		</record>
+		<menuitem id="materiales_menu" name="Registro de Materiales" parent="stock.menu_stock_product" action="materiales_almacen_list_action" sequence="5" />
+
+	</data>
+</openerp>

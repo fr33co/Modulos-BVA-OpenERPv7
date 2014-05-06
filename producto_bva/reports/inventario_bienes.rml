@@ -1,0 +1,202 @@
+<?xml version="1.0"?>
+<document filename="test.pdf">
+  <template pageSize="(612.0,792.0)" title="Test" author="Marcel Arcuri" allowSplitting="20">
+  <pageTemplate id="first">
+      <frame id="first" x1="57.0" y1="57.0" width="498" height="678"/>
+    </pageTemplate>
+  </template>
+ <stylesheet>
+    <blockTableStyle id="Standard_Outline">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+
+    <blockTableStyle id="Tabla2">
+      <blockBackground colorName="black" start="0,0" stop="-1,0"/>
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      <lineStyle kind="GRID" strokeColor="black" colorName="#000000" thickness="0" start="0,0" stop="-1,-1" />
+      <fill color="red"/>
+    </blockTableStyle>
+
+    <blockTableStyle id="Tabla1" >
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      <lineStyle kind="GRID" colorName="#000000" thickness="0" start="0,0" stop="-1,-1" />
+    </blockTableStyle>
+
+    <blockTableStyle id="Tabla3" align="LEFT" border="0" >
+      <blockAlignment value="RIGHT"/>
+      <blockValign value="TOP"/>
+      <!-- <blockBackground colorsByCol="000000;None" start="0,1" stop="-1,-1"/> -->
+      <lineStyle kind="GRID" colorName="white" thickness="0" start="0,0" stop="-1,-1" />
+    </blockTableStyle>
+
+    <initialize>
+      <paraStyle name="all" alignment="justify"/>
+    </initialize>
+    <paraStyle name="P1" fontName="Helvetica" alignment="CENTER"/>
+    <paraStyle name="P2" fontName="Helvetica" alignment="JUSTIFY"/>
+    <paraStyle name="P3" fontName="Helvetica-Bold" alignment="CENTER"/>
+    <paraStyle name="P4" fontName="Helvetica"/>
+    <paraStyle name="P5" fontName="Helvetica" alignment="CENTER" textColor="#000000"/>
+    <paraStyle name="P6" fontName="Helvetica"/>
+    <paraStyle name="P7" fontName="Helvetica"/>
+    <paraStyle name="P8" fontName="Helvetica" alignment="CENTER"/>
+    <paraStyle name="P9" fontName="Helvetica" alignment="JUSTIFY"/>
+    <paraStyle name="P10" fontName="Helvetica" alignment="CENTER"/>
+    <paraStyle name="P11" fontName="Helvetica" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P12" fontName="Helvetica"/>
+    <paraStyle name="P14" fontName="Helvetica-Bold" alignment="CENTER" fontSize="9.0"/>
+    <paraStyle name="P15" fontName="Helvetica-Bold" alignment="LEFT" fontSize="8.0"/>
+    <paraStyle name="Standard" fontName="Helvetica"/>
+    <paraStyle name="Heading" fontName="Helvetica" fontSize="14.0" leading="17" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="Text body" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="List" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="Caption" fontName="Helvetica" fontSize="12.0" leading="15" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="Index" fontName="Helvetica"/>
+    <paraStyle name="Table Contents" fontName="Helvetica"/>
+    <paraStyle name="terp_default_2" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="2.0" leading="3" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    
+  </stylesheet>
+  <story>
+    [[ repeatIn(objects, 'c') ]]
+
+    <illustration height="74.0" width="494.0">
+      <image x="-6" y="20" file="../img/logo_bva.png" height="600" width="540"/>
+    </illustration>
+
+    <para style="P3">INVENTARIO DE ALMACEN</para>
+    <para style="P1">
+      <font color="white"> </font>
+    </para>
+
+    <blockTable colWidths="400.0,160.0" style="Tabla3">
+      <tr>
+        <td colspan="2">
+          <para style="P15"> <font color="black">1.- Entidad Propietaria: Gobierno del Estado Aragua </font></para>
+        </td>
+        <td colspan="2">
+          <para style="P15"><font color="black">2.- Servicio: </font></para>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <para style="P15"> <font color="black">3.- Unidad de Trabajo o Dependencia: [[ c.id ]]</font></para>
+        </td>
+        <td colspan="2">
+          <para style="P15"><font color="black"> </font></para>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <para style="P15"> <font color="black">4.- Estado: Aragua</font></para>
+        </td>
+        <td colspan="2">
+          <para style="P15"><font color="black"> </font></para>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <para style="P15"> <font color="black">5.- Municipio: Girardot</font></para>
+        </td>
+        <td colspan="2">
+          <para style="P15"><font color="black"> </font></para>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <para style="P15"> <font color="black">6.- Parroquia: Madre Maria</font></para>
+        </td>
+        <td colspan="2">
+          <para style="P15"><font color="black"> </font></para>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <para style="P15"> <font color="black">7.- Dirección o Lugar: </font></para>
+        </td>
+        <td colspan="2">
+          <para style="P15"><font color="black"> </font></para>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <para style="P15"> <font color="black">4.- Fecha: </font></para>
+        </td>
+        <td colspan="2">
+          <para style="P15"><font color="black"> </font></para>
+        </td>
+      </tr>
+    </blockTable>
+    <para style="P2">
+      <font color="white"> </font>
+    </para>
+
+    <section>
+       <!-- <para style="terp_default_2">[[ repeatIn(c.inventory_line_id, 'p') ]]</para> -->
+       <blockTable colWidths="25.0,25.0,25.0,50.0,75.0,40.0,200.0,65.0,65.0" style="Tabla1">
+        <tr>
+          <td colspan="1">
+            <para style="P15" alignment="CENTER"> <font color="black">G</font></para>
+          </td>
+          <td colspan="1">
+            <para style="P15" alignment="CENTER"><font color="black">S/G</font></para>
+          </td>
+           <td colspan="1">
+            <para style="P15"><font color="black">S</font></para>
+          </td>
+          <td colspan="1">
+            <para style="P15" alignment="CENTER"> <font color="black">Cantidad</font></para>
+          </td>
+          <td colspan="1">
+            <para style="P15" alignment="CENTER"><font color="black">N° de Identificación</font></para>
+          </td>
+           <td colspan="1">
+            <para style="P15"><font color="black">Status</font></para>
+          </td>
+          <td colspan="1">
+            <para style="P15" alignment="CENTER"> <font color="black">Nombre y Descripción del ELemento</font></para>
+          </td>
+          <td colspan="1">
+            <para style="P15" alignment="CENTER"><font color="black">Valor Unitario Bs.</font></para>
+          </td>
+           <td colspan="1">
+            <para style="P15"><font color="black">Valor Total Bs.</font></para>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="1">
+            <para style="P15" alignment="CENTER"> <font color="black">[[c.g]]</font></para>
+          </td>
+          <td colspan="1">
+            <para style="P15" alignment="CENTER"><font color="black">[[c.sg]]</font></para>
+          </td>
+           <td colspan="1">
+            <para style="P15"><font color="black">[[c.s]]</font></para>
+          </td>
+          <td colspan="1">
+            <para style="P15" alignment="CENTER"> <font color="black">[[c.stock]]</font></para>
+          </td>
+          <td colspan="1">
+            <para style="P15" alignment="CENTER"><font color="black">[[c.nidentificacion]]</font></para>
+          </td>
+           <td colspan="1">
+            <para style="P15"><font color="black">[[c.estado]]</font></para>
+          </td>
+          <td colspan="1">
+            <para style="P15" alignment="CENTER"> <font color="black">[[c.name]]</font></para>
+          </td>
+          <td colspan="1">
+            <para style="P15" alignment="CENTER"><font color="black">[[c.v_unitario]]</font></para>
+          </td>
+           <td colspan="1">
+            <para style="P15"><font color="black">[[c.v_total]]</font></para>
+          </td>
+        </tr>
+      </blockTable>
+    </section>
+    
+
+  </story>
+</document>
