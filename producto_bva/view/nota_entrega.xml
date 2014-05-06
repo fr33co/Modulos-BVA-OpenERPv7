@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!--Menu Nota de Entrega -->
+        <record model="ir.actions.act_window" id="nota_entrega_list_action">
+            <field name="name">Nota de Entrega</field>
+            <field name="res_model">nota.entrega</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Realizar Nota de Entrega</p>
+            </field>
+        </record> 
+        
+        <!-- Vista Form de Nota de entrega-->
+        <record model="ir.ui.view" id="nota_form_view">
+            <field name="name">nota entrega form</field>
+            <field name="model">nota.entrega</field>
+            <field name="arch" type="xml">
+                <form string="Nota Form" version="7.0">
+                    <group col="3" colspan="3" string="Nota de Entrega">
+                        <group>
+                            <field name="nombre" default_focus="1" />
+                            <field name="area" />
+                            <field name="t_materiales" />
+                        </group>
+                        <group>
+                            <field name="entregado" />
+                            <field name="recibido" />
+                        </group>
+                         <group>
+                            <field name="fecha" />
+                            <field name="c_nota" />
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Materiales">             
+                            <field name="almacen" nolabel="1" >
+                                <tree string="Materiales" editable="bottom">
+                                    <field name="descripcion"  />
+                                    <!-- on_change="on_change_materiales(descripcion)" -->
+                                    <field name="cantidad" /> 
+                                   <!--  <field name="unidad" /> -->
+                                </tree>
+                            </field>
+                        </group>
+                    </group>
+                </form>
+            </field>            
+        </record>
+
+        <!--Vista Tree de Nota de entrega-->
+        <record model="ir.ui.view" id="nota_entrega_tree_view">
+            <field name="name">almacen.tree</field>
+            <field name="model">nota.entrega</field>
+            <field name="arch" type="xml">
+                <tree string="Materiales Tree">
+                    <field name="c_nota" />
+                    <field name="nombre"  />
+                    <field name="area" />
+                    <field name="fecha" />
+                </tree>
+            </field>            
+        </record>
+
+        <record model="ir.ui.view" id="buscar_nota_id">
+            <field name="name">nota.search</field>
+            <field name="model">nota.entrega</field>
+            <field name="arch" type="xml">      
+                <search string="Busqueda Materiales BVA">
+                    <!--<filter name="nota" domain="[('nombre','=', uid)]" string="Nota de entrega" icon="terp-partner" />-->
+                    <field name="c_nota" />
+                    <field name="nombre"  />
+                    <field name="area" />
+                    <field name="fecha" />
+                </search>
+            </field>            
+        </record>
+        <menuitem id="nota_menu" name="Nota de Entrega" parent="stock.menu_stock_root" sequence="5"/>
+        <menuitem id="nota_entrega_menu" name="Nota de Entrega" parent="nota_menu" action="nota_entrega_list_action" />
+    </data>
+</openerp>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <report id="reporte_nota_entrega" string="Nota Entrega" model="nota.entrega" name="Reporte Nota de Entrega" rml="producto_bva/reports/nota_entrega.rml" />
+    </data>
+</openerp>

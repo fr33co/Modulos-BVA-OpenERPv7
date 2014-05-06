@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <report id="reporte_inventario_bienes" string="Inventario de Bienes" model="stock.inventory" name="Reporte Inventario" rml="producto_bva/reports/inventario_bienes.rml" />
+    </data>
+</openerp>

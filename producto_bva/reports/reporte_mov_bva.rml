@@ -1,0 +1,273 @@
+<?xml version="1.0"?>
+<document filename="test.pdf">
+  <template pageSize="(612.0,792.0)" title="Test" author="Marcel Arcuri" allowSplitting="20">
+  <pageTemplate id="first">
+      <frame id="first" x1="57.0" y1="57.0" width="498" height="678"/>
+    </pageTemplate>
+  </template>
+ <stylesheet>
+    <blockTableStyle id="Standard_Outline">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+
+    <blockTableStyle id="Tabla2">
+      <blockBackground colorName="black" start="0,0" stop="-1,0"/>
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      <lineStyle kind="GRID" strokeColor="black" colorName="#000000" thickness="0" start="0,0" stop="-1,-1" />
+      <fill color="red"/>
+    </blockTableStyle>
+
+    <blockTableStyle id="Tabla1" >
+      <blockBackground colorName="#CACED0" start="0,0" stop="-1,0"/>
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      <lineStyle kind="GRID" colorName="#000000" thickness="0" start="0,0" stop="-1,-1" />
+    </blockTableStyle>
+
+    <blockTableStyle id="Tabla3" align="LEFT" border="0" >
+      <blockAlignment value="RIGHT"/>
+      <blockValign value="TOP"/>
+      <!-- <blockBackground colorsByCol="000000;None" start="0,1" stop="-1,-1"/> -->
+      <lineStyle kind="GRID" colorName="#000000" thickness="0" start="0,0" stop="-1,-1" />
+    </blockTableStyle>
+    <blockTableStyle id="Tabla5" >
+      <blockBackground colorName="#CACED0" start="0,0" stop="-1,0"/>
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      <lineStyle kind="LINEBEFORE" colorName="#000000" thickness="0" start="0,0" stop="-1,-1" />
+    </blockTableStyle>
+
+    <initialize>
+      <paraStyle name="all" alignment="justify"/>
+    </initialize>
+    <paraStyle name="P1" fontName="Helvetica" alignment="LEFT"/>
+    <paraStyle name="P2" fontName="Helvetica" alignment="JUSTIFY"/>
+    <paraStyle name="P3" fontName="Helvetica-Bold" alignment="CENTER"/>
+    <paraStyle name="P4" fontName="Helvetica"/>
+    <paraStyle name="P5" fontName="Helvetica" alignment="CENTER" textColor="#000000"/>
+    <paraStyle name="P6" fontName="Helvetica"/>
+    <paraStyle name="P7" fontName="Helvetica"/>
+    <paraStyle name="P8" fontName="Helvetica" alignment="CENTER"/>
+    <paraStyle name="P9" fontName="Helvetica" alignment="JUSTIFY"/>
+    <paraStyle name="P10" fontName="Helvetica" alignment="CENTER"/>
+    <paraStyle name="P11" fontName="Helvetica" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P12" fontName="Helvetica"/>
+    <paraStyle name="P13" fontName="Helvetica" alignment="CENTER" fontSize="8.0"/>
+    <paraStyle name="P14" fontName="Helvetica" alignment="CENTER" fontSize="9.0"/>
+    <paraStyle name="P15" fontName="Helvetica-Bold" alignment="LEFT" fontSize="8.0"/>
+    <paraStyle name="Standard" fontName="Helvetica"/>
+    <paraStyle name="Heading" fontName="Helvetica" fontSize="14.0" leading="17" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="Text body" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="List" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="Caption" fontName="Helvetica" fontSize="12.0" leading="15" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="Index" fontName="Helvetica"/>
+    <paraStyle name="Table Contents" fontName="Helvetica"/>
+    <paraStyle name="terp_default_2" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="2.0" leading="3" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    
+  </stylesheet>
+  <story>
+    [[ repeatIn(objects, 'c') ]]
+
+    <illustration height="74.0" width="494.0">
+      <image x="-6" y="48" file="../img/img_top.jpg" height="600" width="540"/>
+    </illustration>
+
+    <para style="P3">CONTROL DE TRASLADO DE BIENES MUEBLES</para>
+    <para style="P1">
+      <font color="white"> </font>
+    </para>
+
+     <blockTable colWidths="275.0,275.0" style="Tabla3">
+      <tr>
+        <td colspan="2">
+          <para style="P15">Tipo de Envio:</para>
+        </td>
+        <td colspan="2">
+          <para style="P15">Fecha:  [[formatLang(c.date,date=True)]]</para>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <para style="P2">[[c.tipo_envio]]</para>
+        </td>
+        <td colspan="2">
+          <para style="P15">Correlativo: [[ c.correlativo]]-[[ c.f_correlativo]] </para>
+        </td>
+      </tr>
+    </blockTable>
+    
+    <!--<para style="P1">
+      Fecha:  [[formatLang(c.date,date=True)]]
+    </para>
+    <para style="P1">
+      Correlativo: [[ c.correlativo]]-[[ c.f_correlativo]]
+    </para>
+    <para style="P1">
+      Tipo de Envio: [[ c.tipo_envio]]
+    </para>-->
+    <para style="P1">
+      <font color="white"> </font>
+    </para>
+    <blockTable colWidths="275.0,275.0" style="Tabla3">
+      <tr>
+        <td colspan="2">
+          <para style="P15">Lugar de Origen: [[ c.location_id.name]]</para>
+        </td>
+        <td colspan="2">
+          <para style="P15">Nombre Responsable: [[ c.enviado]]</para>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <para style="P15">Lugar de Destino: [[ c.location_dest_id.name]]</para>
+        </td>
+        <td colspan="2">
+          <para style="P15">Nombre Responsable: [[ c.recibido]] </para>
+        </td>
+      </tr>
+    </blockTable>
+
+    <blockTable colWidths="550.0" style="Tabla1">
+      <tr>
+        <td>
+          <para style="P3">Justificación</para>
+        </td>
+      </tr>
+    </blockTable>
+    <blockTable colWidths="550.0" style="Tabla3">
+      <tr>
+        <td>
+          <para style="P14">[[ c.justificacion]]</para>
+        </td>
+      </tr>
+    </blockTable>
+
+    <blockTable colWidths="75.0,50.0,75.0,40.0,250.0,60.0" style="Tabla5">
+        <tr>
+          <td colspan="1">
+            <para style="P15" alignment="CENTER"> <font color="black">Clasificación</font></para>
+          </td>
+          <td colspan="1">
+            <para style="P15" alignment="CENTER"> <font color="black">Cantidad</font></para>
+          </td>
+          <td colspan="1">
+            <para style="P15" alignment="CENTER"><font color="black">N° de</font></para>
+          </td>
+           <td colspan="1">
+            <para style="P15"><font color="black">Status</font></para>
+          </td>
+          <td colspan="1">
+            <para style="P15" alignment="CENTER"> <font color="black">Nombre y Descripción del Elemento</font></para>
+          </td>
+          <td colspan="1">
+            <para style="P15"><font color="black">Valor Bs.</font></para>
+          </td>
+        </tr>
+    </blockTable>
+     <blockTable colWidths="25.0,25.0,25.0,50.0,75.0,40.0,250.0,60.0" style="Tabla5">
+        <tr>
+          <td colspan="1">
+            <para style="P15" alignment="CENTER"> <font color="black">G</font></para>
+          </td>
+          <td colspan="1">
+            <para style="P15" alignment="CENTER"><font color="black">S/G</font></para>
+          </td>
+           <td colspan="1">
+            <para style="P15"><font color="black">S</font></para>
+          </td>
+          <td colspan="1">
+            <para style="P15" alignment="CENTER"> <font color="black"></font></para>
+          </td>
+          <td colspan="1">
+            <para style="P15" alignment="CENTER"><font color="black">Identificación</font></para>
+          </td>
+           <td colspan="1">
+            <para style="P15"><font color="black"></font></para>
+          </td>
+          <td colspan="1">
+            <para style="P15" alignment="CENTER"> <font color="black"></font></para>
+          </td>
+          <td colspan="1">
+            <para style="P15"><font color="black"></font></para>
+          </td>
+        </tr>
+    </blockTable>
+    <blockTable colWidths="25.0,25.0,25.0,50.0,75.0,40.0,250.0,60.0" style="Tabla3">
+        <tr>
+          <td colspan="1">
+            <para style="P13" alignment="CENTER"> <font color="black">[[ c.g]]</font></para>
+          </td>
+          <td colspan="1">
+            <para style="P13" alignment="CENTER"><font color="black"></font>[[ c.sg]]</para>
+          </td>
+           <td colspan="1">
+            <para style="P13" alignment="CENTER"><font color="black">[[ c.s]]</font></para>
+          </td>
+          <td colspan="1">
+            <para style="P13" alignment="CENTER"> <font color="black">[[ c.product_qty]] </font></para>
+          </td>
+          <td colspan="1">
+            <para style="P13" alignment="CENTER"><font color="black">[[ c.bva]]</font></para>
+          </td>
+           <td colspan="1">
+            <para style="P13"><font color="black">[[ c.estado]]</font></para>
+          </td>
+          <td colspan="1">
+            <para style="P13" alignment="CENTER"> <font color="black">[[ c.name]] </font></para>
+          </td>
+          <td colspan="1">
+            <para style="P13"><font color="black">[[ c.v_total]]</font></para>
+          </td>
+        </tr>
+    </blockTable>
+    <blockTable colWidths="125.0,115.0,100.0,210.0" style="Tabla1">
+        <tr>
+          <td colspan="1">
+            <para style="P15" alignment="CENTER"> <font color="black">Entregado por</font></para>
+          </td>
+          <td colspan="1">
+            <para style="P15" alignment="CENTER"><font color="black">Recibido por</font></para>
+          </td>
+           <td colspan="1">
+            <para style="P15" alignment="CENTER"><font color="black">Vigilante de Guardia</font></para>
+          </td>
+          <td colspan="1">
+            <para style="P15" alignment="CENTER"> <font color="black">Unidad de Bienes</font></para>
+          </td>
+        </tr>
+    </blockTable>
+    <blockTable colWidths="125.0,115.0,100.0,210.0" style="Tabla3">
+        <tr>
+          <td colspan="1">
+            <para style="P13" alignment="CENTER"> <font color="black">[[ c.enviado]]</font></para>
+          </td>
+          <td colspan="1">
+            <para style="P13" alignment="CENTER"><font color="black">[[ c.recibido]]</font></para>
+          </td>
+           <td colspan="1">
+            <para style="P13" alignment="CENTER"><font color="black">[[ c.vigilante]]</font></para>
+          </td>
+          <td colspan="1">
+            <para style="P13" alignment="CENTER"> <font color="black">Ana Mendivelso</font></para>
+            <para style="P13" alignment="CENTER"> <font color="black">Jefe Unidad de Bienes y Suministros (E)</font></para>
+          </td>
+        </tr>
+    </blockTable>
+    <blockTable colWidths="550.0" style="Tabla1">
+      <tr>
+        <td>
+          <para style="P3">Nota:</para>
+        </td>
+      </tr>
+    </blockTable>
+    <blockTable colWidths="550.0" style="Tabla3">
+      <tr>
+        <td>
+          <para style="P14">[[ c.nota]].</para>
+        </td>
+      </tr>
+    </blockTable>
+  </story>
+</document>

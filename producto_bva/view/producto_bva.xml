@@ -6,34 +6,76 @@
 			<field name="model">product.product</field>
 			<field name="inherit_id" ref="product.product_normal_form_view" />
 			<field name="arch" type="xml">
-				<field name="default_code" position="replace">
-						<field name="codigo" on_change="on_change_codigo(codigo)"/>
-				</field>
-				<field name="codigo" position="after">
-						<field name="numero" on_change="on_change_identificacion(numero,codigo)" attrs="{'readonly':[('codigo','=','No se codifica')]}" />
-				</field>
-				<field name="list_price" position="replace">
-						<field name="v_unitario" />
-				</field>
-				<field name="numero" position="after">
-						<field name="v_total" />
-				</field>
-				<field name="ean13" position="replace">
-						<field name="nidentificacion" invisible="1"/>
-				</field>
-				<field name="description" position="before">
-					<group>
-						<group>
-							<field name="g" />
-							<field name="sg" />
-							<field name="s" />
-						</group>
-						<group>
-							<field name="estado" />
-						</group>
-					</group>
-				</field>
+				<data>
+					<xpath expr="//div[@class='oe_title']" position="replace">
+						<div class="oe_title">
+							<label for="categ_id" string="Clasificación del Bien" class="oe_edit_only"/>
+							<h2><field name="categ_id" placeholder="Clasificación del Bien"
+							 on_change="on_change_clasificacion(categ_id)" /></h2>
+						<div class="oe_edit_only">
+						    <label for="name" string="Nombre y Descripción del Elemento"/>
+						</div>
+						<h2><field name="nombre_des" placeholder="Nombre y Descripción del Elemento"/></h2>
+									    <div class="oe_edit_only">
+						    <label for="serial" string="Serial del Elemento"/>
+						</div>
+						<h2><field name="serial" class="oe_inline" placeholder="Serial del Elemento"/></h2>
+						<div name="options" groups="base.group_user">
+						    <field name="sale_ok" invisible="True"/>
+						    <label for="sale_ok" invisible="True"/>
+						</div>
+					    </div>
+	 				</xpath>
 
+					<xpath expr="///page[@string='Information']" position="replace">
+						<page string="Información">
+							<group>
+								<table>
+									<tr>
+										<td><label for="g" string="G"/></td>
+										<td><label for="sg" string="SG"/></td>
+										<td><label for="s" string="S"/> </td>
+									</tr>
+									<tr>
+										<td><field name="g" style="width: 10%%" nolabel="0" /></td>
+										<td><field name="sg" style="width: 10%%" nolabel="0" /></td>
+										<td><field name="s" style="width: 10%%" nolabel="0" /></td>
+									</tr>
+								</table>
+							</group>
+
+							<group colspan="3" col="3">
+								<group string="Información del Bien" colspan="1">
+									<field name="codigo" class="oe_inline" on_change="on_change_codigo(codigo)" placeholder="Código del Bien"/>
+									<field name="numero" attrs="{'readonly':[('codigo','=','No se codifica')]}" class="oe_inline"/>
+									<field name="estado" class="oe_inline" on_change="on_change_identificacion(codigo,numero,name,nombre_des, serial)" placeholder="Estado del Bien"/>
+									<field name="incorporacion" class="oe_inline" />
+									<field name="type" class="oe_inline" invisible="1"/>
+									<!-- on_change="on_change_identificacion(name,numero,codigo,serial)" -->
+								</group>
+								<group colspan="1" string="Valor">
+									<field name="v_total" />
+									<field name="v_unitario" />
+									<field name="donacion" placeholder="Si el objeto fue donado"/>
+									
+								</group>
+							</group>
+							<separator />
+							<group colspan="4">
+								<field name="description" placeholder="Descripcion y/o observación sobre el elemento"/>
+							</group>
+							<group colspan="4">
+								<div>
+									<div>
+										<field name="union" style="width: 30%%"/>		
+										<field name="name" style="width: 30%%" />
+										<field name="nidentificacion" style="width: 30%%"/>
+									</div>
+								</div>
+							</group>
+						</page>
+					</xpath>
+	 			</data>
 			</field>			
 		</record>
 
@@ -42,37 +84,39 @@
 			<field name="model">product.product</field>
 			<field name="inherit_id" ref="product.product_product_tree_view" />
 			<field name="arch" type="xml">
-				<field name="default_code" position="replace">
-						<field name="g"/>
-				</field>	
-				<field name="name" position="replace">
-						<field name="sg"/>
-				</field>
-				<field name="categ_id" position="replace">
-						<field name="s"/>
-				</field> 
-				<field name="variants" position="replace">
+				<tree string="Products" position="replace">
+					<tree string="Bienes" >
+						<field name="g" />
+						<field name="sg" />
+						<field name="s" />
 						<field name="nidentificacion"/>
-				</field> 
-				<field name="uom_id" position="replace">
+						<field name="qty_available"/>
 						<field name="estado"/>
-				</field> 
-				<field name="estado" position="after">
 						<field name="name"/>
-				</field> 
-				<field name="lst_price" position="replace">
 						<field name="v_unitario" />
-				</field>
-				<field name="v_unitario" position="after">
 						<field name="v_total" />
-				</field> 
-				<field name="virtual_available" position="replace">
-						<field name="virtual_available" invisible="1"/>
+					</tree>
+				</tree>
+			</field>
+		</record>
+
+		<record id="producto_search_form2_view" model="ir.ui.view">
+			<field name="name">product.search.form</field>
+			<field name="model">product.product</field>
+			<field name="inherit_id" ref="product.product_search_form_view" />
+			<field name="arch" type="xml">
+				<field name="name" position="after">
+					<field name="g" />
+					<field name="sg" />
+					<field name="s" />
+					<field name="nidentificacion"/>
+					<field name="qty_available"/>
+					<field name="estado"/>
+					<field name="nombre_des" />
+					<field name="v_unitario" />
+					<field name="v_total" />
 				</field>
-				<field name="state" position="replace">
-						<field name="state" invisible="1" />
-				</field> 
-	        </field>
-		</record>	
+			</field>
+		</record>
    	</data>
 </openerp>

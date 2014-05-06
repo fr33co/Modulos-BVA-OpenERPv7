@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <openerp>
+        <data>
+            <!--Clasificacion de los tipos de Bienes-->
+            <record id="tipo01" model="product.category">
+                <field name="name">Bienes Muebles</field>
+            </record>
+            <record id="tipo02" model="product.category">
+                <field name="name">Bienes Inmuebles</field>
+            </record>
+            <!--Clasificacion Bienes Inmuebles-->
+            <record id="clasificacion1" model="product.category">
+                <field name="name">Edificios para oficinas</field>
+                <field name="g">01</field>
+                <field name="sg">01</field>
+                <field name="s">01</field>
+                <field name="parent_id" ref="tipo02"/>
+            </record>
+            <record id="clasificacion2" model="product.category">
+                <field name="name">Edificios, terrenos e instalaciones para establecimientos culturales</field>
+                <field name="g">01</field>
+                <field name="sg">02</field>
+                <field name="s">01</field>
+                <field name="parent_id" ref="tipo02"/>
+            </record>
+            <record id="clasificacion3" model="product.category">
+                <field name="name">Edificios, terrenos e instalaciones para fines asistenciales y de protecciòn social</field>
+                <field name="g">01</field>
+                <field name="sg">03</field>
+                <field name="s">01</field>
+                <field name="parent_id" ref="tipo02"/>
+            </record>
+            <record id="clasificacion4" model="product.category">
+                <field name="name">Edificios, terrenos e instalaciones para obras públicas</field>
+                <field name="g">01</field>
+                <field name="sg">04</field>
+                <field name="s">01</field>
+                <field name="parent_id" ref="tipo02"/>
+            </record>
+            <record id="clasificacion5" model="product.category">
+                <field name="name">Edificios, terrenos e instalaciones para fines agropecuarios</field>
+                <field name="g">01</field>
+                <field name="sg">05</field>
+                <field name="s">01</field>
+                <field name="parent_id" ref="tipo02"/>
+            </record>
+            <record id="clasificacion6" model="product.category">
+                <field name="name">Edificios, terrenos e instalaciones para efines industriales y de explotaciones varias</field>
+                <field name="g">01</field>
+                <field name="sg">06</field>
+                <field name="s">01</field>
+                <field name="parent_id" ref="tipo02"/>
+            </record>
+            <record id="clasificacion7" model="product.category">
+                <field name="name">Edificios, terrenos e instalaciones para cárceles, reformatorios y similares</field>
+                <field name="g">01</field>
+                <field name="sg">07</field>
+                <field name="s">01</field>
+                <field name="parent_id" ref="tipo02"/>
+            </record>
+            <record id="clasificacion8" model="product.category">
+                <field name="name">Edificios, terrenos, plantas, instalaciones, anexidades, redes de acueductos públicos y obras hidráulicas</field>
+                <field name="g">01</field>
+                <field name="sg">08</field>
+                <field name="s">01</field>
+                <field name="parent_id" ref="tipo02"/>
+            </record>
+            <record id="clasificacion9" model="product.category">
+                <field name="name">Edificios, terrenos, instalaciones y redes de plantas eléctricas de servicios públicos</field>
+                <field name="g">01</field>
+                <field name="sg">09</field>
+                <field name="s">01</field>
+                <field name="parent_id" ref="tipo02"/>
+            </record>
+            <record id="clasificacion10" model="product.category">
+                <field name="name">Edificios, terrenos, estructuras, instalaciones y redes telefónicas y de telecomunicaciones en general</field>
+                <field name="g">01</field>
+                <field name="sg">10</field>
+                <field name="s">01</field>
+                <field name="parent_id" ref="tipo02"/>
+            </record>
+            <record id="clasificacion11" model="product.category">
+                <field name="name">Edificios, terrenos, estructuras e instalaciones de otros servicios públicos</field>
+                <field name="g">01</field>
+                <field name="sg">11</field>
+                <field name="s">01</field>
+                <field name="parent_id" ref="tipo02"/>
+            </record>
+            <record id="clasificacion12" model="product.category">
+                <field name="name">Edificios, terrenos, estructuras e instalaciones portuarias</field>
+                <field name="g">01</field>
+                <field name="sg">12</field>
+                <field name="s">01</field>
+                <field name="parent_id" ref="tipo02"/>
+            </record>
+            <record id="clasificacion13" model="product.category">
+                <field name="name">Edificios, terrenos, estructuras e instalaciones de aeródromos y aeropuertos civiles</field>
+                <field name="g">01</field>
+                <field name="sg">13</field>
+                <field name="s">01</field>
+                <field name="parent_id" ref="tipo02"/>
+            </record>
+            <record id="clasificacion14" model="product.category">
+                <field name="name">Construcciones y estructuras de ferrocarriles</field>
+                <field name="g">01</field>
+                <field name="sg">14</field>
+                <field name="s">01</field>
+                <field name="parent_id" ref="tipo02"/>
+            </record>
+            <record id="clasificacion15" model="product.category">
+                <field name="name">Edificios para alojamiento, hoteles y otros fines similares</field>
+                <field name="g">01</field>
+                <field name="sg">15</field>
+                <field name="s">01</field>
+                <field name="parent_id" ref="tipo02"/>
+            </record>
+            <record id="clasificacion16" model="product.category">
+                <field name="name">Edificios, terrenos e instalaciones para uso de la policía</field>
+                <field name="g">01</field>
+                <field name="sg">16</field>
+                <field name="s">01</field>
+                <field name="parent_id" ref="tipo02"/>
+            </record>
+            <record id="clasificacion17" model="product.category">
+                <field name="name">Otras construcciones y estructuras no especificadas</field>
+                <field name="g">01</field>
+                <field name="sg">17</field>
+                <field name="s">01</field>
+                <field name="parent_id" ref="tipo02"/>
+            </record>
+            <record id="clasificacion18" model="product.category">
+                <field name="name">Construcciones en proceso</field>
+                <field name="g">01</field>
+                <field name="sg">18</field>
+                <field name="s">01</field>
+                <field name="parent_id" ref="tipo02"/>
+            </record>
+            <record id="clasificacion19" model="product.category">
+                <field name="name">Predidos Urbanos</field>
+                <field name="g">01</field>
+                <field name="sg">19</field>
+                <field name="s">01</field>
+                <field name="parent_id" ref="tipo02"/>
+            </record>
+            <record id="clasificacion20" model="product.category">
+                <field name="name">Terrenos rurales</field>
+                <field name="g">01</field>
+                <field name="sg">20</field>
+                <field name="s">01</field>
+                <field name="parent_id" ref="tipo02"/>
+            </record>
+            <record id="clasificacion21" model="product.category">
+                <field name="name">Minas</field>
+                <field name="g">01</field>
+                <field name="sg">21</field>
+                <field name="s">01</field>
+                <field name="parent_id" ref="tipo02"/>
+            </record>
+
+            <!--Clasificacion Bienes Muebles-->
+            <record id="muebles01" model="product.category">
+                <field name="name">Máquinas, muebles y demás equipos de oficina</field>
+                <field name="g">02</field>
+                <field name="sg">01</field>
+                <field name="s">01</field>
+                <field name="parent_id" ref="tipo01"/>
+            </record>
+            <record id="muebles02" model="product.category">
+                <field name="name">Mobiliario y enseres de alojamiento</field>
+                <field name="g">02</field>
+                <field name="sg">02</field>
+                <field name="s">01</field>
+                <field name="parent_id" ref="tipo01"/>
+            </record>
+            
+            <record id="muebles03" model="product.category">
+                <field name="name">Máquinas y demás equipos de construcción, campo, insdustria y taller</field>
+                <field name="g">02</field>
+                <field name="sg">03</field>
+                <field name="s">01</field>
+                <field name="parent_id" ref="tipo01"/>
+            </record>
+            <record id="muebles04" model="product.category">
+                <field name="name">Equipos de transporte</field>
+                <field name="g">02</field>
+                <field name="sg">04</field>
+                <field name="s">01</field>
+                <field name="parent_id" ref="tipo01"/>
+            </record>
+            <record id="muebles05" model="product.category">
+                <field name="name">Equipos de telecomunicaciones</field>
+                <field name="g">02</field>
+                <field name="sg">05</field>
+                <field name="s">01</field>
+                <field name="parent_id" ref="tipo01"/>
+            </record>
+            <record id="muebles06" model="product.category">
+                <field name="name">Equipos médicos quirúrgicos, dentales y veterinarios</field>
+                <field name="g">02</field>
+                <field name="sg">06</field>
+                <field name="s">01</field>
+                <field name="parent_id" ref="tipo01"/>
+            </record>
+            <record id="muebles07" model="product.category">
+                <field name="name">Equipos científicos y de enseñanzas</field>
+                <field name="g">02</field>
+                <field name="sg">07</field>
+                <field name="s">01</field>
+                <field name="parent_id" ref="tipo01"/>
+            </record>
+            <record id="muebles08" model="product.category">
+                <field name="name">Colecciones culturales, artísticas e históricas</field>
+                <field name="g">02</field>
+                <field name="sg">08</field>
+                <field name="s">01</field>
+                <field name="parent_id" ref="tipo01"/>
+            </record>
+            <record id="muebles09" model="product.category">
+                <field name="name">Armamento y material de defensa</field>
+                <field name="g">02</field>
+                <field name="sg">09</field>
+                <field name="s">01</field>
+                <field name="parent_id" ref="tipo01"/>
+            </record>
+            <record id="muebles10" model="product.category">
+                <field name="name">Instalaciones provisionales</field>
+                <field name="g">02</field>
+                <field name="sg">10</field>
+                <field name="s">01</field>
+                <field name="parent_id" ref="tipo01"/>
+            </record>
+            <record id="muebles11" model="product.category">
+                <field name="name">Semovientes</field>
+                <field name="g">02</field>
+                <field name="sg">11</field>
+                <field name="s">01</field>
+                <field name="parent_id" ref="tipo01"/>
+            </record>
+            <record id="muebles12" model="product.category">
+                <field name="name">Otros elementos</field>
+                <field name="g">02</field>
+                <field name="sg">12</field>
+                <field name="s">01</field>
+                <field name="parent_id" ref="tipo01"/>
+            </record>
+            <record id="muebles13" model="product.category">
+                <field name="name">Unidades y equipos de computación</field>
+                <field name="g">02</field>
+                <field name="sg">13</field>
+                <field name="s">01</field>
+                <field name="parent_id" ref="tipo01"/>
+            </record>      
+        </data>
+    </openerp>
