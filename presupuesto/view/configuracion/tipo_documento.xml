@@ -28,17 +28,46 @@
             <field name="model">presupuesto.documento</field>
             <field name="arch" type="xml">
                 <form string="Formulario de Documentos"  version="7.0">
-                    <group colspan="2" col="2">
-                        <separator string="Documentos" colspan="2"/>
-                        <field name="id_documento" readonly="1" class="oe_readonly"/>
-                        <field name="siglas"/>
-                        <field name="documento" />
-                        <field name="tipo" />
-                    </group>
+                    <style type="text/css">
+                       span.codigo{
+                           color:#FF0000 !important;
+                           font-weight:bold;
+                       }
+                    </style>
+                    <separator string="Documentos" class="titulo"/>
+                    <table style="width:90%%;" border="0" align="center">
+                        <tr>
+                            <th style="padding-right:15px;">
+                                <span style="margin-left:21%%">Código del Documento:</span>
+                            </th>
+                            <td>
+                                <field class="linea_vertical codigo" name="id_documento" readonly="1"/>
+                            </td>
+                            <th>
+                                <span style="margin-left:20%%">Siglas del Documento:</span>
+                            </th>
+                            <td>
+                                <field class="linea_vertical" name="siglas"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <span style="margin-left:21%%">Tipo de Documento:</span>
+                            </th>
+                            <td>
+                                <field class="linea_vertical" name="documento" />
+                            </td>
+                            <th>
+                                <span style="margin-left:20%%" >Tipo:</span>
+                            </th>
+                            <td>
+                                <field class="linea_vertical" name="tipo" />
+                            </td>
+                        </tr>
+                    </table>
                 </form>
             </field>
         </record>
-
         <menuitem id="main_presupuesto_menu" name="Presupuesto" />
         <menuitem id="configuracion_menu" name="Configuracion" parent="main_presupuesto_menu" />
         <menuitem id="documento_menu" name="Tipo de Documentos"  parent="configuracion_menu" action="documento_list_action" />

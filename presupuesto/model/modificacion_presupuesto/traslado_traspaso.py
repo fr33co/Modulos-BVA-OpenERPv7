@@ -1,7 +1,7 @@
 from openerp.osv import osv, fields
 class Traslado(osv.Model):
     """
-     Crear el objeto 'presupuesto.accion'
+     Crear el objeto 'presupuesto.traslado'
     """
 
     _name = "presupuesto.traslado"
@@ -21,16 +21,11 @@ class Traslado(osv.Model):
         'oficio' : fields.char(string="# Oficio:", required=True),
         'fecha_resolucion' : fields.date(string="Fecha de Resolucion:", required=True),
         'motivo' : fields.char(string="Motivo:", required=True),
-        'codigo_proyecto_accion' : fields.char(string="Proyecto Accion:", size=8,required=True),
+        'codigo_proyecto_accion' : fields.char(string="Proyecto Accion:", required=True),
         # Campo que genera una lista desplegable del Proyecto Accion generados en el modulo de  Proyecto Accion
-        'id_proyecto_accion' : fields.many2one('presupuesto.accion','Consulta Proyecto Accion:',ondelete='cascade',required=True),
-        'cod_presupuesto' : fields.char(string="Cod Presupuestario:", required=True),
-        'par_presu' : fields.char(string="Partida Presupuestaria:",readonly=True),
-        'aumen_dism': fields.selection([('1','Aumentar'),('2','Disminuir')],'Aumentar/Disminuir'),
-        'aumentar' : fields.float(string="Aumentar:",),
-        'disminuir' : fields.float(string="Disminuir:"),
-        'disponibilidad' : fields.char(string="Disponibilidad:"),
-
+        'id_proyecto_accion' : fields.many2one('presupuesto.accion','Consulta proyecto Accion:',ondelete='cascade',required=True),
+        'movimientos' : fields.one2many('presupuesto.traslado_movimientos', 'traspaso', 'Products'),
+        'total' : fields.float(string="Total:"),
     }
 
     """
@@ -97,55 +92,36 @@ class Traslado(osv.Model):
 
         return {'value' : values}
 
-    """
-    Metodo para obtener el el codigo de accion o el nombre de la accion, 
-    segun el criterio de busqueda si busca el el cmapo de texto,
-    'codigo_proyecto_accion' obtendra el el combo lista el nombre de la
-    accion y si busca en la lista accion obtendra el codigo de la accion
-    """ 
     def on_change_accion(self, cr, uid, ids, accion,tipo,context=None):
         values    = {}
         valores   = {}
         id_accion = 0
-        mensaje   = ''
+
         if not accion:
             return values
 
-       # obtener los registros del modelo
         sfl_accion = self.pool.get('presupuesto.accion')
 
         if tipo == 'cod_accion':
-            #validar si viene por el campo de texto 'codigo_proyecto_accion'
-            
-            #verificar si exusten registros segun el crieterio de busqueda
+
             srcnt_accion = sfl_accion.search_count(cr, uid, [('codigo_accion','=', accion)], context=None)
             if srcnt_accion  > 0:
-                #buscar los registros segun el criterio de busqueda 
                 srch_accion = sfl_accion.search(cr, uid, [('codigo_accion','=', accion)])
-
-                #leer los registros obtenidos a traves del metodo search
                 rd_accion   = sfl_accion.read(cr, uid, srch_accion, context=context)
                 id_accion   = rd_accion[0]['id']
-            else:
-                # si no existen registro generar un error 
-                mensaje = {'title':'ERROR','message':'Este codigo de proyecto no esta registrado indique un codigo registrado'}
 
             valores   = {'id_proyecto_accion' : id_accion}
         else:
-            # si selecciona en la lista buscamos solamente el codigo de de la accion seleccionada
             brw_accion  = sfl_accion.browse(cr, uid, accion, context=context)
             if brw_accion != False:
                 id_accion = brw_accion.codigo_accion
             valores   = {'codigo_proyecto_accion' : id_accion}
 
         values.update(valores)
-        return {'value' : values,'warning':mensaje}
+        return {'value' : values}
 
-    """
-    Metodo para obtener el el el nombre de la partida
-    y el monto
-    """ 
-    def on_change_partida(self, cr, uid, ids, partida, context=None):
+
+    def on_change_partida(self, cr, uid, ids, partida,tipo, context=None):
         valores = {}
         values  = {}
         id_part = 0
@@ -154,35 +130,43 @@ class Traslado(osv.Model):
         mensaje = ''
         if not partida:
             return values
-       
-        sfl_distribucion   = self.pool.get('presupuesto.distribucion')
 
-        srcnt_distribucion = sfl_distribucion.search_count(cr, uid, [('partida','=', partida)], context=None)
- 
-        if srcnt_distribucion > 0:
+        sfl_distribucion = self.pool.get('presupuesto.distribucion')
+        sfl_partida      = self.pool.get('presupuesto.partidas')
 
-            srch_distribucion = sfl_distribucion.search(cr, uid, [('partida','=', partida)])
-            rd_distribucion   = sfl_distribucion.read(cr, uid, srch_distribucion,['monto_pre'], context=context)
+        if tipo == 'cod_presupuesto':
 
-            monto = rd_distribucion[0]['monto_pre']
+            srcnt_distribucion = sfl_distribucion.search_count(cr, uid, [('partida','=', partida)], context=None)
+            if  srcnt_distribucion > 0:
+                srch_distribucion = sfl_distribucion.search(cr, uid, [('partida','=', partida)])
+                rd_distribucion   = sfl_distribucion.read(cr, uid, srch_distribucion,['monto_pre'], context=context)
+                monto             = rd_distribucion[0]['monto_pre']
 
-            sfl_partida   = self.pool.get('presupuesto.partidas')
+                srcnt_partida = sfl_partida.search_count(cr, uid, [('codigo','=', partida)], context=None)
+                if srcnt_partida > 0:
+                    srch_partida = sfl_partida.search(cr, uid, [('codigo','=', partida)])
+                    rd_partida   = sfl_partida.read(cr, uid, srch_partida, context=context)
+                    partida_presupuestaria = rd_partida[0]['id']
+                monto   = rd_distribucion[0]['monto_pre']
+                valores = {'par_presu' : partida_presupuestaria,'disponibilidad':monto}
+                values.update(valores)
 
-            srcnt_partida = sfl_partida.search_count(cr, uid, [('codigo','=', partida)], context=None)
-
-            if srcnt_partida > 0:
-                srch_partida = sfl_partida.search(cr, uid, [('codigo','=', partida)])
-                rd_partida   = sfl_partida.read(cr, uid, srch_partida, context=context)
-
-                partida_presupuestaria = rd_partida[0]['descripcion']
-
-                rd_descripcion    = sfl_distribucion.read(cr, uid, srch_distribucion,['monto_pre'], context=context)
-
+            else:
+                mensaje = {'title':'ERROR','message':'La Partida Presupuestaria no existe o no tiene fondos suficientes'}        
+                valores = {'par_presu' : id_part,'disponibilidad':monto}
+                values.update(valores) 
         else:
-            mensaje = {'title':'ERROR','message':'La Partida Presupuestaria no existe o no tiene fondos suficientes'}        
-        valores = {'par_presu' : partida_presupuestaria,'disponibilidad':monto}
+            brw_distribucion = sfl_distribucion.browse(cr, uid, partida, context=context)
+            rd_distribucion  = sfl_distribucion.read(cr, uid, brw_distribucion.id,['monto_pre'], context=context)
+            print rd_distribucion
+            monto            = rd_distribucion['monto_pre']
 
-        values.update(valores)
+            brw_partida   = sfl_partida.browse(cr, uid, partida, context=context)
+            rd_partida    = sfl_partida.read(cr, uid, brw_partida.id,['codigo'], context=context)
+            codigo        = rd_partida['codigo']
+            valores = {'cod_presupuesto' : codigo,'disponibilidad':monto}
+            values.update(valores)
+               
         return {'value' : values,'warning':mensaje}
 
     def on_change_montomovi(self, cr, uid, ids, monto, context=None):
@@ -227,3 +211,53 @@ class Traslado(osv.Model):
 
         values.update(valores)
         return {'value' : values}
+
+
+    def cambio(self, cr, uid, ids,movimientos,context=None):
+        values    = {}
+        valores   = {}
+        result    = {} 
+        context   = {}
+        aumentos  = 0.0
+        dismi     = 0.0
+        total     = 0.00
+
+        if not movimientos:
+            return values
+       
+        sfl_traslado = self.pool.get('presupuesto.traslado')
+        sfl_trasmov  = self.pool.get('presupuesto.traslado_movimientos')
+
+        line_ids_aumen = resolve_o2m_operations(cr, uid, sfl_trasmov, movimientos, ["aumentar"], context)
+        line_ids_dism = resolve_o2m_operations(cr, uid, sfl_trasmov, movimientos, ["disminuir"], context)
+       
+        
+        for line_aumen in line_ids_aumen:
+            aumentos  += line_aumen.get('aumentar',0.0)
+
+        for line_dism in line_ids_dism:
+             dismi +=line_dism.get('disminuir',0.0) 
+        
+        total = aumentos - dismi
+        valores = {'total': total,}
+        values.update(valores)
+        return {'value' : values}
+
+def resolve_o2m_operations(cr, uid, target_osv, operations, fields, context):
+    results = []
+    for operation in operations:
+        result = None
+        if not isinstance(operation, (list, tuple)):
+            result = target_osv.read(cr, uid, operation, fields, context=context)
+        elif operation[0] == 0:
+            # may be necessary to check if all the fields are here and get the default values?
+            result = operation[2]
+        elif operation[0] == 1:
+            result = target_osv.read(cr, uid, operation[1], fields, context=context)
+            if not result: result = {}
+            result.update(operation[2])
+        elif operation[0] == 4:
+            result = target_osv.read(cr, uid, operation[1], fields, context=context)
+        if result != None:
+            results.append(result)
+    return results

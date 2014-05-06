@@ -14,7 +14,7 @@
             <field name="name">accion.tree</field>
             <field name="model">presupuesto.partidas</field>
             <field name="arch" type="xml">
-                <tree string="Actualizacion de Partidas Presupuestarias o Contables">
+                <tree toolbar="1" string="Actualización de Partidas Presupuestarias o Contables">
                     <field name="codigo" />
                     <field name="descripcion" />
                 </tree>
@@ -25,12 +25,49 @@
             <field name="model">presupuesto.partidas</field>
             <field name="arch" type="xml">
                 <form string="Formulario de Partidas Presupuestarias" version="7.0">
-                    <group colspan="2" col="2">
-                        <separator string="Partidas Presupuestarias" colspan="2"/>
-                        <field name="id_partida"/>
-                        <field name="codigo"/>
-                        <field name="descripcion" />
-                    </group>
+                    <style type="text/css">
+                        .openerp th, .openerp td {
+                            padding: 10px 3px;
+                            text-align: left;
+                        }
+                        tr td span.span_tamano{
+                             width:375px !important;
+                        }
+                        table tr td,table tr th {
+                            padding:5px;
+                        }
+                        textarea.field_text{
+                            width:100%% !important;
+                            height:60px !important;
+                        }
+                    </style>
+                    <separator string="Partidas Presupuestarias" class="titulo"/>
+                    <table style="width:960px;" border="0" align="center">
+                        <tbody>
+                            <tr>
+                                <th>
+                                    Padre:
+                                </th>  
+                                <td style="width:40%%;padding-right:15px;">
+                                    <field style="width:100%%" class="linea_vertical" name="id_partida"/>
+                                </td>  
+                                <th>
+                                    Código:
+                                </th>  
+                                <td>
+                                    <field style="width:100%%" class="linea_vertical" name="codigo"/>
+                                </td>  
+                            </tr> 
+                            <tr>
+                                <th style="width:10%%">
+                                    Descripción:
+                                </th>  
+                                <td colspan="3">
+                                    <field class="linea_vertical" name="descripcion" />
+                                </td>  
+                            </tr>    
+                        </tbody>
+                    </table>
                 </form>
             </field>
         </record>

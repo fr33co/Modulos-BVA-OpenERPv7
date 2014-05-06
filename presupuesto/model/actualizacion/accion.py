@@ -42,10 +42,20 @@ class Accion(osv.Model):
     'cod_proyect_accion' : fields.function(_proyec_accion, method=True, type='char', readonly=True, string='Codigo Proyecto'),
     }
 
-    # Validar una unica clave por cada codigo de accion
-    _sql_constraints = [('UNICA','unique(codigo_accion)', 'El Codigo del Accion ya se encuentra registrado')]
+    
+    def on_cod_proyecacc(self, cr, uid, ids, proyecto,accion, context=None):
+        values  = {}
+        mensaje = ''
+       
+        sls_cod_accion    = self.pool.get('presupuesto.accion')
+        srcnt_proyect_acc = sls_cod_accion.search_count(cr,uid, [('codigo_proyecto','=', proyecto),('codigo_accion','=',accion)])
+        if srcnt_proyect_acc > 0:
+            mensaje = {'title':'ERROR','message':'Este codigo de accion ya se encuentra registrado para este proyecto'}
+           
+        return {'warning':mensaje}
 
-   
+
+
     def _check_codigo_accion(self, cr, uid, ids, context=None):
         """
         Constraints para validar que que el codigo de la accion

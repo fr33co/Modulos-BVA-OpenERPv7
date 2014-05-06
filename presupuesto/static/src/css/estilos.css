@@ -1,0 +1,19 @@
+.openerp th, .openerp td {
+    padding: 10px 3px;
+    text-align: left;
+}
+.text_rojo {
+  text-align: right;
+  color:red;
+}
+.titulo{
+    color:#FF0000 !important;
+}
+.linea_vertical{
+    border-left: 1px solid #DDDDDD;
+    padding:5px 5px !important;
+}
+.fila{
+    padding-right:25px
+
+}

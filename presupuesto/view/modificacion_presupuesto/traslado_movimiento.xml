@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.actions.act_window" id="tras_mov_list_action">
+            <field name="name">Traslado/Traspaso</field>
+            <field name="res_model">presupuesto.traslado_movimientos</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Actualizar Traslado/Traspaso</p>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="traslado_mov_tree_view">
+            <field name="name">traslado_mov.tree</field>
+            <field name="model">presupuesto.traslado_movimientos</field>
+            <field name="arch" type="xml">
+                <tree string="Traslado/Traspaso" colors="blue:aumentar&gt;0;red:disminuir&gt;0" version="7.0">
+                    <field name="cod_presupuesto"/>
+                    <field name="par_presu" />
+                    <field name="aumentar"   string="Aumento"     sum="Total Tax Included" />
+                    <field name="disminuir"  string="Disminucion" sum="Total Tax Included" />
+                </tree>
+            </field>
+        </record> 
+        <record model="ir.ui.view" id="traslado__movform_view">
+            <field name="name">traslado_mov.form</field>
+            <field name="model">presupuesto.traslado_movimientos</field>
+            <field name="arch" type="xml">
+                <form string="Formulario de Traslado/Traspaso" version="7.0">
+                    <style type="text/css">
+                        input[type=text],select{
+                           width:300px !important;
+                        }
+                        .oe_form_field_float input[type='text']{
+                            text-align:right;
+                            color:#FF0000 !important;
+                        }
+                        span.codigo input[type="text"]{
+                           color:#FF0000 !important;
+                           font-weight:bold;
+                       }
+                       .numero{
+                           text-align:right;
+                           color:#FF0000 !important;
+                           width:93%% !important
+                       }
+                    </style>
+                    <separator string="Traslado/Traspaso" class="titulo"/>
+
+                    <table style="width:960px;" border="0" align="center" class="tabla">
+                        <tbody>
+                            <tr >
+                                <th style="width:16%%;">
+                                    <span>Código Presupuestario:</span>
+                                </th>
+                                <td style="width:16%%;">
+                                    <field class="linea_vertical" name="cod_presupuesto"  on_change="on_change_partida(cod_presupuesto,'cod_presupuesto')"/>
+                                </td>
+                                <th>
+                                    <span>Partida Presupuestaria:</span>
+                                </th>
+                                <td>
+                                    <field class="linea_vertical" name="par_presu"  widget="selection" on_change="on_change_partida(par_presu,'par_presu')"/>
+                                </td>
+                            </tr>
+                            <tr class="fila">
+                                <th>
+                                    <span>Aumentar/Disminuir:</span>
+                                </th>
+                                <td>
+                                     <field class="linea_vertical" name="aumen_dism"/>
+                                </td>
+                                <th>
+                                    <span>Monto Movimiento:</span>
+                                </th>
+                                <td>
+                                    <field class="linea_vertical" name="aumentar"  attrs="{'invisible':[('aumen_dism','=','2')]}"/>
+                                    <field class="linea_vertical" name="disminuir" attrs="{'invisible':[('aumen_dism','in',('1',False))]}"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"></td>
+                                <th>
+                                    <span>Disponibilidad:</span>
+                                </th>
+                                <td>
+                                    <field class="linea_vertical numero"  name="disponibilidad"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>
