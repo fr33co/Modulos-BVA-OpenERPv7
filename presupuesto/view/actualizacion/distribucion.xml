@@ -29,33 +29,126 @@
             <field name="name">distribucion.form</field>
             <field name="model">presupuesto.distribucion</field>
             <field name="arch" type="xml">
-                <form string="Formulario de Distribucion de Presupuesto" version="7.0">
-                    <group colspan="3" col="3">
+                <form string="Formulario de Distribución de Presupuesto" version="7.0">
+                    <style type="text/css">
+                        .openerp th, .openerp td {
+                            padding: 10px 3px;
+                            text-align: left;
+                        }
+                        table tr td,table tr th {
+                            padding:5px;
+                        }
+                        .oe_form_field_float input[type='text']{
+                            width:163px !important;
+                            text-align:right;
+                            color:#FF0000 !important;
+                        }
+                        .codigo input[type='text']{
+                            width:150px !important;
+                            text-align:right;
+                            color:#FF0000 !important;
+                        }
+                        .oe_datepicker_master[type='text']  {
+                            width: 100%% !important;
+                        }
+                        span.oe_form_char_content{
+                            text-align:right;
+                            color:#FF0000 !important;
+                        }
+                       
+                    </style>
+                    <separator string="Distribucion de Presupuesto" class="titulo"/>
+                    <table style="width:90%%;" border="0" align="center">
+                        <tbody>
+                            <tr>
+                                <th>
+                                    Proyecto:
+                                </th>
+                                <td colspan="3" style="padding-right:15px;">
+                                    <field style="width:100%%" id="proyecto_id" class="linea_vertical" name="proyecto_id" placeholder="Seleccione..." widget="selection" on_change="on_change_proyecto(proyecto_id,'proyecto_id')"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Código Acción:
+                                </th>
+                                <td style="width:10%% ;padding-right:15px;">
+                                    <field style="width:100%%"  class="linea_vertical" name="codigo_proyecto" on_change="on_change_proyecto(codigo_proyecto,'codigo_proyecto')"/>
+                                </td>
+                                <td style="width:5%%;padding-right:15px;">
+                                    <field style="width:100%%"  class="linea_vertical" name="codigo_accion" on_change="on_change_accion(codigo_accion,proyecto_id,'cod_accion')"/>
+                                </td>
+                                <td>
+                                    <field style="width:100%%" class="linea_vertical" id='accion' name="accion"   placeholder="Seleccione..." on_change="on_change_accion(accion,proyecto_id,'accion')"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="width:19%%">
+                                    Partida Presupuestaria:
+                                </th>
+                                <td style="padding-right:15px;">
+                                    <field class="linea_vertical" name="partida" on_change="on_change_partida(partida,'cod_partida')" />
+                                </td>
+                                <td colspan="2">
+                                    <field class="linea_vertical" name="descripcion" placeholder="Seleccione..." widget="selection" on_change="on_change_partida(descripcion,'id_partidad')" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Monto Presupuestario:
+                                </th>
+                                <td style="padding-right:15px">
+                                     <field class="linea_vertical" name="monto_pre"/>
+                                </td>
+                                <th style="width:25%%">
+                                    <span style="margin-left:30%%;"> Aceptar Orden de:</span> 
+                                </th>
+                                <td>
+                                    <field class="linea_vertical" name="aceptar"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Fecha Apertura:
+                                </th>
+                                <td style="padding-right:15px;">
+                                    <field class="linea_vertical" name="fecha"/>
+                                </td>
+                                <th style="width:30%%">
+                                     <span style="margin-left:30%%;">Disponibilidad Actual:</span>
+                                </th>
+                                <td>
+                                    <field class="linea_vertical" name="disponibilidad" colspan="2" width="250"/>
+                                </td>
+                            </tr>
+                        </tbody>                       
+                    </table>
+                    <!-- <group colspan="3" col="3">
                         <group colspan="4" col="4">
                             <separator string="Distribucion de Presupuesto" />
                         </group>
                         <group colspan="4">
-                            <field name="proyecto_id" placeholder="Seleccione..." widget="selection" width="150" on_change="on_change_proyecto(proyecto_id,'proyecto_id')"/>
+                            
                         </group>
                         <group colspan="6" col="6">
-                            <field name="codigo_proyecto" on_change="on_change_proyecto(codigo_proyecto,'codigo_proyecto')" colspan="2" width="10"/>
-                            <field name="codigo_accion" nolabel="1" colspan="2" width="15" on_change="on_change_accion(codigo_accion,proyecto_id,'cod_accion')"/>
-                            <field name="accion" colspan="2" nolabel="1" placeholder="Seleccione..." on_change="on_change_accion(accion,proyecto_id,'accion')" width="500"/>
+                            
+                            
+                            
                         </group>
                         <group colspan="4" col="4">
-                            <field name="partida" colspan="2" width="150" on_change="on_change_partida(partida,'cod_partida')" />
-                            <field name="descripcion" placeholder="Seleccione..." widget="selection" colspan="2" nolabel="1" on_change="on_change_partida(descripcion,'id_partidad')" />
+                            
+                            
                         </group>
                         <group colspan="4" col="4">
-                            <field name="monto_pre" colspan="2" digits="(14, 2)" />
-                            <field name="aceptar" colspan="2" width="526"/>
+                           
+                            
                         </group>
                         <group colspan="6" col="6">
-                            <field name="fecha" colspan="2"/>
-                            <field name="disponibilidad" colspan="2" width="250"/>
+                            
+                           
                             <field name="monto_proyecto" colspan="2" />
                         </group>
-                    </group>
+                    </group> -->
                 </form>
             </field>
         </record>

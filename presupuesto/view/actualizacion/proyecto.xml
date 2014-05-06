@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
+
         <record model="ir.actions.act_window" id="proyecto_list_action">
             <field name="name">Proyecto</field>
             <field name="res_model">presupuesto.proyecto</field>
@@ -18,7 +19,7 @@
             <field name="arch" type="xml">
                 <tree string="Proyectos">
                     <field name="codigo_proyecto"/>
-                    <field name="descripcion" />
+                    <field name="proyecto"  string="Proyecto"/>
                     <field name="monto"/>
                 </tree>
             </field>
@@ -27,14 +28,63 @@
         <record model="ir.ui.view" id="proyecto_form_view">
             <field name="name">proyecto.form</field>
             <field name="model">presupuesto.proyecto</field>
-            <field name="arch" type="xml">
+            <field name="arch" type="xml" >
                 <form string="Formulario de Proyectos" version="7.0">
-                    <group>
-                        <field name="codigo_proyecto"/>
-                        <field name="proyecto" />
-                        <field name="monto"/>
-                        <field name="descripcion" />
-                    </group>
+                    <style type="text/css">
+                        .openerp th, .openerp td {
+                            padding: 10px 3px;
+                            text-align: left;
+                        }
+                        tr td span.span_tamano{
+                             width:375px !important;
+                        }
+                        table tr td,table tr th {
+                            padding:5px;
+                        }
+                        .oe_form_field_float input[type='text']{
+                            width:163px !important;
+                            text-align:right;
+                            color:#FF0000 !important;
+                        }
+                        .codigo input[type='text']{
+                            width:150px !important;
+                            text-align:right;
+                            color:#FF0000 !important;
+                        }
+                        textarea.field_text{
+                            width:375px !important;
+                            height:70px !important;
+                        }
+                    </style>
+                    <sheet>
+                    <separator string="Proyecto" class="titulo"/>
+                    <table style="width:800px;" border="0" align="center">
+                        <tr>
+                            <th style="width:132px;" class="border_derecho_fila"><span>Nombre del Proyecto</span></th>
+                            <td style="width:170px;" colspan="3">
+                                <field class="span_tamano linea_vertical" name="proyecto"/>
+                            </td>
+                        </tr>  
+                        <tr>
+                            <th><span>Código del Proyecto</span></th>
+                            <td style="width:100px !important;">
+                                <field class="codigo linea_vertical" name="codigo_proyecto" on_change="on_change_codigo_proyecto(codigo_proyecto)"/>
+                            </td>
+                            <th style="width:10px !important;" class="border_derecho_fila">
+                                <span>Monto</span>
+                            </th>
+                            <td>
+                                <field class="linea_vertical" name="monto"/>
+                            </td>
+                        </tr> 
+                        <tr>
+                            <th class="border_derecho_fila"><span style="display:block;margin-top:-30px !important;">Descripción</span></th>
+                            <td style="width:100px !important;" colspan="3">
+                                <field class="linea_vertical" name="descripcion"/>
+                            </td>
+                        </tr>  
+                    </table>
+                    </sheet>
                 </form>
             </field>
         </record>
@@ -42,6 +92,6 @@
         <menuitem id="main_presupuesto_menu" name="Presupuesto" />
         <menuitem id="actualizar_menu" name="Actualizar" parent="main_presupuesto_menu" />
         <menuitem id="proyectos_menu" name="Proyectos"  parent="actualizar_menu" action="proyecto_list_action" />
-
+        
     </data>
 </openerp>

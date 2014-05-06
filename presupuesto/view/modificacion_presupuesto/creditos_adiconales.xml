@@ -24,34 +24,88 @@
             <field name="model">presupuesto.creditos</field>
             <field name="arch" type="xml">
                 <form string="Formulario de Creditos Adicionales" version="7.0">
-                    <!-- <group> -->
-                        <group string="Creditos Adicionales" colspan="3" col="3">
-                            <group >
-                                <field name="id_tipo_doc" class="oe_inline" widget="selection" on_change="get_last_numero(id_tipo_doc)"/>
-                                <field name="numero" class="oe_inline" />
-                                <field name="fecha" class="oe_inline"/>
-                            </group>
-                            <group >
-                                <field name="oficio" class="oe_inline"/>
-                                <field name="fecha_oficion" class="oe_inline"/>
-        
-                            </group>
-                            <group >
-                                <field name="proyecto_accion" class="oe_inline" on_change="on_change_accion(proyecto_accion,'cod_accion')" />
-                                <field name="id_proyecto_accion" class="oe_inline" widget="selection" on_change="on_change_accion(id_proyecto_accion,'accion')"/>
-                            </group>
-                        </group>
-                        <group >
-                            <field name="observacion" />
-                        </group>
-                        <separator/>
-                        <group colspan="6" col="6">
-
-                            <field name="cod_presupuesto"  on_change="on_change_partida(cod_presupuesto)" colspan="2"/>
-                            <field name="desc_presupuesto" colspan="2" width="250" nolabel="1" readonly="1"/>
-                            <field name="disponibilidad" colspan="2"  nolabel="1" readonly="1"/>
-                        </group>
-                    <!-- </group> -->
+                    <style type="text/css">
+                        .oe_datepicker_master[type='text']  {
+                            width: 100%% !important;
+                        }
+                        span.codigo input[type="text"]{
+                           color:#FF0000 !important;
+                           font-weight:bold;
+                       }
+                    </style>
+                     <separator string="Creditos Adicionales" class="titulo" />
+                    <table style="width:960px;" border="0" align="center" class="tabla">
+                        <tbody>
+                            <tr>
+                                <th>
+                                    Tipo Documento:
+                                </th>
+                                <td style="padding-right:15px;">
+                                    <field class="linea_vertical" style="width:100%%" name="id_tipo_doc"  widget="selection" on_change="get_last_numero(id_tipo_doc)"/>
+                                </td>
+                                <th>
+                                    Número:
+                                </th>
+                                <td>
+                                    <field class="linea_vertical codigo" style="width:100%%" name="numero" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Fecha:
+                                </th>
+                                <td style="padding-right:15px;">
+                                    <field class="linea_vertical" name="fecha" />
+                                </td>
+                                <th>
+                                    # Oficio:
+                                </th>
+                                <td>
+                                    <field class="linea_vertical" name="oficio"  />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Fecha de Oficio:
+                                </th>
+                                <td style="padding-right:15px;">
+                                    <field class="linea_vertical" name="fecha_oficion" />
+                                </td>
+                                <th>
+                                    Motivo:
+                                </th>
+                                <td>
+                                   <field class="linea_vertical" name="observacion"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Proyecto Acción:
+                                </th>
+                                <td style="padding-right:15px;">
+                                    <field class="linea_vertical" name="proyecto_accion"  on_change="on_change_accion(proyecto_accion,'cod_accion')"/>
+                                </td>
+                                <th style="width:20%%;">
+                                    <span>Consulta de Proyecto Acción:</span>
+                                </th>
+                                <td>
+                                   <field class="linea_vertical" widget="selection" name="cosulta_proyecto_accion" on_change="on_change_accion(cosulta_proyecto_accion,'accion')"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <field name="movimientos_creditos" >
+                                        <tree string="Creditos Adicionales"  version="7.0" editable="bottom">
+                                             <field name="cod_presupuesto" on_change="on_change_partida(cod_presupuesto,'cod_presupuesto')"/>
+                                             <field name="par_presu"       on_change="on_change_partida(par_presu,'par_presu')"/>
+                                             <field name="monto"  sum="Total Aumentar"/>
+                                             <field name="disponibilidad" />
+                                        </tree>
+                                    </field>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </form>
             </field>
         </record>

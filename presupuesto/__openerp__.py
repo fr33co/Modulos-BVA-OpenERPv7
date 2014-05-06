@@ -1,7 +1,7 @@
 {
     "name": "Presupuesto",
         "version": "1.0",
-        "depends": ["base","web"],
+        "depends": ["base","web","l10n_ve_topology"],
         "author": "Josue",
         "category": "Category",
         "description": """\
@@ -15,6 +15,8 @@
         'view/modificacion_presupuesto/traslado_traspaso.xml',
         'view/modificacion_presupuesto/creditos_adiconales.xml',
         'view/configuracion/tipo_documento.xml',
-        ]
+        ],
+        'js':['static/src/js/prueba.js'],
+        'css':['static/src/css/estilos.css'],
 }
 
