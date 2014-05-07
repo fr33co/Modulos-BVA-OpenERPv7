@@ -45,27 +45,21 @@
 						<group>
 							<field name="anyo" nolabel="0" colspan="2"/>
 							<field name="mes" nolabel="0" colspan="2"/>
+							<label string="Período" nolabel="0" colspan="2"/>
+							<field name="inicio_periodo" nolabel="0" colspan="2"/>
+							<field name="fin_periodo" nolabel="0" colspan="2"/>
 						</group>
 						<group>
 							<field name="tipo_nomina" nolabel="0" colspan="2"/>
-						</group>
-					</group>
-<!--
-					<group col="4" colspan="4">
-						<group>
 							<field name="tipo_beca" nolabel="0" colspan="2"/>
-							<field name="tipo_nomina" nolabel="0" colspan="2"/>
-							<field name="status" nolabel="0" colspan="2"/>
-						</group>
-						<group>
-							<field name="ejes" nolabel="0" colspan="2"/>
-							<field name="sedes" nolabel="0" colspan="2"/>
+							<!--<field name="banco" nolabel="0" colspan="2"/>-->
 						</group>
 					</group>
--->			
 					<group col="4" colspan="4">
 						<group string="Selección de Becados">
-							<field name="becados" nolabel="1" mode="tree" readonly="0"/>
+							<div class="div_scroll_becado">
+								<field name="becados" nolabel="1" mode="tree" readonly="0" domain="[('categoria','=','1'),'|',('status','=','1'),('status','!=','1'),('tipo_beca','=',tipo_beca)]"/>
+							</div>
 						</group>
 					</group>
 						<button name="generar_nominas" type="object" string="Generar nóminas" stage_id="prenomina" attrs="{'invisible':[('stage_id','in',('cierre','cancelado'))]}"/>
@@ -73,20 +67,30 @@
 						<group string="Nóminas">
 							<notebook>
 								<page string="Nóminas individuales">
-									<field name="nomina_individual" nolabel="1"/>
+									<div class="div_scroll_becado">
+										<field name="nomina_individual" nolabel="1"/>
+									</div>
 								</page>
+<!--
 								<page string="Archivos generados">
-									<field name="archivos" nolabel="1">
-										<tree string="Archivos Generados" editable="bottom" domain="[('grado_instruc','=', grado_instruccion)]">
-											<field name="name"/>
-											<field name="datas"/>
-											<field name="user_id"/>
-											<field name="create_date" groups="base.group_no_one"/>
-											<field name="write_date" groups="base.group_no_one"/>
-											<field name="type"/>
-										</tree>
-									</field>
+									<div class="div_scroll_becado">
+										<field name="archivos" nolabel="1" editable="bottom" readonly="1">
+											<tree string="Archivos Generados" domain="[('grado_instruc','=', grado_instruccion)]">
+												<field name="name"/>
+												<field name="stage"/>
+												<field name="tipo_nomina"/>
+												<field name="tipo_beca"/>
+												<field name="type"/>
+												<field name="datas" filename="datas_fname" attrs="{'invisible':[('type','=','url')]}"/>
+												<field name="datas_fname" invisible="1" attrs="{'invisible':[('type','=','url')]}" class="oe_inline oe_right"/>
+												<field name="url" widget="url" attrs="{'invisible':[('type','=','binary')]}"/>
+												<field name="create_date" groups="base.group_no_one"/>
+												<field name="write_date" groups="base.group_no_one"/>
+											</tree>
+										</field>
+									</div>
 								</page>
+-->
 							</notebook>
 						</group>
 					</group>
@@ -102,6 +106,7 @@
 					<field name="anyo"/>
 					<field name="mes"/>
 					<field name="tipo_nomina"/>
+					<field name="tipo_beca"/>
 					<field name="stage_id"/>
 <!--
 					<field name="tipo_beca"/>

@@ -27,7 +27,9 @@
 			</field>
 		</record>
 		
+<!--
 		<menuitem id="menu_status" name="Status" parent="menu_principal_mantenimiento" action="accion_lista_status"/>
+-->
 			
 	</data>
 	

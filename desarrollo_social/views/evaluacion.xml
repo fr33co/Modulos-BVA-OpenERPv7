@@ -192,11 +192,9 @@
 
 
 		
-<!--
 		<menuitem name="Instrumento de evaluación" id="menu_desarrollo_social_evaluacion" parent="menu_desarrollo_social"/>
-        <menuitem parent="menu_desarrollo_social_evaluacion" id="sub_menu_evaluacion" action="accion_lista_evaluacion" name="Evaluación"/>
+      <menuitem parent="menu_desarrollo_social_evaluacion" id="sub_menu_evaluacion" action="accion_lista_evaluacion" name="Evaluación"/>
 			
--->
 	</data>
 	
 </openerp>

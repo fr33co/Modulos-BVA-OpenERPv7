@@ -76,9 +76,9 @@ class Carga_familiar(osv.Model):
 		#Sección II (Datos del Familiar)
 		'cedula_familiar': fields.char(string = "Cédula Familiar", size = 9, required = False, help="Cédula del familiar"),
 		'primer_nombres_familiar' : fields.char(string="Primer nombre", help="Ingrese el primer nombre del Familiar", required = True),
-		'segundo_nombre_familiar' : fields.char(string="Segundo nombre", help="Ingrese el segundo nombre del Familiar", required = True),
+		'segundo_nombre_familiar' : fields.char(string="Segundo nombre", help="Ingrese el segundo nombre del Familiar", required = False),
 		'primer_apellido_familiar' : fields.char(string="Primer apellido", help="Ingrese el primer apellido del Familiar", required = True),
-		'segundo_apellido_familiar' : fields.char(string="Segundo apellido", help="Ingrese el segundo apellido del Familiar", required = True),
+		'segundo_apellido_familiar' : fields.char(string="Segundo apellido", help="Ingrese el segundo apellido del Familiar", required = False),
 		'fecha_nac_familiar': fields.date(string = "Fecha de Nacimiento", required = True),
 		'profesion_familiar' : fields.char(string="Profesión u Oficio", help="Ingrese la Profesión u Oficio del Familiar", required = False),
 		'sexo' : fields.selection((('1','Masculino'),('2','Femenino')), "Sexo", required = True),

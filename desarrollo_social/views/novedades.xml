@@ -93,10 +93,8 @@
 
 
 		
-<!--
 		<menuitem name="Novedades de la Pre-Nómina" id="menu_desarrollo_social_novedades_becado" parent="menu_desarrollo_social" icon="terp-personal"/>
-        <menuitem parent="menu_desarrollo_social_novedades_becado" id="sub_menu_novedades_becado" action="accion_lista_novedades_becado" name="Novedades"/>
--->
+      <menuitem parent="menu_desarrollo_social_novedades_becado" id="sub_menu_novedades_becado" action="accion_lista_novedades_becado" name="Novedades"/>
 			
 	</data>
 	

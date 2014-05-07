@@ -9,6 +9,9 @@ class Becado(osv.Model):
 	'''Herenciando a hr_employee (empleados)'''
 	
 	_order = "empleado"
+	#~ _order = "tipo_beca asc"
+	#~ _order = "entidad_bancaria asc"
+	#~ _order = "status asc"
 	
 	_inherit = 'hr.employee'
 	
@@ -184,16 +187,16 @@ class Becado(osv.Model):
 		#'status' : fields.many2one("becados.status","Status",required=False),
 		'status' : fields.selection((('1','Activo'),('2','Periódo de gracia'),('3','Permiso de reposo'),('4','Permiso no remunerado'),('5','Suspendido'),('6','Vacaciones'),('7','Egresado')), "Estatus", required = False),
 		'desc_status' : fields.char(string="Descripción", size=100, required=False,help="Escriba aquí detalles y razones del estatus seleccionado"),
-		'asignacion' : fields.float(string="Asignación", required=True),
+		'asignacion' : fields.float(string="Asignación", required=False),
 		'entidad_bancaria' : fields.many2one("becados.bancos", "Entidad Bancaria", required = False),
-		'numero_cuenta' : fields.char(string="Número de cuenta",required=False),
-		'tipo_cuenta' : fields.selection((('1','Corriente'),('2','Ahorro')),"Tipo de Cuenta",required=False),
+		'numero_cuenta' : fields.char(string="Número de cuenta",size=20,required=False),
+		'tipo_cuenta' : fields.selection((('0','Corriente'),('1','Ahorro')),"Tipo de Cuenta",required=False),
 		'ano_antiguedad' : fields.char(string="Año de Antiguedad", required=False),
 		'caja_ahorro' : fields.char(string="Caja de Ahorro", required=False),
 		'prima_responsabilidad' : fields.float(string="Prima de Responsabilidad", required=False),
 		#'fecha_nacimiento' : fields.date(string="Fecha de nacimiento", required=True),
 		'familiar' : fields.one2many("becado.carga.familiar","becado",string="Carga Familiar"),
-		'categoria' : fields.selection((('1','Becado'),('2','Empleado'),('3','Obrero'),('4','Coordinador_eje'),('5','Coordinador_sede')), "Categoria", required = False),
+		'categoria' : fields.selection((('1','Becado'),('2','Empleado'),('3','Obrero'),('4','Coordinador_eje'),('5','Coordinador_sede')), "Categoria", required = True),
 		#Información de representante/contacto------------------------------------------------
 		'cedula_contacto' : fields.integer(string="Cédula",size=8,required=False),
 		'nombre_contacto' : fields.char(string="Nombre y Apellido",required=False),
