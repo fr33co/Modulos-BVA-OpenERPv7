@@ -12,5 +12,6 @@ class Eje(osv.Model):
 	_rec_name = 'eje'
 	
 	_columns = {
+		'codigo' : fields.char(string="Código", size=10, required=False),
 		'eje': fields.char(string = "Eje", size = 150, required = True),
 	}

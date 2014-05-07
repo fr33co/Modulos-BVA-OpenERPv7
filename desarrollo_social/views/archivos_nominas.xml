@@ -8,6 +8,7 @@
 			<field name="name">Archivos de nómina</field>
 			<field name="res_model">ir.attachment</field>
 			<field name="view_type">form</field>
+			<field name="domain">[('res_model','ilike','becados.nomina')]</field>
 			<field name="view_mode">tree,form</field>
 			<field name="help" type="html">
 				<p class="oe_view_nocontent_create">Agregue un nuevo archivo</p>
@@ -29,31 +30,28 @@
 			</field>
 		</record>
 		
-<!--
 		<record model="ir.ui.view" id="vista_tree_archivos_nomina">
-			<field name="name">attachment.tree</field>
+			<field name="name">reportes.tree</field>
 			<field name="model">ir.attachment</field>
 			<field name="inherit_id" ref="document.view_document_file_tree"/>
 			<field name="arch" type="xml"> 
 				<tree string="Attachments" position="replace">
-					<tree colors="blue:type in ('url',)" string="Attachments">
+					<tree string="Reportes">
 						<field name="name"/>
-						<field name="parent_id"/>
-						<field name="user_id"/>
-						<field name="company_id"/>
+						<field name="tipo_beca"/>
+						<field name="parent_id" invisible="1"/>
+						<field name="user_id" invisible="1"/>
+						<field name="company_id" invisible="1"/>
 						<field name="create_date" groups="base.group_no_one"/>
 						<field name="write_date" groups="base.group_no_one"/>
-						<field name="partner_id"/>
+						<field name="partner_id" invisible="1"/>
 						<field name="type"/>
 					</tree>
 				</tree>
 			</field>
 		</record>
--->
-		
-<!--
-		<menuitem id="menu_areas" name="Áreas" parent="menu_principal_mantenimiento" action="accion_lista_areas"/>
--->
+
+		<menuitem parent="menu_desarrollo_social_nomina" id="reporte_nominas" action="accion_lista_archivos_nomina" name="Reportes de Nóminas"/>
 			
 	</data>
 	

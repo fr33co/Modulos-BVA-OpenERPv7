@@ -275,7 +275,7 @@
 						<field name="cedula"/>
 					</field>
 					<field name="company_id" position="replace">
-						<field name="tlf_movil"/>
+						<field name="tlf_movil" invisible="1"/>
 					</field>
 					<field name="job_id" position="after">
 						<field name="category_ids" invisible="1"/>
@@ -287,10 +287,10 @@
 						<field name="sede"/>
 					</field>
 					<field name="work_email" position="replace">
-						<field name="correo"/>
+						<field name="correo" invisible="1"/>
 					</field>
 					<field name="work_phone" position="replace">
-						<field name="tlf_local"/>
+						<field name="tlf_local" invisible="1"/>
 					</field>
 					<field name="sede" position="before">
 						<field name="ejes"/>
@@ -302,6 +302,9 @@
 -->
 					<field name="sede" position="after">
 						<field name="tipo_beca"/>
+					</field>
+					<field name="tipo_beca" position="after">
+						<field name="entidad_bancaria"/>
 					</field>
 			</field>
 		</record>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<openerp>
+		<data>
+			<!--Registros básicos para los modelos de mantenimiento-->
+			
+			<!--Tipos de Beca-->
+			<record id="tipo_beca_1" model="becados.tipobeca">
+				<field name="cod_t_beca">007</field>
+				<field name="tipo_beca">BECA CYBERGUÍA</field>
+				<field name="asignacion">1000</field>
+				<field name="descripcion"></field>
+			</record>
+			<record id="tipo_beca_2" model="becados.tipobeca">
+				<field name="cod_t_beca">006</field>
+				<field name="tipo_beca">BECA ESPECIAL (CYBERGUÍA)</field>
+				<field name="asignacion">1000</field>
+				<field name="descripcion"></field>
+			</record>
+			<record id="tipo_beca_3" model="becados.tipobeca">
+				<field name="cod_t_beca">005</field>
+				<field name="tipo_beca">BECA ESPECIAL (COMISIÓN BECA)</field>
+				<field name="asignacion">600</field>
+				<field name="descripcion"></field>
+			</record>
+			<record id="tipo_beca_4" model="becados.tipobeca">
+				<field name="cod_t_beca">004</field>
+				<field name="tipo_beca">BECA SOCIAL</field>
+				<field name="asignacion">600</field>
+				<field name="descripcion"></field>
+			</record>
+			<!--Tipos de Beca-->
+			
+			<!--Tipos de Nomina-->
+			<record id="tipo_nomina_1" model="becados.tiponomina">
+				<field name="cod_nom">001</field>
+				<field name="tipo_nomina">Regular</field>
+			</record>
+			<record id="tipo_nomina_2" model="becados.tiponomina">
+				<field name="cod_nom">002</field>
+				<field name="tipo_nomina">Bono Fin de Año</field>
+			</record>
+			<!--Tipos de Nomina-->
+			
+			<!--Nivel Educativo-->
+			<!--Nivel Educativo-->
+			
+			<!--Ejes-->
+			<record id="eje_1" model="becados.ejes">
+				<field name="codigo">001</field>
+				<field name="eje">Eje Centro</field>
+			</record>
+			<record id="eje_2" model="becados.ejes">
+				<field name="codigo">002</field>
+				<field name="eje">Eje Metro</field>
+			</record>
+			<record id="eje_3" model="becados.ejes">
+				<field name="codigo">003</field>
+				<field name="eje">Eje Este</field>
+			</record>
+			<record id="eje_4" model="becados.ejes">
+				<field name="codigo">004</field>
+				<field name="eje">Eje Sur</field>
+			</record>
+			<record id="eje_5" model="becados.ejes">
+				<field name="codigo">005</field>
+				<field name="eje">Eje Costa</field>
+			</record>
+			<!--Ejes-->
+			
+			<!--Sedes-->
+<!--
+			<record id="sede_1" model="becados.sedes">
+				<field name="eje">Eje Centro</field>
+				<field name="sede">BV - Maracay</field>
+			</record>
+-->
+			<!--Sedes-->
+			
+			<!--Entidades Bancarias-->
+			<record id="banco_1" model="becados.bancos">
+				<field name="codigo">001</field>
+				<field name="banco">Venezuela</field>
+				<field name="descripcion">Banco de Venezuela</field>
+			</record>
+			<record id="banco_2" model="becados.bancos">
+				<field name="codigo">002</field>
+				<field name="banco">B.N.C</field>
+				<field name="descripcion">Banco Nacional de Credito</field>
+			</record>
+			<!--Entidades Bancarias-->
+		</data>
+	</openerp>	

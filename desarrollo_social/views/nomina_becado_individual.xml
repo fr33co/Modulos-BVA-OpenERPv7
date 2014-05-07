@@ -43,6 +43,7 @@
 						</group>
 						<group colspan="2">
 							<field name="asignacion" nolabel="0" colspan="1"/>
+							<field name="monto" nolabel="0" colspan="1"/>
 						</group>
 					</group>
 				</form>
@@ -55,11 +56,13 @@
 			<field name="arch" type="xml"> 
 				<tree string="Formulario de Nómina individual" editable="bottom">
 					<field name="codigo"/>
-					<field name="becado"/>
-					<field name="anyo"/>
-					<field name="mes"/>
-					<field name="tipo_beca" on_change="carga_asignacion(tipo_beca)"/>
-					<field name="asignacion"/>
+					<field name="becado" widget="selection"/>
+					<!--<field name="anyo"/>-->
+					<!--<field name="mes"/>-->
+					<field name="tipo_beca" widget="selection" on_change="carga_monto(tipo_beca,asignacion,num_meses)"/>
+					<field name="asignacion" on_change="carga_monto(tipo_beca,asignacion,num_meses)"/>
+					<field name="num_meses" on_change="carga_monto(tipo_beca,asignacion,num_meses)" attrs="{'invisible':[('asignacion','!=','bono_f')]}"/>
+					<field name="monto"/>
 				</tree>
 			</field>
 		</record>

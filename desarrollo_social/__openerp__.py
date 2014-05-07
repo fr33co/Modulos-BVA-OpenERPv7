@@ -42,12 +42,14 @@
       "views/wizard_lista_becados/wizard_lista_becados.xml",
       "views/calculo_nomina.xml",
       #"reportes/report_becados.xml",
+      "categorias/mantenimiento.xml",
       "seguridad/groups.xml", #Activar la carga de este archivo sólo al instalar, luego comentarlo.
       #""seguridad/users.xml", #Activar la carga de este archivo sólo al instalar, luego comentarlo.
       "seguridad/ir.model.access.csv",
-      "categorias/categorias.xml", #Activar la carga de este archivo sólo al instalar, luego comentarlo.
+      #"categorias/categorias.xml", #Activar la carga de este archivo sólo al instalar, luego comentarlo.
 			"reportes/evaluacion/report_evaluacion.xml", # Reporte para casos de novedad del becado
       "reportes/novedad/report_becados.xml", # Reporte para casos de novedad del becado
       "reportes/constancia/constancia.xml", # Reporte para la emisión de constancia
     ],
+    'css': [ 'static/src/css/style.css' ],
 }

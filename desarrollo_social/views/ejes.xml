@@ -21,6 +21,7 @@
 			<field name="arch" type="xml"> 
 				<form string="Formulario de Ejes">
 					<group colspan="2">
+						<field name="codigo" nolabel="0" colspan="1"/>
 						<field name="eje" nolabel="0" colspan="1"/>
 					</group>
 				</form>
@@ -32,6 +33,7 @@
 			<field name="model">becados.ejes</field>
 			<field name="arch" type="xml">
 				<tree string="Lista de Ejes">
+					<field name="codigo"/>
 					<field name="eje"/>
 				</tree>
 			</field>
