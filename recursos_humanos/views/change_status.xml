@@ -2,124 +2,125 @@
 <openerp>
     <data>
     
-			<record model="ir.actions.act_window" id="action_onchange_status">
-					<field name="name">Cambio de Estátus del Empleado</field>
-					<field name="res_model">hr.onchange.status</field>
-					<field name="view_type">form</field>
-					<field name="view_mode">tree,form</field>
-			</record>
-    
-			<record id="view_onchange_status" model="ir.ui.view">
-					<field name="name">Cambio de Estátus del Empleado</field>
-					<field name="model">hr.onchange.status</field>
-					<field name="arch" type="xml">
-						<form string="Formulario de Cambio de Estátus" version="7.0">
+	<record model="ir.actions.act_window" id="action_onchange_status">
+	    <field name="name">Cambio de Estátus del Empleado</field>
+	    <field name="res_model">hr.onchange.status</field>
+	    <field name="view_type">form</field>
+	    <field name="view_mode">tree,form</field>
+	</record>
 
-							<center>
-								<table style="width:600px;" border="0">
-									<tr>
-										<td colspan="2" style="text-align:center;" class="oe_horizontal_separator">
-											<b>Cambio de Estátus</b>
-										</td>
-									</tr>
-									<tr>
-										<td style="align:center;">
-											<b>Cédula:</b>
-										</td>
-										<td>
-											<field name="cedula_employee" on_change="search_onchange_status(cedula_employee,'1')" style="width:27%%"/>
-										</td>
-									</tr>
-									<tr>
-										<td style="align:center;">
-											<b>Nombres:</b>
-										</td>
-										<td>
-											<field name="nom"/>
-										</td>
-									</tr>
-									<tr>
-										<td style="align:center;">
-											<b>Cargo:</b>
-										</td>
-										<td>
-											<field name="charge" on_change="search_onchange_status(charge,'2')" widget="selection"/>
-										</td>
-									</tr>
-									<tr>
-										<td style="align:center;">
-											<b>Estátus Nuevo:</b>
-										</td>
-										<td>
-											<field name="status" style="width:50%%"/>
-										</td>
-									</tr>
-									<tr>
-										<td style="align:center;">
-											<b>Fecha:</b>
-										</td>
-										<td>
-											<field name="date_onchange" on_change="search_onchange_status(date_onchange,'3')" style="width:50%%"/>
-										</td>
-									</tr>
-									<tr>
-										<td style="align:center;">
-											<b>Motivo del cambio de Estátus:</b>
-										</td>
-										<td>
-											<field name="reason_change"/>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<font style="color:white;">|</font>
-										</td>
-										<td>
-											<button name="reason_change_read" string="Cambio de Estatus" type="object" icon="gtk-apply"/>
-										</td>
-									</tr>
-								</table>
-							</center>
+	<record id="view_onchange_status" model="ir.ui.view">
+	    <field name="name">Cambio de Estátus del Empleado</field>
+	    <field name="model">hr.onchange.status</field>
+	    <field name="arch" type="xml">
+		<form string="Formulario de Cambio de Estátus" version="7.0">
 
-						</form>
-						
-					</field>
-			</record>
+		    <center>
+			<table style="width:600px;" border="0">
+			    <tr>
+				<td colspan="2" style="text-align:center;" class="oe_horizontal_separator">
+					<b>Cambio de Estátus</b>
+				</td>
+			    </tr>
+			    <tr>
+				<td style="align:center;">
+					<b>Cédula:</b>
+				</td>
+				<td>
+					<field name="cedula_employee" on_change="search_onchange_status(cedula_employee,'1')" style="width:27%%"/>
+				</td>
+			    </tr>
+			    <tr>
+				<td style="align:center;">
+					<b>Nombres:</b>
+				</td>
+				<td>
+					<field name="nom"/>
+				</td>
+			    </tr>
+			    <tr>
+				<td style="align:center;">
+					<b>Cargo:</b>
+				</td>
+				<td>
+					<field name="charge" on_change="search_onchange_status(charge,'2')" widget="selection"/>
+				</td>
+			    </tr>
+			    <tr>
+				<td style="align:center;">
+					<b>Estátus Nuevo:</b>
+				</td>
+				<td>
+					<field name="status" style="width:50%%"/>
+				</td>
+			    </tr>
+			    <tr>
+				<td style="align:center;">
+					<b>Fecha:</b>
+				</td>
+				<td>
+					<field name="date_onchange" on_change="search_onchange_status(date_onchange,'3')" style="width:50%%"/>
+				</td>
+			    </tr>
+			    <tr>
+				<td style="align:center;">
+					<b>Motivo del cambio de Estátus:</b>
+				</td>
+				<td>
+					<field name="reason_change"/>
+				</td>
+			    </tr>
+			    <tr>
+				<td>
+					<font style="color:white;">|</font>
+				</td>
+				<td>
+					<button name="reason_change_read" string="Cambio de Estatus" type="object" icon="gtk-apply"/>
+				</td>
+			    </tr>
+			</table>
+		    </center>
 
-			<!-- Forma de busqueda para Estátus-->
-			<record model="ir.ui.view" id="search_onchange_status">
-				<field name="name">busqueda.search</field>
-				<field name="model">hr.onchange.status</field>
-				<field name="arch" type="xml">		
-					<search string="Busqueda de Estátus">
-						<filter name="status" domain="[('status','=', uid)]" string="Busqueda de Cambio de Estátus" icon="terp-partner" />
-						<field name="cedula_employee" />
-						<field name="nom"/>
-						<field name="charge"/>
-						<field name="status" />
-						<field name="charge"/>
-						<field name="date_onchange" />
-						<field name="reason_change" />
-					</search>
-				</field>			
-			</record>
+		</form>
 
-			<record model="ir.ui.view" id="onchange_status_tree">
-				<field name="name">Cambio de Estatus del Empleado.tree</field>
-				<field name="model">hr.onchange.status</field>
-				<field name="arch" type="xml">
-					<tree string="Lista de Cambio de Estatus del Empleado" colors="#0A9134:status=='1';#F2081C:status=='5';#000000:status=='2';#0000FF:status=='3';#855C11:status=='4'" toolbar="1">
-						<field name="cedula_employee" />
-						<field name="nom"/>
-						<field name="charge"/>
-						<field name="status"/>
-						<field name="date_onchange"/>
-						<field name="reason_change"/>
-					</tree>
-				</field>
-			</record>
+	    </field>
+	</record>
+
+	<!-- Forma de busqueda para Estátus-->
+	<record model="ir.ui.view" id="search_onchange_status">
+		<field name="name">busqueda.search</field>
+		<field name="model">hr.onchange.status</field>
+		<field name="arch" type="xml">
+			<search string="Busqueda de Estátus">
+				<filter name="status" domain="[('status','=', uid)]" string="Busqueda de Cambio de Estátus" icon="terp-partner" />
+				<field name="cedula_employee" />
+				<field name="nom"/>
+				<field name="charge"/>
+				<field name="status" />
+				<field name="charge"/>
+				<field name="date_onchange" />
+				<field name="reason_change" />
+			</search>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="onchange_status_tree">
+		<field name="name">Cambio de Estatus del Empleado.tree</field>
+		<field name="model">hr.onchange.status</field>
+		<field name="arch" type="xml">
+			<tree string="Lista de Cambio de Estatus del Empleado" colors="#0A9134:status=='1';#F2081C:status=='5';#000000:status=='2';#0000FF:status=='3';#855C11:status=='4'" toolbar="1">
+				<field name="cedula_employee" />
+				<field name="nom"/>
+				<field name="charge"/>
+				<field name="status"/>
+				<field name="date_onchange"/>
+				<field name="reason_change"/>
+			</tree>
+		</field>
+	</record>
         <!-- menu_hr_configuration -->
-        <menuitem parent="hr.menu_hr_configuration" id="sub_menu_reason_change" action="action_onchange_status" name="Cambio de Estátus"/>
+
+	<menuitem parent="hr.menu_hr_main" id="sub_menu_reason_change" action="action_onchange_status" name="Cambio de Estátus"/>
         
     </data>
 </openerp>

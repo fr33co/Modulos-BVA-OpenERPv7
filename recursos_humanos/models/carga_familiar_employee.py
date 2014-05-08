@@ -11,7 +11,7 @@ class Contrato_empleado(osv.Model):
 	'''Herenciando a hr.contract (Nomina de Empleado)'''
 	
 	_inherit = 'becado.carga.familiar'
-
+	
 
 	def search_hr_carga_familiar(self, cr, uid, ids, argument_search, context=None):
 
@@ -126,8 +126,10 @@ class Contrato_empleado(osv.Model):
 		'municipio' : fields.many2one("res.country.municipality", "Municipio", required = True, select="0"),
 		'parroquia' : fields.many2one("res.country.parish", "Parroquia", required = True, select="0"),
 		'grupo_sanguineo': fields.many2one("becados.gruposanguineo", "Grupo Sanguineo", required = False),
-		'nivel_instruccion' : fields.many2one("hr.level.instruction", "Nivel de Instrucción", required = True),
-		'grado' : fields.many2one("hr.degree", "Grado", select="0", required = True, domain= "[('tipo','=',nivel_instruccion)]"),
+		'nivel_instruccion' : fields.many2one("hr.level.instruction", "Nivel de Instrucción", required = False),
+		'grado' : fields.many2one("hr.degree", "Grado", select="0", required = False, domain= "[('tipo','=',nivel_instruccion)]"),
+		'prima_hijo' : fields.boolean(string="Prima por hijo"),
+		'mount_hijo' : fields.char(string="Monto", size = 200, readonly=False),
 		
 	}
 

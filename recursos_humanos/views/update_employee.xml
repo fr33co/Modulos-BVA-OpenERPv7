@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+	<record model="ir.actions.act_window" id="action_update_emp">
+	    <field name="name">Actualización de reingreso de empleados</field>
+	    <field name="res_model">hr.update.employee</field>
+	    <field name="view_type">form</field>
+	    <field name="view_mode">tree,form</field>
+	</record>
+
+	<record id="view_update_emp" model="ir.ui.view">
+	    <field name="name">Actualización de reingreso de empleados</field>
+	    <field name="model">hr.update.employee</field>
+	    <field name="arch" type="xml">
+		<form string="Formulario de Actualización de reingreso de empleados" version="7.0">
+		    <fielset>
+			<div style="width:950px;" class="oe_horizontal_separator">Actualización de Reingreso de Empleados</div>
+			<table style="width:950px;" border="0">
+			    <tr>
+				<td><b>Cédula</b></td>
+				<td><field name="cedula" style="width:100px;" on_change="data_employee(cedula)"/></td>
+				<td><b>Fecha de ingreso</b></td>
+				<td><field name="date_ingreso"/></td>
+				<td><b>Fecha de egreso</b></td>
+				<td><field name="date_egreso"/></td>
+			    </tr>
+			    <tr style="text-align:center;">
+				<td>
+				    <b>cargo anterior</b>
+				</td>
+				<td>
+				    <field name="charge_acterior" widget="selection"/>
+				</td>
+				<td>
+				    <b>Nombres</b>
+				</td>
+				<td>
+				    <field name="nombres"/>
+				</td>
+				<td>
+				    <b>Estatus</b>
+				</td>
+				<td>
+				    <field name="status"/>
+				</td>
+			    </tr>
+			    <tr>
+				<td><b>Empleado</b></td>
+				<td><field name="emp" widget="selection"/></td>
+				<td><b>Sueldo</b></td>
+				<td><field name="sueldo"/></td>
+				<td><b>Dependencia</b></td>
+				<td><field name="dep_lab" widget="selection"/></td>
+			    </tr>
+			    <tr>
+				<td colspan="6">
+				    <div style="width:950px;" class="oe_horizontal_separator">
+					Detalles para el reingreso del empleado
+				    </div>
+				</td>
+			    </tr>
+			    <tr>
+				<td><b>Fecha de reingreso</b></td>
+				<td><field name="reingreso"/></td>
+				<td><b>Tipo nomina</b></td>
+				<td><field name="payslip" widget="selection"/></td>
+				<td><b>Empleado</b></td>
+				<td><field name="emp_egre" widget="selection"/></td>
+			    </tr>
+			    <tr>
+				<td><b>Cargo desempeñado</b></td>
+				<td><field name="charge_new" widget="selection" on_change="search_hr_data(charge_new,'1')"/></td>
+				<td><b>Departamento</b></td>
+				<td><field name="dep_new" widget="selection"/></td>
+				<td><b>Sueldo</b></td>
+				<td><field name="sueldo_new"/></td>
+			    </tr>
+			    <tr>
+				<td><b>Descripción</b></td>
+				<td colspan="6">
+				    <field name="observacion"/>
+				</td>
+			    </tr>
+			    <tr>
+				<td>
+				    <button name="process_reingreso" type="object" string="Procesar" confirm="¿Desea realizar el cambio del reingreso del empleado?" icon="gtk-apply" class="oe_highlight"/>
+				</td>
+			    </tr>
+			</table>
+		    </fielset>
+		</form>
+	    </field>
+	</record>
+
+	<!-- Forma de busqueda para concepto-->
+	<!--<record model="ir.ui.view" id="search_concepts">
+		<field name="name">Actualización de reingreso de empleados.search</field>
+		<field name="model">hr.update.employee</field>
+		<field name="arch" type="xml">
+		    <search string="Busqueda de Conceptos">
+			<filter name="codigo" domain="[('codigo','=', uid)]" string="Busqueda de Conceptos" icon="terp-partner" />
+			<field name="codigo" />
+			<field name="formula" />
+			<field name="concepto" />
+			<field name="items"/>
+		    </search>
+		</field>
+	</record>-->
+
+	<record model="ir.ui.view" id="update_emp_tree">
+	<field name="name">Actualización de reingreso de empleados.tree</field>
+	<field name="model">hr.update.employee</field>
+	<field name="arch" type="xml">
+	    <tree string="Lista de reingreso de empleados">
+		<field name="cedula"/>
+		<field name="nombres"/>
+		<field name="date_ingreso"/>
+		<field name="date_egreso"/>
+		<field name="payslip"/>
+		<field name="charge_new"/>
+		<field name="observacion"/>
+		<field name="status"/>
+	    </tree>
+	</field>
+        </record>
+        
+        <menuitem parent="hr.menu_hr_main" id="sub_menu_update_emp" action="action_update_emp" name="Reingreso de Empleados"/>
+        
+    </data>
+</openerp>

@@ -2,98 +2,133 @@
 <openerp>
     <data>
     
-			<record model="ir.actions.act_window" id="action_concepts">
-					<field name="name">Concepto</field>
-					<field name="res_model">hr.concepts</field>
-					<field name="view_type">form</field>
-					<field name="view_mode">tree,form</field>
-			</record>
-    
-			<record id="view_concepts" model="ir.ui.view">
-					<field name="name">Concepto</field>
-					<field name="model">hr.concepts</field>
-					<field name="arch" type="xml">
-						<form string="Formulario de Concepto" version="7.0">
+	<record model="ir.actions.act_window" id="action_concepts">
+	    <field name="name">Concepto</field>
+	    <field name="res_model">hr.concepts</field>
+	    <field name="view_type">form</field>
+	    <field name="view_mode">tree,form</field>
+	</record>
 
-								<table style="width:600px;" border="0">
-									<tr>
-										<td colspan="2" style="text-align:center;" class="oe_horizontal_separator">
-											<b>Tabla de Conceptos</b>
-										</td>
-									</tr>
-									<tr>
-										<td style="align:center;">
-											<b>Código:</b>
-										</td>
-										<td>
-											<field name="codigo" style="width:25%%" on_change="search_hr_concepts(codigo)"/>
-										</td>
-									</tr>
-									<tr>
-										<td style="align:center;">
-											<b>Fórmula:</b>
-										</td>
-										<td>
-											<field name="formula" style="width:50%%"/>
-										</td>
-									</tr>
-									<tr>
-										<td style="align:center;">
-											<b>Partida presupuestaria:</b>
-										</td>
-										<td>
-<!--
-											<field name="items"/>
--->
-										</td>
-									</tr>
-									<tr>
-										<td style="align:center;">
-											<b>Descripción:</b>
-										</td>
-										<td>
-											<field name="concepto" on_change="search_hr_concepts(concepto)"/>
-										</td>
-										</tr>
-								</table>
+	<record id="view_concepts" model="ir.ui.view">
+	    <field name="name">Concepto</field>
+	    <field name="model">hr.concepts</field>
+	    <field name="arch" type="xml">
+		<form string="Formulario de Concepto" version="7.0">
+		    <div style="margin-left:200px;">
+		    <table style="width:600px;" border="0">
+			    <tr>
+				    <td colspan="2" style="text-align:center;" class="oe_horizontal_separator">
+					    <b>Conceptos de Nómina</b>
+				    </td>
+			    </tr>
+			    <tr>
+				    <td style="align:center;">
+					    <b>Código:</b>
+				    </td>
+				    <td>
+					    <field name="codigo" style="width:25%%" on_change="search_hr_concepts(codigo)"/>
+				    </td>
+			    </tr>
+			    <tr>
+				    <td style="align:center;">
+					    <b>Frecuencia:</b>
+				    </td>
+				    <td>
+					    <field name="frecuencia" style="width:50%%"/>
+				    </td>
+			    </tr>
+			    <tr>
+				    <td style="align:center;">
+					    <b>F:</b>
+				    </td>
+				    <td>
+					    <field name="f" style="width:50%%"/>
+				    </td>
+			    </tr>
+			    <tr attrs="{'invisible': [('f', '!=', '1') ] }">
+				    <td style="align:center;">
+					    <b>Fórmula:</b>
+				    </td>
+				    <td>
+					    <field name="formula" style="width:50%%"/>
+				    </td>
+			    </tr>
+			    <tr attrs="{'invisible': [('f', '!=', '2') ] }">
+				    <td style="align:center;">
+					    <b>Monto:</b>
+				    </td>
+				    <td>
+					    <field name="mount" style="width:50%%"/>
+				    </td>
+			    </tr>
+			    <tr>
+				    <td style="align:center;">
+					    <b>Partida presupuestaria:</b>
+				    </td>
+				    <td>
+					    <field name="items"/>
+				    </td>
+			    </tr>
+			    <tr>
+				    <td style="align:center;" colspan="2">
+					    <b>Cálculo integral:</b>
+					    <font style="color:white">__</font>
+					    <field name="c_integral"/>
+					    <font style="color:white">__</font>
+					    <b>Bono vacaciona:</b>
+					    <font style="color:white">__</font>
+					    <field name="b_vac"/>
+					    <font style="color:white">__</font>
+					    <b>Sueldo integral Nómina:</b>
+					    <font style="color:white">__</font>
+					    <field name="s_integral_n"/>
+				    </td>
+			    </tr>
+			    
+			    <tr>
+				    <td style="align:center;">
+					<b>Concepto:</b>
+				    </td>
+				    <td>
+					<field name="concepto" on_change="search_hr_concepts(concepto)"/>
+				    </td>
+			    </tr>
+		    </table>
+		    </div>
+		</form>
 
-						</form>
-						
-					</field>
-			</record>
+	    </field>
+	</record>
 
-			<!-- Forma de busqueda para concepto-->
-			<record model="ir.ui.view" id="search_concepts"><!-- Filtro para la busqueda de evaluacion -->
-				<field name="name">busqueda.search</field>
-				<field name="model">hr.concepts</field>
-				<field name="arch" type="xml">		
-					<search string="Busqueda de Conceptos">
-						<filter name="codigo" domain="[('codigo','=', uid)]" string="Busqueda de Conceptos" icon="terp-partner" />
-						<field name="codigo" />
-						<field name="formula" />
-						<field name="concepto" />
-<!--
-						<field name="items"/>
--->
-					</search>
-				</field>			
-			</record>
+	<!-- Forma de busqueda para concepto-->
+	<record model="ir.ui.view" id="search_concepts"><!-- Filtro para la busqueda de evaluacion -->
+		<field name="name">busqueda.search</field>
+		<field name="model">hr.concepts</field>
+		<field name="arch" type="xml">
+		    <search string="Busqueda de Conceptos">
+			<filter name="codigo" domain="[('codigo','=', uid)]" string="Busqueda de Conceptos" icon="terp-partner" />
+			<field name="codigo" />
+			<field name="formula" />
+			<field name="concepto" />
+			<field name="items"/>
+		    </search>
+		</field>
+	</record>
 
-			<record model="ir.ui.view" id="concepts_tree">
-			<field name="name">Concepto.tree</field>
-			<field name="model">hr.concepts</field>
-			<field name="arch" type="xml">
-				<tree string="Lista de conceptos">
-					<!-- colors="#FF0000:state=='draft';#169A12:state=='confirmed'" -->
-					<field name="codigo"/>
-					<field name="formula"/>
-<!--
-					<field name="items"/>
--->
-					<field name="concepto"/>
-				</tree>
-			</field>
-		</record>
+	<record model="ir.ui.view" id="concepts_tree">
+	<field name="name">Concepto.tree</field>
+	<field name="model">hr.concepts</field>
+	<field name="arch" type="xml">
+		<tree string="Lista de conceptos">
+		    <!-- colors="#FF0000:state=='draft';#169A12:state=='confirmed'" -->
+		    <field name="codigo"/>
+		    <field name="frecuencia"/>
+		    <field name="formula"/>
+		    <field name="items"/>
+		    <field name="concepto"/>
+		</tree>
+	</field>
+</record>
         
         <menuitem parent="hr.menu_hr_configuration" id="sub_menu_concepts" action="action_concepts" name="Conceptos"/>
         

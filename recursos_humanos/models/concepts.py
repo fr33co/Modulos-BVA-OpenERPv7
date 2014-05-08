@@ -4,7 +4,7 @@
 
 from openerp.osv import osv, fields
 
-class Sede(osv.Model):
+class Concepts_payslip(osv.Model):
 	_name="hr.concepts"
 
 	_order = 'codigo'
@@ -68,8 +68,14 @@ class Sede(osv.Model):
 	_columns = {
 		'codigo': fields.char(string = "Código", size = 4, required = True),
 		'concepto': fields.text(string = "Concepto", size = 256, required = True),
-		'formula': fields.char(string = "Fórmula", size = 200, required = True),
-		#'items' : fields.many2one("presupuesto.partidas", "Partida presupuestaria", required = False),
+		'frecuencia' : fields.selection((('1','Fijo'),('2','Esporádico'),('3','Prestamo'),('4','Acumulado')), "Frecuencia", required=False),
+		'formula': fields.char(string = "Fórmula", size = 200, required = False),
+		'items' : fields.many2one("presupuesto.partidas", "Partida presupuestaria", required = False),
+		'f' : fields.selection((('1','Si'),('2','No')), "F", required=False),
+		'mount': fields.char(string = "monto", size = 200, required = False),
+		'c_integral': fields.boolean(string = "Cálculo integral"),
+		'b_vac': fields.boolean(string = "Bono vacacional"),
+		's_integral_n': fields.boolean(string = "Sueldo integral Nómina"),
 	}
 
 	_defaults = {

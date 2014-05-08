@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.actions.act_window" id="accion_vista_job_empleado">
+            <field name="name">Cargo de Empleado</field>
+            <field name="res_model">hr.job</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="vista_job_empleado" model="ir.ui.view">
+            <field name="name">Cargo de Empleado</field>
+            <field name="model">hr.job</field>
+            <field name="inherit_id" ref="hr.view_hr_job_form"/>
+            <field name="arch" type="xml">
+
+                    <xpath expr="//field[@name='no_of_employee']" position="replace">
+			<field name="no_of_employee" invisible="1"/>
+		    </xpath>
+                    <xpath expr="//field[@name='no_of_recruitment']" position="replace">
+			<field name="no_of_recruitment" invisible="1"/>
+		    </xpath>
+                    <xpath expr="//field[@name='expected_employees']" position="replace">
+			<field name="expected_employees" invisible="1"/>
+		    </xpath>
+                    <xpath expr="//div/label[@for='requirements']" position="replace">
+			<label for="requirements" invisible="1"/>
+		    </xpath>
+                    <xpath expr="//div/field[@name='requirements']" position="replace">
+			<field name="requirements" invisible="1"/>
+		    </xpath>
+                    <xpath expr="//field[@name='department_id']" position="after">
+			<field name="asignacion"/>
+		    </xpath>
+                    <xpath expr="//header/button[@name='job_recruitement']" position="replace">
+			<button name="job_recruitement" invisible="1" string="Launch Recruitement" states="open" type="object" class="oe_highlight" groups="base.group_user"/>
+		    </xpath>
+                    <xpath expr="//header/button[@name='job_open']" position="replace">
+			<button name="job_open" invisible="1" string="Stop Recruitment" states="recruit" type="object" class="oe_highlight" groups="base.group_user"/>
+		    </xpath>
+                    <xpath expr="//header/field[@name='state']" position="replace">
+			<field name="state" invisible="1" widget="statusbar" statusbar_visible="recruit,open"/>
+		    </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="accion_job_tree">
+            <field name="name">Cargo de Empleado</field>
+            <field name="model">hr.job</field>
+            <field name="inherit_id" ref="hr.view_hr_job_tree"/>
+            <field name="arch" type="xml">
+                <field name="no_of_employee" position="replace">
+                        <field name="no_of_employee" invisible="1"/>
+                </field>
+                <field name="no_of_recruitment" position="replace">
+                        <field name="no_of_recruitment" invisible="1"/>
+                </field>
+                <field name="expected_employees" position="replace">
+                        <field name="expected_employees" invisible="1"/>
+                </field>
+                <field name="no_of_recruitment" position="replace">
+                        <field name="no_of_recruitment" invisible="1"/>
+                </field>
+                <field name="state" position="replace">
+                        <field name="state" invisible="1"/>
+                </field>
+                <field name="company_id" position="after">
+                        <field name="asignacion"/>
+                </field>
+
+            </field>
+	</record>
+
+        <!-- <menuitem parent="recursos_humanos_main" id="seleccion_contrato_empleado" action="accion_vista_contrato_empleado" name="Contratos"/> -->
+
+    </data>
+</openerp>

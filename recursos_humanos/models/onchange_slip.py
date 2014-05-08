@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 #import time # Necesario para las funciones de Fecha
-
+import time # Necesario para las funciones de Fecha
+from datetime import date
 from openerp.osv import osv, fields
 from datetime import datetime, timedelta # Importacion del objeto datetime, forma para validar la fecha de inicio con la fecha final
 
@@ -116,7 +117,7 @@ class Onchange_slip(osv.Model):
 	}
 
 	_defaults = {
-		#'codigo' : 
+		'date_onchange' : lambda *a: time.strftime("%Y-%m-%d"),
 	}
 
 

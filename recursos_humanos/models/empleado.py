@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 
-import time # Necesario para las funciones de Fecha
+import time # Necesario para las funciones de Fech
+import os
 from datetime import date
 from openerp.osv import fields, osv
+from openerp.tools.translate import _
 
 class Empleado(osv.Model):
 	
@@ -12,6 +14,35 @@ class Empleado(osv.Model):
 	
 	_inherit = 'hr.employee'
 
+	def procesar_carga_prima_hijo(self, cr, uid, ids, context=None):
+
+		data_carga = self.read(cr, uid, ids, context=context)[0] # Lectura del grupo de ids
+		id_filter  = data_carga['familiar'] # Ids del grupo de one2many de familiar (carga familiar)
+		carga = self.pool.get('becado.carga.familiar') # Objeto becado.carga.familiar (Empleado)
+		datos = carga.search(cr, uid, [('id','=',id_filter),('parentesco','=','1')], context=None) # Metodo de busqueda
+		carga_f = carga.read(cr,uid,datos,context=context) # Lectura de los datos
+		count_id = len(carga_f) # conteo de registros
+		monto_total = 0
+		for x in carga_f:
+			monto_total += int(x['mount_hijo'])
+
+			if int(count_id) > 3: # Condicional para no permitir mas de tres registros al momento de carga de prima de hijos de carga familiar
+				raise osv.except_osv(_("Warning!"), _("Disculpe exedio el limite de registro en la carga de hijos, debe eliminar una carga para proceder el ingreso de monto..."))
+
+			else:
+				id_carga = x['id']
+				parentesco = x['parentesco']
+
+				browse_carga_f = self.browse(cr, uid, ids, context=None) # Lectura del mismo objeto hr_employee para el campo familiar (one2many)
+				for i in browse_carga_f:
+					monto = i.mount
+					id_filter = i.id
+					print "ID: "+str(id_filter)
+
+				cr.execute("UPDATE becado_carga_familiar SET mount_hijo="+str(monto)+", parentesco="+str(parentesco)+", prima_hijo='TRUE'  WHERE id="+str(id_carga)+";")
+		total = monto_total
+		cr.execute("UPDATE hr_employee SET mount_total="+str(total)+" WHERE id="+str(id_filter)+";")
+		return True
 	#################################################################
 		#Función on_chage para actualizar el tiempo de servicio
 	#################################################################
@@ -164,31 +195,59 @@ class Empleado(osv.Model):
 
 		return {'value' : values,'warning' : mensaje}
 
-	#~ def search_department(self, cr, uid, ids, argument_search, context=None): # Proceso de busqueda de un manager(Gerente)
-#~ 
-		#~ values = {}
-		#~ 
-		#~ if not argument_search:
-			#~ 
-			#~ return values
-		#~ obj_dp = self.pool.get('hr.department')
-		#~ 
-		#~ #======================== Busqueda por código ============================
-#~ 
-		#~ search_obj_code = obj_dp.search(cr, uid, [('id','=',argument_search)])
-#~ 
-		#~ datos_code = obj_dp.read(cr,uid,search_obj_code,context=context)
-		#~ #=========================================================================
-		#~ if datos_code:
-			#~ 
-			#~ values.update({
-				#~ 
-				#~ 'gerente' : datos_code[0]['gerente'],
-				#~ })
-#~ 
-		#~ return {'value' : values}
+	def search_department(self, cr, uid, ids, argument_search, context=None): # Proceso de busqueda de un manager(Gerente)
+
+		values = {}
+		
+		if not argument_search:
+			
+			return values
+		obj_dp = self.pool.get('hr.department')
+		
+		#======================== Busqueda por código ============================
+
+		search_obj_code = obj_dp.search(cr, uid, [('id','=',argument_search)])
+
+		datos_code = obj_dp.read(cr,uid,search_obj_code,context=context)
+		#=========================================================================
+		if datos_code:
+			
+			values.update({
+				
+				'gerente' : datos_code[0]['gerente'],
+				})
+
+		return {'value' : values}
 
 	#################################################################
+
+	def search_charge(self, cr, uid, ids, argument_search,item, context=None):
+
+		values = {}
+		mensaje = {}
+
+		if not argument_search:
+
+			return values
+		obj_dp = self.pool.get('hr.job')
+
+		if item == "1":
+
+			#======================== Busqueda por cargo ============================
+			search_job_id = obj_dp.search(cr, uid, [('id','=',argument_search)])
+
+			datos_job_id = obj_dp.read(cr,uid,search_job_id,context=context)
+			#========================================================================
+
+			if datos_job_id:
+
+				values.update({
+
+					'asignacion' : float(datos_job_id[0]['asignacion']),
+
+					})
+
+		return {'value' : values,'warning' : mensaje}
 
 	_columns = {
 		'ciudad' : fields.many2one("res.country.city", "Ciudad", required = True, select="0"),
@@ -196,8 +255,10 @@ class Empleado(osv.Model):
 		'municipio' : fields.many2one("res.country.municipality", "Municipio", required = True, select="0"),
 		'parroquia' : fields.many2one("res.country.parish", "Parroquia", required = True, select="0"),
 		'rif' : fields.char(string="Rif", size = 50, required=False),
-		#~ 'gerente' : fields.char(string="Gerente", size=50),
+		'gerente' : fields.char(string="Gerente", size=50),
 		'fecha_nacimiento' : fields.date(string="Fecha de nacimiento", required=False),
+		'mount' : fields.char(string="Gerente", size=10),
+		'mount_total' : fields.float(string="Monto total", size=10),
 		
 		
 	}

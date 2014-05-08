@@ -44,46 +44,23 @@ class Onchange_salary(osv.Model):
 		if not argument_search:
 			
 			return values
-		obj_dp = self.pool.get('hr.employee')
+		obj_dp = self.pool.get('hr.job')
 
 		if item == "1":
 		
 			#======================== Busqueda por cargo ============================
-			search_job_id = obj_dp.search(cr, uid, [('job_id','=',argument_search)])
+			search_job_id = obj_dp.search(cr, uid, [('id','=',argument_search)])
 
 			datos_job_id = obj_dp.read(cr,uid,search_job_id,context=context)
 			#========================================================================
 			
-			if not datos_job_id:
+			if datos_job_id:
 				
-				mensaje = {
-						'title'   : "Cédula",
-						'message' : "Disculpe no se encuentra registrado el cargo, intente de nuevo...",
-				}
+
 
 				values.update({
 					
-					'charge' : None,
-
-					})
-
-		elif item == "2":
-			#========================================================================
-			search_instruction = obj_dp.search(cr, uid, [('grado_instruccion','=',argument_search)])
-
-			datos_instruction = obj_dp.read(cr,uid,search_instruction,context=context)
-			#========================================================================
-
-			if not datos_instruction:
-
-				mensaje = {
-						'title'   : "Cédula",
-						'message' : "Disculpe no se encuentra registrado el Grado  de Instruccion, intente de nuevo...",
-				}
-
-				values.update({
-					
-					'degree_instruction' : None,
+					'salary' : datos_job_id[0]['asignacion'],
 
 					})
 

@@ -11,13 +11,14 @@
       Generación de Reportes
 			Generación de Nóminas'
       Generación de archivos TXT
-      Ultima Actualización: 13 de Abril del 2014''',
+      Ultima Actualización: 07 de Mayo del 2014''',
     'data' : [
       "views/empleado.xml",
       #"views/seguridad_salud_laboral.xml",
       # 'categorias/groups.xml',
       'categorias/script_load.xml',
       'categorias/script_concepts.xml', #Scrit para concentos
+      'categorias/data_partida.xml', #Script para la carga de partidas
       "views/nomina.xml", # nómina
       "views/proceso_nomina.xml", # Procesos de nóminas
       "views/contrato.xml",
@@ -30,7 +31,12 @@
       "views/onchange_slip.xml",
       "views/hr_departament.xml",
       "views/hr_bank.xml",
-      "views/hr_document.xml", # Herencia de ir_attachment (Documentos adjuntos)
+      "views/payslip.xml",
+      "views/hr_document.xml", # Sub modulo de ir_attachment_employee (Documentos adjuntos
+      "views/update_employee.xml",
+      "views/shuttle_ascent_employee.xml",
+      "views/charge.xml",
+      "views/movement_employee.xml",
       #~ "views/proceso_seleccion.xml",
 
       # "views/tipoNomina.xml",

@@ -1,171 +1,453 @@
 <?xml version="1.0" encoding="utf-8"?>
     <openerp>
         <data>
+
             <record id="concepts_1" model="hr.concepts">
         	<field name="codigo">008</field>
                 <field name="formula">msueldo/30*12</field>
                 <field name="concepto">Sueldo Obrero Fijo</field>
+                <field name="frecuencia">1</field>
+		<field name="f">1</field>
+		<field name="c_integral"></field>
+		<field name="b_vac"></field>
+		<field name="s_integral_n"></field>
             </record>
 	    <record id="concepts_2" model="hr.concepts">
         	<field name="codigo">009</field>
                 <field name="formula">msueldo/30*3</field>
                 <field name="concepto">Sueldo obrero fijo (dia de descanso)</field>
+                <field name="frecuencia">1</field>
+		<field name="f">1</field>
             </record>
 	    <record id="concepts_3" model="hr.concepts">
         	<field name="codigo">101</field>
                 <field name="formula">msueldo/30*15</field>
                 <field name="concepto">Sueldo empleado fijo</field>
+                <field name="frecuencia">1</field>
+		<field name="f">1</field>
             </record>
 	    <record id="concepts_4" model="hr.concepts">
         	<field name="codigo">103</field>
                 <field name="formula">msueldo</field>
                 <field name="concepto">Reposo médico</field>
+                <field name="frecuencia">2</field>
+		<field name="f">1</field>
+		<field name="c_integral">TRUE</field>
+		<field name="b_vac"></field>
+		<field name="s_integral_n"></field>
             </record>
 	    <record id="concepts_5" model="hr.concepts">
         	<field name="codigo">125</field>
                 <field name="formula">msueldo</field>
                 <field name="concepto">Cancelación quincenas anteriores</field>
+                <field name="frecuencia">2</field>
+		<field name="f">1</field>
             </record>
 	    <record id="concepts_6" model="hr.concepts">
         	<field name="codigo">104</field>
                 <field name="formula">msueldo</field>
                 <field name="concepto">Reintegro por descuento indebido</field>
+                <field name="frecuencia">2</field>
+		<field name="f">1</field>
             </record>
 	    <record id="concepts_7" model="hr.concepts">
         	<field name="codigo">243</field>
                 <field name="formula">primarespon/2</field>
                 <field name="concepto">Prima de responsabilidad</field>
+                <field name="frecuencia">1</field>
+		<field name="f">1</field>
+		<field name="c_integral">TRUE</field>
+		<field name="b_vac">TRUE</field>
+		<field name="s_integral_n">TRUE</field>
             </record>
 	    <record id="concepts_8" model="hr.concepts">
         	<field name="codigo">107</field>
                 <field name="formula">mmonto</field>
                 <field name="concepto">Prima de responsabilidad</field>
+                <field name="frecuencia">1</field>
+		<field name="f">1</field>
+		<field name="c_integral">TRUE</field>
+		<field name="b_vac"></field>
+		<field name="s_integral_n">TRUE</field>
             </record>
 	    <record id="concepts_9" model="hr.concepts">
         	<field name="codigo">116</field>
                 <field name="formula">msueldo*(primas_ant('116')/200</field>
                 <field name="concepto">Prima por antiguedad</field>
+                <field name="frecuencia">2</field>
+		<field name="f">1</field>
+		<field name="c_integral">TRUE</field>
+		<field name="b_vac">TRUE</field>
+		<field name="s_integral_n">TRUE</field>
             </record>
 	    <record id="concepts_10" model="hr.concepts">
         	<field name="codigo">208</field>
                 <field name="formula">100</field>
                 <field name="concepto">Prima de transporte</field>
+                <field name="frecuencia">2</field>
+		<field name="f">1</field>
+		<field name="c_integral">TRUE</field>
+		<field name="b_vac"></field>
+		<field name="s_integral_n">TRUE</field>
             </record>
 	    <record id="concepts_11" model="hr.concepts">
         	<field name="codigo">181</field>
                 <field name="formula">mmonto</field>
-                <field name="concepto">Prima por hijo</field>
+                <field name="concepto">Prima por hijos</field>
+                <field name="frecuencia">2</field>
+		<field name="f">1</field>
+		<field name="c_integral">TRUE</field>
+		<field name="b_vac">TRUE</field>
+		<field name="s_integral_n">TRUE</field>
             </record>
 	    <record id="concepts_12" model="hr.concepts">
         	<field name="codigo">210</field>
                 <field name="formula">mmonto</field>
                 <field name="concepto">Prima por hogar</field>
+                <field name="frecuencia">2</field>
+		<field name="f">1</field>
+		<field name="c_integral">TRUE</field>
+		<field name="b_vac"></field>
+		<field name="s_integral_n">TRUE</field>
             </record>
 	    <record id="concepts_13" model="hr.concepts">
         	<field name="codigo">120</field>
                 <field name="formula">mmonto</field>
                 <field name="concepto">Dias feriados.Sab y Domingo Vacaciones</field>
+                <field name="frecuencia">2</field>
+		<field name="f">1</field>
+		<field name="c_integral">TRUE</field>
+		<field name="b_vac"></field>
+		<field name="s_integral_n">TRUE</field>
             </record>
 	    <record id="concepts_14" model="hr.concepts">
         	<field name="codigo">126</field>
                 <field name="formula">45*Round((Bonovacacional(95,"Cajaahorro")+Primaprof(Msueldo,"06-08-10-13-14-15",0.12) +(MSUELDO*(Prima_ant("116")/100)))/30,2)</field>
                 <field name="concepto">Bono vacacional 45 dias</field>
+                <field name="frecuencia">2</field>
+		<field name="f">1</field>
+		<field name="c_integral"></field>
+		<field name="b_vac"></field>
+		<field name="s_integral_n">TRUE</field>
             </record>
 	    <record id="concepts_15" model="hr.concepts">
         	<field name="codigo">142</field>
                 <field name="formula">mmonto</field>
                 <field name="concepto">Bono post-vacacional</field>
+                <field name="frecuencia">2</field>
+		<field name="f">1</field>
             </record>
 	    <record id="concepts_16" model="hr.concepts">
         	<field name="codigo">134</field>
                 <field name="formula">Vacaciones(15,30)*(msueldo/30)</field>
-                <field name="concepto">Dias habiles disfrute de vaciones</field>
+                <field name="concepto">Dias habiles disfrute de vacaciones</field>
+                <field name="frecuencia">2</field>
+		<field name="f">1</field>
+		<field name="c_integral">TRUE</field>
+		<field name="b_vac"></field>
+		<field name="s_integral_n">TRUE</field>
             </record>
 	    <record id="concepts_17" model="hr.concepts">
         	<field name="codigo">148</field>
                 <field name="formula">Horasextra(Msueldo,30,1,0,1.50)</field>
                 <field name="concepto">Dom., Fer y Desc</field>
+                <field name="frecuencia">2</field>
+		<field name="f">1</field>
+		<field name="c_integral">TRUE</field>
+		<field name="b_vac"></field>
+		<field name="s_integral_n">TRUE</field>
             </record>
 	    <record id="concepts_18" model="hr.concepts">
         	<field name="codigo">143</field>
                 <field name="formula">mmonto</field>
                 <field name="concepto">Reintegro dia(s) de sueldo</field>
+                <field name="frecuencia">2</field>
+		<field name="f">1</field>
             </record>
 	    <record id="concepts_19" model="hr.concepts">
         	<field name="codigo">149</field>
                 <field name="formula">Horasextra(Msueldo,30,1,0,0.30)</field>
                 <field name="concepto">Jornada nocturna</field>
+                <field name="frecuencia">2</field>
+		<field name="f">1</field>
+		<field name="c_integral">TRUE</field>
+		<field name="b_vac"></field>
+		<field name="s_integral_n">TRUE</field>
             </record>
 	    <record id="concepts_19" model="hr.concepts">
         	<field name="codigo">150</field>
                 <field name="formula">Horasextra(Msueldo,30,8,0,(1+(50/100)))</field>
                 <field name="concepto">Horas extras diurnas</field>
+                <field name="frecuencia">2</field>
+		<field name="f">1</field>
+		<field name="c_integral">TRUE</field>
+		<field name="b_vac"></field>
+		<field name="s_integral_n">TRUE</field>
             </record>
 	    <record id="concepts_20" model="hr.concepts">
         	<field name="codigo">151</field>
                 <field name="formula">Horasextra(Msueldo,30,7,0,1.95)</field>
                 <field name="concepto">Horas extras nocturnas</field>
+                <field name="frecuencia">2</field>
+		<field name="f">1</field>
+		<field name="c_integral">TRUE</field>
+		<field name="b_vac"></field>
+		<field name="s_integral_n">TRUE</field>
             </record>
 	    <record id="concepts_21" model="hr.concepts">
         	<field name="codigo">249</field>
                 <field name="formula">mmonto</field>
                 <field name="concepto">Retroactivo por asignacion no canceladas</field>
+                <field name="frecuencia">2</field>
+		<field name="f">1</field>
             </record>
 	    <record id="concepts_22" model="hr.concepts">
         	<field name="codigo">168</field>
                 <field name="formula">mmonto</field>
                 <field name="concepto">Retroactivo sueldo Administrativo</field>
+                <field name="frecuencia">2</field>
+		<field name="f">1</field>
             </record>
 	    <record id="concepts_23" model="hr.concepts">
         	<field name="codigo">154</field>
                 <field name="formula">mmonto</field>
                 <field name="concepto">Retroactivo sueldo Obrero</field>
+                <field name="frecuencia">2</field>
+		<field name="f">1</field>
             </record>
 	    <record id="concepts_24" model="hr.concepts">
         	<field name="codigo">456</field>
                 <field name="formula">(Primaprof(Msueldo,"06-08-10-13-14-15",6))/100</field>
                 <field name="concepto">Prima por profesionalización</field>
+                <field name="frecuencia">2</field>
+		<field name="f">1</field>
+		<field name="c_integral">TRUE</field>
+		<field name="b_vac"></field>
+		<field name="s_integral_n">TRUE</field>
             </record>
 	    <record id="concepts_25" model="hr.concepts">
         	<field name="codigo">502</field>
                 <field name="formula">SSO(5,Msueldo,Nsemanas,(4/100))</field>
                 <field name="concepto">Seguro social obligatorio (S.S.O)</field>
+                <field name="frecuencia">1</field>
+		<field name="f">1</field>
             </record>
 	    <record id="concepts_26" model="hr.concepts">
         	<field name="codigo">509</field>
                 <field name="formula">mmonto</field>
                 <field name="concepto">Mutuo auxilio</field>
+                <field name="frecuencia">2</field>
+		<field name="f">1</field>
             </record>
 	    <record id="concepts_27" model="hr.concepts">
         	<field name="codigo">561</field>
                 <field name="formula">LPF(5,Msueldo,Nsemanas,(0.5/100))</field>
                 <field name="concepto">Ley regimen prestacional de empleo</field>
+                <field name="frecuencia">1</field>
+		<field name="f">1</field>
             </record>
 	    <record id="concepts_28" model="hr.concepts">
         	<field name="codigo">590</field>
                 <field name="formula">FAOV("101,008,009,103,125,168,169,154,155,153,156,157,158,159,160,165,176,181,271,303,304,305,306,307",60,60)*(1/100)</field>
                 <field name="concepto">Fondo de ahorro para la vivienda (F.A.O.V)</field>
+                <field name="frecuencia">1</field>
+		<field name="f">1</field>
             </record>
 	    <record id="concepts_29" model="hr.concepts">
         	<field name="codigo">601</field>
                 <field name="formula">((Cajaahorro*Msueldo)/100)/2</field>
                 <field name="concepto">Retención de caja de ahorro</field>
+                <field name="frecuencia">1</field>
+		<field name="f">1</field>
             </record>
 	    <record id="concepts_30" model="hr.concepts">
         	<field name="codigo">605</field>
                 <field name="formula">mmonto</field>
-                <field name="concepto">Descuento por serv optica</field>
+                <field name="concepto">Descuento por serv óptica</field>
+		<field name="frecuencia">3</field>
+		<field name="f">1</field>
             </record>
 	    <record id="concepts_31" model="hr.concepts">
         	<field name="codigo">606</field>
                 <field name="formula">mmonto</field>
                 <field name="concepto">Prestamo caja de ahorro</field>
+		<field name="frecuencia">3</field>
+		<field name="f">1</field>
             </record>
 	    <record id="concepts_32" model="hr.concepts">
         	<field name="codigo">607</field>
                 <field name="formula">mmonto</field>
                 <field name="concepto">Descuento por uniforme</field>
+		<field name="frecuencia">3</field>
+		<field name="f">1</field>
             </record>
-
+	    <record id="concepts_33" model="hr.concepts">
+        	<field name="codigo">608</field>
+                <field name="formula">mmonto</field>
+                <field name="concepto">Descuento por protección familiar</field>
+		<field name="frecuencia">3</field>
+		<field name="f">1</field>
+            </record>
+	    <record id="concepts_34" model="hr.concepts">
+        	<field name="codigo">903</field>
+                <field name="formula">mmonto</field>
+                <field name="concepto">Inasistencia injustificada</field>
+		<field name="frecuencia">2</field>
+		<field name="f">1</field>
+            </record>
+	    <record id="concepts_35" model="hr.concepts">
+        	<field name="codigo">801</field>
+                <field name="formula">mmonto</field>
+                <field name="concepto">Retención caja de ahorro (ADMON)</field>
+		<field name="frecuencia">2</field>
+		<field name="f">1</field>
+            </record>
+	    <record id="concepts_36" model="hr.concepts">
+        	<field name="codigo">805</field>
+                <field name="formula">mmonto</field>
+                <field name="concepto">Retención S.S.O (ADMON)</field>
+		<field name="frecuencia">2</field>
+		<field name="f">1</field>
+            </record>
+	    <record id="concepts_37" model="hr.concepts">
+        	<field name="codigo">809</field>
+                <field name="formula">mmonto</field>
+                <field name="concepto">Retención L.R.P.E (ADMON)</field>
+		<field name="frecuencia">2</field>
+		<field name="f">1</field>
+            </record>
+	    <record id="concepts_38" model="hr.concepts">
+        	<field name="codigo">803</field>
+                <field name="formula">mmonto</field>
+                <field name="concepto">Retención caja de ahorro (Obrero)</field>
+		<field name="frecuencia">2</field>
+		<field name="f">1</field>
+            </record>
+	    <record id="concepts_39" model="hr.concepts">
+        	<field name="codigo">807</field>
+                <field name="formula">mmonto</field>
+                <field name="concepto">Retención S.S.O (Obrero)</field>
+		<field name="frecuencia">2</field>
+		<field name="f">1</field>
+            </record>
+	    <record id="concepts_40" model="hr.concepts">
+        	<field name="codigo">811</field>
+                <field name="formula">mmonto</field>
+                <field name="concepto">Retención L.R.P.E (Obrero)</field>
+		<field name="frecuencia">2</field>
+		<field name="f">1</field>
+            </record>
+	    <record id="concepts_41" model="hr.concepts">
+        	<field name="codigo">519</field>
+                <field name="formula">mmonto</field>
+                <field name="concepto">Retención Judicial</field>
+		<field name="frecuencia">1</field>
+		<field name="f">1</field>
+            </record>
+	    <record id="concepts_42" model="hr.concepts">
+        	<field name="codigo">604</field>
+                <field name="formula">0</field>
+                <field name="concepto">Descuento A.R.I</field>
+		<field name="frecuencia">2</field>
+		<field name="f">1</field>
+            </record>
+	    <record id="concepts_43" model="hr.concepts">
+        	<field name="codigo">102</field>
+                <field name="formula">mmonto</field>
+                <field name="concepto">Diferencia de sueldo por cargo</field>
+		<field name="frecuencia">1</field>
+		<field name="f">1</field>
+		<field name="c_integral">TRUE</field>
+		<field name="b_vac">TRUE</field>
+		<field name="s_integral_n">TRUE</field>
+            </record>
+	    <record id="concepts_44" model="hr.concepts">
+        	<field name="codigo">519</field>
+                <field name="formula">mmonto</field>
+                <field name="concepto">retención Judicial</field>
+		<field name="frecuencia">1</field>
+		<field name="f">1</field>
+            </record>
+	    <record id="concepts_45" model="hr.concepts">
+        	<field name="codigo">462</field>
+                <field name="formula">mmonto</field>
+                <field name="concepto">Diferencia prima de profesionalización</field>
+		<field name="frecuencia">2</field>
+		<field name="f">1</field>
+		<field name="c_integral">TRUE</field>
+		<field name="b_vac">TRUE</field>
+		<field name="s_integral_n">TRUE</field>
+            </record>
+	    <record id="concepts_46" model="hr.concepts">
+        	<field name="codigo">514</field>
+                <field name="formula">mmonto</field>
+                <field name="concepto">Diferencia S.S.O</field>
+		<field name="frecuencia">2</field>
+		<field name="f">1</field>
+            </record>
+	    <record id="concepts_47" model="hr.concepts">
+        	<field name="codigo">562</field>
+                <field name="formula">mmonto</field>
+                <field name="concepto">Diferencia Ley Regimen Prestacional de Empleo (L.R.P.E)</field>
+		<field name="frecuencia">2</field>
+		<field name="f">1</field>
+            </record>
+	    <record id="concepts_48" model="hr.concepts">
+        	<field name="codigo">622</field>
+                <field name="formula">mmonto</field>
+                <field name="concepto">Diferencia retención caja de ahorro</field>
+		<field name="frecuencia">2</field>
+		<field name="f">1</field>
+            </record>
+	    <record id="concepts_49" model="hr.concepts">
+        	<field name="codigo">303</field>
+                <field name="formula">mmonto</field>
+                <field name="concepto">Beca preescolar</field>
+		<field name="frecuencia">2</field>
+		<field name="f">1</field>
+            </record>
+	    <record id="concepts_50" model="hr.concepts">
+        	<field name="codigo">304</field>
+                <field name="formula">mmonto</field>
+                <field name="concepto">Beca primaria</field>
+		<field name="frecuencia">2</field>
+		<field name="f">1</field>
+            </record>
+	    <record id="concepts_51" model="hr.concepts">
+        	<field name="codigo">305</field>
+                <field name="formula">mmonto</field>
+                <field name="concepto">Beca básica</field>
+		<field name="frecuencia">2</field>
+		<field name="f">1</field>
+            </record>
+	    <record id="concepts_52" model="hr.concepts">
+        	<field name="codigo">306</field>
+                <field name="formula">mmonto</field>
+                <field name="concepto">Beca Diversificado</field>
+		<field name="frecuencia">2</field>
+		<field name="f">1</field>
+            </record>
+	    <record id="concepts_53" model="hr.concepts">
+        	<field name="codigo">908</field>
+                <field name="formula">mmonto</field>
+                <field name="concepto">Corporación Milenio</field>
+		<field name="frecuencia">3</field>
+		<field name="f">1</field>
+            </record>
+	    <record id="concepts_54" model="hr.concepts">
+        	<field name="codigo">909</field>
+                <field name="formula">(SM/30*100%*ND)</field>
+                <field name="concepto">Retención Judicial</field>
+		<field name="frecuencia">1</field>
+		<field name="f">1</field>
+		
+            </record>
+	    <record id="concepts_55" model="hr.concepts">
+        	<field name="codigo">910</field>
+                <field name="formula">(SM/30*100%*ND)</field>
+                <field name="concepto">Permiso no remunerado</field>
+		<field name="frecuencia">1</field>
+		<field name="f">1</field>
+            </record>
         </data>
     </openerp>

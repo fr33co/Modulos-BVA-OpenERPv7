@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+			<record model="ir.actions.act_window" id="action_proceso_payslip">
+					<field name="name">Proceso</field>
+					<field name="res_model">proceso.payslip</field>
+					<field name="view_type">form</field>
+					<field name="view_mode">tree,form</field>
+			</record>
+    
+			<record id="view_proceso_payslip" model="ir.ui.view">
+					<field name="name">Proceso</field>
+					<field name="model">proceso.payslip</field>
+					<field name="arch" type="xml">
+						<form string="Formulario de Procesamiento de nóminas" version="7.0">
+							<field name="id_slip"/>
+							<field name="id_employee"/>
+						</form>
+						
+					</field>
+			</record>
+
+			
+
+			
+        
+        <!-- <menuitem parent="hr.menu_hr_configuration" id="sub_menu_concepts" action="action_concepts" name="Conceptos"/> -->
+        
+    </data>
+</openerp>

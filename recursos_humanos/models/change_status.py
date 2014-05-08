@@ -107,8 +107,10 @@ class Onchange_status(osv.Model):
 			id_fill = many_load_id.status
 			#print "ESTE ES EL ESTATUS: "+str(id_fill)
 			cedula = many_load_id.cedula_employee
+			date_now = many_load_id.date_onchange
+			#print "FECHA: "+str(date_now)
 
-			cr.execute("UPDATE hr_employee SET status=%s WHERE cedula=%s;", (id_fill, cedula))
+			cr.execute("UPDATE hr_employee SET status=%s, fecha_egreso=%s WHERE cedula=%s;", (id_fill, date_now, cedula))
 
 		return True
 	
@@ -124,7 +126,7 @@ class Onchange_status(osv.Model):
 	}
 
 	_defaults = {
-		#'codigo' : 
+		'date_onchange' : lambda *a: time.strftime("%Y-%m-%d"),
 	}
 
 
