@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!--Menu Nota de Entrega -->
+        <record model="ir.actions.act_window" id="inventario_almacen_list_action">
+            <field name="name">Inventario de almacen</field>
+            <field name="res_model">inventario.almacen</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Realizar Inventario almacen</p>
+            </field>
+        </record> 
+
+        <!-- Vista Form de Nota de entrega-->
+        <record model="ir.ui.view" id="inventario_almacen_form_view">
+            <field name="name">inventario almacen form</field>
+            <field name="model">inventario.almacen</field>
+            <field name="arch" type="xml">
+                <form string="Nota Form" version="7.0">
+                    <group string="Inventario Almacen">
+                        <group>
+                            <field name="nombre" placeholder="Inventario Gerencia X Mes Y"/>
+                            <field name="usuario_login" class="oe_inline" />
+                            <field name="ubicacion" placeholder="Gerencia o Unidad a inventariar"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="t_materiales" class="oe_inline"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Inventario de Almacen" >
+                            <field name="almacen" nolabel="1">	
+                                <tree string="Inventario de Almacen" editable="bottom">	
+                                    <field name="descripcion"  on_change="on_change_materiales(descripcion)" />
+                                    <field name="cantidad" />
+                                    <field name="unidad" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+            </form>
+        </field>            
+        </record>
+         <menuitem name="Inventario Almacen" action="inventario_almacen_list_action" id="menu_inventario_almacen" parent="stock.menu_stock_inventory_control"/>
+        
+    </data>
+</openerp>

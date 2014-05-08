@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Attachment -->
+         
+        <record id="view_reporte_documentos_form" model="ir.ui.view">
+            <field name="model">reporte.documentos</field>
+            <field name="arch" type="xml">
+                <form string="Archivos" version="7.0">
+                   <sheet>
+                    <label for="name" class="oe_edit_only"/>
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+                    <group>
+                        <group string="Datos">
+                            <field name="type"/>
+                            <field name="datas" filename="datas_fname" attrs="{'invisible':[('type','=','url')]}"/>
+                            <field name="datas_fname" invisible="1" attrs="{'invisible':[('type','=','url')]}" class="oe_inline oe_right"/>
+                            <field name="url" widget="url" attrs="{'invisible':[('type','=','binary')]}"/>
+                        </group>
+                        <group string="Archivos de">
+                            <field name="res_model"/>
+                            <field name="res_id"/>
+                            <field name="res_name"/>
+                            <field name="company_id" groups="base.group_multi_company" widget="selection"/>
+                        </group>
+                        <group groups="base.group_no_one" string="Historial">
+                            <label for="create_uid" string="Creacion"/>
+                            <div name="creation_div">
+                                <field name="create_uid" readonly="1" class="oe_inline"/> on 
+                                <field name="create_date" readonly="1" class="oe_inline"/>
+                            </div>
+                        </group>
+                        <group name="description_group" string="Descripcion" colspan="4">
+                            <field name="description" nolabel="1"/>
+                        </group>
+                    </group>
+                  </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_reporte_documentost_tree" model="ir.ui.view">
+            <field name="model">reporte.documentos</field>
+            <field name="arch" type="xml">
+                <tree string="Archivos">
+                    <field name="name"/>
+                    <field name="datas_fname"/>
+                    <field name="type" invisible="1"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="create_uid"/>
+                    <field name="create_date"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_reporte_documentos_search" model="ir.ui.view">
+            <field name="model">reporte.documentos</field>
+            <field name="arch" type="xml">
+                <search string="Archivos">
+                    <field name="name" filter_domain="['|', ('name','ilike',self), ('datas_fname','ilike',self)]" string="Nombre de Referencia"/>
+                    <field name="create_date"/>
+                    <filter icon="terp-stage"
+                        string="URL"
+                        domain="[('type','=','url')]"/>
+                    <filter icon="terp-stock_align_left_24"
+                        string="Binary"
+                        domain="[('type','=','binary')]"/>
+                    <separator/>
+                    <filter name="my_documents_filter" 
+                        string="My Document(s)"
+                        icon="terp-personal"
+                        domain="[('create_uid','=',uid)]"
+                        help="Filter on my documents"/>
+                    <field name="create_uid"/>
+                    <field name="type"/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Registrado por" icon="terp-personal" domain="[]" context="{'group_by':'create_uid'}"/>
+                        <filter string="Tipo" icon="terp-stock_symbol-selection" domain="[]" context="{'group_by':'type'}" groups="base.group_no_one"/>
+                        <filter string="Compania" icon="terp-gtk-home" domain="[]" context="{'group_by':'company_id'}" groups="base.group_multi_company"/>
+                        <filter string="Mes" help="Creation Month" icon="terp-go-month" domain="[]" context="{'group_by':'create_date'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+       
+       <record id="action_reporte_documentos" model="ir.actions.act_window">
+            <field name="name">Reportes</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">reporte.documentos</field>
+            <field name="view_type">form</field>
+            <field name="view_id" eval="False"/>
+            <field name="search_view_id" ref="view_reporte_documentos_search"/>
+        </record>
+        <menuitem id="reportes_menu" name="Reportes" parent="stock.menu_stock_root" sequence="7"/>
+        <menuitem id="menu_reporte_documentos" name="Reportes" parent="reportes_menu" action="action_reporte_documentos" />
+<!--        <menuitem name="Reportes" action="action_reporte_documentos" id="menu_reporte_documentos" parent="stock.menu_stock_inventory_control"/>-->
+
+    </data>
+</openerp>

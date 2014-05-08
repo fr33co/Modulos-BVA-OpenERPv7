@@ -8,6 +8,9 @@
 			<field name="inherit_id" ref="stock.view_move_form" />
 			<field name="arch" type="xml">
 				<data>
+					<xpath expr="//button[@name='action_done']" position="replace">
+						<button name="action_done" states="draft,assigned,confirmed" string="Process Entirely" type="object" class="oe_highlight" on_change="onchange_product_id(product_id,location_id,location_dest_id, False)"  />
+	 				</xpath>
 					<xpath expr="///group[@string='Details']" position="before">
 						<group>
 							<field name="correlativo" class="oe_inline"/>

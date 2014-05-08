@@ -19,22 +19,31 @@
 			<field name="arch" type="xml">
 				<form string="Materiales Form" version="7.0">
 					<group>
-						<group colspan="4">	
-							<field name="codigo" class="oe_inline" colspan="1"/>
-							<field name="user_register" class="oe_inline" colspan="1" />
+						<group>
+							<field name="codigo" class="oe_inline" />
+							<field name="user_register" class="oe_inline" />
 						</group>
+						<group>
+							<field name="fecha" class="oe_inline" />
+						</group>
+					</group>
+					
+					<separator/>
 						<notebook>
 							<page string="Registro de Materiales">
-								<group col="2" colspan="2" string="Materiales">
-									<group>
+								<group col="4" colspan="4" string="Materiales">
+									<group colspan="2">
 										<field name="descripcion" class="oe_inline" colspan="2"/>
 										<field name="t_materiales" class="oe_inline" colspan="1"/>
 										<field name="unidad" class="oe_inline" colspan="1"/>
 									</group>
+									<group colspan="2">
+										<field name="cantidad" class="oe_inline" />
+										<field name="location_id" class="oe_inline"/>
+									</group>
 								</group>
 							</page>
 						</notebook>
-					</group>
 				</form>
 			</field>			
 		</record>
