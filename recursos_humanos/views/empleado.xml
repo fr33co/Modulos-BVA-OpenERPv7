@@ -36,17 +36,18 @@
 						<field name="categoria" style="width:100%%"/>
 				</xpath>
 				
-<!--
 				<xpath expr="//field[@name='sede']" position="replace">
+
 					<field name="sede" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>
 				</xpath>
--->
 
 				<xpath expr="//field[@name='coordinador_eje']" position="replace">
+
 					<field name="coordinador_eje" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>
 				</xpath>
 
 				<xpath expr="//field[@name='coordinador_sede']" position="replace">
+
 					<field name="coordinador_sede" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>
 				</xpath>
 
@@ -59,86 +60,76 @@
 
 					<field name="place_of_birth" invisible="1"/>
 				</xpath>
-					
-				<xpath expr="//label[@class='oe_edit_only']" position="replace">
-					<label for="name" class="oe_edit_only" invisible="1"/>
-				</xpath>
-	
-				<xpath expr="//field[@name='name']" position="replace">
-					
-					<field name="name" invisible="1"/>
-<!--
-					<table border="0" width="600">
-						<tr>
-							<td>
-								<h4><field name="name" default_focus="1"/></h4>
-								<font style="color:white;">|</font>
-							</td>
-							<td>
-								<button name="get_employee_filter" string="Actualizar servicio" type="object" attrs="{'invisible': [('categoria', '!=', '2') ] }" icon="gtk-apply"/>
-							</td>
-						</tr>
-					</table>
--->
-
-					
-				</xpath>
 
 				<xpath expr="//field[@name='passport_id']" position="replace">
+
 					<field name="passport_id" attrs="{'invisible': [('categoria', '!=', '2','') ] }"/>
 				</xpath>
-				
 				<xpath expr="//field[@name='ano_antiguedad']" position="replace">
+
 					<field name="ano_antiguedad" attrs="{'invisible': [('categoria', '!=', '2') ] }"/>
 				</xpath>
 
 				<xpath expr="//field[@name='country_id']" position="replace">
+
 					<field name="country_id" invisible="1" />
 				</xpath>
 
 				<xpath expr="//field[@name='estado']" position="before">
+
 					<field name="country_id"/>
 				</xpath>
 
 				<xpath expr="//field[@name='empleado']" position="replace">
+
 					<field name="empleado" attrs="{'invisible': [('categoria', '!=', '2') ] }"/>
 				</xpath>
 
 				<xpath expr="//field[@name='cedula']" position="before">
+
 					<field name="rif" attrs="{'invisible': [('categoria', '!=', '2') ] }"/>
 				</xpath>
 
 				<xpath expr="//field[@name='tipo_nomina']" position="after">
+
 					<field name="class_personal" attrs="{'invisible': [('categoria', '!=', '2') ] }"/>
 				</xpath>
 
-<!--
 				<xpath expr="//field[@name='tiempo_servicio']" position="replace">
+
 					<field name="tiempo_servicio" class="fecha" readonly="0"/>
 				</xpath>
--->
 
 				<xpath expr="//field[@name='birthday']" position="replace">
+
 					<field name="fecha_nacimiento" on_change="data_employee(fecha_nacimiento,'1')"/>
 				</xpath>
 
 				<xpath expr="//group/group/field[@name='edad']" position="replace">
+
 					<field name="edad" style="width:25%%"/>
 				</xpath>
 
 				<xpath expr="//group/group/field[@name='status']" position="replace">
+
 					<field name="status"/>
 				</xpath>
+
+				<!-- <xpath expr="//group/group/field[@name='desc_status']" position="replace">
+
+					<field name="desc_status"/>
+
+				</xpath> -->
 				
 				<xpath expr="//field[@name='job_id']" position="replace">
-					<field name="job_id" attrs="{'invisible': [('categoria', '!=', '2') ] }"/>
+
+					<field name="job_id" attrs="{'invisible': [('categoria', '!=', '2') ] }" on_change="search_charge(job_id,'1')"/>
 				</xpath>
 
-<!--
-				<xpath expr="//field[@name='desc_status']" position="replace">
-					<field name="desc_status" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>
-				</xpath>
--->
+				<!--<xpath expr="//field[@name='desc_status']" position="replace">-->
+				<!---->
+				<!--	<field name="desc_status" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>-->
+				<!--</xpath>-->
 
 				<!-- GRUPO DE BOTONES DE ACCIÓN -->
 				<xpath expr="//div[@name='button_box']" position="replace">
@@ -146,14 +137,13 @@
 					</div>
 				</xpath>
 
-				<xpath expr="//field[@name='department_id']" position="replace">
-					<field name="department_id" on_change="search_department(department_id)" attrs="{'invisible': [('categoria', '!=', '2') ] }"/>
-				</xpath>
+				<!--<xpath expr="//field[@name='department_id']" position="replace">-->
+				<!---->
+				<!--	<field name="department_id"/>-->
+				<!--</xpath>-->
 				<xpath expr="//field[@name='empleado']" position="before">
 
-<!--
 					<field name="gerente" attrs="{'invisible': [('categoria', '!=', '2') ] }"/>
--->
 				</xpath>
 
 				<xpath expr="//group/group[@string='Active']" position="replace">
@@ -167,11 +157,68 @@
 
 				</xpath>
 
-<!--
-				<xpath expr="//group/group/field[@name='bank_account_id']" position="replace">
-					<field name="bank_account_id" attrs="{'invisible': [('categoria', '!=', '2') ] }"/>
+				<!--<xpath expr="//group/group/field[@name='bank_account_id']" position="replace">-->
+				<!--	<field name="bank_account_id" attrs="{'invisible': [('categoria', '!=', '2') ] }"/>-->
+				<!--</xpath>-->
+				
+				<xpath expr="//label[@class='oe_edit_only']" position="replace">
+					<label for="name" class="oe_edit_only" invisible="1"/>
 				</xpath>
--->
+				<xpath expr="//field[@name='grupo']" position="replace">
+					<field name="grupo" invisible="1"/>
+				</xpath>
+				
+				<xpath expr="//field[@name='name']" position="replace">
+					<field name="name" invisible="1"/>
+					<button name="get_employee_filter" string="Actualizar servicio" type="object" attrs="{'invisible': [('categoria', '!=', '2') ] }" icon="gtk-apply"/>
+				</xpath>
+
+				<xpath expr="//field[@name='entidad_bancaria']" position="replace">
+					<field name="entidad_bancaria" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>
+				</xpath>
+				<xpath expr="//field[@name='numero_cuenta']" position="replace">
+					<field name="numero_cuenta" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>
+				</xpath>
+				<xpath expr="//field[@name='tipo_cuenta']" position="replace">
+					<field name="tipo_cuenta" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>
+				</xpath>
+				<xpath expr="//field[@name='tiempo_servicio']" position="replace">
+					<field name="tiempo_servicio" invisible="1"/>
+				</xpath>
+				<xpath expr="//field[@name='ano_antiguedad']" position="before">
+					<field name="tiempo_servicio"/>
+				</xpath>
+				<xpath expr="//field[@name='tipo_nomina']" position="replace">
+					<field name="tipo_nomina" attrs="{'invisible': [('categoria', '!=', '2') ] }"/>
+				</xpath>
+				<xpath expr="//field[@name='asignacion']" position="replace">
+					<field name="asignacion" invisible="1"/>
+				</xpath>
+				<xpath expr="//field[@name='job_id']" position="after">
+					<field name="asignacion"/>
+				</xpath>
+				<field name="familiar" position="before">
+					<div class="oe_form_sheetbg">
+					<table>
+						<tr>
+							<td>
+								Cantidad
+							</td>
+							<td><field name="mount" style="width:100px;"/></td>
+							<td>
+								Monto total
+							</td>
+							<td>
+								<field name="mount_total" style="width:100px;"/>
+							</td>
+							<td>
+								<button name="procesar_carga_prima_hijo" string="Procesar carga" type="object"/>
+							</td>
+						</tr>
+					</table>
+					</div>
+				</field>
+
 			</field>
 		</record>
 
@@ -237,12 +284,16 @@
 				<field name="job_id" position="after">
 					<field name="class_personal"/>
 				</field>
+				<field name="tlf_local" position="replace">
+					<field name="tlf_local" invisible="1"/>
+				</field>
+				<field name="tlf_movil" position="replace">
+					<field name="tlf_movil" invisible="1"/>
+				</field>
+				<field name="correo" position="replace">
+					<field name="correo" invisible="1"/>
+				</field>
 			</field>
 		</record>
-
-		<!-- <menuitem name="Recursos Humanos" id="menu_recursos_humanos" />
-		<menuitem name="Recursos Humanos" id="recursos_humanos_main" parent="menu_recursos_humanos"/>
-		<menuitem parent="recursos_humanos_main" id="empleado" action="accion_vista_empleado" name="Empleados" icon="terp-partner"/> -->
-
 	</data>
 </openerp>

@@ -7,3 +7,18 @@
 .oe_form_field.fecha,input{
 	background-color: #D4E3ED; !import
 }
+
+.oe_form_sheetbg{
+	
+	border-radius: 9px;
+	-moz-border-radius: 9px;
+}
+
+.div_scroll
+{	width: 800px;
+	height:310px; 
+	overflow-x:hidden;
+	overflow-y:scroll;
+	border-bottom: 0px solid #CCC;
+	
+}

@@ -13,7 +13,7 @@ class Bank(osv.Model):
 	_inherit = 'res.partner.bank'
 	
 	_columns = {
-		'type_account' : fields.selection((('1','Ahorro'),('2','Corriente')),"Tipo de cuenta",required=True),
+		'type_account' : fields.selection((('1','Ahorro'),('0','Corriente')),"Tipo de cuenta",required=True),
 	}
 
 	_defaults = {

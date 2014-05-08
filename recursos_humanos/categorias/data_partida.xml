@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <openerp>
+        <data>
+            <!--===================================================================-->
+                                <!--PARTIDAS PRESUPUESTARIAS-->
+            <!--===================================================================-->
+            <record id="partida1" model="presupuesto.partidas">
+                <field name="codigo">4.01.01.01.00</field>
+                <field name="descripcion">Sueldos básicos personal fijo a tiempo completo</field>
+            </record>
+            <record id="partida2" model="presupuesto.partidas">
+                <field name="codigo">4.01.01.02.00</field>
+                <field name="descripcion">Sueldos básicos personal fijo a tiempo parcial</field>
+            </record>
+            <record id="partida3" model="presupuesto.partidas">
+                <field name="codigo">4.01.03.10.00</field>
+                <field name="descripcion">Primas por jerarquía o responsabilidad en el cargo</field>
+            </record>
+            <!--===================================================================-->
+        </data>
+    </openerp>
