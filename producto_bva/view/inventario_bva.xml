@@ -10,15 +10,15 @@
 					<field name="usuario_login"/>
 				</field>
 				<field name="date" position="after">
-					<field name="t_inventario" class="oe_inline"/>
+					<button name="generate_inventario" type="object"  string="Prueba"  />
 				</field>
 				<page string="General Information" position="replace">
 					<page string="General Information" position="replace">
 					<field name="inventory_line_id">
 						<tree string="Products" editable="bottom">
 							<field domain="[('usage','=','internal')]" name="location_id" groups="stock.group_locations"/>
-							<!--<field context="{'location':location_id, 'uom':product_uom, 'to_date':parent.date}" name="product_id" on_change="on_change_product_id(location_id,product_id,product_uom,parent.date)"  domain="[('type','&lt;&gt;','service')]"/>-->
-							<field name="product_id" on_change="on_change_productos(product_id)"/>
+							<field context="{'location':location_id, 'uom':product_uom, 'to_date':parent.date}" name="product_id" on_change="on_change_product_id(location_id,product_id,product_uom,parent.date)"  domain="[('type','&lt;&gt;','service')]"/>
+							<!--<field name="product_id" />-->
 							<field name="product_qty"/>
 							<field name="product_uom" groups="product.group_uom"/>
 							<field name="prod_lot_id" groups="stock.group_production_lot"/>
@@ -55,42 +55,6 @@
 						</form>
 					    </field>
 					</page>
-					</page>
-				
-				<page string="Posted Inventory" position="after" >
-					<page string="Inventario de Almacen" attrs="{'invisible':[('t_inventario','!=', 'Materiales')]}">
-						<group>
-							<table>
-								<tr>
-									<td>
-										<label for="t_materiales"/>
-									</td>
-									<td>
-										<label for="ubicacion"/>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<field name="t_materiales"  style="width: 80%%" />
-									</td>
-									<td>
-										<field name="ubicacion" style="width: 200%%"/>
-									</td>
-								</tr>
-							</table>
-						</group>
-						<separator/>
-						<group>
-							<field name="almacen" nolabel="1">	
-								<tree string="Desincorporaciones" editable="bottom">	
-										<!-- <field name="id"  /> -->
-										<field name="descripcion"  on_change="on_change_materiales(descripcion)" />
-										<field name="cantidad" />
-										<field name="unidad" />
-								</tree>
-							</field>
-						</group>
-					</page>
 				</page>
 			</field>			
 		</record>
@@ -103,9 +67,9 @@
 				<field name="date" position="before">
 					<field name="usuario_login"/>
 				</field>				 
-				<field name="state" position="after">
+				<!--<field name="state" position="after">
 					<field name="t_inventario" />
-				</field>
+				</field>-->
 			</field>
 		</record>
 		
@@ -117,12 +81,13 @@
 				<tree string="Stock Inventory Lines" position="replace">
 					<field name="product_id"/>
 					<field name="product_qty"/>
-					<field name="product_uom" groups="product.group_uom"/>
-					<field name="prod_lot_id" groups="stock.group_production_lot"/>
+					<field name="product_uom" groups="product.group_uom"  invisible="0"/>
+					<field name="prod_lot_id" groups="stock.group_production_lot"  />
 					<button name="%(stock.action_view_stock_inventory_line_split)d"
 						string="Split inventory lines" groups="stock.group_inventory_valuation"
 						type="action" icon="gtk-justify-fill"/>
 					<field name="location_id" groups="stock.group_locations"/>
+					<field name="g" invisible="0"/>
 					<field name="sg" invisible="0"/>
 					<field name="s" invisible="0"/>
 					<field name="nidentificacion" class="oe_inline" />

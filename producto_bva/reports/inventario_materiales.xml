@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
-        <report id="reporte_inventario_materiales" string="Inventario de Materiales" model="stock.inventory" name="Reporte Inventario Materiales" rml="producto_bva/reports/inventario_materiales.rml" />
+        <report id="reporte_inventario_materiales" string="Inventario de Materiales" model="inventario.almacen" name="Reporte Inventario Almacen" rml="producto_bva/reports/inventario_materiales.rml" />
     </data>
 </openerp>

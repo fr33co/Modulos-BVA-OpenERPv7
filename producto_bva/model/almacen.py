@@ -33,11 +33,14 @@ class almacen_bva(osv.Model):
 		return codigo
 
 	_columns = {
-		'codigo' : fields.char(string="Código", required=False),
+		'codigo' : fields.char(string="Código", required=False, readonly=True),
+		'fecha': fields.char('Fecha:', readonly=True,  required=True),
 		'user_register': fields.many2one('res.users', 'Registrado por:', readonly=True),
 		't_materiales' : fields.selection((('Limpieza','Limpieza'), ('Oficina','Oficina'), ('Otros','Otros')),'Tipo de Material', required=False),
 		'unidad':fields.many2one('product.uom', 'Unidad de Medida',required=True),
 		'descripcion' : fields.char(string="Descripción del Material", required=True),
+		'cantidad' : fields.char(string="Cantidad", required=True),
+		'location_id': fields.many2one('stock.location', 'Ubicación', required=True, domain="[('usage', '=', 'internal')]"),
 	}
 	
 	#Restriccion para que la descripcion del Material sea unica y evitar duplicidad
@@ -53,4 +56,5 @@ class almacen_bva(osv.Model):
 	_defaults = {
 		'codigo': _get_id_material,
 		'user_register': lambda s, cr, uid, c: uid,
+		'fecha': lambda *a: time.strftime("%d%m%Y"),
 	}

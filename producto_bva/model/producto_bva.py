@@ -19,13 +19,8 @@ class producto_bva(osv.Model):
 		'v_total' : fields.float(string="Valor Total Bs.", size=20, required=True),
 		'serial' : fields.char(string="Serial", required=False),
 		'donacion' : fields.boolean("Donación"),
-		'incorporacion':fields.many2one('procesos.incorporaciones', 'Incorporación por', required=False),
+		'incorporacion': fields.many2one('procesos.incorporaciones', 'Incorporación por', required=False),
 	}
-
-	#Restriccion para que la descripcion del Material sea unica y evitar duplicidad
-	_sql_constraints = [
-		('descripcion_unique','UNIQUE(union)','Elemento ya registrado con el mismo nombre, serial y código de bien'),
-	]
 	
 	_defaults = {
 		'sale_ok': False,
@@ -61,7 +56,6 @@ class producto_bva(osv.Model):
 	completo.
 	"""
 
-
 	def on_change_identificacion(self, cr, uid, ids, codigo, numero, name, nombre_des, serial, context=None):
 		values = {}
 		serial2 = ''
@@ -96,4 +90,9 @@ class producto_bva(osv.Model):
 			'sg' : datos.sg,
 			's' : datos.s,
 		})
-		return {'value' : values}  
+		return {'value' : values}
+	
+	#Restriccion para que la descripcion del Material sea unica y evitar duplicidad
+	#_sql_constraints = [
+	#	('descripcion_unique','UNIQUE(union)','Elemento ya registrado con el mismo nombre, serial y código de bien'),
+	#]
