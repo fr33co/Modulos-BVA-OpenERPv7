@@ -2,5 +2,6 @@
 <openerp>
     <data>
         <report id="reporte_solicitud_canaima" string="Reporte Solicitud" model="solicitud.soporte" name="Reporte de Solicitud" rml="gestion_canaimas/report/reporte_soporte.rml" />
+        <report id="reporte_listado_reparaciones" string="Lista de Reparaciones" model="solicitud.reparacion" name="generate_xsl_slip" />
     </data>
 </openerp>
