@@ -36,6 +36,7 @@
 			<field name="model">solicitud.reparacion</field>
 			<field name="arch" type="xml">
 				<form string="Soporte" version="7.0">
+                    <field name="id" invisible="1"/>
                     <group>
                         <group>
                             <field name="c_solicitud" on_change="on_change_datos(c_solicitud)"/>
@@ -66,9 +67,13 @@
                                     <field name="hardware" />
                                     <field name="software" />
                                     <field name="status" class="oe_inline" />
-                                    <button name="actualizar_status" string="Modificar Estado" type="object" icon="gtk-execute" confirm="¿Esta usted de acuerdo con cambiar el ESTADO de la Solicitud?"/>               
+                                    <button name="actualizar_status" string="Modificar Estado" type="object" icon="gtk-execute" confirm="¿Esta usted de acuerdo con cambiar el ESTADO de la Solicitud?"/>             
                                 </group>
                                 <field name="solucion" nolabel="1" placeholder="Solucion y/o Información sobre la reparación" />
+                            </group>
+                            <separator/>
+                            <group string="Exportar Listado de Reparaciones" attrs="{'invisible':[('id','==', False)]}">
+                                    <button name="generate_xsl_slip" string="Listado de Reparaciones" type="object" icon="gtk-execute" confirm="¿Esta usted de acuerdo con imprimir el listado de reparaciones?" attrs="{'invisible':[('id','==', False)]}"/>               
                             </group>
                         </page>
                     </notebook>

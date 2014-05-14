@@ -26,7 +26,7 @@
 
 <!--Menu-->
         <menuitem id="graficas_menu" name="Gráficos" parent="main_canaima_menu" sequence="3" />
-		<menuitem id="grafica_modelo_menu" name="Gráfico por Modelo" parent="graficas_menu" action="grafica_modelo_list_action" />
+		<menuitem id="grafica_modelo_menu" name="Gráfico por Modelos" parent="graficas_menu" action="grafica_modelo_list_action" />
 		
     </data>
 </openerp>

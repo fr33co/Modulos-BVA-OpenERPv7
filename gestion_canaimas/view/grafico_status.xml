@@ -3,7 +3,7 @@
     <data>
     	<!--Solicitud de Soporte Técnico para Canaimitas-->
         
-		 <record model="ir.actions.act_window" id="grafica_status_list_action">
+		<record model="ir.actions.act_window" id="grafica_status_list_action">
 		    <field name="name">Solicitud de Soporte</field>
 		    <field name="res_model">solicitud.soporte</field>
 		    <field name="view_type">form</field>
@@ -19,13 +19,13 @@
             <field name="arch" type="xml">
                 <graph string="Estadisticas de Solicitud" type="bar">
                     <field name="status" />
-                    <field name="grafico" operator="+"/>
+                    <field name="grafico_s" operator="+"/>
                 </graph>
             </field>            
         </record>
 
 <!--Menu-->
-		<menuitem id="graficas_menu" name="Gráficos" parent="main_canaima_menu" />
+		<!-- <menuitem id="graficas_menu" name="Gráficos" parent="main_canaima_menu" /> -->
 		<menuitem id="grafica_status_menu" name="Gráfico por Status" parent="graficas_menu" action="grafica_status_list_action" />
 		
     </data>
