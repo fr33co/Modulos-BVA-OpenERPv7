@@ -150,8 +150,8 @@ class solicitud_soporte(osv.Model):
 	fecha = dia+"-"+mes+"-"+year #Variable que concatena el dia la fecha y el año
 	nom = 'Solicitudes Atendidas '+fecha+'.xls' #C
 	
-	first_book.save('openerp/addons/gestion_canaimas/reporte/'+nom)
-	f = open('openerp/addons/gestion_canaimas/reporte/'+nom)
+	first_book.save('/home/administrador/openerp70/modules/gestion_canaimas/reporte/'+nom)
+	f = open('/home/administrador/openerp70/modules/gestion_canaimas/reporte/'+nom)
 	
 	r_archivo = self.pool.get('reportes.canaimas').create(cr, uid, {
 	    'name' : nom,

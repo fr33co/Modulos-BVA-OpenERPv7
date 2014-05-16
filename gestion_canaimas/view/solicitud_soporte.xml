@@ -4,35 +4,35 @@
         
 <!--Solicitud de Soporte Técnico para Canaimitas-->
         
-		 <record model="ir.actions.act_window" id="solicitud_canaima_list_action">
-		    <field name="name">Solicitud de Soporte</field>
-		    <field name="res_model">solicitud.soporte</field>
-		    <field name="view_type">form</field>
-		    <field name="view_mode">tree,form</field>
-            <field name="help" type="html">
+	<record model="ir.actions.act_window" id="solicitud_canaima_list_action">
+	   <field name="name">Solicitud de Soporte</field>
+	   <field name="res_model">solicitud.soporte</field>
+	   <field name="view_type">form</field>
+	   <field name="view_mode">tree,form</field>
+	    <field name="help" type="html">
 
-            </field>
-		</record>
+	    </field>
+	</record>
 
 <!--Vista tree Solicitud -->
 
 		<record model="ir.ui.view" id="solicitud_tree_view">
-			<field name="name">Solicitud</field>
-			<field name="model">solicitud.soporte</field>
-			<field name="arch" type="xml">
-				<tree string="Solicitud de soporte" colors="red:status=='Atendiendo';blue:status=='Reparada';black:status=='Remitida';green:status=='Entregada';orange:status=='Devuelta'">
-					<field name="c_solicitud" />
-					<field name="f_solicitud" />
-					<field name="f_entrega" />
-					<field name="serial" />
-					<field name="modelo" />
-                    <field name="cedula" />
-					<field name="nombre_r" />
-					<field name="apellido_r" />
-					<field name="telefono" />
-					<field name="status" />
-				</tree>
-			</field>			
+		    <field name="name">Solicitud</field>
+		    <field name="model">solicitud.soporte</field>
+		    <field name="arch" type="xml">
+			<tree string="Solicitud de soporte" colors="red:status=='Atendiendo';blue:status=='Reparada';black:status=='Remitida';green:status=='Entregada';orange:status=='Devuelta'">
+			    <field name="c_solicitud" />
+			    <field name="f_solicitud" />
+			    <field name="f_entrega" />
+			    <field name="serial" />
+			    <field name="modelo" />
+			    <field name="cedula" />
+			    <field name="nombre_r" />
+			    <field name="apellido_r" />
+			    <field name="telefono" />
+			    <field name="status" />
+			</tree>
+		    </field>			
 		</record>
 
 <!--Vista formulario Solicitud -->
@@ -93,7 +93,7 @@
                                     <field name="nombre" attrs="{'readonly':[('id','!=', False)]}" placeholder="Nombre del Alumno"/>
                                     <field name="apellido" attrs="{'readonly':[('id','!=', False)]}" placeholder="Apellido del Alumno"/>
                                     <field name="t_educ" placeholder="Tipo" widget="selection"/>
-                                    <field name="grado" domain= "[('name','=',t_educ)]" placeholder="Grado que estudia actualmente" />
+                                    <field name="grado" domain= "[('tipo','=',t_educ)]" placeholder="Grado que estudia actualmente" />
                                 </group>
                                 <group>
                                     <separator string="Dirección del centro educativo:" colspan="2"/>
