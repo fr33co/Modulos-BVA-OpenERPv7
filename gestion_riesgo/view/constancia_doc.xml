@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.actions.act_window" id="constancia_list_action">
+            <field name="name">Constancia</field>
+            <field name="res_model">constancia.doc</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Crear Constancia</p>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="constancia_tree_view">
+            <field name="name">constancia.tree</field>
+            <field name="model">constancia.doc</field>
+            <field name="arch" type="xml">
+                <tree string="Constancia">
+                     <field name="nrosolicitud_id"/>
+                     <field name="num_constancia"/>
+                     <field name="descripcion"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="constancia_form_view">
+            <field name="name">constancia.form</field>
+            <field name="model">constancia.doc</field>
+            <field name="arch" type="xml">
+                <form string="Formulario para Generar Constancias">
+                    <group colspan="2" col="2">
+                        <separator string="Constancia" colspan="2"/>
+                          <field name="nrosolicitud_id"/>
+                          <field name="num_constancia"/>
+                          <field name="descripcion"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <menuitem id="gestion_riesgo" name="Gestion de Riesgo" />
+        <menuitem id="gestion_documento" name="Documentos" parent="gestion_riesgo" />
+        <menuitem id="constancia_menu" name="Constancia"  parent="gestion_documento" action="constancia_list_action" />
+    </data>
+</openerp>

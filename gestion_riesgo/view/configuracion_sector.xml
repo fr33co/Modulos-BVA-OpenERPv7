@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.actions.act_window" id="sector_list_action">
+            <field name="name">Registro de Sector</field>
+            <field name="res_model">configuracion.sector</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Registrar Sector</p>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="sector_tree_view">
+            <field name="name">sector.tree</field>
+            <field name="model">configuracion.sector</field>
+            <field name="arch" type="xml">
+                <tree string="Sector">
+                    <field name="municipio_id"/>
+                    <field name="parroquia_id"/>
+                    <field name="sector"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="sector_form_view">
+            <field name="name">sector.form</field>
+            <field name="model">configuracion.sector</field>
+            <field name="arch" type="xml">
+                <form string="Formulario de Registro de Sectores">
+                    <group colspan="2" col="2">
+                        <separator string="Sector" colspan="2"/>
+                        <field name="municipio_id"/>
+                        <field name="parroquia_id" domain="[('municipio_id','=',municipio_id)]"/>
+                        <field name="sector"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <menuitem id="sector_menu" name="Sector"  parent="configuracion_menu" action="sector_list_action" />
+    </data>
+</openerp>

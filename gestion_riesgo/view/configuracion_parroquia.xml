@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.actions.act_window" id="parroquia_list_action">
+            <field name="name">Registro de Parroquia</field>
+            <field name="res_model">configuracion.parroquia</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Registrar Parroquia</p>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="parroquia_tree_view">
+            <field name="name">parroquia.tree</field>
+            <field name="model">configuracion.parroquia</field>
+            <field name="arch" type="xml">
+                <tree string="Parroquia">
+                    <field name="municipio_id"/>
+                    <field name="parroquia"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="parroquia_form_view">
+            <field name="name">parroquia.form</field>
+            <field name="model">configuracion.parroquia</field>
+            <field name="arch" type="xml">
+                <form string="Formulario de Registro de Parroquias">
+                    <group colspan="2" col="2">
+                        <separator string="Parroquia" colspan="2"/>
+                         <field name="municipio_id"/>
+                         <field name="parroquia"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <menuitem id="parroquia_menu" name="Parroquia"  parent="configuracion_menu" action="parroquia_list_action" />
+    </data>
+</openerp>

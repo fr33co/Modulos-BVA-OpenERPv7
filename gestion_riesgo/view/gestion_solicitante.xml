@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.actions.act_window" id="solicitante_list_action">
+            <field name="name">Registro de Solicitante</field>
+            <field name="res_model">gestion.solicitante</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Registrar Solicitante</p>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="solicitante_tree_view">
+            <field name="name">solicitante.tree</field>
+            <field name="model">gestion.solicitante</field>
+            <field name="arch" type="xml">
+                <tree string="Solicitante">
+                    <field name="cedula"/>
+                    <field name="nombre"/>
+                    <field name="apellido"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="solicitante_form_view">
+            <field name="name">solicitante.form</field>
+            <field name="model">gestion.solicitante</field>
+            <field name="arch" type="xml">
+                <form string="Formulario de Registro de Solicitante">
+                    <group colspan="2" col="2">
+                        <separator string="Solicitante" colspan="2"/>
+                         <field name="cedula"/>
+                         <field name="nombre"/>
+                         <field name="apellido"/>
+                         <field name="fecha"/>
+                         <field name="movil"/>
+                         <field name="fijo"/>
+                         <field name="municipio_id"/>
+                         <field name="parroquia_id" domain="[('municipio_id','=',municipio_id)]"/> 
+                         <field name="sector_id" domain="[('parroquia_id','=',parroquia_id)]"/>
+                         <field name="direccion"/>
+                         <field name="email"/>
+                         <field name="funcionario"/>
+                         <field name="cargo" attrs="{'invisible':[('funcionario','in',('no',False))]}"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <menuitem id="gestion_riesgo" name="Gestion de Riesgo" />
+        <menuitem id="gestion_registro" name="Registro" parent="gestion_riesgo" />
+        <menuitem id="solicitante_menu" name="Solicitante"  parent="gestion_registro" action="solicitante_list_action" />
+    </data>
+</openerp>

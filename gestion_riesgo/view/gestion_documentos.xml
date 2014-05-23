@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.actions.act_window" id="documentos_list_action">
+            <field name="name">Registrar Documentos</field>
+            <field name="res_model">gestion.documentos</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Registrar Documento</p>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="documentos_tree_view">
+            <field name="name">documentos.tree</field>
+            <field name="model">gestion.documentos</field>
+            <field name="arch" type="xml">
+             <tree string="documentos">
+                    <field name="nrosolicitud_id"/>
+                    <field name="fecha"/>
+                    <field name="documento"/>
+                    <field name="descripcion"/>
+                    <field name="funcionario_id"/>
+                </tree>
+
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="documentos_form_view">
+            <field name="name">documentos.form</field>
+            <field name="model">gestion.documentos</field>
+            <field name="arch" type="xml">
+                <form string="Formulario de Registro de Documentos">
+                    <group colspan="2" col="2">
+                        <separator string="Documentos" colspan="2"/>
+                         <field name="nrosolicitud_id"/>
+                         <field name="fecha"/>
+                         <field name="documento"/>
+                         <field name="descripcion"/>
+                         <field name="funcionario_id"/>
+                         <field name="num_documento" readonly="1"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <menuitem id="documentos_menu" name="Documentos"  parent="gestion_registro" action="documentos_list_action" />
+    </data>
+</openerp>

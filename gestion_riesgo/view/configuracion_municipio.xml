@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.actions.act_window" id="municipio_list_action">
+            <field name="name">Registro de Municipio</field>
+            <field name="res_model">configuracion.municipio</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Registrar Municipio</p>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="municipio_tree_view">
+            <field name="name">municipio.tree</field>
+            <field name="model">configuracion.municipio</field>
+            <field name="arch" type="xml">
+                <tree string="Municipio">
+                    <field name="municipio"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="municipio_form_view">
+            <field name="name">municipio.form</field>
+            <field name="model">configuracion.municipio</field>
+            <field name="arch" type="xml">
+                <form string="Formulario de Registro de Municipios">
+                    <group colspan="2" col="2">
+                        <separator string="Municipio" colspan="2"/>
+                         <field name="municipio"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <menuitem id="gestion_riesgo" name="Gestion de Riesgo" />
+        <menuitem id="configuracion_menu" name="Configuracion" parent="gestion_riesgo" />
+        <menuitem id="municipio_menu" name="Municipio"  parent="configuracion_menu" action="municipio_list_action" />
+    </data>
+</openerp>

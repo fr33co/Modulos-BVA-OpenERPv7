@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.actions.act_window" id="certificacion_list_action">
+            <field name="name">Certificacion de Habitabilidad</field>
+            <field name="res_model">certificacion.doc</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Crear Certificacion de Habitabilidad</p>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="certificacion_tree_view">
+            <field name="name">certificacion.tree</field>
+            <field name="model">certificacion.doc</field>
+            <field name="arch" type="xml">
+                <tree string="Certificacion de Habitabilidad">
+                     <field name="nrosolicitud_id"/>
+                     <field name="num_certificacion"/>
+                     <field name="descripcion"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="certificacion_form_view">
+            <field name="name">certificacion.form</field>
+            <field name="model">certificacion.doc</field>
+            <field name="arch" type="xml">
+                <form string="Formulario para Generar Certificaciones">
+                    <group colspan="2" col="2">
+                        <separator string="Certificacion de Habitabilidad" colspan="2"/>
+                          <field name="nrosolicitud_id"/>
+                          <field name="num_certificacion"/>
+                          <field name="descripcion"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <menuitem id="gestion_riesgo" name="Gestion de Riesgo" />
+        <menuitem id="gestion_documento" name="Documentos" parent="gestion_riesgo" />
+        <menuitem id="certificacion_menu" name="Cesrtificacion de Habitabilidad"  parent="gestion_documento" action="certificacion_list_action" />
+    </data>
+</openerp>

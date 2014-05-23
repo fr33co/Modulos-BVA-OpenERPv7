@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.actions.act_window" id="certificado_list_action">
+            <field name="name">Certificado</field>
+            <field name="res_model">certificado.doc</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Crear Certificado de Refugiado</p>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="certificado_tree_view">
+            <field name="name">certificado.tree</field>
+            <field name="model">certificado.doc</field>
+            <field name="arch" type="xml">
+                <tree string="Certificado de Refugiado">
+                     <field name="nrosolicitud_id"/>
+                     <field name="num_certificado"/>
+                     <field name="descripcion"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="certificado_form_view">
+            <field name="name">certificado.form</field>
+            <field name="model">certificado.doc</field>
+            <field name="arch" type="xml">
+                <form string="Formulario para Generar Certificados">
+                    <group colspan="2" col="2">
+                        <separator string="Certificado" colspan="2"/>
+                          <field name="nrosolicitud_id"/>
+                          <field name="num_certificado"/>
+                          <field name="descripcion"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <menuitem id="gestion_riesgo" name="Gestion de Riesgo" />
+        <menuitem id="gestion_documento" name="Documentos" parent="gestion_riesgo" />
+        <menuitem id="certificado_menu" name="Cesrtificado de Refugiado"  parent="gestion_documento" action="certificado_list_action" />
+    </data>
+</openerp>

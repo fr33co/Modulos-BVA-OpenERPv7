@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.actions.act_window" id="infrelevante_list_action">
+            <field name="name">Informe Relevante</field>
+            <field name="res_model">infrelevante.doc</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Crear Informe Relevante</p>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="infrelevante_tree_view">
+            <field name="name">infrelevante.tree</field>
+            <field name="model">infrelevante.doc</field>
+            <field name="arch" type="xml">
+                <tree string="Informe Relevante">
+                     <field name="nrosolicitud_id"/>
+                     <field name="num_infrelevante"/>
+                     <field name="descripcion"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="infrelevante_form_view">
+            <field name="name">infrelevante.form</field>
+            <field name="model">infrelevante.doc</field>
+            <field name="arch" type="xml">
+                <form string="Formulario para Informe Relevante">
+                    <group colspan="2" col="2">
+                        <separator string="Informe Relevante" colspan="2"/>
+                          <field name="nrosolicitud_id"/>
+                          <field name="num_infrelevante"/>
+                          <field name="descripcion"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <menuitem id="gestion_riesgo" name="Gestion de Riesgo" />
+        <menuitem id="gestion_documento" name="Documentos" parent="gestion_riesgo" />
+        <menuitem id="infrelevante_menu" name="Informe Relevante"  parent="gestion_documento" action="infrelevante_list_action" />
+    </data>
+</openerp>
