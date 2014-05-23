@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.actions.act_window" id="infinspeccion_list_action">
+            <field name="name">Informe de Inspeccion</field>
+            <field name="res_model">infinspeccion.doc</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Crear Informe de Inspeccion</p>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="infinspeccion_tree_view">
+            <field name="name">infinspeccion.tree</field>
+            <field name="model">infinspeccion.doc</field>
+            <field name="arch" type="xml">
+                <tree string="Informe de Inspecion">
+                     <field name="nrosolicitud_id"/>
+                     <field name="num_infinspeccion"/>
+                     <field name="descripcion"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="infinspeccion_form_view">
+            <field name="name">infinspeccion.form</field>
+            <field name="model">infinspeccion.doc</field>
+            <field name="arch" type="xml">
+                <form string="Formulario para Informe de Inspeccion">
+                    <group colspan="2" col="2">
+                        <separator string="Informe de Inspecion" colspan="2"/>
+                          <field name="nrosolicitud_id"/>
+                          <field name="num_infinspeccion"/>
+                          <field name="descripcion"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <menuitem id="gestion_riesgo" name="Gestion de Riesgo" />
+        <menuitem id="gestion_documento" name="Documentos" parent="gestion_riesgo" />
+        <menuitem id="infinspeccion_menu" name="Informe de Inspeccion"  parent="gestion_documento" action="infinspeccion_list_action" />
+    </data>
+</openerp>

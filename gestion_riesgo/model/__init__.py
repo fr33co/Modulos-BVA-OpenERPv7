@@ -1,0 +1,12 @@
+import gestion_solicitante
+import configuracion_municipio
+import configuracion_parroquia
+import configuracion_sector
+import gestion_solicitudes
+import gestion_documentos
+import gestion_funcionarios
+import constancia_doc
+import certificacion_doc
+import certificado_doc
+import infinspeccion_doc
+import infrelevante_doc

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.actions.act_window" id="solicitudes_list_action">
+            <field name="name">Registro de Solicitud</field>
+            <field name="res_model">gestion.solicitudes</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Registrar Solicitud</p>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="solicitudes_tree_view">
+            <field name="name">solicitudes.tree</field>
+            <field name="model">gestion.solicitudes</field>
+            <field name="arch" type="xml">
+                <tree string="Solicitudes">
+                     <field name="id_solicitud"/>
+                     <field name="cedula"/>
+                     <field name="fecha"/>
+                     <field name="tipo"/>
+                     <field name="motivo"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="solicitudes_form_view">
+            <field name="name">solicitudes.form</field>
+            <field name="model">gestion.solicitudes</field>
+            <field name="arch" type="xml">
+                <form string="Formulario de Registro de Solicitud">
+                    <group colspan="2" col="2">
+                        <separator string="Solicitud" colspan="2"/>
+                          <field name="id_solicitud"/>
+                          <field name="cedula"/>
+                          <field name="fecha"/>
+                          <field name="tipo"/>
+                          <field name="motivo"/>
+                          <field name="observacion"/>
+                          <field name="estatus"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <menuitem id="gestion_riesgo" name="Gestion de Riesgo" />
+        <menuitem id="gestion_registro" name="Registro" parent="gestion_riesgo" />
+        <menuitem id="solicitudes_menu" name="Solicitudes"  parent="gestion_registro" action="solicitudes_list_action" />
+    </data>
+</openerp>

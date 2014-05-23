@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.actions.act_window" id="funcionarios_list_action">
+            <field name="name">Registro de Funcionario</field>
+            <field name="res_model">gestion.funcionarios</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Registrar Funcionario</p>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="funcionarios_tree_view">
+            <field name="name">funcionarios.tree</field>
+            <field name="model">gestion.funcionarios</field>
+            <field name="arch" type="xml">
+                <tree string="Funcionario">
+                    <field name="nombre"/>
+                    <field name="apellido"/>
+                    <field name="cedula"/>
+                    <field name="cargo"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="funcionarios_form_view">
+            <field name="name">funcionarios.form</field>
+            <field name="model">gestion.funcionarios</field>
+            <field name="arch" type="xml">
+                <form string="Formulario de Registro de Funcionario">
+                    <group colspan="2" col="2">
+                        <separator string="Solicitante" colspan="2"/>
+                        <field name="nombre"/>
+                        <field name="apellido" on_change= "concatenar(nombre, apellido)"/>
+                        <field name="cedula"/>
+                        <field name="cargo"/>
+                        <field name="union"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <menuitem id="gestion_riesgo" name="Gestion de Riesgo" />
+        <menuitem id="gestion_registro" name="Registro" parent="gestion_riesgo" />
+        <menuitem id="funcionarios_menu" name="Funcionarios"  parent="gestion_registro" action="funcionarios_list_action" />
+    </data>
+</openerp>
