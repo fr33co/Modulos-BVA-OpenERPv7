@@ -1,8 +1,8 @@
 {
     'name' : "Recursos Humanos",
     'category' : "Recursos Humanos",
-    'version' : "6.1",
-    'depends' : ['base','hr','hr_payroll','hr_recruitment','hr_contract','hr_holidays','l10n_ve_topology','desarrollo_social','account'],
+    'version' : "9.1",
+    'depends' : ['base','hr','hr_payroll','hr_recruitment','hr_contract','hr_holidays','l10n_ve_topology','desarrollo_social','account','presupuesto'],
     'author' : "Ing en Sistemas: Jesús G. Laya R",
     'description' : '''
      El módulo de Recursos Humanos permite el manejo y gestión de los Empleados de las diferentes Bibliotecas Virtuales de Aragua Nota: Depende de Desarrollo Social:
@@ -11,7 +11,7 @@
       Generación de Reportes
 			Generación de Nóminas'
       Generación de archivos TXT
-      Ultima Actualización: 07 de Mayo del 2014''',
+      Ultima Actualización: 25 de Mayo del 2014''',
     'data' : [
       "views/empleado.xml",
       #"views/seguridad_salud_laboral.xml",
@@ -37,12 +37,15 @@
       "views/shuttle_ascent_employee.xml",
       "views/charge.xml",
       "views/movement_employee.xml",
+      "views/asignacion_nomina_regular.xml", # Nomina regular
+      "views/asignacion_nomina_vacaciones.xml", # Nomina vacaciones
       #~ "views/proceso_seleccion.xml",
 
       # "views/tipoNomina.xml",
       "views/carga_familiar_employee.xml",
 
       "segurity/groups.xml", #Activar la carga de este archivo sólo al instalar, luego comentarlo.
+      #"script/departamentos.xml",
       # "segurity/acceso.csv", # PRIVILEGIOS PARA LOS MODELOS
       # "segurity/ir.view.access.csv", # PRIVILEGIOS PARA LAS VISTAS
       "reportes/constancia/constancia.xml", # Reporte para la emisión de constancia

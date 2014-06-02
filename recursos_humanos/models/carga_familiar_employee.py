@@ -86,7 +86,7 @@ class Contrato_empleado(osv.Model):
 			else:
 				values.update({
 
-					'edad' : calculo,
+					'edad' : str(calculo).replace('-',""),
 
 				})
 

@@ -1,45 +1,34 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <openerp>
-    <data>
-		<record model="ir.actions.act_window" id="accion_views_payslip">
-			<field name="name">Nominas</field>
-			<field name="res_model">hr.payslip</field>
-			<field name="view_type">form</field>
-			<field name="view_mode">tree,form</field>
-		</record>
-    
-		<record id="views_nomina_payslip" model="ir.ui.view">
-			<field name="name">Nominas</field>
-			<field name="model">hr.payslip</field>
-			<field name="inherit_id" ref="desarrollo_social.vista_nomina_form_employee"/>
-			<field name="arch" type="xml">
-
-				<field name="categoria" position="replace">
-					<field name="categoria" invisible="1"/>
-				</field>
-				<field name="employee_id" position="replace">
-					<field name="employee_id" widget="selection"/>
-				</field>
-				<xpath expr="//field[@name='name']" position="replace">
-					<field name="name" invisible="1"/>
-				</xpath>
-				<xpath expr="//field[@name='cedula']" position="replace">
-					<field name="cedula" invisible="1"/>
-				</xpath>
-			</field>
-		</record>
-
-		<!-- Vista tree de herencia de hr.payslip -->
-		<record model="ir.ui.view" id="payslip_tree">
-			<field name="name">Nóminas</field>
-			<field name="model">hr.payslip</field>
-			<field name="inherit_id" ref="hr_payroll.view_hr_payslip_tree"/>
-			<field name="arch" type="xml">
-				<field name="name" position="replace">
-					<field name="name" invisible="1"/>
-				</field>
-			</field>
-		</record>
-
-    </data>
+	
+	<data>
+			
+	    <!--Accionador para el menu de nomina adm-->
+	    <record model="ir.actions.act_window" id="accion_nomina_adm">
+		<field name="name">Nomina</field>
+		<field name="res_model">hr.nomina.adm</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree,form</field>
+		<field name="help" type="html">
+			<p class="oe_view_nocontent_create">Registrar Nomina</p>
+		</field>
+	    </record>
+	    <!--Accionador para el menu de nomina adm-->
+	    
+	    <record model="ir.ui.view" id="vista_nomina_adm">
+		<field name="name">Nomina.form</field>
+		<field name="model">hr.nomina.adm</field>
+		<field name="arch" type="xml">
+		    <form string="Formulario de nomina">
+			<group colspan="2" col="4">
+			    <field name="cod" nolabel="0" colspan="2"/>
+			    <field name="nomina" nolabel="0" colspan="2"/>
+			</group>
+		    </form>
+		</field>
+	    </record>
+			
+	</data>
+	
 </openerp>
+

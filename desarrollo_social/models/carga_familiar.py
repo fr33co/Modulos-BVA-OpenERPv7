@@ -92,9 +92,9 @@ class Carga_familiar(osv.Model):
 		
 	}
 
-	_sql_constraints = [
-	    ('cedula_familiar_unique',#cedula_becado_unique
-	     'UNIQUE(cedula_familiar)',#cedula_becado
-	     'Disculpe el familiar ya existe'),#Disculpe el Registro ya existe
-	]
+	#~ _sql_constraints = [
+	    #~ ('cedula_familiar_unique',#cedula_becado_unique
+	     #~ 'UNIQUE(cedula_familiar)',#cedula_becado
+	     #~ 'Disculpe el familiar ya existe'),#Disculpe el Registro ya existe
+	#~ ]
 

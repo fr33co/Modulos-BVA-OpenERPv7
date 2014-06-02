@@ -89,10 +89,12 @@ class Onchange_salary(osv.Model):
 		'change_salary': fields.text(string = "Motivo del cambio", size = 256, required = False),
 		'experience' : fields.char(string="Año de experiencia", size=2, required=False),
 		'item' : fields.boolean(string=""),
+		'estado': fields.char(string = "Estado", size = 5, required = False),
+		'usuario': fields.char(string = "Responsable", size = 20, required = False),
 	}
 
 	_defaults = {
-		'salary' : "0.000",
+		'usuario': lambda s, cr, uid, c: uid, # Captura del usuario logeado
 	}
 
 

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <openerp>
+        <data>
+
+        <!--===================================================================-->
+                        <!-- Tipo de Cargo -->
+        <!--===================================================================-->
+
+           <record id="tipo_cargo_1" model="hr.job">
+                <field name="cod">00-01</field>
+                <field name="name">Analista I</field>
+            </record>
+            <record id="tipo_cargo_2" model="hr.job">
+                <field name="name">Analista II</field>
+            </record>
+            <record id="tipo_cargo_3" model="hr.job">
+                <field name="name">Analista III</field>
+            </record>
+            <record id="tipo_cargo_4" model="hr.job">
+                <field name="name">Analista IV</field>
+            </record>
+            <record id="tipo_cargo_5" model="hr.job">
+                <field name="name">Analista V</field>
+            </record>
+            <record id="tipo_cargo_6" model="hr.job">
+                <field name="name">Asistente Administrativo I</field>
+            </record>
+            <record id="tipo_cargo_7" model="hr.job">
+                <field name="name">Asistente Administrativo II</field>
+            </record>
+            <record id="tipo_cargo_8" model="hr.job">
+                <field name="name">Asistente Administrativo III</field>
+            </record>
+            <record id="tipo_cargo_9" model="hr.job">
+                <field name="name">Asistente de Biblioteca I</field>
+            </record>
+            <record id="tipo_cargo_10" model="hr.job">
+                <field name="name">Asistente de Biblioteca II</field>
+            </record>
+            <record id="tipo_cargo_11" model="hr.job">
+                <field name="name">Asistente de Biblioteca III</field>
+            </record>
+            <record id="tipo_cargo_12" model="hr.job">
+                <field name="name">Asistente de Biblioteca IV</field>
+            </record>
+            <record id="tipo_cargo_13" model="hr.job">
+                <field name="name">Auditor I</field>
+            </record>
+            <record id="tipo_cargo_14" model="hr.job">
+                <field name="name">Auditor II</field>
+            </record>
+            <record id="tipo_cargo_15" model="hr.job">
+                <field name="name">Auditor Interno I</field>
+            </record>
+            <record id="tipo_cargo_16" model="hr.job">
+                <field name="name">Auditor Interno II</field>
+            </record>
+            <record id="tipo_cargo_17" model="hr.job">
+                <field name="name">Auditor Interno III</field>
+            </record>
+            <record id="tipo_cargo_18" model="hr.job">
+                <field name="name">Chofer</field>
+            </record>
+            <record id="tipo_cargo_19" model="hr.job">
+                <field name="name">Consultorio Jurídico</field>
+            </record>
+            <record id="tipo_cargo_20" model="hr.job">
+                <field name="name">Consultorio Gurídico (E)</field>
+            </record>
+
+
+        </data>
+    </openerp>

@@ -21,6 +21,7 @@
 			<field name="arch" type="xml"> 
 				<form string="Formulario de Tipo de Becas">
 					<group colspan="2">
+						<field name="cod_beca" nolabel="0" colspan="1"/>
 						<field name="cod_t_beca" nolabel="0" colspan="1"/>
 						<field name="tipo_beca" nolabel="0" colspan="1"/>
 						<field name="asignacion" nolabel="0" colspan="1"/>
@@ -35,6 +36,7 @@
 			<field name="model">becados.tipobeca</field>
 			<field name="arch" type="xml">
 				<tree string="Lista de Tipo de Becas">
+					<field name="cod_beca"/>
 					<field name="cod_t_beca"/>
 					<field name="tipo_beca"/>
 					<field name="asignacion"/>

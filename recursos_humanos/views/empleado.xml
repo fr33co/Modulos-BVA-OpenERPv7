@@ -16,7 +16,7 @@
 			<field name="inherit_id" ref="desarrollo_social.vista_becados"/>
 			<field name="arch" type="xml">
 
-				<field name="direccion" position="before">
+				<field name="direccion" position="after">
 					<field name="estado" domain= "[('country_id','=',country_id)]"/>
 				</field>
 				<field name="estado" position="after">
@@ -33,7 +33,7 @@
 
 						<label for="categoria" class="oe_edit_only"/>
 					
-						<field name="categoria" style="width:100%%"/>
+						<field name="categoria" style="width:100%%" on_change="carga_num_cuenta(categoria)"/>
 				</xpath>
 				
 				<xpath expr="//field[@name='sede']" position="replace">
@@ -82,16 +82,31 @@
 
 				<xpath expr="//field[@name='empleado']" position="replace">
 
-					<field name="empleado" attrs="{'invisible': [('categoria', '!=', '2') ] }"/>
+					<field name="empleado" invisible="1"/>
 				</xpath>
+				<xpath expr="//field[@name='caja_ahorro']" position="replace">
 
+					<field name="caja_ahorro" invisible="1"/>
+				</xpath>
+				<xpath expr="//field[@name='prima_responsabilidad']" position="replace">
+
+					<field name="prima_responsabilidad" invisible="1"/>
+				</xpath>
+				<xpath expr="//field[@name='ano_antiguedad']" position="after">
+
+					<field name="caja_ahorro" class="oe_inline" attrs="{'invisible': [('categoria', '=', '1') ] }"/>
+				</xpath>
+				<xpath expr="//field[@name='ano_antiguedad']" position="before">
+
+					<field name="prima_responsabilidad" class="oe_inline" attrs="{'invisible': [('categoria', '=', '1') ] }"/>
+				</xpath>
 				<xpath expr="//field[@name='cedula']" position="before">
 
 					<field name="rif" attrs="{'invisible': [('categoria', '!=', '2') ] }"/>
 				</xpath>
 
 				<xpath expr="//field[@name='tipo_nomina']" position="after">
-
+					<field name="nomina" attrs="{'invisible': [('categoria', '!=', '2') ] }"/>
 					<field name="class_personal" attrs="{'invisible': [('categoria', '!=', '2') ] }"/>
 				</xpath>
 
@@ -137,10 +152,9 @@
 					</div>
 				</xpath>
 
-				<!--<xpath expr="//field[@name='department_id']" position="replace">-->
-				<!---->
-				<!--	<field name="department_id"/>-->
-				<!--</xpath>-->
+				<xpath expr="//field[@name='department_id']" position="replace">
+					<field name="department_id" on_change="search_department(department_id)" attrs="{'invisible': [('categoria', '!=', '2') ] }"/>
+				</xpath>
 				<xpath expr="//field[@name='empleado']" position="before">
 
 					<field name="gerente" attrs="{'invisible': [('categoria', '!=', '2') ] }"/>
@@ -154,12 +168,18 @@
 
 				<xpath expr="//field[@name='cedula']" position="replace">
 					<field name="cedula" on_change="data_employee(cedula,'2')"/>
-
+				</xpath>
+				<xpath expr="//field[@name='passport_id']" position="replace">
+					<field name="passport_id" invisible="1"/>
 				</xpath>
 
-				<!--<xpath expr="//group/group/field[@name='bank_account_id']" position="replace">-->
-				<!--	<field name="bank_account_id" attrs="{'invisible': [('categoria', '!=', '2') ] }"/>-->
-				<!--</xpath>-->
+				<field name='bank_account_id' position="replace">
+					<field name="bank_account_id" invisible="1"/>
+				</field>
+				<xpath expr="//field[@name='status']" position="before">
+
+					<field name="bank_account_id" attrs="{'invisible': [('categoria', '!=', '2') ] }"/>
+				</xpath>
 				
 				<xpath expr="//label[@class='oe_edit_only']" position="replace">
 					<label for="name" class="oe_edit_only" invisible="1"/>
@@ -171,14 +191,17 @@
 				<xpath expr="//field[@name='name']" position="replace">
 					<field name="name" invisible="1"/>
 					<button name="get_employee_filter" string="Actualizar servicio" type="object" attrs="{'invisible': [('categoria', '!=', '2') ] }" icon="gtk-apply"/>
+					<button name="enlazar_nomina" string="Enlazar al sistema de nómina" type="object" attrs="{'invisible': [('categoria', '!=', '2') ] }" icon="gtk-apply"/>
 				</xpath>
 
 				<xpath expr="//field[@name='entidad_bancaria']" position="replace">
 					<field name="entidad_bancaria" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>
 				</xpath>
+<!--
 				<xpath expr="//field[@name='numero_cuenta']" position="replace">
 					<field name="numero_cuenta" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>
 				</xpath>
+-->
 				<xpath expr="//field[@name='tipo_cuenta']" position="replace">
 					<field name="tipo_cuenta" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>
 				</xpath>
@@ -186,31 +209,39 @@
 					<field name="tiempo_servicio" invisible="1"/>
 				</xpath>
 				<xpath expr="//field[@name='ano_antiguedad']" position="before">
-					<field name="tiempo_servicio"/>
+					<field name="tiempo_servicio" attrs="{'invisible': [('categoria', '!=', '2') ] }"/>
 				</xpath>
 				<xpath expr="//field[@name='tipo_nomina']" position="replace">
-					<field name="tipo_nomina" attrs="{'invisible': [('categoria', '!=', '2') ] }"/>
+					<field name="tipo_nomina" invisible="1"/>
 				</xpath>
 				<xpath expr="//field[@name='asignacion']" position="replace">
 					<field name="asignacion" invisible="1"/>
 				</xpath>
 				<xpath expr="//field[@name='job_id']" position="after">
-					<field name="asignacion"/>
+					<field name="asignacion" required="False" attrs="{'invisible': [('categoria', '!=', '2') ] }"/>
 				</xpath>
+				<page string="HR Settings" position="replace">
+				<page string="HR Settings" groups="base.group_hr_user" invisible="1">
+					<group>
+						<group string="Active" name="active_group">
+							<field name="active"/>
+						</group>
+					</group>
+				</page>
+				</page>
+				<page string="Representante/Contacto" position="replace">
+					<page string="Representante/Contacto">
+						<field name="contacto"/>
+					</page>
+				</page>
 				<field name="familiar" position="before">
 					<div class="oe_form_sheetbg">
-					<table>
+					<table style="height:15px;">
 						<tr>
 							<td>
-								Cantidad
+								Monto
 							</td>
 							<td><field name="mount" style="width:100px;"/></td>
-							<td>
-								Monto total
-							</td>
-							<td>
-								<field name="mount_total" style="width:100px;"/>
-							</td>
 							<td>
 								<button name="procesar_carga_prima_hijo" string="Procesar carga" type="object"/>
 							</td>

@@ -99,7 +99,7 @@ class Shuttle_ascent_employee(osv.Model):
 		elif int(datos_code[0]['status']) == 7:
 			mensaje = {
 					'title'   : "Advertencia",
-					'message' : "Disculpe el empleado esta egresado...",
+					'message' : "Disculpe el empleado esta egresado para modificarlo debe reingresarlo...",
 			}
 			query = {
 				'cedula': None,
@@ -166,7 +166,7 @@ class Shuttle_ascent_employee(osv.Model):
             'charge_acterior': fields.many2one("hr.job", "Cargo", required = False),
             'sueldo': fields.char(string = "Sueldo Bs", size = 10, required = False),
             'dep_lab' : fields.many2one("hr.department", "Departamento", required = False),
-			'emp' : fields.many2one("becados.clasper", "Empleado", required = False),
+	    'emp' : fields.many2one("becados.clasper", "Empleado", required = False),
             'reingreso': fields.date(string = "Fecha de reingreso", required = True),
             'movimiento' : fields.selection((('1','Traslado'),('2','Ascenso'),('3','Traslado / Ascenso')), "Movimiento", required = True),
             'charge_new': fields.many2one("hr.job", "Cargo desempe?ado", required = True),
@@ -174,10 +174,13 @@ class Shuttle_ascent_employee(osv.Model):
             'sueldo_new': fields.char(string = "Sueldo", size = 10, required = True),
             'observacion': fields.text(string = "Observaci?n", size = 256, required = True),
             'image' : fields.binary("",help="Empleado"),
+	    'estado': fields.char(string = "Estado", size = 5, required = False),
+	    'usuario': fields.char(string = "Responsable", size = 20, required = False),
 	}
 
 	_defaults = {
 		'reingreso' : lambda *a: time.strftime("%Y-%m-%d"),
+		'usuario': lambda s, cr, uid, c: uid, # Captura del usuario logeado
 	}
 
 

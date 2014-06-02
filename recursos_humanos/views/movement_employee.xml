@@ -15,84 +15,240 @@
 	    <field name="arch" type="xml">
 		<form string="Asignación de movimiento a empleados" version="7.0">
 		    <fielset>
-			<div style="width:950px;" class="oe_horizontal_separator">Datos del empleado (Nómina Regular)</div>
-			<table style="width:950px;" border="0">
+			<div style="width:950px;" class="oe_horizontal_separator">Datos del empleado 
+				(
+				Nómina
+				<font color="red" attrs="{'invisible': [('nomina_admin', '!=', 1)]}">Regular</font>
+				<font color ="green" attrs="{'invisible': [('nomina_admin', '!=', 3)]}">Vacaciones</font>
+				)
+			</div>
+			<table style="width:950px;" border="0" CELLPADDING="5" CELLSPACING="5">
 			    <tr>
-				<td><b>Cédula</b></td>
-				<td><field name="cedula" style="width:100px;" on_change="data_employee(cedula)"/></td>
-				<td><b>Fecha de ingreso</b></td>
-				<td><field name="date_ingreso"/></td>
-				<td><b>Fecha de egreso</b></td>
-				<td><field name="date_egreso"/></td>
-			    </tr>
-			    <tr style="text-align:center;">
-				<td>
-				    <b>cargo anterior</b>
+				<td rowspan="5">
+				    <field name="image" widget="image" class="oe_left oe_avatar" nolabel="0" readonly="1"/>
+				</td>
+				<td style="width:150px;">
+				    <b>Nómina Administrativa</b>
 				</td>
 				<td>
-				    <field name="charge_acterior" widget="selection"/>
+				    <field name="nomina_admin" widget="selection" readonly="0"/>
+				</td>
+				<td>
+				    <b>Estátus</b>
+				</td>
+				<td>
+				    <field name="status" readonly="1"/>
+				</td>
+			    </tr>
+			    <tr>
+				<td style="width:150px;"><b>Cédula</b></td>
+				<td><!--on_change="data_employee(cedula)"-->
+				    <field name="cedula" style="width:100px;border-color:white;" readonly="1"/>
+				    <button name="buscar" string="Actualizar" type="object"/>
+				</td>
+				<td style="width:150px;"><b>Fecha de ingreso</b></td>
+				<td>
+				    <field name="date_ingreso" readonly="1"/>
+				    <field name="id" invisible="1"/>
+				</td>
+			    </tr>
+			    <tr style="text-align:center;">
+				<td style="width:150px;">
+				    <b>Cargo actual</b>
+				</td>
+				<td>
+				    <field name="charge_acterior" widget="selection" readonly="1"/>
 				</td>
 				<td>
 				    <b>Nombres</b>
 				</td>
 				<td>
-				    <field name="nombres"/>
-				</td>
-				<td>
-				    <b>Estatus</b>
-				</td>
-				<td>
-				    <field name="status"/>
+				    <field name="nombres" readonly="1"/>
 				</td>
 			    </tr>
 			    <tr>
-				<td><b>Empleado</b></td>
-				<td><field name="emp" widget="selection"/></td>
-				<td><b>Sueldo</b></td>
-				<td><field name="sueldo"/></td>
-				<td><b>Dependencia</b></td>
-				<td><field name="dep_lab" widget="selection"/></td>
+				<td style="width:150px;"><b>Empleado</b></td>
+				<td><field name="emp" widget="selection" readonly="1"/></td>
+				<td><b>Sueldo Bs</b></td>
+				<td><field name="sueldo" class="titulo" readonly="1"/></td>
 			    </tr>
+			    <tr>
+				<td style="width:150px;"><b>Dependencia</b></td>
+				<td><field name="dep_lab" widget="selection" readonly="1"/></td>
+				<td><b>Año de servicio</b></td>
+				<td><field name="ano_servicio" readonly="1"/></td>
+			    </tr>
+			</table>
+			<table style="width:950px;" border="0" CELLPADDING="5" CELLSPACING="5">
 			    <tr>
 				<td colspan="6">
 				    <div style="width:950px;" class="oe_horizontal_separator">
-					Movimientos(s) Asignados(s) en la nómina
+					Detalles del movimiento de la Nómina
 				    </div>
 				</td>
 			    </tr>
 			    <tr>
-				<td><b>Fecha de reingreso</b></td>
-				<td><field name="reingreso"/></td>
-				<td><b>Tipo nomina</b></td>
-				<td><field name="payslip" widget="selection"/></td>
-				<td><b>Empleado</b></td>
-				<td><field name="emp_egre" widget="selection"/></td>
+				<td><b>Código</b></td>
+				<td><field name="codigo" on_change="search_concepto(codigo,'1')"/></td>
+				<td>
+				    <b>Consulta</b>
+				</td>
+				<td>
+				    <field name="consulta" widget="selection" on_change="search_concepto(consulta,'2')"/>
+				</td>
 			    </tr>
 			    <tr>
-				<td><b>Cargo desempeñado</b></td>
-				<td><field name="charge_new" widget="selection" on_change="search_hr_data(charge_new,'1')"/></td>
-				<td><b>Departamento</b></td>
-				<td><field name="dep_new" widget="selection"/></td>
-				<td><b>Sueldo</b></td>
-				<td><field name="sueldo_new"/></td>
+				<td><b>Frecuencia</b></td>
+				<td><field name="frecuencia"/></td>
+				<td attrs="{'invisible': [('codigo', '!=', '104'),('codigo', '!=', '243'),('codigo', '!=', '107'),('codigo', '!=', '208'),('codigo', '!=', '181'),('codigo', '!=', '210'),('codigo', '!=', '249'),('codigo', '!=', '168'),('codigo', '!=', '154'),('codigo', '!=', '303'),('codigo', '!=', '304'),('codigo', '!=', '305'),('codigo', '!=', '306'),('codigo', '!=', '509'),('codigo', '!=', '605'),('codigo', '!=', '606'),('codigo', '!=', '607'),('codigo', '!=', '608'),('codigo', '!=', '519'),('codigo', '!=', '604'),('codigo', '!=', '908'),('codigo', '!=', '185')] }">
+				    <b>Monto en Bs</b>
+				</td>
+				<td attrs="{'invisible': [('codigo', '!=', '126'),('codigo', '!=', '142')] }">
+				    <b>Bono</b>
+				</td>
+				<td attrs="{'invisible': [('codigo', '!=', '502'),('codigo', '!=', '561'),('codigo', '!=', '514'),('codigo', '!=', '562')]}">
+					<b>Cant lunes</b>
+				</td>
+				<td attrs="{'invisible': [('codigo', '!=', '104'),('codigo', '!=', '243'),('codigo', '!=', '107'),('codigo', '!=', '208'),('codigo', '!=', '181'),('codigo', '!=', '210'),('codigo', '!=', '249'),('codigo', '!=', '168'),('codigo', '!=', '154'),('codigo', '!=', '303'),('codigo', '!=', '304'),('codigo', '!=', '305'),('codigo', '!=', '306'),('codigo', '!=', '509'),('codigo', '!=', '605'),('codigo', '!=', '606'),('codigo', '!=', '607'),('codigo', '!=', '608'),('codigo', '!=', '519'),('codigo', '!=', '604'),('codigo', '!=', '908'),('codigo', '!=', '502'),('codigo', '!=', '561'),('codigo', '!=', '514'),('codigo', '!=', '562'),('codigo', '!=', '185')] }">
+				    <field name="monto"/>
+				</td>
+				<td attrs="{'invisible': [('codigo', '!=', '008'),('codigo', '!=', '009'),('codigo', '!=', '101'),('codigo', '!=', '103'),('codigo', '!=', '125'),('codigo', '!=', '134'),('codigo', '!=', '143'),('codigo', '!=', '150'),('codigo', '!=', '151'),('codigo', '!=', '456'),('codigo', '!=', '102'),('codigo', '!=', '182'),('codigo', '!=', '462'),('codigo', '!=', '903'),('codigo', '!=', '183'),('codigo', '!=', '184'),('codigo', '!=', '149') ] }">
+				    <b>Fórmula</b>
+				</td>
+				<td attrs="{'invisible': [('codigo', '!=', '008'),('codigo', '!=', '009'),('codigo', '!=', '101'),('codigo', '!=', '103'),('codigo', '!=', '125'),('codigo', '!=', '134'),('codigo', '!=', '143'),('codigo', '!=', '150'),('codigo', '!=', '151'),('codigo', '!=', '456'),('codigo', '!=', '102'),('codigo', '!=', '182'),('codigo', '!=', '462'),('codigo', '!=', '903'),('codigo', '!=', '183'),('codigo', '!=', '184'),('codigo', '!=', '149') ] }">
+				    <field name="formula"/>
+				</td>
 			    </tr>
 			    <tr>
-				<td><b>Descripción</b></td>
-				<td colspan="6">
-				    <field name="observacion"/>
+				<td attrs="{'invisible': [('codigo', '!=', '008'),('codigo', '!=', '009'),('codigo', '!=', '101'),('codigo', '!=', '103'),('codigo', '!=', '125'),('codigo', '!=', '134'),('codigo', '!=', '143'),('codigo', '!=', '150'),('codigo', '!=', '151'),('codigo', '!=', '456'),('codigo', '!=', '102'),('codigo', '!=', '182'),('codigo', '!=', '462'),('codigo', '!=', '903'),('codigo', '!=', '148'),('codigo', '!=', '183'),('codigo', '!=', '184'),('codigo', '!=', '149') ] }">
+				    <b>Cant</b>
+				</td>
+				<td attrs="{'invisible': [('codigo', '!=', '008'),('codigo', '!=', '009'),('codigo', '!=', '101'),('codigo', '!=', '103'),('codigo', '!=', '125'),('codigo', '!=', '134'),('codigo', '!=', '143'),('codigo', '!=', '150'),('codigo', '!=', '151'),('codigo', '!=', '456'),('codigo', '!=', '102'),('codigo', '!=', '182'),('codigo', '!=', '462'),('codigo', '!=', '903'),('codigo', '!=', '148'),('codigo', '!=', '183'),('codigo', '!=', '184'),('codigo', '!=', '149') ] }">
+				    <field name="cant_dias"/>
+				    <field name="filtro" invisible="1"/>
+				</td>
+				<td attrs="{'invisible': [('codigo', '!=', '008'),('codigo', '!=', '009'),('codigo', '!=', '101'),('codigo', '!=', '103'),('codigo', '!=', '125'),('codigo', '!=', '134'),('codigo', '!=', '143'),('codigo', '!=', '150'),('codigo', '!=', '151'),('codigo', '!=', '456'),('codigo', '!=', '102'),('codigo', '!=', '182'),('codigo', '!=', '462'),('codigo', '!=', '903'),('codigo', '!=', '149') ] }">
+				    <b>Cant</b>
+				</td>
+				<td attrs="{'invisible': [('codigo', '!=', '183'),('codigo', '!=', '184') ] }">
+				    <b>Nro de dias</b>
+				</td>
+				<td>
+				    <field name="cant_horas" style="width:470px;" attrs="{'invisible': [('codigo', '!=', '008'),('codigo', '!=', '009'),('codigo', '!=', '101'),('codigo', '!=', '103'),('codigo', '!=', '125'),('codigo', '!=', '134'),('codigo', '!=', '143'),('codigo', '!=', '150'),('codigo', '!=', '151'),('codigo', '!=', '456'),('codigo', '!=', '102'),('codigo', '!=', '182'),('codigo', '!=', '462'),('codigo', '!=', '903'),('codigo', '!=', '183'),('codigo', '!=', '184'),('codigo', '!=', '149') ] }"/>
+				    <font style="color:white;">---</font>
 				</td>
 			    </tr>
 			    <tr>
 				<td>
-				    <button name="process_reingreso" type="object" string="Procesar" confirm="¿Desea realizar el cambio del reingreso del empleado?" icon="gtk-apply" class="oe_highlight"/>
+				    <button name="calculo_asig" string="Calcular" type="object"/>
+				</td>
+				<td>
+				    <button name="resetear" string="Resetear" type="object"/>
 				</td>
 			    </tr>
-			</table>
+			    </table>
+			    <div attrs="{'invisible': [('filtro', '!=', '1')]}">
+			    <div class="mensaje">
+				 <b>El concepto ya esta asignado, intente de nuevo...</b>
+			    </div>
+			    </div>
+			    <table style="width:950px;" border="0" attrs="{'invisible': [('nomina_admin', '!=', 1),('nomina_admin', '!=', 3)]}">
+				<tr>
+				    <td colspan="6">
+					<div style="width:950px;" class="oe_horizontal_separator">
+					    Movimientos(s) Asignados(s) en la Nómina
+					</div>
+				    </td>
+				</tr>
+				<!--====================================================================================================-->
+									<!--Estructuras one2many-->
+				<!--====================================================================================================-->
+				<tr>
+				    <td colspan="6">
+					<!--Estructuracion tree many2one-->
+					    <table>
+						<tr>
+						    <td>
+							<div class="oe_form_sheetbg" style="height:25px;">
+							<div style="float:left" attrs="{'invisible': [('nomina_admin', '!=', 1),('nomina_admin', '!=', 3)]}">
+							    <b><font style="color:#A91919;">Código</font></b>
+							    <font style="color:white;">--</font>
+							</div>
+							<div style="float:left;width:90px;">
+							    <field name="codigo_delete" attrs="{'invisible': [('nomina_admin', '!=', 1)]}"/>
+							    <field name="codigo_delete_vac" attrs="{'invisible': [('nomina_admin', '!=', 3)]}"/>
+							</div>
+							<div style="float:left;width:90px;">
+							    <button name="borrar" string="Borrar" type="object" attrs="{'invisible': [('nomina_admin', '!=', 1)]}"/>
+							    <button name="borrar" string="Borrar" type="object" attrs="{'invisible': [('nomina_admin', '!=', 3)]}"/>
+							</div>
+							</div>
+							<div class="div_scroll_asid_dec" attrs="{'invisible': [('nomina_admin', '!=', 1)]}">
+							    <field name="movement_ids" readonly="1">
+								<tree string="" colors="#192ED2:filtro=='1';#A91919:filtro=='2';" version="7.0">
+								 <field name="cedula"/>
+								<field name="cod"/>
+								<field name="frecuencia"/>
+								<field name="descripcion"/>
+								<field name="cantidad" string="Cant"/>
+								<field name="asignacion" string="Percepciónes"/>
+								<field name="deduccion" string="Deducciones"/>
+								<field name="filtro" invisible="1"/>
+								<!--<field name="saldo"/>-->
+								</tree>
+							    </field>
+							</div>
+							<div class="div_scroll_asid_dec" attrs="{'invisible': [('nomina_admin', '!=', 3)]}">
+							    <field name="vacaciones_ids" readonly="1">
+								<tree string="" colors="#192ED2:filtro=='1';#A91919:filtro=='2';" version="7.0" editable="bottom">
+								 <field name="cedula"/>
+								<field name="cod"/>
+								<field name="frecuencia"/>
+								<field name="descripcion"/>
+								<field name="cantidad" string="Cant"/>
+								<field name="asignacion" string="Percepciónes"/>
+								<field name="deduccion" string="Deducciones"/>
+								<field name="filtro" invisible="1"/>
+								<!--<field name="saldo"/>-->
+								</tree>
+							    </field>
+							</div>
+
+						    </td>
+						</tr>
+						<tr>
+						    <td>
+							<div class="oe_form_sheetbg" style="height:25px;">
+							    <div style="float:left">
+								<b><font style="color:#A91919;">Monto a Cobrar</font></b>
+								<font style="color:white;">--</font>
+							    </div>
+							    <div style="float:left;width:90px;">
+								<field name="monto_c" readonly="1" attrs="{'invisible': [('nomina_admin', '!=', 1)]}"/>
+								<field name="monto_c_vac" readonly="1" attrs="{'invisible': [('nomina_admin', '!=', 3)]}"/>
+							    </div>
+							    
+							    <div style="float:left; margin-left:410px;text-align:center;">
+								<font style="color:#195DA9;"><b>+</b></font>
+								<field name="monto_asignacion" style="width:90px;" readonly="1" attrs="{'invisible': [('nomina_admin', '!=', 1)]}"/>
+								<field name="monto_asignacion_vac" style="width:90px;" readonly="1" attrs="{'invisible': [('nomina_admin', '!=', 3)]}"/>
+								<font style="color:white;">-----------------</font>
+								<font style="color:#A91919;"><b>-</b></font>
+								<field name="monto_deduccion" style="width:90px;" readonly="1" attrs="{'invisible': [('nomina_admin', '!=', 1)]}"/>
+								<field name="monto_deduccion_vac" style="width:90px;" readonly="1" attrs="{'invisible': [('nomina_admin', '!=', 3)]}"/>
+							    </div>
+							</div>
+						    </td>
+						</tr>
+					    </table>
+				    </td>
+				</tr>
+				<!--====================================================================================================-->
+			    </table>
 		    </fielset>
 		</form>
 	    </field>
 	</record>
-
 	<!-- Forma de busqueda para concepto-->
 	<!--<record model="ir.ui.view" id="search_concepts">
 		<field name="name">Actualización de reingreso de empleados.search</field>
@@ -107,25 +263,23 @@
 		    </search>
 		</field>
 	</record>-->
-
-	<record model="ir.ui.view" id="movement_employee_tree">
+	 <record model="ir.ui.view" id="movement_employee_tree">
 	<field name="name">Actualización de reingreso de empleados.tree</field>
 	<field name="model">hr.movement.employee</field>
 	<field name="arch" type="xml">
-	    <tree string="Lista de reingreso de empleados">
+	    <tree string="Lista de movimientos de empleados">
 		<field name="cedula"/>
-		<field name="nombres"/>
 		<field name="date_ingreso"/>
-		<field name="date_egreso"/>
-		<field name="payslip"/>
-		<field name="charge_new"/>
-		<field name="observacion"/>
+		<field name="ano_servicio"/>
+		<field name="charge_acterior"/>
+		<field name="nombres"/>
+		<field name="emp"/>
+		<field name="dep_lab"/>
+		<field name="sueldo"/>
 		<field name="status"/>
 	    </tree>
 	</field>
-        </record>
-
+        </record> 
         <menuitem parent="recursos_humanos_main" id="sub_menu_movement_employee" action="action_movement_employee" name="Asignación de movimiento a empleados" sequence="2"/>
-
     </data>
 </openerp>

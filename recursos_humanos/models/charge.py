@@ -13,6 +13,7 @@ class Cargo_empleado(osv.Model):
 	_inherit = 'hr.job'
 
 	_columns = {
+		'cod' : fields.char(string="Código", size = 20),
 		'asignacion' : fields.char(string="Asignacion", size = 20),
 
 	}

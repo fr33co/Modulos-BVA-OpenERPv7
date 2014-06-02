@@ -39,7 +39,9 @@
 			</field>
 		</record>
 		
+<!--
 		<menuitem id="menu_ejes" name="Ejes" parent="menu_principal_mantenimiento" action="accion_lista_ejes"/>
+-->
 			
 	</data>
 	

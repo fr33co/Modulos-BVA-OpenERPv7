@@ -10,8 +10,11 @@ from openerp.tools.translate import _
 from openerp.osv import fields, osv
 import base64#Necesario para la generación del .txt
 from xml.etree.ElementTree import Element, SubElement, ElementTree, tostring#Necesario para la generación del .xsl
-from fpdf import FPDF
-import fpdf
+#~ from fpdf import FPDF
+#~ import fpdf
+import res_concept
+import res_nom
+import nom_detallado
 import pdf_nominas
 import xlwt
 import unicodedata
@@ -130,10 +133,12 @@ class NominaBecados(osv.Model):
 				#~ print nomina.id
 				
 				if contador <= 0:
-					obj_proceso_nomina.unlink(cr, uid, nomina.id, context=None)
-					# Revisar: Hasta los momentos se actualiza la lista de nóminas individuales según el número de becados, 
-					#pero ocurre un error si no se ha guardado la nómina después de borrar un becado de la lista y se intenta generar de nuevo la nómina.
-
+					try:
+						obj_proceso_nomina.unlink(cr, uid, nomina.id, context=None)
+						# Revisar: Hasta los momentos se actualiza la lista de nóminas individuales según el número de becados, 
+						#pero ocurre un error si no se ha guardado la nómina después de borrar un becado de la lista y se intenta generar de nuevo la nómina.
+					except:
+						nomina
 
 	#Función para la generación de los reportes .txt y xsl de la pre-nómina----------------------------------------------------------	
 	def action_archivar_prenomina(self, cr, uid, ids, context):
@@ -181,30 +186,45 @@ class NominaBecados(osv.Model):
 						#Se construye la cabecera o título en base al banco, el año y el tipo de beca
 						cabecera = "TXT." + banc + "." + t_beca + "-" + mes.upper() + "-" + anyo + "\n"
 						
-						data = cabecera.rjust(65) + "HGOBERNACION DEL ESTADO ARAGUA    "+cuenta_gob+str(time.strftime("%d/%m/%y"),)+str(monto_deb).zfill(11)+"00"+"03291\n\n"
+						data = cabecera.rjust(65) + "HGOBERNACION DEL ESTADO ARAGUA           "+cuenta_gob+str(time.strftime("%d/%m/%y"),)+str(monto_deb).zfill(11)+"00"+"03291\n\n"
 						data1 = []
 						for becado in nomina.nomina_individual:
-							cuenta = str(becado.becado.numero_cuenta)
-							asign = int(becado.monto)
-							primer_nombre = self.elimina_tildes(becado.becado.primer_nombre.upper())
+							if not becado.becado.numero_cuenta:
+								cuenta = ""
+							else:
+								cuenta = str(becado.becado.numero_cuenta)
+							if not becado.monto:
+								asign = ""
+							else:
+								asign = int(becado.monto)
+							primer_nombre = self.elimina_tildes(becado.becado.primer_nombre.strip().upper())
 							if not becado.becado.segundo_nombre:
 								segundo_nombre = ""
 							else:
 								segundo_nombre = self.elimina_tildes(becado.becado.segundo_nombre[0].upper())
-							primer_apellido = self.elimina_tildes(becado.becado.primer_apellido.upper())
+							primer_apellido = self.elimina_tildes(becado.becado.primer_apellido.strip().upper())
 							if not becado.becado.segundo_apellido:
 								segundo_apellido = ""
 							else:
 								segundo_apellido = self.elimina_tildes(becado.becado.segundo_apellido[0].upper())
-							tipo_cuenta = becado.becado.tipo_cuenta
-							cedula = str(becado.becado.cedula).zfill(10)+"0" #Con zfill completamos la cédula con ceros a la izquierda hasta contar 10 dígitos en este caso 
+							if not becado.becado.tipo_cuenta:
+								tipo_cuenta = ""
+							else:
+								tipo_cuenta = becado.becado.tipo_cuenta
+							if not becado.becado.cedula:
+								cedula = ""
+							else:
+								cedula = str(becado.becado.cedula).zfill(10)+"0" #Con zfill completamos la cédula con ceros a la izquierda hasta contar 10 dígitos en este caso 
 							cod_stand = "03291"
 							ced_cod_stand = cedula+cod_stand
 							cod_stand2 = "770"
 							
-							part_1 = tipo_cuenta.ljust(0)+cuenta.ljust(0)+str(asign).zfill(9).ljust(0)+"00".ljust(0)+tipo_cuenta.ljust(0)+cod_stand2.ljust(0)+primer_apellido.ljust(9)+segundo_apellido.rjust(3)
-							part_2 = primer_nombre.center(9)+segundo_nombre.rjust(2)
-							part_3 = ced_cod_stand.rjust(26)
+							part_1 = tipo_cuenta.ljust(0)+cuenta.ljust(0)+str(asign).zfill(9).ljust(0)+"00".ljust(0)+tipo_cuenta.ljust(0)+cod_stand2.ljust(0)
+							part_2 = primer_apellido+" "+segundo_apellido+" "+primer_nombre+" "+segundo_nombre
+							
+							part_2 = part_2.ljust(40)
+							
+							part_3 = ced_cod_stand.rjust(5)
 							
 							datos = part_1+part_2+part_3+"\n\n"
 							
@@ -223,9 +243,21 @@ class NominaBecados(osv.Model):
 								datos1.append(segundo_nombre)
 							else:
 								datos1.append(self.elimina_tildes(becado.becado.segundo_nombre.upper()))
-							datos1.append(becado.monto)
-							datos1.append(becado.becado.numero_cuenta)
-							datos1.append(self.elimina_tildes(becado.becado.entidad_bancaria.banco.upper()))
+							if not becado.monto:
+								m = ""
+								datos1.append(m) 
+							else:
+								datos1.append(becado.monto)
+							if not becado.becado.numero_cuenta:
+								num_c = ""
+								datos1.append(num_c)
+							else:
+								datos1.append(becado.becado.numero_cuenta)
+							if not becado.becado.entidad_bancaria:
+								ent_banc = ""
+								datos1.append(ent_banc)
+							else:
+								datos1.append(self.elimina_tildes(becado.becado.entidad_bancaria.banco.upper()))
 							if not becado.becado.fecha_nacimiento:
 								f_nac = ""
 								datos1.append(f_nac)
@@ -245,19 +277,55 @@ class NominaBecados(osv.Model):
 								datos1.append(f_egreso)
 							else:
 								datos1.append(self.format_fecha(becado.becado.fecha_egreso))
-							datos1.append(becado.tipo_beca.id)
-							datos1.append(becado.tipo_beca.tipo_beca.upper())
+							if not becado.tipo_beca:
+								t_b_i = ""
+								cod_beca = ""
+								cod_t_beca = ""
+								t_b_n = ""
+								datos1.append(t_b_i)
+								datos1.append(cod_beca)
+								datos1.append(cod_t_beca)
+								datos1.append(t_b_n)
+							else:
+								datos1.append(becado.tipo_beca.id)
+								datos1.append(becado.tipo_beca.cod_beca)
+								datos1.append(becado.tipo_beca.cod_t_beca)
+								datos1.append(becado.tipo_beca.tipo_beca.upper())
 							if not becado.becado.sede.descripcion:
 								desc_sede = ""
 								datos1.append(desc_sede)
 							else:
 								datos1.append(self.elimina_tildes(becado.becado.sede.descripcion.upper()))
-							datos1.append(self.elimina_tildes(becado.becado.grado_instruccion.grado_instruc))
-							datos1.append(becado.becado.camisa)
-							datos1.append(becado.becado.pantalon)
-							datos1.append(becado.becado.zapato)
-							datos1.append(becado.becado.sexo)
-							datos1.append(becado.becado.edad)
+							if not becado.becado.grado_instruccion:
+								grado_i = ""
+								datos1.append(grado_i)
+							else:
+								datos1.append(self.elimina_tildes(becado.becado.grado_instruccion.grado_instruc))
+							if not becado.becado.camisa:
+								b_camisa = ""
+								datos1.append(b_camisa)
+							else:
+								datos1.append(becado.becado.camisa)
+							if not becado.becado.pantalon:
+								b_pantalon = ""
+								datos1.append(b_pantalon)
+							else:
+								datos1.append(becado.becado.pantalon)
+							if not becado.becado.zapato:
+								b_zapato = ""
+								datos1.append(b_zapato)
+							else:
+								datos1.append(becado.becado.zapato)
+							if not becado.becado.sexo:
+								b_sexo = ""
+								datos1.append(b_sexo)
+							else:
+								datos1.append(becado.becado.sexo)
+							if not becado.becado.edad:
+								b_edad = ""
+								datos1.append(b_edad)
+							else:
+								datos1.append(becado.becado.edad)
 							
 							if becado.becado.entidad_bancaria.banco == "Venezuela" and becado.becado.status == '1':
 								data = data + datos
@@ -271,7 +339,7 @@ class NominaBecados(osv.Model):
 					id_att = self.registro_archivo(cr, uid, id_nomina, tiponomina, tipobeca, mes, data, stage, context)
 					
 					#Ejecutamos el método de generación de reportes en PDF
-					#~ gen_pdf = self.generar_pdf(cr, uid, id_nomina, tiponomina, tipobeca, mes, data1, stage, context)
+					gen_pdf = self.generar_pdf(cr, uid, ids, id_nomina, tiponomina, tipobeca, mes, data1, stage, context)
 					
 					#Ejecutamos el método de generación de reportes en XLS
 					gen_xls = self.generar_xls(cr, uid, id_nomina, tiponomina, tipobeca, mes, data1, stage, context)
@@ -326,11 +394,17 @@ class NominaBecados(osv.Model):
 						#Se construye la cabecera o título en base al banco, el año y el tipo de beca
 						cabecera = "TXT." + banc + "." + t_beca + "-" + mes.upper() + "-" + anyo + "\n"
 						
-						data = cabecera.rjust(65) + "HGOBERNACION DEL ESTADO ARAGUA    "+cuenta_gob+str(time.strftime("%d/%m/%y"),)+str(monto_deb).zfill(11)+"00"+"03291\n\n"
+						data = cabecera.rjust(65) + "HGOBERNACION DEL ESTADO ARAGUA           "+cuenta_gob+str(time.strftime("%d/%m/%y"),)+str(monto_deb).zfill(11)+"00"+"03291\n\n"
 						data1 = []
 						for becado in nomina.nomina_individual:
-							cuenta = str(becado.becado.numero_cuenta)
-							asign = int(becado.monto)
+							if not becado.becado.numero_cuenta:
+								cuenta = ""
+							else:
+								cuenta = str(becado.becado.numero_cuenta)
+							if not becado.monto:
+								asign = ""
+							else:
+								asign = int(becado.monto)
 							primer_nombre = self.elimina_tildes(becado.becado.primer_nombre.upper())
 							if not becado.becado.segundo_nombre:
 								segundo_nombre = ""
@@ -341,15 +415,24 @@ class NominaBecados(osv.Model):
 								segundo_apellido = ""
 							else:
 								segundo_apellido = self.elimina_tildes(becado.becado.segundo_apellido[0].upper())
-							tipo_cuenta = becado.becado.tipo_cuenta
-							cedula = str(becado.becado.cedula).zfill(10)+"0" #Con zfill completamos la cédula con ceros a la izquierda hasta contar 10 dígitos en este caso 
+							if not becado.becado.tipo_cuenta:
+								tipo_cuenta = ""
+							else:
+								tipo_cuenta = becado.becado.tipo_cuenta
+							if not becado.becado.cedula:
+								cedula = ""
+							else:
+								cedula = str(becado.becado.cedula).zfill(10)+"0" #Con zfill completamos la cédula con ceros a la izquierda hasta contar 10 dígitos en este caso 
 							cod_stand = "03291"
 							ced_cod_stand = cedula+cod_stand
 							cod_stand2 = "770"
 							
-							part_1 = tipo_cuenta.ljust(0)+cuenta.ljust(0)+str(asign).zfill(9).ljust(0)+"00".ljust(0)+tipo_cuenta.ljust(0)+cod_stand2.ljust(0)+primer_apellido.ljust(9)+segundo_apellido.rjust(3)
-							part_2 = primer_nombre.center(9)+segundo_nombre.rjust(2)
-							part_3 = ced_cod_stand.rjust(26)
+							part_1 = tipo_cuenta.ljust(0)+cuenta.ljust(0)+str(asign).zfill(9).ljust(0)+"00".ljust(0)+tipo_cuenta.ljust(0)+cod_stand2.ljust(0)
+							part_2 = primer_apellido+" "+segundo_apellido+" "+primer_nombre+" "+segundo_nombre
+							
+							part_2 = part_2.ljust(40)
+							
+							part_3 = ced_cod_stand.rjust(5)
 							
 							datos = part_1+part_2+part_3+"\n\n"
 							
@@ -368,9 +451,21 @@ class NominaBecados(osv.Model):
 								datos1.append(segundo_nombre)
 							else:
 								datos1.append(self.elimina_tildes(becado.becado.segundo_nombre.upper()))
-							datos1.append(becado.monto)
-							datos1.append(becado.becado.numero_cuenta)
-							datos1.append(self.elimina_tildes(becado.becado.entidad_bancaria.banco.upper()))
+							if not becado.monto:
+								m = ""
+								datos1.append(m) 
+							else:
+								datos1.append(becado.monto)
+							if not becado.becado.numero_cuenta:
+								num_c = ""
+								datos1.append(num_c)
+							else:
+								datos1.append(becado.becado.numero_cuenta)
+							if not becado.becado.entidad_bancaria:
+								ent_banc = ""
+								datos1.append(ent_banc)
+							else:
+								datos1.append(self.elimina_tildes(becado.becado.entidad_bancaria.banco.upper()))
 							if not becado.becado.fecha_nacimiento:
 								f_nac = ""
 								datos1.append(f_nac)
@@ -390,19 +485,55 @@ class NominaBecados(osv.Model):
 								datos1.append(f_egreso)
 							else:
 								datos1.append(self.format_fecha(becado.becado.fecha_egreso))
-							datos1.append(becado.tipo_beca.id)
-							datos1.append(becado.tipo_beca.tipo_beca.upper())
+							if not becado.tipo_beca:
+								t_b_i = ""
+								cod_beca = ""
+								cod_t_beca = ""
+								t_b_n = ""
+								datos1.append(t_b_i)
+								datos1.append(cod_beca)
+								datos1.append(cod_t_beca)
+								datos1.append(t_b_n)
+							else:
+								datos1.append(becado.tipo_beca.id)
+								datos1.append(becado.tipo_beca.cod_beca)
+								datos1.append(becado.tipo_beca.cod_t_beca)
+								datos1.append(becado.tipo_beca.tipo_beca.upper())
 							if not becado.becado.sede.descripcion:
 								desc_sede = ""
 								datos1.append(desc_sede)
 							else:
 								datos1.append(self.elimina_tildes(becado.becado.sede.descripcion.upper()))
-							datos1.append(self.elimina_tildes(becado.becado.grado_instruccion.grado_instruc))
-							datos1.append(becado.becado.camisa)
-							datos1.append(becado.becado.pantalon)
-							datos1.append(becado.becado.zapato)
-							datos1.append(becado.becado.sexo)
-							datos1.append(becado.becado.edad)
+							if not becado.becado.grado_instruccion:
+								grado_i = ""
+								datos1.append(grado_i)
+							else:
+								datos1.append(self.elimina_tildes(becado.becado.grado_instruccion.grado_instruc))
+							if not becado.becado.camisa:
+								b_camisa = ""
+								datos1.append(b_camisa)
+							else:
+								datos1.append(becado.becado.camisa)
+							if not becado.becado.pantalon:
+								b_pantalon = ""
+								datos1.append(b_pantalon)
+							else:
+								datos1.append(becado.becado.pantalon)
+							if not becado.becado.zapato:
+								b_zapato = ""
+								datos1.append(b_zapato)
+							else:
+								datos1.append(becado.becado.zapato)
+							if not becado.becado.sexo:
+								b_sexo = ""
+								datos1.append(b_sexo)
+							else:
+								datos1.append(becado.becado.sexo)
+							if not becado.becado.edad:
+								b_edad = ""
+								datos1.append(b_edad)
+							else:
+								datos1.append(becado.becado.edad)
 							
 							if becado.becado.entidad_bancaria.banco == "Venezuela" and becado.becado.status == '1':
 								data = data + datos
@@ -416,7 +547,7 @@ class NominaBecados(osv.Model):
 					id_att = self.registro_archivo(cr, uid, id_nomina, tiponomina, tipobeca, mes, data, stage, context)
 					
 					#Ejecutamos el método de generación de reportes en PDF
-					#~ gen_pdf = self.generar_pdf(cr, uid, id_nomina, tiponomina, tipobeca, mes, data1, stage, context)
+					gen_pdf = self.generar_pdf(cr, uid, ids, id_nomina, tiponomina, tipobeca, mes, data1, stage, context)
 					
 					#Ejecutamos el método de generación de reportes en XLS
 					gen_xls = self.generar_xls(cr, uid, id_nomina, tiponomina, tipobeca, mes, data1, stage, context)
@@ -471,11 +602,17 @@ class NominaBecados(osv.Model):
 						#Se construye la cabecera o título en base al banco, el año y el tipo de beca
 						cabecera = "TXT." + banc + "." + t_beca + "-" + mes.upper() + "-" + anyo + "\n"
 						
-						data = cabecera.rjust(65) + "HGOBERNACION DEL ESTADO ARAGUA    "+cuenta_gob+str(time.strftime("%d/%m/%y"),)+str(monto_deb).zfill(11)+"00"+"03291\n\n"
+						data = cabecera.rjust(65) + "HGOBERNACION DEL ESTADO ARAGUA           "+cuenta_gob+str(time.strftime("%d/%m/%y"),)+str(monto_deb).zfill(11)+"00"+"03291\n\n"
 						data1 = []
 						for becado in nomina.nomina_individual:
-							cuenta = str(becado.becado.numero_cuenta)
-							asign = int(becado.monto)
+							if not becado.becado.numero_cuenta:
+								cuenta = ""
+							else:
+								cuenta = str(becado.becado.numero_cuenta)
+							if not becado.monto:
+								asign = ""
+							else:
+								asign = int(becado.monto)
 							primer_nombre = self.elimina_tildes(becado.becado.primer_nombre.upper())
 							if not becado.becado.segundo_nombre:
 								segundo_nombre = ""
@@ -486,15 +623,24 @@ class NominaBecados(osv.Model):
 								segundo_apellido = ""
 							else:
 								segundo_apellido = self.elimina_tildes(becado.becado.segundo_apellido[0].upper())
-							tipo_cuenta = becado.becado.tipo_cuenta
-							cedula = str(becado.becado.cedula).zfill(10)+"0" #Con zfill completamos la cédula con ceros a la izquierda hasta contar 10 dígitos en este caso 
+							if not becado.becado.tipo_cuenta:
+								tipo_cuenta = ""
+							else:
+								tipo_cuenta = becado.becado.tipo_cuenta
+							if not becado.becado.cedula:
+								cedula = ""
+							else:
+								cedula = str(becado.becado.cedula).zfill(10)+"0" #Con zfill completamos la cédula con ceros a la izquierda hasta contar 10 dígitos en este caso 
 							cod_stand = "03291"
 							ced_cod_stand = cedula+cod_stand
 							cod_stand2 = "770"
 							
-							part_1 = tipo_cuenta.ljust(0)+cuenta.ljust(0)+str(asign).zfill(9).ljust(0)+"00".ljust(0)+tipo_cuenta.ljust(0)+cod_stand2.ljust(0)+primer_apellido.ljust(9)+segundo_apellido.rjust(3)
-							part_2 = primer_nombre.center(9)+segundo_nombre.rjust(2)
-							part_3 = ced_cod_stand.rjust(26)
+							part_1 = tipo_cuenta.ljust(0)+cuenta.ljust(0)+str(asign).zfill(9).ljust(0)+"00".ljust(0)+tipo_cuenta.ljust(0)+cod_stand2.ljust(0)
+							part_2 = primer_apellido+" "+segundo_apellido+" "+primer_nombre+" "+segundo_nombre
+							
+							part_2 = part_2.ljust(40)
+							
+							part_3 = ced_cod_stand.rjust(5)
 							
 							datos = part_1+part_2+part_3+"\n\n"
 							
@@ -513,9 +659,21 @@ class NominaBecados(osv.Model):
 								datos1.append(segundo_nombre)
 							else:
 								datos1.append(self.elimina_tildes(becado.becado.segundo_nombre.upper()))
-							datos1.append(becado.monto)
-							datos1.append(becado.becado.numero_cuenta)
-							datos1.append(self.elimina_tildes(becado.becado.entidad_bancaria.banco.upper()))
+							if not becado.monto:
+								m = ""
+								datos1.append(m) 
+							else:
+								datos1.append(becado.monto)
+							if not becado.becado.numero_cuenta:
+								num_c = ""
+								datos1.append(num_c)
+							else:
+								datos1.append(becado.becado.numero_cuenta)
+							if not becado.becado.entidad_bancaria:
+								ent_banc = ""
+								datos1.append(ent_banc)
+							else:
+								datos1.append(self.elimina_tildes(becado.becado.entidad_bancaria.banco.upper()))
 							if not becado.becado.fecha_nacimiento:
 								f_nac = ""
 								datos1.append(f_nac)
@@ -535,19 +693,55 @@ class NominaBecados(osv.Model):
 								datos1.append(f_egreso)
 							else:
 								datos1.append(self.format_fecha(becado.becado.fecha_egreso))
-							datos1.append(becado.tipo_beca.id)
-							datos1.append(becado.tipo_beca.tipo_beca.upper())
+							if not becado.tipo_beca:
+								t_b_i = ""
+								cod_beca = ""
+								cod_t_beca = ""
+								t_b_n = ""
+								datos1.append(t_b_i)
+								datos1.append(cod_beca)
+								datos1.append(cod_t_beca)
+								datos1.append(t_b_n)
+							else:
+								datos1.append(becado.tipo_beca.id)
+								datos1.append(becado.tipo_beca.cod_beca)
+								datos1.append(becado.tipo_beca.cod_t_beca)
+								datos1.append(becado.tipo_beca.tipo_beca.upper())
 							if not becado.becado.sede.descripcion:
 								desc_sede = ""
 								datos1.append(desc_sede)
 							else:
 								datos1.append(self.elimina_tildes(becado.becado.sede.descripcion.upper()))
-							datos1.append(self.elimina_tildes(becado.becado.grado_instruccion.grado_instruc))
-							datos1.append(becado.becado.camisa)
-							datos1.append(becado.becado.pantalon)
-							datos1.append(becado.becado.zapato)
-							datos1.append(becado.becado.sexo)
-							datos1.append(becado.becado.edad)
+							if not becado.becado.grado_instruccion:
+								grado_i = ""
+								datos1.append(grado_i)
+							else:
+								datos1.append(self.elimina_tildes(becado.becado.grado_instruccion.grado_instruc))
+							if not becado.becado.camisa:
+								b_camisa = ""
+								datos1.append(b_camisa)
+							else:
+								datos1.append(becado.becado.camisa)
+							if not becado.becado.pantalon:
+								b_pantalon = ""
+								datos1.append(b_pantalon)
+							else:
+								datos1.append(becado.becado.pantalon)
+							if not becado.becado.zapato:
+								b_zapato = ""
+								datos1.append(b_zapato)
+							else:
+								datos1.append(becado.becado.zapato)
+							if not becado.becado.sexo:
+								b_sexo = ""
+								datos1.append(b_sexo)
+							else:
+								datos1.append(becado.becado.sexo)
+							if not becado.becado.edad:
+								b_edad = ""
+								datos1.append(b_edad)
+							else:
+								datos1.append(becado.becado.edad)
 							
 							if becado.becado.entidad_bancaria.banco == "Venezuela" and becado.becado.status == '1':
 								data = data + datos
@@ -561,7 +755,7 @@ class NominaBecados(osv.Model):
 					id_att = self.registro_archivo(cr, uid, id_nomina, tiponomina, tipobeca, mes, data, stage, context)
 					
 					#Ejecutamos el método de generación de reportes en PDF
-					#~ gen_pdf = self.generar_pdf(cr, uid, id_nomina, tiponomina, tipobeca, mes, data1, stage, context)
+					gen_pdf = self.generar_pdf(cr, uid, ids, id_nomina, tiponomina, tipobeca, mes, data1, stage, context)
 					
 					#Ejecutamos el método de generación de reportes en XLS
 					gen_xls = self.generar_xls(cr, uid, id_nomina, tiponomina, tipobeca, mes, data1, stage, context)
@@ -572,13 +766,26 @@ class NominaBecados(osv.Model):
 				
 	#Función para el registro de los archivos generados de la nómina-----------------------------------------------------------------
 	def registro_archivo(self, cr, uid, nomina, tipo_nomina, tipo_beca, mes, data, stage, context):
-		
+		#Preparación de la descripción del tipo de beca
+		if 'ESPECIAL' in tipo_beca:
+			#~ cod_beca = '50'
+			beca = 'BECA ESPECIAL'
+		elif 'SOCIAL' in tipo_beca:
+			#~ cod_beca = '10'
+			beca = 'BECA SOCIAL'
+		elif 'EXCELENCIA' in tipo_beca:
+			#~ cod_beca = '10'
+			beca = 'BECA EXCELENCIA'
+		else:
+			#~ cod_beca = '01'
+			beca = 'BECA CYBERGUÍA'
+				
 		#Generación del nombre del reporte
-		fecha = time.strftime('(%d-%m-%y)')
+		#~ fecha = time.strftime('(%d-%m-%y)')
 		#~ dia = time.strftime('%d')
-		#~ anyo = time.strftime('%Y')
+		anyo = time.strftime('%Y')
 		#~ fecha = dia+"-"+mes+"-"+anyo
-		nombre_archivo = str(stage) + "-" + self.elimina_tildes(tipo_nomina) + "-" + mes + "-" + fecha +'.'+ 'txt'
+		nombre_archivo = "TXT.VZLA." + self.elimina_tildes(beca.decode("UTF-8").upper()) + "-" + mes.upper() + "-" + anyo +'.'+ 'txt'
 		
 		#Registro del .txt
 		id_att = self.pool.get('ir.attachment').create(cr, uid, {
@@ -586,7 +793,7 @@ class NominaBecados(osv.Model):
 			'name': nombre_archivo,
 			'stage': stage,
 			'tipo_nomina': tipo_nomina,
-			'tipo_beca': tipo_beca,
+			'tipo_beca': beca,
 			'nombre': nombre_archivo,
 			'res_name': nombre_archivo,
 			'datas': base64.encodestring(data),
@@ -597,80 +804,119 @@ class NominaBecados(osv.Model):
 		
 		
 	#Fucnión para la generación de reportes en PDF de la nómina
-	def generar_pdf(self, cr, uid, nomina, tipo_nomina, tipo_beca, mes, data1, stage, context):
-		regs = len(data1)
-		#~ print "Cantidad de registros: "+str(regs)+"\n"
-		#~ print data1
-		#~ print "\n"
-		#~ for reg in data1:
-			#~ print reg
-			#~ print "\n"
+	def generar_pdf(self, cr, uid, ids, nomina, tipo_nomina, tipo_beca, mes, data1, stage, context):
+		#Datos------------------------------------------------------------------
+		id_nom = nomina
+		nom = tipo_nomina
+		
+		#Preparación de la descripción del tipo de beca
+		if 'ESPECIAL' in tipo_beca:
+			#~ cod_beca = '50'
+			beca = 'BECA ESPECIAL'
+		elif 'SOCIAL' in tipo_beca:
+			#~ cod_beca = '10'
+			beca = 'BECA SOCIAL'
+		elif 'EXCELENCIA' in tipo_beca:
+			#~ cod_beca = '02'
+			beca = 'BECA EXCELENCIA'
+		else:
+			#~ cod_beca = '01'
+			beca = 'BECA CYBERGUÍA'
+		
+		#Captura del periodo de la nómina
+		browse_id = self.browse(cr, uid, ids, context=None)
+		for x_browse_id in browse_id:#Recorrer el arreglo para seleccionar el campo necesario
+			periodo_ini = self.format_fecha(x_browse_id.inicio_periodo) #Leer el periodo de inicio de la nómina
+			periodo_fin = self.format_fecha(x_browse_id.fin_periodo) #Leer el periodo de fin de la nómina
+		#Datos------------------------------------------------------------------
+		
+		#Opción a ejecutar------------------------------------------------------
+		opc = ""
+
+		if opc == 1:
+			res_concept.gen_res_bank(cr, uid, id_nom, nom, periodo_ini, periodo_fin, tipo_beca, mes, stage, context)
+		elif opc == 2:
+			res_nom.gen_res_nom(cr, nom, periodo_ini, periodo_fin, tipo_beca, mes, data1)
+		elif opc == 3:
+			nom_detallado.gen_detallado(cr, uid, id_nom, nom, periodo_ini, periodo_fin, tipo_beca, mes, data1, stage, context)
+		else:
+			#Obtención de los valores retornados por la función que genera el archivo	de reporte de resumen de conceptos
+			nom1, archivo1 = res_concept.gen_res_bank(cr, uid, id_nom, nom, periodo_ini, periodo_fin, tipo_beca, mes, data1, stage, context)
+			#Registro del archivo de reporte en la base de datos
+			id_att = self.pool.get('ir.attachment').create(cr, uid, {
+				'nomina': nomina, 
+				'name': nom1,
+				'stage': stage,
+				'tipo_nomina': tipo_nomina,
+				'tipo_beca': beca,
+				'nombre': nom1,
+				'res_name': nom1,
+				'datas': base64.encodestring(archivo1.read()),
+				'datas_fname': nom1,
+				'res_model': 'becados.nomina',
+				}, context=context)
+				
+				
+			#Obtención de los valores retornados por la función que genera el archivo	de reporte de resumen de nomina	
+			nom2, archivo2 = res_nom.gen_res_nom(cr, nom, periodo_ini, periodo_fin, tipo_beca, mes, data1)
+			#Registro del archivo de reporte en la base de datos
+			id_att = self.pool.get('ir.attachment').create(cr, uid, {
+				'nomina': nomina, 
+				'name': nom2,
+				'stage': stage,
+				'tipo_nomina': tipo_nomina,
+				'tipo_beca': beca,
+				'nombre': nom2,
+				'res_name': nom2,
+				'datas': base64.encodestring(archivo2.read()),
+				'datas_fname': nom2,
+				'res_model': 'becados.nomina',
+				}, context=context)
+				
 			
-		pdf = FPDF(orientation='P',unit='mm',format='A4') #Da error si intento llamar a la clase PDF() importada desde pdf_nominas en vez de FPDF()
-		pdf.add_page()
-		pdf.set_font('Arial','B',16)
-		pdf.cell(15,10,'Codigo')
-		pdf.cell(40,10,'Becado')
-		pdf.cell(40,10,'Anyo')
-		pdf.cell(40,10,'Mes')
-		pdf.cell(40,10,'Tipo de Beca')
-		pdf.cell(40,10,'Asignacion')
-		pdf.ln()
-		
-		#~ i = 0
-		
-		for linea in data1:
-			#~ print i
-			#Probar con los datos que vienen en data1 y verificar por qué se muestra desde 'prueba2'
-			pdf.cell(15,10,'prueba1')
-			pdf.cell(40,10,'prueba2')
-			pdf.cell(40,10,'prueba3')
-			pdf.cell(40,10,'prueba4')
-			pdf.cell(40,10,'prueba5')
-			pdf.cell(40,10,'prueba6')
-			pdf.ln()
-
-			#~ i = i +1
-		#Generación del nombre del reporte
-		fecha = time.strftime('(%d-%m-%y)')
-		#~ dia = time.strftime('%d')
-		#~ anyo = time.strftime('%Y')
-		#~ fecha = dia+"-"+mes+"-"+anyo
-		nombre_archivo = str(stage) + "-" + self.elimina_tildes(tipo_nomina) + "-" + mes + "-" + fecha +'.'+ 'pdf'
-		
-		#Guardar reporte en una ruta específica
-		pdf.output('openerp/addons/desarrollo_social/reportes/nominas/'+nombre_archivo,'F')
-		
-		#Abrir el archivo del reporte para poder registrarlo
-		archivo = open('openerp/addons/desarrollo_social/reportes/nominas/'+nombre_archivo)
-		
-		#Registro del archivo de reporte en la base de datos
-		id_att = self.pool.get('ir.attachment').create(cr, uid, {
-			'nomina': nomina, 
-			'name': nombre_archivo,
-			'stage': stage,
-			'tipo_nomina': tipo_nomina,
-			'tipo_beca': tipo_beca,
-			'nombre': nombre_archivo,
-			'res_name': nombre_archivo,
-			'datas': base64.encodestring(archivo.read()),
-			'datas_fname': nombre_archivo,
-			'res_model': 'becados.nomina',
-			}, context=context)		 
-
-		#~ print "<script>document.location = 'openerp/addons/desarrollo_social/reportes/nominas/tuto1.pdf';</script>"		
+			#Obtención de los valores retornados por la función que genera el archivo	de reporte detallado
+			nom3, archivo3 = nom_detallado.gen_detallado(cr, uid, id_nom, nom, periodo_ini, periodo_fin, tipo_beca, mes, data1, stage, context)	
+			#Registro del archivo de reporte en la base de datos
+			id_att = self.pool.get('ir.attachment').create(cr, uid, {
+				'nomina': nomina, 
+				'name': nom3,
+				'stage': stage,
+				'tipo_nomina': tipo_nomina,
+				'tipo_beca': beca,
+				'nombre': nom3,
+				'res_name': nom3,
+				'datas': base64.encodestring(archivo3.read()),
+				'datas_fname': nom3,
+				'res_model': 'becados.nomina',
+				}, context=context)
 	
 	
 	#Función para la generación de reportes en XLS de la nómina	
 	def generar_xls(self, cr, uid, nomina, tipo_nomina, tipo_beca, mes, data1, stage, context):
 		
 		if stage != 'prenomina' and stage != 'cancelado':
+			#Preparación de la descripción del tipo de beca
+			#~ if 'ESPECIAL' in tipo_beca:
+				#~ cod_beca = '50'
+				#~ beca = 'BECA ESPECIAL'
+			#~ elif 'SOCIAL' in tipo_beca:
+				#~ cod_beca = '10'
+				#~ beca = 'BECA SOCIAL'
+			#~ elif 'EXCELENCIA' in tipo_beca:
+				#~ cod_beca = '02'
+				#~ beca = 'BECA EXCELENCIA'
+			#~ else:
+				#~ cod_beca = '01'
+				#~ beca = 'BECA CYBERGUÍA'
+			
+			beca = "GENERAL"
+			
 			#Generación del nombre del reporte
-			fecha = time.strftime('(%d-%m-%y)')
+			#~ fecha = time.strftime('(%d-%m-%y)')
 			#~ dia = time.strftime('%d')
-			#~ anyo = time.strftime('%Y')
+			anyo = time.strftime('%Y')
 			#~ fecha = dia+"-"+mes+"-"+anyo
-			nombre_archivo = str(stage) + "-" + self.elimina_tildes(tipo_nomina) + "-" + mes + "-" + fecha +'.'+ 'xls'
+			nombre_archivo = "XLS." + "RESUMEN GENERAL" + "-" + mes.upper() + "-" + anyo +'.'+ 'xls'
 			
 			#Proceso de consulta de todos los becados
 			modelo = self.pool.get('hr.employee') #Modelo a consultar
@@ -841,10 +1087,16 @@ class NominaBecados(osv.Model):
 			#~ ws.write(2, 2, xlwt.Formula("A3+B3"))
 			
 			#Guardar reporte en una ruta específica
+			#Ruta local
 			wb.save('openerp/addons/desarrollo_social/reportes/nominas/'+nombre_archivo)
+			#Ruta en el servidor
+			#~ wb.save('/home/administrador/openerp70/modules/desarrollo_social/reportes/nominas/'+nombre_archivo)
 			
 			#Abrir el archivo del reporte para poder registrarlo
+			#Ruta local
 			archivo = open('openerp/addons/desarrollo_social/reportes/nominas/'+nombre_archivo)
+			#Ruta en el servidor
+			#~ archivo = open('/home/administrador/openerp70/modules/desarrollo_social/reportes/nominas/'+nombre_archivo)
 			
 			#Registro del archivo de reporte en la base de datos
 			id_att = self.pool.get('ir.attachment').create(cr, uid, {
@@ -852,7 +1104,7 @@ class NominaBecados(osv.Model):
 				'name': nombre_archivo,
 				'stage': stage,
 				'tipo_nomina': tipo_nomina,
-				'tipo_beca': tipo_beca,
+				'tipo_beca': beca,
 				'nombre': nombre_archivo,
 				'res_name': nombre_archivo,
 				'datas': base64.encodestring(archivo.read()),
@@ -861,6 +1113,29 @@ class NominaBecados(osv.Model):
 				}, context=context)
 			
 			
+	def carga_beca(self, cr, uid, ids, tipo_beca, context=None):
+		valores = {}
+		
+		modelo = self.pool.get("becados.tipobeca")
+		id_modelo = modelo.browse(cr, uid, tipo_beca, context=context)
+		
+		beca_general = ""
+		beca_especifica = id_modelo.tipo_beca
+		
+		if 'ESPECIAL' in beca_especifica:
+			beca_general = 'BECA ESPECIAL'
+		elif 'SOCIAL' in beca_especifica:
+			beca_general = 'BECA SOCIAL'
+		elif 'EXCELENCIA' in beca_especifica:
+			beca_general = 'BECA EXCELENCIA'
+		else:
+			beca_general = 'BECA CYBERGUÍA'
+		
+		valores.update({'beca' : beca_general,})
+		
+		return {'value': valores}
+		
+	#Función para eliminar los acentos de cualquier cadena		
 	def elimina_tildes(self, s):
 		"""
 		Funcion para eliminar las tildes de algun texto utilizando el modulo unicodedata.
@@ -892,6 +1167,7 @@ class NominaBecados(osv.Model):
 		'mes' : fields.selection((('Enero','Enero'),('Febrero','Febrero'),('Marzo','Marzo'),('Abril','Abril'),('Mayo','Mayo'),('Junio','Junio'),('Julio','Julio'),('Agosto','Agosto'),('Septiembre','Septiembre'),('Octubre','Octubre'),('Noviembre','Noviembre'),('Diciembre','Diciembre')),"Mes",required=True),
 		'tipo_nomina' : fields.many2one('becados.tiponomina','Tipo de Nómina',required=True),
 		'tipo_beca' : fields.many2one("becados.tipobeca","Tipo de Beca",required=True),
+		'beca' : fields.char(string="Beca",required=False),
 		'banco' : fields.many2one("becados.bancos", "Banco", required = False), 
 		#~ 'ejes' : fields.many2one("becados.ejes","Eje",required=False),
 		#~ 'sedes' : fields.many2one("becados.sedes","Sede",required=False),

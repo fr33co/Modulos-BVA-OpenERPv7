@@ -20,6 +20,7 @@ class Bank(osv.Model):
 
 		'state' : "bank",
 		'acc_number' : "00000000000000000000",
+		'partner_id' : 1,
 	}
 	
 	
