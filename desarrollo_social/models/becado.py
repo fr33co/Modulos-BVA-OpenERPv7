@@ -101,6 +101,31 @@ class Becado(osv.Model):
 
 			})
 		return {'value' : values}
+		
+		
+	#------------------------------------------------------------------------------------------------------------------------------
+  #Funcion cargar un cero por defecto en el campo de número de cuenta si el personal a registrar tiene una categoría distinta de 'Becado'
+	def carga_num_cuenta(self, cr, uid, ids, categoria):
+		values = {}
+		
+		if categoria != "1":
+			values.update({
+				'numero_cuenta' : 'vacio',
+				})
+		
+		return {'value' : values}
+		
+		
+	#------------------------------------------------------------------------------------------------------------------------------
+  #Funcion para cargar el id del banco por defecto
+	def _banco_default(self, cr, user_id, context=None):
+
+		cr.execute("SELECT id FROM becados_bancos WHERE banco = 'Venezuela'")
+		id_banc = 0 # declaramos una tupla vacía
+		for datos in cr.fetchall():
+			id_banc = datos[0] #Id del banco
+		return id_banc
+		
 	#-----------------------------------------------------------------------------------------------
 	#~ Función para cargar datos de solicitantes seleccionados como posibles becados, utilizando
 	#~ la cédula como clave de búsqueda.
@@ -148,7 +173,7 @@ class Becado(osv.Model):
 		'segundo_apellido' : fields.char(string="Segundo apellido", size=50, required=False),
 		'tiempo_servicio' : fields.char(string="Tiempo de Servicio", size = 50, required=False),
 		'direccion' : fields.text(string="Dirección", size = 256, required=True),
-		'correo' : fields.char(string="Correo", size = 30, required=True),
+		'correo' : fields.char(string="Correo", size = 30, required=False),
 		'edad' : fields.char(string="Edad", size = 3, required=False),
 		'camisa' : fields.char(string="Talla de Camisa", size=2, required=False),
 		'pantalon' : fields.char(string="Talla de pantalón", size=2, required=False),
@@ -179,7 +204,8 @@ class Becado(osv.Model):
 		'empleado': fields.many2one("becados.tipoempleado", "Tipo de Empleado", required = False),
 		'tipo_beca' : fields.many2one("becados.tipobeca", "Tipo de Beca", required = False),
 		'area' : fields.many2one("becados.areas", string="Area de desempeño", required=False),
-		'ejes' : fields.many2one("becados.ejes", "Eje", required = False),
+		'ejes' : fields.many2one("becados.ejes", "Eje", required = False), #Inhabilitado
+		'eje' : fields.selection((('001','Eje Centro'),('002','Eje Costa'),('003','Eje Este'),('004','Eje Metro'),('005','Eje Sur')),"Eje",required=True),
 		'sede' : fields.many2one("becados.sedes", "Sede/Unidad Asignada", required=False),
 		'cargo_desempenado' : fields.selection((('1','0243'),('2','0244')), "Cargo Desempeñado", required = False),
 		'coordinador_eje' : fields.many2one("hr.employee","Coordinador de Eje",required=False, domain=[('categoria','=','4')]),
@@ -188,12 +214,13 @@ class Becado(osv.Model):
 		'status' : fields.selection((('1','Activo'),('2','Periódo de gracia'),('3','Permiso de reposo'),('4','Permiso no remunerado'),('5','Suspendido'),('6','Vacaciones'),('7','Egresado')), "Estatus", required = False),
 		'desc_status' : fields.char(string="Descripción", size=100, required=False,help="Escriba aquí detalles y razones del estatus seleccionado"),
 		'asignacion' : fields.float(string="Asignación", required=False),
-		'entidad_bancaria' : fields.many2one("becados.bancos", "Entidad Bancaria", required = False),
-		'numero_cuenta' : fields.char(string="Número de cuenta",size=20,required=False),
-		'tipo_cuenta' : fields.selection((('0','Corriente'),('1','Ahorro')),"Tipo de Cuenta",required=False),
+		'entidad_bancaria' : fields.many2one("becados.bancos", "Entidad Bancaria", required = True),
+		'numero_cuenta' : fields.char(string="Número de cuenta",size=20,required=True),
+		'tipo_cuenta' : fields.selection((('0','Corriente'),('1','Ahorro')),"Tipo de Cuenta",required=True),
 		'ano_antiguedad' : fields.char(string="Año de Antiguedad", required=False),
 		'caja_ahorro' : fields.char(string="Caja de Ahorro", required=False),
-		'prima_responsabilidad' : fields.float(string="Prima de Responsabilidad", required=False),
+		#~ 'prima_responsabilidad' : fields.float(string="Prima de Responsabilidad", required=False),
+		'prima_responsabilidad' : fields.selection((('1','Si'),('2','No')),"Prima responsabilidad",required=False),
 		#'fecha_nacimiento' : fields.date(string="Fecha de nacimiento", required=True),
 		'familiar' : fields.one2many("becado.carga.familiar","becado",string="Carga Familiar"),
 		'categoria' : fields.selection((('1','Becado'),('2','Empleado'),('3','Obrero'),('4','Coordinador_eje'),('5','Coordinador_sede')), "Categoria", required = True),
@@ -213,8 +240,48 @@ class Becado(osv.Model):
 		'fecha_actual': lambda *a: time.strftime("(%d) días del mes %B del año %Y"),# formato corecto al español
 		'status' : '1',
 		'grupo': lambda s, cr, uid, c: uid,
+		'tipo_cuenta' : '0',
+		'entidad_bancaria' : _banco_default,
 		#~ 'categoria' : '1',
 		#~ 'tipo_beca' : '1',
 		#~ 'entidad_bancaria' : '1',
 		#~ 'tipo_cuenta' : '1'
-	} 
+	}
+	
+	#------------------------------------------------------------------------------------------------------------------------------
+  #Funcion validar que la longitud del campo de número de cuenta sea igual a 20 dígitos
+	#~ def validar_num_cuenta(self, cr, uid, ids, num_cuenta, context=None):
+		#~ values = {}
+		#~ mensaje = {}
+		#~ b = ""
+		#~ b2 = ""
+		#~ b3 = ""
+		#~ 
+		#~ if not num_cuenta:
+			#~ return values
+		#~ 
+		#~ for reg in self.browse(cr, uid, ids, context=context):
+			#~ b = reg.entidad_bancaria
+			#~ b2 = reg.entidad_bancaria.id
+			#~ b3 = reg.entidad_bancaria.banco
+		#~ 
+		#~ print "id del banco: "+str(b)
+		#~ print "id del banco: "+str(b2)
+		#~ print "nombre del banco: "+str(b3)
+			
+		#~ if b == "Venezuela":
+			#~ n = str(num_cuenta)
+			#~ print len(n)
+			#~ print b
+			#~ 
+			#~ if len(n) < 20:
+				#~ mensaje = {
+					#~ 'title'   : "Número de cuenta",
+					#~ 'message' : "Disculpe el número de cuenta debe contener un mínimo de 20 dígitos... "+b,
+				#~ }
+				#~ values.update({
+					#~ 'numero_cuenta' : None,
+				#~ })
+		
+		#~ return True
+		#~ return {'value' : values, 'warning' : mensaje} 

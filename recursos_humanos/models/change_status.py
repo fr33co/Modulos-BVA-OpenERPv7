@@ -14,7 +14,6 @@ class Onchange_status(osv.Model):
 
 	# MÉTODO DE BUSQUEDA PARA CAMBIO DE ESTÁTUS
 
-
 	def search_onchange_status(self, cr, uid, ids, argument_search,item, context=None):
 
 		values = {}
@@ -32,7 +31,7 @@ class Onchange_status(osv.Model):
 			search_obj_code = obj_dp.search(cr, uid, [('cedula','=',argument_search)])
 
 			datos_code = obj_dp.read(cr,uid,search_obj_code,context=context)
-
+			
 			if not datos_code:
 				
 				mensaje = {
@@ -48,6 +47,12 @@ class Onchange_status(osv.Model):
 					'status' : None,
 
 					})
+			elif str(datos_code[0]['status']) == "7": # En caso de que este en estado Egresado no permita la accion, debe proceder a reingrearlo
+				mensaje = {
+						'title'   : "Cambio de estátus",
+						'message' : "Disculpe el empleado esta egresado para modificarlo debe proceder a reingresarlo...",
+				}
+				values.update({'cedula_employee' : None,})
 
 			else:
 
@@ -58,27 +63,6 @@ class Onchange_status(osv.Model):
 					'status' : datos_code[0]['status'],
 
 					})
-
-		elif item == '2':
-
-			#======================== Busqueda por cargo ============================
-			search_charge = obj_dp.search(cr, uid, [('job_id','=',argument_search)])
-
-			datos_charge = obj_dp.read(cr,uid,search_charge,context=context)
-
-			if not datos_charge:
-				
-				mensaje = {
-						'title'   : "Cargo",
-						'message' : "Disculpe el cargo no existe, intente de nuevo...",
-				}
-
-				values.update({
-					
-					'charge' : None,
-
-					})
-
 		elif item == '3':
 
 			now = datetime.now().strftime('%Y-%m-%d')
@@ -111,7 +95,7 @@ class Onchange_status(osv.Model):
 			#print "FECHA: "+str(date_now)
 
 			cr.execute("UPDATE hr_employee SET status=%s, fecha_egreso=%s WHERE cedula=%s;", (id_fill, date_now, cedula))
-
+			self.write(cr, uid, ids, {'estado': '1'}, context=context) # Cambio de estado	
 		return True
 	
 	
@@ -123,10 +107,13 @@ class Onchange_status(osv.Model):
 		'status' : fields.selection((('1','Activo'),('2','Periódo de gracia'),('3','Permiso de reposo'),('4','Permiso no remunerado'),('5','Suspendido'),('6','Vacaciones'),('7','Egresado')), "Estatus", required = False),
 		'date_onchange': fields.date(string = "Fecha", required = True),
 		'reason_change': fields.text(string = "Descripción", size = 256, required = True),
+		'estado': fields.char(string = "Estado", size = 5, required = False),
+		'usuario': fields.char(string = "Responsable", size = 20, required = False),
 	}
 
 	_defaults = {
 		'date_onchange' : lambda *a: time.strftime("%Y-%m-%d"),
+		'usuario': lambda s, cr, uid, c: uid, # Captura del usuario logeado
 	}
 
 

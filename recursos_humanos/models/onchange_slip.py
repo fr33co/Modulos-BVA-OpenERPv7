@@ -33,9 +33,20 @@ class Onchange_slip(osv.Model):
 		datos_code      = obj_dp.read(cr,uid,search_obj_code,context=context)
 		
 		#=========================================================================
-		
-
-		if not datos_code:
+		if int(datos_code[0]['status']) == 5:
+			mensaje = {
+					'title'   : "Cambio de Nómina",
+					'message' : "Disculpe el personal se encuentra suspendido...",
+			}
+			values.update({'cedula_employee' : None,})
+			
+		elif int(datos_code[0]['status']) == 7:
+			mensaje = {
+					'title'   : "Cambio de Nómina",
+					'message' : "Disculpe el personal se encuentra egresado...",
+			}
+			values.update({'cedula_employee' : None,})
+		elif not datos_code:
 			
 			mensaje = {
 					'title'   : "Cambio de Nómina",
@@ -59,7 +70,7 @@ class Onchange_slip(osv.Model):
 				
 				'nom' :           datos_code[0]['name'],
 				'charge' :        datos_code[0]['job_id'],
-				'slip' :          datos_code[0]['tipo_nomina'],
+				'slip' :          datos_code[0]['nomina'],
 				'type_employee' : datos_code[0]['class_personal'],
 
 				})
@@ -82,7 +93,7 @@ class Onchange_slip(osv.Model):
 			# print "ID DE NOMINA: "+str(id_slip)
 			# print "ID TIPO EMPLEADO: "+str(id_type_employee)
 
-			cr.execute("UPDATE hr_employee SET tipo_nomina=%s, empleado=%s WHERE cedula=%s;", (id_slip, id_type_employee, filter_employee))
+			cr.execute("UPDATE hr_employee SET nomina=%s, class_personal=%s WHERE cedula=%s;", (id_slip, id_type_employee, filter_employee))
 			
 		return True
 
@@ -110,8 +121,8 @@ class Onchange_slip(osv.Model):
 		'nom': fields.char(string = "Nombres", size = 256, required = False),
 		'charge': fields.many2one("hr.job", "Cargo", required = False),
 		# #'status': fields.many2one("becados.status", "Estátus", required = True),
-		'slip' : fields.many2one("becados.tiponomina", "Nómina", required = False),
-		'type_employee' : fields.many2one("becados.tipoempleado", "Tipo empleado", required = False),
+		'slip' : fields.many2one("hr.nomina.adm", "Nómina", required = False),
+		'type_employee' : fields.many2one("becados.clasper", "Tipo empleado", required = False),
 		'date_onchange': fields.date(string = "Fecha", required = True),
 		'slip_change': fields.text(string = "Descripción", size = 256, required = True),
 	}

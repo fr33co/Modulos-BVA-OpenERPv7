@@ -51,8 +51,8 @@
 						</group>
 						<group>
 							<field name="tipo_nomina" nolabel="0" colspan="2"/>
-							<field name="tipo_beca" nolabel="0" colspan="2"/>
-							<!--<field name="banco" nolabel="0" colspan="2"/>-->
+							<field name="tipo_beca" nolabel="0" colspan="2" on_change="carga_beca(tipo_beca)"/>
+							<field name="beca" nolabel="0" colspan="2" invisible="1"/>
 						</group>
 					</group>
 					<group col="4" colspan="4">
@@ -106,7 +106,7 @@
 					<field name="anyo"/>
 					<field name="mes"/>
 					<field name="tipo_nomina"/>
-					<field name="tipo_beca"/>
+					<field name="beca"/>
 					<field name="stage_id"/>
 <!--
 					<field name="tipo_beca"/>

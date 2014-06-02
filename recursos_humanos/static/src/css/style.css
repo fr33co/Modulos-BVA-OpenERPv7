@@ -22,3 +22,28 @@
 	border-bottom: 0px solid #CCC;
 	
 }
+
+.div_scroll_asid_dec
+{	width: 950px;
+	height:200px; 
+	overflow-x:hidden;
+	overflow-y:scroll;
+	border-bottom: 0px solid #CCC;
+	
+}
+
+.titulo{
+    color:red !important;
+}
+
+.mensaje{
+	background-color:#DFF0D8;
+	color:#2A4E35;width:450px;
+	heigth:150px;
+	-moz-border-radius:9px;
+	border-radius:9px;
+}
+
+.caja{
+	border-color:white; !import
+}

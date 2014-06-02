@@ -239,96 +239,18 @@
                 <field name="grado">Otros</field>
                 <field name="tipo" ref="tipo3"/>
             </record>
-<!--===================================================================-->
-                        <!-- Tipo de Cargo -->
-<!--===================================================================-->
-
-
-
-<!--
-           <record id="tipo_cargo_1" model="hr.job">
-                <field name="name">Analista I</field>
-            </record>
-            <record id="tipo_cargo_2" model="hr.job">
-                <field name="name">Analista II</field>
-            </record>
-            <record id="tipo_cargo_3" model="hr.job">
-                <field name="name">Analista III</field>
-            </record>
-            <record id="tipo_cargo_4" model="hr.job">
-                <field name="name">Analista IV</field>
-            </record>
-            <record id="tipo_cargo_5" model="hr.job">
-                <field name="name">Analista V</field>
-            </record>
-            <record id="tipo_cargo_6" model="hr.job">
-                <field name="name">Asistente Administrativo I</field>
-            </record>
-            <record id="tipo_cargo_7" model="hr.job">
-                <field name="name">Asistente Administrativo II</field>
-            </record>
-            <record id="tipo_cargo_8" model="hr.job">
-                <field name="name">Asistente Administrativo III</field>
-            </record>
-            <record id="tipo_cargo_9" model="hr.job">
-                <field name="name">Asistente de Biblioteca I</field>
-            </record>
-            <record id="tipo_cargo_10" model="hr.job">
-                <field name="name">Asistente de Biblioteca II</field>
-            </record>
-            <record id="tipo_cargo_11" model="hr.job">
-                <field name="name">Asistente de Biblioteca III</field>
-            </record>
-            <record id="tipo_cargo_12" model="hr.job">
-                <field name="name">Asistente de Biblioteca IV</field>
-            </record>
-            <record id="tipo_cargo_13" model="hr.job">
-                <field name="name">Auditor I</field>
-            </record>
-            <record id="tipo_cargo_14" model="hr.job">
-                <field name="name">Auditor II</field>
-            </record>
-            <record id="tipo_cargo_15" model="hr.job">
-                <field name="name">Auditor Interno I</field>
-            </record>
-            <record id="tipo_cargo_16" model="hr.job">
-                <field name="name">Auditor Interno II</field>
-            </record>
-            <record id="tipo_cargo_17" model="hr.job">
-                <field name="name">Auditor Interno III</field>
-            </record>
-            <record id="tipo_cargo_18" model="hr.job">
-                <field name="name">Chofer</field>
-            </record>
-            <record id="tipo_cargo_19" model="hr.job">
-                <field name="name">Consultorio Gurídico</field>
-            </record>
-            <record id="tipo_cargo_19" model="hr.job">
-                <field name="name">Consultorio Gurídico (E)</field>
-            </record>
--->
-
 
 <!--===================================================================-->
                     <!--Clasificación del Personal-->
 <!--===================================================================-->
             <record id="class_personal_1" model="becados.clasper">
-                <field name="clas_personal">Administrativo</field>
+                <field name="clas_personal">Empleado Fijo</field>
             </record>
             <record id="class_personal_2" model="becados.clasper">
                 <field name="clas_personal">Directivo</field>
             </record>
-            <record id="class_personal_3" model="becados.clasper">
-                <field name="clas_personal">Comisión de Servicios</field>
-            </record>
-            <record id="class_personal_4" model="becados.clasper">
-                <field name="clas_personal">Empleado Contratado</field>
-            </record>
             <record id="class_personal_5" model="becados.clasper">
-                <field name="clas_personal">Obrero Fijo</field>
-            </record>
-            <record id="class_personal_6" model="becados.clasper">
-                <field name="clas_personal">Obrero Contratado</field>
+                <field name="clas_personal">Obrero</field>
             </record>
 <!--===================================================================-->
                         <!-- Filtro para domain -->
@@ -337,38 +259,11 @@
             <record id="domain_2" model="ir.filters">
                 <field name="is_default">TRUE</field>
                 <field name="model_id">hr.employee</field>
-                <field name="domain">[('categoria','=','2')]</field>
-                <field name="user_id">1</field>
+                <field name="domain">[('categoria','=','2'),('status','=','1')]</field> <!--Filtro por categoria y estatus-->
+                <field name="user_id">26</field>
                 <field name="name">Recursos Humanos</field>
                 <field name="context">{}</field>
             </record>
-
-            <!-- <record id="domain_class_personal_1" model="ir.filters">
-                <field name="is_default">FALSE</field>
-                <field name="model_id">hr.employee</field>
-                <field name="domain">[('class_personal.clas_personal','ilike','Administrativo')]</field>
-                <field name="user_id"></field>
-                <field name="name">Personal administrativo</field>
-                <field name="context">{}</field>
-            </record>
-
-            <record id="domain_class_personal_2" model="ir.filters">
-                <field name="is_default">FALSE</field>
-                <field name="model_id">hr.employee</field>
-                <field name="domain">[('class_personal.clas_personal','ilike','Directivo')]</field>
-                <field name="user_id"></field>
-                <field name="name">Personal directivo</field>
-                <field name="context">{}</field>
-            </record>
-
-            <record id="domain_class_personal_3" model="ir.filters">
-                <field name="is_default">FALSE</field>
-                <field name="model_id">hr.employee</field>
-                <field name="domain">[('class_personal.clas_personal','ilike','Obrero Fijo')]</field>
-                <field name="user_id"></field>
-                <field name="name">Personal Obrero</field>
-                <field name="context">{}</field>
-            </record> -->
 
         <!-- Proceso de validación para listar por el estatus Activo -->
 
@@ -408,11 +303,10 @@
                 <field name="grado_instruc">Doctorado</field>
             </record>
 <!--===================================================================-->
-            <!-- <record id="bank_id" model="res.partner.bank">
-                <field name="acc_number">00000000000000000000</field>
-                <field name="partner_id">1</field>
-                <field name="type_account">2</field>
-            </record> -->
+            <record id="adm_nomina_1" model="hr.nomina.adm">
+                <field name="cod">001</field>
+                <field name="nomina">A.C Biblioteca Virtual</field>
+            </record> 
 <!--===================================================================-->
         </data>
     </openerp>

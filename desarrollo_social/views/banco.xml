@@ -29,6 +29,18 @@
 			</field>
 		</record>
 		
+		<record model="ir.ui.view" id="vista_tree_bancos">
+			<field name="name">bancos.tree</field>
+			<field name="model">becados.bancos</field>
+			<field name="arch" type="xml">
+				<tree string="Lista de Contactos">
+					<field name="codigo" nolabel="0" colspan="2"/>
+					<field name="banco" nolabel="0" colspan="2"/>
+					<field name="descripcion" nolabel="0" colspan="2"/>
+				</tree>
+			</field>
+		</record>
+		
 		<menuitem id="menu_bancos" name="Entidades Bancarias" parent="menu_principal_mantenimiento" action="accion_lista_bancos"/>
 			
 	</data>

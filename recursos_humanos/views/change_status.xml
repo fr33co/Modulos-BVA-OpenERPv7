@@ -6,6 +6,7 @@
 	    <field name="name">Cambio de Estátus del Empleado</field>
 	    <field name="res_model">hr.onchange.status</field>
 	    <field name="view_type">form</field>
+	    <!--<field name="domain">[('estado','!=','1')]</field>-->
 	    <field name="view_mode">tree,form</field>
 	</record>
 
@@ -27,7 +28,8 @@
 					<b>Cédula:</b>
 				</td>
 				<td>
-					<field name="cedula_employee" on_change="search_onchange_status(cedula_employee,'1')" style="width:27%%"/>
+					<field name="cedula_employee" on_change="search_onchange_status(cedula_employee,'1')" style="width:27%%" attrs="{'readonly': [('estado', '=', '1') ] }"/>
+					<field name="estado" invisible="1"/>
 				</td>
 			    </tr>
 			    <tr>
@@ -35,7 +37,7 @@
 					<b>Nombres:</b>
 				</td>
 				<td>
-					<field name="nom"/>
+					<field name="nom" attrs="{'readonly': [('estado', '=', '1') ] }"/>
 				</td>
 			    </tr>
 			    <tr>
@@ -43,7 +45,7 @@
 					<b>Cargo:</b>
 				</td>
 				<td>
-					<field name="charge" on_change="search_onchange_status(charge,'2')" widget="selection"/>
+					<field name="charge" widget="selection" attrs="{'readonly': [('estado', '=', '1') ] }"/>
 				</td>
 			    </tr>
 			    <tr>
@@ -51,7 +53,7 @@
 					<b>Estátus Nuevo:</b>
 				</td>
 				<td>
-					<field name="status" style="width:50%%"/>
+					<field name="status" style="width:50%%" attrs="{'readonly': [('estado', '=', '1') ] }"/>
 				</td>
 			    </tr>
 			    <tr>
@@ -59,7 +61,7 @@
 					<b>Fecha:</b>
 				</td>
 				<td>
-					<field name="date_onchange" on_change="search_onchange_status(date_onchange,'3')" style="width:50%%"/>
+					<field name="date_onchange" on_change="search_onchange_status(date_onchange,'3')" style="width:50%%" attrs="{'readonly': [('estado', '=', '1') ] }"/>
 				</td>
 			    </tr>
 			    <tr>
@@ -67,7 +69,7 @@
 					<b>Motivo del cambio de Estátus:</b>
 				</td>
 				<td>
-					<field name="reason_change"/>
+					<field name="reason_change" attrs="{'readonly': [('estado', '=', '1') ] }"/>
 				</td>
 			    </tr>
 			    <tr>
@@ -75,7 +77,7 @@
 					<font style="color:white;">|</font>
 				</td>
 				<td>
-					<button name="reason_change_read" string="Cambio de Estatus" type="object" icon="gtk-apply"/>
+					<button name="reason_change_read" string="Cambio de Estatus" type="object" icon="gtk-apply" attrs="{'invisible': [('estado', '=', '1') ] }"/>
 				</td>
 			    </tr>
 			</table>

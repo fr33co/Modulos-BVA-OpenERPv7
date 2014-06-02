@@ -24,6 +24,12 @@
 					<field name="acc_number" position="replace">
 						<field name="acc_number" style="width:50%%"/>
 					</field>
+					<field name="partner_id" position="replace">
+						<field name="partner_id" invisible="1"/>
+					</field>
+					<field name="street" position="replace">
+						<field name="street" invisible="1"/>
+					</field>
 
 				</field>
 			</record>

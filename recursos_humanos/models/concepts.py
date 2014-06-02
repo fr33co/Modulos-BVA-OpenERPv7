@@ -7,9 +7,9 @@ from openerp.osv import osv, fields
 class Concepts_payslip(osv.Model):
 	_name="hr.concepts"
 
-	_order = 'codigo'
+	_order = 'codigo asc'
 	
-	_rec_name = 'codigo'
+	_rec_name = 'concepto'
 
 	# MÉTODO DE BUSQUEDA PARA CONCEPTOS
 	

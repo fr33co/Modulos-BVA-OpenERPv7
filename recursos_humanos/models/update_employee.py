@@ -27,9 +27,10 @@ class Concepts_payslip(osv.Model):
 			sueldo    = x.sueldo_new
 			reingreso = x.reingreso
 			status    = "1"
-			cr.execute("UPDATE hr_employee SET tipo_nomina=%s, class_personal=%s, job_id=%s, department_id=%s, asignacion=%s, fecha_ingreso=%s, status=%s  WHERE cedula=%s;", (nomina, employee, cargo, depart, sueldo, reingreso, status, cedula))
+			cr.execute("UPDATE hr_employee SET nomina=%s, class_personal=%s, job_id=%s, department_id=%s, asignacion=%s, fecha_ingreso=%s, status=%s  WHERE cedula=%s;", (nomina, employee, cargo, depart, sueldo, reingreso, status, cedula))
+			self.write(cr, uid, ids, {'estado': '1'}, context=context) # Cambio de estado
 		return True
-
+	# Metodo para la busqueda de los datos del empleado
 	def data_employee(self, cr, uid, ids, argument_search, context=None):
 
 		values = {}
@@ -95,7 +96,7 @@ class Concepts_payslip(osv.Model):
 			values.update(query)
 		return {'value' : values,'warning' : mensaje}
 
-
+	# Metodo para la carga de la signacion dependiendo el cargo que disponga
 	def search_hr_data(self, cr, uid, ids, argument_search,item, context=None):
 
 		values = {}
@@ -138,15 +139,18 @@ class Concepts_payslip(osv.Model):
 		'emp' : fields.many2one("becados.clasper", "Empleado", required = False),
             'emp_egre' : fields.many2one("becados.clasper", "Empleado", required = True),
             'reingreso': fields.date(string = "Fecha de reingreso", required = True),
-            'payslip' : fields.many2one("becados.tiponomina", "Tipo nómina", required = True),
+            'payslip' : fields.many2one("hr.nomina.adm", "Tipo nómina", required = True),
             'charge_new': fields.many2one("hr.job", "Cargo desempeñado", required = True),
             'dep_new' : fields.many2one("hr.department", "Departamento", required = True),
             'sueldo_new': fields.char(string = "Sueldo", size = 10, required = True),
             'observacion': fields.text(string = "Observación", size = 256, required = True),
+	    'estado': fields.char(string = "Estado", size = 5, required = False),
+	    'usuario': fields.char(string = "Responsable", size = 20, required = False),
 	}
 
 	_defaults = {
 		'reingreso' : lambda *a: time.strftime("%Y-%m-%d"),
+		'usuario': lambda s, cr, uid, c: uid, # Captura del usuario logeado
 	}
 
 

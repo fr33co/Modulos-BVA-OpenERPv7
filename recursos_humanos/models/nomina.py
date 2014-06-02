@@ -1,17 +1,16 @@
 # -*- coding: utf-8 -*-
 
-from openerp.osv import fields, osv
+from openerp.osv import osv, fields
 
-class Nomina(osv.Model):
+class Banco(osv.Model):
+	_name = "hr.nomina.adm"
 	
-	'''Herenciando a hr.payslip (Nomina de Becado)'''
+	_order = "nomina"
 	
-	_inherit = 'hr.payslip'
+	_rec_name = "nomina"
 	
 	_columns = {
-		'class_personal' : fields.many2one('becados.clasper', 'Personal', required=False),
+		'cod' : fields.char(string="Código", size=10, required=False),
+		'nomina' : fields.char(string="Nomina", size=50, required=False),
 	}
-	
-	#~ _default = {
-		#~ 'categoria' : 'Becados',
-	#~ }
+

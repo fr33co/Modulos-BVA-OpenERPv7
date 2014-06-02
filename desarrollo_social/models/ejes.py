@@ -7,7 +7,7 @@ from openerp.osv import osv, fields
 class Eje(osv.Model):
 	_name="becados.ejes"
 
-	_order = 'eje'
+	_order = 'codigo'
 	
 	_rec_name = 'eje'
 	

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+	<record model="ir.actions.act_window" id="action_movement_payslip">
+	    <field name="name">Asignación de movimiento a empleados</field>
+	    <field name="res_model">hr.movement.payslip</field>
+	    <field name="view_type">form</field>
+	    <field name="view_mode">tree,form</field>
+	</record>
+
+	<record id="view_movement_payslip" model="ir.ui.view">
+	    <field name="name">Asignación de movimiento a empleados</field>
+	    <field name="model">hr.movement.payslip</field>
+	    <field name="arch" type="xml">
+		<form string="Asignación de movimiento a empleados" version="7.0">
+		    <fielset>
+			<div style="width:950px;" class="oe_horizontal_separator">Asignaciones y Deducciones del empleado</div>
+			<table style="width:950px;" border="0">
+			    <tr>
+				<td><b>Cédula</b></td>
+				<td><field name="cedula" readonly="1" style="width:100px;" on_change="data_employee(cedula)"/></td>
+				<td><b>Código</b></td>
+				<td><field name="cod" readonly="1"/></td>
+				<td><b>Frecuencia</b></td>
+				<td><field name="frecuencia" readonly="1"/></td>
+			    </tr>
+			    <tr style="text-align:center;">
+				<td>
+				    <b>Cantidad</b>
+				</td>
+				<td>
+				    <field name="cantidad" readonly="1"/>
+				</td>
+				<td>
+				    <b>Asignacion</b>
+				</td>
+				<td>
+				    <field name="asignacion" readonly="1"/>
+				</td>
+				<td>
+				    <b>Deducción</b>
+				</td>
+				<td>
+				    <field name="deduccion" readonly="1"/>
+				</td>
+			    </tr>
+			    <tr>
+				<td><!--<b>Saldo</b>--></td>
+				<td><!--<field name="saldo" readonly="1"/>--></td>
+				<td><b>Descripción</b></td>
+				<td colspan="3"><field name="descripcion" readonly="1"/></td>
+				<td></td>
+				<td></td>
+			    </tr>
+			</table>
+		    </fielset>
+		</form>
+	    </field>
+	</record>
+
+	<record model="ir.ui.view" id="movement_movement_payslip">
+	<field name="name">Asignación de movimiento a empleados.tree</field>
+	<field name="model">hr.movement.payslip</field>
+	<field name="arch" type="xml">
+	    <tree string="Lista de reingreso de empleados">
+		<field name="cedula"/>
+		<field name="cod"/>
+		<field name="frecuencia"/>
+		<field name="descripcion"/>
+		<field name="cantidad"/>
+		<field name="asignacion"/>
+		<field name="deduccion"/>
+		<!--<field name="saldo"/>-->
+	    </tree>
+	</field>
+        </record>
+
+        <!--<menuitem parent="recursos_humanos_main" id="sub_menu_movement" action="action_movement_payslip" name="Asignaciónes" sequence="5"/>-->
+
+    </data>
+</openerp>

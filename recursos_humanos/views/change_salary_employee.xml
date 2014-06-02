@@ -27,7 +27,7 @@
 					    <b>Cargo:</b>
 				    </td>
 				    <td>
-					    <field name="charge" widget="selection" on_change="search_hr_data(charge,'1')"/>
+					    <field name="charge" widget="selection" on_change="search_hr_data(charge,'1')" attrs="{'readonly': [('estado', '=', '1') ] }"/>
 				    </td>
 				</tr>
 				 <tr>
@@ -35,7 +35,8 @@
 					    <b>Sueldo:</b>
 				    </td>
 				    <td>
-					    <field name="salary" style="width:27%%"/>
+					    <field name="salary" style="width:27%%" attrs="{'readonly': [('estado', '=', '1') ] }"/>
+					    <field name="estado" invisible="1"/>
 				    </td>
 				</tr>
 				 <tr attrs="{'invisible': [('item', '!=', True) ] }">
@@ -43,7 +44,7 @@
 					    <b>Año de experiencia:</b>
 				    </td>
 				    <td>
-					    <field name="experience" style="width:27%%"/>
+					    <field name="experience" style="width:27%%" attrs="{'readonly': [('estado', '=', '1') ] }"/>
 				    </td>
 				</tr>
 				<tr>
@@ -51,7 +52,7 @@
 					    <b>Grado de Instrucción:</b>
 				    </td>
 				    <td>
-					    <field name="degree_instruction" widget="selection"/>
+					    <field name="degree_instruction" widget="selection" attrs="{'readonly': [('estado', '=', '1') ] }"/>
 				    </td>
 				</tr>
 				<tr>
@@ -59,7 +60,7 @@
 					    <b>Fecha:</b>
 				    </td>
 				    <td>
-					    <field name="date_now" on_change="search_hr_data(date_now,'3')"/>
+					    <field name="date_now" on_change="search_hr_data(date_now,'3')" attrs="{'readonly': [('estado', '=', '1') ] }"/>
 				    </td>
 				</tr>
 				<tr>
@@ -69,12 +70,12 @@
 				</tr>
 				<tr>
 				    <td colspan="2">
-					    <field name="change_salary"/>
+					    <field name="change_salary" attrs="{'readonly': [('estado', '=', '1') ] }"/>
 				    </td>
 				</tr>
 				<tr>
 				    <td>
-					    <button name="reason_change_salary" string="Cambio de sueldo" type="object" icon="gtk-apply"/>
+					    <button name="reason_change_salary" string="Cambio de sueldo" type="object" icon="gtk-apply" attrs="{'invisible': [('estado', '=', '1') ] }"/>
 				    </td>
 				    <td>
 					    <field name="item"/>

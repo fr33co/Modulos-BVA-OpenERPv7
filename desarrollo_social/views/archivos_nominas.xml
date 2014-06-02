@@ -38,14 +38,16 @@
 				<tree string="Attachments" position="replace">
 					<tree string="Reportes">
 						<field name="name"/>
+						<field name="tipo_nomina"/>
 						<field name="tipo_beca"/>
+						<field name="stage"/>
 						<field name="parent_id" invisible="1"/>
 						<field name="user_id" invisible="1"/>
 						<field name="company_id" invisible="1"/>
 						<field name="create_date" groups="base.group_no_one"/>
-						<field name="write_date" groups="base.group_no_one"/>
+						<field name="write_date" groups="base.group_no_one" invisible="1"/>
 						<field name="partner_id" invisible="1"/>
-						<field name="type"/>
+						<field name="type" invisible="1"/>
 					</tree>
 				</tree>
 			</field>

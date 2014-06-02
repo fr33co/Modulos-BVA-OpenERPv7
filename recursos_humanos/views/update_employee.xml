@@ -19,39 +19,40 @@
 			<table style="width:950px;" border="0">
 			    <tr>
 				<td><b>Cédula</b></td>
-				<td><field name="cedula" style="width:100px;" on_change="data_employee(cedula)"/></td>
+				<td><field name="cedula" style="width:100px;" on_change="data_employee(cedula)" attrs="{'readonly': [('estado', '=', '1') ] }"/></td>
 				<td><b>Fecha de ingreso</b></td>
-				<td><field name="date_ingreso"/></td>
+				<td><field name="date_ingreso" attrs="{'readonly': [('estado', '=', '1') ] }"/></td>
 				<td><b>Fecha de egreso</b></td>
-				<td><field name="date_egreso"/></td>
+				<td><field name="date_egreso" attrs="{'readonly': [('estado', '=', '1') ] }"/></td>
 			    </tr>
 			    <tr style="text-align:center;">
 				<td>
 				    <b>cargo anterior</b>
 				</td>
 				<td>
-				    <field name="charge_acterior" widget="selection"/>
+				    <field name="charge_acterior" widget="selection" attrs="{'readonly': [('estado', '=', '1') ] }"/>
+				    <field name="estado" invisible="1"/>
 				</td>
 				<td>
 				    <b>Nombres</b>
 				</td>
 				<td>
-				    <field name="nombres"/>
+				    <field name="nombres" attrs="{'readonly': [('estado', '=', '1') ] }"/>
 				</td>
 				<td>
 				    <b>Estatus</b>
 				</td>
 				<td>
-				    <field name="status"/>
+				    <field name="status" attrs="{'readonly': [('estado', '=', '1') ] }"/>
 				</td>
 			    </tr>
 			    <tr>
 				<td><b>Empleado</b></td>
-				<td><field name="emp" widget="selection"/></td>
+				<td><field name="emp" widget="selection" attrs="{'readonly': [('estado', '=', '1') ] }"/></td>
 				<td><b>Sueldo</b></td>
-				<td><field name="sueldo"/></td>
+				<td><field name="sueldo" attrs="{'readonly': [('estado', '=', '1') ] }"/></td>
 				<td><b>Dependencia</b></td>
-				<td><field name="dep_lab" widget="selection"/></td>
+				<td><field name="dep_lab" widget="selection" attrs="{'readonly': [('estado', '=', '1') ] }"/></td>
 			    </tr>
 			    <tr>
 				<td colspan="6">
@@ -62,29 +63,29 @@
 			    </tr>
 			    <tr>
 				<td><b>Fecha de reingreso</b></td>
-				<td><field name="reingreso"/></td>
+				<td><field name="reingreso" attrs="{'readonly': [('estado', '=', '1') ] }"/></td>
 				<td><b>Tipo nomina</b></td>
-				<td><field name="payslip" widget="selection"/></td>
+				<td><field name="payslip" widget="selection" attrs="{'readonly': [('estado', '=', '1') ] }"/></td>
 				<td><b>Empleado</b></td>
-				<td><field name="emp_egre" widget="selection"/></td>
+				<td><field name="emp_egre" widget="selection" attrs="{'readonly': [('estado', '=', '1') ] }"/></td>
 			    </tr>
 			    <tr>
 				<td><b>Cargo desempeñado</b></td>
-				<td><field name="charge_new" widget="selection" on_change="search_hr_data(charge_new,'1')"/></td>
+				<td><field name="charge_new" widget="selection" on_change="search_hr_data(charge_new,'1')" attrs="{'readonly': [('estado', '=', '1') ] }"/></td>
 				<td><b>Departamento</b></td>
-				<td><field name="dep_new" widget="selection"/></td>
+				<td><field name="dep_new" widget="selection" attrs="{'readonly': [('estado', '=', '1') ] }"/></td>
 				<td><b>Sueldo</b></td>
-				<td><field name="sueldo_new"/></td>
+				<td><field name="sueldo_new" attrs="{'readonly': [('estado', '=', '1') ] }"/></td>
 			    </tr>
 			    <tr>
 				<td><b>Descripción</b></td>
 				<td colspan="6">
-				    <field name="observacion"/>
+				    <field name="observacion" attrs="{'readonly': [('estado', '=', '1') ] }"/>
 				</td>
 			    </tr>
 			    <tr>
 				<td>
-				    <button name="process_reingreso" type="object" string="Procesar" confirm="¿Desea realizar el cambio del reingreso del empleado?" icon="gtk-apply" class="oe_highlight"/>
+				    <button name="process_reingreso" type="object" string="Procesar" confirm="¿Desea realizar el cambio del reingreso del empleado?" icon="gtk-apply" class="oe_highlight" attrs="{'invisible': [('estado', '=', '1') ] }"/>
 				</td>
 			    </tr>
 			</table>

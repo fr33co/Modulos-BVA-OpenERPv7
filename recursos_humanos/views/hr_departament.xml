@@ -2,45 +2,52 @@
 <openerp>
     <data>
     
-			<record model="ir.actions.act_window" id="accion_department">
-				<field name="name">Departamento</field>
-				<field name="res_model">hr.department</field>
-				<field name="view_type">form</field>
-				<field name="view_mode">tree,form</field>
-			</record>
-    
-			<record id="vista_department" model="ir.ui.view">
-				<field name="name">Departamento</field>
-				<field name="model">hr.department</field>
-				<field name="inherit_id" ref="hr.view_department_form"/>
-				<field name="arch" type="xml">
-					<field name="name" position="after">
-						<field name="gerente"/>
-					</field>
+	<record model="ir.actions.act_window" id="accion_department">
+	    <field name="name">Departamento</field>
+	    <field name="res_model">hr.department</field>
+	    <field name="view_type">form</field>
+	    <field name="view_mode">tree,form</field>
+	</record>
 
-					<field name="manager_id" position="replace">
-						<field name="manager_id" invisible="1"/>
-					</field>
-					<field name="parent_id" position="replace">
-						<field name="parent_id" invisible="1"/>
-					</field>
+	<record id="vista_department" model="ir.ui.view">
+	    <field name="name">Departamento</field>
+	    <field name="model">hr.department</field>
+	    <field name="inherit_id" ref="hr.view_department_form"/>
+	    <field name="arch" type="xml">
+		<field name="name" position="after">
+			<field name="gerente"/>
+		</field>
 
-				</field>
-			</record>
+		<field name="manager_id" position="replace">
+			<field name="manager_id" invisible="1"/>
+		</field>
+		<field name="parent_id" position="replace">
+			<field name="parent_id" invisible="1"/>
+		</field>
+		<field name="gerente" position="before">
+			<field name="cod"/>
+		</field>
 
-			<record model="ir.ui.view" id="department_tree">
-				<field name="name">Departamento</field>
-				<field name="model">hr.department</field>
-				<field name="inherit_id" ref="hr.view_department_tree"/>
-				<field name="arch" type="xml">
-					<field name="manager_id" position="before">
-						<field name="gerente"/>
-					</field>
-					<field name="manager_id" position="replace">
-						<field name="manager_id" invisible="1"/>
-					</field>
-				</field>
-			</record>
+	    </field>
+	</record>
+
+	<record model="ir.ui.view" id="department_tree">
+	    <field name="name">Departamento</field>
+	    <field name="model">hr.department</field>
+	    <field name="inherit_id" ref="hr.view_department_tree"/>
+	    <field name="arch" type="xml">
+		<field name="manager_id" position="before">
+			<field name="gerente"/>
+			<field name="cod"/>
+		</field>
+		<field name="manager_id" position="replace">
+			<field name="manager_id" invisible="1"/>
+		</field>
+		<!--<field name="name" position="before">
+			<field name="cod"/>
+		</field>-->
+	    </field>
+	</record>
     </data>
 </openerp>
 

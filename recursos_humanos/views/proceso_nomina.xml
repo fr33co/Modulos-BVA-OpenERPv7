@@ -70,7 +70,7 @@
 				    <notebook colspan="4">
 					<page string="Empleado de la nómina">
 					    <div class="div_scroll">
-					    <field name="slip_ids" nolabel="1" mode="tree"/>
+					    <field name="slip_ids" nolabel="1" mode="tree" domain= "[('class_personal','=',class_personal),('status','=',1)]"/>
 					    </div>
 					    <div style="margin-left: 600px;">
 					    <table style="text-align: left;">
@@ -88,9 +88,9 @@
 					    </table>
 					    </div>
 					</page>
-					<page string="Archivos adjuntos">
-<!-- 					    <field name="archivos"/> -->
-					</page>
+					<!--<page string="Archivos adjuntos">
+					<field name="archivos"/> -->
+					<!--</page>-->
 				</notebook>
 				</td>
 			    </tr>

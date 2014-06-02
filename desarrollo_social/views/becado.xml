@@ -146,7 +146,9 @@
 				<group string="Status" position="replace"><!--Ocultamiento de grupos innecesarios-->
 					<group invisible="1">
 						<field name="gender"/>
+<!--
 						<field name="marital"/>
+-->
 					</group>
 				</group>
 				<group string="Birth" position="replace">
@@ -186,7 +188,7 @@
 								<field name="tiempo_servicio" attrs="{'invisible': [('categoria', '=', '1') ] }"/>
 								<field name="ano_antiguedad" class="oe_inline" attrs="{'invisible': [('categoria', '=', '1') ] }"/>
 								<field name="entidad_bancaria" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>														
-								<field name="numero_cuenta" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>							
+								<field name="numero_cuenta" on_change="validar_num_cuenta(numero_cuenta)" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>							
 								<field name="tipo_cuenta" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>
 								<field name="status"/>
 								<field name="desc_status" attrs="{'invisible':['|',('status','=','1'),('status','=',False)]}"/>							
@@ -197,8 +199,8 @@
 								<field name="empleado" attrs="{'invisible': [('categoria', '=', '1') ] }"/>
 								<field name="tipo_beca" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>
 								<field name="tipo_nomina" attrs="{'invisible': [('categoria', '=', '1') ] }"/>
-								<field name="ejes" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>
-								<field name="sede" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>							
+								<field name="eje" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>
+								<field name="sede" attrs="{'invisible': [('categoria', '!=', '1') ] }" domain="[('eje','=', eje)]"/>							
 								<field name="coordinador_eje" widget="selection" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>							
 								<field name="coordinador_sede" widget="selection" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>
 							</group>
@@ -266,6 +268,22 @@
 			</field>
 		</record>
 		
+		<!-- Proceso de busqueda por tipo de beca, eje, sede/unidad, entidad bancaria del personal Becado-->
+
+		<record id="search_filter_becados" model="ir.ui.view">
+			<field name="name">Filtro de Becados</field>
+			<field name="model">hr.employee</field>
+			<field name="inherit_id" ref="recursos_humanos.search_filter_class_personal"/>
+			<field name="arch" type="xml">
+				<field name="job_id" position="after">
+					<field name="eje"/>
+					<field name="sede"/>
+					<field name="entidad_bancaria"/>
+					<field name="tipo_beca"/>
+				</field>
+			</field>
+		</record>
+		
 		<record model="ir.ui.view" id="vista_becados_tree">
 			<field name="name">Desarrollo Social</field>
 			<field name="model">hr.employee</field>
@@ -293,7 +311,7 @@
 						<field name="tlf_local" invisible="1"/>
 					</field>
 					<field name="sede" position="before">
-						<field name="ejes"/>
+						<field name="eje"/>
 					</field>
 <!--
 					<field name="sede" position="after">

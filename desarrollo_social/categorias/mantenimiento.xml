@@ -5,27 +5,38 @@
 			
 			<!--Tipos de Beca-->
 			<record id="tipo_beca_1" model="becados.tipobeca">
+				<field name="cod_beca">01</field>
 				<field name="cod_t_beca">007</field>
 				<field name="tipo_beca">BECA CYBERGUÍA</field>
 				<field name="asignacion">1000</field>
 				<field name="descripcion"></field>
 			</record>
 			<record id="tipo_beca_2" model="becados.tipobeca">
+				<field name="cod_beca">50</field>
 				<field name="cod_t_beca">006</field>
 				<field name="tipo_beca">BECA ESPECIAL (CYBERGUÍA)</field>
 				<field name="asignacion">1000</field>
 				<field name="descripcion"></field>
 			</record>
 			<record id="tipo_beca_3" model="becados.tipobeca">
+				<field name="cod_beca">50</field>
 				<field name="cod_t_beca">005</field>
 				<field name="tipo_beca">BECA ESPECIAL (COMISIÓN BECA)</field>
 				<field name="asignacion">600</field>
 				<field name="descripcion"></field>
 			</record>
 			<record id="tipo_beca_4" model="becados.tipobeca">
+				<field name="cod_beca">10</field>
 				<field name="cod_t_beca">004</field>
 				<field name="tipo_beca">BECA SOCIAL</field>
 				<field name="asignacion">600</field>
+				<field name="descripcion"></field>
+			</record>
+			<record id="tipo_beca_5" model="becados.tipobeca">
+				<field name="cod_beca">02</field>
+				<field name="cod_t_beca">008</field>
+				<field name="tipo_beca">BECA EXCELENCIA</field>
+				<field name="asignacion">1000</field>
 				<field name="descripcion"></field>
 			</record>
 			<!--Tipos de Beca-->
@@ -45,13 +56,14 @@
 			<!--Nivel Educativo-->
 			
 			<!--Ejes-->
+<!--
 			<record id="eje_1" model="becados.ejes">
 				<field name="codigo">001</field>
 				<field name="eje">Eje Centro</field>
 			</record>
 			<record id="eje_2" model="becados.ejes">
 				<field name="codigo">002</field>
-				<field name="eje">Eje Metro</field>
+				<field name="eje">Eje Costa</field>
 			</record>
 			<record id="eje_3" model="becados.ejes">
 				<field name="codigo">003</field>
@@ -59,21 +71,184 @@
 			</record>
 			<record id="eje_4" model="becados.ejes">
 				<field name="codigo">004</field>
-				<field name="eje">Eje Sur</field>
+				<field name="eje">Eje Metro</field>
 			</record>
 			<record id="eje_5" model="becados.ejes">
 				<field name="codigo">005</field>
-				<field name="eje">Eje Costa</field>
+				<field name="eje">Eje Sur</field>
 			</record>
+-->
 			<!--Ejes-->
 			
 			<!--Sedes-->
-<!--
 			<record id="sede_1" model="becados.sedes">
-				<field name="eje">Eje Centro</field>
-				<field name="sede">BV - Maracay</field>
+				<field name="codigo">10-100-160</field>
+				<field name="eje">001</field>
+				<field name="sede">BV - Hospital Militar</field>
+				<field name="descripcion">BIBLIOTECA VIRTUAL HOSPITAL MILITAR</field>
 			</record>
--->
+			<record id="sede_2" model="becados.sedes">
+				<field name="codigo"></field>
+				<field name="eje">001</field>
+				<field name="sede">BV - Morean Soto</field>
+				<field name="descripcion">BIBLIOTECA VIRTUAL MOREAN SOTO</field>
+			</record>
+			<record id="sede_3" model="becados.sedes">
+				<field name="codigo"></field>
+				<field name="eje">001</field>
+				<field name="sede">BV - UPEL Maracay</field>
+				<field name="descripcion">BIBLIOTECA VIRTUAL UPEL EL MACARO</field>
+			</record>
+			<record id="sede_4" model="becados.sedes">
+				<field name="codigo">20-100-180</field>
+				<field name="eje">001</field>
+				<field name="sede">BV - Turmero</field>
+				<field name="descripcion">BIBLIOTECA VIRTUAL TURMERO</field>
+			</record>
+			<record id="sede_5" model="becados.sedes">
+				<field name="codigo">20-100-200</field>
+				<field name="eje">001</field>
+				<field name="sede">BV - Villa de Cura</field>
+				<field name="descripcion">BIBLIOTECA VIRTUAL VILLA DE CURA</field>
+			</record>
+			<record id="sede_6" model="becados.sedes">
+				<field name="codigo">10-100-190</field>
+				<field name="eje">002</field>
+				<field name="sede">BV - Ocumare de la Costa</field>
+				<field name="descripcion">BIBLIOTECA VIRTUAL OCUMARE DE LA COSTA</field>
+			</record>
+			<record id="sede_7" model="becados.sedes">
+				<field name="codigo">10-100-130</field>
+				<field name="eje">002</field>
+				<field name="sede">BV - Choroní</field>
+				<field name="descripcion">BIBLIOTECA VIRTUAL CHORONÍ</field>
+			</record>
+			<record id="sede_8" model="becados.sedes">
+				<field name="codigo">20-100-200</field>
+				<field name="eje">002</field>
+				<field name="sede">BV - Chuao</field>
+				<field name="descripcion">BIBLIOTECA VIRTUAL CHUAO</field>
+			</record>
+			<record id="sede_9" model="becados.sedes">
+				<field name="codigo"></field>
+				<field name="eje">002</field>
+				<field name="sede">BV - Cepe</field>
+				<field name="descripcion">BIBLIOTECA VIRTUAL CEPE</field>
+			</record>
+			<record id="sede_10" model="becados.sedes">
+				<field name="codigo"></field>
+				<field name="eje">003</field>
+				<field name="sede">BV - San Mateo</field>
+				<field name="descripcion">BIBLIOTECA VIRTUAL SAN MATEO</field>
+			</record>
+			<record id="sede_11" model="becados.sedes">
+				<field name="codigo">20-100-140</field>
+				<field name="eje">003</field>
+				<field name="sede">BV - La Victoria</field>
+				<field name="descripcion">BIBLIOTECA VIRTUAL LA VICTORIA</field>
+			</record>
+			<record id="sede_12" model="becados.sedes">
+				<field name="codigo">20-100-120</field>
+				<field name="eje">003</field>
+				<field name="sede">BV - Palo Negro</field>
+				<field name="descripcion">BIBLIOTECA VIRTUAL PALO NEGRO</field>
+			</record>
+			<record id="sede_13" model="becados.sedes">
+				<field name="codigo">20-100-110</field>
+				<field name="eje">003</field>
+				<field name="sede">BV - Cagua</field>
+				<field name="descripcion">BIBLIOTECA VIRTUAL CAGUA</field>
+			</record>
+			<record id="sede_14" model="becados.sedes">
+				<field name="codigo"></field>
+				<field name="eje">003</field>
+				<field name="sede">BV - Colonia Tovar</field>
+				<field name="descripcion">BIBLIOTECA VIRTUAL COLONIA TOVAR</field>
+			</record>
+			<record id="sede_15" model="becados.sedes">
+				<field name="codigo"></field>
+				<field name="eje">004</field>
+				<field name="sede">BV - Maracay</field>
+				<field name="descripcion">BIBLIOTECA VIRTUAL MARACAY</field>
+			</record>
+			<record id="sede_16" model="becados.sedes">
+				<field name="codigo"></field>
+				<field name="eje">004</field>
+				<field name="sede">BV - Contraloría</field>
+				<field name="descripcion">BIBLIOTECA VIRTUAL CONTRALORÍA</field>
+			</record>
+			<record id="sede_17" model="becados.sedes">
+				<field name="codigo"></field>
+				<field name="eje">004</field>
+				<field name="sede">BV - IRDA</field>
+				<field name="descripcion">BIBLIOTECA VIRTUAL IRDA</field>
+			</record>
+			<record id="sede_18" model="becados.sedes">
+				<field name="codigo"></field>
+				<field name="eje">004</field>
+				<field name="sede">BV - Zoológico</field>
+				<field name="descripcion">BIBLIOTECA VIRTUAL ZOOLÓGICO</field>
+			</record>
+			<record id="sede_19" model="becados.sedes">
+				<field name="codigo">10-100-200</field>
+				<field name="eje">004</field>
+				<field name="sede">BV - San Vicente</field>
+				<field name="descripcion">BIBLIOTECA VIRTUAL SAN VICENTE</field>
+			</record>
+			<record id="sede_20" model="becados.sedes">
+				<field name="codigo"></field>
+				<field name="eje">004</field>
+				<field name="sede">BV - Brisas del Lago</field>
+				<field name="descripcion">BIBLIOTECA VIRTUAL BRISAS DEL LAGO</field>
+			</record>
+			<record id="sede_21" model="becados.sedes">
+				<field name="codigo"></field>
+				<field name="eje">004</field>
+				<field name="sede">BV - Tiempo Meteorológico</field>
+				<field name="descripcion">BIBLIOTECA VIRTUAL TIEMPO METEOROLÓGICO</field>
+			</record>
+			<record id="sede_22" model="becados.sedes">
+				<field name="codigo"></field>
+				<field name="eje">005</field>
+				<field name="sede">BV - Barbacoas</field>
+				<field name="descripcion">BIBLIOTECA VIRTUAL BARBACOAS</field>
+			</record>
+			<record id="sede_23" model="becados.sedes">
+				<field name="codigo">30-100-130</field>
+				<field name="eje">005</field>
+				<field name="sede">BV - Quebrada Honda</field>
+				<field name="descripcion">BIBLIOTECA VIRTUAL QUEBRADA HONDA</field>
+			</record>
+			<record id="sede_24" model="becados.sedes">
+				<field name="codigo"></field>
+				<field name="eje">005</field>
+				<field name="sede">BV - San Casimiro</field>
+				<field name="descripcion">BIBLIOTECA VIRTUAL SAN CASIMIRO</field>
+			</record>
+			<record id="sede_25" model="becados.sedes">
+				<field name="codigo"></field>
+				<field name="eje">005</field>
+				<field name="sede">BV - San Francisco de Cara</field>
+				<field name="descripcion">BIBLIOTECA VIRTUAL SAN FRANCISCO DE CARA</field>
+			</record>
+			<record id="sede_26" model="becados.sedes">
+				<field name="codigo"></field>
+				<field name="eje">005</field>
+				<field name="sede">BV - San Sebastián</field>
+				<field name="descripcion">BIBLIOTECA VIRTUAL SAN SEBASTIÁN</field>
+			</record>
+			<record id="sede_27" model="becados.sedes">
+				<field name="codigo"></field>
+				<field name="eje">005</field>
+				<field name="sede">BV - Vallecito</field>
+				<field name="descripcion">BIBLIOTECA VIRTUAL VALLECITO</field>
+			</record>
+			<record id="sede_28" model="becados.sedes">
+				<field name="codigo">10-100-240</field>
+				<field name="eje"></field>
+				<field name="sede">Comisión de Becas</field>
+				<field name="descripcion">COMISIÓN DE BECAS</field>
+			</record>
 			<!--Sedes-->
 			
 			<!--Entidades Bancarias-->

@@ -63,7 +63,7 @@
 	    <record id="concepts_8" model="hr.concepts">
         	<field name="codigo">107</field>
                 <field name="formula">mmonto</field>
-                <field name="concepto">Prima de responsabilidad</field>
+                <field name="concepto">Prima de responsabilidad fraccionada</field>
                 <field name="frecuencia">1</field>
 		<field name="f">1</field>
 		<field name="c_integral">TRUE</field>
@@ -123,7 +123,7 @@
 	    <record id="concepts_14" model="hr.concepts">
         	<field name="codigo">126</field>
                 <field name="formula">45*Round((Bonovacacional(95,"Cajaahorro")+Primaprof(Msueldo,"06-08-10-13-14-15",0.12) +(MSUELDO*(Prima_ant("116")/100)))/30,2)</field>
-                <field name="concepto">Bono vacacional 45 dias</field>
+                <field name="concepto">Bono vacacional</field>
                 <field name="frecuencia">2</field>
 		<field name="f">1</field>
 		<field name="c_integral"></field>
@@ -370,7 +370,7 @@
             </record>
 	    <record id="concepts_45" model="hr.concepts">
         	<field name="codigo">462</field>
-                <field name="formula">mmonto</field>
+                <field name="formula">(SM/dias*0.12)*diasp</field>
                 <field name="concepto">Diferencia prima de profesionalización</field>
 		<field name="frecuencia">2</field>
 		<field name="f">1</field>
@@ -446,6 +446,41 @@
         	<field name="codigo">910</field>
                 <field name="formula">(SM/30*100%*ND)</field>
                 <field name="concepto">Permiso no remunerado</field>
+		<field name="frecuencia">1</field>
+		<field name="f">1</field>
+            </record>
+	    <record id="concepts_56" model="hr.concepts">
+        	<field name="codigo">182</field>
+                <field name="formula">(sm/dias*0.04)*can</field>
+                <field name="concepto">Diferencia prima de antiguedad</field>
+		<field name="frecuencia">1</field>
+		<field name="f">1</field>
+            </record>
+	    <record id="concepts_57" model="hr.concepts">
+        	<field name="codigo">183</field>
+                <field name="formula">SM/dias*100*ND</field>
+                <field name="concepto">Descanso Laborado</field>
+		<field name="frecuencia">1</field>
+		<field name="f">1</field>
+            </record>
+	    <record id="concepts_58" model="hr.concepts">
+        	<field name="codigo">184</field>
+                <field name="formula">SM/dias*100*ND</field>
+                <field name="concepto">Permiso no remunerado</field>
+		<field name="frecuencia">1</field>
+		<field name="f">1</field>
+            </record>
+	    <record id="concepts_59" model="hr.concepts">
+        	<field name="codigo">185</field>
+                <field name="formula">mmonto</field>
+                <field name="concepto">Aporte patronal guarderia</field>
+		<field name="frecuencia">1</field>
+		<field name="f">1</field>
+            </record>
+	    <record id="concepts_60" model="hr.concepts">
+        	<field name="codigo">149</field>
+                <field name="formula">((sm/dias/7)*0.3)*60</field>
+                <field name="concepto">Bono nocturno</field>
 		<field name="frecuencia">1</field>
 		<field name="f">1</field>
             </record>

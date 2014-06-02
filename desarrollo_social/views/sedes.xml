@@ -37,6 +37,7 @@
 				<tree string="Lista de Sedes">
 					<field name="codigo"/>
 					<field name="eje"/>
+					<!--<field name="cod_eje" invisible="0"/>-->
 					<field name="sede"/>
 					<field name="descripcion"/>
 				</tree>
