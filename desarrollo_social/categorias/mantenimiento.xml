@@ -277,9 +277,9 @@
 			
 			<!--Entidades Bancarias-->
 			<record id="banco_1" model="becados.bancos">
-				<field name="codigo">002</field>
-				<field name="banco">B.N.C</field>
-				<field name="descripcion">Banco Nacional de Credito</field>
+				<field name="codigo">001</field>
+				<field name="banco">Venezuela</field>
+				<field name="descripcion">Banco de Venezuela</field>
 			</record>
 			<record id="banco_2" model="becados.bancos">
 				<field name="codigo">002</field>
