@@ -166,7 +166,7 @@ class Becado(osv.Model):
 	
 	_columns = {
 		#Información personal-----------------------------------------------------------------
-		'cedula' : fields.char(string="Cédula", size = 8, required=True),
+		'cedula' : fields.char(string="Cédula", size = 10, required=True),
 		'primer_nombre' : fields.char(string="Primer nombre", size=50, required=True),
 		'segundo_nombre' : fields.char(string="Segundo nombre", size=50, required=False),
 		'primer_apellido' : fields.char(string="Primer apellido", size=50, required=True),
