@@ -166,7 +166,7 @@
 					<page string="Información Académica">
 						<group>
 							<group>
-								<field name="grado_instruccion" nolabel="0" colspan="2"/>
+								<field name="grado_instruccion" nolabel="0" colspan="2" attrs="{'invisible': [('categoria', '!=', '1')] }"/>
 								<field name="nivel_edu" nolabel="0" colspan="2" domain="[('grado_instruc','=', grado_instruccion)]"/>
 								<field name="estado_de_estudios" nolabel="0" colspan="2"/>
 								<field name="inst_educ" nolabel="0" colspan="2" attrs="{'invisible': [('estado_de_estudios', '=', False)] }"/>

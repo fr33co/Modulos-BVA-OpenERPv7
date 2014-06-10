@@ -34,6 +34,7 @@ class Shuttle_ascent_employee(osv.Model):
 					raise osv.except_osv(_("Warning!"), _("La nueva dependencia debe ser distinta al que posee actualmente..."))
 				else:
 					cr.execute("UPDATE hr_employee SET department_id=%s, asignacion=%s  WHERE cedula=%s;", (depart_nuevo, sueldo, cedula))
+					self.write(cr, uid, ids, {'estado': '1'}, context=context) # Cambio de estado
 				return True
 
 			elif str(x.movimiento) == '2':
@@ -42,6 +43,7 @@ class Shuttle_ascent_employee(osv.Model):
 					raise osv.except_osv(_("Warning!"), _("El nuevo cargo debe ser distinto al que posee actualmente..."))
 				else:
 					cr.execute("UPDATE hr_employee SET job_id=%s, asignacion=%s  WHERE cedula=%s;", (cargo_nuevo, sueldo, cedula))
+					self.write(cr, uid, ids, {'estado': '1'}, context=context) # Cambio de estado
 				return True
 
 			elif str(x.movimiento) == '3':
@@ -52,8 +54,8 @@ class Shuttle_ascent_employee(osv.Model):
 					raise osv.except_osv(_("Warning!"), _("La nueva dependencia debe ser distinta al que posee actualmente..."))
 
 				else:
-					raise osv.except_osv(_("Warning!"), _("Fue aceptado con exito..."))
 					cr.execute("UPDATE hr_employee SET job_id=%s, department_id=%s, asignacion=%s  WHERE cedula=%s;", (cargo_nuevo, depart_nuevo, sueldo, cedula))
+					self.write(cr, uid, ids, {'estado': '1'}, context=context) # Cambio de estado
 				return True
 
 
@@ -100,6 +102,15 @@ class Shuttle_ascent_employee(osv.Model):
 			mensaje = {
 					'title'   : "Advertencia",
 					'message' : "Disculpe el empleado esta egresado para modificarlo debe reingresarlo...",
+			}
+			query = {
+				'cedula': None,
+			}
+			values.update(query)
+		elif int(datos_code[0]['status']) == 5:
+			mensaje = {
+					'title'   : "Advertencia",
+					'message' : "Disculpe el empleado no se encuentra activo actualmente...",
 			}
 			query = {
 				'cedula': None,

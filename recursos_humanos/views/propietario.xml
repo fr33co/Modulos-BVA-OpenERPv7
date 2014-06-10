@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+	<record model="ir.actions.act_window" id="action_propietario">
+	    <field name="name">Propietario</field>
+	    <field name="res_model">hr.propietario</field>
+	    <field name="view_type">form</field>
+	    <field name="view_mode">tree,form</field>
+	</record>
+
+	<record id="view_concepts" model="ir.ui.view">
+	    <field name="name">Propietario</field>
+	    <field name="model">hr.propietario</field>
+	    <field name="arch" type="xml">
+			<form string="Formulario de Propietario" version="7.0">
+			    <field name="codigo"/>
+			    <field name="propietario"/>
+			    <field name="cuenta"/>
+			    <field name="estandar"/>
+			</form>
+	    </field>
+	</record>
+
+	<record model="ir.ui.view" id="propietario_tree">
+	<field name="name">Propietario.tree</field>
+	<field name="model">hr.propietario</field>
+	<field name="arch" type="xml">
+		<tree string="Lista de Propietario">
+			<field name="codigo"/>
+		    <field name="propietario"/>
+		    <field name="cuenta"/>
+		    <field name="estandar"/>
+		</tree>
+	</field>
+	</record>
+        
+        <menuitem parent="hr.menu_hr_configuration" id="sub_menu_propietario" action="action_propietario" name="Propietario"/>
+        
+    </data>
+</openerp>

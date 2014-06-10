@@ -8,22 +8,14 @@
                 <field name="status">Activo</field>
                 <field name="active">True</field>
             </record>
-
             <record id="state_user2" model="becados.status">
                 <field name="status">Suspendido</field>
                 <field name="active">True</field>
             </record>
-
             <record id="state_user3" model="becados.status">
-                <field name="status">Periódo de gracia</field>
+                <field name="status">Vacaciones</field>
                 <field name="active">True</field>
             </record>
-
-            <record id="state_user4" model="becados.status">
-                <field name="status">Permiso no remunerado</field>
-                <field name="active">True</field>
-            </record>
-
             <record id="state_user5" model="becados.status">
                 <field name="status">Permiso de Reposo</field>
                 <field name="active">True</field>
@@ -33,41 +25,267 @@
 <!--===================================================================-->
 
             <record id="hr_depart_name_1" model="hr.department">
-                <field name="name">Recursos Humanos</field>
+                <field name="name">Gerencia de Recursos Humanos</field>
                 <field name="active">True</field>
+                <field name="cod">00-00-01</field>
             </record>
             <record id="hr_depart_name_2" model="hr.department">
-                <field name="name">Desarrollo y Aplicaciones</field>
+                <field name="name">Gerencia de Desarrollo y Aplicaciones</field>
                 <field name="active">True</field>
+                <field name="cod">00-00-02</field>
             </record>
             <record id="hr_depart_name_3" model="hr.department">
-                <field name="name">Tecnología</field>
+                <field name="name">Gerencia de Tecnología</field>
                 <field name="active">True</field>
+                <field name="cod">00-00-03</field>
             </record>
             <record id="hr_depart_name_4" model="hr.department">
-                <field name="name">Soporte</field>
+                <field name="name"> Gerencia de Soporte</field>
                 <field name="active">True</field>
+                <field name="cod">00-00-04</field>
             </record>
             <record id="hr_depart_name_5" model="hr.department">
-                <field name="name">Telecomunicaciones</field>
+                <field name="name">Gerencia de Telecomunicaciones</field>
                 <field name="active">True</field>
+                <field name="cod">00-00-05</field>
             </record>
             <record id="hr_depart_name_6" model="hr.department">
                 <field name="name">Mantenimiento</field>
                 <field name="active">True</field>
+                <field name="cod">00-00-06</field>
             </record>
             <record id="hr_depart_name_7" model="hr.department">
                 <field name="name">Tesorería</field>
                 <field name="active">True</field>
+                <field name="cod">00-00-07</field>
             </record>
             <record id="hr_depart_name_8" model="hr.department">
-                <field name="name">Administración</field>
+                <field name="name">Gerencia de Administración</field>
                 <field name="active">True</field>
+                <field name="cod">00-00-08</field>
             </record>
             <record id="hr_depart_name_9" model="hr.department">
                 <field name="name">Audiovisuales</field>
                 <field name="active">True</field>
+                <field name="cod">00-00-19</field>
             </record>
+            <record id="hr_depart_name_10" model="hr.department">
+                <field name="name">Auditoria Interna</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-10</field>
+            </record>
+            <record id="hr_depart_name_11" model="hr.department">
+                <field name="name">Bienes y Suministros</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-11</field>
+            </record>
+            <record id="hr_depart_name_12" model="hr.department">
+                <field name="name">Despacho Gerencia General</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-12</field>
+            </record>
+            <record id="hr_depart_name_13" model="hr.department">
+                <field name="name">Gerencia General</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-13</field>
+            </record>
+            <record id="hr_depart_name_14" model="hr.department">
+                <field name="name">Presidencia</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-14</field>
+            </record>
+            <record id="hr_depart_name_15" model="hr.department">
+                <field name="name">Servicios Generales</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-15</field>
+            </record>
+<!--===========================  Bibliotecas  =========================-->
+            <record id="hr_depart_name_16" model="hr.department">
+                <field name="name">Biblioteca Virtual Colonia Tovar</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-16</field>
+            </record>
+            <record id="hr_depart_name_17" model="hr.department">
+                <field name="name">Biblioteca Virtual Barbacoas</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-17</field>
+            </record>
+            <record id="hr_depart_name_18" model="hr.department">
+                <field name="name">Biblioteca Virtual Barrio el Carmen</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-18</field>
+            </record>
+            <record id="hr_depart_name_19" model="hr.department">
+                <field name="name">Biblioteca Virtual Camatagua</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-19</field>
+            </record>
+            <record id="hr_depart_name_20" model="hr.department">
+                <field name="name">Biblioteca Virtual Caña de Azucar</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-20</field>
+            </record>
+            <record id="hr_depart_name_21" model="hr.department">
+                <field name="name">Biblioteca Virtual CEPE</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-21</field>
+            </record>
+            <record id="hr_depart_name_22" model="hr.department">
+                <field name="name">Biblioteca Virtual Contraloría</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-22</field>
+            </record>
+            <record id="hr_depart_name_23" model="hr.department">
+                <field name="name">Biblioteca Virtual de Cagua</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-23</field>
+            </record>
+            <record id="hr_depart_name_24" model="hr.department">
+                <field name="name">Biblioteca Virtual de Maracay</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-24</field>
+            </record>
+            <record id="hr_depart_name_25" model="hr.department">
+                <field name="name">Biblioteca Virtual el Consejo</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-25</field>
+            </record>
+            <record id="hr_depart_name_26" model="hr.department">
+                <field name="name">Biblioteca Virtual Hospital Central de Maracay</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-26</field>
+            </record>
+            <record id="hr_depart_name_27" model="hr.department">
+                <field name="name">Biblioteca Virtual IRDA</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-27</field>
+            </record>
+            <record id="hr_depart_name_28" model="hr.department">
+                <field name="name">Biblioteca Virtual José rafael Noguera Blanco</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-28</field>
+            </record>
+            <record id="hr_depart_name_29" model="hr.department">
+                <field name="name">Biblioteca Virtual la Victoria</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-29</field>
+            </record>
+            <record id="hr_depart_name_30" model="hr.department">
+                <field name="name">Biblioteca Virtual Macaro</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-30</field>
+            </record>
+            <record id="hr_depart_name_31" model="hr.department">
+                <field name="name">Biblioteca Virtual Morean Soto</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-31</field>
+            </record>
+            <record id="hr_depart_name_32" model="hr.department">
+                <field name="name">Biblioteca Virtual Ocumare de la Costa</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-32</field>
+            </record>
+            <record id="hr_depart_name_33" model="hr.department">
+                <field name="name">Biblioteca Virtual Piñonal</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-33</field>
+            </record>
+            <record id="hr_depart_name_34" model="hr.department">
+                <field name="name">Biblioteca Virtual Quebrada Honda</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-34</field>
+            </record>
+            <record id="hr_depart_name_35" model="hr.department">
+                <field name="name">Biblioteca Virtual San Casimiro</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-35</field>
+            </record>
+            <record id="hr_depart_name_36" model="hr.department">
+                <field name="name">Biblioteca Virtual San Francisco de Cara</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-36</field>
+            </record>
+            <record id="hr_depart_name_37" model="hr.department">
+                <field name="name">Biblioteca Virtual San Mateo</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-37</field>
+            </record>
+            <record id="hr_depart_name_38" model="hr.department">
+                <field name="name">Biblioteca Virtual San Vicente</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-38</field>
+            </record>
+            <record id="hr_depart_name_39" model="hr.department">
+                <field name="name">Biblioteca VirtualSanta Cruz</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-39</field>
+            </record>
+            <record id="hr_depart_name_40" model="hr.department">
+                <field name="name">Biblioteca Virtual Turmero</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-40</field>
+            </record>
+            <record id="hr_depart_name_41" model="hr.department">
+                <field name="name">Biblioteca Virtual UCV</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-41</field>
+            </record>
+            <record id="hr_depart_name_42" model="hr.department">
+                <field name="name">Biblioteca Virtual UPEL</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-42</field>
+            </record>
+            <record id="hr_depart_name_43" model="hr.department">
+                <field name="name">Biblioteca Virtual Vallecito</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-43</field>
+            </record>
+            <record id="hr_depart_name_44" model="hr.department">
+                <field name="name">Biblioteca Virtual Zoologico</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-44</field>
+            </record>
+            <record id="hr_depart_name_45" model="hr.department">
+                <field name="name">Biblioteca Virtual Morean Soto</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-45</field>
+            </record>
+            <record id="hr_depart_name_46" model="hr.department">
+                <field name="name">Convenio Proyecto Alcatraz</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-46</field>
+            </record>
+            <record id="hr_depart_name_47" model="hr.department">
+                <field name="name">hermanos Franciscanos de Cruz Blanca</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-47</field>
+            </record>
+            <record id="hr_depart_name_48" model="hr.department">
+                <field name="name">Observatorio Aragueño de las TIC</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-48</field>
+            </record>
+            <record id="hr_depart_name_49" model="hr.department">
+                <field name="name">Convenio Proyecto Alcatraz</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-49</field>
+            </record>
+            <record id="hr_depart_name_50" model="hr.department">
+                <field name="name">Prevención, Control y Perdida</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-50</field>
+            </record>
+            <record id="hr_depart_name_51" model="hr.department">
+                <field name="name">Servicios Generales</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-51</field>
+            </record>
+            <record id="hr_depart_name_52" model="hr.department">
+                <field name="name">Tesoreria</field>
+                <field name="active">True</field>
+                <field name="cod">00-00-52</field>
+            </record>
+
 <!--===================================================================-->
                         <!-- Grupo sanguineo -->
 <!--===================================================================-->
@@ -159,7 +377,7 @@
 <!--===================================================================-->
             <!--TIPO de GRADO-->
             <record id="tipo1" model="hr.level.instruction">
-                <field name="tipo">Básica</field>
+                <field name="tipo">Basica</field>
             </record>
             <record id="tipo2" model="hr.level.instruction">
                 <field name="tipo">Media Diversificada y Profesional</field>
@@ -302,11 +520,341 @@
             <record id="grado_instruc_8" model="becados.gradoinstruccion">
                 <field name="grado_instruc">Doctorado</field>
             </record>
+            
+<!--===================================================================-->
+                        <!-- Grado de Instrucción -->
+<!--===================================================================-->
+            <record id="grado_1" model="hr.config.asignacion">
+                <field name="grado_instruc">Bachiller</field>
+            </record>
+            <record id="grado_2" model="hr.config.asignacion">
+                <field name="grado_instruc">Universitario</field>
+            </record>
+            <record id="grado_3" model="hr.config.asignacion">
+                <field name="grado_instruc">Técnico Medio</field>
+            </record>
+            <record id="grado_4" model="hr.config.asignacion">
+                <field name="grado_instruc">Técnico Universitario</field>
+            </record>
+            <record id="grado_5" model="hr.config.asignacion">
+                <field name="grado_instruc">universitario(a) / Licenciado(a)</field>
+            </record>
+            <record id="grado_6" model="hr.config.asignacion">
+                <field name="grado_instruc">Especialización / Diplomado</field>
+            </record>
+            <record id="grado_7" model="hr.config.asignacion">
+                <field name="grado_instruc">Maestria</field>
+            </record>
+            <record id="grado_8" model="hr.config.asignacion">
+                <field name="grado_instruc">Doctorado</field>
+            </record>
 <!--===================================================================-->
             <record id="adm_nomina_1" model="hr.nomina.adm">
                 <field name="cod">001</field>
                 <field name="nomina">A.C Biblioteca Virtual</field>
             </record> 
 <!--===================================================================-->
+                            <!-- CARGOS ALTO NIVEL-->
+<!--===================================================================-->
+            <record id="job_1" model="hr.job">
+                <field name="cod">00-001</field>
+                <field name="name">Jefe de Atención al Ciudadano</field>
+                <field name="nivel">1</field>
+            </record>
+            <record id="job_2" model="hr.job">
+                <field name="cod">00-002</field>
+                <field name="name">Jefe de Atención al Ciudadano (E)</field>
+                <field name="nivel">1</field>
+            </record>
+            <record id="job_3" model="hr.job">
+                <field name="cod">00-003</field>
+                <field name="name">Jefe de Bienes y Suministro</field>
+                <field name="nivel">1</field>
+            </record>
+            <record id="job_4" model="hr.job">
+                <field name="cod">00-004</field>
+                <field name="name">Jefe de Bienes y Suministro (E)</field>
+                <field name="nivel">1</field>
+            </record>
+            <record id="job_5" model="hr.job">
+                <field name="cod">00-005</field>
+                <field name="name">Jefe de Prevención Control y Per (E)</field>
+                <field name="nivel">1</field>
+            </record>
+            <record id="job_6" model="hr.job">
+                <field name="cod">00-006</field>
+                <field name="name">Jefe de Servicios Generales</field>
+                <field name="nivel">1</field>
+            </record>
+            <record id="job_7" model="hr.job">
+                <field name="cod">00-007</field>
+                <field name="name">Jefe de Servicios Generales (E)</field>
+                <field name="nivel">1</field>
+            </record>
+            <record id="job_8" model="hr.job">
+                <field name="cod">00-008</field>
+                <field name="name">Jefe de Tesoreria</field>
+                <field name="nivel">1</field>
+            </record>
+            <record id="job_9" model="hr.job">
+                <field name="cod">00-009</field>
+                <field name="name">Jefe de Tesoreria (E)</field>
+                <field name="nivel">1</field>
+            </record>
+            <record id="job_10" model="hr.job">
+                <field name="cod">00-010</field>
+                <field name="name">Auditor Interno</field>
+                <field name="nivel">1</field>
+            </record>
+            <record id="job_11" model="hr.job">
+                <field name="cod">00-011</field>
+                <field name="name">Consultor Jurídico</field>
+                <field name="nivel">1</field>
+            </record>
+            <record id="job_12" model="hr.job">
+                <field name="cod">00-012</field>
+                <field name="name">Consultor Jurídico (E)</field>
+                <field name="nivel">1</field>
+            </record>
+            <record id="job_13" model="hr.job">
+                <field name="cod">00-013</field>
+                <field name="name">Gerente de Administración</field>
+                <field name="nivel">1</field>
+            </record>
+            <record id="job_14" model="hr.job">
+                <field name="cod">00-014</field>
+                <field name="name">Gerente de Administración (E)</field>
+                <field name="nivel">1</field>
+            </record>
+            <record id="job_15" model="hr.job">
+                <field name="cod">00-015</field>
+                <field name="name">Gerente de Comunicación e Información</field>
+                <field name="nivel">1</field>
+            </record>
+            <record id="job_16" model="hr.job">
+                <field name="cod">00-016</field>
+                <field name="name">Gerente de Comunicación e Información (E)</field>
+                <field name="nivel">1</field>
+            </record>
+            <record id="job_17" model="hr.job">
+                <field name="cod">00-017</field>
+                <field name="name">Gerente de Desarollo Social</field>
+                <field name="nivel">1</field>
+            </record>
+            <record id="job_18" model="hr.job">
+                <field name="cod">00-018</field>
+                <field name="name">Gerente de Desarollo Social (E)</field>
+                <field name="nivel">1</field>
+            </record>
+            <record id="job_19" model="hr.job">
+                <field name="cod">00-019</field>
+                <field name="name">Gerente de Desarollo y Aplicaciones</field>
+                <field name="nivel">1</field>
+            </record>
+            <record id="job_20" model="hr.job">
+                <field name="cod">00-020</field>
+                <field name="name">Gerente de Desarollo y Aplicaciones (E)</field>
+                <field name="nivel">1</field>
+            </record>
+            <record id="job_21" model="hr.job">
+                <field name="cod">00-021</field>
+                <field name="name">Gerente de Operaciones</field>
+                <field name="nivel">1</field>
+            </record>
+            <record id="job_22" model="hr.job">
+                <field name="cod">00-022</field>
+                <field name="name">Gerente de Operaciones (E)</field>
+                <field name="nivel">1</field>
+            </record>
+            <record id="job_23" model="hr.job">
+                <field name="cod">00-023</field>
+                <field name="name">Gerente de Planif, Pres. Control Gest</field>
+                <field name="nivel">1</field>
+            </record>
+            <record id="job_24" model="hr.job">
+                <field name="cod">00-024</field>
+                <field name="name">Gerente de Planif, Pres. Control Gest (E)</field>
+                <field name="nivel">1</field>
+            </record>
+            <record id="job_25" model="hr.job">
+                <field name="cod">00-025</field>
+                <field name="name">Gerente de Proyecto</field>
+                <field name="nivel">1</field>
+            </record>
+            <record id="job_26" model="hr.job">
+                <field name="cod">00-026</field>
+                <field name="name">Gerente de Proyecto (E)</field>
+                <field name="nivel">1</field>
+            </record>
+            <record id="job_27" model="hr.job">
+                <field name="cod">00-027</field>
+                <field name="name">Gerente de Recursos Humanos</field>
+                <field name="nivel">1</field>
+            </record>
+            <record id="job_28" model="hr.job">
+                <field name="cod">00-028</field>
+                <field name="name">Gerente de Recursos Humanos (E)</field>
+                <field name="nivel">1</field>
+            </record>
+            <record id="job_29" model="hr.job">
+                <field name="cod">00-029</field>
+                <field name="name">Gerente de Tecnología</field>
+                <field name="nivel">1</field>
+            </record>
+            <record id="job_30" model="hr.job">
+                <field name="cod">00-030</field>
+                <field name="name">Gerente de Tecnología (E)</field>
+                <field name="nivel">1</field>
+            </record>
+            <record id="job_31" model="hr.job">
+                <field name="cod">00-031</field>
+                <field name="name">Gerente de Infraestructura</field>
+                <field name="nivel">1</field>
+            </record>
+            <record id="job_32" model="hr.job">
+                <field name="cod">00-032</field>
+                <field name="name">Gerente de Infraestructura (E)</field>
+                <field name="nivel">1</field>
+            </record>
+            <record id="job_33" model="hr.job">
+                <field name="cod">00-033</field>
+                <field name="name">Gerente General</field>
+                <field name="nivel">1</field>
+            </record>
+            <record id="job_34" model="hr.job">
+                <field name="cod">00-034</field>
+                <field name="name">Presidente</field>
+                <field name="nivel">1</field>
+            </record>
+<!--===================================================================-->
+                    <!-- CARGOS EMPLEADO FIJO-->
+<!--===================================================================-->
+            <record id="job_35" model="hr.job">
+                <field name="cod">01-001</field>
+                <field name="name">Analista I</field>
+                <field name="nivel">2</field>
+            </record>
+            <record id="job_36" model="hr.job">
+                <field name="cod">01-002</field>
+                <field name="name">Analista II</field>
+                <field name="nivel">2</field>
+            </record>
+            <record id="job_37" model="hr.job">
+                <field name="cod">01-003</field>
+                <field name="name">Analista III</field>
+                <field name="nivel">2</field>
+            </record>
+            <record id="job_38" model="hr.job">
+                <field name="cod">01-004</field>
+                <field name="name">Analista IV</field>
+                <field name="nivel">2</field>
+            </record>
+            <record id="job_39" model="hr.job">
+                <field name="cod">01-005</field>
+                <field name="name">Analista V</field>
+                <field name="nivel">2</field>
+            </record>
+            <record id="job_40" model="hr.job">
+                <field name="cod">01-006</field>
+                <field name="name">Asistente Administrativo I</field>
+                <field name="nivel">2</field>
+            </record>
+            <record id="job_41" model="hr.job">
+                <field name="cod">01-007</field>
+                <field name="name">Asistente Administrativo II</field>
+                <field name="nivel">2</field>
+            </record>
+            <record id="job_42" model="hr.job">
+                <field name="cod">01-008</field>
+                <field name="name">Asistente Administrativo III</field>
+                <field name="nivel">2</field>
+            </record>
+            <record id="job_43" model="hr.job">
+                <field name="cod">01-009</field>
+                <field name="name">Coordinador de Biblioteca I</field>
+                <field name="nivel">2</field>
+            </record>
+            <record id="job_44" model="hr.job">
+                <field name="cod">01-010</field>
+                <field name="name">Coordinador de Biblioteca II</field>
+                <field name="nivel">2</field>
+            </record>
+            <record id="job_45" model="hr.job">
+                <field name="cod">01-011</field>
+                <field name="name">Coordinador de Biblioteca III</field>
+                <field name="nivel">2</field>
+            </record>
+            <record id="job_46" model="hr.job">
+                <field name="cod">01-012</field>
+                <field name="name">Auditor Interno III</field>
+                <field name="nivel">2</field>
+            </record>
+            <record id="job_47" model="hr.job">
+                <field name="cod">01-013</field>
+                <field name="name">Abogado I</field>
+                <field name="nivel">2</field>
+            </record>
+            <record id="job_48" model="hr.job">
+                <field name="cod">01-014</field>
+                <field name="name">Asistente de Biblioteca I</field>
+                <field name="nivel">2</field>
+            </record>
+            <record id="job_49" model="hr.job">
+                <field name="cod">01-015</field>
+                <field name="name">Asistente de Biblioteca II</field>
+                <field name="nivel">2</field>
+            </record>
+            <record id="job_50" model="hr.job">
+                <field name="cod">01-016</field>
+                <field name="name">Asistente de Biblioteca III</field>
+                <field name="nivel">2</field>
+            </record>
+            <record id="job_51" model="hr.job">
+                <field name="cod">01-017</field>
+                <field name="name">Auditor I</field>
+                <field name="nivel">2</field>
+            </record>
+            <record id="job_52" model="hr.job">
+                <field name="cod">01-018</field>
+                <field name="name">Auditor II</field>
+                <field name="nivel">2</field>
+            </record>
+            <record id="job_53" model="hr.job">
+                <field name="cod">01-019</field>
+                <field name="name">Médico Ocupacional</field>
+                <field name="nivel">2</field>
+            </record>
+<!--===================================================================-->
+                        <!-- CARGOS OBRERO-->
+<!--===================================================================-->
+            <record id="job_54" model="hr.job">
+                <field name="cod">02-001</field>
+                <field name="name">Chofer</field>
+                <field name="nivel">3</field>
+            </record>
+            <record id="job_55" model="hr.job">
+                <field name="cod">02-002</field>
+                <field name="name">Mantenimiento</field>
+                <field name="nivel">3</field>
+            </record>
+            <record id="job_56" model="hr.job">
+                <field name="cod">02-003</field>
+                <field name="name">Seguridad</field>
+                <field name="nivel">3</field>
+            </record>
+            <record id="job_57" model="hr.job">
+                <field name="cod">02-004</field>
+                <field name="name">Mecánico</field>
+                <field name="nivel">3</field>
+            </record>
+<!--===================================================================-->
+
+            <!--Propietario de la cuenta (Institucion)-->
+            <record id="propietario_1" model="hr.propietario">
+                <field name="codigo">00-001</field>
+                <field name="propietario">HGOBERNACION DEL ESTADO ARAGUA</field>
+                <field name="cuenta">0102021598000631633285</field>
+                <field name="estandar">03291</field>
+            </record>
         </data>
     </openerp>

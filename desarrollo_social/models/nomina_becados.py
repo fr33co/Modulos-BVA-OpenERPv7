@@ -23,6 +23,8 @@ class NominaBecados(osv.Model):
 	
 	_name = 'becados.nomina'
 	
+	_rec_name = 'anyo'
+	
 	#Función para pasar a estado de Pre-nómina----------------------------------------------
 	def action_prenomina(self, cr, uid, ids, context=None):
 		return self.write(cr, uid, ids, {'stage_id':'prenomina'}, context=context)
@@ -258,11 +260,8 @@ class NominaBecados(osv.Model):
 								datos1.append(ent_banc)
 							else:
 								datos1.append(self.elimina_tildes(becado.becado.entidad_bancaria.banco.upper()))
-							if not becado.becado.fecha_nacimiento:
-								f_nac = ""
-								datos1.append(f_nac)
-							else:
-								datos1.append(self.format_fecha(becado.becado.fecha_nacimiento))
+							f_nac = ""
+							datos1.append(f_nac)
 							datos1.append("BECADO")
 							datos1.append(self.elimina_tildes(becado.becado.direccion.upper()))
 							datos1.append(becado.becado.tlf_movil)
@@ -1088,15 +1087,15 @@ class NominaBecados(osv.Model):
 			
 			#Guardar reporte en una ruta específica
 			#Ruta local
-			wb.save('openerp/addons/desarrollo_social/reportes/nominas/'+nombre_archivo)
+			#~ wb.save('openerp/addons/desarrollo_social/reportes/nominas/'+nombre_archivo)
 			#Ruta en el servidor
-			#~ wb.save('/home/administrador/openerp70/modules/desarrollo_social/reportes/nominas/'+nombre_archivo)
+			wb.save('/home/administrador/openerp70/modules/desarrollo_social/reportes/nominas/'+nombre_archivo)
 			
 			#Abrir el archivo del reporte para poder registrarlo
 			#Ruta local
-			archivo = open('openerp/addons/desarrollo_social/reportes/nominas/'+nombre_archivo)
+			#~ archivo = open('openerp/addons/desarrollo_social/reportes/nominas/'+nombre_archivo)
 			#Ruta en el servidor
-			#~ archivo = open('/home/administrador/openerp70/modules/desarrollo_social/reportes/nominas/'+nombre_archivo)
+			archivo = open('/home/administrador/openerp70/modules/desarrollo_social/reportes/nominas/'+nombre_archivo)
 			
 			#Registro del archivo de reporte en la base de datos
 			id_att = self.pool.get('ir.attachment').create(cr, uid, {

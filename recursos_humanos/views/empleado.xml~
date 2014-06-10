@@ -33,7 +33,7 @@
 
 						<label for="categoria" class="oe_edit_only"/>
 					
-						<field name="categoria" style="width:100%%" on_change="carga_num_cuenta(categoria)"/>
+						<field name="categoria" style="width:100%%"/>
 				</xpath>
 				
 				<xpath expr="//field[@name='sede']" position="replace">
@@ -192,7 +192,6 @@
 					<field name="name" invisible="1"/>
 					<button name="get_employee_filter" string="Actualizar servicio" type="object" attrs="{'invisible': [('categoria', '!=', '2') ] }" icon="gtk-apply"/>
 					<button name="enlazar_nomina" string="Enlazar al sistema de nómina" type="object" attrs="{'invisible': [('categoria', '!=', '2') ] }" icon="gtk-apply"/>
-					<button name="emitir_constancia" string="Emitir Constancia" type="object" attrs="{'invisible': [('categoria', '!=', '2') ] }" icon="gtk-apply"/>
 				</xpath>
 
 				<xpath expr="//field[@name='entidad_bancaria']" position="replace">
@@ -218,9 +217,6 @@
 				</xpath>
 				<xpath expr="//field[@name='job_id']" position="after">
 					<field name="asignacion" required="False" attrs="{'invisible': [('categoria', '!=', '2') ] }"/>
-				</xpath>
-				<xpath expr="//field[@name='grado_instruccion']" position="before">
-					<field name="grado" required="False" attrs="{'invisible': [('categoria', '!=', '2') ] }"/>
 				</xpath>
 				<page string="HR Settings" position="replace">
 				<page string="HR Settings" groups="base.group_hr_user" invisible="1">

@@ -86,7 +86,7 @@ def gen_detallado(cr, uid, id_nomina, nomina, periodo_ini, periodo_fin, tipo_bec
 			numero_becados_banc = num_b_b[0] #Número de becados para la sede de la iteración actual
 		print "Becados del banco "+str(bancos[1])+": "+str(numero_becados_banc)
 		
-		#Si efectivamente existe becados para el banco actual se procede alistarlos por sede
+		#Si efectivamente existe becados para el banco actual se procede a listarlos por sede
 		if numero_becados_banc > 0:
 		 
 			#Apertura del grupo del banco
@@ -124,12 +124,16 @@ def gen_detallado(cr, uid, id_nomina, nomina, periodo_ini, periodo_fin, tipo_bec
 			pdf.cell(105,6,"",'B',1,'C',1)
 			
 			#~ Seleccionamos las sedes según los bancos 
-			consulta2 = 'SELECT s.id, s.sede, s.descripcion FROM '+modelo_sedes+' AS s GROUP BY s.sede, s.descripcion, s.id'
+			consulta2 = 'SELECT s.id, s.sede, s.descripcion, s.codigo FROM '+modelo_sedes+' AS s GROUP BY s.sede, s.descripcion, s.id'
 			#~ print consulta2
 			cr.execute(consulta2)
 			subtotal_sede = 0 #Preparación de un acumulador para el monto subtotal por sede
 			for sede in cr.fetchall():
-							
+				#Validamos el código de la sede
+				if not sede[3]:
+					cod_sede = ""
+				else:
+					cod_sede = sede[3]		
 				#Inicialización en cero del acumulador del subtotal por sede cada vez que inicia el ciclo
 				subtotal_sede = 0
 				
@@ -143,9 +147,9 @@ def gen_detallado(cr, uid, id_nomina, nomina, periodo_ini, periodo_fin, tipo_bec
 				if numero_becados > 0:
 					#CABECERA DE SEDE
 					#Apertura del grupo de la sede
-					pdf.set_font('Arial','',8)
+					pdf.set_font('Arial','',7)
 					pdf.set_text_color(77,77,77)
-					pdf.cell(20,6,"10-100-150",'B',0,'L',1)
+					pdf.cell(20,6,cod_sede,'B',0,'L',1)
 					pdf.cell(68,6,sede[2],'B',0,'R',1)
 					pdf.cell(105,6,"",'B',1,'C',1)
 					
@@ -164,7 +168,7 @@ def gen_detallado(cr, uid, id_nomina, nomina, periodo_ini, periodo_fin, tipo_bec
 						if not becado[1]:
 							status = ""
 						else:
-							if str(becado) == "5":
+							if str(becado[1]) == "5":
 								status = "***Suspendido***"
 							else:
 								status = ""
@@ -226,48 +230,51 @@ def gen_detallado(cr, uid, id_nomina, nomina, periodo_ini, periodo_fin, tipo_bec
 						
 						pdf.ln(1)
 						pdf.set_text_color(0,0,0)
-						pdf.cell(17,6,cedula,'T',0,'L',1)
-						pdf.cell(45,6,p_ape+" "+s_ape+" "+p_nom+" "+s_nom,'T',0,'C',1)
-						pdf.cell(53,6,tb,'T',0,'L',1)
-						pdf.cell(19,6,"",'T',0,'C',1)
-						pdf.cell(40,6,"CTA:"+n_cuenta,'T',0,'C',1)
-						pdf.cell(19,6,"",'T',1,'C',1)
+						pdf.cell(17,5,cedula,'T',0,'L',1)
+						pdf.cell(45,5,p_ape+" "+s_ape+" "+p_nom+" "+s_nom,'T',0,'C',1)
+						pdf.cell(53,5,tb,'T',0,'L',1)
+						pdf.cell(19,5,"",'T',0,'C',1)
+						pdf.cell(40,5,"CTA:"+n_cuenta,'T',0,'C',1)
+						pdf.cell(19,5,"",'T',1,'C',1)
 
 						pdf.set_text_color(77,77,77)
-						pdf.cell(25,6,status,'',0,'L',1)
+						pdf.cell(25,5,"",'',0,'L',1)
 						pdf.set_text_color(0,0,0)
-						pdf.cell(37,6,"",'',0,'C',1)
-						pdf.cell(30,6,"INGRESO M.:",'',0,'L',1)
-						pdf.cell(42,6,asig,'',0,'L',1)
-						pdf.cell(30,6,"FEC. ING.: "+format_fecha(f_ingreso),'',0,'C',1)
-						pdf.cell(29,6,"",'',1,'C',1)
+						pdf.cell(37,5,"",'',0,'C',1)
+						pdf.cell(30,5,"INGRESO M.:",'',0,'L',1)
+						pdf.cell(42,5,"%.2f" % round(float(asig),2),'',0,'L',1)
+						pdf.cell(30,5,"FEC. ING.: "+format_fecha(f_ingreso),'',0,'C',1)
+						pdf.cell(29,5,"",'',1,'C',1)
 						
-						pdf.cell(193,3,"___________________________________________________________________________________________________________________________",'',1,'C',1)
+						pdf.set_font('Arial','',8)
+						pdf.cell(193,3,"_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ __ _ _ _ _ _ __ _ _ _ _ _ __ _ _ _ _ _ _",'',1,'C',1)
 						
-						pdf.cell(25,6,status,'',0,'L',1)
-						pdf.cell(37,6,str(cod_t_beca)+"   ",'',0,'R',1)
-						pdf.cell(30,6,tb,'',0,'L',1)
-						pdf.cell(42,6,str(monto)+"     ",'',0,'R',1)
-						pdf.cell(30,6,"",'',0,'C',1)
-						pdf.cell(29,6,"",'',1,'R',1)
+						pdf.set_font('Arial','',7)
+						pdf.cell(25,5,status,'',0,'L',1)
+						pdf.cell(35,5,str(cod_t_beca)+"   ",'',0,'R',1)
+						pdf.cell(44,5,tb,'',0,'L',1)
+						pdf.cell(30,5,"%.2f" % round(monto,2),'',0,'R',1)
+						pdf.cell(30,5,"",'',0,'C',1)
+						pdf.cell(29,5,"",'',1,'R',1)
 						
-						pdf.cell(25,6,"",'',0,'L',1)
-						pdf.cell(37,6,"",'',0,'C',1)
-						pdf.cell(30,6,"",'',0,'L',1)
-						pdf.cell(42,6,"-------------",'',0,'R',1)
-						pdf.cell(30,6,"-------------",'',0,'L',1)
-						pdf.cell(29,6,"Neto a Cobrar",'',1,'R',1)
+						pdf.set_font('Arial','',8)
+						pdf.cell(25,5,"",'',0,'L',1)
+						pdf.cell(37,5,"",'',0,'C',1)
+						pdf.cell(30,5,"",'',0,'L',1)
+						pdf.cell(42,5,"-------------",'',0,'R',1)
+						pdf.cell(30,5,"-------------",'',0,'L',1)
+						pdf.cell(29,5,"Neto a Cobrar",'',1,'R',1)
 						
-						pdf.cell(52,6,"",'',0,'L',1)
-						pdf.cell(10,6,"__________________________________",'',0,'C',1)
-						pdf.cell(30,6,"",'',0,'L',1)
-						pdf.cell(42,6,str(monto)+"     ",'',0,'R',1)
-						pdf.cell(30,6,"",'',0,'C',1)
-						pdf.cell(29,6,str(monto)+"   ",'',1,'R',1)
+						pdf.cell(52,5,"",'',0,'L',1)
+						pdf.cell(10,5,"__________________________________",'',0,'C',1)
+						pdf.cell(30,5,"",'',0,'L',1)
+						pdf.cell(42,5,"%.2f" % round(monto,2),'',0,'R',1)
+						pdf.cell(30,5,"",'',0,'C',1)
+						pdf.cell(29,5,"%.2f" % round(monto,2),'',1,'R',1)
 
 						#~ pdf.line(10, 40, 200, 40)
-						pdf.cell(35,6,"",'',0,'C',1)
-						pdf.cell(35,6,"FIRMA BECADO     ",'',1,'L',1)
+						pdf.cell(35,5,"",'',0,'C',1)
+						pdf.cell(35,5,"FIRMA BECADO     ",'',1,'L',1)
 						
 						#Cálculo del subtotal por sede
 						subtotal_sede = subtotal_sede + monto
@@ -282,7 +289,7 @@ def gen_detallado(cr, uid, id_nomina, nomina, periodo_ini, periodo_fin, tipo_bec
 							pdf.cell(25,6,"",'TB',0,'C',1)
 							pdf.cell(68,6,sede[2],'TB',0,'L',1)
 							pdf.cell(90,6,"",'TB',0,'C',1)
-							pdf.cell(10,6,str(subtotal_sede)+"   ",'TB',1,'C',1)
+							pdf.cell(10,6,"%.2f" % round(subtotal_sede,2),'TB',1,'R',1)
 							
 						#Contador de becados generales
 						g +=  1
@@ -348,12 +355,12 @@ def gen_detallado(cr, uid, id_nomina, nomina, periodo_ini, periodo_fin, tipo_bec
 			pdf.cell(15,6,cod_beca,'B',0,'L',1)
 			pdf.cell(68,6,beca.decode("UTF-8"),'B',0,'L',1)
 			pdf.cell(100,6,"",'B',0,'C',1)
-			pdf.cell(10,6,str(subtotal_banco)+"   ",'B',1,'C',1)
+			pdf.cell(10,6,"%.2f" % round(subtotal_banco,2),'B',1,'R',1)
 
 			pdf.cell(20,6,"",'B',0,'L',1)
 			pdf.cell(98,6,"TOTAL NÓMINA DEL PERSONAL BANCO ".decode("UTF-8")+desc_banco,'B',0,'L',1)
 			pdf.cell(65,6,"",'B',0,'C',1)
-			pdf.cell(10,6,str(subtotal_banco)+"   ",'B',1,'C',1)
+			pdf.cell(10,6,"%.2f" % round(subtotal_banco,2),'B',1,'R',1)
 			
 			#Add nueva página por banco				
 			if i % 2 == 0:
@@ -368,8 +375,8 @@ def gen_detallado(cr, uid, id_nomina, nomina, periodo_ini, periodo_fin, tipo_bec
 	pdf.ln(1)
 	pdf.cell(10,6,"",'LT',0,'L',1)
 	pdf.cell(113,6,"TOTAL GENERAL NÓMINA:".decode("UTF-8")+"          ",'T',0,'C',1)
-	pdf.cell(60,6,str(monto_total)+"   ",'T',0,'L',1)
-	pdf.cell(10,6,str(monto_total)+"   ",'TR',1,'C',1)
+	pdf.cell(60,6,"%.2f" % round(monto_total,2)+"         ",'T',0,'L',1)
+	pdf.cell(10,6,"%.2f" % round(monto_total,2)+"      ",'TR',1,'C',1)
 	
 	pdf.cell(10,6,"",'L',0,'L',1)
 	pdf.cell(83,6,"          CANT. PERSONAS ACTIVA:",'',0,'C',1)
@@ -393,15 +400,15 @@ def gen_detallado(cr, uid, id_nomina, nomina, periodo_ini, periodo_fin, tipo_bec
 	
 	#Guardar reporte en una ruta específica
 	#ruta local
-	pdf.output('openerp/addons/desarrollo_social/reportes/nominas/'+nombre_archivo,'F')
+	#~ pdf.output('openerp/addons/desarrollo_social/reportes/nominas/'+nombre_archivo,'F')
 	#ruta en el servidor
-	#~ pdf.output('/home/administrador/openerp70/modules/desarrollo_social/reportes/nominas/'+nombre_archivo,'F')
+	pdf.output('/home/administrador/openerp70/modules/desarrollo_social/reportes/nominas/'+nombre_archivo,'F')
 	
 	#Abrir el archivo del reporte para poder registrarlo
 	#ruta local
-	archivo = open('openerp/addons/desarrollo_social/reportes/nominas/'+nombre_archivo)
+	#~ archivo = open('openerp/addons/desarrollo_social/reportes/nominas/'+nombre_archivo)
 	#ruta en el servidor
-	#~ archivo = open('/home/administrador/openerp70/modules/desarrollo_social/reportes/nominas/'+nombre_archivo)
+	archivo = open('/home/administrador/openerp70/modules/desarrollo_social/reportes/nominas/'+nombre_archivo)
 		
 	return nombre_archivo, archivo
 	

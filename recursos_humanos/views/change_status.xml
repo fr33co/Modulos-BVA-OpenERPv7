@@ -6,7 +6,7 @@
 	    <field name="name">Cambio de Estátus del Empleado</field>
 	    <field name="res_model">hr.onchange.status</field>
 	    <field name="view_type">form</field>
-	    <!--<field name="domain">[('estado','!=','1')]</field>-->
+	    <field name="domain">[('estado','=','1')]</field>
 	    <field name="view_mode">tree,form</field>
 	</record>
 

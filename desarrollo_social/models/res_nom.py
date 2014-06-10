@@ -118,14 +118,14 @@ def gen_res_nom(cr,nomina,periodo_ini,periodo_fin,tipo_beca,mes,data):
 	
 	#Guardar reporte en una ruta específica
 	#ruta local
-	pdf.output('openerp/addons/desarrollo_social/reportes/nominas/'+nombre_archivo,'F')
+	#~ pdf.output('openerp/addons/desarrollo_social/reportes/nominas/'+nombre_archivo,'F')
 	#ruta en el servidor
-	#~ pdf.output('/home/administrador/openerp70/modules/desarrollo_social/reportes/nominas/'+nombre_archivo,'F')
+	pdf.output('/home/administrador/openerp70/modules/desarrollo_social/reportes/nominas/'+nombre_archivo,'F')
 	
 	#Abrir el archivo del reporte para poder registrarlo
 	#ruta local
-	archivo = open('openerp/addons/desarrollo_social/reportes/nominas/'+nombre_archivo)
+	#~ archivo = open('openerp/addons/desarrollo_social/reportes/nominas/'+nombre_archivo)
 	#ruta en el servidor
-	#~ archivo = open('/home/administrador/openerp70/modules/desarrollo_social/reportes/nominas/'+nombre_archivo)
+	archivo = open('/home/administrador/openerp70/modules/desarrollo_social/reportes/nominas/'+nombre_archivo)
 
 	return nombre_archivo, archivo

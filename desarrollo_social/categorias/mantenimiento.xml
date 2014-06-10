@@ -97,7 +97,7 @@
 				<field name="codigo"></field>
 				<field name="eje">001</field>
 				<field name="sede">BV - UPEL Maracay</field>
-				<field name="descripcion">BIBLIOTECA VIRTUAL UPEL EL MACARO</field>
+				<field name="descripcion">BIBLIOTECA VIRTUAL UPEL MARACAY</field>
 			</record>
 			<record id="sede_4" model="becados.sedes">
 				<field name="codigo">20-100-180</field>
@@ -249,13 +249,37 @@
 				<field name="sede">Comisión de Becas</field>
 				<field name="descripcion">COMISIÓN DE BECAS</field>
 			</record>
+			<record id="sede_29" model="becados.sedes">
+				<field name="codigo">10-100-180</field>
+				<field name="eje">001</field>
+				<field name="sede">BV - Acacias</field>
+				<field name="descripcion">BIBLIOTECA VIRTUAL LAS ACACIAS</field>
+			</record>
+			<record id="sede_30" model="becados.sedes">
+				<field name="codigo">10-100-105</field>
+				<field name="eje">004</field>
+				<field name="sede">BV - Barrio El Carmen</field>
+				<field name="descripcion">BIBLIOTECA VIRTUAL BARRIO EL CARMEN</field>
+			</record>
+			<record id="sede_31" model="becados.sedes">
+				<field name="codigo">20-100-150</field>
+				<field name="eje">001</field>
+				<field name="sede">BV - Macaro</field>
+				<field name="descripcion">BIBLIOTECA VIRTUAL MACARO</field>
+			</record>
+			<record id="sede_32" model="becados.sedes">
+				<field name="codigo">30-100-281</field>
+				<field name="eje">003</field>
+				<field name="sede">BV - Santa Cruz</field>
+				<field name="descripcion">BIBILOTECA VIRTUAL SANTA CRUZ</field>
+			</record>
 			<!--Sedes-->
 			
 			<!--Entidades Bancarias-->
 			<record id="banco_1" model="becados.bancos">
-				<field name="codigo">001</field>
-				<field name="banco">Venezuela</field>
-				<field name="descripcion">Banco de Venezuela</field>
+				<field name="codigo">002</field>
+				<field name="banco">B.N.C</field>
+				<field name="descripcion">Banco Nacional de Credito</field>
 			</record>
 			<record id="banco_2" model="becados.bancos">
 				<field name="codigo">002</field>

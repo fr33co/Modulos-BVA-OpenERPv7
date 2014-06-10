@@ -242,6 +242,7 @@ class Becado(osv.Model):
 		'grupo': lambda s, cr, uid, c: uid,
 		'tipo_cuenta' : '0',
 		'entidad_bancaria' : _banco_default,
+		'eje' : "001",
 		#~ 'categoria' : '1',
 		#~ 'tipo_beca' : '1',
 		#~ 'entidad_bancaria' : '1',
