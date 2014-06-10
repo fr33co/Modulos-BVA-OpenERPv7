@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	
+	<data>
+			
+		<!--Accionador para el menu de Configuracion de asignacion-->
+		<record model="ir.actions.act_window" id="accion_configuracion">
+			<field name="name">Tabla de cambio de sueldo</field>
+			<field name="res_model">hr.config.asignacion</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+		<!--Accionador para el menu de Configuracion de asignacion-->
+		
+		<record model="ir.ui.view" id="vista_formulario_tipoNomina">
+			<field name="name">gradoinstruccion.form</field>
+			<field name="model">hr.config.asignacion</field>
+			<field name="arch" type="xml"> 
+				<form string="Formulario de cambio de asignaciones">
+                                    <field name="grado_instruc"/>
+				</form>
+			</field>
+		</record>
+                <record model="ir.ui.view" id="configuracion_tree">
+			<field name="name">Grado.tree</field>
+			<field name="model">hr.config.asignacion</field>
+			<field name="arch" type="xml">
+				<tree string="Lista de Grado">
+					<field name="grado_instruc"/>
+				</tree>
+			</field>
+		</record>
+		<menuitem parent="hr.menu_hr_configuration" id="menu_configuracion_asig" name="Grado de instrucción" action="accion_configuracion"/>	
+	</data>
+	
+</openerp>
+
+

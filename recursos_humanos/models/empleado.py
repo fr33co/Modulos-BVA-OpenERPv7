@@ -190,6 +190,7 @@ class Empleado(osv.Model):
 						'title'   : "Cédula",
 						'message' : "Disculpe el registro ya existe, intente de nuevo...",
 				}
+
 				values.update({
 					
 					'cedula' : None,
@@ -197,15 +198,15 @@ class Empleado(osv.Model):
 					})
 			else:
 				if len(argument_search) < 7:
-					mensaje = {
-						'title'   : "Cédula",
-						'message' : "Disculpe la cédula debe contener un mínimo de 7 dígitos",
-					}
-					values.update({
-					
-						'cedula' : None,
-
-					})
+				   mensaje = {
+				     'title'   : "Cédula",
+				     'message' : "Disculpe la cédula debe contener un mínimo de 7 dígitos",
+				   }
+				   values.update({
+								     
+				     'cedula' : None,
+			     
+				   })
 
 		return {'value' : values,'warning' : mensaje}
 
@@ -224,11 +225,18 @@ class Empleado(osv.Model):
 
 		datos_code = obj_dp.read(cr,uid,search_obj_code,context=context)
 		#=========================================================================
-		if datos_code:
+		if not datos_code[0]['gerente']:
 			
 			values.update({
 				
-				'gerente' : datos_code[0]['gerente'],
+				'gerente' : "",
+				})
+		
+		else:
+			
+			values.update({
+				
+				'gerente' : datos_code[0]['gerente'][1],
 				})
 
 		return {'value' : values}
@@ -239,39 +247,51 @@ class Empleado(osv.Model):
 
 		values = {}
 		mensaje = {}
-
+		#browse_data = self.browse(cr, uid, ids, context=None) #Lectura del propio objeto (Registro)
+		#
+		#for i in browse_data:
+		#	print "GRADO DE INSTTRUCCION: "+str(i.grado.grado_instruc.encode('UTF-8'))
+		
 		if not argument_search:
-
+		
 			return values
 		obj_dp = self.pool.get('hr.job')
-
+		
 		if item == "1":
-
+		
 			#======================== Busqueda por cargo ============================
 			search_job_id = obj_dp.search(cr, uid, [('id','=',argument_search)])
-
+		
 			datos_job_id = obj_dp.read(cr,uid,search_job_id,context=context)
 			#========================================================================
-
-			if datos_job_id:
-
+		
+			if not datos_job_id:
+		
 				values.update({
-
-					'asignacion' : float(datos_job_id[0]['asignacion']),
-
+		
+					'asignacion' : "",
+					'grado' : None,
+		
 					})
-
+			else:
+				values.update({
+		
+					'asignacion' : float(datos_job_id[0]['asignacion']),
+					'grado' : datos_job_id[0]['grado'],
+		
+					})
+		
 		return {'value' : values,'warning' : mensaje}
 	
-	#~ def _nomina(self, cr, user_id, context=None):
-		#~ cr.execute("SELECT id,nomina FROM hr_nomina_adm WHERE nomina='A.C Biblioteca Virtual'")
-		#~ t = ""
-		 #~ # declaramos una tupla vacía
-		#~ for datos in cr.fetchall():
-			#~ t = datos[0]
-		#~ return t
+	def _nomina(self, cr, user_id, context=None):
+		cr.execute("SELECT id,nomina FROM hr_nomina_adm WHERE nomina='A.C Biblioteca Virtual'")
+		t = ""
+		 # declaramos una tupla vacía
+		for datos in cr.fetchall():
+			t = datos[0]
+		return t
 	
-	def enlazar_nomina(self, cr, uid, ids, context=None):
+	def enlazar_nomina(self, cr, uid, ids, context=None): # Enlazar al sistema de nomina
 		
 		browse_data = self.browse(cr, uid, ids, context=None) #Lectura del propio objeto (Registro
 		data_emp = self.read(cr, uid, ids, context=context)[0] # Validacion para campos vacio
@@ -282,7 +302,7 @@ class Empleado(osv.Model):
 			tipo_emp = emp.class_personal.id
 			status   = emp.status
 			fecha_i  = emp.fecha_ingreso
-			nom      = emp.name_related.encode("UTF-8")
+			nom      = emp.name_related.encode("UTF-8").decode('UTF-8')
 			sueldo   = emp.asignacion
 			servicio = emp.tiempo_servicio
 			depart   = emp.department_id.id
@@ -307,6 +327,7 @@ class Empleado(osv.Model):
 			elif not data_emp['class_personal']:
 				raise osv.except_osv(_("Warning!"), _("Disculpe debe ingresar Tipo de empleado..."))
 			else:
+				#Nomina Regular
 				id_att = self.pool.get("hr.movement.employee").create(cr, uid, {
 					'nomina_admin': "1",
 					'cedula': cedula,
@@ -319,9 +340,29 @@ class Empleado(osv.Model):
 					'ano_servicio': servicio,
 					'dep_lab':depart,
 					'image':foto,
+					'tree_id':"1",
+				}, context=context)
+				# Nomina de vacaciones
+				id_att = self.pool.get("hr.movement.employee").create(cr, uid, {
+					'nomina_admin': "3",
+					'cedula': cedula,
+					'charge_acterior': cargo,
+					'emp': tipo_emp,
+					'status': status,
+					'date_ingreso': fecha_i,
+					'nombres': nom,
+					'sueldo': sueldo,
+					'ano_servicio': servicio,
+					'dep_lab':depart,
+					'image':foto,
+					'tree_id':"3",
 				}, context=context)
 				
 				return id_att
+			
+	def emitir_constancia(self, cr, uid, ids, context=None):
+		print "Emision de constancia"
+	
 	_columns = {
 		'ciudad' : fields.many2one("res.country.city", "Ciudad", required = True, select="0"),
 		'estado' : fields.many2one("res.country.state", "Estado", required = True, select="0"),
@@ -335,6 +376,7 @@ class Empleado(osv.Model):
 		'mount_total' : fields.float(string="Monto total", size=10),
 		'nomina' : fields.many2one("hr.nomina.adm", "Nomina", required = False),
 		'marital' : fields.selection((('1','Soltero'),('2','Casado'),('3','Comcubinato'),('4','Unión de hechos estables')), "Estado civil", required=False),
+		'grado' : fields.many2one("hr.config.asignacion", "Grado de intrucción", required = False),
 	}
 	#################################################################
 	
@@ -346,5 +388,6 @@ class Empleado(osv.Model):
 		'carga_familiar' : '2',
 		'status' : '1',
 		'prima_responsabilidad': '2',
-		#'nomina': _nomina,
+		'nomina': _nomina,
+		'grado_instruccion': 1,
 	} 

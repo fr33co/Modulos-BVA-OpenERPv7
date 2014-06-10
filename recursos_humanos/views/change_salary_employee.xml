@@ -6,6 +6,7 @@
 	    <field name="name">Cambio de Sueldo a Empleados</field>
 	    <field name="res_model">hr.change.salary</field>
 	    <field name="view_type">form</field>
+	    <field name="domain">[('estado','=','1')]</field>
 	    <field name="view_mode">tree,form</field>
 	</record>
 
@@ -16,10 +17,12 @@
 		<form string="Formulario de Cambio de Sueldo" version="7.0">
 
 		    <center>
-			<table style="width:600px;" border="0">
+			<table style="width:500px;" border="0">
 				<tr>
 				    <td colspan="2" style="text-align:center;" class="oe_horizontal_separator">
-					    <b>Cambio de Sueldo Masivo</b>
+					    <b>
+						Cambio de Sueldo Masivo
+					    </b>
 				    </td>
 				</tr>
 				 <tr>
@@ -27,10 +30,18 @@
 					    <b>Cargo:</b>
 				    </td>
 				    <td>
-					    <field name="charge" widget="selection" on_change="search_hr_data(charge,'1')" attrs="{'readonly': [('estado', '=', '1') ] }"/>
+					    <field name="charge" on_change="search_hr_data(charge,'1')" attrs="{'readonly': [('estado', '=', '1') ] }"/>
 				    </td>
 				</tr>
-				 <tr>
+				<tr>
+				    <td style="align:center;">
+					    <b>Grado de Instrucción:</b>
+				    </td>
+				    <td>
+					    <field name="degree_instruction" attrs="{'readonly': [('estado', '=', '1') ] }"/>
+				    </td>
+				</tr>
+				<tr>
 				    <td style="align:center;">
 					    <b>Sueldo:</b>
 				    </td>
@@ -39,20 +50,12 @@
 					    <field name="estado" invisible="1"/>
 				    </td>
 				</tr>
-				 <tr attrs="{'invisible': [('item', '!=', True) ] }">
+				<tr attrs="{'invisible': [('item', '!=', True) ] }">
 				    <td style="align:center;">
 					    <b>Año de experiencia:</b>
 				    </td>
 				    <td>
 					    <field name="experience" style="width:27%%" attrs="{'readonly': [('estado', '=', '1') ] }"/>
-				    </td>
-				</tr>
-				<tr>
-				    <td style="align:center;">
-					    <b>Grado de Instrucción:</b>
-				    </td>
-				    <td>
-					    <field name="degree_instruction" widget="selection" attrs="{'readonly': [('estado', '=', '1') ] }"/>
 				    </td>
 				</tr>
 				<tr>
@@ -77,9 +80,13 @@
 				    <td>
 					    <button name="reason_change_salary" string="Cambio de sueldo" type="object" icon="gtk-apply" attrs="{'invisible': [('estado', '=', '1') ] }"/>
 				    </td>
+				</tr>
+				<tr attrs="{'invisible': [('estado', '=', '1') ] }">
+				    <td>
+					Experiencia
+				    </td>
 				    <td>
 					    <field name="item"/>
-
 				    </td>
 				</tr>
 			</table>

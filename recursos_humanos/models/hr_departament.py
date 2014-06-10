@@ -12,6 +12,6 @@ class Departament(osv.Model):
 	
 	_columns = {
 		'cod' : fields.char(string="Código", size = 20),
-		'gerente' : fields.char(string="Gerente",required=False),
+		'gerente' : fields.many2one("res.users", "Gerente", required = False),
 	}
 

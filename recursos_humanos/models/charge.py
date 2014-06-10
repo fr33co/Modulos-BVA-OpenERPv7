@@ -12,9 +12,13 @@ class Cargo_empleado(osv.Model):
 
 	_inherit = 'hr.job'
 
+	_order = 'cod'
+
 	_columns = {
 		'cod' : fields.char(string="Código", size = 20),
+		'nivel' : fields.selection((('1','Alto nivel'),('2','Empleado'),('3','Obrero')), "Nivel", required=False),
 		'asignacion' : fields.char(string="Asignacion", size = 20),
+		'grado' : fields.many2one("hr.config.asignacion", "Grado de instrucción", required = False),
 
 	}
 

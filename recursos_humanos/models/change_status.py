@@ -85,17 +85,125 @@ class Onchange_status(osv.Model):
 		status_model = self.pool.get('hr.employee')
 
 		status_browse = self.browse(cr, uid, ids, context=None)
+		##########################################################################################
+		obj_dp = self.pool.get('hr.movement.employee') # Objeto de llamado a hr.movement.employee
+		obj_dpj = self.pool.get('hr.movement.payslip') # Objeto de llamado a hr.movement.payslip
+		#########################################################################################
 		
 		for many_load_id in status_browse:
 
 			id_fill = many_load_id.status
-			#print "ESTE ES EL ESTATUS: "+str(id_fill)
 			cedula = many_load_id.cedula_employee
 			date_now = many_load_id.date_onchange
-			#print "FECHA: "+str(date_now)
+			############################################################################################################################
+			#						    ESTATUS ACTIVO
+			############################################################################################################################
+			if int(id_fill) == 1:
+				search_obj_code = obj_dp.search(cr, uid, [('cedula','=',cedula),('nomina_admin','=',1)]) # Metodo para realizar la busqueda
+				datos_code = obj_dp.read(cr,uid,search_obj_code,context=context) # Lectura del objeto a consultar
+				
+				for emp in datos_code: # Iteramos por la data del registro de asignaciones de nomina
+					#id_concept = emp['movement_ids']
+					nomina_id  = emp['nomina_admin'][1]
+					
+					search_obj = obj_dpj.search(cr, uid, [('cod','=',"208"),('tipo_nomina','=',nomina_id)]) # Metodo para realizar la busqueda
+					datos = obj_dpj.read(cr,uid,search_obj,context=context) # Lectura del objeto a consultar
+					
+					for concept in datos:
+						id_concept = concept['id']
+						print "ID DEL CONCEPTO: "+str(concept['id'])
+						print "CONCEPTO: "+str(concept['cod'])
 
-			cr.execute("UPDATE hr_employee SET status=%s, fecha_egreso=%s WHERE cedula=%s;", (id_fill, date_now, cedula))
-			self.write(cr, uid, ids, {'estado': '1'}, context=context) # Cambio de estado	
+				cr.execute("UPDATE hr_employee SET status=%s, fecha_egreso=%s WHERE cedula=%s;", (id_fill, date_now, cedula))
+				cr.execute("UPDATE hr_movement_employee SET state=%s, status=%s WHERE cedula=%s;", (id_fill, id_fill, cedula))
+				self.write(cr, uid, ids, {'estado': '1'}, context=context) # Cambio de estado
+				item = "1"
+				cr.execute("UPDATE  hr_movement_payslip SET item='"+str(item)+"' WHERE cedula='"+str(cedula)+"' AND id='"+str(id_concept)+"';")
+			############################################################################################################################
+			#						    ESTATUS REPOSO
+			############################################################################################################################
+			elif int(id_fill) == 3:
+				search_obj_code = obj_dp.search(cr, uid, [('cedula','=',cedula),('nomina_admin','=',1)]) # Metodo para realizar la busqueda
+				datos_code = obj_dp.read(cr,uid,search_obj_code,context=context) # Lectura del objeto a consultar
+				
+				for emp in datos_code: # Iteramos por la data del registro de asignaciones de nomina
+					#id_concept = emp['movement_ids']
+					nomina_id  = emp['nomina_admin'][1]
+					
+					search_obj = obj_dpj.search(cr, uid, [('cod','=',"208"),('tipo_nomina','=',nomina_id)]) # Metodo para realizar la busqueda
+					datos = obj_dpj.read(cr,uid,search_obj,context=context) # Lectura del objeto a consultar
+					
+					for concept in datos:
+						id_concept = concept['id']
+						print "ID DEL CONCEPTO: "+str(concept['id'])
+						print "CONCEPTO: "+str(concept['cod'])
+
+				cr.execute("UPDATE hr_employee SET status=%s, fecha_egreso=%s WHERE cedula=%s;", (id_fill, date_now, cedula))
+				cr.execute("UPDATE hr_movement_employee SET state=%s, status=%s WHERE cedula=%s;", (id_fill, id_fill, cedula))
+				self.write(cr, uid, ids, {'estado': '1'}, context=context) # Cambio de estado
+				item = "0"
+				cr.execute("UPDATE  hr_movement_payslip SET item='"+str(item)+"' WHERE cedula='"+str(cedula)+"' AND id='"+str(id_concept)+"';")
+			############################################################################################################################
+			#						    ESTATUS SUSPENDIDO
+			############################################################################################################################
+			elif int(id_fill) == 5:
+				cr.execute("UPDATE hr_employee SET status=%s, fecha_egreso=%s WHERE cedula=%s;", (id_fill, date_now, cedula))
+				cr.execute("UPDATE hr_movement_employee SET state=%s, status=%s WHERE cedula=%s;", (id_fill, id_fill, cedula))
+				self.write(cr, uid, ids, {'estado': '1'}, context=context) # Cambio de estado
+			############################################################################################################################
+			#						    ESTATUS VACACIONES
+			############################################################################################################################
+			elif int(id_fill) == 6:
+				
+				search_obj_code = obj_dp.search(cr, uid, [('cedula','=',cedula),('nomina_admin','=',1)]) # Metodo para realizar la busqueda
+				datos_code = obj_dp.read(cr,uid,search_obj_code,context=context) # Lectura del objeto a consultar
+				
+				for emp in datos_code: # Iteramos por la data del registro de asignaciones de nomina
+					#id_concept = emp['movement_ids']
+					nomina_id  = emp['nomina_admin'][1]
+					
+					search_obj = obj_dpj.search(cr, uid, [('cod','=',"208"),('tipo_nomina','=',nomina_id)]) # Metodo para realizar la busqueda
+					datos = obj_dpj.read(cr,uid,search_obj,context=context) # Lectura del objeto a consultar
+					
+					for concept in datos:
+						id_concept = concept['id']
+						print "ID DEL CONCEPTO: "+str(concept['id'])
+						print "CONCEPTO: "+str(concept['cod'])
+
+				cr.execute("UPDATE hr_employee SET status=%s, fecha_egreso=%s WHERE cedula=%s;", (id_fill, date_now, cedula))
+				cr.execute("UPDATE hr_movement_employee SET state=%s, status=%s WHERE cedula=%s;", (id_fill, id_fill, cedula))
+				self.write(cr, uid, ids, {'estado': '1'}, context=context) # Cambio de estado
+				item = "0"
+				cr.execute("UPDATE  hr_movement_payslip SET item='"+str(item)+"' WHERE cedula='"+str(cedula)+"' AND id='"+str(id_concept)+"';")
+			############################################################################################################################
+			#						    ESTATUS EGRESADO
+			############################################################################################################################
+			elif int(id_fill) == 7:
+
+				######################################################################################
+				search_obj_code = obj_dp.search(cr, uid, [('cedula','=',cedula),('nomina_admin','=',1)]) # Metodo para realizar la busqueda
+				datos_code = obj_dp.read(cr,uid,search_obj_code,context=context) # Lectura del objeto a consultar
+				
+				for emp in datos_code: # Iteramos por la data del registro de asignaciones de nomina
+					ced = emp['cedula']
+					
+					search_obj = obj_dpj.search(cr, uid, [('cedula','=',ced)]) # Metodo para realizar la busqueda
+					datos = obj_dpj.read(cr,uid,search_obj,context=context) # Lectura del objeto a consultar
+					
+					for concept in datos:
+						id_concept = concept['id']
+						cedula = concept['cedula']
+					
+						monto      = "0.00"
+						asignacion = "0.00"
+						deduccion  = "0.00"
+						cr.execute("DELETE FROM hr_movement_payslip WHERE id='"+str(id_concept)+"' AND cedula='"+str(cedula)+"';") # Accion para depurar los conceptos del empleado cuando este en estado Egresado
+
+					cr.execute("UPDATE hr_employee SET status=%s, fecha_egreso=%s WHERE cedula=%s;", (id_fill, date_now, cedula))
+					cr.execute("UPDATE hr_movement_employee SET state=%s, status=%s, monto_c=%s, monto_asignacion=%s, monto_deduccion=%s WHERE cedula=%s;", (id_fill, id_fill, monto, asignacion,deduccion, cedula))
+					self.write(cr, uid, ids, {'estado': '1'}, context=context) # Cambio de estado
+				######################################################################################
+
 		return True
 	
 	

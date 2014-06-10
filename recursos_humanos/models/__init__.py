@@ -10,7 +10,7 @@ import degree # Sub modulo de grado
 import selection
 import change_status # Cambio de estatus
 import change_salary_employee
-import onchange_slip # Cambio de nomina
+#import onchange_slip # Cambio de nomina
 import hr_departament # Departamento a cargo de las Gerencias
 import hr_bank # Sub modulo de entidad bancaria (Herencia)
 import hr_document # Importacion del sub modulo para adjuntar reportes
@@ -22,3 +22,5 @@ import movement_employee # Importacion del sub modulo asignacion de movimientos 
 import asignacion_nomina_regular # Importacion del sub modulo asignacion de nomina regular (conceptos) one2many
 import asignacion_nomina_vacaciones # Importacion del sub modulo asignacion de nomina vacaciones (conceptos) one2many
 import nomina
+import configuracion_asignacion
+import propietario

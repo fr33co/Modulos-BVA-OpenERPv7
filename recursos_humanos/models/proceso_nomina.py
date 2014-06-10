@@ -66,8 +66,9 @@ class Proceso_Nomina(osv.Model):
 
 	def close_payslip_run(self, cr, uid, ids, context=None):
 		return self.write(cr, uid, ids, {'state': 'close'}, context=context)	
-	
-	# Generacion de TXT (pór categoria Administrativo, Directivo y Obrero)
+	####################################################################################################################
+	# Generacion de TXT (pór categoria Administrativo, Directivo y Obrero) En el sub modulo de asignaciones de la nomina
+	####################################################################################################################
 	def generate_txt_slip(self, cr, uid, ids, context=None):
 
 		browse_slip_id = self.browse(cr, uid, ids, context=None) #Lectura del propio objeto (Registro)
@@ -77,7 +78,7 @@ class Proceso_Nomina(osv.Model):
 
 			# Bloque código (para estado Borrador, no permitir generar el archivo TXT)
 			if slip_id.state == "draft":
-				raise osv.except_osv(_("Warning!"), _("Disculpe para generar el diskette al banco, debe realizar el cierre de nómina..."))
+				raise osv.except_osv(_("Warning!"), _("Disculpe para generar el diskette al Banco, debe realizar el cierre de nómina..."))
 
 			# Bloque código (para estado cerrado, permitir generar el archivo TXT)
 			elif slip_id.state == "close":
@@ -97,12 +98,14 @@ class Proceso_Nomina(osv.Model):
 				elif slip != 0: # Si es distinto pueda permitir realizar la acción
 					
 					# Grupo de ID del personal
-					payslip_id = data_ids['slip_ids'] 
+					payslip_id = data_ids['slip_ids']
 					
-					get_hr = self.pool.get('hr.employee') # Objeto hr_employee (Empleado)
+					print "GRUPO DE IDS: "+str(payslip_id)
+					hr = self.pool.get('hr.employee') # Objeto hr_employee (Empleado)
+					get_hr = self.pool.get('hr.movement.employee') # Objeto hr_movement_employee (Empleado)
 
-					search_get_hr = get_hr.search(cr, uid, [('id','=',payslip_id),('class_personal','=',admon_id)], context=None) # Se busca el ID dado
-					search_hr = get_hr.search(cr, uid, [('id','=',payslip_id),('class_personal','=',admon_id)], count=True) # Conteo de registros
+					search_get_hr = get_hr.search(cr, uid, [('id','=',payslip_id),('emp','=',admon_id)], context=None) # Se busca el ID dado
+					search_hr = get_hr.search(cr, uid, [('id','=',payslip_id),('emp','=',admon_id)], count=True) # Conteo de registros
 					employee = get_hr.read(cr,uid,search_get_hr,context=context) # Se refleja el resultado
 
 					i = 0
@@ -110,74 +113,75 @@ class Proceso_Nomina(osv.Model):
 					cuenta = ""
 					t = 0
 					while (i < search_hr):
-					
-						n_ccount = employee[i]['bank_account_id']
-						p_nom    = employee[i]['primer_nombre']
-						s_nom    = employee[i]['segundo_nombre']
-						p_ap     = employee[i]['primer_apellido']
-						s_ap     = employee[i]['segundo_apellido']
-						cedula   = employee[i]['cedula']
-						t +=  employee[i]['asignacion']
-					
-						if p_nom is False: p_nom =""
-						else: p_nom
-						if s_nom is False: s_nom =""
-						else: s_nom[0:1]
-						if p_ap is False: p_ap =""
-						else: p_ap
-						if s_ap is False: s_ap =""
-						else: s_ap[0:1]
+						print "NOMBRE DEL PERSONAL: "+str(employee[i]['nombres'])
 						
-						if n_ccount is None:
-							n_ccount[1][-20:]=""
-						elif n_ccount !=0:
-							cuenta = n_ccount[1][-20:]
-
-
-						bank_id     = n_ccount[0]
-						bank_hr     = self.pool.get('res.partner.bank')
-						search_bank = bank_hr.search(cr, uid, [('id','=',bank_id)], context=None) # Se busca el ID dado
-						bank        = bank_hr.read(cr,uid,search_bank,context=context) # Se refleja el resultado
-
-						for x in bank:
-							count_e 	    = x['acc_number']
-							type_account    = x['type_account']
-							bank_obj        = x['bank']
-							name_bank       = bank_obj[1]
-					
-						nombre_completo = str(p_ap)+" "+str(s_ap[0:1])+" "+str(p_nom)+" "+str(s_nom[0:1])
-						monto_total_p   = int(employee[i]['asignacion']) / 2
-						cod_1           = "770"
-						cod_2           = "00"
-						cod_3           = "0"
-						cod_4           = "00"
-						standar         = "03291"
-						############################################################
-						#		Creacion del archivo txt
-						############################################################
+						cedula_emp = employee[i]['cedula'] # Cedula del Empleado
 						
-						block_1     = type_account+count_e+""+str(employee[i]['asignacion']).replace('.',"").zfill(10)+type_account.ljust(0)+cod_1.ljust(0)+p_ap+" "+s_ap[0:1].center(5)+" "+p_nom.center(5)+" "+s_nom[0:1]
-						ced_standar = cod_2+cedula+standar.zfill(6)
-						block_2     = ced_standar.rjust(40)
-						datos       = block_1+block_2+"\n"
+						search_emp = hr.search(cr, uid, [('cedula','=',cedula_emp)], context=None) # Se busca el ID dado
+						emp_hr = hr.read(cr,uid,search_emp,context=context) # Se refleja el resultado
 						
-						i = i + 1 # Iteracion de los datos
-						data = data + datos # Acumulador de la data
-					total= str(t).replace('.',"")
-					###########################################################
-					#
-					#		Objeto hr_payslip (Lectura de datos)
-					#
-					###########################################################
+						for emp in emp_hr:
+							
+							n_ccount = emp['bank_account_id']
+							p_nom    = emp['primer_nombre']
+							s_nom    = emp['segundo_nombre']
+							p_ap     = emp['primer_apellido']
+							s_ap     = emp['segundo_apellido']
+							cedula   = emp['cedula']
+							
+							if p_nom is False: p_nom =" "
+							else: p_nom
+							if s_nom is False: s_nom =" "
+							else: s_nom[0:1]
+							if p_ap is False: p_ap =" "
+							else: p_ap
+							if s_ap is False: s_ap =" "
+							else: s_ap[0:1]
+														
+							bank_id     = n_ccount[0]
+							bank_hr     = self.pool.get('res.partner.bank')
+							search_bank = bank_hr.search(cr, uid, [('id','=',bank_id)], context=None) # Se busca el ID dado
+							bank        = bank_hr.read(cr,uid,search_bank,context=context) # Se refleja el resultado
+							
+							for x in bank:
+								count_e 	= x['acc_number']
+								type_account    = x['type_account']
+								bank_obj        = x['bank']
+								name_bank       = bank_obj[1]	
+								cod_1           = "770"
+								cod_2           = "00"
+								standar         = "03291"
+							# 	#############################################################
+							# 	##		Creacion del archivo txt
+							# 	#############################################################
+								# Estructura de salidda de la data TXT
+								block_1     = type_account.ljust(0)+count_e.ljust(0)+""+str(employee[i]['monto_c']).replace('.',"").zfill(9)+type_account.ljust(0)+cod_1.ljust(0)
+								block_2     = p_ap.upper()+" "+s_ap[0:1].upper()+" "+p_nom.upper()+" "+s_nom[0:1].upper()
+								block_2     = block_2.ljust(40)
+								block_3     = cod_2+cedula+standar
+								
+								datos       = block_1+block_2+block_3.rjust(21)+"\n" # Salida de data de los Datos
+								t +=       float(employee[i]['monto_c'])
+								i = i + 1 # Iteracion de los datos
+								data = data + datos # Acumulador de la data
+					tota_general = str(t).replace('.',"")
+					elemento     = "%.2f" % round(float(tota_general),3)
+					total        = str(elemento).replace('.',"")
+					print "MONTO TOTAL A PAGAR: "+str(total)
+					# ###########################################################
+					# #
+					# #		Objeto hr_payslip (Lectura de datos)
+					# #
+					# ###########################################################
 					dia   = time.strftime('%d')
 					mes   = time.strftime('%B')
 					anyo  = time.strftime('%Y')
 					fecha = dia+" de "+mes+" "+anyo # Fecha de creacion
 					
-					title = 'BBVV '+admon+' ('+fecha+')' # Salida del titulo
-
-					###########################################################
-					# Proceso de validacion del las quincenas de la nomina
+					title = 'BBVV '+admon+' ('+fecha+')' # Salida del titulo con los datos especificos
+					# #
+					# ############################################################
+					# ## Proceso de validacion del las quincenas de la nomina
 					if dia < 16:
 						#"ES MENOR A 16"
 						periodo_f = slip_id.date_start
@@ -189,22 +193,35 @@ class Proceso_Nomina(osv.Model):
 						periodo_f = slip_id.date_end
 						fecha     = periodo_f.split("-") 
 						periodo   = str(fecha[2])+"/"+str(fecha[1])+"/"+str(fecha[0][2:4])
-					
-					###########################################################
-					id_att = self.register_txt_hr(cr, uid, data, title, standar, total, periodo, context) # Objeto con referencia (Proceso de generación de TXT)
+					# #
+					# ############################################################
+					id_att = self.register_txt_ven(cr, uid, data, title, total, periodo, admon, context) # Objeto con referencia (Proceso de generación de TXT)
+	####################################################################################################################
 
-
-	def register_txt_hr(self, cr, uid, data, title, standar, total, periodo, context):
+	def register_txt_ven(self, cr, uid, data, title, total, periodo, admon, context):
 		
-		encabezado = "HGOBERNACION DEL ESTADO ARAGUA            0102021598000631633285"+periodo+str(total).zfill(13)+""+str(standar)
+		propietario = self.pool.get('hr.propietario') # Objeto hr_propietario (Empleado)
+
+		search_pro  = propietario.search(cr, uid, [], context=None) # Se busca el ID dado Propietario de la cuenta
+		pro         = propietario.read(cr,uid,search_pro,context=context) # Se refleja el resultado
+		
+		encabezado  = str(pro[0]['propietario'])+"              "+str(pro[0]['cuenta'])+periodo+str(total).zfill(13)+""+str(pro[0]['estandar'])
 		# # Proceso de Generación del .txt (Nomina de Empleado)
 		# ###########################################################
 
 		nom = title+'.'+ 'txt'
+
+		if str(admon) == "Empleado Fijo":
+			directorio = "/ADMON/TXT/"
+		elif str(admon) == "Directivo":
+			directorio = "/DIRECTIVO/TXT/"
+		else:
+			directorio = "/OBRERO/TXT/"
+
 		#######################################################################
 		#	Carga de archivo txt en directorio ADMON/nomina/ Venezuela
 		#######################################################################
-		archivo = open('openerp/addons/recursos_humanos/ADMON/nomina/'+nom,'w')
+		archivo = open('openerp/addons/recursos_humanos'+directorio+''+nom,'w')
 		archivo.write(encabezado+"\n"+data+"\n")
 		archivo.close()
 		#######################################################################
@@ -225,7 +242,7 @@ class Proceso_Nomina(osv.Model):
 	def register_txt_hr_bnc(self, cr, uid, data, title, standar, total, periodo, context):
 		#print "DATAS: "+str(data)
 
-		encabezado_BNC = "ND 2180054672"
+		encabezado_BNC = "ND 2180038781"
 		# # Proceso de Generación del .txt (Nomina de Empleado)
 		# ###########################################################
 
@@ -396,7 +413,7 @@ class Proceso_Nomina(osv.Model):
 		# #raise osv.except_osv(_('Error!'),_('El archivo'))
 		# return id_att
 	
-	def generate_pre_slip(self, cr, uid, ids, context=None): # Generacion de la pre-nomina de empleado...
+	def generate_pre_slip(self, cr, uid, ids, context=None): # Generacion de la pre-nomina de los  empleados...
 
 		##########################################################################################
 
@@ -417,31 +434,42 @@ class Proceso_Nomina(osv.Model):
 		pdf.cell(25,8,"Cedula",1,0,'C',1)
 		pdf.cell(50,8,"Nro de cuenta",1,0,'C',1)
 		pdf.cell(50,8,"Sueldo",1,0,'C',1)
-		pdf.cell(50,8,"Sub total",1,1,'C',1)
+		pdf.cell(50,8,"Monto a cobrar",1,1,'C',1)
 		##################################################################
 		browse_slip_id = self.browse(cr, uid, ids, context=None)
 		for x in browse_slip_id:
 			personal = x.class_personal.clas_personal # Captura del personal
 			estado = x.state
+			type_slip = x.type_slip.id
 		data_ids = self.read(cr, uid, ids, context=context)[0]
 		payslip_id = data_ids['slip_ids'] # Grupo de IDS de la pre-nomina
-
+		
 		if not data_ids['slip_ids']: # En caso de que no contenga ningun dato, emita un mensaje
 			raise osv.except_osv(_("Warning!"), _("Disculpe debe seleccionar la lista de empleados, intente de nuevo..."))
 
 		else:
-			hr = self.pool.get('hr.employee') # Objeto hr_employee (Empleado)
-			datos = hr.search(cr, uid, [('id','=',payslip_id)], context=None)
+			hr_emp    = self.pool.get('hr.employee') # Objeto hr_employee (Empleado)
+			hr        = self.pool.get('hr.movement.employee') # Objeto hr_employee (Empleado)
+			datos     = hr.search(cr, uid, [('id','=',payslip_id),('nomina_admin','=',type_slip)], context=None)
 			employees = hr.read(cr,uid,datos,context=context)
 			j = len(employees)
 			##################################################################
 			i = 0
 			j = 0
 			sumatoria = 0
+			monto = 0.0
 			for x in employees:
-				sumatoria +=  int(x['asignacion']) / 2
-				asignacion = int(x['asignacion']) / 2
-				n_ccount = x['bank_account_id']
+				sumatoria +=  float(x['monto_c'])
+				asignacion = float(x['monto_c'])
+				print "CEDULA DEL EMPLEADO DE LA NOMINA: "+str(x['cedula'])
+				print "EMPLEADO: "+str(x['nombres'])
+				print "SUELDO DE LAS ASIGNACIONES DEL EMPLEADO: "+str(asignacion)
+				
+				datos_emp     = hr_emp.search(cr, uid, [('cedula','=',x['cedula'])], context=None) # modo de busqueda por cedula en la ficcha de Empleado
+				employee      = hr_emp.read(cr,uid,datos_emp,context=context) # Objeto de Lectura de los datos
+				
+				for emp in employee:
+					n_ccount = emp['bank_account_id'] # Cuenta Bancaria del Empleado
 
 				monto = sumatoria
 				if j == 12:
@@ -452,12 +480,12 @@ class Proceso_Nomina(osv.Model):
 					pdf.cell(25,8,"Cedula",1,0,'C',1)
 					pdf.cell(50,8,"Nro de cuenta",1,0,'C',1)
 					pdf.cell(50,8,"Sueldo",1,0,'C',1)
-					pdf.cell(50,8,"Sub total",1,1,'C',1)
+					pdf.cell(50,8,"Monto a cobrar",1,1,'C',1)
 					j=0
 				pdf.set_fill_color(255,255,255)
 				if j % 2 == 0:
 					pdf.set_fill_color(234,234,234)
-
+			
 				pdf.set_text_color(0,0,0)
 				if j == 10 or j == 20 or j == 30:
 					pdf.set_text_color(24,29,31)
@@ -465,15 +493,15 @@ class Proceso_Nomina(osv.Model):
 					n_ccount[1][-20:]=""
 				elif n_ccount !=0:
 					cuenta = n_ccount[1][-20:]
-
-				pdf.cell(65,8,str(self.elimina_tildes(x['name_related'])),1,0,'C',1)
+	
+				pdf.cell(65,8,str(self.elimina_tildes(x['nombres'])),1,0,'C',1)
 				pdf.cell(25,8,str(x['cedula']),1,0,'C',1)
 				pdf.cell(50,8,str(cuenta),1,0,'C',1)
-				pdf.cell(50,8,str(asignacion),1,0,'C',1)
+				pdf.cell(50,8,str(x['sueldo']),1,0,'C',1)
 				pdf.cell(50,8,str(asignacion),1,1,'C',1)
-
+			
 				j =j+1
-
+			
 			pdf.ln(10)
 			pdf.set_fill_color(157,188,201)
 			pdf.cell(65,8,"",0,0,'C',0)
@@ -492,9 +520,9 @@ class Proceso_Nomina(osv.Model):
 			mes = time.strftime('%B')
 			anyo = time.strftime('%Y')
 			fecha = dia+" de "+mes+" "+anyo
-
+			
 			if estado == "draft":
-
+			
 				title = 'Pre-nomina ('+self.elimina_tildes(personal)+') '+fecha+'.pdf'
 				pdf.output('openerp/addons/recursos_humanos/ADMON/pre_nomina/'+title,'F') # Salida del documento
 				open_document = open('openerp/addons/recursos_humanos/ADMON/pre_nomina/'+title) # Apertura del documento
@@ -504,7 +532,7 @@ class Proceso_Nomina(osv.Model):
 				open_document = open('openerp/addons/recursos_humanos/ADMON/nomina/'+title) # Apertura del documento
 			#########################################################################
 			
-
+			
 			# Guardamos el archivo pdf en ir.attachment.employee
 			id_att = self.pool.get('ir.attachment.employee').create(cr, uid, {
 				'name': title,
@@ -513,34 +541,43 @@ class Proceso_Nomina(osv.Model):
 				'datas_fname': title,
 				'res_model': 'hr.employee (Empleado)',
 				'description': "Pre-nomina "+title,
-
+			
 				}, context=context)
-
+			
 			return id_att
-
-	def mount_slip_ids(self, cr, uid, ids, context=None):
+	#####################################################################################################################
+	#				PROCESO PARA CALCULAR EL MONTO DE LA QUINCENA DEL MES
+	#####################################################################################################################
+	def mount_slip_ids(self, cr, uid, ids, context=None): # Boton de accion para calcular en monto de la quincena del mes
 		
 		values = {}
 		
-		data_ids = self.read(cr, uid, ids, context=context)[0]
-		payslip_id = data_ids['slip_ids']
+		data_ids = self.read(cr, uid, ids, context=context)[0] # Lectura de grupo de ids
+		browse_data = self.browse(cr, uid, ids, context=None) #Lectura del propio objeto (Registro
 		
-		hr = self.pool.get('hr.employee') # Objeto hr_employee (Empleado)
-		datos = hr.search(cr, uid, [('id','=',payslip_id)], context=None)
-		employees = hr.read(cr,uid,datos,context=context)
+		for x in browse_data:
+			id_slip = x.type_slip.id # Id de la nomina
+			
+		payslip_id = data_ids['slip_ids'] # Grupo de ids de las asignaciones de los empleados
+		print "ID DE TIPO DE NOMINA: "+str(id_slip)
+		print "GRUPO DE IDS DE LAS ASIGNACIONES DE LA NOMINA: "+str(payslip_id)
+		
+		hr = self.pool.get('hr.movement.employee') # Objeto hr_employee (Empleado)
+		datos = hr.search(cr, uid, [('id','=',payslip_id),('nomina_admin','=',id_slip)], context=None) # 
+		employees = hr.read(cr,uid,datos,context=context) # Lectura modo array del objecto
 		
 		i = 0
 		sumatoria = 0
 		while (i < len(employees)):
 			
-			sumatoria +=  employees[i]['asignacion']
-			print employees[i]['primer_nombre']
+			print "NOMBRES: "+str(employees[i]['nombres'])
+			print "GRUPO DE CONCEPTOS: "+str(employees[i]['movement_ids'])
+			sumatoria +=  float(employees[i]['monto_c'])
 			i = i + 1 # Iteracion de los datos
 		monto = sumatoria
-		print monto
 		
 		self.write(cr, uid, ids, {'mount': monto}, context=context)
-	
+	#####################################################################################################################
 	_columns = {
 		'type_slip' : fields.many2one("becados.tiponomina", "Nómina", required = True),
 		'class_personal' : fields.many2one("becados.clasper", "Personal", required = True),
@@ -550,7 +587,7 @@ class Proceso_Nomina(osv.Model):
 		'name' : fields.char(string="Nombre", required=True),
 		'mount' : fields.char(string="Monto", required=False),
 		'user': fields.many2one('res.users', 'Registrado por:', readonly=True),
-		'slip_ids' : fields.many2many("hr.employee","proceso_payslip","id_slip","id_employee","Empleados",required=False, domain=[('categoria','=','2'),('status','=','1')]),
+		'slip_ids' : fields.many2many("hr.movement.employee","proceso_payslip","id_slip","id_employee","Empleados",required=False),
 		#'archivos' : fields.one2many("ir.attachment", "nominas", string="Archivos de nómina", required="False"),
 		'state': fields.selection([
 			('draft', 'Pre nómina'),
@@ -561,7 +598,7 @@ class Proceso_Nomina(osv.Model):
 		'type_slip' : fields.many2one("becados.tiponomina", "Nómina", required = True,readonly=True, states={'draft': [('readonly', False)]}), # Validación, si esta en estado de nómina no pueda ser editado
 		'date_start': fields.date('Desde', required=True, readonly=True, states={'draft': [('readonly', False)]}),
 		'date_end': fields.date('Hasta', required=True, readonly=True, states={'draft': [('readonly', False)]}),
-		'slip_ids' : fields.many2many("hr.employee","proceso_payslip","id_slip","id_employee","Empleados", required = False,readonly=True, states={'draft': [('readonly', False)]}),
+		'slip_ids' : fields.many2many("hr.movement.employee","proceso_payslip","id_slip","id_employee","Empleados", required = False,readonly=True, states={'draft': [('readonly', False)]}),
 		'mount' : fields.char(string="Monto", required=False, readonly=True, states={'draft': [('readonly', False)]}),
 	}
 

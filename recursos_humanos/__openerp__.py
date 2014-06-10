@@ -11,7 +11,7 @@
       Generación de Reportes
 			Generación de Nóminas'
       Generación de archivos TXT
-      Ultima Actualización: 25 de Mayo del 2014''',
+      Ultima Actualización: 09 de Junio del 2014''',
     'data' : [
       "views/empleado.xml",
       #"views/seguridad_salud_laboral.xml",
@@ -28,7 +28,7 @@
       "views/degree.xml",
       "views/change_status.xml",
       "views/change_salary_employee.xml",
-      "views/onchange_slip.xml",
+      #"views/onchange_slip.xml",
       "views/hr_departament.xml",
       "views/hr_bank.xml",
       "views/payslip.xml",
@@ -39,17 +39,18 @@
       "views/movement_employee.xml",
       "views/asignacion_nomina_regular.xml", # Nomina regular
       "views/asignacion_nomina_vacaciones.xml", # Nomina vacaciones
-      #~ "views/proceso_seleccion.xml",
+      "views/configuracion_asignacion.xml",
+      "views/propietario.xml",
 
       # "views/tipoNomina.xml",
       "views/carga_familiar_employee.xml",
 
-      "segurity/groups.xml", #Activar la carga de este archivo sólo al instalar, luego comentarlo.
+      "categorias/groups.xml", #Activar la carga de este archivo sólo al instalar, luego comentarlo.
       #"script/departamentos.xml",
-      # "segurity/acceso.csv", # PRIVILEGIOS PARA LOS MODELOS
+      #"segurity/acceso.csv", # PRIVILEGIOS PARA LOS MODELOS
       # "segurity/ir.view.access.csv", # PRIVILEGIOS PARA LAS VISTAS
-      "reportes/constancia/constancia.xml", # Reporte para la emisión de constancia
-      "reportes/candidato/candidato.xml", # Reporte para la emisión de candidato
+      #"reportes/constancia/constancia.xml", # Reporte para la emisión de constancia
+      #"reportes/candidato/candidato.xml", # Reporte para la emisión de candidato
     ],
     'css': [ 'static/src/css/style.css' ],
 }

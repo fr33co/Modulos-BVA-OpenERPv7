@@ -27,10 +27,16 @@
 			    </tr>
 			    <tr style="text-align:center;">
 				<td>
-				    <b>Cantidad</b>
+				    <b>Cantidad dias</b>
 				</td>
 				<td>
-				    <field name="cantidad" readonly="1"/>
+				    <field name="cantidad_d" readonly="1"/>
+				</td>
+				<td>
+				    <b>Cantidad horas</b>
+				</td>
+				<td>
+				    <field name="cantidad_h" readonly="1"/>
 				</td>
 				<td>
 				    <b>Asignacion</b>
@@ -58,24 +64,6 @@
 		</form>
 	    </field>
 	</record>
-
-	<record model="ir.ui.view" id="movement_movement_payslip">
-	<field name="name">Asignación de movimiento a empleados.tree</field>
-	<field name="model">hr.movement.payslip</field>
-	<field name="arch" type="xml">
-	    <tree string="Lista de reingreso de empleados">
-		<field name="cedula"/>
-		<field name="cod"/>
-		<field name="frecuencia"/>
-		<field name="descripcion"/>
-		<field name="cantidad"/>
-		<field name="asignacion"/>
-		<field name="deduccion"/>
-		<!--<field name="saldo"/>-->
-	    </tree>
-	</field>
-        </record>
-
         <!--<menuitem parent="recursos_humanos_main" id="sub_menu_movement" action="action_movement_payslip" name="Asignaciónes" sequence="5"/>-->
 
     </data>

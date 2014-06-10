@@ -18,13 +18,15 @@ class Movement_payslip(osv.Model):
         'cod': fields.char(string = "Código", size = 10, required = False),
         'frecuencia': fields.char(string = "Frecuencia", required = False),
         'descripcion': fields.char(string = "Descripción", required = False),
-        'cantidad': fields.char(string = "Dias / Horas", size = 10, required = False),
+        'cantidad_d': fields.char(string = "Dias", size = 10, required = False),
+	'cantidad_h': fields.char(string = "Horas", size = 10, required = False),
         'asignacion': fields.char(string = "Asignaciones", size = 10, required = False),
         'deduccion': fields.char(string = "Deducciones", size = 10, required = False),
 	'asig_deduc' : fields.many2one("hr.movement.employee", "Asignaciones / Deducciones", required = False),
 	'filtro': fields.char(string = "", size = 10, required = False),
 	'incidencia': fields.char(string = "Incidencia", size = 10, required = False),
 	'tipo_nomina': fields.char(string = "Tipo nomina", size = 10, required = False),
+	'item': fields.char(string = "", size = 10, required = False), # Elemento de accion
 	}
 
 	_defaults = {

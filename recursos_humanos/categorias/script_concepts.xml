@@ -236,7 +236,7 @@
         	<field name="codigo">509</field>
                 <field name="formula">mmonto</field>
                 <field name="concepto">Mutuo auxilio</field>
-                <field name="frecuencia">2</field>
+                <field name="frecuencia">1</field>
 		<field name="f">1</field>
             </record>
 	    <record id="concepts_27" model="hr.concepts">

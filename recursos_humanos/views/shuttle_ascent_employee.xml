@@ -6,6 +6,7 @@
 	    <field name="name">Actualización Traslados y Ascensos al empleados</field>
 	    <field name="res_model">hr.shuttle.ascent.employee</field>
 	    <field name="view_type">form</field>
+	    <field name="domain">[('estado','=','1')]</field>
 	    <field name="view_mode">tree,form</field>
 	</record>
 
@@ -85,11 +86,11 @@
 				<td>
 				</td>
 				<td>
-				    <button name="process_data_emp" type="object" string="Ascenso" icon="gtk-apply" class="oe_highlight" attrs="{'invisible': [('movimiento', '!=', '2') ] }"/>
+				    <button name="process_data_emp" type="object" string="Ascenso" icon="gtk-apply" class="oe_highlight" attrs="{'invisible': [('movimiento', '!=', '2')] }"/>
 
-				    <button name="process_data_emp" type="object" string="Traslado" icon="gtk-apply" class="oe_highlight" attrs="{'invisible': [('movimiento', '!=', '1') ] }"/>
+				    <button name="process_data_emp" type="object" string="Traslado" icon="gtk-apply" class="oe_highlight" attrs="{'invisible': [('movimiento', '!=', '1')] }"/>
 
-				    <button name="process_data_emp" type="object" string="Traslado / Ascenso" icon="gtk-apply" class="oe_highlight" attrs="{'invisible': [('movimiento', '!=', '3') ] }"/>
+				    <button name="process_data_emp" type="object" string="Traslado / Ascenso" icon="gtk-apply" class="oe_highlight" attrs="{'invisible': [('movimiento', '!=', '3')] }"/>
 				</td>
 			    </tr>
 			    <tr>

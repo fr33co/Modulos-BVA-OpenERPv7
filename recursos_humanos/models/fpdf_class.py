@@ -9,7 +9,11 @@ class Nomina_slip(FPDF):
 	def header(self):
 		#Arial bold 15
 		self.set_font('Arial','B',15)
-		self.image('openerp/addons/recursos_humanos/img/logo_bva.jpg',25,-15,230) # Ruta de la imagen
+		
+		self.image('openerp/addons/recursos_humanos/img/gob.jpg',20,10,50) # Imagen Superior
+		
+		self.image('openerp/addons/recursos_humanos/img/logo_bva2.jpg',210,15,50) # Imagen Indferior
+		
 		self.set_draw_color(0,80,180)
 		self.set_fill_color(28,108,198)
 		self.set_text_color(220,50,50)

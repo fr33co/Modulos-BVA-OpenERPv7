@@ -35,7 +35,14 @@
 		    </xpath>
 		    <xpath expr="//field[@name='asignacion']" position="after">
 			<field name="cod"/>
+			<field name="nivel"/>
 		    </xpath>
+		    <xpath expr="//field[@name='company_id']" position="before">
+			<field name="grado"/>
+		    </xpath>
+            <xpath expr="//field[@name='department_id']" position="replace">
+                <field name="department_id" invisible="1"/>
+            </xpath>
                     <xpath expr="//header/button[@name='job_recruitement']" position="replace">
 			<button name="job_recruitement" invisible="1" string="Launch Recruitement" states="open" type="object" class="oe_highlight" groups="base.group_user"/>
 		    </xpath>
@@ -68,11 +75,18 @@
                 <field name="state" position="replace">
                         <field name="state" invisible="1"/>
                 </field>
+                <field name="department_id" position="replace">
+                        <field name="department_id" invisible="1"/>
+                </field>
                 <field name="company_id" position="after">
                         <field name="asignacion"/>
                 </field>
+		<field name="name" position="after">
+                        <field name="grado"/>
+                </field>
 		<field name="name" position="before">
                         <field name="cod"/>
+                        <field name="nivel"/>
                 </field>
 
             </field>

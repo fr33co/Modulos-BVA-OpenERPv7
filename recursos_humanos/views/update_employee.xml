@@ -6,6 +6,7 @@
 	    <field name="name">Actualización de reingreso de empleados</field>
 	    <field name="res_model">hr.update.employee</field>
 	    <field name="view_type">form</field>
+	    <field name="domain">[('estado','=','1')]</field>
 	    <field name="view_mode">tree,form</field>
 	</record>
 
