@@ -155,6 +155,22 @@ class Proceso_Nomina(osv.Model):
 							# 	##		Creacion del archivo txt
 							# 	#############################################################
 								# Estructura de salidda de la data TXT
+							if str(x['bank'][1]) == "Venezuela":
+								print "BANCO VENEZUELA: "+str(x['acc_number'])
+								
+								block_1     = type_account.ljust(0)+count_e.ljust(0)+""+str(employee[i]['monto_c']).replace('.',"").zfill(9)+type_account.ljust(0)+cod_1.ljust(0)
+								block_2     = p_ap.upper()+" "+s_ap[0:1].upper()+" "+p_nom.upper()+" "+s_nom[0:1].upper()
+								block_2     = block_2.ljust(40)
+								block_3     = cod_2+cedula+standar
+								
+								datos       = block_1+block_2+block_3.rjust(21)+"\n" # Salida de data de los Datos
+								t +=       float(employee[i]['monto_c'])
+								i = i + 1 # Iteracion de los datos
+								data = data + datos # Acumulador de la data
+									
+							if str(x['bank'][1]) == "BNC":
+								print "BANCO BNC: "+str(x['acc_number'])
+									
 								block_1     = type_account.ljust(0)+count_e.ljust(0)+""+str(employee[i]['monto_c']).replace('.',"").zfill(9)+type_account.ljust(0)+cod_1.ljust(0)
 								block_2     = p_ap.upper()+" "+s_ap[0:1].upper()+" "+p_nom.upper()+" "+s_nom[0:1].upper()
 								block_2     = block_2.ljust(40)

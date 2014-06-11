@@ -119,6 +119,12 @@
 
 					<field name="fecha_nacimiento" on_change="data_employee(fecha_nacimiento,'1')"/>
 				</xpath>
+				
+				<xpath expr="//field[@name='fecha_nacimiento']" position="after">
+
+					<field name="nacimiento" attrs="{'invisible': [('categoria', '!=', '2') ] }"/>
+				</xpath>
+				
 
 				<xpath expr="//group/group/field[@name='edad']" position="replace">
 
@@ -138,7 +144,8 @@
 				
 				<xpath expr="//field[@name='job_id']" position="replace">
 
-					<field name="job_id" attrs="{'invisible': [('categoria', '!=', '2') ] }" on_change="search_charge(job_id,'1')"/>
+					<field name="job_id" attrs="{'invisible': [('categoria', '!=', '2') ] }"/>
+					<!--on_change="search_charge(job_id,'1')"-->
 				</xpath>
 
 				<!--<xpath expr="//field[@name='desc_status']" position="replace">-->

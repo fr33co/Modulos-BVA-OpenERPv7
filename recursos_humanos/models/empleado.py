@@ -377,6 +377,7 @@ class Empleado(osv.Model):
 		'nomina' : fields.many2one("hr.nomina.adm", "Nomina", required = False),
 		'marital' : fields.selection((('1','Soltero'),('2','Casado'),('3','Comcubinato'),('4','Unión de hechos estables')), "Estado civil", required=False),
 		'grado' : fields.many2one("hr.config.asignacion", "Grado de intrucción", required = False),
+		'nacimiento' : fields.char(string="Lugar de Nacimiento", size = 256, required=False),
 	}
 	#################################################################
 	
