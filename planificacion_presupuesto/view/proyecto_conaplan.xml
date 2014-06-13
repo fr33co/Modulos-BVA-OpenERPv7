@@ -1,0 +1,587 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        
+<!--Registro de Proyectos para Planificacion y Presupuesto-->
+        
+	<record model="ir.actions.act_window" id="proyecto_conaplan_list_action">
+	   <field name="name">Dirección de Planificación, Presupuesto y Control de Gestión</field>
+	   <field name="res_model">proyecto.conaplan</field>
+	   <field name="view_type">form</field>
+	   <field name="view_mode">tree,form</field>
+	    <field name="help" type="html">
+
+	    </field>
+	</record>
+
+<!--Vista tree de Proyectos para Planificacion y Presupuesto -->
+
+	<record model="ir.ui.view" id="proyecto_conaplan_tree_view">
+	    <field name="name">Dirección de Planificación, Presupuesto y Control de Gestión</field>
+	    <field name="model">proyecto.conaplan</field>
+	    <field name="arch" type="xml">
+		<tree string="" >
+		    <field name="c_solicitud" />
+		    <field name="f_solicitud" />
+		    <field name="nombre_pro" />
+		    <field name="f_inicio" />
+		    <field name="f_fin" />
+		    <field name="etapa" />
+		    <field name="user_register" />
+		</tree>
+	    </field>			
+	</record>
+
+<!--Vista formulario Proyectos para Planificacion y Presupuesto-->
+
+	<record model="ir.ui.view" id="proyecto_conaplan_form_view">
+		<field name="name">Dirección de Planificación, Presupuesto y Control de Gestión</field>
+		<field name="model">proyecto.conaplan</field>
+		<field name="arch" type="xml">
+		<form string="" version="7.0">
+		    <table style="width: 800px;">
+			<tr>
+			    <td style="width: 50px;">
+				Código:
+			    </td>
+			    <td style="width: 100px;">
+				<field name="c_solicitud" style="width: 90px;" />
+			    </td>
+			    <td style="width: 70px;">
+				Registrado por:
+			    </td>
+			    <td style="width: 100px;">
+				<field name="user_register" />
+			    </td>
+			    <td style="width: 90px;">
+				Fecha de Solicitud:
+			    </td>
+			    <td style="width: 100px;">
+				<field name="f_solicitud" style="width: 90px;"/>
+			    </td>
+			</tr>
+		    </table>
+		    <separator/>
+		    <field name="archivos" />
+		    <separator/>
+		    <button name="reporte_anteproyecto" type="object" string="Exportar Anteproyeco" />
+		    <notebook style="font-size:11px">
+			<page string="Identificación" >
+			    <separator string="1. Identificación del proponente" />		    
+			    <table style="font-size:11px">
+				<tr style="width:700px">
+				    <td style="width:200px">
+					1.1. Organismo/Entempresa:
+				    </td>
+				    <td style="width: 200px">
+					<field name="organismo" on_change="on_change_entes(organismo)" style="width: 90%%"/>
+				    </td>
+				    <td style="width:100px">
+					1.5. Cargo:
+				    </td>
+				    <td style="width: 200px">
+					<field name="cargo" style="width: 90%%"/>
+				    </td>
+				</tr>
+				<tr>
+				    <td style="width:25%%">
+					1.3. Domicilio:
+				    </td>
+				    <td>
+					<field name="domicilio" style="width: 90%%"/>
+				    </td>
+				    <td style="width:25%%">
+					1.6. Teléfono:
+				    </td>
+				    <td>
+					<field name="telefono" style="width: 90%%"/>
+				    </td>
+			        </tr>
+				<tr>
+				    <td style="width:25%%">
+					1.4. Responsable:
+				    </td>
+				    <td>
+					<field name="responsable" style="width: 90%%"/>
+				    </td>
+				    <td style="width:25%%">
+					1.7. Correo Electrónico:
+				    </td>
+				    <td>
+					<field name="correo" style="width: 90%%"/>
+				    </td>
+			        </tr>
+			    </table>
+			</page>
+			<page string="Proyecto">
+			    <notebook>
+			    <page string="2. Datos del Proyecto">
+				 <separator string="2. Datos del Proyecto" />	    
+				<table>
+				    <tr style="width:850px">
+					<td style="width:200px">
+					    2.1. Nombre del Proyecto:
+					</td>
+					<td style="width: 200px">
+					    <field name="nombre_pro" style="width: 90%%"/>
+					</td>
+					<td style="width:250px">
+					    Proyecto Nuevo:
+					</td>
+					<td style="width: 200px">
+					    <field name="proy_nuevo" style="width: 90%%"/>
+					</td>
+				    </tr>
+				    <tr>
+					<td>
+					    2.2. Ubicación:
+					</td>
+					<td>
+					    <field name="ubicacion" style="width: 90%%"/>
+					</td>
+					<td>
+					    2.5. Costo del Proyecto:
+					</td>
+					<td>
+					    <field name="costo_proyecto" style="width: 90%%"/>
+					</td>
+				    </tr>
+				    <tr>
+					<td>
+					    2.3. Duración:
+					</td>
+					<td>
+					    <field name="duracion" style="width: 90%%"/>
+					</td>
+					<td>
+					    2.6. Fuente de Financiamiento:
+					</td>
+					<td>
+					    <field name="fuente_fin" style="width: 90%%"/>
+					</td>
+				    </tr>
+				    <tr>
+					<td>
+					    Fecha de Inicio:
+					</td>
+					<td>
+					    <field name="f_inicio" style="width: 90%%"/>
+					</td>
+					<td>
+					    2.7. Indicador General:
+					</td>
+					<td>
+					    <field name="indicador" style="width: 90%%"/>
+					</td>
+				    </tr>
+				    <tr>
+					<td>
+					    Fecha de Finalización:
+					</td>
+					<td>
+					    <field name="f_fin" style="width: 90%%"/>
+					</td>
+					<td>
+					    2.8. Fórmula del Indicador General:
+					</td>
+					<td>
+					    <field name="formula" style="width: 90%%"/>
+					</td>
+				    </tr>
+				    <tr>
+					<td>
+					    2.4. Etapa:
+					</td>
+					<td>
+					    <field name="etapa" style="width: 50%%"/>
+					</td>
+					<td>
+					    2.9. Medio de Verificación:
+					</td>
+					<td>
+					    <field name="m_verificacion" style="width: 90%%"/>
+					</td>
+				    </tr>
+				</table>
+			    </page>
+			    <page string="3. Localización">
+				<separator string="3. Localización politico administrativa" /> 
+				<table>
+				    <tr style="width:800px">
+					<td style="width:150px">
+					    3.1. Ámbito: 
+					</td>
+					<td style="width: 600px">
+					    <field name="ambito" style="width: 20%%"/>
+					</td>
+				    </tr>
+				    <tr>
+					<td>
+					    3.2. Específique: 
+					</td>
+					<td>
+					    <field name="especifique" style="width: 90%%"/>
+					</td>
+				    </tr>
+				</table>
+			    </page>
+			    </notebook>
+			</page>
+			<page string="Área Estratégica">
+			    <notebook>
+				<page string="4.1 Plan de la patria">
+				<separator string="4.1 Plan de la Patria" />
+				<table style="width: 700px;">
+				    <tr>
+					<td style="width: 200px;">
+					    4.1. Plan de la Patria
+					</td>
+					<td >
+					    <field name="plan_patria" style="width: 200px;" />
+					</td>
+				    </tr>
+				    <tr>
+					<td>
+					    4.1.1. Objetivo Histórico:
+					</td>
+					<td>
+					    <field name="obj_historico" domain= "[('plan_patria','=',plan_patria)]" />
+					</td>
+				    </tr>
+				    <tr>
+					<td>
+					    4.1.2. Objetivo Nacional:
+					</td>
+					<td>
+					    <field name="obj_nacional"   />
+					</td>
+				    </tr>
+				    <tr>
+					<td>
+					    4.1.3. Objetivo Estratégico:
+					</td>
+					<td>
+					    <field name="obj_estrategico"  />
+					</td>
+				    </tr>
+				    <tr>
+					<td>
+					    4.1.4. Objetivo General:
+					</td>
+					<td>
+					    <field name="obj_general_plan" />
+					</td>
+				    </tr>
+				</table>
+				</page>
+				<page string="4.2 Plan de gobierno">
+				<separator string="4.2 Plan de gobierno" />
+				<table>
+				    <tr  style="width:800px">
+					<td  style="width:200px">
+						4.2.1 Plan de Gobierno:
+					</td>
+					<td style="width:400px">
+						<field name="plan_gobierno"  style="width: 90%%"/>
+					</td>
+				    </tr>
+				    <tr>
+					<td>
+						4.2.2 Líneas Estratégicas del Plan de Gobierno:
+					</td>
+					<td>
+						<field name="linea_estrategica" domain= "[('plan_gobierno','=',plan_gobierno)]" style="width: 90%%"/>
+					</td>
+				    </tr>
+				    
+				    <tr>
+					<td>
+					    4.2.2. Área de Inversión: 
+					</td>
+					<td>
+					    <field name="area_inversion" style="width: 90%%"/>
+					</td>
+				    </tr>
+				    <tr>
+					<td>
+					    4.2.3. Sector:
+					</td>
+					<td>
+					    <field name="sector" style="width: 90%%"/>
+					</td>
+				    </tr>
+				    <tr>
+					<td>
+					    4.2.4. Tipo:
+					</td>
+					<td>
+					    <field name="tipo" style="width: 90%%"/>
+					</td>
+				    </tr>
+				</table>
+				</page>
+			    </notebook>
+			</page>
+			<page string="Descripción">
+			    <notebook>
+			    <page string="5. Problema y Justificación">
+			    <separator string="5. Identificación del problema y justificación" />
+			    <table style="width: 700px;">
+				<tr>
+				    <td style="width: 200px;">
+					5.1. Descripción del problema:
+				    </td>
+				    <td style="width: 500px;">
+					<field name="desc_problema" />
+				    </td>
+				</tr>
+				<tr>
+				    <td>
+					5.2. Objetivo General:
+				    </td>
+				    <td>
+					<field name="obj_general" />
+				    </td>
+			        </tr>
+				<tr>
+				    <td>
+					5.3. Importancia e Impacto:
+				    </td>
+				    <td>
+					<field name="imp_impacto" />
+				    </td>
+			        </tr>
+			    </table>
+			    </page>
+			    <page string="6. Beneficiarios">
+			    <separator string="6. Población beneficiada por la ejecución del proyecto" />
+			    <table style="width: 700px;">
+				<tr>
+				    <td style="width: 200px;">
+					6.1 Beneficiarios Femeninos
+				    </td>
+				    <td >
+					<field name="bene_femenino" on_change="on_change_total(bene_femenino,bene_masculino)" />
+				    </td>
+				</tr>
+				<tr>
+				    <td>
+					6.2 Beneficiarios Masculinos
+				    </td>
+				    <td>
+					<field name="bene_masculino" on_change="on_change_total(bene_femenino,bene_masculino)" />
+				    </td>
+			        </tr>
+				<tr>
+				    <td>
+					6.3 Beneficiarios Totales
+				    </td>
+				    <td>
+					<field name="bene_total" />
+				    </td>
+			        </tr>
+			    </table>
+			    </page>
+			    <page string="7. Conexiones">
+			    <separator string="7. Conexiones inter-institucionales" />
+			    <table style="width: 900px;">
+				<tr>
+				    <td style="width: 200px;">
+					7.1 Requiere acciones (no financieras) de otra Institución:
+				    </td>
+				    <td style="width: 70px;">
+					<field name="reque_accion" style="width: 40px;" />
+				    </td>
+				    <td style="width: 100px;" >
+					7.1.1 Institución:
+				    </td>
+				    <td style="width: 350px;" >
+					<field name="institucion_req" style="width: 190px;" />
+				    </td>
+				</tr>
+				<tr>
+				    <td>
+					
+				    </td>
+				    <td >
+					
+				    </td>
+				    <td>
+					7.1.2 Específique:
+				    </td>
+				    <td >
+					<field name="explique_req" />
+				    </td>
+			        </tr>
+				<tr>
+				    <td style="width: 200px;">
+					7.2 Contribuye o complementa acciones de otras Instituciones:
+				    </td>
+				    <td style="width: 100px;">
+					<field name="contri_accion" style="width: 20px;" />
+				    </td>
+				    <td style="width: 100px;" >
+					7.2.1 Institución:
+				    </td>
+				    <td style="width: 350px;" >
+					<field name="contri_institucion" style="width: 190px;" />
+				    </td>
+				</tr>
+				<tr>
+				    <td>
+					
+				    </td>
+				    <td >
+					
+				    </td>
+				    <td>
+					7.2.2 Específique:
+				    </td>
+				    <td >
+					<field name="contri_explique" />
+				    </td>
+			        </tr>
+				<tr>
+				    <td style="width: 200px;">
+					7.3 Entra en conflicto otra institución:
+				    </td>
+				    <td style="width: 100px;">
+					<field name="conflicto" style="width: 20px;" />
+				    </td>
+				    <td style="width: 100px;" >
+					7.2.1 Institución:
+				    </td>
+				    <td style="width: 350px;" >
+					<field name="institucion_conf" style="width: 190px;" />
+				    </td>
+				</tr>
+				<tr>
+				    <td>
+					
+				    </td>
+				    <td >
+					
+				    </td>
+				    <td>
+					7.1.2 Específique:
+				    </td>
+				    <td >
+					<field name="explique_con_conf" />
+				    </td>
+			        </tr>
+			    </table>
+			    </page>
+			    <page string="8. Empleos">
+			    <separator string="8. Empleos estimados por la ejecución del proyecto" />
+			    <table style="width: 600px;">
+				<tr>
+				    <td style="width: 300px;">
+					8.1. Estimado de empleos directos femeninos:
+				    </td>
+				    <td >
+					<field name="empleos_directos_f" on_change="on_change_total_estimado(empleos_directos_f,empleos_directos_m)" />
+				    </td>
+				</tr>
+				<tr>
+				    <td>
+					8.2. Estimado de empleos directos masculinos:
+				    </td>
+				    <td>
+					<field name="empleos_directos_m" on_change="on_change_total_estimado(empleos_directos_f,empleos_directos_m)" />
+				    </td>
+			        </tr>
+				<tr>
+				    <td>
+					8.3. Estimado totales de empleos directos:
+				    </td>
+				    <td>
+					<field name="t_emple_directos" />
+				    </td>
+			        </tr>
+				<tr>
+				    <td>
+					8.4. Estimado de empleos indirectos:
+				    </td>
+				    <td>
+					<field name="empleados_indirectos" />
+				    </td>
+			        </tr>
+			    </table>
+			    </page>
+			    </notebook>
+			</page>
+			<page string="Acciones" >
+			    <separator string="9. Acciones especificas" />
+			    <field name="acciones_especificas">
+				<tree string="Acciones Especificas" editable="bottom">
+					<field name="nombre_accion" />
+					<field name="unidad_medida" />
+					<field name="cantidad"  />
+					<field name="trim_i" />
+					<field name="trim_ii" />
+					<field name="trim_iii" />
+					<field name="trim_iv" />
+					<field name="total" />
+				</tree>
+			    </field>
+			</page>
+			<page string="Metas" >
+			    <separator string="10. Metas financieras" />
+			    <field name="metas_financieras">
+				<tree string="Metas financieras" editable="bottom">
+					<field name="nom_accion_metas" />
+					<field name="trim_1" />
+					<field name="trim_2" />
+					<field name="trim_3" />
+					<field name="trim_4" />
+					<field name="total_meta" />
+				</tree>
+			    </field>
+			</page>
+			<page string="Imputación" >
+			    <separator string="11. Imputacion presupuestaria" />
+			    <field name="imputacion_presu">
+				<tree string="Imputacion presupuestaria" editable="bottom">
+					<field name="codigo" />
+					<field name="partida_presu" />
+					<field name="trim_1" />
+					<field name="trim_2" />
+					<field name="trim_3" />
+					<field name="trim_4" />
+					<field name="total_impu" />
+				</tree>
+			    </field>
+			</page>
+			
+		    </notebook>
+		    
+
+		</form>
+	    </field>			
+	</record>
+
+<!-- Filtro de solicitudes de soporte (por fechas, cod de solicitud y nombre del representante) -->
+        <!--<record model="ir.ui.view" id="proyecto_conaplan_canaimas_id">
+            <field name="name">Solicitud</field>
+            <field name="model">proyecto.conaplan</field>
+            <field name="arch" type="xml">      
+                <search string="Busqueda Solicitudes de Soporte Canaimas">
+                    <filter name="solicitudes" domain="[('c_solicitud','=', uid)]" string="Solicitudes de Soporte" icon="terp-partner" />
+                    <field name="c_solicitud" />
+                    <field name="status" />
+                    <field name="f_solicitud" />
+                    <field name="f_entrega" />
+                    <field name="cedula" />
+                    <field name="nombre_r" />
+                    <field name="apellido_r" />
+                </search>
+            </field>            
+        </record>-->
+
+
+	<menuitem id="main_proyecto_conaplan_menu" name="Nueva Etapa Aragua" /> 
+	<menuitem id="proyecto_conaplan_menu" name="Proyectos" parent="main_proyecto_conaplan_menu" sequence="2" />
+	<menuitem id="proyectos_menu" name="Registrar Proyectos" parent="proyecto_conaplan_menu" action="proyecto_conaplan_list_action" />
+		
+    </data>
+</openerp>

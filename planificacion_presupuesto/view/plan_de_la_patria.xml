@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+            
+<!-- Filtro de solicitudes de accion_centralizadaes (cod de solicitud y nombre del representante) -->
+<!--        <record model="ir.ui.view" id="buscar_accion_centralizada">
+            <field name="name">Solicitud</field>
+            <field name="model">accion.centralizada</field>
+            <field name="arch" type="xml">      
+                <search string="Busqueda Solicitudes de Soporte Canaimas">
+                    <filter name="accion_centralizadaes" domain="[('c_solicitud','=', uid)]" string="Solicitudes de Reparación" icon="terp-partner" />
+                    <field name="c_solicitud" />
+
+                </search>
+            </field>            
+        </record>-->
+<!--Menu-->
+
+<!--Registro Plan de Gobierno -->
+
+		<record model="ir.actions.act_window" id="plan_patria_list_action">
+		    <field name="name">Plan de la Patria </field>
+		    <field name="res_model">plan.patria</field>
+		    <field name="view_type">form</field>
+		    <field name="view_mode">tree,form</field>
+		</record> 
+
+<!--Form y Tree Plan de Gobierno-->
+
+		<record model="ir.ui.view" id="plan_patria_tree_view">
+			<field name="name">Plan de patria</field>
+			<field name="model">plan.patria</field>
+			<field name="arch" type="xml">
+				<tree string="Planes">
+					<field name="plan_patria"/>
+				</tree>
+			</field>			
+		</record>
+		<record model="ir.ui.view" id="plan_patria_form_view">
+			<field name="name">Plan de Gobierno</field>
+			<field name="model">plan.patria</field>
+			<field name="arch" type="xml">
+				<form string="Planes" version="7.0">
+					<table >
+						<tr  style="width:550px">
+							<td  style="width:150px">
+								Plan de la Patria:
+							</td>
+							<td style="width:400px">
+								<field name="plan_patria"  style="width: 90%%"/>
+							</td>
+						</tr>
+					</table>
+				</form>
+			</field>			
+		</record>
+
+<!--Registro Objetivos Históricos -->
+
+		<record model="ir.actions.act_window" id="objetivo_historico_accion_list_action">
+		    <field name="name">Objetivos Históricos</field>
+		    <field name="res_model">objetivo.historico</field>
+		    <field name="view_type">form</field>
+		    <field name="view_mode">tree,form</field>
+		</record> 
+
+<!--Form Tree Objetivos Históricos -->
+
+		<record model="ir.ui.view" id="objetivo_historico_tree_view">
+			<field name="name">Objetivos Históricos tree</field>
+			<field name="model">objetivo.historico</field>
+			<field name="arch" type="xml">
+				<tree string="Objetivos Historicos">
+					<field name="objetivo_historico"/>
+					<field name="plan_patria" />
+				</tree>
+			</field>			
+		</record>
+		<record model="ir.ui.view" id="objetivo_historico_form_view">
+			<field name="name">Objetivos Históricos form </field>
+			<field name="model">objetivo.historico</field>
+			<field name="arch" type="xml">
+				<form string="Objetivos Historicos" version="7.0">
+					<table >
+						<tr  style="width:580px">
+							<td  style="width:180px">
+								Plan de la Patria:
+							</td>
+							<td style="width:400px">
+								<field name="plan_patria"  style="width: 90%%"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Objetivos Historicos
+							</td>
+							
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="3">
+								<field name="objetivo_historico" style="width: 95%%" />
+							</td>
+							<td>
+								
+							</td>
+						</tr>
+						
+					</table>
+				</form>
+			</field>			
+		</record>
+
+<!--Registro de objetivo_nacional -->
+
+		<record model="ir.actions.act_window" id="objetivo_nacional_list_action">
+		    <field name="name">Objetivos Nacionales </field>
+		    <field name="res_model">objetivo.nacional</field>
+		    <field name="view_type">form</field>
+		    <field name="view_mode">tree,form</field>
+		</record> 
+
+<!--Form Tree objetivo_nacional-->
+
+		<record model="ir.ui.view" id="objetivo_nacional_tree_view">
+			<field name="name">Objetivos Nacionales tree</field>
+			<field name="model">objetivo.nacional</field>
+			<field name="arch" type="xml">
+				<tree string="Objetivos Nacionales">
+					<field name="objetivo_nacional"/>
+					<field name="objetivo_historico"/>
+					<field name="plan_patria" />
+				</tree>
+			</field>			
+		</record>
+		<record model="ir.ui.view" id="objetivo_nacional_form_view">
+			<field name="name">Objetivos Nacionales form </field>
+			<field name="model">objetivo.nacional</field>
+			<field name="arch" type="xml">
+				<form string="Objetivos Nacionales" version="7.0">
+					<table >
+						<tr  style="width:580px">
+							<td  style="width:180px">
+								Plan de la Patria:
+							</td>
+							<td style="width:400px">
+								<field name="plan_patria"  style="width: 90%%"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Objetivos Historicos
+							</td>
+							<td>
+								<field name="objetivo_historico" domain= "[('plan_patria','=',plan_patria)]" style="width: 120%%"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Objetivos Nacionales
+							</td>
+							<td>
+								
+							</td>
+						</tr>
+						<tr>
+							<td colspan="3">
+								<field name="objetivo_nacional" style="width: 120%%" />
+							</td>
+							<td>
+								
+							</td>
+						</tr>
+					</table>
+		
+				</form>
+			</field>			
+		</record>
+		
+<!--Registro  de  Objetivo Estratégico -->
+
+		<record model="ir.actions.act_window" id="objetivo_estrategico_list_action">
+		    <field name="name">Objetivos Estratégicos </field>
+		    <field name="res_model">objetivo.estrategico</field>
+		    <field name="view_type">form</field>
+		    <field name="view_mode">tree,form</field>
+		</record> 
+
+<!--Form Tree  Objetivo Estratégico-->
+
+		<record model="ir.ui.view" id="objetivo_estrategico_tree_view">
+			<field name="name">Objetivos Estratégicos  tree</field>
+			<field name="model">objetivo.estrategico</field>
+			<field name="arch" type="xml">
+				<tree string="Objetivos Estrategicos">
+					<field name="objetivo_estrategico"/>
+					<field name="objetivo_nacional"/>
+					<field name="objetivo_historico"/>
+					<field name="plan_patria" />
+				</tree>
+			</field>			
+		</record>
+		<record model="ir.ui.view" id="objetivo_estrategico_form_view">
+			<field name="name">Objetivos Estratégicos form </field>
+			<field name="model">objetivo.estrategico</field>
+			<field name="arch" type="xml">
+				<form string="Objetivos Estrategicos" version="7.0">
+					<table >
+						<tr  style="width:580px">
+							<td  style="width:180px">
+								Plan de la Patria:
+							</td>
+							<td style="width:400px">
+								<field name="plan_patria"  style="width: 90%%"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Objetivos Historicos
+							</td>
+							<td>
+								<field name="objetivo_historico" domain= "[('plan_patria','=',plan_patria)]" style="width: 120%%"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Objetivos Nacionales
+							</td>
+							<td>
+								<field name="objetivo_nacional" domain= "[('objetivo_historico','=',objetivo_historico)]" style="width: 120%%"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Objetivos Estratégicos
+							</td>
+							<td>
+								
+							</td>
+						</tr>
+						<tr>
+							<td colspan="3">
+								<field name="objetivo_estrategico" style="width: 120%%" />
+							</td>
+							<td>
+								
+							</td>
+						</tr>
+					</table>
+		
+				</form>
+			</field>			
+		</record>
+
+		<!--Registro  de  Objetivo Estratégico -->
+
+		<record model="ir.actions.act_window" id="objetivo_general_list_action">
+		    <field name="name">Objetivos Generales </field>
+		    <field name="res_model">objetivo.general</field>
+		    <field name="view_type">form</field>
+		    <field name="view_mode">tree,form</field>
+		</record> 
+
+<!--Form Tree  Objetivo Estratégico-->
+
+		<record model="ir.ui.view" id="objetivo_general_tree_view">
+			<field name="name">Objetivos Generales  tree</field>
+			<field name="model">objetivo.general</field>
+			<field name="arch" type="xml">
+				<tree string="Objetivos Generales">
+					<field name="objetivo_general"/>
+					<field name="objetivo_estrategico"/>
+					<field name="objetivo_nacional"/>
+					<field name="objetivo_historico"/>
+					<field name="plan_patria" />
+				</tree>
+			</field>			
+		</record>
+		<record model="ir.ui.view" id="objetivo_general_form_view">
+			<field name="name">Objetivos Generales form </field>
+			<field name="model">objetivo.general</field>
+			<field name="arch" type="xml">
+				<form string="Objetivos Generales" version="7.0">
+					<table >
+						<tr  style="width:580px">
+							<td  style="width:180px">
+								Plan de la Patria:
+							</td>
+							<td style="width:400px">
+								<field name="plan_patria"  style="width: 90%%"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Objetivos Historicos
+							</td>
+							<td>
+								<field name="objetivo_historico" domain= "[('plan_patria','=',plan_patria)]" style="width: 120%%"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Objetivos Nacionales
+							</td>
+							<td>
+								<field name="objetivo_nacional" domain= "[('objetivo_historico','=',objetivo_historico)]" style="width: 120%%"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Objetivos Estratégicos
+							</td>
+							<td>
+								<field name="objetivo_estrategico" domain= "[('objetivo_nacional','=',objetivo_nacional)]" style="width: 120%%"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Objetivos Generales
+							</td>
+							<td>
+								
+							</td>
+						</tr>
+						<tr>
+							<td colspan="3">
+								<field name="objetivo_general" style="width: 120%%" />
+							</td>
+							<td>
+								
+							</td>
+						</tr>
+					</table>
+		
+				</form>
+			</field>			
+		</record>
+		
+		<menuitem id="plan_patria_menu" name="Plan de la Patria" parent="configuraciones_menu" sequence="4"/>
+		<menuitem id="registro_plan_patria_menu" name="Planes de la Patria" parent="plan_patria_menu" action="plan_patria_list_action"  sequence="1"/>
+		<menuitem id="objetivo_historico_menu" name="Objetivos Históricos" parent="plan_patria_menu" action="objetivo_historico_accion_list_action" sequence="2"/>
+		<menuitem id="objetivo_nacional_menu" name="Objetivos Nacionales" parent="plan_patria_menu" action="objetivo_nacional_list_action" sequence="3" />
+		<menuitem id="objetivo_estrategico_menu" name="Objetivos Estratégicos" parent="plan_patria_menu" action="objetivo_estrategico_list_action" sequence="4" />
+		<menuitem id="objetivo_general_menu" name="Objetivos Generales" parent="plan_patria_menu" action="objetivo_general_list_action" sequence="5" />
+	</data>
+</openerp>

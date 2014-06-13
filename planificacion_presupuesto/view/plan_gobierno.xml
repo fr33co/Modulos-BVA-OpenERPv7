@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+            
+<!-- Filtro de solicitudes de accion_centralizadaes (cod de solicitud y nombre del representante) -->
+<!--        <record model="ir.ui.view" id="buscar_accion_centralizada">
+            <field name="name">Solicitud</field>
+            <field name="model">accion.centralizada</field>
+            <field name="arch" type="xml">      
+                <search string="Busqueda Solicitudes de Soporte Canaimas">
+                    <filter name="accion_centralizadaes" domain="[('c_solicitud','=', uid)]" string="Solicitudes de Reparación" icon="terp-partner" />
+                    <field name="c_solicitud" />
+                    <field name="status" />
+                    <field name="serial" />
+                    <field name="hardware" />
+                    <field name="software" />
+                </search>
+            </field>            
+        </record>-->
+<!--Menu-->
+
+<!--Registro Plan de Gobierno -->
+
+		<record model="ir.actions.act_window" id="plan_gobierno_list_action">
+		    <field name="name">Plan de Gobierno </field>
+		    <field name="res_model">plan.gobierno</field>
+		    <field name="view_type">form</field>
+		    <field name="view_mode">tree,form</field>
+		</record> 
+
+<!--Form y Tree Plan de Gobierno-->
+
+		<record model="ir.ui.view" id="plan_gobierno_tree_view">
+			<field name="name">Plan de Gobierno</field>
+			<field name="model">plan.gobierno</field>
+			<field name="arch" type="xml">
+				<tree string="Planes">
+					<field name="plan_gobierno"/>
+				</tree>
+			</field>			
+		</record>
+		<record model="ir.ui.view" id="plan_gobierno_form_view">
+			<field name="name">Plan de Gobierno</field>
+			<field name="model">plan.gobierno</field>
+			<field name="arch" type="xml">
+				<form string="Planes" version="7.0">
+					<table >
+						<tr  style="width:550px">
+							<td  style="width:150px">
+								Plan de Gobierno:
+							</td>
+							<td style="width:400px">
+								<field name="plan_gobierno"  style="width: 90%%"/>
+							</td>
+						</tr>
+					</table>
+				</form>
+			</field>			
+		</record>
+
+<!--Registro Lineas estrategicas de Accion -->
+
+		<record model="ir.actions.act_window" id="lineas_estrategicas_accion_list_action">
+		    <field name="name">Lineas estrategicas de Accion </field>
+		    <field name="res_model">lineas.estrategicas</field>
+		    <field name="view_type">form</field>
+		    <field name="view_mode">tree,form</field>
+		</record> 
+
+<!--Form Tree Lineas estrategicas de Accion -->
+
+		<record model="ir.ui.view" id="lineas_estrategicas_accion_tree_view">
+			<field name="name">Tipo estructura tree</field>
+			<field name="model">lineas.estrategicas</field>
+			<field name="arch" type="xml">
+				<tree string="Acciones">
+					
+					<field name="lineas_estrategicas"/>
+					<field name="plan_gobierno"/>
+				</tree>
+			</field>			
+		</record>
+		<record model="ir.ui.view" id="lineas_estrategicas_accion_form_view">
+			<field name="name">Tipo estructura form </field>
+			<field name="model">lineas.estrategicas</field>
+			<field name="arch" type="xml">
+				<form string="Acciones" version="7.0">
+					<table >
+						<tr  style="width:580px">
+							<td  style="width:180px">
+								Plan de Gobierno:
+							</td>
+							<td style="width:400px">
+								<field name="plan_gobierno"  style="width: 90%%"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Líneas Estratégicas
+							</td>
+							<td>
+								<field name="lineas_estrategicas" style="width: 90%%"/>
+							</td>
+						</tr>
+						
+					</table>
+				</form>
+			</field>			
+		</record>
+
+<!--Registro de linea_estrategica_objetivos_escpeficos -->
+
+		<record model="ir.actions.act_window" id="linea_estrategica_objetivos_escpeficos_list_action">
+		    <field name="name">Línea estrategica objetivos escpeficos </field>
+		    <field name="res_model">lineas.objetivos.escpeficos</field>
+		    <field name="view_type">form</field>
+		    <field name="view_mode">tree,form</field>
+		</record> 
+
+<!--Form Tree linea_estrategica_objetivos_escpeficos-->
+
+		<record model="ir.ui.view" id="linea_estrategica_objetivos_escpeficos_tree_view">
+			<field name="name">Linea estrategica objetivos escpeficos tree</field>
+			<field name="model">lineas.objetivos.escpeficos</field>
+			<field name="arch" type="xml">
+				<tree string="Objetivos Especificos">
+					<field name="obj_especificos" />
+					<field name="lineas_estrategicas" />
+				</tree>
+			</field>			
+		</record>
+		<record model="ir.ui.view" id="linea_estrategica_objetivos_escpeficos_form_view">
+			<field name="name">Linea estrategica objetivos escpeficos form </field>
+			<field name="model">lineas.objetivos.escpeficos</field>
+			<field name="arch" type="xml">
+				<form string="Objetivos Especificos" version="7.0">
+					<table >
+						<tr  style="width:580px">
+							<td  style="width:180px">
+								Plan de Gobierno:
+							</td>
+							<td style="width:400px">
+								<field name="plan_gobierno"  style="width: 90%%"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Líneas Estratégicas
+							</td>
+							<td>
+								<field name="lineas_estrategicas" domain= "[('plan_gobierno','=',plan_gobierno)]" style="width: 90%%"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Objetivos Específicos
+							</td>
+							<td>
+								
+							</td>
+						</tr>
+						<tr>
+							<td colspan="3">
+								<field name="obj_especificos" style="width: 95%%" />
+							</td>
+							<td>
+								
+							</td>
+						</tr>
+					</table>
+
+				</form>
+			</field>			
+		</record>
+		
+
+		
+		<menuitem id="plan_gobierno_menu" name="Plan de Gobierno" parent="configuraciones_menu" sequence="3"/>
+		<menuitem id="registro_plan_gobierno_menu" name="Planes de Gobierno" parent="plan_gobierno_menu" action="plan_gobierno_list_action" sequence="1" />
+		<menuitem id="lineas_estrategicas_accion_menu" name="Lineas estrategicas de Accion" parent="plan_gobierno_menu" action="lineas_estrategicas_accion_list_action" sequence="2" />
+		<menuitem id="linea_estrategica_objetivos_escpeficos_menu" name="Objetivos Específicos" parent="plan_gobierno_menu" action="linea_estrategica_objetivos_escpeficos_list_action" sequence="3" />
+	</data>
+</openerp>
