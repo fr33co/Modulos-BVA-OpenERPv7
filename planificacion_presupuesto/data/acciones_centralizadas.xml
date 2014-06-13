@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <openerp>
+        <data>
+            <!-- ###############################################################
+                 # Listado de tipos de Acciones CentralizadaS                  #
+                 #                                                             #
+                 ############################################################### -->
+
+            <!-- ###########  ##### -->
+            <record id="centralizada01" model="tipo.accion.centralizada">
+                <field name="a_centralizada">Dirección y coordinación de los gastos de los trabajadores</field>
+            </record>
+            <record id="centralizada02" model="tipo.accion.centralizada">
+                <field name="a_centralizada">Gestión Administrativa</field>
+            </record>
+            <record id="centralizada03" model="tipo.accion.centralizada">
+                <field name="a_centralizada">Previsión y protección social</field>
+            </record>
+            <record id="centralizada04" model="tipo.accion.centralizada">
+                <field name="a_centralizada">Asignaciones predeterminadas</field>
+            </record>
+            <record id="centralizada05" model="tipo.accion.centralizada">
+                <field name="a_centralizada">Dirección y coordinación del servicio de la deuda pública nacional</field>
+            </record>
+            <record id="centralizada06" model="tipo.accion.centralizada">
+                <field name="a_centralizada">Otras</field>
+            </record>
+            
+            <!-- ###############################################################
+                 # Listado de tipos de Acciones CentralizadaS                  #
+                 #                                                             #
+                 ############################################################### -->
+            
+            <!-- ###########  ##### -->
+            <record id="especificas01" model="tipo.accion.especifica">
+                <field name="a_especifica">Asignación y control de los recursos para gastos de los trabajadores</field>
+                <field name="a_centralizada" ref="centralizada01"/>
+            </record>
+            
+            <!-- ###########  ##### -->
+            <record id="especificas02" model="tipo.accion.especifica">
+                 <field name="a_especifica">Apoyo institucional a las acciones específicas de los proyectos del ente</field>
+                <field name="a_centralizada" ref="centralizada02"/>
+            </record>
+            <record id="especificas03" model="tipo.accion.especifica">
+                <field name="a_especifica">Apoyo institucional al sector privado y al sector externo</field>
+                <field name="a_centralizada" ref="centralizada02"/>
+            </record>
+            <record id="especificas04" model="tipo.accion.especifica">
+                <field name="a_especifica">Apoyo institucional al sector público</field>
+                <field name="a_centralizada" ref="centralizada02"/>
+            </record>
+            
+            <!-- ###########  ##### -->
+            <record id="especificas05" model="tipo.accion.especifica">
+                <field name="a_especifica">Asignación y control de los recursos para gastos de los pensionados, pensionadas, jubilados y jubiladas</field>
+                <field name="a_centralizada" ref="centralizada03"/>
+            </record>
+            
+            <!-- ###########  ##### -->
+            <record id="especificas06" model="tipo.accion.especifica">
+                <field name="a_especifica">Asignación y control de los aportes constitucionales y legales</field>
+                <field name="a_centralizada" ref="centralizada04"/>
+            </record>
+            
+            <!-- ###########  ##### -->
+            <record id="especificas07" model="tipo.accion.especifica">
+                <field name="a_especifica">Asignación y control de los recursos para  el servicio de la deuda pública nacional</field>
+                <field name="a_centralizada" ref="centralizada05"/>
+            </record>
+            
+            <!-- ###########  ##### -->
+            <record id="especificas08" model="tipo.accion.especifica">
+                <field name="a_especifica">Las determinadas según el propósito de la Acción Centralizada</field>
+                <field name="a_centralizada" ref="centralizada06"/>
+            </record>
+        </data>
+    </openerp>

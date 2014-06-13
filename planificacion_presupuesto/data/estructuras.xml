@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <openerp>
+        <data>
+            <!-- ###############################################################
+                 # Listado de tipos de ESTRUCTURAS                             #
+                 #                                                             #
+                 ############################################################### -->
+
+            <!-- ###########  ##### -->
+            <record id="t_estructura01" model="tipo.estructura">
+                <field name="codigo">01</field>
+                <field name="estructura">PODER PUBLICO</field>
+            </record>
+            <record id="t_estructura02" model="tipo.estructura">
+                <field name="codigo">02</field>
+                <field name="estructura">DIRECCION SUPERIOR DE GOBIERNO</field>
+            </record>
+            <record id="t_estructura03" model="tipo.estructura">
+                <field name="codigo">03</field>
+                <field name="estructura">ORGANO</field>
+            </record>
+            <record id="t_estructura04" model="tipo.estructura">
+                <field name="codigo">04</field>
+                <field name="estructura">UNIDAD DE APOYO</field>
+            </record>
+            <record id="t_estructura05" model="tipo.estructura">
+                <field name="codigo">05</field>
+                <field name="estructura">ENTE DESCONCENTRADO</field>
+            </record>
+            <record id="t_estructura06" model="tipo.estructura">
+                <field name="codigo">06</field>
+                <field name="estructura">ENTE DESCENTRALIZADO</field>
+            </record>
+           <record id="t_estructura07" model="tipo.estructura">
+                <field name="codigo">07</field>
+                <field name="estructura">EMPRESA</field>
+            </record>
+           <record id="t_estructura08" model="tipo.estructura">
+                <field name="codigo">08</field>
+                <field name="estructura">DESCONOCIDO</field>
+            </record>
+        </data>
+    </openerp>

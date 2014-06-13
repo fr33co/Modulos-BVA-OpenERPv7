@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+        
+<!--Registro y Administración de Organos Entes -->
+
+		<record model="ir.actions.act_window" id="organos_entes_list_action">
+		    <field name="name">Administración de Organos Entes </field>
+		    <field name="res_model">organos.entes</field>
+		    <field name="view_type">form</field>
+		    <field name="view_mode">tree,form</field>
+		</record> 
+
+<!--Tree Registro y Administración de Organos Entes-->
+
+		<record model="ir.ui.view" id="organos_entes_tree_view">
+			<field name="name">Administración de Organos Entes tree</field>
+			<field name="model">organos.entes</field>
+			<field name="arch" type="xml">
+				<tree string="Acciones">
+					<field name="nombre_ente"/>
+					<field name="tipo" />
+					<field name="t_estructura" />
+					<field name="sector" />
+				</tree>
+			</field>			
+		</record>
+
+<!--Formulario Registro y Administración de Organos Entes-->
+
+		<record model="ir.ui.view" id="organos_entes_form_view">
+			<field name="name">Administración de Organos Entes form</field>
+			<field name="model">organos.entes</field>
+			<field name="arch" type="xml">
+			<form string="Dirección de Planificación, Presupuesto y Control de Gestión" version="7.0">
+				<group>
+				    <group>
+					<field name="user_register" />
+				    </group>
+				    <group>
+					<field name="f_solicitud" class="oe_inline"/>
+				    </group>
+				</group>
+				<separator string="Registro de Órgano/Ente" />
+				<table style="font-size:11px">
+					<tr style="width:1000px">
+					    <td style="width:150px">
+						Nombre del Órgano/Ente
+					    </td>
+					    <td style="width: 200px">
+						<field name="nombre_ente" style="width: 90%%"/>
+					    </td>
+					    <td style="width:150px">
+						Siglas del Órgano/Ente
+					    </td>
+					    <td style="width: 200px">
+						<field name="siglas" style="width: 30%%"/>
+					    </td>
+					    <td style="width:125px">
+						Correo de Contacto
+					    </td>
+					    <td style="width: 225px">
+						<field name="correo" style="width: 90%%"/>
+					    </td>
+					</tr>
+					<tr>
+					    <td>
+						Tipo Órgano/Ente
+					    </td>
+					    <td>
+						<field name="tipo" style="width: 90%%" class="oe_inline"/>
+					    </td>
+					    <td>
+						Tipo Estructura
+					    </td>
+					    <td>
+						<field name="t_estructura" style="width: 90%%"/>
+					    </td>
+					    <td>
+						Sector
+					    </td>
+					    <td>
+						<field name="sector" style="width: 90%%"/>
+					    </td>
+					</tr>
+					<tr>
+					    <td>
+						Nombre del Responsable
+					    </td>
+					    <td>
+						<field name="nom_responsable" style="width: 90%%" />
+					    </td>
+					    <td>
+						Código Adscripción
+					    </td>
+					    <td>
+						<field name="c_adscrip" style="width: 60%%"/>
+					    </td>
+					    <td>
+						Código Actividad
+					    </td>
+					    <td>
+						<field name="c_act" style="width: 60%%"/>
+					    </td>
+					</tr>
+					<tr>
+					    <td>
+						Cédula
+					    </td>
+					    <td>
+						<field name="ci" style="width: 60%%"/>
+					    </td>
+					    <td>
+						Cargo
+					    </td>
+					    <td>
+						<field name="cargo" style="width: 90%%"/>
+					    </td>
+					    <td>
+						Teléfono
+					    </td>
+					    <td>
+						<field name="telefono" style="width: 60%%"/>
+					    </td>
+					</tr>
+					<tr>
+					    <td>
+						Direccion
+					    </td>
+					    <td colspan="4">
+						<field name="direccion" style="width: 80%%"/>
+					    </td>
+
+					</tr>
+				</table>
+				
+			</form>
+			</field>			
+	</record>
+        
+<!-- Filtro de solicitudes de accion_centralizadaes (cod de solicitud y nombre del representante) -->
+<!--        <record model="ir.ui.view" id="buscar_accion_centralizada">
+            <field name="name">Solicitud</field>
+            <field name="model">accion.centralizada</field>
+            <field name="arch" type="xml">      
+                <search string="Busqueda Solicitudes de Soporte Canaimas">
+                    <filter name="accion_centralizadaes" domain="[('c_solicitud','=', uid)]" string="Solicitudes de Reparación" icon="terp-partner" />
+                    <field name="c_solicitud" />
+                    <field name="status" />
+                    <field name="serial" />
+                    <field name="hardware" />
+                    <field name="software" />
+                </search>
+            </field>            
+        </record>-->
+<!--Menu-->
+
+<!--Registro y Administración de Organos Entes -->
+
+		<record model="ir.actions.act_window" id="organos_sectores_list_action">
+		    <field name="name">Sectores </field>
+		    <field name="res_model">organos.sectores</field>
+		    <field name="view_type">form</field>
+		    <field name="view_mode">tree,form</field>
+		</record> 
+
+<!--Form Tree Registro y Administración de Organos Entes-->
+
+		<record model="ir.ui.view" id="sectores_tree_view">
+			<field name="name">Sectores</field>
+			<field name="model">organos.sectores</field>
+			<field name="arch" type="xml">
+				<tree string="Acciones">
+					<field name="codigo"/>
+					<field name="sectores" />
+				</tree>
+			</field>			
+		</record>
+		<record model="ir.ui.view" id="sectores_form_view">
+			<field name="name">Sectores</field>
+			<field name="model">organos.sectores</field>
+			<field name="arch" type="xml">
+				<form string="Acciones" version="7.0">
+					<group>
+						<field name="codigo" class="oe_inline"/>
+						<field name="sectores" class="oe_inline"/>	
+					</group>
+				</form>
+			</field>			
+		</record>
+
+<!--Registro y Administración de Organos Entes -->
+
+		<record model="ir.actions.act_window" id="tipo_estructura_list_action">
+		    <field name="name">Tipo estructura </field>
+		    <field name="res_model">tipo.estructura</field>
+		    <field name="view_type">form</field>
+		    <field name="view_mode">tree,form</field>
+		</record> 
+
+<!--Form Tree Registro y Administración de Organos Entes-->
+
+		<record model="ir.ui.view" id="tipo_estructura_tree_view">
+			<field name="name">Tipo estructura tree</field>
+			<field name="model">tipo.estructura</field>
+			<field name="arch" type="xml">
+				<tree string="Acciones">
+					<field name="codigo" />
+					<field name="estructura" />
+				</tree>
+			</field>			
+		</record>
+		<record model="ir.ui.view" id="tipo_estructura_form_view">
+			<field name="name">Tipo estructura form </field>
+			<field name="model">tipo.estructura</field>
+			<field name="arch" type="xml">
+				<form string="Acciones" version="7.0">
+					<group>
+						<field name="codigo" class="oe_inline"/>
+						<field name="estructura" class="oe_inline"/>	
+					</group>
+				</form>
+			</field>			
+		</record>
+
+<!--Registro de Acciones Centralizadas -->
+
+		<record model="ir.actions.act_window" id="tipo_acciones_centralizadas_list_action">
+		    <field name="name">Tipo acciones Centralizadas </field>
+		    <field name="res_model">tipo.accion.centralizada</field>
+		    <field name="view_type">form</field>
+		    <field name="view_mode">tree,form</field>
+		</record> 
+
+<!--Form Tree Centralizadas-->
+
+		<record model="ir.ui.view" id="tipo_acciones_centralizadas_tree_view">
+			<field name="name">Tipo acciones Centralizadas tree</field>
+			<field name="model">tipo.accion.centralizada</field>
+			<field name="arch" type="xml">
+				<tree string="Acciones">
+					<field name="a_centralizada" />
+				</tree>
+			</field>			
+		</record>
+		<record model="ir.ui.view" id="tipo_acciones_centralizadas_form_view">
+			<field name="name">Tipo acciones Centralizadas form </field>
+			<field name="model">tipo.accion.centralizada</field>
+			<field name="arch" type="xml">
+				<form string="Acciones" version="7.0">
+					<group>
+						<field name="a_centralizada" class="oe_inline"/>	
+					</group>
+				</form>
+			</field>			
+		</record>
+		
+<!--Registro de Acciones Centralizadas -->
+
+		<record model="ir.actions.act_window" id="tipo_acciones_especifica_list_action">
+		    <field name="name">Tipo acciones especifica </field>
+		    <field name="res_model">tipo.accion.especifica</field>
+		    <field name="view_type">form</field>
+		    <field name="view_mode">tree,form</field>
+		</record> 
+
+<!--Form Tree Centralizadas-->
+
+		<record model="ir.ui.view" id="tipo_acciones_especifica_tree_view">
+			<field name="name">Tipo acciones especifica tree</field>
+			<field name="model">tipo.accion.especifica</field>
+			<field name="arch" type="xml">
+				<tree string="Acciones">
+					<field name="a_centralizada" />
+					<field name="a_especifica"/>
+				</tree>
+			</field>			
+		</record>
+		<record model="ir.ui.view" id="tipo_acciones_especifica_form_view">
+			<field name="name">Tipo acciones especifica form </field>
+			<field name="model">tipo.accion.especifica</field>
+			<field name="arch" type="xml">
+				<form string="Acciones" version="7.0">
+					<group>
+						<field name="a_centralizada" colspan="2" />
+						<field name="a_especifica" />
+					</group>
+				</form>
+			</field>			
+		</record>
+		<!-- Menu de Configuraciones -->
+		<menuitem id="configuraciones_menu" name="Configuraciones" parent="main_proyecto_conaplan_menu" sequence="4"/>
+		<!-- Sub-Menus de Configuraciones para Entes -->
+		<menuitem id="entes_menu" name="Entes" parent="configuraciones_menu" sequence="1"/>
+			<!-- ENTES, SECTORES, ESTRUCTURAS -->
+		<menuitem id="registro_organos_entes_menu" name="Registro de Organo/Ente" parent="entes_menu" action="organos_entes_list_action" />
+		<menuitem id="registro_organos_sectores_menu" name="Registrar Sectores" parent="entes_menu" action="organos_sectores_list_action" />
+		<menuitem id="registro_organos_tipo_estructura_menu" name="Tipos de Estructura" parent="entes_menu" action="tipo_estructura_list_action" />
+		<!-- Sub-Menus de Configuraciones para Acciones-->
+		<menuitem id="acciones_menu" name="Acciones" parent="configuraciones_menu" sequence="2"/>
+			<!-- ACCIONES CENTRALIZADAS, ACCIONES ESPECIFICAS -->
+		<menuitem id="registro_tipo_acciones_centralizadas_menu" name="Acciones Centralizadas" parent="acciones_menu" action="tipo_acciones_centralizadas_list_action" />
+		<menuitem id="registro_tipo_acciones_especificas_menu" name="Acciones Específicas" parent="acciones_menu" action="tipo_acciones_especifica_list_action" />
+	</data>
+</openerp>

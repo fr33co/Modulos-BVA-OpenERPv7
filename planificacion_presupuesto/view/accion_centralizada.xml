@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+        
+<!--Acciones Centralizadas -->
+
+		<record model="ir.actions.act_window" id="accion_centralizada_list_action">
+		    <field name="name">Dirección de Planificación, Presupuesto y Control de Gestión </field>
+		    <field name="res_model">accion.centralizada</field>
+		    <field name="view_type">form</field>
+		    <field name="view_mode">tree,form</field>
+		</record> 
+
+<!--Tree Acciones para Planificacion y Presupuesto-->
+
+		<record model="ir.ui.view" id="accion_centralizada_tree_view">
+			<field name="name">accion.centralizada.tree</field>
+			<field name="model">accion.centralizada</field>
+			<field name="arch" type="xml">
+				<tree string="Acciones">
+					<field name="c_solicitud"/>
+					<field name="f_solicitud" />
+					<field name="n_accion_centra" />
+					<field name="user_register" />
+				</tree>
+			</field>			
+		</record>
+
+<!--Formulario Acciones para Planificacion y Presupuesto-->
+
+		<record model="ir.ui.view" id="accion_centralizada_form_view">
+			<field name="name">accion.centralizada.form</field>
+			<field name="model">accion.centralizada</field>
+			<field name="arch" type="xml">
+			<form string="Dirección de Planificación, Presupuesto y Control de Gestión" version="7.0">
+				<group>
+				    <group>
+					<field name="c_solicitud" class="oe_inline"/>
+					<field name="user_register" />
+				    </group>
+				    <group>
+					<field name="f_solicitud" class="oe_inline"/>
+				    </group>
+				</group>
+				<notebook style="font-size:11px">
+				<page string="Identificación">
+					<separator string="1. Identificación del proponente" />		    
+					<table>
+						<tr style="width:1000px">
+						    <td style="width:200px">
+							1.1. Organismo/Ente/empresa:
+						    </td>
+						    <td style="width: 300px">
+							<field name="organismo" on_change="on_change_ente(organismo)" style="width: 90%%"/>
+						    </td>
+						    <td style="width:170px">
+							1.4. Cargo:
+						    </td>
+						    <td style="width: 300px">
+							<field name="cargo" style="width: 90%%"/>
+						    </td>
+						</tr>
+						<tr>
+						    <td>
+							1.2. Nombre de la Máxima Autoridad de la Institución:
+						    </td>
+						    <td>
+							<field name="n_autoridad" style="width: 90%%"/>
+						    </td>
+						    <td>
+							1.5. Teléfono:
+						    </td>
+						    <td>
+							<field name="telefono" style="width: 40%%"/>
+						    </td>
+						</tr>
+						<tr>
+						    <td>
+							1.3. C.I.:
+						    </td>
+						    <td>
+							<field name="cedula" style="width: 30%%"/>
+						    </td>
+						    <td>
+							1.6. Correo Electrónico:
+						    </td>
+						    <td>
+							<field name="correo" style="width: 90%%"/>
+						    </td>
+						</tr>
+					</table>
+				</page>
+				<page string="Política">
+					<separator string="2. Política presupuestaría" />		    
+					<table>
+						<tr style="width:600px">
+						    <td style="width:600px">
+							<field name="poli_presu" style="width: 90%%"/>
+						    </td>
+						</tr>
+					</table>
+				</page>
+				<page string="Acción">
+					<separator string="3. Acción Centralizada" />		    
+					<table>
+						<tr style="width:1000px">
+						    <td style="width:200px">
+							3.1. Nombre de la Acción Centralizada:
+						    </td>
+						    <td style="width: 300px">
+							<field name="n_accion_centra" style="width: 90%%"/>
+						    </td>
+						    <td style="width:200px">
+							3.5. Cargo:
+						    </td>
+						    <td style="width: 300px">
+							<field name="cargo_acc" style="width: 90%%"/>
+						    </td>
+						</tr>
+						<tr>
+						    <td>
+							3.2. Nombre de la Acción Específica:
+						    </td>
+						    <td>
+							<field name="n_accion_espe" style="width: 90%%"/>
+						    </td>
+						    <td>
+							3.6. C.I.:
+						    </td>
+						    <td>
+							<field name="cedula_acc" style="width: 30%%"/>
+						    </td>
+						</tr>
+						<tr>
+						    <td>
+							3.3. Unidad Ejecutora:
+						    </td>
+						    <td>
+							<field name="unidad" style="width: 90%%"/>
+						    </td>
+						    <td>
+							3.7. Correo Electrónico:
+						    </td>
+						    <td>
+							<field name="correo_acc" style="width: 90%%"/>
+						    </td>
+						</tr>
+						<tr>
+						    <td>
+							3.4. Responsable de la Unidad Ejecutora:
+						    </td>
+						    <td >
+							<field name="responsable" style="width: 90%%"/>
+						    </td>
+						    <td>
+							3.8. Teléfono:
+						    </td>
+						    <td>
+							<field name="telefono_acc" style="width: 40%%"/>
+						    </td>
+						</tr>
+					</table>
+				</page>
+				<page string="Actividades específicas" >
+					<separator string="4.1. Distribución de las Actividades" />
+					<field name="distribucion_actividades">
+						<tree string="Acciones Especificas" editable="bottom">
+							<field name="actividades" />
+							<field name="unidad_medida" />
+							<field name="cantidad"  />
+							<field name="medio_verifi" />
+							<field name="indicadores_act" />
+						</tree>
+					</field>
+				</page>
+				<page string="Distribución trimestral" >
+					<separator string="4.2. Distribución trimestral de las Actividades" />
+					<field name="actividades_trimestrales">
+						<tree string="Acciones Especificas" editable="bottom">
+							<field name="actividades" />
+							<field name="trim_1" />
+							<field name="trim_2"  />
+							<field name="trim_3" />
+							<field name="trim_4" />
+							<field name="total_trim" />
+						</tree>
+					</field>
+				</page>
+				<page string="Metas especificas" >
+					<separator string="5.1. Distribución trimestral" />
+					<field name="meta_acc_esp_trim">
+						<tree string="Acciones Especificas" editable="bottom">
+							<field name="actividades" />
+							<field name="trim_1" />
+							<field name="trim_2"  />
+							<field name="trim_3" />
+							<field name="trim_4" />
+							<field name="total_trim" />
+						</tree>
+					</field>
+				</page>
+
+				</notebook>
+				</form>
+			</field>			
+		</record>
+        
+<!-- Filtro de solicitudes de accion_centralizadaes (cod de solicitud y nombre del representante) -->
+<!--        <record model="ir.ui.view" id="buscar_accion_centralizada">
+            <field name="name">Solicitud</field>
+            <field name="model">accion.centralizada</field>
+            <field name="arch" type="xml">      
+                <search string="Busqueda Solicitudes de Soporte Canaimas">
+                    <filter name="accion_centralizadaes" domain="[('c_solicitud','=', uid)]" string="Solicitudes de Reparación" icon="terp-partner" />
+                    <field name="c_solicitud" />
+                    <field name="status" />
+                    <field name="serial" />
+                    <field name="hardware" />
+                    <field name="software" />
+                </search>
+            </field>            
+        </record>-->
+<!--Menu-->
+
+		<menuitem id="accion_centralizada_menu" name="Acciones Centralizadas" parent="main_proyecto_conaplan_menu" sequence="1"/>
+		<menuitem id="registro_accion_centralizada_menu" name="Registro de acciones" parent="accion_centralizada_menu" action="accion_centralizada_list_action" />
+        
+	</data>
+</openerp>

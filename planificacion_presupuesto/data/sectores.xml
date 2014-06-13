@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <openerp>
+        <data>
+            <!-- ###############################################################
+                 # Listado de Sectores de loa Organos / Entes                  #
+                 #                                                             #
+                 ############################################################### -->
+
+            <!-- ###########  ##### -->
+            <record id="sectore01" model="organos.sectores">
+                <field name="codigo">01</field>
+                <field name="sectores">Dircción superior de gobierno</field>
+            </record>
+            <record id="sectores02" model="organos.sectores">
+                <field name="codigo">02</field>
+                <field name="sectores">Seguridad y Defensa</field>
+            </record>
+            <record id="sectores03" model="organos.sectores">
+                <field name="codigo">03</field>
+                <field name="sectores">Agrícola</field>
+            </record>
+            <record id="sectores04" model="organos.sectores">
+                <field name="codigo">04</field>
+                <field name="sectores">Energía, Minas y Petróleo</field>
+            </record>
+            <record id="sectores05" model="organos.sectores">
+                <field name="codigo">05</field>
+                <field name="sectores">Industria y Comercio</field>
+            </record>
+            <record id="sectores06" model="organos.sectores">
+                <field name="codigo">06</field>
+                <field name="sectores">Turismo y Recreación</field>
+            </record>
+           <record id="sectores07" model="organos.sectores">
+                <field name="codigo">07</field>
+                <field name="sectores">Transporte y Comunicación</field>
+            </record>
+           <record id="sectores08" model="organos.sectores">
+                <field name="codigo">08</field>
+                <field name="sectores">Educación</field>
+            </record>
+           <record id="sectores09" model="organos.sectores">
+                <field name="codigo">09</field>
+                <field name="sectores">Cultura y Comunicación</field>
+            </record>
+           <record id="sectores10" model="organos.sectores">
+                <field name="codigo">10</field>
+                <field name="sectores">Ciencia y Tecnología</field>
+            </record>
+           <record id="sectores11" model="organos.sectores">
+                <field name="codigo">11</field>
+                <field name="sectores">Desarrollo Urbano, Vivienda y Servicios Conexos</field>
+            </record>
+           <record id="sectores12" model="organos.sectores">
+                <field name="codigo">12</field>
+                <field name="sectores">Salud</field>
+            </record>
+           <record id="sectores13" model="organos.sectores">
+                <field name="codigo">13</field>
+                <field name="sectores">Desarrollo Social y Participación</field>
+            </record>
+           <record id="sectores14" model="organos.sectores">
+                <field name="codigo">14</field>
+                <field name="sectores">Seguridad Salud</field>
+            </record>
+           <record id="sectores15" model="organos.sectores">
+                <field name="codigo">15</field>
+                <field name="sectores">Gastos No Clasificados</field>
+            </record>
+           <record id="sectores16" model="organos.sectores">
+                <field name="codigo">16</field>
+                <field name="sectores">DESCONOCIDO</field>
+            </record>
+        </data>
+    </openerp>
