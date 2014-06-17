@@ -118,7 +118,7 @@ class NominaBecados(osv.Model):
 					print "La nómina ya existe..."
 					#raise osv.except_osv(_("Warning!"), _("La nómina ya existe..."))
 			
-			print "\n"
+			#~ print "\n"
 			#Ahora verificamos si las nóminas individuales se corresponden con la lista de becados seleccionados.
 			#Si alguna de éllas no pertenece a ningún becado de la lista, procedemos a eliminarla de la lista de nóminas
 			for nomina in x_browse_id.nomina_individual:
@@ -574,7 +574,7 @@ class NominaBecados(osv.Model):
 			search_nomina1 = obj_proceso_nomina.search(cr, uid, [('id','=',id_nomina)], count=True)
 			
 			if search_nomina1 > 0:
-				print str(search_nomina1)+"\n"
+				#~ print str(search_nomina1)+"\n"
 				
 				#Consulto los datos de la nómina con el id específicado en 'id_nomina'
 				search_nomina2 = obj_proceso_nomina.search(cr, uid, [('id','=',id_nomina)])

@@ -84,7 +84,7 @@ def gen_detallado(cr, uid, id_nomina, nomina, periodo_ini, periodo_fin, tipo_bec
 		cr.execute(becados_por_banco)
 		for num_b_b in cr.fetchall():
 			numero_becados_banc = num_b_b[0] #Número de becados para la sede de la iteración actual
-		print "Becados del banco "+str(bancos[1])+": "+str(numero_becados_banc)
+		#~ print "Becados del banco "+str(bancos[1])+": "+str(numero_becados_banc)
 		
 		#Si efectivamente existe becados para el banco actual se procede a listarlos por sede
 		if numero_becados_banc > 0:
@@ -388,8 +388,8 @@ def gen_detallado(cr, uid, id_nomina, nomina, periodo_ini, periodo_fin, tipo_bec
 	pdf.cell(90,6,str(suspendidos),'B',0,'L',1)
 	pdf.cell(10,6,"",'BR',1,'L',1)
 		
-	print "Total de bancos: "+str(i)
-	print "Total de sedes: "+str(j)
+	#~ print "Total de bancos: "+str(i)
+	#~ print "Total de sedes: "+str(j)
 
 	#Generación del nombre del reporte
 	#~ fecha = time.strftime('(%d-%m-%y)')
