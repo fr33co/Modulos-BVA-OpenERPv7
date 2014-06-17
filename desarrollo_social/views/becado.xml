@@ -188,7 +188,7 @@
 								<field name="tiempo_servicio" attrs="{'invisible': [('categoria', '=', '1') ] }"/>
 								<field name="ano_antiguedad" class="oe_inline" attrs="{'invisible': [('categoria', '=', '1') ] }"/>
 								<field name="entidad_bancaria" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>														
-								<field name="numero_cuenta" on_change="validar_num_cuenta(numero_cuenta)" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>							
+								<field name="numero_cuenta" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>							
 								<field name="tipo_cuenta" attrs="{'invisible': [('categoria', '!=', '1') ] }"/>
 								<field name="status"/>
 								<field name="desc_status" attrs="{'invisible':['|',('status','=','1'),('status','=',False)]}"/>							

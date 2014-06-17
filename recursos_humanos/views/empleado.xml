@@ -196,7 +196,7 @@
 				</xpath>
 				
 				<xpath expr="//field[@name='name']" position="replace">
-					<field name="name" invisible="1"/>
+					<field name="name"/>
 					<button name="get_employee_filter" string="Actualizar servicio" type="object" attrs="{'invisible': [('categoria', '!=', '2') ] }" icon="gtk-apply"/>
 					<button name="enlazar_nomina" string="Enlazar al sistema de nómina" type="object" attrs="{'invisible': [('categoria', '!=', '2') ] }" icon="gtk-apply"/>
 					<button name="emitir_constancia" string="Emitir Constancia" type="object" attrs="{'invisible': [('categoria', '!=', '2') ] }" icon="gtk-apply"/>
