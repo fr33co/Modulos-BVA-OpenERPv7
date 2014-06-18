@@ -15,7 +15,10 @@ class PDF(FPDF):
 		# ALINEACION DE LA IMAGEN EN LA CABECERA DEL DOCUMENTO
 		# (CAMPO 1 = HORIZONTAL , CAMPO 2 = VERTICAL, CAMPO 3 = DIMENCION DE LA IMAGEN)
 		
-		self.image('openerp/addons/desarrollo_social/img/logo_bva2.jpg',8,12,50)
+		# Ruta local
+		#~ self.image('openerp/addons/desarrollo_social/img/logo_bva2.jpg',8,12,50)
+		# Ruta servidor
+		self.image('/home/administrador/openerp70/modules/desarrollo_social/img/logo_bva2.jpg',8,12,50)
 		#Calcular ancho del texto (title) y establecer posición
 		#w=self.get_string_width(title)+6
 		#self.set_x((210-w)/2)
@@ -95,7 +98,10 @@ class PDF2(FPDF):
 		# ALINEACION DE LA IMAGEN EN LA CABECERA DEL DOCUMENTO
 		# (CAMPO 1 = HORIZONTAL , CAMPO 2 = VERTICAL, CAMPO 3 = DIMENCION DE LA IMAGEN)
 		
-		self.image('openerp/addons/desarrollo_social/img/logo_bva2.jpg',8,12,50)
+		# Ruta local
+		#~ self.image('openerp/addons/desarrollo_social/img/logo_bva2.jpg',8,12,50)
+		# Ruta servidor
+		self.image('/home/administrador/openerp70/modules/desarrollo_social/img/logo_bva2.jpg',8,12,50)
 		#Calcular ancho del texto (title) y establecer posición
 		#w=self.get_string_width(title)+6
 		#self.set_x((210-w)/2)
@@ -175,7 +181,10 @@ class PDF3(FPDF):
 		# ALINEACION DE LA IMAGEN EN LA CABECERA DEL DOCUMENTO
 		# (CAMPO 1 = HORIZONTAL , CAMPO 2 = VERTICAL, CAMPO 3 = DIMENCION DE LA IMAGEN)
 		
-		self.image('openerp/addons/desarrollo_social/img/logo_bva2.jpg',10,10,50)
+		# Ruta local
+		#~ self.image('openerp/addons/desarrollo_social/img/logo_bva2.jpg',8,12,50)
+		# Ruta servidor
+		self.image('/home/administrador/openerp70/modules/desarrollo_social/img/logo_bva2.jpg',8,12,50)
 		#Calcular ancho del texto (title) y establecer posición
 		#w=self.get_string_width(title)+6
 		#self.set_x((210-w)/2)
