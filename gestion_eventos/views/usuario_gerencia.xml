@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+			<record model="ir.actions.act_window" id="action_permiso">
+                            <field name="name">Usuario / Gerencia</field>
+                            <field name="res_model">gestion.usuario</field>
+                            <field name="view_type">form</field>
+                            <field name="view_mode">tree,form</field>
+			</record>
+    
+			<record id="view_user_geren" model="ir.ui.view">
+                            <field name="name">Usuario / Gerencia</field>
+                            <field name="model">gestion.usuario</field>
+                            <field name="arch" type="xml">
+                                <form string="Formulario de Usuario / Gerencia" version="7.0">
+                                    <field name="usuario"/>
+                                    <field name="gerencia"/>
+                                </form>
+                                    
+                            </field>
+			</record>
+
+			<record model="ir.ui.view" id="user_geren_tree">
+			<field name="name">Usuario / Gerencia.tree</field>
+			<field name="model">gestion.usuario</field>
+			<field name="arch" type="xml">
+                            <tree string="Lista de Usuario / Gerencia">
+                                <field name="usuario"/>
+                                <field name="gerencia"/>
+                            </tree>
+			</field>
+		</record>
+
+        <menuitem parent="sub_menu_ins_geren" id="user_gerencia" action="action_permiso" name="Usuario por Gerencia" sequence="2"/>
+        
+    </data>
+</openerp>

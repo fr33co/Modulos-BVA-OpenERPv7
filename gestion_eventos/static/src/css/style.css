@@ -1,0 +1,56 @@
+.separator{
+	background-color: #D3E7F7; !import
+	-moz-border-radius:9px;
+	border-radius:9px;
+	color: #537DB3;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.kanban_style{
+	background-color: #D3E7F7; !import
+	-moz-border-radius:9px;
+	border-radius:9px;
+	font-size: 12px;
+}
+
+.oe_form_field.fecha,input{
+	background-color: #D4E3ED; !import
+}
+
+.oe_form_sheetbg{
+	
+	border-radius: 9px;
+	-moz-border-radius: 9px;
+}
+
+.div_scroll
+{	width: 800px;
+	height:310px; 
+	overflow-x:hidden;
+	overflow-y:scroll;
+	border-bottom: 0px solid #CCC;
+	
+}
+
+.div_scroll_asid_dec
+{	width: 950px;
+	height:200px; 
+	overflow-x:hidden;
+	overflow-y:scroll;
+	border-bottom: 0px solid #CCC;
+	
+}
+
+.titulo{
+
+    text-transform: uppercase !important;
+}
+
+.mensaje{
+	background-color:#DFF0D8;
+	color:#2A4E35;width:450px;
+	heigth:150px;
+	-moz-border-radius:9px;
+	border-radius:9px;
+}

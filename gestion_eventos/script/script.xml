@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <openerp>
+        <data>
+<!--===================================================================-->
+                        <!-- Departamentos -->
+<!--===================================================================-->
+
+
+            <record id="hr_depart_name_1" model="gestion.inst.gerencia">
+                <field name="name">Gerencia de Recursos Humanos</field>
+                <field name="active">True</field>
+                <field name="compania">1</field>
+            </record>
+            <record id="hr_depart_name_2" model="gestion.inst.gerencia">
+                <field name="name">Gerencia de Desarrollo y Aplicaciones</field>
+                <field name="active">True</field>
+                <field name="compania">1</field>
+            </record>
+            <record id="hr_depart_name_3" model="gestion.inst.gerencia">
+                <field name="name">Gerencia de Tecnología</field>
+                <field name="active">True</field>
+               <field name="compania">1</field>
+            </record>
+            <record id="hr_depart_name_4" model="gestion.inst.gerencia">
+                <field name="name"> Gerencia de Soporte</field>
+                <field name="active">True</field>
+                <field name="compania">1</field>
+            </record>
+            <record id="hr_depart_name_5" model="gestion.inst.gerencia">
+                <field name="name">Gerencia de Telecomunicaciones</field>
+                <field name="active">True</field>
+                <field name="compania">1</field>
+            </record>
+            <record id="hr_depart_name_6" model="gestion.inst.gerencia">
+                <field name="name">Mantenimiento</field>
+                <field name="active">True</field>
+                <field name="compania">1</field>
+            </record>
+            <record id="hr_depart_name_7" model="gestion.inst.gerencia">
+                <field name="name">Tesorería</field>
+                <field name="active">True</field>
+                <field name="compania">1</field>
+            </record>
+            <record id="hr_depart_name_8" model="gestion.inst.gerencia">
+                <field name="name">Gerencia de Administración</field>
+                <field name="active">True</field>
+                <field name="compania">1</field>
+            </record>
+            <record id="hr_depart_name_9" model="gestion.inst.gerencia">
+                <field name="name">Audiovisuales</field>
+                <field name="active">True</field>
+                <field name="compania">1</field>
+            </record>
+            <record id="hr_depart_name_10" model="gestion.inst.gerencia">
+                <field name="name">Auditoria Interna</field>
+                <field name="active">True</field>
+                <field name="compania">1</field>
+            </record>
+            <record id="hr_depart_name_11" model="gestion.inst.gerencia">
+                <field name="name">Bienes y Suministros</field>
+                <field name="active">True</field>
+                <field name="compania">1</field>
+            </record>
+            <record id="hr_depart_name_12" model="gestion.inst.gerencia">
+                <field name="name">Despacho Gerencia General</field>
+                <field name="active">True</field>
+                <field name="compania">1</field>
+            </record>
+            <record id="hr_depart_name_13" model="gestion.inst.gerencia">
+                <field name="name">Gerencia General</field>
+                <field name="active">True</field>
+                <field name="compania">1</field>
+            </record>
+            <record id="hr_depart_name_14" model="gestion.inst.gerencia">
+                <field name="name">Presidencia</field>
+                <field name="active">True</field>
+                <field name="compania">1</field>
+            </record>
+            <record id="hr_depart_name_15" model="gestion.inst.gerencia">
+                <field name="name">Servicios Generales</field>
+                <field name="active">True</field>
+                <field name="compania">1</field>
+            </record>
+
+            </data>
+    </openerp>

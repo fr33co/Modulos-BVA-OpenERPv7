@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+			<record model="ir.actions.act_window" id="action_report">
+                <field name="name">Gestión de Reportes</field>
+                <field name="res_model">gestion.reportes</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">tree,form</field>
+			</record>
+    
+			<record id="view_report" model="ir.ui.view">
+                <field name="name">Gestión de Reportes</field>
+                <field name="model">gestion.reportes</field>
+                <field name="arch" type="xml">
+                    <form string="Gestión de Reportes" version="7.0">
+                        <table>
+                            <tr>
+                                <td class="separator" colspan="2">
+                                    <b>Emisión de Reportes</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Cantidad a Mostrar: </b></td>
+                                <td><field name="cantidad"/></td>
+                            </tr>
+                            <tr>
+                                <td><b>Mostrar en Forma: </b></td>
+                                <td><field name="asc_desc"/></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <button name="gestion_emitir_detallado" type="object" string="Generar Detallado de las Actividades" confirm="¿Esta seguro que desea Generar el Reporte Detallado de todas las Actividades?"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                        
+                </field>
+			</record>
+
+			<record model="ir.ui.view" id="gestion_report_tree">
+			<field name="name">Gestión de Reportes.tree</field>
+			<field name="model">gestion.reportes</field>
+			<field name="arch" type="xml">
+                <tree string="Gestión de Reportes">
+                    <field name="cantidad"/>
+                    <field name="asc_desc"/>
+                </tree>
+			</field>
+		</record>
+
+        <menuitem parent="menu_gestion" id="gestion_report" action="action_report" name="Emisión Reporte" sequence="2"/>
+        
+    </data>
+</openerp>
