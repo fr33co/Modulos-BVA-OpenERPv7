@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+			<record model="ir.actions.act_window" id="action_g_ins_gen">
+			    <field name="name">Institución / Gerencia</field>
+			    <field name="res_model">gestion.inst.gerencia</field>
+			    <field name="view_type">form</field>
+			    <field name="view_mode">kanban,form</field>
+			</record>
+    
+			<record id="view_ins_geren" model="ir.ui.view">
+			    <field name="name">Institución / Gerencia</field>
+			    <field name="model">gestion.inst.gerencia</field>
+			    <field name="arch" type="xml">
+				<form string="Formulario de Institución / Gerencia" version="7.0">
+				    <field name="name"/>
+				    <field name="gerente"/>
+				    <field name="compania"/>
+				</form>
+				    
+			    </field>
+			</record>
+			
+			<!--Vista kanban Institución / Gerente-->
+	
+			<record model="ir.ui.view" id="ins_gen_kanban_view">
+			    <field name="name">Vista Kanban</field>
+			    <field name="model">gestion.inst.gerencia</field>
+			    <field name="type">kanban</field>
+			    <field name="arch" type="xml">
+				<kanban>
+				    <templates>
+					<t t-name="kanban-box">
+					    <div class="oe_resource_vignette">
+						<div class="oe_resource_image">
+						    <a type="edit"><img t-att-src="kanban_image('gestion.inst.gerencia', 'photo', record.id.value)" class="oe_resource_picture"/></a>
+						</div>
+						<div class="oe_resource_details">
+						    <div class="kanban_style">
+						    <ul>
+						       <li><b>Institución / Gerencia :</b><font color="red"><field name="name"/></font></li>
+						       <li><b>Gerente :</b><field name="gerente"/></li>
+						       <li><b>Compania :</b><field name="compania"/></li>                            
+						     </ul>
+						    </div>
+						</div>
+					    </div>                       
+					</t>
+				    </templates>
+				</kanban>
+			    </field>
+			</record>
+
+			<record model="ir.ui.view" id="ins_geren_tree">
+			<field name="name">Institución / Gerencia.tree</field>
+			<field name="model">gestion.inst.gerencia</field>
+			<field name="arch" type="xml">
+			    <tree string="Lista de Institución / Gerencia">
+				<field name="name"/>
+				<field name="gerente"/>
+				<field name="compania"/>
+			    </tree>
+			</field>
+		</record>
+
+        <menuitem name="Mantenimiento" parent="menu_gestion_eventos" id="sub_menu_ins_geren" sequence="3"/>
+
+        <menuitem parent="sub_menu_ins_geren" id="ins_geren" action="action_g_ins_gen" name="Institución / Gerencia" sequence="1"/>
+        
+    </data>
+</openerp>

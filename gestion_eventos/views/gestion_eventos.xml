@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+	<record model="ir.actions.act_window" id="gestion_eventos">
+	    <field name="name">Gestión de Eventos</field>
+	    <field name="res_model">gestion.eventos</field>
+	    <field name="view_type">form</field>
+	    <field name="view_mode">kanban,tree,form,calendar,gantt</field>
+	</record>
+
+	<record id="view_gestion_eventos" model="ir.ui.view">
+	    <field name="name">Gestión de Eventos</field>
+	    <field name="model">gestion.eventos</field>
+	    <field name="arch" type="xml">
+		<form string="Formulario de gestión de Eventos" version="7.0">
+			<header>
+			
+			<!--ACCION PARA VALIDAR LOS ESTATUS BOTON EVENTO-->
+			
+			<button name="gestion_realizado" type="object" attrs="{'invisible':[('status','in', ('2','3','5','6'))]}" string="Realizado" confirm="¿Esta seguro que desea cambiar el Estátus a Realizado?"/>
+          		<button name="gestion_suspendido" attrs="{'invisible':[('status','in', ('2','3','5','6'))]}" type="object" string="Postpuesto" confirm="¿Esta seguro que desea cambiar el Estátus a Suspendido?"/>
+          		<button name="gestion_reprogramado" attrs="{'invisible':[('status','in', ('1','2','4','6'))]}" type="object" string="Reprogramado" confirm="¿Esta seguro que desea cambiar el Estátus a Reprogramado?"/>
+          		<button name="gestion_atrasado" attrs="{'invisible':[('status','in', ('3','2','4','5','6'))]}" type="object" string="Atrasado" confirm="¿Esta seguro que desea cambiar el Estátus a Atrasado?"/>
+			<button name="gestion_cancelar" attrs="{'invisible':[('status','in', ('2','6'))]}" type="object" string="Cancelado" confirm="¿Esta seguro que desea Cancelar el Evento?"/>
+
+          		<field name="status" widget="statusbar" statusbar_colors='{"progress":"red"}' />
+			</header>
+		    <center>
+		    <div class="oe_form_sheetbg">
+			
+			<table style="width:900px;" border="0">
+			    <tr>
+				<td colspan="4" style="text-align:left;" class="separator">
+				    <b>Eventos</b>
+				</td>
+			    </tr>
+			    <tr>
+				<td style="align:center;">
+				    <b>Institución / Gerencia</b>
+				</td>
+				<td>
+				    <field name="institucion" placeholder="Institución / Gerencia" on_change="search_ins_geren(institucion)" attrs="{'readonly':[('status','in', ('2','6'))]}"/>
+				</td>
+				<td style="align:center;">
+					<b>Responsable</b>
+				</td>
+				<td>
+				    <field name="responsable" placeholder="Responsable" attrs="{'readonly':[('status','in', ('2','6'))]}"/>
+				</td>
+			    </tr>
+			    <tr>
+				<td><b>Actividad</b></td>
+				<td colspan="4">
+				    <field name="actividad" placeholder="Escriba aqui la Actividad..." attrs="{'readonly':[('status','in', ('2','6'))]}"/>
+				</td>
+			    </tr>
+			</table>
+			<table style="width:900px;" border="0">
+			    <tr>
+				<td><b>Fecha Inicio</b></td>
+				<td><field name="fecha_inicio" on_change="search_date_ini(fecha_inicio)" placeholder="Fecha Inicio..." attrs="{'readonly':[('status','in', ('2','6'))]}"/></td>
+				<td><b>Fecha Fin</b></td>
+				<td><field name="fecha_fin" on_change="search_date_fin(fecha_fin)" placeholder="Fecha Fin..." attrs="{'readonly':[('status','in', ('2','6'))]}"/></td>
+				<td><b>Hora Inicio</b></td>
+				<td>
+					<field name="hora_inicio" style="width:50px;" placeholder="Hora Inicio..." attrs="{'readonly':[('status','in', ('2','6'))]}"/>
+					<font color="white">  </font>
+					<field name="inicio" style="width:20px;" attrs="{'readonly':[('status','in', ('2','6'))]}"/>
+				</td>
+				<td><b>Hora Fin</b></td>
+				<td>
+					<field name="hora_fin" style="width:50px;" placeholder="Hora Fin..." attrs="{'readonly':[('status','in', ('2','6'))]}"/>
+					<font color="white">  </font>
+					<field name="fin" style="width:20px;" attrs="{'readonly':[('status','in', ('2','6'))]}"/>
+				</td>
+			    </tr>
+			    <tr>
+				<td><b>Dirección</b></td>
+				<td colspan="8">
+					<field name="direccion" placeholder="Ingrese aqui la Dirección..." attrs="{'readonly':[('status','in', ('2','6'))]}"/>
+				</td>
+			    </tr>
+			</table>
+			
+			<table style="width:900px;" border="0">
+			    <tr>
+				<td invisible="1"><b>Nacionalidad</b></td>
+				<td invisible="1">
+					<field name="nacionalidad" placeholder="Nacionalidad"/>
+				</td>
+				<td invisible="1"><b>Estado</b></td>
+				<td invisible="1">
+					<field name="estado" placeholder="Estado" domain= "[('country_id','=',nacionalidad)]" attrs="{'readonly':[('status','in', ('2','6'))]}"/>
+				</td>
+				<td invisible="1"><b>Ciudad</b></td>
+				<td invisible="1">
+					<field name="ciudad" placeholder="Ciudad" domain= "[('state_id','=',estado)]" attrs="{'readonly':[('status','in', ('2','6'))]}"/>
+				</td>
+				<td><b>Municipio</b></td>
+				<td>
+					<field name="municipio" placeholder="Seleccione el Municipio" domain= "[('state_id','=',estado)]" attrs="{'readonly':[('status','in', ('2','6'))]}"/>
+				</td>
+				<td><b>Parroquia</b></td>
+				<td>
+					<field name="parroquia" placeholder="Seleccione la Parroquia" domain= "[('municipalities_id','=',municipio)]" attrs="{'readonly':[('status','in', ('2','6'))]}"/>
+				</td>
+			    </tr>
+			    <tr>
+				
+				<td style="color:#EEEEEE;"><b>Estátus</b></td>
+				<td>
+					 <!--<field name="status"/> -->
+				</td>
+				<td><b>Participantes</b></td>
+				<td>
+					<field name="participantes" placeholder="Participantes" attrs="{'readonly':[('status','in', ('2','6'))]}"/>
+				</td>
+			    </tr>
+			    <tr>
+			    <td>
+			    	<b>Observación</b>
+			    </td>
+				<td colspan="8">
+					<field name="observacion" placeholder="Ingrese aqui la Observación" attrs="{'readonly':[('status','in', ('2','6'))]}"/>
+				</td>
+			    </tr>
+			    <tr attrs="{'invisible': [('status', '!=', '3')] }">
+			    <td>
+			    	<b>Motivo</b>
+			    </td>
+				<td colspan="8">
+					<field name="motivo" placeholder="Ingrese aqui el Motivo por el cual se suspende el Evento..."/>
+				</td>
+			    </tr>
+
+			    <tr>
+				<td colspan="8">
+				    <notebook colspan="4">
+					<page string="Recursos Logístico">
+					    <table style="width:900px;" border="0">
+						<tr>
+						    <td>
+							<div style="float:left;">
+							    <b>Estatus <font color="white">---</font></b>
+							</div>
+							
+							<div style="float:left;">
+							    <field name="status_logistico" attrs="{'readonly':[('status','in', ('2','6'))]}"/>
+							</div>
+							
+							<div style="float:left;">
+							    <b><font color="white">---</font>
+								¿Requiere Prensa?
+								<font color="white">---</font></b>
+							</div>
+							
+							<div style="float:left;">
+							    <b>Si<font color="white">---</font></b><field name="si" attrs="{'readonly':[('status','in', ('2','6'))]}"/>
+							    <font color="white">---</font>
+							    <b>No<font color="white">---</font></b><field name="no" attrs="{'readonly':[('status','in', ('2','6'))]}"/>
+							</div>
+							
+							<div style="float:left;" attrs="{'invisible':[('status', '!=', '4')]}">
+							    <b><font color="white">---</font>
+								¿Evento Reprogramado?
+								<font color="white">---</font></b>
+							</div>
+							
+							<div style="float:left;" attrs="{'invisible':[('status', '!=', '4')]}">
+							    <b>Si<font color="white">---</font></b><field name="rep_event_si"/>
+							    <font color="white">---</font>
+							    <b>No<font color="white">---</font></b><field name="rep_event_no"/>
+							</div>
+							
+							<div style="float:left;margin-left:100px;" invisible="1">
+							    <b><font color="white">---</font>
+								Responsable
+								<font color="white">---</font></b>
+							</div>
+							<div style="float:left;margin-left:450px;" invisible="1">
+							    <field name="user"/>
+							</div>
+							
+						    </td>
+						</tr>
+						<tr>
+						    <td colspan="2" class="separator">
+							Recursos
+						    </td>
+						</tr>
+						<tr>
+						     <td colspan="2">
+							<field name="recursos" placeholder="Ingrese aqui los Recursos..." attrs="{'readonly':[('status','in', ('2','6'))]}"/>
+						    </td>
+						</tr>
+						
+						<tr attrs="{'invisible': [('status_logistico', '!=', '2'),('status_logistico', '!=', '3')] }">
+						    <td colspan="2" class="separator">
+							Observaciones
+						    </td>
+						</tr>
+						<tr attrs="{'invisible': [('status_logistico', '!=', '2'),('status_logistico', '!=', '3')] }">
+						     <td colspan="2">
+							<field name="observacion_rl" placeholder="Ingrese aqui las Observaciones..." attrs="{'readonly':[('status','in', ('2','6'))]}"/>
+						    </td>
+						</tr>
+						
+					    </table>
+					</page>
+					
+				    </notebook>
+				</td>
+			    </tr>
+
+			</table>
+			</div>
+		    </center>
+		</form>
+
+	    </field>
+	</record>
+	
+	<!--Vista kanban-->
+	
+	<record model="ir.ui.view" id="gestion_kanban_view">
+	    <field name="name">Vista Kanban</field>
+	    <field name="model">gestion.eventos</field>
+	    <field name="type">kanban</field>
+	    <field name="arch" type="xml">
+		<kanban>
+		    <templates>
+			<t t-name="kanban-box">
+			    <div class="oe_resource_vignette">
+				<div class="oe_resource_image">
+				    <a type="edit"><img t-att-src="kanban_image('gestion.eventos', 'photo', record.id.value)" class="oe_resource_picture"/></a>
+				</div>
+				<div class="oe_resource_details">
+				    <div class="kanban_style">
+				    <ul>
+				       <li><b>Institución / Gerencia :</b><font color="red"><b><field name="institucion"/></b></font></li>
+				       <li><b>Actividad :</b><field name="actividad"/></li>
+				       <li><b>Responsable :</b><field name="responsable"/></li>
+				       <li><b>Fecha de Inicio :</b>
+				       <font color="blue">
+					       <field name="fecha_inicio"/> 
+					       <field name="inicio"/>
+					   </font>
+					   </li>
+				       <li><b>Fecha de Finalización :</b>
+				       <font color="blue">
+					       <field name="fecha_fin"/> 
+					       <field name="fin"/>
+				   	   </font>
+				   		</li>
+				       <li><b>Estátus :</b><b><field name="status"/></b></li>                            
+				     </ul>
+				    </div>
+				</div>
+			    </div>                       
+			</t>
+		    </templates>
+		</kanban>
+	    </field>
+	</record>
+
+	<!-- calendar view -->
+    <record model="ir.ui.view" id="gestion_calendar_view">
+      <field name="name">Vista.calendar</field>
+      <field name="model">gestion.eventos</field>
+      <field name="arch" type="xml">
+        <calendar string="Calendario de Gestión de Eventos"
+                  date_start="fecha_inicio"
+                  date_stop="fecha_fin"
+                  color="institucion">
+          <field name="actividad"/>
+          <field name="status"/>
+        </calendar>
+      </field>
+    </record>
+
+    <!-- Vista gantt  -->
+    <record model="ir.ui.view" id="gestion_gantt_view">
+      <field name="name">Gestión de Eventos.gantt</field>
+      <field name="model">gestion.eventos</field>
+      <field name="arch" type="xml">
+        <gantt string="Gestión de Eventos" color="institucion"
+               date_start="fecha_inicio" date_stop="fecha_fin">
+          <level object="gestion.inst.gerencia" link="actividad">
+            <field name="actividad"/>
+          </level>
+          <level object="gestion.inst.gerencia" link="institucion">
+            <field name="institucion"/>
+          </level>
+        </gantt>
+      </field>
+    </record>
+
+	<!-- Forma de Busqueda para Gestion de eventos-->
+	<record model="ir.ui.view" id="search_gestion_eventos">
+		<field name="name">Gestión de Eventos.search</field>
+		<field name="model">gestion.eventos</field>
+		<field name="arch" type="xml">
+			<search string="Busqueda de gestión de >Eventos">
+				<filter name="status" domain="[('status','=', uid)]" string="Busqueda de Gestión de Eventos" icon="terp-partner" />
+				<field name="institucion" />
+				<field name="actividad"/>
+				<field name="fecha_inicio"/>
+				<field name="fecha_fin"/>
+				<field name="hora_inicio"/>
+				<field name="hora_fin"/>
+				<field name="responsable"/>
+				<field name="status"/>
+			</search>
+		</field>
+	</record>
+	<!--Vista tree gestion de eventos-->
+	<record model="ir.ui.view" id="gestion_eventos_tree">
+		<field name="name">Gestión de Eventos.tree</field>
+		<field name="model">gestion.eventos</field>
+		<field name="arch" type="xml">
+			<tree string="Lista de Gestión de Eventos" colors="#0A9134:status=='1';#F2081C:status=='5';#000000:status=='2';#0000FF:status=='3';#855C11:status=='4'" toolbar="1">
+				<field name="institucion" />
+				<field name="actividad"/>
+				<field name="fecha_inicio"/>
+				<field name="fecha_fin"/>
+				<field name="hora_inicio"/>
+				<field name="hora_fin"/>
+				<field name="responsable"/>
+				<field name="status"/>
+				<field name="status_logistico"/>
+			</tree>
+		</field>
+	</record>
+        <!-- menu_gestion de eventos -->
+	
+	<menuitem name="Gestión de Eventos" id="menu_gestion_eventos"/>
+	<menuitem name="Eventos" id="menu_gestion" parent="menu_gestion_eventos" sequence="1"/>
+	<menuitem parent="menu_gestion" id="eventos" action="gestion_eventos" name="Eventos" sequence="1"/>
+        
+    </data>
+</openerp>

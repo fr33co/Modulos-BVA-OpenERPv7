@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+			<record model="ir.actions.act_window" id="action_recurso_logistico">
+					<field name="name">Recurso Logístico</field>
+					<field name="res_model">gestion.recurso.logistico</field>
+					<field name="view_type">form</field>
+					<field name="view_mode">tree,form</field>
+			</record>
+    
+			<record id="view_recurso_logistico" model="ir.ui.view">
+                            <field name="name">Recurso Logístico</field>
+                            <field name="model">gestion.recurso.logistico</field>
+                            <field name="arch" type="xml">
+                                <form string="Recurso Logístico" version="7.0">
+                               
+                                    <center>
+                                        <div class="oe_form_sheetbg">
+                                            <table style="width:950px;" border="0">
+                                                <tr>
+                                                    <td colspan="6" style="text-align:left;" class="separator">
+                                                            <b>Recurso Logístico</b>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="align:center;">
+                                                        <b>Nombre de la Actividad</b>
+                                                    </td>
+                                                    <td colspan="3">
+                                                        <field name="actividad"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <b>Institución / Gerencia</b>
+                                                    </td>
+                                                    <td>
+                                                        <field name="institucion"/>
+                                                    </td>
+                                                    <td><b>Responsable</b></td>
+                                                    <td>
+                                                        <field name="responsable"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="6" style="text-align:left;" class="separator">
+                                                            <b>Recursos</b>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="6">
+                                                        <field name="recursos"/>
+                                                    </td>
+                                                </tr>
+                                               
+                                            </table>
+                                        </div>
+                                    </center>
+                                </form>
+                                    
+                            </field>
+			</record>
+
+			<!-- Forma de busqueda para Recurso Logístico-->
+			<!--<record model="ir.ui.view" id="search_recurso_logistico">
+				<field name="name">Recurso Logístico.search</field>
+				<field name="model">gestion.recurso.logistico</field>
+				<field name="arch" type="xml">
+                                    <search string="Busqueda de Grado">
+                                        <filter name="tipo" domain="[('tipo','=', uid)]" string="Busqueda de tipo Grado de Instrucción" icon="terp-partner" />
+                                        <field name="tipo" />
+                                        <field name="grado" />
+                                    </search>
+				</field>			
+			</record>-->
+
+			<!--<record model="ir.ui.view" id="degree_tree">
+			<field name="name">Grado.tree</field>
+			<field name="model">gestion.recurso.logistico</field>
+			<field name="arch" type="xml">
+                            <tree string="Lista de Grado">
+                                
+                                <field name="tipo"/>
+                                <field name="grado"/>
+                            </tree>
+			</field>
+                        </record>-->
+        
+        <!--<menuitem parent="menu_gestion" id="sub_menu_recurso_logistico" action="action_recurso_logistico" name="Recurso Logístico"/>-->
+        
+    </data>
+</openerp>
