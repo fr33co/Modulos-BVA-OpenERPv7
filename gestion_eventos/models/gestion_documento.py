@@ -150,6 +150,8 @@ class ir_documento(osv.Model):
         return True
 
     _name = 'ir.documento'
+    _order = 'create_date desc' # ORDENAR POR ULTIMA FECHA DE CREACION
+
     _columns = {
         'name': fields.char('Nombre del documento',size=256, required=True),
         'datas_fname': fields.char('Adjunto',size=256),
@@ -168,6 +170,7 @@ class ir_documento(osv.Model):
         'store_fname': fields.char('Archivo', size=256),
         'db_datas': fields.binary('Data'),
         'file_size': fields.integer('Espacio'),
+        'item': fields.selection([('todos','Todos'),('asc','Asendente'),('desc','Decendente'),('fechas','Fechas')], string="Mostrar en Forma", required=True),
     }
 
     _defaults = {

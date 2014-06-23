@@ -1,14 +1,14 @@
 {
     'name' : "Gestión de Eventos",
     'category' : "Gestión de Eventos",
-    'version' : "1.2",
+    'version' : "1.4",
     'depends' : ['base','l10n_ve_topology'],
     'author' : "Ing en Sistemas: Jesús G. Laya R",
     'description' : '''
      El módulo de Gestión de Eventos, permite la Gestión de Eventos para la Gobernación del Estado Aragua
       Edicion
       Gestión de Eventos
-      Ultima Actualización: 18 de Junio del 2014''',
+      Ultima Actualización: 22 de Junio del 2014''',
     'data' : [
       "views/gestion_eventos.xml", # Gestion de eventos
       "views/institucion_gerencia.xml", # Institucion / Gerencia

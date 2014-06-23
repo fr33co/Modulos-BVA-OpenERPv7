@@ -18,10 +18,10 @@
 			
 			<!--ACCION PARA VALIDAR LOS ESTATUS BOTON EVENTO-->
 			
-			<button name="gestion_realizado" type="object" attrs="{'invisible':[('status','in', ('2','3','5','6'))]}" string="Realizado" confirm="¿Esta seguro que desea cambiar el Estátus a Realizado?"/>
-          		<button name="gestion_suspendido" attrs="{'invisible':[('status','in', ('2','3','5','6'))]}" type="object" string="Postpuesto" confirm="¿Esta seguro que desea cambiar el Estátus a Suspendido?"/>
-          		<button name="gestion_reprogramado" attrs="{'invisible':[('status','in', ('1','2','4','6'))]}" type="object" string="Reprogramado" confirm="¿Esta seguro que desea cambiar el Estátus a Reprogramado?"/>
-          		<button name="gestion_atrasado" attrs="{'invisible':[('status','in', ('3','2','4','5','6'))]}" type="object" string="Atrasado" confirm="¿Esta seguro que desea cambiar el Estátus a Atrasado?"/>
+			<button name="gestion_realizado" type="object" attrs="{'invisible':[('status','in', ('2','3','5','6'))]}" string="Realizado" confirm="¿Esta seguro que desea Realizar el Evento?"/>
+          		<button name="gestion_suspendido" attrs="{'invisible':[('status','in', ('2','3','5','6'))]}" type="object" string="Pospuesto" confirm="¿Esta seguro que desea Posponer el Evento?"/>
+          		<button name="gestion_reprogramado" attrs="{'invisible':[('status','in', ('1','2','4','6'))]}" type="object" string="Reprogramado" confirm="¿Esta seguro que desea Reprogramar el Evento?"/>
+          		<button name="gestion_atrasado" attrs="{'invisible':[('status','in', ('3','2','4','5','6'))]}" type="object" string="Atrasado" confirm="¿Esta seguro que desea atrasar el Evento?"/>
 			<button name="gestion_cancelar" attrs="{'invisible':[('status','in', ('2','6'))]}" type="object" string="Cancelado" confirm="¿Esta seguro que desea Cancelar el Evento?"/>
 
           		<field name="status" widget="statusbar" statusbar_colors='{"progress":"red"}' />
@@ -40,7 +40,7 @@
 				    <b>Institución / Gerencia</b>
 				</td>
 				<td>
-				    <field name="institucion" placeholder="Institución / Gerencia" on_change="search_ins_geren(institucion)" attrs="{'readonly':[('status','in', ('2','6'))]}"/>
+				    <field widget="selection" name="institucion" placeholder="Institución / Gerencia" on_change="search_ins_geren(institucion)" attrs="{'readonly':[('status','in', ('2','6'))]}"/>
 				</td>
 				<td style="align:center;">
 					<b>Responsable</b>
