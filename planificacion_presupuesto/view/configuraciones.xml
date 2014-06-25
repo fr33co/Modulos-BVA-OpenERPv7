@@ -20,7 +20,6 @@
 				<tree string="Acciones">
 					<field name="nombre_ente"/>
 					<field name="tipo" />
-					<field name="t_estructura" />
 					<field name="sector" />
 				</tree>
 			</field>			
@@ -42,45 +41,25 @@
 				    </group>
 				</group>
 				<separator string="Registro de Órgano/Ente" />
-				<table style="font-size:11px">
+				<table style="font-size:10px">
 					<tr style="width:1000px">
 					    <td style="width:150px">
-						Nombre del Órgano/Ente
+						Nombre de la Institución
 					    </td>
 					    <td style="width: 200px">
 						<field name="nombre_ente" style="width: 90%%"/>
 					    </td>
 					    <td style="width:150px">
-						Siglas del Órgano/Ente
+						Siglas de la Institución
 					    </td>
 					    <td style="width: 200px">
 						<field name="siglas" style="width: 30%%"/>
 					    </td>
-					    <td style="width:125px">
-						Correo de Contacto
-					    </td>
-					    <td style="width: 225px">
-						<field name="correo" style="width: 90%%"/>
-					    </td>
-					</tr>
-					<tr>
-					    <td>
-						Tipo Órgano/Ente
+					     <td>
+						Tipo de Institución
 					    </td>
 					    <td>
 						<field name="tipo" style="width: 90%%" class="oe_inline"/>
-					    </td>
-					    <td>
-						Tipo Estructura
-					    </td>
-					    <td>
-						<field name="t_estructura" style="width: 90%%"/>
-					    </td>
-					    <td>
-						Sector
-					    </td>
-					    <td>
-						<field name="sector" style="width: 90%%"/>
 					    </td>
 					</tr>
 					<tr>
@@ -91,30 +70,10 @@
 						<field name="nom_responsable" style="width: 90%%" />
 					    </td>
 					    <td>
-						Código Adscripción
-					    </td>
-					    <td>
-						<field name="c_adscrip" style="width: 60%%"/>
-					    </td>
-					    <td>
-						Código Actividad
-					    </td>
-					    <td>
-						<field name="c_act" style="width: 60%%"/>
-					    </td>
-					</tr>
-					<tr>
-					    <td>
 						Cédula
 					    </td>
 					    <td>
 						<field name="ci" style="width: 60%%"/>
-					    </td>
-					    <td>
-						Cargo
-					    </td>
-					    <td>
-						<field name="cargo" style="width: 90%%"/>
 					    </td>
 					    <td>
 						Teléfono
@@ -124,13 +83,38 @@
 					    </td>
 					</tr>
 					<tr>
+					     <td>
+						Cargo
+					    </td>
 					    <td>
-						Direccion
+						<field name="cargo" style="width: 90%%"/>
 					    </td>
-					    <td colspan="4">
-						<field name="direccion" style="width: 80%%"/>
+					    <td>
+						Sector
 					    </td>
-
+					    <td>
+						<field name="sector" style="width: 90%%"/>
+					    </td>
+					    <td style="width:125px">
+						Correo de Contacto
+					    </td>
+					    <td style="width: 225px">
+						<field name="correo" style="width: 90%%"/>
+					    </td>
+					</tr>
+					<tr>
+					    <td>
+						Dirección
+					    </td>
+					    <td colspan="3">
+						<field name="direccion" style="width: 96%%"/>
+					    </td>
+					    <td>
+						Tipo de Estructura
+					    </td>
+					    <td>
+						<field name="tipo_estructura" style="width: 90%%"/>
+					    </td>
 					</tr>
 				</table>
 				
@@ -255,7 +239,7 @@
 			</field>			
 		</record>
 		
-<!--Registro de Acciones Centralizadas -->
+<!--Registro de Acciones especifica -->
 
 		<record model="ir.actions.act_window" id="tipo_acciones_especifica_list_action">
 		    <field name="name">Tipo acciones especifica </field>
@@ -264,7 +248,7 @@
 		    <field name="view_mode">tree,form</field>
 		</record> 
 
-<!--Form Tree Centralizadas-->
+<!--Form Tree especifica-->
 
 		<record model="ir.ui.view" id="tipo_acciones_especifica_tree_view">
 			<field name="name">Tipo acciones especifica tree</field>
@@ -288,6 +272,77 @@
 				</form>
 			</field>			
 		</record>
+
+<!--Registro de Acciones especifica -->
+
+		<record model="ir.actions.act_window" id="partidas_centralizada_list_action">
+		    <field name="name">Partidas Centralizada</field>
+		    <field name="res_model">partida.centralizada</field>
+		    <field name="view_type">form</field>
+		    <field name="view_mode">tree,form</field>
+		</record> 
+
+<!--Form Tree especifica-->
+
+		<record model="ir.ui.view" id="partidas_centralizada_tree_view">
+			<field name="name">partida centralizada tree</field>
+			<field name="model">partida.centralizada</field>
+			<field name="arch" type="xml">
+				<tree string="Acciones">
+					<field name="partida"/>
+					<field name="a_centralizada" />
+				</tree>
+			</field>			
+		</record>
+		<record model="ir.ui.view" id="partidas_centralizada_form_view">
+			<field name="name">partida centralizada form </field>
+			<field name="model">partida.centralizada</field>
+			<field name="arch" type="xml">
+				<form string="Acciones" version="7.0">
+					<group>
+						<field name="a_centralizada" colspan="2" />
+						<field name="partida" on_change="on_change_partida(partida,'1')" />
+						<field name="codigo" on_change="on_change_partida(codigo,'2')"/>
+					</group>
+				</form>
+			</field>			
+		</record>
+
+<!--Registro de Acciones especifica -->
+
+		<record model="ir.actions.act_window" id="partidas_presupuestaria_list_action">
+		    <field name="name">Partidas Presupuestarias</field>
+		    <field name="res_model">partida.presupuestaria</field>
+		    <field name="view_type">form</field>
+		    <field name="view_mode">tree,form</field>
+		</record> 
+
+<!--Form Tree especifica-->
+
+		<record model="ir.ui.view" id="partidas_presupuestaria_tree_view">
+			<field name="name">partida presupuestaria tree</field>
+			<field name="model">partida.presupuestaria</field>
+			<field name="arch" type="xml">
+				<tree string="Acciones">
+					<field name="codigo"/>
+					<field name="partida" />
+				</tree>
+			</field>			
+		</record>
+		<record model="ir.ui.view" id="partidas_presupuestaria_form_view">
+			<field name="name">partida presupuestaria form </field>
+			<field name="model">partida.presupuestaria</field>
+			<field name="arch" type="xml">
+				<form string="Acciones" version="7.0">
+					<group>
+						<field name="partida_padre" class="oe_inline" />
+						<field name="codigo" colspan="2" />
+						<field name="partida" />
+					</group>
+				</form>
+			</field>			
+		</record>
+		
 		<!-- Menu de Configuraciones -->
 		<menuitem id="configuraciones_menu" name="Configuraciones" parent="main_proyecto_conaplan_menu" sequence="4"/>
 		<!-- Sub-Menus de Configuraciones para Entes -->
@@ -301,5 +356,9 @@
 			<!-- ACCIONES CENTRALIZADAS, ACCIONES ESPECIFICAS -->
 		<menuitem id="registro_tipo_acciones_centralizadas_menu" name="Acciones Centralizadas" parent="acciones_menu" action="tipo_acciones_centralizadas_list_action" />
 		<menuitem id="registro_tipo_acciones_especificas_menu" name="Acciones Específicas" parent="acciones_menu" action="tipo_acciones_especifica_list_action" />
+		<menuitem id="partidas_centralizada_menu" name="Partidas Presupuestarias" parent="acciones_menu" action="partidas_centralizada_list_action" />
+		
+		<menuitem id="partidas_menu" name="Partidas Presupuestarias" parent="configuraciones_menu" sequence="5"/>
+		<menuitem id="partidas_presupuestarias_menu" name="Partidas Presupuestarias" parent="partidas_menu" action="partidas_presupuestaria_list_action" />
 	</data>
 </openerp>

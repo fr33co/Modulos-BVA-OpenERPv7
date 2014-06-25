@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 import time
-from openerp.osv import osv, fields
+from openerp.osv import osv, fields, orm
 from datetime import datetime, timedelta
+import openerp.addons.decimal_precision as dp
+from openerp.tools.translate import _
+from openerp import tools
 
 class almacen_bva(osv.Model):
 
@@ -31,6 +34,35 @@ class almacen_bva(osv.Model):
 			last_id      = str_number.rjust(4,'0')
 			codigo      = 'M'+last_id
 		return codigo
+	
+	#def cantidad_materiales(self, cr, uid, ids, context=None):
+	#	if context is None:
+	#	    context = {}
+	#
+	#	#rec_id = context and context.get('active_id', False)
+	#	#assert rec_id, _('Active ID is not set in Context')
+	#
+	#	inventry_obj = self.pool.get('inventario.almacen') #se llama al objeto donde daremos la cantidad y ubicacion
+	#	inventry_line_obj = self.pool.get('inventario.materiales') #se llama al objeto que contiene el one2many
+	#	prod_obj_pool = self.pool.get('materiales.almacen') #El objeto de donde se esta haciendo el cambio
+	#
+	#	#res_original = prod_obj_pool.browse(cr, uid, rec_id, context=context)
+	#	for data in self.browse(cr, uid, ids, context=context):
+	#		if data.cantidad < 0: #Validacion de que la cantidad no puede ser menor a 0
+	#			raise osv.except_osv(_('Atencion!'), _('Las cantidades no pueden ser negativas'))
+	#	
+	#		inventory_id = inventry_obj.create(cr , uid, {'nombre': _('INV: %s')}, context=context)
+	#		print data.descripcion
+	#		line_data ={
+	#			'inventario_id' : inventory_id,
+	#			'cantidad' : data.cantidad,
+	#			'gerencia' : data.location_id.id,
+	#			'descripcion' : data.id,
+	#			'unidad' : data.unidad.id
+	#		}
+	#		inventry_line_obj.create(cr , uid, line_data, context=context)
+	#
+	#	return {}
 
 	_columns = {
 		'codigo' : fields.char(string="Código", required=False, readonly=True),
@@ -39,8 +71,6 @@ class almacen_bva(osv.Model):
 		't_materiales' : fields.selection((('Limpieza','Limpieza'), ('Oficina','Oficina'), ('Otros','Otros')),'Tipo de Material', required=False),
 		'unidad':fields.many2one('product.uom', 'Unidad de Medida',required=True),
 		'descripcion' : fields.char(string="Descripción del Material", required=True),
-		'cantidad' : fields.char(string="Cantidad", required=True),
-		'location_id': fields.many2one('stock.location', 'Ubicación', required=True, domain="[('usage', '=', 'internal')]"),
 	}
 	
 	#Restriccion para que la descripcion del Material sea unica y evitar duplicidad
@@ -56,5 +86,5 @@ class almacen_bva(osv.Model):
 	_defaults = {
 		'codigo': _get_id_material,
 		'user_register': lambda s, cr, uid, c: uid,
-		'fecha': lambda *a: time.strftime("%d%m%Y"),
+		'fecha': lambda *a: time.strftime("%d/%m/%Y"),
 	}

@@ -107,7 +107,7 @@ class solicitud_soporte(osv.Model):
 
 
 
-    """
+	"""
     Metodo con el cual genero el archivo .pdf 
     """
 
@@ -133,9 +133,20 @@ class solicitud_soporte(osv.Model):
 	proyect = self.browse(cr, uid, ids, context=context)
 	npro = ""
 	amb = ""
+	fuente_f = ""
+	exp_r = ""
+	exp_c = ""
+	int_r = ""
+	int_c = ""
+	conf_int = ""
+	conf_exp = ""
+	emp_dir_f = 0
+	emp_dir_m = 0
+	bene_f = 0
+	bene_m = 0
 	for x in proyect:
 	    ente = x.organismo.nombre_ente.encode("UTF-8").decode("UTF-8")
-	    fec = x.f_solicitud.encode("UTF-8").decode("UTF-8")
+	    fec = x.f_solicitud
 	    domici = x.domicilio.encode("UTF-8").decode("UTF-8")
 	    resp = x.responsable.encode("UTF-8").decode("UTF-8")
 	    cargo = x.cargo.encode("UTF-8").decode("UTF-8")
@@ -145,12 +156,12 @@ class solicitud_soporte(osv.Model):
 	    dura = x.duracion.encode("UTF-8").decode("UTF-8")
 	    inicio = x.f_inicio.encode("UTF-8").decode("UTF-8")
 	    fin = x.f_fin.encode("UTF-8").decode("UTF-8")
-	    
-	    if x.etapa == 1:
+	    ###########################
+	    if int(x.etapa) == 1:
 		etapa = "Nueva"
 	    else:
 		etapa = "Continuación"
-	    
+	    ###########################
 	    if x.proy_nuevo == False:
 		npro = ""
 	    else:
@@ -158,7 +169,20 @@ class solicitud_soporte(osv.Model):
 	    
 	    costo = float(x['costo_proyecto'])
 	    
-	    fuente = x.fuente_fin.encode("UTF-8").decode("UTF-8")
+	   
+	    
+	    if int(x.fuente_fin) == 1:
+		fuente_f = "SITUADO CONSTITUCIONAL"
+	    elif int(x.fuente_fin) == 2:
+		fuente_f = "F.C.I"
+	    elif int(x.fuente_fin) == 3:
+		fuente_f = "INGRESOS PROPÍOS"
+	    elif int(x.fuente_fin) == 4:
+		fuente_f = "OTROS"
+
+	    
+	    
+	    
 	    indi = x.indicador.encode("UTF-8").decode("UTF-8")
 	    form = x.formula.encode("UTF-8").decode("UTF-8")
 	    verificacion = x.m_verificacion.encode("UTF-8").decode("UTF-8")
@@ -182,26 +206,41 @@ class solicitud_soporte(osv.Model):
 	    obj_n = x.obj_nacional.objetivo_nacional.encode("UTF-8").decode("UTF-8")
 	    obj_e = x.obj_estrategico.objetivo_estrategico.encode("UTF-8").decode("UTF-8")
 	    obj_g = x.obj_general_plan.objetivo_general.encode("UTF-8").decode("UTF-8")
-	    
 
-
-	    
-	    
-	    
-	    
 	    
 	    plan_g = x.plan_gobierno.plan_gobierno.encode("UTF-8").decode("UTF-8")
 	    linea_est = x.linea_estrategica.lineas_estrategicas.encode("UTF-8").decode("UTF-8")
 	    area_inv = x.area_inversion.encode("UTF-8").decode("UTF-8")
-	    tipo = x.tipo.estructura.encode("UTF-8").decode("UTF-8")
+
+	    if int(x.tipo) == 1:
+		tipo = "INVERSIÓN PRODUCTIVA"
+	    elif int(x.tipo) == 2:
+		tipo = "FORTALECIMEINTO INSTITUCIONAL"
+	    elif int(x.tipo) == 3:
+		tipo = "INFRAESTRUCTURA"
+	    elif int(x.tipo) == 4:
+		tipo = "SERVICIOS"
+
 	    sector = x.sector.sectores.encode("UTF-8").decode("UTF-8")
 	    problema = x.desc_problema.encode("UTF-8").decode("UTF-8")
 	    obj_g_pro = x.obj_general.encode("UTF-8").decode("UTF-8")
 	    impacto = x.imp_impacto.encode("UTF-8").decode("UTF-8")
-	    bene_f = int(x.bene_femenino)
-	    bene_m = int(x.bene_masculino)
+	    
+	    ####################################################
+	    if int(x.bene_femenino) == False:
+		bene_f == 0
+	    else:
+		bene_f = int(x.bene_femenino)
+	    
+	    if int(x.bene_masculino) == False:
+		bene_m == 0
+	    else:
+		bene_m = int(x.bene_masculino)
+	    
 	    bene_t = int(x.bene_total)
 
+
+	    ###################################################
 	    if int(x.reque_accion) == 1:
 		r_accion = "SI"
 	    else:
@@ -214,21 +253,51 @@ class solicitud_soporte(osv.Model):
 		conflic = "SI"
 	    else:
 		conflic = "NO"
+	    ###################################################
+	    if x.institucion_req.nombre_ente is None:
+		int_r == ""
+	    else:
+		int_r = x.institucion_req.nombre_ente.encode("UTF-8").decode("UTF-8")
 	    
-	    int_r = x.institucion_req.nombre_ente.encode("UTF-8").decode("UTF-8")
-	    int_c = x.contri_institucion.nombre_ente.encode("UTF-8").decode("UTF-8")
-	    conf_int = x.institucion_conf.nombre_ente.encode("UTF-8").decode("UTF-8")
-	    exp_r = x.explique_req.encode("UTF-8").decode("UTF-8")
-	    exp_c = x.contri_explique.encode("UTF-8").decode("UTF-8")
-	    conf_exp = x.explique_con_conf.encode("UTF-8").decode("UTF-8")
-
-	    emp_dir_f = int(x.empleos_directos_f)
-	    emp_dir_m = int(x.empleos_directos_m)
+	    if x.contri_institucion.nombre_ente is None:
+		int_c == ""
+	    else:
+		int_c = x.contri_institucion.nombre_ente.encode("UTF-8").decode("UTF-8")
+	   
+	    if x.institucion_conf.nombre_ente is None:
+		conf_int == ""
+	    else:
+		conf_int = x.institucion_conf.nombre_ente.encode("UTF-8").decode("UTF-8")
+	    
+	    ###################################################
+	    
+	    if x.explique_req == False:
+		exp_r == ""
+	    else:
+		exp_r = x.explique_req.encode("UTF-8").decode("UTF-8")
+	    if x.contri_explique == False:
+		exp_c == ""
+	    else:
+		exp_c = x.contri_explique.encode("UTF-8").decode("UTF-8")
+	    
+	    if x.explique_con_conf == False:
+		conf_exp == ""
+	    else:
+		conf_exp = x.explique_con_conf.encode("UTF-8").decode("UTF-8")
+	    
+	    ####################################################
+	    if int(x.empleos_directos_f) == False:
+		emp_dir_f == 0
+	    else:
+		emp_dir_f = int(x.empleos_directos_f)
+	    
+	    if int(x.empleos_directos_m) == False:
+		emp_dir_m == 0
+	    else:
+		emp_dir_m = int(x.empleos_directos_m)
+ 
 	    emp_dir_t = int(x.t_emple_directos)
 	    emp_dir_i = int(x.empleados_indirectos)
-
-
-
 
 	    pdf.set_y(43)
 	    pdf.set_x(10)
@@ -263,9 +332,9 @@ class solicitud_soporte(osv.Model):
 	    pdf.set_font('Arial','',8)
 	    pdf.cell(50,5,cargo,'BTR',0,'L',1)
 	    pdf.set_font('Arial','B',9)
-	    pdf.cell(21,5,"1.6. Teléfono:".decode("UTF-8"),'LTB',0,'L',1)
+	    pdf.cell(22,5,"1.6. Teléfono:".decode("UTF-8"),'LTB',0,'L',1)
 	    pdf.set_font('Arial','',8)
-	    pdf.cell(21,5,tel,'BTR',1,'L',1)
+	    pdf.cell(20,5,tel,'BTR',1,'L',1)
 	    
 	    pdf.set_font('Arial','B',9)
 	    pdf.cell(38,5,"1.7. Correo Electrónico:".decode("UTF-8"),'LTB',0,'L',1)
@@ -280,13 +349,14 @@ class solicitud_soporte(osv.Model):
 	    pdf.set_fill_color(255,255,255)
 	    pdf.set_text_color(24,29,31)
 	    pdf.set_font('Arial','B',9)
-	    pdf.cell(40,5,"2.1. Nombre del Proyecto:".decode("UTF-8"),'LTB',0,'L',1)
+	    pdf.cell(190,5,"2.1. Nombre del Proyecto:".decode("UTF-8"),'LTR',1,'L',1)
 	    pdf.set_font('Arial','',8)
-	    pdf.cell(150,5,proyecto,'TBR',1,'L',1)
+	    pdf.multi_cell(190,5,proyecto,'LBR',0,'J',0)
+
 	    pdf.set_font('Arial','B',9)
-	    pdf.cell(23,5,"2.2. Ubicación:".decode("UTF-8"),'LTB',0,'L',1)
+	    pdf.cell(24,5,"2.2. Ubicación:".decode("UTF-8"),'LTB',0,'L',1)
 	    pdf.set_font('Arial','',8)
-	    pdf.cell(167,5,domici,'TBR',1,'L',1)
+	    pdf.cell(166,5,domici,'TBR',1,'L',1)
 	    
 	    pdf.set_font('Arial','B',9)
 	    pdf.cell(22,5,"2.3. Duración:".decode("UTF-8"),'LTB',0,'L',1)
@@ -301,9 +371,9 @@ class solicitud_soporte(osv.Model):
 	    pdf.set_font('Arial','',8)
 	    pdf.cell(17,5,fin,'TBR',0,'L',1)
 	    pdf.set_font('Arial','B',9)
-	    pdf.cell(18,5,"2.4. Etapa:".decode("UTF-8"),'LTB',0,'L',1)
+	    pdf.cell(17,5,"2.4. Etapa:".decode("UTF-8"),'LTB',0,'L',1)
 	    pdf.set_font('Arial','',8)
-	    pdf.cell(30,5,str(etapa).decode("UTF-8"),'TBR',1,'L',1)
+	    pdf.cell(31,5,str(etapa).decode("UTF-8"),'TBR',1,'L',1)
 	    
 	    pdf.set_font('Arial','B',9)
 	    pdf.cell(28,5,"Proyecto Nuevo:".decode("UTF-8"),'LTB',0,'L',1)
@@ -317,7 +387,7 @@ class solicitud_soporte(osv.Model):
 	    pdf.set_font('Arial','B',9)
 	    pdf.cell(48,5,"2.6. Fuente de Financiamiento:".decode("UTF-8"),'LTB',0,'L',1)
 	    pdf.set_font('Arial','',8)
-	    pdf.cell(54,5,fuente,'BTR',0,'L',1)
+	    pdf.cell(54,5,str(fuente_f).decode("UTF-8"),'BTR',0,'L',1)
 	    pdf.set_font('Arial','B',9)
 	    pdf.cell(35, 5,"2.7. Indicador General: ".decode("UTF-8"),'LTB',0,'L',1)
 	    pdf.set_font('Arial','',8)
@@ -328,9 +398,9 @@ class solicitud_soporte(osv.Model):
 	    pdf.set_font('Arial','',8)
 	    pdf.cell(47,5,form,'BTR',0,'L',1)
 	    pdf.set_font('Arial','B',9)
-	    pdf.cell(40, 5,"2.9. Medio de Verificación:".decode("UTF-8"),'LTB',0,'L',1)
+	    pdf.cell(42, 5,"2.9. Medio de Verificación:".decode("UTF-8"),'LTB',0,'L',1)
 	    pdf.set_font('Arial','',8)
-	    pdf.cell(48,5,verificacion,'BTR',1,'L',1)
+	    pdf.cell(46,5,verificacion,'BTR',1,'L',1)
 	    
 	    #3.LOCALIZACIÓN POLÍTICO ADMINISTRATIVA
 	    pdf.set_fill_color(199,15,15)
@@ -366,7 +436,7 @@ class solicitud_soporte(osv.Model):
 	    pdf.set_font('Arial','',8)
 	    pdf.multi_cell(145,5,obj_n,'TBR',0,'J',0)
 	    pdf.set_font('Arial','B',9)
-	    pdf.cell(45,5,"4.1.3. Objetivo Estratégico:".decode("UTF-8"),'LT',0,'L',1)
+	    pdf.cell(45,10,"4.1.3. Objetivo Estratégico:".decode("UTF-8"),'LT',0,'L',1)
 	    pdf.set_font('Arial','',8)
 	    pdf.multi_cell(145,5,obj_e,'TBR',0,'J',0)
 	    pdf.set_font('Arial','B',9)
@@ -398,7 +468,7 @@ class solicitud_soporte(osv.Model):
 	    pdf.set_font('Arial','B',9)
 	    pdf.cell(18,5,"4.2.4. Tipo:".decode("UTF-8"),'LTB',0,'L',1)
 	    pdf.set_font('Arial','',8)
-	    pdf.cell(172,5,tipo,'TBR',1,'J',1)
+	    pdf.cell(172,5,str(tipo).decode("UTF-8"),'TBR',1,'J',1)
 	    
 	    
 	    #5.
@@ -528,158 +598,357 @@ class solicitud_soporte(osv.Model):
 	    pdf.set_text_color(24,29,31)
 	    
 	    #9.
-	    pdf.set_y(158)
-	    pdf.set_x(10)
+
 	    pdf.set_font('Arial','B',9)
-	    pdf.cell(55,8,"Nombre de la Acción Específica".decode("UTF-8"),'LTBR',0,'C',1)
-	    pdf.set_y(158)
-	    pdf.set_x(65)
-	    pdf.cell(35,8,"Unidad de Medida".decode("UTF-8"),'LTBR',0,'C',1)
-	    pdf.set_y(158)
-	    pdf.set_x(100)
-	    pdf.cell(20,8,"Cantidad".decode("UTF-8"),'LTBR',0,'C',1)
-	    pdf.set_y(158)
-	    pdf.set_x(120)
+	    pdf.cell(50,4,"Nombre de la Acción Específica".decode("UTF-8"),'LTR',0,'C',1)
+	    pdf.cell(30,4,"Unidad de Medida".decode("UTF-8"),'LTR',0,'C',1)
+	    pdf.cell(30,4,"Medio de".decode("UTF-8"),'LTR',0,'C',1)
 	    pdf.cell(60,4,"Distribución Trimestral".decode("UTF-8"),'LTBR',0,'C',1)
-	    pdf.set_y(162)
-	    pdf.set_x(120)
+	    pdf.cell(20,4,"Total".decode("UTF-8"),'LTR',1,'C',1)
+	    
 	    pdf.set_font('Arial','',9)
-	    pdf.cell(15,4,"I".decode("UTF-8"),'LTBR',0,'C',1)
-	    pdf.cell(15,4,"II".decode("UTF-8"),'LTBR',0,'C',1)
-	    pdf.cell(15,4,"III".decode("UTF-8"),'LTBR',0,'C',1)
-	    pdf.cell(15,4,"IV".decode("UTF-8"),'LTBR',0,'C',1)
-	    pdf.set_y(158)
-	    pdf.set_x(180)
+	    pdf.cell(50,4,"",'LBR',0,'C',1)
+	    pdf.cell(30,4,"",'LBR',0,'C',1)
 	    pdf.set_font('Arial','B',9)
-	    pdf.cell(20,8,"Total".decode("UTF-8"),'LTBR',1,'C',1)
-	    
-	    for i in range(1,5):
-		pdf.set_font('Arial','',8)
-		pdf.cell(55,5,"".decode("UTF-8"),'LTBR',0,'C',1)
-		pdf.cell(35,5,"".decode("UTF-8"),'LBTR',0,'L',1)
-		pdf.cell(20, 5,"".decode("UTF-8"),'LTB',0,'L',1)
-		pdf.cell(15, 5,"".decode("UTF-8"),'LTB',0,'L',1)
-		pdf.cell(15, 5,"".decode("UTF-8"),'LTB',0,'L',1)
-		pdf.cell(15, 5,"".decode("UTF-8"),'LTB',0,'L',1)
-		pdf.cell(15, 5,"".decode("UTF-8"),'LTB',0,'L',1)
-		pdf.cell(20,5,"".decode("UTF-8"),'LBTR',1,'L',1)
-	    
-	    #10
-	    pdf.set_fill_color(199,15,15)
-	    pdf.set_text_color(255,255,255)
-	    pdf.set_font('Arial','B',10)
-	    pdf.cell(190,5,"10. METAS FINANCIERAS".decode("UTF-8"),'LTBR',1,'C',1)
-	    pdf.set_fill_color(255,255,255)
-	    pdf.set_text_color(24,29,31)
-	    
-	    pdf.set_y(191)
-	    pdf.set_x(10)
-	    pdf.set_font('Arial','B',9)
-	    pdf.cell(110,8,"Nombre de la Acción Específica".decode("UTF-8"),'LTBR',0,'C',1)
-	    pdf.set_y(191)
-	    pdf.set_x(120)
-	    pdf.cell(60,4,"Distribución Trimestral".decode("UTF-8"),'LTBR',0,'C',1)
-	    pdf.set_y(195)
-	    pdf.set_x(120)
+	    pdf.cell(30,4,"Verificación".decode("UTF-8"),'LBR',0,'C',1)
 	    pdf.set_font('Arial','',9)
-	    pdf.cell(15,4,"I".decode("UTF-8"),'LTBR',0,'C',1)
-	    pdf.cell(15,4,"II".decode("UTF-8"),'LTBR',0,'C',1)
-	    pdf.cell(15,4,"III".decode("UTF-8"),'LTBR',0,'C',1)
-	    pdf.cell(15,4,"IV".decode("UTF-8"),'LTBR',0,'C',1)
-	    pdf.set_y(191)
-	    pdf.set_x(180)
-	    pdf.set_font('Arial','B',9)
-	    pdf.cell(20,8,"Total".decode("UTF-8"),'LTBR',1,'C',1)
-	    
-	    for i in range(1,7):
-		pdf.set_font('Arial','',8)
-		pdf.cell(110,5,"".decode("UTF-8"),'LTBR',0,'C',1)
-		pdf.cell(15, 5,"".decode("UTF-8"),'LTB',0,'L',1)
-		pdf.cell(15, 5,"".decode("UTF-8"),'LTB',0,'L',1)
-		pdf.cell(15, 5,"".decode("UTF-8"),'LTB',0,'L',1)
-		pdf.cell(15, 5,"".decode("UTF-8"),'LTB',0,'L',1)
-		pdf.cell(20,5,"".decode("UTF-8"),'LBTR',1,'L',1)
-
-	    
-	    pdf.alias_nb_pages() # LLAMADA DE PAGINACION
-	    pdf.add_page() # AÑADE UNA NUEVA PAGINACIO
-
-	    #11
-	    pdf.set_y(43)
-	    pdf.set_x(10)
-	    pdf.set_fill_color(199,15,15)
-	    pdf.set_text_color(255,255,255)
-	    pdf.set_font('Arial','B',10)
-	    pdf.cell(190,5,"11. IMPUTACIÓN PRESUPUESTARIA".decode("UTF-8"),'LTBR',1,'C',1)
-	    pdf.set_fill_color(255,255,255)
-	    pdf.set_text_color(24,29,31)
-	    
-	    pdf.set_y(48)
-	    pdf.set_x(10)
-	    pdf.set_font('Arial','B',9)
-	    pdf.cell(30,8,"Código".decode("UTF-8"),'LTBR',0,'L',1)
-	    pdf.cell(80,8,"Partida Presupuestaria".decode("UTF-8"),'LTBR',0,'L',1)
-	    pdf.set_y(48)
-	    pdf.set_x(120)
-	    pdf.cell(60,4,"Distribución Trimestral".decode("UTF-8"),'LTBR',0,'C',1)
-	    pdf.set_y(52)
-	    pdf.set_x(120)
-	    pdf.set_font('Arial','',9)
-	    pdf.cell(15,4,"I".decode("UTF-8"),'LTBR',0,'C',1)
-	    pdf.cell(15,4,"II".decode("UTF-8"),'LTBR',0,'C',1)
-	    pdf.cell(15,4,"III".decode("UTF-8"),'LTBR',0,'C',1)
-	    pdf.cell(15,4,"IV".decode("UTF-8"),'LTBR',0,'C',1)
-	    pdf.set_y(48)
-	    pdf.set_x(180)
-	    pdf.set_font('Arial','B',9)
-	    pdf.cell(20,8,"Total".decode("UTF-8"),'LTBR',1,'C',1)
-	    
-	    for i in range(1,10):
-		pdf.set_font('Arial','',8)
-		pdf.cell(30,5,"".decode("UTF-8"),'LTBR',0,'C',1)
-		pdf.cell(80,5,"".decode("UTF-8"),'LTBR',0,'C',1)
-		pdf.cell(15, 5,"".decode("UTF-8"),'LTB',0,'L',1)
-		pdf.cell(15, 5,"".decode("UTF-8"),'LTB',0,'L',1)
-		pdf.cell(15, 5,"".decode("UTF-8"),'LTB',0,'L',1)
-		pdf.cell(15, 5,"".decode("UTF-8"),'LTB',0,'L',1)
-		pdf.cell(20,5,"".decode("UTF-8"),'LBTR',1,'L',1)
-
-	    pdf.set_font('Arial','B',9)
-	    pdf.cell(110,5,"Totales".decode("UTF-8"),'LTBR',0,'C',1)
-	    pdf.set_font('Arial','',8)
-	    pdf.cell(15, 5,"0.00".decode("UTF-8"),'LTB',0,'R',1)
-	    pdf.cell(15, 5,"0.00".decode("UTF-8"),'LTB',0,'R',1)
-	    pdf.cell(15, 5,"0.00".decode("UTF-8"),'LTB',0,'R',1)
-	    pdf.cell(15, 5,"0.00".decode("UTF-8"),'LTB',0,'R',1)
-	    pdf.cell(20,5,"0.00".decode("UTF-8"),'LBTR',1,'R',1)
-	    
-	    #nom = nombre+" "+str(fec)+'.pdf' #Nombre del archivo .pdf
-	    
-	    #nom = proyecto+" "+str(fec)+'.pdf'
-	    
-	#    pdf.output('openerp/addons/producto_bva/reporte/'+nom,'F') #Carpeta donde se guardara
-	#	
-	#	archivo = open('openerp/addons/producto_bva/reporte/'+nom)
-	    pdf.output('home/administrador/openerp70/modules/planificacion_presupuesto/reportes/Conaplan.pdf','F')
-
-	    archivo = open('home/administrador/openerp70/modules/planificacion_presupuesto/reportes/Conaplan.pdf')
-
-	    """
-	    Mandamos el archivo al modelo de reportes, donde se iran almacenando
-	    """
-	    r_archivo = self.pool.get('reportes.presupuesto').create(cr, uid, {
-		    'name' : nom,
-		    'res_name' : nom,
-		    'datas' : base64.encodestring(archivo.read()),
-		    'datas_fname' : nom,
-		    'res_model' : 'reportes.presupuesto',
-		    'registro': "Anteproyecto",
-		    },context=context)
-
-	    return r_archivo
+	    pdf.cell(15,4,"I",'LTBR',0,'C',1)
+	    pdf.cell(15,4,"II",'LTBR',0,'C',1)
+	    pdf.cell(15,4,"III",'LTBR',0,'C',1)
+	    pdf.cell(15,4,"IV",'LTBR',0,'C',1)
+	    pdf.cell(20,4,"".decode("UTF-8"),'LBR',1,'C',1)
+	   
 	
+	data_ids = self.read(cr, uid, ids, context=context)[0]
+	payslip_id = data_ids['acciones_especificas'] # Grupo de IDS
+
+	alm = self.pool.get('acciones.especificas') # Objeto 
+	datos = alm.search(cr, uid, [('id','=',payslip_id)], context=None)
+	acciones = alm.read(cr,uid,datos,context=context)
+
+
+	j = 0
+	for i in acciones:
+	    if not int(i['trim_i']):
+		i['trim_i'] = 0
+	    else:
+		i['trim_i']
+	    if not int(i['trim_ii']):
+		i['trim_ii'] = 0
+	    else:
+		i['trim_ii']
+	    if not int(i['trim_iii']):
+		i['trim_iii'] = 0
+	    else:
+		i['trim_iii']
+	    if not int(i['trim_iv']):
+		i['trim_iv'] = 0
+	    else:
+		i['trim_iv']
+	    if not int(i['total']):
+		i['total'] = 0
+	    else:
+		i['total']
+
+	    n_acc = i['nombre_accion']
+	    unid = i['unidad_medida']
+	    med = i['medio']
+	    uno = int(i['trim_i'])
+	    dos = int(i['trim_ii'])
+	    tres = int(i['trim_iii'])
+	    cuatro = int(i['trim_iv'])
+
+	    total_a = int(i['total'])
 	    
 	    
+	    pdf.set_font('Arial','',7)
+	    pdf.cell(50,4,n_acc.encode("UTF-8").decode("UTF-8"),'LTBR',0,'C',1)
+	    pdf.cell(30,4,unid.encode("UTF-8").decode("UTF-8"),'LTBR',0,'C',1)
+	    pdf.cell(30,4,med.encode("UTF-8").decode("UTF-8"),'LTBR',0,'C',1)
+	    pdf.cell(15,4,str(uno),'LTBR',0,'C',1)
+	    pdf.cell(15,4,str(dos),'LTBR',0,'C',1)
+	    pdf.cell(15,4,str(tres),'LTBR',0,'C',1)
+	    pdf.cell(15,4,str(cuatro),'LTBR',0,'C',1)
+	    pdf.cell(20,4,str(total_a),'LTBR',1,'C',1)
+	    
+	#    if j == 9:
+	#	pdf.alias_nb_pages() # LLAMADA DE PAGINACION
+	#	pdf.add_page() # AÑADE UNA NUEVA PAGINACION
+	#	pdf.set_y(43)
+	#	pdf.set_x(10)
+	#
+	#	
+	#	j=0
+	#	
+	#    j=j+1
+	t_acciones = int(x['total_acciones'])
+	pdf.set_font('Arial','B',9)
+	pdf.cell(110,4,"Totales".encode("UTF-8").decode("UTF-8"),'LTBR',0,'C',1)
+	pdf.cell(15,4,"",'LTBR',0,'C',1)
+	pdf.cell(15,4,"",'LTBR',0,'C',1)
+	pdf.cell(15,4,"",'LTBR',0,'C',1)
+	pdf.cell(15,4,"",'LTBR',0,'C',1)
+	pdf.cell(20,4,str(t_acciones),'LTBR',1,'C',1)
+	
+	
+	pdf.set_fill_color(199,15,15)
+	pdf.set_text_color(255,255,255)
+	pdf.set_font('Arial','B',10)
+	pdf.cell(190,5,"10. METAS FINANCIERAS".decode("UTF-8"),'LTBR',1,'C',1)
+	pdf.set_fill_color(255,255,255)
+	pdf.set_text_color(24,29,31)
+	
+	pdf.cell(98,4,"Nombre de la Acción Específica".decode("UTF-8"),'LTR',0,'C',1)
+	pdf.cell(72,4,"Distribución Trimestral".decode("UTF-8"),'LTR',0,'C',1)
+	pdf.cell(20,4,"Total".decode("UTF-8"),'LTR',1,'C',1)
+	pdf.set_font('Arial','',9)
+	pdf.cell(98,4,"".decode("UTF-8"),'LBR',0,'C',1)
+	pdf.cell(18,4,"I".decode("UTF-8"),'LTBR',0,'C',1)
+	pdf.cell(18,4,"II".decode("UTF-8"),'LTBR',0,'C',1)
+	pdf.cell(18,4,"III".decode("UTF-8"),'LTBR',0,'C',1)
+	pdf.cell(18,4,"IV".decode("UTF-8"),'LTBR',0,'C',1)
+	pdf.set_font('Arial','B',9)
+	pdf.cell(20,4,"".decode("UTF-8"),'LBR',1,'C',1)
+    
+	metas_ids = self.read(cr, uid, ids, context=context)[0]
+	mts_id = metas_ids['metas_financieras'] # Grupo de IDS
+
+	meta_fin = self.pool.get('metas.financieras') # Objeto 
+	infor = meta_fin.search(cr, uid, [('id','=',mts_id)], context=None)
+	metas_finan = meta_fin.read(cr,uid,infor,context=context)
+
+
+	j = 0
+	for l in metas_finan:
+	    n_acc = l['nom_accion_metas']
+	    uno = float(l['trim_1'])
+	    dos = float(l['trim_2'])
+	    tres = float(l['trim_3'])
+	    cuatro = float(l['trim_4'])
+	    total_m = float(l['total_meta'])
+
+	    
+	    
+	    pdf.set_font('Arial','',8)
+	    pdf.cell(98,4,n_acc.encode("UTF-8").decode("UTF-8"),'LTBR',0,'L',1)
+	    pdf.cell(18,4,str(uno),'LTBR',0,'R',1)
+	    pdf.cell(18,4,str(dos),'LTBR',0,'R',1)
+	    pdf.cell(18,4,str(tres),'LTBR',0,'R',1)
+	    pdf.cell(18,4,str(cuatro),'LTBR',0,'R',1)
+	    pdf.cell(20,4,str(total_m),'LTBR',1,'R',1)
+
+	t_metas = float(x['total_metas'])	
+	pdf.set_font('Arial','B',9)
+	pdf.cell(98,4,"Totales",'LTBR',0,'C',1)
+	pdf.cell(18,4,"",'LTBR',0,'R',1)
+	pdf.cell(18,4,"",'LTBR',0,'R',1)
+	pdf.cell(18,4,"",'LTBR',0,'R',1)
+	pdf.cell(18,4,"",'LTBR',0,'R',1)
+	pdf.cell(20,4,str(t_metas),'LTBR',1,'R',1)
+	
+	 
+	pdf.alias_nb_pages() # LLAMADA DE PAGINACION
+	pdf.add_page() # AÑADE UNA NUEVA PAGINACIO
+    
+	#11
+	pdf.set_y(43)
+	pdf.set_x(10)
+	pdf.set_fill_color(199,15,15)
+	pdf.set_text_color(255,255,255)
+	pdf.set_font('Arial','B',10)
+	pdf.cell(190,5,"11. IMPUTACIÓN PRESUPUESTARIA".decode("UTF-8"),'LTBR',1,'C',1)
+	pdf.set_fill_color(255,255,255)
+	pdf.set_text_color(24,29,31)
+	
+
+	pdf.set_font('Arial','B',9)
+	pdf.cell(20,4,"Código".decode("UTF-8"),'LTR',0,'L',1)
+	pdf.cell(82,4,"Partida Presupuestaria".decode("UTF-8"),'LTR',0,'L',1)
+	pdf.cell(68,4,"Distribución Trimestral".decode("UTF-8"),'LTBR',0,'C',1)
+	pdf.cell(20,4,"Total".decode("UTF-8"),'LTR',1,'C',1)
+	pdf.set_font('Arial','',9)
+	pdf.cell(20,4,"",'LBR',0,'L',1)
+	pdf.cell(82,4,"",'LBR',0,'L',1)
+	pdf.cell(17,4,"I".decode("UTF-8"),'LTBR',0,'C',1)
+	pdf.cell(17,4,"II".decode("UTF-8"),'LTBR',0,'C',1)
+	pdf.cell(17,4,"III".decode("UTF-8"),'LTBR',0,'C',1)
+	pdf.cell(17,4,"IV".decode("UTF-8"),'LTBR',0,'C',1)
+	pdf.set_font('Arial','B',9)
+	pdf.cell(20,4,"",'LBR',1,'C',1)
+	    
+	impu_ids = self.read(cr, uid, ids, context=context)[0]
+	imp_id = impu_ids['imputacion_presu'] # Grupo de IDS
+
+	imp_pre = self.pool.get('imputacion.presupuestaria') # Objeto 
+	imputa = imp_pre.search(cr, uid, [('id','=',imp_id)], context=None)
+	imputa_presu = imp_pre.read(cr,uid,imputa,context=context)
+	    
+
+	for d in imputa_presu:
+	    codi = d['codigo']
+	    #partida = x.partida_presu.nombre_ente.encode("UTF-8").decode("UTF-8")
+	    partida = d['partida_presu'][1]
+	    tri_uno = float(d['trim_1'])
+	    tri_dos = float(d['trim_2'])
+	    tri_tres = float(d['trim_3'])
+	    tri_cuatro = float(d['trim_4'])
+	    tri_total_i = float(d['total_impu'])
+
+
+	    
+	    pdf.set_font('Arial','',8)
+	    pdf.cell(20,4,str(codi),'LTBR',0,'L',1)
+	    pdf.cell(82,4,partida.encode("UTF-8").decode("UTF-8"),'LTBR',0,'L',1)
+	    pdf.cell(17,4,str(tri_uno),'LTBR',0,'R',1)
+	    pdf.cell(17,4,str(tri_dos),'LTBR',0,'R',1)
+	    pdf.cell(17,4,str(tri_tres),'LTBR',0,'R',1)
+	    pdf.cell(17,4,str(tri_cuatro),'LTBR',0,'R',1)
+	    pdf.cell(20,4,str(tri_total_i),'LTBR',1,'R',1)
+	
+	t_imput = float(x['total_imputaciones'])
+	pdf.set_font('Arial','B',9)
+	pdf.cell(102,4,"Totales",'LTBR',0,'C',1)
+	pdf.cell(17,4,"",'LTBR',0,'R',1)
+	pdf.cell(17,4,"",'LTBR',0,'R',1)
+	pdf.cell(17,4,"",'LTBR',0,'R',1)
+	pdf.cell(17,4,"",'LTBR',0,'R',1)
+	pdf.cell(20,4,str(t_imput),'LTBR',1,'R',1)   
+	    
+	#nom = str(proyecto)+"-"+str(fec)+'.pdf'
+	nom = proyecto+".pdf"
+
+
+
+	pdf.output('/home/administrador/openerp70/modules/planificacion_presupuesto/reportes/'+nom,'F')
+	
+	archivo = open('/home/administrador/openerp70/modules/planificacion_presupuesto/reportes/'+nom)
+	
+	r_archivo = self.pool.get('reportes.presupuesto').create(cr, uid, {
+		'name' : nom,
+		'res_name' : nom,
+		'datas' : base64.encodestring(archivo.read()),
+		'datas_fname' : nom,
+		'res_model' : 'proyecto.conaplan',
+		'registro': "Proyectos",
+		},context=context)
+	
+	return r_archivo
+	
+	  
+	  #Funciones para la validación de las fechas de inicio y fin de un proyecto
+    def duracion_proyecto(self, cr, uid, ids, fecha_ini, fecha_fin, context=None): 
+
+	retorno = {}
+	res = {}
+	values = {}
+	valores = {}
+	dias_mes_anterior = 0
+	now = datetime.now().strftime('%Y-%m-%d')
+	
+	#Vaildar si la fecha final es anterior a la actual
+	val_fecha_fin = self.onchange_fh_final(cr, uid, ids, fecha_fin, context=context)
+	print val_fecha_fin
+	
+	#Vaildar si la fecha inicial es anterior a la actual
+	val_fecha_ini = self.onchange_fh_inicio(cr, uid, ids, fecha_ini, context=context)
+	print val_fecha_ini
+	
+	if fecha_ini and fecha_fin:
+	    fecha_inicial = fecha_ini.split("-")
+
+	    anyo_ini = fecha_inicial[0]
+	    mes_ini = fecha_inicial[1]
+	    dia_ini = fecha_inicial[2]
+	    
+
+	    fecha_final = fecha_fin.split("-")
+	    
+	    anyo_final = fecha_final[0]
+	    mes_final = fecha_final[1]
+	    dia_final = fecha_final[2]
+
+	    dia_diferencia = int(dia_final) - int(dia_ini)
+	    mes_diferencia = int(mes_final) - int(mes_ini)
+	    anyo_diferencia = int(anyo_final) - int(anyo_ini)
+
+	    # se suma dia_diferencia los dias que tiene el mes anterior de la fecha final
+
+	    if dia_diferencia < 0:
+		mes_diferencia = int(mes_diferencia)-1
+
+		if mes_final:
+
+		    if mes_final == 1 or mes_final == 3 or mes_final == 5 or mes_final == 7 or mes_final == 8 or mes_final == 10 or mes_final == 12:
+			dias_mes_anterior = 31
+
+		    elif mes_final == 2: # calculo si un año es bisiesto
+
+			if ((((anyo_final%100)!=0) and ((anyo_final%4)==0)) or ((anyo_final%400)==0)):
+			    #print 'El año es Bisiesto'
+			    dias_mes_anterior = 29
+			else:
+			    #print 'El año no es Bisiesto'
+			    dias_mes_anterior = 28
+
+		    elif mes_final == 4 or mes_final == 6 or mes_final == 9 or mes_final == 11:
+			dias_mes_anterior = 30	
+
+		dia_diferencia = int(dia_diferencia) + int(dias_mes_anterior)
+
+	    if mes_diferencia < 0:
+		anyo_diferencia = int(anyo_diferencia) - 1  
+		mes_diferencia = int(mes_diferencia) + 12
+
+	    # Se valida si cumple un año se muestre año si es mayor de un año se muestre años
+	    if anyo_diferencia < 2:
+		anyo_diferencia = str(anyo_diferencia)+" Año"
+	    elif anyo_diferencia > 1:
+		anyo_diferencia = str(anyo_diferencia)+" Años"
+
+	    if mes_diferencia < 2:
+		mes_diferencia = str(mes_diferencia)+" Mes"
+	    elif mes_diferencia > 1:
+		mes_diferencia = str(mes_diferencia)+" Meses"
+
+	    if dia_diferencia < 2:
+		dia_diferencia = str(dia_diferencia)+" Dia"
+	    elif dia_diferencia > 1:
+		dia_diferencia = str(dia_diferencia)+" Dias"
+
+
+	    #~ duracion_proyec = str(anyo_diferencia).replace('-',"")+" "+str(mes_diferencia)+" "+str(dia_diferencia)
+	    duracion_proyec = str(anyo_diferencia).replace('-',"")+" "+str(mes_diferencia)
+	    
+	    #~ self.write(cr, uid, ids, {'ano_antiguedad':str(anyo_diferencia).replace('-',"")}, context=context)
+	    
+	    values.update({'duracion' : duracion_proyec,})
+		
+	else:
+	    values = "vacio"
+	
+	valores = {'value' : values}
+	
+	retorno = valores
+
+	return retorno
+				
+    def onchange_fh_inicio(self, cr, uid, ids, fh_inicio, context):
+	res = {}
+	now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+	if fh_inicio < now:
+		res['warning'] = {'title': "Cuidado: Error!",'message' : "No puede seleccionar como fecha de inicio dias pasados",}
+		return res
+	return res
+				    
+    def onchange_fh_final(self, cr, uid, ids, fh_final, context):
+	res = {}
+	now = datetime.now().strftime('%Y-%m-%d')
+	if fh_final < now:
+		res['warning'] = {'title': "Atencion: Error!",'message' : "No puede seleccionar como fecha final dias anteriores a hoy",}
+		return res
+	return res
+				  
+
     _columns = {
         'c_solicitud' : fields.char(string="ID", size=255, required=False, readonly=True),
 	'user_register': fields.many2one('res.users', 'Registrado por:', readonly=True),
@@ -703,32 +972,33 @@ class solicitud_soporte(osv.Model):
 	'etapa': fields.selection([('1','Nueva'), ('2','Continuación')], string="Etapa", required=True),
 	'proy_nuevo': fields.char('Proyecto Nuevo', required=False),
 	'costo_proyecto': fields.float('Costo del Proyecto', readonly=False),
-	'fuente_fin': fields.char('Fuente de Financiamiento:',  required=True),
+	'fuente_fin': fields.selection([('1','SITUADO CONSTITUCIONAL'), ('2','F.C.I'), ('3','INGRESOS PROPÍOS'), ('4','OTROS')], string="Fuente de Financiamiento:", required=False),
 	'indicador': fields.char('Indicador General', required=True),
 	'formula': fields.char('Fórmula del Indicador General:', required=True),
-	'm_verificacion': fields.char('Medio de Verificación:', required=False),
+	'm_verificacion': fields.char('Medio de Verificación:', required=True),
 	#Pestaña3
-	'ambito': fields.selection([('1','Internacional'), ('2','Nacional'), ('3','Estadal'), ('4','Municipal'), ('5','Parroquia'),('6','Sin Extensión Territorial')], string="Ámbito"),
-	'especifique': fields.text('Específique:', required=False),
+	'ambito': fields.selection([('1','Internacional'), ('2','Nacional'), ('3','Estadal'), ('4','Municipal'), ('5','Parroquia'),('6','Sin Extensión Territorial')], string="Ámbito", required=True),
+	'especifique': fields.text('Específique:', required=True),
 	#Pestaña4
 	'obj_general_plan' : fields.many2one('objetivo.general', 'Objetivos Generales', required=False),
-	'obj_estrategico' : fields.many2one('objetivo.estrategico', 'Objetivos Estratégico', required=False),
-	'obj_nacional' : fields.many2one('objetivo.nacional', 'Objetivos Nacional', required=False),
-	'obj_historico' : fields.many2one('objetivo.historico', 'Objetivos Historicos', required=False),
-	'plan_patria': fields.many2one('plan.patria', 'Plan de la Patria', required=False),
-	'plan_gobierno': fields.many2one('plan.gobierno', 'Plan de Gobierno', required=False),
-	'linea_estrategica': fields.many2one('lineas.estrategicas', 'Lineas estrategicas de Accion', required=False),
-	'area_inversion': fields.char('Área de Inversión:', required=False),
-	'tipo':fields.many2one('tipo.estructura', 'Tipo', ondelete='cascade', select=False),
-	'sector':fields.many2one('organos.sectores', 'Sector', ondelete='cascade', select=False),
+	'obj_estrategico' : fields.many2one('objetivo.estrategico', 'Objetivos Estratégico', required=True),
+	'obj_nacional' : fields.many2one('objetivo.nacional', 'Objetivos Nacional', required=True),
+	'obj_historico' : fields.many2one('objetivo.historico', 'Objetivos Historicos', required=True),
+	'plan_patria': fields.many2one('plan.patria', 'Plan de la Patria', required=True),
+	'plan_gobierno': fields.many2one('plan.gobierno', 'Plan de Gobierno', required=True),
+	'linea_estrategica': fields.many2one('lineas.estrategicas', 'Lineas estrategicas de Accion', required=True),
+	'area_inversion': fields.char('Área de Inversión:', required=True),
+	'tipo': fields.selection([('1','Inversion Productiva'), ('2','Fortalecimiento Institucional'),
+	    ('3','Infraestructura'), ('4','Servicios')], string="Tipo de Inversión", required=True),
+	'sector':fields.many2one('organos.sectores', 'Sector', ondelete='cascade', select=False, required=True),
 	#Pestaña 5
-	'desc_problema': fields.text('Descripción del problema:', required=False),
-	'obj_general': fields.text('Objetivo General:', required=False),
-	'imp_impacto': fields.text('Importancia e Impacto:', required=False),
+	'desc_problema': fields.text('Descripción del problema:', size=1700, required=True),
+	'obj_general': fields.text('Objetivo General:', required=True),
+	'imp_impacto': fields.text('Importancia e Impacto:', required=True),
 	#Pestaña 6
 	'bene_femenino': fields.integer('Beneficiarios Femeninos:', required=False),
 	'bene_masculino': fields.integer('Beneficiarios Masculinos:', required=False),
-	'bene_total': fields.integer('Beneficiarios Totales:', required=False, readonly=False),
+	'bene_total': fields.integer('Beneficiarios Totales:', required=True, readonly=False),
 	#Pestaña 7
 	'reque_accion': fields.selection([('1','SI'), ('2','NO')], string="7.1. Requiere acciones (no financieras) de otra institución:"),
 	'institucion_req': fields.many2one('organos.entes', 'Institución:', required=False),
@@ -742,14 +1012,17 @@ class solicitud_soporte(osv.Model):
 	#pestaña8
 	'empleos_directos_f': fields.integer('N° Estimado de empleaos directos femeninos:', required=False),
 	'empleos_directos_m': fields.integer('N° Estimado de empleaos directos masculinos:', required=False),
-	't_emple_directos': fields.integer('N° Estimado totales de empleos directos:', required=False, readonly=False),
-	'empleados_indirectos': fields.integer('N° Estimado de empleos indirectos:', required=False),
+	't_emple_directos': fields.integer('N° Estimado totales de empleos directos:', required=True, readonly=False),
+	'empleados_indirectos': fields.integer('N° Estimado de empleos indirectos:', required=True),
 	#pestañas9
 	'acciones_especificas':fields.one2many('acciones.especificas', 'acciones_ids',required=False),
+	'total_acciones':fields.float(string="Cant. total", required=False), #Nuevo
 	#pestañas10
 	'metas_financieras':fields.one2many('metas.financieras', 'metas_ids',required=False),
+	'total_metas':fields.float(string="Cant. total", required=False), #Nuevo
 	#pestañas11
 	'imputacion_presu':fields.one2many('imputacion.presupuestaria', 'imputacion_ids',required=False),
+	'total_imputaciones':fields.float(string="Cant. total", required=False), #Nuevo
 
         }
         
@@ -758,5 +1031,185 @@ class solicitud_soporte(osv.Model):
         'f_solicitud': lambda *a: time.strftime("%d/%m/%Y"),
         'c_solicitud': _get_last_id,
         'user_register': lambda s, cr, uid, c: uid,
-  
+	'reque_accion': '2',
+	'contri_accion': '2',
+	'conflicto': '2',
     }
+    
+    #Método para copiar las acciones de la pestañe de 'Acciones' a la pestaña de 'Metas'
+    def carga_acciones(self, cr, uid, ids, context=None):
+	#Modelo a escribir
+	metas = self.pool.get('metas.financieras')
+	
+	#Modelo actual
+	browse_id = self.browse(cr, uid, ids, context=context)
+	
+	id_m = ""
+	id_proyecto = 0
+	for proyecto in browse_id:
+		id_proyecto = proyecto.id
+		
+		accion = ""
+		r = False
+		i = 1
+		for accion in proyecto.acciones_especificas:
+			#print "Acción "+str(i)+": "+str(accion.nombre_accion)
+			
+			if accion.nombre_accion:	
+				accion = accion.nombre_accion.encode("UTF-8")
+				
+				#Carga de las accionesen el modelo correspondiente
+				id_m = metas.create(cr, uid, {
+					'metas_ids' : id_proyecto,
+					'nom_accion_metas' : accion,
+				},context=context)
+				
+				if id_m:
+					r = True
+					
+			#Aumento del contador
+			i = i + 1
+			
+	return r
+    
+    #Función para el cálculo del monto total de las metas del proyecto________________________________________________________________________________
+    def total_metas(self, cr, uid, ids, metas, context=None):
+			
+	values = {}
+	
+	cantidad_meta_m = 0
+	
+	cantidad_meta_v = 0
+	
+	total_metas = 0
+
+	browse_id = self.browse(cr, uid, ids, context=context)
+	
+	#Segmento que obtiene los montos directamente del modelo
+	i = 0
+	for proyecto in browse_id:
+		i = 0
+		for meta in proyecto.metas_financieras:
+			cantidad_meta_m = meta.total_meta
+			total_metas = total_metas + cantidad_meta_m
+			#~ print "cant. meta"+str(i+1)+": "+str(cantidad_meta_m)
+		#~ print "Total metas: "+str(total_metas)+"\n"
+		i = i + 1
+		
+	#Segmento que obtiene los montos directamente de la vista
+	j = 0
+	for mt in metas:
+		#~ print "Registro meta"+str(j+1)+": "+str(mt)
+		#~ print "Datos meta"+str(j+1)+": "+str(mt[2])
+		if not mt[2]:
+			#~ print "0.0"
+			cantidad_meta_v = 0
+			total_metas = total_metas + cantidad_meta_v
+		else:
+			#~ print mt[2]['total_meta']
+			cantidad_meta_v = mt[2]['total_meta']
+			total_metas = total_metas + cantidad_meta_v
+			
+		j = j + 1
+	
+	values.update({
+		'total_metas' : total_metas,
+		'costo_proyecto' : total_metas,
+	})
+	
+	return {'value':values}
+					
+				
+    #~ Función para el cálculo del monto total de las imputaciones presupuestarias________________________________________________________________________________
+    def total_imputaciones(self, cr, uid, ids, imputaciones, context=None):
+			
+	values = {}
+	
+	cantidad_imp_m = 0
+	
+	cantidad_imp_v = 0
+	
+	total_imputaciones = 0
+
+	browse_id = self.browse(cr, uid, ids, context=context)
+	
+	#Segmento que obtiene los montos directamente del modelo
+	i = 0
+	for proyecto in browse_id:
+		i = 0
+		for imputacion in proyecto.imputacion_presu:
+			cantidad_imp_m = imputacion.total_impu
+			total_imputaciones = total_imputaciones + cantidad_imp_m
+			#~ print "cant. meta"+str(i+1)+": "+str(cantidad_imp_m)
+		#~ print "Total metas: "+str(total_metas)+"\n"
+		i = i + 1
+		
+	#Segmento que obtiene los montos directamente de la vista
+	j = 0
+	for imp in imputaciones:
+		#~ print "Registro imputación"+str(j+1)+": "+str(imp)
+		#~ print "Datos imputación"+str(j+1)+": "+str(imp[2])
+		if not imp[2]:
+			#~ print "0.0"
+			cantidad_imp_v = 0
+			total_imputaciones = total_imputaciones + cantidad_imp_v
+		else:
+			#~ print mt[2]['total_impu']
+			cantidad_imp_v = imp[2]['total_impu']
+			total_imputaciones = total_imputaciones + cantidad_imp_v
+			
+		j = j + 1
+	
+	values.update({
+		'total_imputaciones' : total_imputaciones,
+	})
+	
+	return {'value':values}
+				
+				
+    #~ Función para el cálculo de la cantidad total de acciones________________________________________________________________________________
+    def total_acciones(self, cr, uid, ids, acciones, context=None):
+			
+	values = {}
+	
+	cantidad_acc_m = 0
+	
+	cantidad_acc_v = 0
+	
+	total_acciones = 0
+
+	browse_id = self.browse(cr, uid, ids, context=context)
+	
+	#Segmento que obtiene los montos directamente del modelo
+	i = 0
+	for proyecto in browse_id:
+		i = 0
+		for accion in proyecto.acciones_especificas:
+			cantidad_acc_m = accion.total
+			total_acciones = total_acciones + cantidad_acc_m
+			#~ print "cant. acción"+str(i+1)+": "+str(cantidad_acc_m)
+		#~ print "Total acciones: "+str(total_acciones)+"\n"
+		i = i + 1
+		
+	#Segmento que obtiene los montos directamente de la vista
+	j = 0
+	for acc in acciones:
+		#~ print "Registro acción"+str(j+1)+": "+str(acc)
+		#~ print "Datos acción"+str(j+1)+": "+str(acc[2])
+		if not acc[2]:
+			#~ print "0.0"
+			cantidad_acc_v = 0
+			total_acciones = total_acciones + cantidad_acc_v
+		else:
+			#~ print acc[2]['total']
+			cantidad_acc_v = acc[2]['total']
+			total_acciones = total_acciones + cantidad_acc_v
+			
+		j = j + 1
+	
+	values.update({
+		'total_acciones' : total_acciones,
+	})
+	
+	return {'value':values}
+

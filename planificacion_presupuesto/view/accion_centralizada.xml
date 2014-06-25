@@ -9,6 +9,7 @@
 		    <field name="res_model">accion.centralizada</field>
 		    <field name="view_type">form</field>
 		    <field name="view_mode">tree,form</field>
+		    <field name="domain">[('user_register','=',uid)]</field>
 		</record> 
 
 <!--Tree Acciones para Planificacion y Presupuesto-->
@@ -33,6 +34,10 @@
 			<field name="model">accion.centralizada</field>
 			<field name="arch" type="xml">
 			<form string="Dirección de Planificación, Presupuesto y Control de Gestión" version="7.0">
+				<header>
+					<button name="reporte_acciones" type="object" string="Exportar Acción" class="oe_highlight" />
+				</header>
+				<separator/>
 				<group>
 				    <group>
 					<field name="c_solicitud" class="oe_inline"/>
@@ -48,7 +53,7 @@
 					<table>
 						<tr style="width:1000px">
 						    <td style="width:200px">
-							1.1. Organismo/Ente/empresa:
+							1.1. Organismo/Ente/Empresa:
 						    </td>
 						    <td style="width: 300px">
 							<field name="organismo" on_change="on_change_ente(organismo)" style="width: 90%%"/>
@@ -90,8 +95,8 @@
 						</tr>
 					</table>
 				</page>
-				<page string="Política">
-					<separator string="2. Política presupuestaría" />		    
+				<page string="Política y Acción">
+					<separator string="2. Política Presupuestaría" />		    
 					<table>
 						<tr style="width:600px">
 						    <td style="width:600px">
@@ -99,22 +104,14 @@
 						    </td>
 						</tr>
 					</table>
-				</page>
-				<page string="Acción">
 					<separator string="3. Acción Centralizada" />		    
 					<table>
-						<tr style="width:1000px">
+						<tr style="width:600px">
 						    <td style="width:200px">
 							3.1. Nombre de la Acción Centralizada:
 						    </td>
-						    <td style="width: 300px">
-							<field name="n_accion_centra" style="width: 90%%"/>
-						    </td>
-						    <td style="width:200px">
-							3.5. Cargo:
-						    </td>
-						    <td style="width: 300px">
-							<field name="cargo_acc" style="width: 90%%"/>
+						    <td style="width: 400px">
+							<field name="n_accion_centra" on_change="on_change_acciones_especificas(n_accion_centra)" style="width: 85%%"/>
 						    </td>
 						</tr>
 						<tr>
@@ -122,84 +119,98 @@
 							3.2. Nombre de la Acción Específica:
 						    </td>
 						    <td>
+						    </td>
+						</tr>
+						<tr>			
+						    <td colspan="3">
 							<field name="n_accion_espe" style="width: 90%%"/>
-						    </td>
-						    <td>
-							3.6. C.I.:
-						    </td>
-						    <td>
-							<field name="cedula_acc" style="width: 30%%"/>
-						    </td>
-						</tr>
-						<tr>
-						    <td>
-							3.3. Unidad Ejecutora:
-						    </td>
-						    <td>
-							<field name="unidad" style="width: 90%%"/>
-						    </td>
-						    <td>
-							3.7. Correo Electrónico:
-						    </td>
-						    <td>
-							<field name="correo_acc" style="width: 90%%"/>
-						    </td>
-						</tr>
-						<tr>
-						    <td>
-							3.4. Responsable de la Unidad Ejecutora:
-						    </td>
-						    <td >
-							<field name="responsable" style="width: 90%%"/>
-						    </td>
-						    <td>
-							3.8. Teléfono:
-						    </td>
-						    <td>
-							<field name="telefono_acc" style="width: 40%%"/>
 						    </td>
 						</tr>
 					</table>
+					<div>
+						<button name="vincular_partida" type="object" string="Cargar Partidas" class="oe_highlight" />
+					</div>
 				</page>
+				<!--<page string="Acción">
+					
+				</page>-->
 				<page string="Actividades específicas" >
 					<separator string="4.1. Distribución de las Actividades" />
 					<field name="distribucion_actividades">
 						<tree string="Acciones Especificas" editable="bottom">
 							<field name="actividades" />
 							<field name="unidad_medida" />
-							<field name="cantidad"  />
 							<field name="medio_verifi" />
+							<field name="cantidad"  />
 							<field name="indicadores_act" />
 						</tree>
 					</field>
 				</page>
 				<page string="Distribución trimestral" >
 					<separator string="4.2. Distribución trimestral de las Actividades" />
-					<field name="actividades_trimestrales">
+					<button name="carga_actividades" type="object" string="Cargar actividades"/>
+					<field name="actividades_trimestrales" on_change="total_actividades(actividades_trimestrales)">
 						<tree string="Acciones Especificas" editable="bottom">
 							<field name="actividades" />
-							<field name="trim_1" />
-							<field name="trim_2"  />
-							<field name="trim_3" />
-							<field name="trim_4" />
-							<field name="total_trim" />
+							<field name="trim_1" on_change="suma_trimestres(trim_1, trim_2, trim_3, trim_4)" sum="Total Actividades Trimestre I"/>
+							<field name="trim_2" on_change="suma_trimestres(trim_1, trim_2, trim_3, trim_4)" sum="Total Actividades Trimestre II"/>
+							<field name="trim_3" on_change="suma_trimestres(trim_1, trim_2, trim_3, trim_4)" sum="Total Actividades Trimestre III"/>
+							<field name="trim_4" on_change="suma_trimestres(trim_1, trim_2, trim_3, trim_4)" sum="Total Actividades Trimestre IV"/>
+							<field name="total_trim" sum="Total Actividades"/>
 						</tree>
 					</field>
+					<table align="right">
+						<tr>
+							<td>
+								<label string="Cant. total"/>
+								<field name="total_actividades" nolabel="0"/>
+							</td>
+						</tr>
+					</table>
 				</page>
 				<page string="Metas especificas" >
-					<separator string="5.1. Distribución trimestral" />
-					<field name="meta_acc_esp_trim">
+					<separator string="5.1. Distribución trimestral financiera" />
+					<field name="meta_acc_esp_trim" on_change="total_metas(meta_acc_esp_trim)">
 						<tree string="Acciones Especificas" editable="bottom">
 							<field name="actividades" />
-							<field name="trim_1" />
-							<field name="trim_2"  />
-							<field name="trim_3" />
-							<field name="trim_4" />
-							<field name="total_trim" />
+							<field name="trim_1" on_change="suma_trimestres(trim_1, trim_2, trim_3, trim_4)" sum="Total Metas Trimestre I"/>
+							<field name="trim_2" on_change="suma_trimestres(trim_1, trim_2, trim_3, trim_4)" sum="Total Metas Trimestre II"/>
+							<field name="trim_3" on_change="suma_trimestres(trim_1, trim_2, trim_3, trim_4)" sum="Total Metas Trimestre III"/>
+							<field name="trim_4" on_change="suma_trimestres(trim_1, trim_2, trim_3, trim_4)" sum="Total Metas Trimestre IV"/>
+							<field name="total_trim" sum="Total Metas"/>
 						</tree>
 					</field>
+					<table align="right">
+						<tr>
+							<td>
+								<label string="Cant. total"/>
+								<field name="total_metas" nolabel="0"/>
+							</td>
+						</tr>
+					</table>
 				</page>
-
+				<page string="Imputación" >
+					<separator string="6. Imputación presupuestaria" />
+					<field name="imputacion_acciones" on_change="total_imputaciones(imputacion_acciones)">
+					    <tree string="Imputacion Acciones" editable="bottom">
+						    <field name="codigo"  /> 
+						    <field name="partida_presu" />
+						    <field name="trim_1" on_change="suma_trimestres(trim_1, trim_2, trim_3, trim_4)" sum="Total Imputaciones Trimestre I"/>
+						    <field name="trim_2" on_change="suma_trimestres(trim_1, trim_2, trim_3, trim_4)" sum="Total Imputaciones Trimestre II"/>
+						    <field name="trim_3" on_change="suma_trimestres(trim_1, trim_2, trim_3, trim_4)" sum="Total Imputaciones Trimestre III"/>
+						    <field name="trim_4" on_change="suma_trimestres(trim_1, trim_2, trim_3, trim_4)" sum="Total Imputaciones Trimestre IV"/>
+						    <field name="total_impu" sum="Total Imputaciones"/>
+					    </tree>
+					</field>
+					<table align="right">
+						<tr>
+							<td	>
+								<label string="Cant. total"/>
+								<field name="total_imputaciones" nolabel="0"/>
+							</td>
+						</tr>
+					</table>
+				</page>
 				</notebook>
 				</form>
 			</field>			

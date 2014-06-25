@@ -2,7 +2,7 @@
 <openerp>
     <data>
 
-        <!--Menu Nota de Entrega -->
+        <!--Menu Inventario de Almacen -->
         <record model="ir.actions.act_window" id="inventario_almacen_list_action">
             <field name="name">Inventario de almacen</field>
             <field name="res_model">inventario.almacen</field>
@@ -13,37 +13,57 @@
             </field>
         </record> 
 
-        <!-- Vista Form de Nota de entrega-->
+        <!-- Vista Form de Inventario de Almacen-->
         <record model="ir.ui.view" id="inventario_almacen_form_view">
             <field name="name">inventario almacen form</field>
             <field name="model">inventario.almacen</field>
             <field name="arch" type="xml">
                 <form string="Nota Form" version="7.0">
+                    <header>
+                         <button name="generar_inventario_almacen" type="object" string="Exportar Inventario de Almacen" />
+                    </header>
+
                     <group string="Inventario Almacen">
                         <group>
                             <field name="nombre" placeholder="Inventario Gerencia X Mes Y"/>
                             <field name="usuario_login" class="oe_inline" />
-                            <field name="ubicacion" placeholder="Gerencia o Unidad a inventariar"/>
+                            
                         </group>
                         <group>
                             <field name="date"/>
-                            <field name="t_materiales" class="oe_inline"/>
+                            <field name="ubicacion" placeholder="Gerencia que solicito el inventario"/>
                         </group>
                     </group>
                     <notebook>
                         <page string="Inventario de Almacen" >
-                            <field name="almacen" nolabel="1">	
-                                <tree string="Inventario de Almacen" editable="bottom">	
-                                    <field name="descripcion"  on_change="on_change_materiales(descripcion)" />
+                            <field name="almacen_m" nolabel="1">	
+                                <tree string="Inventario de Almacen" editable="bottom">
+                                    <field name="gerencia" />
+                                    <field name="descripcion"  on_change="on_change_inventario_materiales(descripcion,gerencia)" />
                                     <field name="cantidad" />
                                     <field name="unidad" />
                                 </tree>
                             </field>
                         </page>
                     </notebook>
-            </form>
-        </field>            
+                </form>
+            </field>            
         </record>
+        <!--  Vista Tree Inventario de Almacen -->	
+        <record model="ir.ui.view" id="inventario_almacen_tree_bva_view">
+                <field name="name">inventario.almacen.tree.bva</field>
+                <field name="model">inventario.almacen</field>
+                <field name="arch" type="xml">
+                        <tree string="Inventario de Materiales" >
+                                <field name="nombre" />
+                                <field name="date"/>
+                                <field name="usuario_login" />
+                        </tree>				 
+                </field>
+        </record>
+        
+
+        
          <menuitem name="Inventario Almacen" action="inventario_almacen_list_action" id="menu_inventario_almacen" parent="stock.menu_stock_inventory_control"/>
         
     </data>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <openerp>
+        <data>
+            <!-- ###############################################################
+                 # Listado de Sectores de loa Organos / Entes                  #
+                 #                                                             #
+                 ############################################################### -->
+
+            <!-- ###########  ##### -->
+            <record id="usuario01" model="res.users">
+                <field name="name">Juan Peña</field>
+                <field name="login">jpeña</field>
+                <field name="password">12345678</field>
+                <field name="active">TRUE</field>
+                <field name="company_id">1</field>
+                <field name="menu_id">1</field>
+                <field name="notification_email_send">all</field>
+            </record>
+            <!--<record id="usuario02" model="res.user">
+                <field name="name"></field>
+                <field name="login"></field>
+            </record>
+            <record id="usuario03" model="res.user">
+                <field name="name">03</field>
+                <field name="login">Agrícola</field>
+            </record>
+            <record id="usuario04" model="res.user">
+                <field name="name">04</field>
+                <field name="login">Energía, Minas y Petróleo</field>
+            </record>
+            <record id="usuario05" model="res.user">
+                <field name="name">05</field>
+                <field name="login">Industria y Comercio</field>
+            </record>
+            <record id="usuario06" model="res.user">
+                <field name="name">06</field>
+                <field name="login">Turismo y Recreación</field>
+            </record>
+           <record id="usuario07" model="res.user">
+                <field name="name">07</field>
+                <field name="login">Transporte y Comunicación</field>
+            </record>
+           <record id="usuario08" model="res.user">
+                <field name="name">08</field>
+                <field name="login">Educación</field>
+            </record>
+           <record id="usuario09" model="res.user">
+                <field name="name">09</field>
+                <field name="login">Cultura y Comunicación</field>
+            </record>
+            <record id="usuario10" model="res.user">
+                <field name="name">10</field>
+                <field name="login">Ciencia y Tecnología</field>
+            </record>
+            <record id="usuario11" model="res.user">
+                <field name="name">11</field>
+                <field name="login">Desarrollo Urbano, Vivienda y Servicios Conexos</field>
+            </record>
+            <record id="usuario12" model="res.user">
+                <field name="name">12</field>
+                <field name="login">Salud</field>
+            </record>
+            <record id="usuario13" model="res.user">
+                <field name="name">13</field>
+                <field name="login">Desarrollo Social y Participación</field>
+            </record>
+            <record id="usuario14" model="res.user">
+                <field name="name">14</field>
+                <field name="login">Seguridad Salud</field>
+            </record>
+            <record id="usuario15" model="res.user">
+                <field name="name">15</field>
+                <field name="login">Gastos No Clasificados</field>
+            </record>
+            <record id="usuario16" model="res.user">
+                <field name="name">16</field>
+                <field name="login">DESCONOCIDO</field>
+            </record>-->
+        </data>
+    </openerp>

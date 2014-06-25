@@ -61,7 +61,7 @@
 <!--Registro Lineas estrategicas de Accion -->
 
 		<record model="ir.actions.act_window" id="lineas_estrategicas_accion_list_action">
-		    <field name="name">Lineas estrategicas de Accion </field>
+		    <field name="name">Líneas estratégicas de Acción </field>
 		    <field name="res_model">lineas.estrategicas</field>
 		    <field name="view_type">form</field>
 		    <field name="view_mode">tree,form</field>
@@ -111,7 +111,7 @@
 <!--Registro de linea_estrategica_objetivos_escpeficos -->
 
 		<record model="ir.actions.act_window" id="linea_estrategica_objetivos_escpeficos_list_action">
-		    <field name="name">Línea estrategica objetivos escpeficos </field>
+		    <field name="name">Línea estratégica objetivos específicos </field>
 		    <field name="res_model">lineas.objetivos.escpeficos</field>
 		    <field name="view_type">form</field>
 		    <field name="view_mode">tree,form</field>
@@ -126,6 +126,7 @@
 				<tree string="Objetivos Especificos">
 					<field name="obj_especificos" />
 					<field name="lineas_estrategicas" />
+					<field name="plan_gobierno" />
 				</tree>
 			</field>			
 		</record>

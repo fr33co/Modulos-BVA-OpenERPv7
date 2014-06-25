@@ -26,7 +26,12 @@
 						</div>
 					    </div>
 	 				</xpath>
-
+					<group name="status" position="before" version="7.0">
+						<group>
+							<field name="ubicacion" class="oe_inline" />
+						</group>
+						<separator/>
+					</group>
 					<xpath expr="///page[@string='Information']" position="replace">
 						<page string="Información">
 							<group>
@@ -46,12 +51,13 @@
 
 							<group colspan="3" col="3">
 								<group string="Información del Bien" colspan="1">
-									<field name="codigo" class="oe_inline" on_change="on_change_codigo(codigo)" placeholder="Código del Bien"/>
-									<field name="numero" attrs="{'readonly':[('codigo','=','No se codifica')]}" class="oe_inline"/>
-									<field name="estado" class="oe_inline" on_change="on_change_identificacion(codigo,numero,name,nombre_des, serial)" placeholder="Estado del Bien"/>
-									<field name="incorporacion" class="oe_inline" />
+									<field name="codigo" class="oe_inline" on_change="on_change_codigo(codigo,numero,name,nombre_des, serial)" placeholder="Código del Bien"/>
+									<field name="numero" on_change="on_change_identificacion_numero(codigo,numero,name,nombre_des, serial)" attrs="{'readonly':[('codigo','=','No se codifica')]}" class="oe_inline"/>
+									<field name="estado" class="oe_inline"  placeholder="Estado del Bien" on_change="on_change_identificacion(estado,codigo,numero,name,nombre_des, serial)"/>
+									<!--<field name="incorporacion" class="oe_inline" />-->
+									
 									<field name="type" class="oe_inline" invisible="1"/>
-									<!-- on_change="on_change_identificacion(name,numero,codigo,serial)" -->
+									
 								</group>
 								<group colspan="1" string="Valor">
 									<field name="v_total" />
@@ -116,6 +122,17 @@
 					<field name="v_unitario" />
 					<field name="v_total" />
 				</field>
+			</field>
+		</record>
+		
+		<record id="wizard_modificar_stock_view" model="ir.ui.view">
+			<field name="name">stock.change.product.qty.bva.form</field>
+			<field name="model">stock.change.product.qty</field>
+			<field name="inherit_id" ref="stock.view_change_product_quantity" />
+			<field name="arch" type="xml">
+				<button name="change_product_qty" string="_Apply" position="replace">
+					<button name="cambiar_producto" string="Prueba" type="object" class="oe_highlight"/>
+				</button>
 			</field>
 		</record>
    	</data>

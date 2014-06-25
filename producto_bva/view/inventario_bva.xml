@@ -6,19 +6,30 @@
 			<field name="model">stock.inventory</field>
 			<field name="inherit_id" ref="stock.view_inventory_form" />
 			<field name="arch" type="xml" >
+				<button name="action_confirm" position="after">
+					<button name="generate_inventario" string="Exportar Reporte de Inventario"
+						attrs="{'invisible': [('state','in',['draft','confirm'])]}" type="object" class="oe_highlight" />
+				</button>
+				
 				<field name="name" position="after">
-					<field name="usuario_login"/>
+					<field name="ubicacion"/>
+					<field name="fecha_rep" class="oe_inline"/>
+					<field name="servicio" class="oe_inline"/>
+					<field name="direccion" invisible="1"/>
 				</field>
 				<field name="date" position="after">
-					<button name="generate_inventario" type="object"  string="Prueba"  />
+					<field name="usuario_login"/>
+					<field name="institucion" on_change="on_change_direccion(institucion)"/>
+					<field name="estado" invisible="1"/>
+					<field name="municipio" invisible="1"/>
+					<field name="parroquia" invisible="1"/>
 				</field>
 				<page string="General Information" position="replace">
 					<page string="General Information" position="replace">
 					<field name="inventory_line_id">
 						<tree string="Products" editable="bottom">
 							<field domain="[('usage','=','internal')]" name="location_id" groups="stock.group_locations"/>
-							<field context="{'location':location_id, 'uom':product_uom, 'to_date':parent.date}" name="product_id" on_change="on_change_product_id(location_id,product_id,product_uom,parent.date)"  domain="[('type','&lt;&gt;','service')]"/>
-							<!--<field name="product_id" />-->
+							<field context="{'location':location_id, 'uom':product_uom, 'to_date':parent.date}" name="product_id" on_change="on_change_product_id(location_id,product_id,product_uom,parent.date)"  domain="[('location_id','=',location_id)]"/>
 							<field name="product_qty"/>
 							<field name="product_uom" groups="product.group_uom"/>
 							<field name="prod_lot_id" groups="stock.group_production_lot"/>
@@ -67,9 +78,6 @@
 				<field name="date" position="before">
 					<field name="usuario_login"/>
 				</field>				 
-				<!--<field name="state" position="after">
-					<field name="t_inventario" />
-				</field>-->
 			</field>
 		</record>
 		

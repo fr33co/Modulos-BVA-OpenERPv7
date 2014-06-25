@@ -212,6 +212,6 @@ class Distribucion(osv.Model):
                 # obtengo el valor que necesito de la tabla
                 codigo = brw_partida.codigo
             #actualizo el campo el la vista
-            values.update({'partida' : codigo})
+            values.update({'codigo' : codigo})
 
         return {'value' : values,'warning':mensaje}

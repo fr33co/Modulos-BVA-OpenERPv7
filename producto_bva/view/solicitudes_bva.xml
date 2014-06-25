@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!--Menu solicitudes bva -->
+        <record model="ir.actions.act_window" id="solicitudes_bva_list_action">
+            <field name="name">Solicitudes bva</field>
+            <field name="res_model">solicitudes.bva</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Realizar Solicitudes</p>
+            </field>
+        </record> 
+        <!-- vista Form solicitudes bva -->
+        <record model="ir.ui.view" id="solicitudes_form_bva_view">
+            <field name="name">solicitudes.form.bva</field>
+            <field name="model">solicitudes.bva</field>
+            <field name="arch" type="xml">
+                <form string="Nota Form" version="7.0">
+                    <header>
+                        <!--  <button name="action_confirmar" type="object" string="Confirmar"
+                         status="confirmar" class="oe_highlight" confirm="¿Esta usted seguro de cambiar el ESTADO de la solicitud a Confirmar!?"/> -->
+                         <button name="generar_solicitud" type="object" string="Generar Reporte" />
+                         <!-- <field name="generar" widget="statusbar"/> -->
+                        <!-- attrs="{'invisible':[('generar','==','confirmado')]}"
+                        attrs="{'visible':[('generar','==', confirmado)]}" -->
+                    </header>
+                    <field name="id" invisible="1"/>
+                    <group col="3" colspan="3" string="Solicitudes de Bienes y Materiales">
+                        <group string="Información">
+                            <field name="nombre" default_focus="1" />
+                            <field name="area" />
+                            <!-- <field name="movimiento"/> -->
+                        </group>
+                        <group string="Tipo de Material">
+                            <field name="limpieza" />
+                            <field name="s_generales" />
+                            <field name="oficina_papeleria" />
+                            <field name="tecnologico" />
+                            <field name="otros" />
+                        </group>
+                         <group string="Datos">
+                            <field name="fecha" />
+                            <field name="correlativo" />
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Materiales">             
+                            <field name="almacen" nolabel="1" >
+                                <tree string="Materiales" editable="bottom">
+                                    <field name="descripcion"  />
+                                    <field name="cantidad" /> 
+                                </tree>
+                            </field>
+                        </group>
+                    </group>
+                </form>
+            </field>		
+        </record>
+
+        <!--Vista tree Solicitud -->
+
+        <record model="ir.ui.view" id="solicitud_materiales_tree_view">
+            <field name="name">Solicitud de Materiales</field>
+            <field name="model">solicitudes.bva</field>
+            <field name="arch" type="xml">
+                <tree string="Solicitud de Materiales">
+                    <field name="correlativo" />
+                    <field name="nombre" />
+                    <field name="area" />
+                    <field name="fecha" />
+                    <field name="limpieza" invisible="1"/>
+                    <field name="s_generales" invisible="1" />
+                    <field name="oficina_papeleria" invisible="1" />
+                    <field name="tecnologico" invisible="1"/>
+                    <field name="otros" invisible="1" />
+                </tree>
+            </field>            
+        </record>
+
+        <!-- Filtro de solicitudes de soporte (por fechas, cod de solicitud y nombre del representante) -->
+        <record model="ir.ui.view" id="buscar_solicitudes_materiales_id">
+            <field name="name">Solicitud</field>
+            <field name="model">solicitudes.bva</field>
+            <field name="arch" type="xml">      
+                <search string="Busqueda Solicitudes de Soporte Canaimas">
+                    <filter name="solicitudes" domain="[('correlativo','=', uid)]" string="Solicitudes" icon="terp-partner" />
+                     <field name="correlativo" />
+                    <field name="nombre" />
+                    <field name="area" />
+                    <field name="fecha" />
+                    <field name="limpieza" invisible="1"/>
+                    <field name="s_generales" invisible="1" />
+                    <field name="oficina_papeleria" invisible="1" />
+                    <field name="tecnologico" invisible="1"/>
+                    <field name="otros" invisible="1" />
+                </search>
+            </field>            
+        </record>
+        <menuitem id="solicitudes_bva_menu" name="Realizar Solicitud" parent="nota_menu" action="solicitudes_bva_list_action" />
+    </data>
+</openerp>

@@ -38,7 +38,10 @@
 	 				</xpath>
 					<xpath expr="////field[@name='date']" position="after">
 						<field name="recibido"/>
-						<field name="nota"/>
+						<field name="fecha" invisible="1"/>
+						<button name="generar_movimiento" string="Exportar Movimiento"
+						 type="object" class="oe_highlight" />
+
 						<field name="f_correlativo" invisible="1"/>
 	 				</xpath>
 	 			</data>
@@ -46,3 +49,4 @@
 		</record>
 	</data>
 </openerp>
+

@@ -148,6 +148,7 @@ class reporte_documentos(osv.osv):
         'store_fname': fields.char('Nombre del archivo almacenado', size=256),
         'db_datas': fields.binary('Data de base de datos'),
         'file_size': fields.integer('Tamaño del archivo'),
+        'tipo_reporte': fields.char('Tipo de reporte', size=256),
     }
 
     _defaults = {

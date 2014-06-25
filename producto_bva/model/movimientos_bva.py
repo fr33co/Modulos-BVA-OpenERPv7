@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*-
+import class_pdf
 import time
+import base64
+import random
+import unicodedata
+from time import gmtime, strftime
 from openerp.osv import osv, fields
 from datetime import datetime, timedelta
 
@@ -30,27 +35,6 @@ class movimientos_bva(osv.Model):
 			last_id      = str_number.rjust(4,'0')
 			codigo      = last_id
 		return codigo
-
-	_columns = {
-		'enviado' : fields.char(string="Responsable", size=50, required=False),
-		'recibido' : fields.char(string="Responsable", size=50, required=False),
-		'vigilante' : fields.char(string="Vigilante de Guardia", size=50, required=False),
-		'g' : fields.char(string="G", required=False),
-		'sg' : fields.char(string="S/G", required=False),
-		's' : fields.char(string="S", required=False),
-		'bva' : fields.char(string="N de Identificacion"),
-		'estado' : fields.char(string="Status", required=False),
-		'v_total' : fields.char(string="Valor Unitario Bs.", required=False),
-		'nota' : fields.text(string="Nota", required=False),
-		'correlativo' : fields.char(string="Correlativo", required=False),
-		'justificacion' : fields.char(string="Justificación", required=False),
-		'f_correlativo': fields.char('Fecha', required=False),
-		'tipo_envio' : fields.selection((('Interno','Interno'), ('Externo','Externo')),'Tipo de Envio', required=False),
-	}
-	_defaults = {
-		'f_correlativo': lambda *a: time.strftime("%Y"),
-		'correlativo' : _get_id_movimientos,
-	}
 	
 	def onchange_product_id(self, cr, uid, ids, prod_id=False, loc_id=False, loc_dest_id=False, partner_id=False):
 		""" On change of product id, if finds UoM, UoS, quantity and UoS quantity.
@@ -98,3 +82,209 @@ class movimientos_bva(osv.Model):
 		if loc_dest_id:
 		    result['location_dest_id'] = loc_dest_id
 		return {'value': result}
+	
+	def format_fecha(self, fecha):
+		date = fecha.split("-")
+		nueva_fecha = date[2]+"-"+date[1]+"-"+date[0]
+		return nueva_fecha
+	
+	def generar_movimiento(self, cr, uid, ids, context=None): # Generacion de inventario
+		# Instancia de la clase heredada L es horizontal y P es vertical
+		
+		pdf=class_pdf.PDF5(orientation='P',unit='mm',format='letter' ) #HORIENTACION DE LA PAGINA
+		
+		#pdf.set_title(title)
+		pdf.set_author('Marcel Arcuri')
+		pdf.alias_nb_pages() # LLAMADA DE PAGINACION
+		pdf.add_page() # AÑADE UNA NUEVA PAGINACION
+		#pdf.set_font('Times','',10) # TAMANO DE LA FUENTE
+		pdf.set_font('Arial','B',10)
+		pdf.set_fill_color(157,188,201) # COLOR DE BOLDE DE LA CELDA
+		pdf.set_text_color(24,29,31) # COLOR DEL TEXTO
+		#pdf.set_margins(8,10,10) # MARGENE DEL DOCUMENTO
+		#pdf.ln(20) # Saldo de linea
+		# 10 y 50 eje x y y 200 dimencion
+		#pdf.line(10, 40, 200, 40) Linea
+		
+		
+		move = self.browse(cr, uid, ids, context=context)
+		pdf.ln(5)
+		for x in move:
+			t_mov = str(x['tipo_envio'])
+			dia= self.format_fecha(x.fecha)
+			codigo = str(x['correlativo'])+"-"+str(x['f_correlativo'])
+			just = x.justificacion.encode("UTF-8").decode("UTF-8")
+			#nota = x.nota.encode("UTF-8").decode("UTF-8")
+			descripcion = x.name.encode("UTF-8").decode("UTF-8")
+			origen = x.location_id.name.encode("UTF-8").decode("UTF-8")
+			destino = x.location_dest_id.name.encode("UTF-8").decode("UTF-8")
+			env = x.enviado.encode("UTF-8").decode("UTF-8")
+			rec = x.recibido.encode("UTF-8").decode("UTF-8")
+			vig = x.vigilante.encode("UTF-8").decode("UTF-8")
+			cantidad = int(x['product_qty'])
+			id_pro = x.product_id.id
+			ubic_f = x.location_dest_id.id
+			fecha = x.fecha
+			
+			pdf.ln(5)
+			pdf.set_fill_color(255,255,255)
+			pdf.set_font('Arial','B',12)
+			pdf.cell(55,6,"",'',0,'L',1)
+			pdf.cell(100,6,"CONTROL DE TRASLADO DE BIENES MUEBLES".decode("UTF-8"),'',1,'L',1)
+			pdf.ln(5)
+			
+			pdf.set_font('Arial','B',10)
+			pdf.cell(5,5,"",'',0,'C',1)
+			pdf.cell(92,5,"Tipo de Movimiento: ",'LTBR',0,'L',1)
+			pdf.cell(93,5,"Fecha: "+dia ,'LTBR',1,'L',1)
+			pdf.cell(5,5,"",'',0,'L',1)
+			pdf.cell(92,5,t_mov,'LTBR',0,'L',1)
+			pdf.cell(93,5,"Correlativo: "+codigo,'LTBR',1,'L',1)
+			pdf.ln(5)
+			
+			pdf.set_font('Arial','B',10)
+			pdf.cell(5,5,"",'',0,'L',1)
+			pdf.cell(92,5,"Lugar de Origen: "+origen,'LTBR',0,'L',1)
+			pdf.cell(93,5,"Nombre Responsable: "+env,'LTBR',1,'L',1)
+			pdf.cell(5,5,"",'',0,'L',1)
+			pdf.cell(92,5,"Lugar de Destino: "+destino,'LTBR',0,'L',1)
+			pdf.cell(93,5,"Nombre Responsable: "+rec,'LTBR',1,'L',1)
+			
+			
+			pdf.set_font('Arial','B',10)
+			pdf.cell(5,5,"",'',0,'L',1)
+			pdf.set_fill_color(191,191,191)
+			pdf.cell(185,5,"Justificación".decode("UTF-8"),'LTBR',1,'C',1)
+			
+			pdf.set_fill_color(255,255,255)
+			pdf.set_font('Arial','',10)
+			pdf.cell(5,5,"",'',0,'L',1)
+			pdf.cell(185,5,just,'LTBR',1,'C',1)
+			
+			
+			pdf.set_y(81)
+			pdf.cell(5,5,"",'',0,'L',1)
+			pdf.set_fill_color(191,191,191)
+			pdf.set_font('Arial','B',8)
+			pdf.cell(24,5,"Clasificacion",'LTBR',1,'C',1)
+			pdf.set_fill_color(255,255,255)
+			pdf.cell(5,5,"",'',0,'L',1)
+			pdf.set_fill_color(191,191,191)
+			pdf.cell(8,5,"G",'LTBR',0,'C',1)
+			pdf.cell(8,5,"S/G",'LTBR',0,'C',1)
+			pdf.cell(8,5,"S",'LTBR',0,'C',1)
+			
+			pdf.set_y(81)
+			pdf.set_x(39)
+			pdf.cell(15,10,"Cantidad",'LTBR',0,'C',1)
+			
+			pdf.set_y(81)
+			pdf.set_x(54)
+			pdf.cell(23,10,"N Identificación".decode("UTF-8"),'LTBR',0,'C',1)
+			
+			pdf.set_y(81)
+			pdf.set_x(77)
+			pdf.cell(13,10,"Estatus",'LTBR',0,'C',1)
+			
+			pdf.set_y(81)
+			pdf.set_x(90)
+			pdf.cell(95,10,"Nombre Y Descripción del Elemento".decode("UTF-8"),'LTBR',0,'C',1)
+			
+			pdf.set_y(81)
+			pdf.set_x(185)
+			pdf.cell(15,10,"Valor Bs.",'LTBR',1,'C',1)
+			
+			pdf.set_font('Arial','',8)
+			pdf.set_fill_color(255,255,255)
+			pdf.cell(5,5,"",'',0,'L',1)
+			pdf.cell(8,6,x.s,'LTBR',0,'C',1)
+			pdf.cell(8,6,x.sg,'LTBR',0,'C',1)
+			pdf.cell(8,6,x.g,'LTBR',0,'C',1)
+			pdf.cell(15,6,str(cantidad),'LTBR',0,'C',1)
+			pdf.cell(23,6,x.bva,'LTBR',0,'C',1)
+			pdf.cell(13,6,x.estado,'LTBR',0,'C',1)
+			pdf.set_font('Arial','',7)
+			pdf.cell(95,6,descripcion,'LTBR',0,'C',1)
+			pdf.set_font('Arial','',8)
+			pdf.cell(15,6,str(x['v_total']),'LTBR',1,'C',1)
+			
+			
+			pdf.set_font('Arial','B',8)
+			pdf.cell(5,5,"",'',0,'L',1)
+			pdf.set_fill_color(191,191,191)
+			pdf.cell(39,6,"Entregado por",'LTBR',0,'C',1)
+			pdf.cell(36,6,"Recibido por ",'LTBR',0,'C',1)
+			pdf.cell(46,6,"Vigilante de Guardia",'LTBR',0,'C',1)
+			pdf.cell(64,6,"Unidad de Bienes",'LTBR',1,'C',1)
+			
+			pdf.set_fill_color(255,255,255)
+			pdf.set_font('Arial','',8)
+			pdf.cell(5,5,"",'',0,'L',1)
+			pdf.cell(39,6,env,'LTR',0,'C',1)
+			pdf.cell(36,6,rec,'LTR',0,'C',1)
+			pdf.cell(46,6,vig,'LTR',0,'C',1)
+			pdf.cell(64,6,"Ana Mendivelso",'LTR',1,'C',1)
+			pdf.cell(5,5,"",'',0,'L',1)
+			pdf.cell(39,6,"",'LBR',0,'C',1)
+			pdf.cell(36,6,"",'LBR',0,'C',1)
+			pdf.cell(46,6,"",'LBR',0,'C',1)
+			pdf.cell(64,6,"Jefe de la unidad de Bienes y Suministros (E)",'LBR',1,'C',1)
+			
+			pdf.set_font('Arial','B',10)
+			pdf.cell(5,5,"",'',0,'L',1)
+			pdf.set_fill_color(191,191,191)
+			pdf.cell(185,5,"Nota".decode("UTF-8"),'LTBR',1,'C',1)
+			
+			pdf.set_font('Arial','',9)
+			pdf.set_fill_color(255,255,255)
+			pdf.cell(5,5,"",'',0,'L',1)
+			pdf.cell(185,5,"SE HACE RESPONSABLE QUIEN RECIBA LOS BIENES, DAR BUEN USO Y MANEJO DE LOS MISMOS.  IGUALMENTE".decode("UTF-8"),'LTR',1,'C',1)
+			pdf.cell(5,5,"",'',0,'L',1)
+			pdf.cell(185,5,"QUIEN ENTREGA, DEBE NOTIFICAR A LA UNIDAD DE BIENES, EN UN PLAZO NO MAYOR A TRES DÍAS HÁBILES,".decode("UTF-8"),'LR',1,'C',1)
+			pdf.cell(5,5,"",'',0,'L',1)
+			pdf.cell(185,5,"ENVIANDO PARA TAL EFECTO COPIA DE ESTE FORMATO.".decode("UTF-8"),'LBR',1,'C',1)
+			
+			cr.execute("UPDATE product_product SET ubicacion=%s WHERE id=%s;", (ubic_f, id_pro))
+		
+		pdf.output('openerp/addons/producto_bva/reporte/movimientos.pdf','F')
+		
+		archivo = open('openerp/addons/producto_bva/reporte/movimientos.pdf')
+		
+		nom = "Movimiento de "+descripcion+" "+fecha+'.pdf' #Nombre del archivo .pdf
+		
+		r_archivo = self.pool.get('reporte.documentos').create(cr, uid, {
+		 	'name' : nom,
+		 	'res_name' : nom,
+		 	'datas' : base64.encodestring(archivo.read()),
+		 	'datas_fname' : nom,
+		 	'res_model' : 'stock.move',
+			'tipo_reporte': "Movimiento de Bien",
+			},context=context)
+		
+		return r_archivo
+		
+		
+	_columns = {
+		'enviado' : fields.char(string="Responsable", size=50, required=False),
+		'recibido' : fields.char(string="Responsable", size=50, required=False),
+		'vigilante' : fields.char(string="Vigilante de Guardia", size=50, required=False),
+		'g' : fields.char(string="G", required=False),
+		'sg' : fields.char(string="S/G", required=False),
+		's' : fields.char(string="S", required=False),
+		'bva' : fields.char(string="N de Identificacion"),
+		'estado' : fields.char(string="Status", required=False),
+		'v_total' : fields.char(string="Valor Unitario Bs.", required=False),
+		'nota' : fields.text(string="Nota", required=False),
+		'correlativo' : fields.char(string="Correlativo", required=False),
+		'justificacion' : fields.char(string="Justificación", required=False),
+		'f_correlativo': fields.char('Fecha', required=False),
+		'fecha': fields.char('Fecha:', readonly=False,  required=False),
+		'tipo_envio' : fields.selection((('Interno','Interno'), ('Externo','Externo')),'Tipo de Envio', required=False),
+	}
+	_defaults = {
+		'f_correlativo': lambda *a: time.strftime("%Y"),
+		'fecha': lambda *a: time.strftime("%d-%m-%Y"),
+		'correlativo' : _get_id_movimientos,
+	}
+	
+	
