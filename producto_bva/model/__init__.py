@@ -28,3 +28,4 @@ import nota_entrega
 import movimientos_bva
 import reportes_menu
 import inventario_almacen
+import solicitudes_bva

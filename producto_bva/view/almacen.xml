@@ -29,21 +29,17 @@
 					</group>
 					
 					<separator/>
-						<notebook>
-							<page string="Registro de Materiales">
-								<group col="4" colspan="4" string="Materiales">
-									<group colspan="2">
-										<field name="descripcion" class="oe_inline" colspan="2"/>
-										<field name="t_materiales" class="oe_inline" colspan="1"/>
-										<field name="unidad" class="oe_inline" colspan="1"/>
-									</group>
-									<group colspan="2">
-										<field name="cantidad" class="oe_inline" />
-										<field name="location_id" class="oe_inline"/>
-									</group>
+					<notebook>
+						<page string="Registro de Materiales">
+							<group col="4" colspan="4" string="Materiales">
+								<group colspan="2">
+									<field name="descripcion" class="oe_inline" colspan="2"/>
+									<field name="t_materiales" class="oe_inline" colspan="1"/>
+									<field name="unidad" class="oe_inline" colspan="1"/>
 								</group>
-							</page>
-						</notebook>
+							</group>
+						</page>
+					</notebook>
 				</form>
 			</field>			
 		</record>

@@ -19,15 +19,22 @@
             <field name="model">nota.entrega</field>
             <field name="arch" type="xml">
                 <form string="Nota Form" version="7.0">
+                    <header>
+                        <button name="generar_nota_entrega" string="Exportar Nota de Entrega"
+                         attrs="{'invisible':[('id','==', False)]}" type="object" class="oe_highlight" />
+                    </header>
+                    <field name="id" invisible="1"/>
                     <group col="3" colspan="3" string="Nota de Entrega">
                         <group>
                             <field name="nombre" default_focus="1" />
                             <field name="area" />
-                            <field name="t_materiales" />
+                            <field name="solicitado" />
+                            <field name="recibido" />
                         </group>
                         <group>
-                            <field name="entregado" />
-                            <field name="recibido" />
+                            <field name="limpieza" />
+                            <field name="oficina" />
+                            <field name="otros" />
                         </group>
                          <group>
                             <field name="fecha" />
@@ -35,17 +42,20 @@
                         </group>
                     </group>
                     <group>
-                        <group string="Materiales">             
-                            <field name="almacen" nolabel="1" >
+                        <group string="Materiales">
+                            <div class="div_scroll_bienes">
+                                <field name="almacen" nolabel="1" >
                                 <tree string="Materiales" editable="bottom">
-                                    <field name="descripcion"  />
-                                    <!-- on_change="on_change_materiales(descripcion)" -->
-                                    <field name="cantidad" /> 
-                                   <!--  <field name="unidad" /> -->
+                                    <field name="descripcion" on_change="on_change_cantidades(descripcion)" />
+                                    <field name="cantidad" on_change="on_change_comparar(cantidad,cantidad_stock)"/>
+                                    <field name="cantidad_stock" />
+                                    <field name="unidad" />
                                 </tree>
-                            </field>
+                            </field>    
+                            </div>
                         </group>
                     </group>
+                    <button string="Cargar" type="object" name="procesar"/>
                 </form>
             </field>            
         </record>
@@ -77,7 +87,7 @@
                 </search>
             </field>            
         </record>
-        <menuitem id="nota_menu" name="Nota de Entrega" parent="stock.menu_stock_root" sequence="5"/>
+        <menuitem id="nota_menu" name="Solicitudes / Notas de Entrega" parent="stock.menu_stock_root" sequence="5"/>
         <menuitem id="nota_entrega_menu" name="Nota de Entrega" parent="nota_menu" action="nota_entrega_list_action" />
     </data>
 </openerp>

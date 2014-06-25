@@ -19,7 +19,7 @@
                             <field name="datas_fname" invisible="1" attrs="{'invisible':[('type','=','url')]}" class="oe_inline oe_right"/>
                             <field name="url" widget="url" attrs="{'invisible':[('type','=','binary')]}"/>
                         </group>
-                        <group string="Archivos de">
+                        <group string="Archivos de" invisible="1">
                             <field name="res_model"/>
                             <field name="res_id"/>
                             <field name="res_name"/>
@@ -30,7 +30,9 @@
                             <div name="creation_div">
                                 <field name="create_uid" readonly="1" class="oe_inline"/> on 
                                 <field name="create_date" readonly="1" class="oe_inline"/>
+
                             </div>
+                            <field name="tipo_reporte"/>
                         </group>
                         <group name="description_group" string="Descripcion" colspan="4">
                             <field name="description" nolabel="1"/>
@@ -43,13 +45,17 @@
         <record id="view_reporte_documentost_tree" model="ir.ui.view">
             <field name="model">reporte.documentos</field>
             <field name="arch" type="xml">
-                <tree string="Archivos">
+                <tree string="Archivos" colors="black:tipo_reporte=='Nota de Entrega';
+                blue:tipo_reporte=='Inventario de Bienes';blue:tipo_reporte=='Inventario de Almacen';
+                green:tipo_reporte=='Movimiento de Bien';green:tipo_reporte=='Solicitudes de Almacen'">    
+                
                     <field name="name"/>
-                    <field name="datas_fname"/>
+                    <field name="datas_fname" invisible="1"/>
                     <field name="type" invisible="1"/>
                     <field name="company_id" groups="base.group_multi_company"/>
                     <field name="create_uid"/>
                     <field name="create_date"/>
+                    <field name="tipo_reporte"/>
                 </tree>
             </field>
         </record>

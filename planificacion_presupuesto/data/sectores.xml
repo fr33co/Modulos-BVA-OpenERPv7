@@ -7,7 +7,7 @@
                  ############################################################### -->
 
             <!-- ###########  ##### -->
-            <record id="sectore01" model="organos.sectores">
+            <record id="sectores01" model="organos.sectores">
                 <field name="codigo">01</field>
                 <field name="sectores">Dircción superior de gobierno</field>
             </record>

@@ -44,7 +44,7 @@
         <record id="view_reportes_presupuesto_tree" model="ir.ui.view">
             <field name="model">reportes.presupuesto</field>
             <field name="arch" type="xml">
-                <tree string="Archivos">
+                <tree string="Archivos" colors="blue:registro=='Proyectos';green:registro=='Accion Centralizada'">
                     <field name="name" invisible="1"/>
                     <field name="datas_fname"/>
                     <field name="type" invisible="1"/>

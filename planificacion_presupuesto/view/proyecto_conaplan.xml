@@ -9,6 +9,7 @@
 	   <field name="res_model">proyecto.conaplan</field>
 	   <field name="view_type">form</field>
 	   <field name="view_mode">tree,form</field>
+	   <field name="domain">[('user_register','=',uid)]</field>
 	    <field name="help" type="html">
 
 	    </field>
@@ -39,6 +40,10 @@
 		<field name="model">proyecto.conaplan</field>
 		<field name="arch" type="xml">
 		<form string="" version="7.0">
+		    <header>
+			<button name="reporte_anteproyecto" type="object" string="Exportar Anteproyecto" class="oe_highlight" />
+		    </header>
+		    <separator/>
 		    <table style="width: 800px;">
 			<tr>
 			    <td style="width: 50px;">
@@ -62,9 +67,20 @@
 			</tr>
 		    </table>
 		    <separator/>
-		    <field name="archivos" />
+		    <table>
+			<tr>
+			    <td style="width: 100px;">
+				Adjuntar Archivo:
+			    </td>
+			</tr>
+			<tr>
+			    <td>
+				<field name="archivos" />
+			    </td>
+			</tr>
+		    </table>
 		    <separator/>
-		    <button name="reporte_anteproyecto" type="object" string="Exportar Anteproyeco" />
+		    <field name="id" invisible="1" />
 		    <notebook style="font-size:11px">
 			<page string="Identificación" >
 			    <separator string="1. Identificación del proponente" />		    
@@ -122,14 +138,14 @@
 					<td style="width:200px">
 					    2.1. Nombre del Proyecto:
 					</td>
-					<td style="width: 200px">
-					    <field name="nombre_pro" style="width: 90%%"/>
+					<td style="width: 200px" >
+					    <field name="nombre_pro" style="width: 315%%" />
 					</td>
 					<td style="width:250px">
-					    Proyecto Nuevo:
+					    
 					</td>
 					<td style="width: 200px">
-					    <field name="proy_nuevo" style="width: 90%%"/>
+					   
 					</td>
 				    </tr>
 				    <tr>
@@ -148,10 +164,10 @@
 				    </tr>
 				    <tr>
 					<td>
-					    2.3. Duración:
+					    Fecha de Inicio:
 					</td>
 					<td>
-					    <field name="duracion" style="width: 90%%"/>
+					    <field name="f_inicio" style="width: 90%%" on_change="duracion_proyecto(f_inicio,f_fin)"/>
 					</td>
 					<td>
 					    2.6. Fuente de Financiamiento:
@@ -162,10 +178,10 @@
 				    </tr>
 				    <tr>
 					<td>
-					    Fecha de Inicio:
+					    Fecha de Finalización:
 					</td>
 					<td>
-					    <field name="f_inicio" style="width: 90%%"/>
+					    <field name="f_fin" style="width: 90%%" on_change="duracion_proyecto(f_inicio,f_fin)"/>
 					</td>
 					<td>
 					    2.7. Indicador General:
@@ -176,10 +192,10 @@
 				    </tr>
 				    <tr>
 					<td>
-					    Fecha de Finalización:
+					    2.3. Duración:
 					</td>
 					<td>
-					    <field name="f_fin" style="width: 90%%"/>
+					    <field name="duracion" style="width: 90%%"/>
 					</td>
 					<td>
 					    2.8. Fórmula del Indicador General:
@@ -237,7 +253,7 @@
 					    4.1. Plan de la Patria
 					</td>
 					<td >
-					    <field name="plan_patria" style="width: 200px;" />
+					    <field name="plan_patria" style="width: 500px;" />
 					</td>
 				    </tr>
 				    <tr>
@@ -253,7 +269,7 @@
 					    4.1.2. Objetivo Nacional:
 					</td>
 					<td>
-					    <field name="obj_nacional"   />
+					    <field name="obj_nacional" domain= "[('objetivo_historico','=',obj_historico)]" />
 					</td>
 				    </tr>
 				    <tr>
@@ -261,7 +277,7 @@
 					    4.1.3. Objetivo Estratégico:
 					</td>
 					<td>
-					    <field name="obj_estrategico"  />
+					    <field name="obj_estrategico" domain= "[('objetivo_nacional','=',obj_nacional)]" />
 					</td>
 				    </tr>
 				    <tr>
@@ -269,7 +285,7 @@
 					    4.1.4. Objetivo General:
 					</td>
 					<td>
-					    <field name="obj_general_plan" />
+					    <field name="obj_general_plan" domain= "[('objetivo_estrategico','=',obj_estrategico)]" />
 					</td>
 				    </tr>
 				</table>
@@ -312,7 +328,7 @@
 				    </tr>
 				    <tr>
 					<td>
-					    4.2.4. Tipo:
+					    4.2.4. Tipo de Inversión:
 					</td>
 					<td>
 					    <field name="tipo" style="width: 90%%"/>
@@ -512,45 +528,70 @@
 			</page>
 			<page string="Acciones" >
 			    <separator string="9. Acciones especificas" />
-			    <field name="acciones_especificas">
+			    <field name="acciones_especificas" on_change="total_acciones(acciones_especificas)">
 				<tree string="Acciones Especificas" editable="bottom">
-					<field name="nombre_accion" />
-					<field name="unidad_medida" />
-					<field name="cantidad"  />
-					<field name="trim_i" />
-					<field name="trim_ii" />
-					<field name="trim_iii" />
-					<field name="trim_iv" />
-					<field name="total" />
+				    <field name="nombre_accion" />
+				    <field name="unidad_medida" />
+				    <field name="medio" />
+				    <field name="trim_i" on_change="suma_trimestres(trim_i,trim_ii,trim_iii,trim_iv)" sum="Total Acciones Trimestre I"/>
+				    <field name="trim_ii" on_change="suma_trimestres(trim_i,trim_ii,trim_iii,trim_iv)" sum="Total Acciones Trimestre II"/>
+				    <field name="trim_iii" on_change="suma_trimestres(trim_i,trim_ii,trim_iii,trim_iv)" sum="Total Acciones Trimestre III"/>
+				    <field name="trim_iv" on_change="suma_trimestres(trim_i,trim_ii,trim_iii,trim_iv)" sum="Total Acciones Trimestre IV"/>
+				    <field name="total" sum="Total Acciones"/>
 				</tree>
 			    </field>
+			    <table align="right">
+				<tr>
+				    <td>
+					<label string="Cant. total"/>
+					<field name="total_acciones" nolabel="0"/>
+				    </td>
+				</tr>
+			    </table>
 			</page>
 			<page string="Metas" >
 			    <separator string="10. Metas financieras" />
-			    <field name="metas_financieras">
+			    <button name="carga_acciones" type="object" string="Cargar acciones"/>
+			    <field name="metas_financieras" on_change="total_metas(metas_financieras)">
 				<tree string="Metas financieras" editable="bottom">
-					<field name="nom_accion_metas" />
-					<field name="trim_1" />
-					<field name="trim_2" />
-					<field name="trim_3" />
-					<field name="trim_4" />
-					<field name="total_meta" />
+				    <field name="nom_accion_metas" />
+				    <field name="trim_1" on_change="suma_trimestres(trim_1,trim_2,trim_3,trim_4)" sum="Total Metas Trimestre I"/>
+				    <field name="trim_2" on_change="suma_trimestres(trim_1,trim_2,trim_3,trim_4)" sum="Total Metas Trimestre II"/>
+				    <field name="trim_3" on_change="suma_trimestres(trim_1,trim_2,trim_3,trim_4)" sum="Total Metas Trimestre III"/>
+				    <field name="trim_4" on_change="suma_trimestres(trim_1,trim_2,trim_3,trim_4)" sum="Total Metas Trimestre IV"/>
+				    <field name="total_meta" sum="Total Metas"/>
 				</tree>
 			    </field>
+			    <table align="right">
+				<tr>
+				    <td>
+					<label string="Cant. total"/>
+					<field name="total_metas" nolabel="0"/>
+				    </td>
+				</tr>
+			    </table>
 			</page>
 			<page string="Imputación" >
-			    <separator string="11. Imputacion presupuestaria" />
-			    <field name="imputacion_presu">
-				<tree string="Imputacion presupuestaria" editable="bottom">
-					<field name="codigo" />
-					<field name="partida_presu" />
-					<field name="trim_1" />
-					<field name="trim_2" />
-					<field name="trim_3" />
-					<field name="trim_4" />
-					<field name="total_impu" />
-				</tree>
-			    </field>
+			<separator string="11. Imputacion presupuestaria" />
+			<field name="imputacion_presu" on_change="total_imputaciones(imputacion_presu)">
+			    <tree string="Imputacion presupuestaria" editable="bottom">
+				<field name="codigo"  /> <!-- on_change="on_change_codigos(codigo)"-->
+				<field name="partida_presu" on_change="on_change_partidas(partida_presu)" />
+				<field name="trim_1" on_change="suma_trimestres(trim_1,trim_2,trim_3,trim_4)" sum="Total Imputaciones Trimestre I"/>
+				<field name="trim_2" on_change="suma_trimestres(trim_1,trim_2,trim_3,trim_4)" sum="Total Imputaciones Trimestre II"/>
+				<field name="trim_3" on_change="suma_trimestres(trim_1,trim_2,trim_3,trim_4)" sum="Total Imputaciones Trimestre III"/>
+				<field name="trim_4" on_change="suma_trimestres(trim_1,trim_2,trim_3,trim_4)" sum="Total Imputaciones Trimestre IV"/>
+				<field name="total_impu" sum="Total Imputaciones"/>
+			    </tree>
+			</field>
+			<table align="right">
+			    <tr>
+				<td>
+				    <label string="Cant. total"/>
+				    <field name="total_imputaciones" nolabel="0"/>
+				</td>
+			    </tr>
+			</table>
 			</page>
 			
 		    </notebook>

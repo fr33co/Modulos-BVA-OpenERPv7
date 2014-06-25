@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <openerp>
+        <data>
+            <record id="group_planificacion_administrador" model="res.groups">
+                <field name="name">Planificación y Presupuesto / Administrador</field>
+            </record>
+            <record id="group_planificacion_usuario" model="res.groups">
+                <field name="name">Planificación y Presupuesto / Usuario</field>
+            </record>
+            <record id="group_planificacion_revision" model="res.groups">
+                <field name="name">Planificación y Presupuesto / Revision</field>
+            </record>
+        </data>
+    </openerp>

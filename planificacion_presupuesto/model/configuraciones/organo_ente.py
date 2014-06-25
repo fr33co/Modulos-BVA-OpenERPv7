@@ -9,22 +9,22 @@ class organos_entes(osv.Model):
 
 	_name = "organos.entes"
 	_rec_name = 'nombre_ente'
-	
+	_order = 'nombre_ente'
 	_columns = {
 		'user_register': fields.many2one('res.users', 'Registrado por:', readonly=True),
 		'f_solicitud': fields.char('Fecha de Elaboración:', readonly=True, required=True),
-		'nombre_ente' : fields.char(string="Nombre de la Acción Específica", required=False),
-		'siglas' : fields.char(string="Unidad de Medida", required=False),
+		'nombre_ente' : fields.char(string="", required=True),
+		'siglas' : fields.char(string="Unidad de Medida", required=True),
 		'correo' : fields.char(string="Cantidad", required=False),
-		'tipo': fields.selection([('1','Órgano / Secretaria'), ('2','Ente / Empresa')], string="Tipo Órgano/Ente"),
-		't_estructura':fields.many2one('tipo.estructura', 'Tipo Estructura', ondelete='cascade', select=False),
+		'tipo': fields.selection([('1','Órgano'), ('2','Ente'), ('3','Empresa'), ('4','Unidad de Apoyo')], string="Tipo de Institución"),
+		'tipo_estructura': fields.selection([('1','Dirección Superior de Gobierno'), ('2','Poder Público'),
+			('3','Ente Descentralizado'), ('4','Desconocido'), ('5','Ente Desconcentrado')], string="Tipo de Estructura"),
+		#'tipo_estructura':fields.many2one('tipo.estructura', 'Tipo de Estructura', ondelete='cascade', select=False),
 		'sector':fields.many2one('organos.sectores', 'Sector', ondelete='cascade', select=False),
-		'c_adscrip' : fields.char(string="Código Adscripción", required=False),
-		'c_act' : fields.char(string="Código Actividad", required=False),
 		'nom_responsable' : fields.char(string="Nombre del Responsable", required=False),
 		'cargo' : fields.char(string="Cargo", required=False),
-		'telefono' : fields.char(string="Teléfono", required=False),
-		'ci' : fields.char(string="C.I.", required=False),
+		'telefono' : fields.char(string="Teléfono", size=11, required=False),
+		'ci' : fields.char(string="C.I.", size=8, required=False),
 		'direccion' : fields.char(string="Dirección", required=False),
 	}
 	_defaults = {

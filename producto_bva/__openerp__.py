@@ -40,6 +40,7 @@
         'view/desincorporaciones.xml',
         'view/nota_entrega.xml',
         'view/movimientos_bva.xml',
+        'view/solicitudes_bva.xml',
         'data/clasificacion_data2.xml',
         'data/ubicaciones_data.xml',
         'data/desincorporaciones_data.xml',
@@ -50,6 +51,7 @@
         'reports/nota_entrega.xml',
         'reports/reporte_mov_bva.xml',
     ],
+    'css': [ 'static/src/css/style.css' ],
     'test': [
       
     ],
