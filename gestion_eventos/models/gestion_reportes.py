@@ -106,12 +106,13 @@ class Gestion_reportes(osv.Model):
 			fec_inicio = gestion.fecha_inicio # CAPTURA DE FECHA DE INICIO DEL EVENTO
 			fec_fin    = gestion.fecha_fin # CAPTURA DE FECHA DE FIN DEL EVENTO
 			user       = gestion.user.login # SE CAPTURA EL USUARIO LOGEADO
+			
 
 		if str(mostrar) == "todos": # CONDICIONAL PARA TODOS LOS REGISTROS
 			cabezera = "Detallado de Eventos"
 			item     = "todos"
 			#print "FILTRO PARA TODOS LOS EVENTOS"
-			cr.execute('SELECT ge.name, mun.name, par.name, g.create_date, g.actividad,g.participantes,g.responsable,g.status,g.direccion FROM gestion_eventos AS g ,gestion_inst_gerencia AS ge, res_country_municipality AS mun, res_country_parish AS par WHERE g.institucion=ge.id AND g.municipio=mun.id AND g.parroquia=par.id')
+			cr.execute('SELECT ge.name, mun.name, par.name, g.create_date, g.actividad,g.participantes,g.responsable,g.status,g.direccion,g.hora_inicio,g.hora_fin,g.inicio,g.fin,g.fecha_inicio,g.fecha_fin FROM gestion_eventos AS g ,gestion_inst_gerencia AS ge, res_country_municipality AS mun, res_country_parish AS par WHERE g.institucion=ge.id AND g.municipio=mun.id AND g.parroquia=par.id')
 
 		elif str(mostrar) == "fechas": # CONDICIONAL PARA TODOS LA BUSQUEDA DE FECHAS FIN / INICIO
 			cabezera = "Detallado de Eventos por Fehas"
@@ -121,7 +122,7 @@ class Gestion_reportes(osv.Model):
 			elif not campo['fecha_fin']:
 					raise osv.except_osv(_("Warning!"), _("Disculpe debe ingresar la Fecha de Fin..."))		
 			else:
-				cr.execute('SELECT ge.name, mun.name, par.name, g.create_date, g.actividad,g.participantes,g.responsable,g.status,g.direccion FROM gestion_eventos AS g ,gestion_inst_gerencia AS ge, res_country_municipality AS mun, res_country_parish AS par WHERE g.institucion=ge.id AND g.municipio=mun.id AND g.parroquia=par.id AND fecha_inicio='"'"+str(fec_inicio)+"'"' AND fecha_fin='"'"+str(fec_fin)+"'"'')
+				cr.execute('SELECT ge.name, mun.name, par.name, g.create_date, g.actividad,g.participantes,g.responsable,g.status,g.direccion,g.hora_inicio,g.hora_fin,g.inicio,g.fin,g.fecha_inicio,g.fecha_fin FROM gestion_eventos AS g ,gestion_inst_gerencia AS ge, res_country_municipality AS mun, res_country_parish AS par WHERE g.institucion=ge.id AND g.municipio=mun.id AND g.parroquia=par.id AND fecha_inicio='"'"+str(fec_inicio)+"'"' AND fecha_fin='"'"+str(fec_fin)+"'"'')
 
 
 		elif str(mostrar) == "desc": # CONDICIONAL PARA LA BUSQUEDA DE LOS PRIMEROS REGISTROS
@@ -130,14 +131,14 @@ class Gestion_reportes(osv.Model):
 			if not campo['cantidad']:
 				raise osv.except_osv(_("Warning!"), _("Disculpe debe ingresar la cantidad de Actividades a mostrar..."))
 			else:
-				cr.execute('SELECT ge.name, mun.name, par.name, g.create_date, g.actividad,g.participantes,g.responsable,g.status,g.direccion FROM gestion_eventos AS g ,gestion_inst_gerencia AS ge, res_country_municipality AS mun, res_country_parish AS par WHERE g.institucion=ge.id AND g.municipio=mun.id AND g.parroquia=par.id ORDER BY status '+str(mostrar)+' LIMIT '+str(cantidad)+'')
+				cr.execute('SELECT ge.name, mun.name, par.name, g.create_date, g.actividad,g.participantes,g.responsable,g.status,g.direccion,g.hora_inicio,g.hora_fin,g.inicio,g.fin,g.fecha_inicio,g.fecha_fin FROM gestion_eventos AS g ,gestion_inst_gerencia AS ge, res_country_municipality AS mun, res_country_parish AS par WHERE g.institucion=ge.id AND g.municipio=mun.id AND g.parroquia=par.id ORDER BY status '+str(mostrar)+' LIMIT '+str(cantidad)+'')
 		elif str(mostrar) == "asc": # CONDICIONAL PARA LA BUSQUEDA DE LOS ULTIMOS REGISTROS
 			cabezera = "Detallado  de Últimos Eventos"
 			item     = "asc"
 			if not campo['cantidad']:
 				raise osv.except_osv(_("Warning!"), _("Disculpe debe ingresar la cantidad de Actividades a mostrar..."))
 			else:
-				cr.execute('SELECT ge.name, mun.name, par.name, g.create_date, g.actividad,g.participantes,g.responsable,g.status,g.direccion FROM gestion_eventos AS g ,gestion_inst_gerencia AS ge, res_country_municipality AS mun, res_country_parish AS par WHERE g.institucion=ge.id AND g.municipio=mun.id AND g.parroquia=par.id ORDER BY status '+str(mostrar)+' LIMIT '+str(cantidad)+'')
+				cr.execute('SELECT ge.name, mun.name, par.name, g.create_date, g.actividad,g.participantes,g.responsable,g.status,g.direccion,g.hora_inicio,g.hora_fin,g.inicio,g.fin,g.fecha_inicio,g.fecha_fin FROM gestion_eventos AS g ,gestion_inst_gerencia AS ge, res_country_municipality AS mun, res_country_parish AS par WHERE g.institucion=ge.id AND g.municipio=mun.id AND g.parroquia=par.id ORDER BY status '+str(mostrar)+' LIMIT '+str(cantidad)+'')
 		
 		pdf = pdf_class.Detallado(orientation='L',unit='mm',format='letter') #HORIENTACION DE LA PAGINA
 		pdf.set_author('ING JESUS LAYA')
@@ -162,6 +163,10 @@ class Gestion_reportes(osv.Model):
 		ws1.write(1, 7, 'ESTATUS',style0)
 		ws1.write(1, 8, 'FECHA',style0)
 		ws1.write(1, 9, 'HORA',style0)
+		ws1.write(1, 10, 'HORA DE INICIO',style0)
+		ws1.write(1, 11, 'HORA DE FINALIZACION',style0)
+		ws1.write(1, 12, 'FECHA DE INICIO',style0)
+		ws1.write(1, 13, 'FECHA DE FINALIZACION',style0)
 		
 		can_1 = 0
 		can_2 = 0
@@ -175,20 +180,38 @@ class Gestion_reportes(osv.Model):
 			
 			#print "NUMERO DE REGISTROS DE GESTION DE EVENTOS: "+str(contador)
 
-			institucion   = detallado[0].encode('UTF-8').decode('UTF-8') # INSTITUCION
-			municipio     = detallado[1].encode('UTF-8').decode('UTF-8') # MUNICIPIO
-			parroquia     = detallado[2].encode('UTF-8').decode('UTF-8') # PARROQUIA
-			actividad     = detallado[4].encode('UTF-8').decode('UTF-8') # ACTIVIDAD
-			participantes = detallado[5].encode('UTF-8').decode('UTF-8') # PARTICIPANTES
-			responsable   = detallado[6].encode('UTF-8').decode('UTF-8') # RESPONSABLE
-			#status        = detallado[7] # STATUS
-			fecha_actual  = detallado[3].split(' ')
-			hora          = detallado[3].split('.')
-			fecha         = format_fecha(fecha_actual[0])
-			horas         = hora[0].split(' ')
-			hora_actual   = horas[1]
-			direccion     = detallado[8].encode('UTF-8').decode('UTF-8')
+			institucion     = detallado[0].encode('UTF-8').decode('UTF-8') # INSTITUCION
+			municipio       = detallado[1].encode('UTF-8').decode('UTF-8') # MUNICIPIO
+			parroquia       = detallado[2].encode('UTF-8').decode('UTF-8') # PARROQUIA
+			actividad       = detallado[4].encode('UTF-8').decode('UTF-8') # ACTIVIDAD
+			participantes   = detallado[5].encode('UTF-8').decode('UTF-8') # PARTICIPANTES
+			responsable     = detallado[6].encode('UTF-8').decode('UTF-8') # RESPONSABLE
+			#status         = detallado[7] # STATUS
+			fecha_actual    = detallado[3].split(' ')
+			hora            = detallado[3].split('.')
+			fecha           = format_fecha(fecha_actual[0])
+			horas           = hora[0].split(' ')
+			hora_actual     = horas[1]
+			direccion       = detallado[8].encode('UTF-8').decode('UTF-8')
+			fecha_de_inicio = detallado[9]
+			fecha_de_fin    = detallado[10]
+			inicio          = detallado[11]
+			fin             = detallado[12]
+			fec_ini         = format_fecha(detallado[13])
+			fec_fi          = format_fecha(detallado[14])
 			
+			if int(inicio) == 1:
+				 ini = "AM"
+			else:
+				ini = "PM"
+				 
+			if int(fin) == 2:
+				 fi = "PM"
+			else:
+				fi = "AM"
+				
+				 
+				
 			if int(detallado[7]) == 1:
 				status = "Pendiente"
 				can_1  += len(detallado[7])
@@ -274,6 +297,11 @@ class Gestion_reportes(osv.Model):
 			ws1.write(x+2, 7, status)
 			ws1.write(x+2, 8, fecha)
 			ws1.write(x+2, 9, hora_actual)
+			ws1.write(x+2, 10, fecha_de_inicio+" "+str(ini))
+			ws1.write(x+2, 11, fecha_de_fin+" "+str(fi))
+			ws1.write(x+2, 12, fec_ini)
+			ws1.write(x+2, 13, fec_fi)
+			
 			x = x + 1 # ACUMULADOR DE LA DATA
 			contador = contador + 1
 			
@@ -326,17 +354,17 @@ class Gestion_reportes(osv.Model):
 		title     = cabezera.upper()+ "("+fecha.upper()+") Usuario ".upper()+str(user).upper()+" "".pdf"
 		title_xls = cabezera.upper()+ "("+fecha.upper()+")Usuario ".upper()+str(user).upper()+".xls"
 		
-		wb.save('openerp/addons/gestion_eventos/reportes/'+title_xls)
-		archivo_xls = open('openerp/addons/gestion_eventos/reportes/'+title_xls)
+		wb.save('/home/administrador/openerp70/modules/gestion_eventos/reportes/'+title_xls)
+		archivo_xls = open('/home/administrador/openerp70/modules/gestion_eventos/reportes/'+title_xls)
 		
-		#wb.save('/home/administrador/openerp70/modules/gestion_eventos/reportes/'+title_xls)
-		#archivo_xls = open('/home/administrador/openerp70/modules/gestion_eventos/reportes/'+title_xls)
+		#~ wb.save('openerp/addons/gestion_eventos/reportes/'+title_xls)
+		#~ archivo_xls = open('openerp/addons/gestion_eventos/reportes/'+title_xls)
 		
-		pdf.output('openerp/addons/gestion_eventos/reportes/'+title,'F')
-		documento = open('openerp/addons/gestion_eventos/reportes/'+title) # Apertura del documento
+		pdf.output('/home/administrador/openerp70/modules/gestion_eventos/reportes/'+title,'F')
+		documento = open('/home/administrador/openerp70/modules/gestion_eventos/reportes/'+title) # Apertura del documento
 		
-		#pdf.output('/home/administrador/openerp70/modules/gestion_eventos/reportes/Gestión de Eventos.pdf','F')
-		#documento = open('/home/administrador/openerp70/modules/gestion_eventos/reportes/'+titulo) # Apertura del documento
+		#~ pdf.output('openerp/addons/gestion_eventos/reportes/'+title,'F')
+		#~ documento = open('openerp/addons/gestion_eventos/reportes/'+title) # Apertura del documento
 		
 		# Guardamos el archivo pdf en gestion.eventos
 		self.pool.get('ir.documento').create(cr, uid, {
