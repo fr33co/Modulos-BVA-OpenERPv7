@@ -138,7 +138,7 @@ class Gestion_eventos(osv.Model):
 		'motivo' : fields.text(string='Motivo', required=False),
 		'rep_event_si' : fields.boolean(string="Si"),
 		'rep_event_no' : fields.boolean(string="No"),
-		'status' : fields.selection([('1','Pendiente'),('2','Realizado'),('3','Postpuesto'),('4','Reprogramado'),('5','Atrasado'),('6','Cancelado')], string="Acción", required=False),
+		'status' : fields.selection([('1','Pendiente'),('2','Realizado'),('3','Pospuesto'),('4','Reprogramado'),('5','Atrasado'),('6','Cancelado')], string="Acción", required=False),
 		'inicio' : fields.selection([('1','AM'),('2','PM')], string="", required=False),
 		'fin' : fields.selection([('1','AM'),('2','PM')], string="", required=False),
 		######################################################################################

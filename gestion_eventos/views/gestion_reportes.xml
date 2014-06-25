@@ -14,25 +14,48 @@
                 <field name="model">gestion.reportes</field>
                 <field name="arch" type="xml">
                     <form string="Gestión de Reportes" version="7.0">
-                        <table>
+                        <table style="width:960px;align:center;">
                             <tr>
-                                <td class="separator" colspan="2">
+                                <td class="separator">
                                     <b>Emisión de Reportes</b>
                                 </td>
                             </tr>
-                            <tr>
-                                <td><b>Cantidad a Mostrar: </b></td>
-                                <td><field name="cantidad"/></td>
-                            </tr>
-                            <tr>
-                                <td><b>Mostrar en Forma: </b></td>
-                                <td><field name="asc_desc"/></td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <button name="gestion_emitir_detallado" type="object" string="Generar Detallado de las Actividades" confirm="¿Esta seguro que desea Generar el Reporte Detallado de todas las Actividades?"/>
-                                </td>
-                            </tr>
+                        </table>
+                        <notebook colspan="4">
+                            <page string="Busqueda por Cantidad / Todos">
+                            <table>
+                                <tr attrs="{'invisible': [('asc_desc', '=', 'todos') ] }">
+                                    <td><b>Cantidad: </b></td>
+                                    <td><field name="cantidad"/></td>
+                                </tr>
+                            </table>
+                            </page>
+                            <page attrs="{'invisible': [('asc_desc', '!=', 'fechas') ] }" string="Busqueda por fecha de Inicio / Fin">
+                                <table>
+                                <!-- BUSQUEDA POR FECHA DE INICIO Y FECHA FIN -->
+                                
+                                <tr>
+                                    <td><b>Fecha Inicio: </b></td>
+                                    <td><field name="fecha_inicio" on_change="search_fec(fecha_inicio,'1')"/></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Fecha Fin: </b></td>
+                                    <td><field name="fecha_fin" on_change="search_fec(fecha_fin,'2')"/></td>
+                                </tr>
+                            </table>
+                            </page>
+                        </notebook>
+                        <table>
+                        <tr>
+                            <td><b>Buscar por: </b></td>
+                            <td><field name="asc_desc"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <button name="gestion_emitir_detallado" type="object" string="Generar Detallado de Eventos" icon="gtk-apply"/>
+                                <field name="user" invisible="1"/>
+                            </td>
+                        </tr>
                         </table>
                     </form>
                         

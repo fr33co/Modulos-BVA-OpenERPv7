@@ -13,9 +13,15 @@ class Detallado(FPDF):
 		self.set_font('Arial','B',15)
 		# ALINEACION DE LA IMAGEN EN LA CABECERA DEL DOCUMENTO
 		# (CAMPO 1 = HORIZONTAL , CAMPO 2 = VERTICAL, CAMPO 3 = DIMENCION DE LA IMAGEN)
-	
-		self.image('openerp/addons/gestion_eventos/img/gob.jpg',5,10,50) # Imagen Superior
-		self.image('openerp/addons/gestion_eventos/img/logo_bva2.jpg',150,15,50) # Imagen Indferior
+		
+		# LOCAL
+		self.image('openerp/addons/gestion_eventos/img/gob.jpg',5,10,50) # Imagen Izquierda
+		self.image('openerp/addons/gestion_eventos/img/logo_bva2.jpg',220,15,50) # Imagen Derecha
+		# self.image('openerp/addons/gestion_eventos/img/footer.jpg',220,15,50) # Imagen Footer
+		
+		# SERVIDOR
+		#self.image('/home/administrador/openerp70/modules/gestion_eventos/img/gob.jpg',5,10,50) # Imagen Superior
+		#self.image('/home/administrador/openerp70/modules/gestion_eventos/img/logo_bva2.jpg',220,15,50) # Imagen Indferior
 		
 		#Colores del marco, fondo y texto
 		self.set_draw_color(0,80,180)
@@ -34,7 +40,7 @@ class Detallado(FPDF):
 		#Color de texto en gris
 		self.set_text_color(128)
 		#Numero de pagina
-		self.cell(0,10,'Pagina '+str(self.page_no()),0,0,'R') 
+		self.cell(0,10,'Pagina '+str(self.page_no())+"/"+str(self.alias_nb_pages()),0,0,'R') 
 		
 	def chapter_title(self,num,label):
 		#Arial 12
