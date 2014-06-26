@@ -1038,39 +1038,42 @@ class solicitud_soporte(osv.Model):
     
     #Método para copiar las acciones de la pestañe de 'Acciones' a la pestaña de 'Metas'
     def carga_acciones(self, cr, uid, ids, context=None):
-	#Modelo a escribir
-	metas = self.pool.get('metas.financieras')
-	
-	#Modelo actual
-	browse_id = self.browse(cr, uid, ids, context=context)
-	
-	id_m = ""
-	id_proyecto = 0
-	for proyecto in browse_id:
-		id_proyecto = proyecto.id
-		
-		accion = ""
-		r = False
-		i = 1
-		for accion in proyecto.acciones_especificas:
-			#print "Acción "+str(i)+": "+str(accion.nombre_accion)
+			#Modelo a escribir
+			metas = self.pool.get('metas.financieras')
 			
-			if accion.nombre_accion:	
-				accion = accion.nombre_accion.encode("UTF-8")
+			#Modelo actual
+			browse_id = self.browse(cr, uid, ids, context=context)
+			
+			id_m = ""
+			id_proyecto = 0
+			for proyecto in browse_id:
+				id_proyecto = proyecto.id
 				
-				#Carga de las accionesen el modelo correspondiente
-				id_m = metas.create(cr, uid, {
-					'metas_ids' : id_proyecto,
-					'nom_accion_metas' : accion,
-				},context=context)
-				
-				if id_m:
-					r = True
+				accion = ""
+				r = False
+				i = 1
+				for accion in proyecto.acciones_especificas:
 					
-			#Aumento del contador
-			i = i + 1
-			
-	return r
+					if accion.nombre_accion:
+						#~ print "Acción "+str(i)+": "+str(accion.nombre_accion).encode('UTF-8')
+						accion = accion.nombre_accion.encode('UTF-8')
+						
+						#Verificamos si ya existe la acción en el modelo correspondiente
+						buscar_m = metas.search(cr, uid, [('metas_ids','=',id_proyecto),('nom_accion_metas','=',accion)], count=False)
+						if not buscar_m:
+							#Carga de las acciones en el modelo correspondiente
+							id_m = metas.create(cr, uid, {
+								'metas_ids' : id_proyecto,
+								'nom_accion_metas' : accion,
+							},context=context)
+							
+							if id_m:
+								r = True
+								
+					#Aumento del contador
+					i = i + 1
+					
+			return r
     
     #Función para el cálculo del monto total de las metas del proyecto________________________________________________________________________________
     def total_metas(self, cr, uid, ids, metas, context=None):

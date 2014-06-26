@@ -94,29 +94,37 @@ class accion_centralizada(osv.Model):
 
     def vincular_partida(self, cr, uid, ids, context=None):
 		
-	browse_id = self.browse(cr, uid, ids, context=None) #Lectura del propio objeto (Registro)
-	
-	for x in browse_id:
-	    id_centralizada = x.n_accion_centra.id
-	    id_model        = x.id
-	
-	partida = self.pool.get('partida.centralizada') # Objeto hr_employee (Empleado)
-	
-	search_p = partida.search(cr, uid, [('a_centralizada','=',id_centralizada)], context=None) # Se busca el ID dado
-	par      = partida.read(cr,uid,search_p,context=context) # Se refleja el resultado
-	
-	for p in par:
+		browse_id = self.browse(cr, uid, ids, context=None) #Lectura del propio objeto (Registro)
 		
-	    cod     = p['codigo']
-	    partida =  p['partida'][0]
-	    
-	    id_att = self.pool.get('imputacion.accion.centralizada').create(cr, uid, {
-	    'imputacion_acc_ids': id_model,
-	    'partida_presu': partida,
-	    'codigo': cod,
-	    }, context=context)
+		for x in browse_id:
+			id_centralizada = x.n_accion_centra.id
+			id_model        = x.id
+		
+		partida = self.pool.get('partida.centralizada') # Objeto hr_employee (Empleado)
+		
+		search_p = partida.search(cr, uid, [('a_centralizada','=',id_centralizada)], context=None) # Se busca el ID dado
+		par      = partida.read(cr,uid,search_p,context=context) # Se refleja el resultado
+		
+		for p in par:
 
-	return id_att
+			cod     = p['codigo']
+			partida =  p['partida'][0]
+
+			centralizada = self.pool.get('imputacion.accion.centralizada') # Objeto hr_employee (Empleado)
+			search_c = centralizada.search(cr, uid, [('imputacion_acc_ids','=',id_model),('codigo','=',cod)], context=None) # Se busca el ID dado
+			
+			print "CENTRALIZADA EXISTE: "+str(search_c)
+
+			if not search_c:
+			
+				cod     = p['codigo']
+				partida =  p['partida'][0]
+				
+				self.pool.get('imputacion.accion.centralizada').create(cr, uid, {
+					'imputacion_acc_ids': id_model,
+					'partida_presu': partida,
+					'codigo': cod,
+				}, context=context)
 
 
 
@@ -492,47 +500,53 @@ class accion_centralizada(osv.Model):
 
     #Método para copiar las actividades de la pestaña de 'Actividades específicas' a las pestañas de 'Distribución trimestral' y 'Metas específicas'
     def carga_actividades(self, cr, uid, ids, context=None):
-	values = {}
-	#Modelos a escribir
-	dis_tri = self.pool.get('actividades.trimestrales')
-	metas_tri = self.pool.get('metas.especificas')
-	
-	#Modelo actual
-	browse_id = self.browse(cr, uid, ids, context=context)
-	
-	id_act = ""
-	id_metas = ""
-	id_accion = 0
-	for accion in browse_id:
-	    id_accion = accion.id
-	    
-	    activ = ""
-	    r = False
-	    i = 1 
-	    for actividad in accion.distribucion_actividades:
-
-		if actividad.actividades:	
-		    activ = actividad.actividades.encode("UTF-8")
-		    
-		    #Carga de las actividades	en los modelos correspondientes
-		    #~ dis_tri.write(cr, uid, ids, {'actividades':act}, context=context)
-		    id_act = dis_tri.create(cr, uid, {
-			'act_trimestral_ids' : id_accion,
-			'actividades' : activ,
-		    },context=context)
-		    
-		    id_metas = metas_tri.create(cr, uid, {
-			'metas_acc_espec' : id_accion,
-			'actividades' : activ,
-		    },context=context)
-		    
-		    if id_act and id_metas:
-			r = True
-		
-		#Aumento del contador
-		i = i + 1
-		
-	return r
+			values = {}
+			#Modelos a escribir
+			dis_tri = self.pool.get('actividades.trimestrales')
+			metas_tri = self.pool.get('metas.especificas')
+			
+			#Modelo actual
+			browse_id = self.browse(cr, uid, ids, context=context)
+			
+			id_act = ""
+			id_metas = ""
+			id_accion = 0
+			for accion in browse_id:
+				id_accion = accion.id
+				
+				activ = ""
+				r = False
+				i = 1 
+				for actividad in accion.distribucion_actividades:
+					#~ print "Actividad"+str(i)+": "+str(actividad.actividades)
+					
+					if actividad.actividades:	
+						activ = actividad.actividades.encode('UTF-8')
+						
+						#Verificamos si ya existen las actividades en los modelos correspondiente
+						buscar_act = dis_tri.search(cr, uid, [('act_trimestral_ids','=',id_accion),('actividades','=',activ)], count=False)
+						buscar_m = metas_tri.search(cr, uid, [('metas_acc_espec','=',id_accion),('actividades','=',activ)], count=False)
+						
+						#Carga de las actividades	en los modelos correspondientes
+						if not buscar_act:
+							id_act = dis_tri.create(cr, uid, {
+								'act_trimestral_ids' : id_accion,
+								'actividades' : activ,
+							},context=context)
+						
+						if not buscar_m:
+							id_metas = metas_tri.create(cr, uid, {
+								'metas_acc_espec' : id_accion,
+								'actividades' : activ,
+							},context=context)
+						
+						if id_act and id_metas:
+							r = True
+					
+					#Aumento del contador
+					i = i + 1
+				
+			return r
 			
     
     #Método para el cálculo del monto total de las metas----------------------------------------------------------
