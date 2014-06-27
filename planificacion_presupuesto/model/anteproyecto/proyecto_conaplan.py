@@ -151,6 +151,7 @@ class solicitud_soporte(osv.Model):
 	    resp = x.responsable.encode("UTF-8").decode("UTF-8")
 	    cargo = x.cargo.encode("UTF-8").decode("UTF-8")
 	    tel = x.telefono.encode("UTF-8").decode("UTF-8")
+	    correo = x.correo.encode("UTF-8").decode("UTF-8")
 	    
 	    proyecto = x.nombre_pro.encode("UTF-8").decode("UTF-8")
 	    dura = x.duracion.encode("UTF-8").decode("UTF-8")
@@ -339,7 +340,7 @@ class solicitud_soporte(osv.Model):
 	    pdf.set_font('Arial','B',9)
 	    pdf.cell(38,5,"1.7. Correo Electrónico:".decode("UTF-8"),'LTB',0,'L',1)
 	    pdf.set_font('Arial','',8)
-	    pdf.cell(152,5,"jose_solorzano@gmail.com".decode("UTF-8"),'TBR',1,'L',1)
+	    pdf.cell(152,5,correo,'TBR',1,'L',1)
 	    
 	    #2.Datos del Proyecto
 	    pdf.set_fill_color(199,15,15)
