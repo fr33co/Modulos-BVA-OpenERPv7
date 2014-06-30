@@ -108,7 +108,7 @@
 						    <tr>
 							<td><b>Frecuencia</b></td>
 							<td><field name="frecuencia" placeholder="Frecuencia"/></td>
-							<td attrs="{'invisible': [('codigo', '!=', '104'),('codigo', '!=', '243'),('codigo', '!=', '107'),('codigo', '!=', '208'),('codigo', '!=', '181'),('codigo', '!=', '210'),('codigo', '!=', '249'),('codigo', '!=', '168'),('codigo', '!=', '154'),('codigo', '!=', '303'),('codigo', '!=', '304'),('codigo', '!=', '305'),('codigo', '!=', '306'),('codigo', '!=', '509'),('codigo', '!=', '605'),('codigo', '!=', '606'),('codigo', '!=', '607'),('codigo', '!=', '608'),('codigo', '!=', '519'),('codigo', '!=', '604'),('codigo', '!=', '908'),('codigo', '!=', '185')] }">
+							<td attrs="{'invisible': [('codigo', '!=', '104'),('codigo', '!=', '243'),('codigo', '!=', '107'),('codigo', '!=', '208'),('codigo', '!=', '210'),('codigo', '!=', '249'),('codigo', '!=', '168'),('codigo', '!=', '154'),('codigo', '!=', '303'),('codigo', '!=', '304'),('codigo', '!=', '305'),('codigo', '!=', '306'),('codigo', '!=', '509'),('codigo', '!=', '605'),('codigo', '!=', '606'),('codigo', '!=', '607'),('codigo', '!=', '608'),('codigo', '!=', '519'),('codigo', '!=', '604'),('codigo', '!=', '908'),('codigo', '!=', '185')] }">
 							    <b>Monto en Bs</b>
 							</td>
 							<td attrs="{'invisible': [('codigo', '!=', '126'),('codigo', '!=', '142')] }">
@@ -117,7 +117,7 @@
 							<td attrs="{'invisible': [('codigo', '!=', '502'),('codigo', '!=', '561'),('codigo', '!=', '514'),('codigo', '!=', '562')]}">
 								<b>Cant lunes</b>
 							</td>
-							<td attrs="{'invisible': [('codigo', '!=', '104'),('codigo', '!=', '243'),('codigo', '!=', '107'),('codigo', '!=', '208'),('codigo', '!=', '181'),('codigo', '!=', '210'),('codigo', '!=', '249'),('codigo', '!=', '168'),('codigo', '!=', '154'),('codigo', '!=', '303'),('codigo', '!=', '304'),('codigo', '!=', '305'),('codigo', '!=', '306'),('codigo', '!=', '509'),('codigo', '!=', '605'),('codigo', '!=', '606'),('codigo', '!=', '607'),('codigo', '!=', '608'),('codigo', '!=', '519'),('codigo', '!=', '604'),('codigo', '!=', '908'),('codigo', '!=', '502'),('codigo', '!=', '561'),('codigo', '!=', '514'),('codigo', '!=', '562'),('codigo', '!=', '185')] }">
+							<td attrs="{'invisible': [('codigo', '!=', '104'),('codigo', '!=', '243'),('codigo', '!=', '107'),('codigo', '!=', '208'),('codigo', '!=', '210'),('codigo', '!=', '249'),('codigo', '!=', '168'),('codigo', '!=', '154'),('codigo', '!=', '303'),('codigo', '!=', '304'),('codigo', '!=', '305'),('codigo', '!=', '306'),('codigo', '!=', '509'),('codigo', '!=', '605'),('codigo', '!=', '606'),('codigo', '!=', '607'),('codigo', '!=', '608'),('codigo', '!=', '519'),('codigo', '!=', '604'),('codigo', '!=', '908'),('codigo', '!=', '502'),('codigo', '!=', '561'),('codigo', '!=', '514'),('codigo', '!=', '562'),('codigo', '!=', '185')] }">
 							    <field name="monto" placeholder="Monto"/>
 							</td>
 							<td attrs="{'invisible': [('codigo', '!=', '008'),('codigo', '!=', '009'),('codigo', '!=', '101'),('codigo', '!=', '103'),('codigo', '!=', '125'),('codigo', '!=', '134'),('codigo', '!=', '143'),('codigo', '!=', '150'),('codigo', '!=', '151'),('codigo', '!=', '456'),('codigo', '!=', '102'),('codigo', '!=', '182'),('codigo', '!=', '462'),('codigo', '!=', '903'),('codigo', '!=', '183'),('codigo', '!=', '184'),('codigo', '!=', '149') ] }">
@@ -231,7 +231,7 @@
 						    <td>
 							<div class="oe_form_sheetbg" style="height:25px;" attrs="{'invisible': ['|',('state', '=', '5'),('state', '=', '7')]}">
 							    <div style="float:left">
-								<b><font style="color:#A91919;">Monto a Cobrar</font></b>
+								<b><font style="color:#A91919;">Salario Integral:</font></b>
 								<font style="color:white;">--</font>
 							    </div>
 							    <div style="float:left;width:90px;">

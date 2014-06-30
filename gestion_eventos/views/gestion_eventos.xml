@@ -6,7 +6,7 @@
 	    <field name="name">Gestión de Eventos</field>
 	    <field name="res_model">gestion.eventos</field>
 	    <field name="view_type">form</field>
-	    <field name="view_mode">kanban,tree,form,calendar,gantt</field>
+	    <field name="view_mode">tree,kanban,form,calendar,gantt</field>
 	</record>
 
 	<record id="view_gestion_eventos" model="ir.ui.view">
@@ -133,7 +133,6 @@
 					<field name="motivo" placeholder="Ingrese aqui el Motivo por el cual se suspende el Evento..."/>
 				</td>
 			    </tr>
-
 			    <tr>
 				<td colspan="8">
 				    <notebook colspan="4">
@@ -207,6 +206,33 @@
 						</tr>
 						
 					    </table>
+					</page>
+					<page string="Adjuntar Fotos">
+
+						<table style="text-align:center;width:350px;">
+							<tr style="text-align:center;">
+								<td class="separator">Foto (A)</td>
+								<td class="separator">Foto (B)</td>
+								<td class="separator">Foto (C)</td>
+								<td class="separator">Foto (D)</td>
+							</tr>
+							<tr style="text-align:center;">
+								<td>
+									<field name="foto_1" widget="image" class="oe_left oe_avatar" nolabel="0"/>
+								</td>
+								<td>
+									<field name="foto_2" widget="image" class="oe_left oe_avatar" nolabel="0"/>
+								</td>
+								<td>
+									<field name="foto_3" widget="image" class="oe_left oe_avatar" nolabel="0"/>
+								</td>
+								<td>
+									<field name="foto_4" widget="image" class="oe_left oe_avatar" nolabel="0"/>
+								</td>
+							</tr>
+						</table>
+
+						
 					</page>
 					
 				    </notebook>

@@ -11,7 +11,7 @@
       Generación de Reportes
 			Generación de Nóminas'
       Generación de archivos TXT
-      Ultima Actualización: 09 de Junio del 2014''',
+      Ultima Actualización: 29 de Junio del 2014''',
     'data' : [
       "views/empleado.xml",
       #"views/seguridad_salud_laboral.xml",
@@ -45,7 +45,7 @@
       # "views/tipoNomina.xml",
       "views/carga_familiar_employee.xml",
 
-      "categorias/groups.xml", #Activar la carga de este archivo sólo al instalar, luego comentarlo.
+      # "categorias/groups.xml", #Activar la carga de este archivo sólo al instalar, luego comentarlo.
       #"script/departamentos.xml",
       #"segurity/acceso.csv", # PRIVILEGIOS PARA LOS MODELOS
       # "segurity/ir.view.access.csv", # PRIVILEGIOS PARA LAS VISTAS
