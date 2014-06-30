@@ -354,17 +354,17 @@ class Gestion_reportes(osv.Model):
 		title     = cabezera.upper()+ "("+fecha.upper()+") Usuario ".upper()+str(user).upper()+" "".pdf"
 		title_xls = cabezera.upper()+ "("+fecha.upper()+")Usuario ".upper()+str(user).upper()+".xls"
 		
-		wb.save('/home/administrador/openerp70/modules/gestion_eventos/reportes/'+title_xls)
-		archivo_xls = open('/home/administrador/openerp70/modules/gestion_eventos/reportes/'+title_xls)
+		#~ wb.save('/home/administrador/openerp70/modules/gestion_eventos/reportes/'+title_xls)
+		#~ archivo_xls = open('/home/administrador/openerp70/modules/gestion_eventos/reportes/'+title_xls)
 		
-		#~ wb.save('openerp/addons/gestion_eventos/reportes/'+title_xls)
-		#~ archivo_xls = open('openerp/addons/gestion_eventos/reportes/'+title_xls)
+		wb.save('openerp/addons/gestion_eventos/reportes/'+title_xls)
+		archivo_xls = open('openerp/addons/gestion_eventos/reportes/'+title_xls)
 		
-		pdf.output('/home/administrador/openerp70/modules/gestion_eventos/reportes/'+title,'F')
-		documento = open('/home/administrador/openerp70/modules/gestion_eventos/reportes/'+title) # Apertura del documento
+		#~ pdf.output('/home/administrador/openerp70/modules/gestion_eventos/reportes/'+title,'F')
+		#~ documento = open('/home/administrador/openerp70/modules/gestion_eventos/reportes/'+title) # Apertura del documento
 		
-		#~ pdf.output('openerp/addons/gestion_eventos/reportes/'+title,'F')
-		#~ documento = open('openerp/addons/gestion_eventos/reportes/'+title) # Apertura del documento
+		pdf.output('openerp/addons/gestion_eventos/reportes/'+title,'F')
+		documento = open('openerp/addons/gestion_eventos/reportes/'+title) # Apertura del documento
 		
 		# Guardamos el archivo pdf en gestion.eventos
 		self.pool.get('ir.documento').create(cr, uid, {

@@ -41,6 +41,10 @@ import httplib
 #####################################################
 
 import fpdf_class # Importando la clase constructora del PDF
+# import matplotlib.pyplot as plt
+# import matplotlib.text as text
+
+
 #####################################################
 
 
@@ -70,23 +74,37 @@ class Proceso_Nomina(osv.Model):
 	# Generacion de TXT (pór categoria Administrativo, Directivo y Obrero) En el sub modulo de asignaciones de la nomina
 	####################################################################################################################
 	def generate_txt_slip(self, cr, uid, ids, context=None):
+	
+		## The slices will be ordered and plotted counter-clockwise.
+		#labels = 'Naranja', 'Pera', 'Manzana', 'Patilla'
+		#sizes = [15, 30, 45, 10]
+		#colors = ['yellowgreen', 'gold', 'lightskyblue', 'lightcoral']
+		#explode = (0, 0.1, 0, 0) # only "explode" the 2nd slice (i.e. 'Hogs')
+		#
+		#plt.pie(sizes, explode=explode, labels=labels, colors=colors, autopct='%1.1f%%', shadow=False)
+		## Set aspect ratio to be equal so that pie is drawn as a circle.
+		#plt.axis('equal')
+		#plt.show()
+		#
+		#
+		#return False
 
 		browse_slip_id = self.browse(cr, uid, ids, context=None) #Lectura del propio objeto (Registro)
-
-
+		
+		
 		for slip_id in browse_slip_id: # Iteración del objeto (módelo hr_payslip_run)
-
+		
 			# Bloque código (para estado Borrador, no permitir generar el archivo TXT)
 			if slip_id.state == "draft":
 				raise osv.except_osv(_("Warning!"), _("Disculpe para generar el diskette al Banco, debe realizar el cierre de nómina..."))
-
+		
 			# Bloque código (para estado cerrado, permitir generar el archivo TXT)
 			elif slip_id.state == "close":
-
+		
 				if context is None:
 					context = {} # Diccionario vacio
 				data_ids = self.read(cr, uid, ids, context=context)[0] # Lectura del objeto propio
-
+		
 				id_slip  = slip_id.id # Id del objeto
 				slip 	 = slip_id.slip_ids # Grupo de ID de la lista slip_ids
 				admon 	 = slip_id.class_personal.clas_personal # Nombre de la clsificacion del personal
@@ -100,23 +118,23 @@ class Proceso_Nomina(osv.Model):
 					# Grupo de ID del personal
 					payslip_id = data_ids['slip_ids']
 					
-					print "GRUPO DE IDS: "+str(payslip_id)
 					hr = self.pool.get('hr.employee') # Objeto hr_employee (Empleado)
 					get_hr = self.pool.get('hr.movement.employee') # Objeto hr_movement_employee (Empleado)
-
+		
 					search_get_hr = get_hr.search(cr, uid, [('id','=',payslip_id),('emp','=',admon_id)], context=None) # Se busca el ID dado
 					search_hr = get_hr.search(cr, uid, [('id','=',payslip_id),('emp','=',admon_id)], count=True) # Conteo de registros
 					employee = get_hr.read(cr,uid,search_get_hr,context=context) # Se refleja el resultado
+		
+					data_ve   = ""
+					data_bnc  = ""
+					t_ve      = 0
+					t_bnc     = 0
+					venezuela = ""
+					bnc       = ""
+					for y in employee:
 
-					i = 0
-					data = ""
-					cuenta = ""
-					t = 0
-					while (i < search_hr):
-						print "NOMBRE DEL PERSONAL: "+str(employee[i]['nombres'])
-						
-						cedula_emp = employee[i]['cedula'] # Cedula del Empleado
-						
+						cedula_emp = y['cedula'] # Cedula del Empleado
+
 						search_emp = hr.search(cr, uid, [('cedula','=',cedula_emp)], context=None) # Se busca el ID dado
 						emp_hr = hr.read(cr,uid,search_emp,context=context) # Se refleja el resultado
 						
@@ -127,7 +145,9 @@ class Proceso_Nomina(osv.Model):
 							s_nom    = emp['segundo_nombre']
 							p_ap     = emp['primer_apellido']
 							s_ap     = emp['segundo_apellido']
-							cedula   = emp['cedula']
+							elem     = emp['cedula'].split('-')
+							
+							cedula   = elem[1]
 							
 							if p_nom is False: p_nom =" "
 							else: p_nom
@@ -144,88 +164,96 @@ class Proceso_Nomina(osv.Model):
 							bank        = bank_hr.read(cr,uid,search_bank,context=context) # Se refleja el resultado
 							
 							for x in bank:
-								count_e 	= x['acc_number']
+								count_e 	    = x['acc_number']
 								type_account    = x['type_account']
 								bank_obj        = x['bank']
-								name_bank       = bank_obj[1]	
+								name_bank       = bank_obj[1]
+								
 								cod_1           = "770"
 								cod_2           = "00"
 								standar         = "03291"
-							# 	#############################################################
-							# 	##		Creacion del archivo txt
-							# 	#############################################################
-								# Estructura de salidda de la data TXT
-							if str(x['bank'][1]) == "Venezuela":
-								print "BANCO VENEZUELA: "+str(x['acc_number'])
+								#############################################################
+								##		Creacion del archivo txt
+								#############################################################
+							# Condicional (Filtro por entidad Bancaria Venezuela)
+							if str(name_bank) == "Venezuela":
+								venezuela = name_bank
 								
-								block_1     = type_account.ljust(0)+count_e.ljust(0)+""+str(employee[i]['monto_c']).replace('.',"").zfill(9)+type_account.ljust(0)+cod_1.ljust(0)
+								block_1     = type_account.ljust(0)+count_e.ljust(0)+""+str(y['monto_c']).replace('.',"").zfill(11)+type_account.ljust(0)+cod_1.ljust(0)
 								block_2     = p_ap.upper()+" "+s_ap[0:1].upper()+" "+p_nom.upper()+" "+s_nom[0:1].upper()
 								block_2     = block_2.ljust(40)
-								block_3     = cod_2+cedula+standar
+								block_3     = cod_2+cedula+standar.zfill(6)
 								
-								datos       = block_1+block_2+block_3.rjust(21)+"\n" # Salida de data de los Datos
-								t +=       float(employee[i]['monto_c'])
-								i = i + 1 # Iteracion de los datos
-								data = data + datos # Acumulador de la data
-									
-							if str(x['bank'][1]) == "BNC":
-								print "BANCO BNC: "+str(x['acc_number'])
-									
-								block_1     = type_account.ljust(0)+count_e.ljust(0)+""+str(employee[i]['monto_c']).replace('.',"").zfill(9)+type_account.ljust(0)+cod_1.ljust(0)
-								block_2     = p_ap.upper()+" "+s_ap[0:1].upper()+" "+p_nom.upper()+" "+s_nom[0:1].upper()
-								block_2     = block_2.ljust(40)
-								block_3     = cod_2+cedula+standar
+								datos_ve    = block_1+block_2+block_3.rjust(21)+"\n" # Salida de data de los Datos
+								t_ve +=       float(y['monto_c'])
 								
-								datos       = block_1+block_2+block_3.rjust(21)+"\n" # Salida de data de los Datos
-								t +=       float(employee[i]['monto_c'])
-								i = i + 1 # Iteracion de los datos
-								data = data + datos # Acumulador de la data
-					tota_general = str(t).replace('.',"")
-					elemento     = "%.2f" % round(float(tota_general),3)
-					total        = str(elemento).replace('.',"")
-					print "MONTO TOTAL A PAGAR: "+str(total)
-					# ###########################################################
-					# #
-					# #		Objeto hr_payslip (Lectura de datos)
-					# #
-					# ###########################################################
-					dia   = time.strftime('%d')
-					mes   = time.strftime('%B')
-					anyo  = time.strftime('%Y')
-					fecha = dia+" de "+mes+" "+anyo # Fecha de creacion
-					
-					title = 'BBVV '+admon+' ('+fecha+')' # Salida del titulo con los datos especificos
-					# #
-					# ############################################################
-					# ## Proceso de validacion del las quincenas de la nomina
-					if dia < 16:
-						#"ES MENOR A 16"
-						periodo_f = slip_id.date_start
-						fecha     = periodo_f.split("-") 
-						periodo   = str(fecha[2])+"/"+str(fecha[1])+"/"+str(fecha[0][2:4])
-						
-					else:
-						#"ES MAYOR A 16"
-						periodo_f = slip_id.date_end
-						fecha     = periodo_f.split("-") 
-						periodo   = str(fecha[2])+"/"+str(fecha[1])+"/"+str(fecha[0][2:4])
-					# #
-					# ############################################################
-					id_att = self.register_txt_ven(cr, uid, data, title, total, periodo, admon, context) # Objeto con referencia (Proceso de generación de TXT)
+								total_general = str(t_ve).replace('.',"")
+								elemento     = "%.2f" % round(float(total_general),3)
+								total_ve        = str(elemento).replace('.',"")
+								############################################################
+								#
+								#		Objeto hr_payslip (Lectura de datos)
+								#
+								############################################################
+
+								# ## Proceso de validacion del las quincenas de la nomina
+								dia   = time.strftime('%d')
+								if dia < 16:
+									#"ES MENOR A 16"
+									periodo_f = slip_id.date_start
+									fecha     = periodo_f.split("-") 
+									periodo   = str(fecha[2])+"/"+str(fecha[1])+"/"+str(fecha[0][2:4])
+									
+								else:
+									#"ES MAYOR A 16"
+									periodo_f = slip_id.date_end
+									fecha     = periodo_f.split("-") 
+									periodo   = str(fecha[2])+"/"+str(fecha[1])+"/"+str(fecha[0][2:4])
+								
+								data_ve = data_ve + datos_ve # Acumulador de la data Venezuela
+
+							# Condicional (Filtro por entidad Bancaria BNC
+							if str(name_bank) == "BNC":
+								bnc           = name_bank
+								count_e 	  = x['acc_number']
+								monto         = y['monto_c'].replace('.',"")
+								elem          = emp['cedula'].split('-')
+								nac           = str(elem[0])+"0"
+								cedula        = elem[1]
+
+								t_bnc += float(y['monto_c']) # Acumulador del salario a cobrar en la quincena
+								total_g       = str(t_bnc).replace('.',"")
+								elem          = "%.1f" % round(float(total_g),1)
+								total_bnc     = str(elem).replace('.',"")
+								datos_bnc     = "NC "+count_e+monto.zfill(13)+nac+cedula
+
+								data_bnc      = data_bnc + datos_bnc
+
+				if str(venezuela) == "Venezuela":
+					print "HOLA MUNDO VENEZUELA"
+					self.txt_venezuela(cr, uid, data_ve, total_ve, periodo, admon, context) # Objeto con referencia (Proceso de generación de TXT)
+				if str(bnc) == "BNC":
+					print "HOLA MUNDO BNC"
+					self.txt_bnc(cr, uid, data_bnc, total_bnc, admon, context)
 	####################################################################################################################
 
-	def register_txt_ven(self, cr, uid, data, title, total, periodo, admon, context):
+	def txt_venezuela(self, cr, uid, data_ve, total_ve, periodo, admon, context):
 		
 		propietario = self.pool.get('hr.propietario') # Objeto hr_propietario (Empleado)
 
 		search_pro  = propietario.search(cr, uid, [], context=None) # Se busca el ID dado Propietario de la cuenta
 		pro         = propietario.read(cr,uid,search_pro,context=context) # Se refleja el resultado
 		
-		encabezado  = str(pro[0]['propietario'])+"              "+str(pro[0]['cuenta'])+periodo+str(total).zfill(13)+""+str(pro[0]['estandar'])
+		encabezado  = str(pro[0]['propietario'])+"                "+str(pro[0]['cuenta'])+periodo+str(total_ve).zfill(13)+""+str(pro[0]['estandar'])
 		# # Proceso de Generación del .txt (Nomina de Empleado)
 		# ###########################################################
-
-		nom = title+'.'+ 'txt'
+		dia   = time.strftime('%d')
+		mes   = time.strftime('%B')
+		anyo  = time.strftime('%Y')
+		fecha = dia+" de "+mes+" "+anyo # Fecha de creacion
+		
+		title_ve = 'VENEZUELA '+admon+' ('+fecha+')' # Salida del titulo con los datos especificos
+		nom = title_ve.upper()+'.'+ 'txt'
 
 		if str(admon) == "Empleado Fijo":
 			directorio = "/ADMON/TXT/"
@@ -238,47 +266,64 @@ class Proceso_Nomina(osv.Model):
 		#	Carga de archivo txt en directorio ADMON/nomina/ Venezuela
 		#######################################################################
 		archivo = open('openerp/addons/recursos_humanos'+directorio+''+nom,'w')
-		archivo.write(encabezado+"\n"+data+"\n")
+		archivo.write(encabezado+"\n"+data_ve+"\n")
 		archivo.close()
 		#######################################################################
 		# Guardamos los txt en ir.attachment.employee
 		id_att = self.pool.get('ir.attachment.employee').create(cr, uid, {
 			'name': nom,
 			'res_name': nom,
-			'datas': base64.encodestring(encabezado+"\n"+data+"\n"),
+			'datas': base64.encodestring(encabezado+"\n"+data_ve+"\n"),
 			'datas_fname': nom,
 			'res_model': 'hr.employee (Empleado)',
-			'description': "Proceso Bancario "+title,
+			'description': "Proceso Bancario "+title_ve,
 
 			}, context=context)
 
 		return id_att
 		#######################################################################
 
-	def register_txt_hr_bnc(self, cr, uid, data, title, standar, total, periodo, context):
-		#print "DATAS: "+str(data)
-
-		encabezado_BNC = "ND 2180038781"
+	def txt_bnc(self, cr, uid, data_bnc, total_bnc, admon, context): # Generacion del TXT para Entidad Bancaria BNC
+		
 		# # Proceso de Generación del .txt (Nomina de Empleado)
 		# ###########################################################
-
-		nom = title+'.'+ 'txt'
+		dia           = time.strftime('%d')
+		mes           = time.strftime('%B')
+		anyo          = time.strftime('%Y')
+		fecha         = dia+" de "+mes+" "+anyo # Fecha de creacion
+		
+		title_bnc     = 'BNC '+admon+' ('+fecha+')' # Salida del titulo con los datos especificos
+		nom = title_bnc.upper()+'.'+ 'txt'
+		
+		if str(admon) == "Empleado Fijo":
+			directorio = "/ADMON/TXT/"
+		elif str(admon) == "Directivo":
+			directorio = "/DIRECTIVO/TXT/"
+		else:
+			directorio = "/OBRERO/TXT/"
+		
+		cod_estandar = "ND"
+		codigo       = "2180038781000000"
+		mon_total    = total_bnc
+		rif          = "G200001496"
+		
+		encabezado   = cod_estandar+" "+codigo+mon_total+rif
+		
 		#######################################################################
 		#	Carga de archivo txt en directorio ADMON/nomina/ Venezuela
 		#######################################################################
-		archivo = open('openerp/addons/recursos_humanos/ADMON/nomina/'+nom,'w')
-		archivo.write(encabezado+"\n"+data+"\n")
+		archivo = open('openerp/addons/recursos_humanos'+directorio+''+nom,'w')
+		archivo.write(encabezado+"\n"+data_bnc+"\n")
 		archivo.close()
 		#######################################################################
-
-		id_att = self.pool.get('ir.attachment').create(cr, uid, {
+		# Guardamos los txt en ir.attachment.employee
+		id_att = self.pool.get('ir.attachment.employee').create(cr, uid, {
 			'name': nom,
 			'res_name': nom,
-			'datas': base64.encodestring(encabezado+"\n"+data+"\n"),
+			'datas': base64.encodestring(encabezado+"\n"+data_bnc+"\n"),
 			'datas_fname': nom,
 			'res_model': 'hr.employee (Empleado)',
-			'adjunto' : '2',
-			'description': "Proceso Bancario "+title,
+			'description': "Proceso Bancario "+title_bnc,
 
 			}, context=context)
 
@@ -446,11 +491,11 @@ class Proceso_Nomina(osv.Model):
 		pdf.set_margins(23,20,0) # Margenes left, rigth
 		#################################################################
 		pdf.ln(20) # Saldo de linea
-		pdf.cell(65,8,"Nombre",1,0,'C',1)
+		pdf.cell(100,8,"Nombres",1,0,'C',1)
 		pdf.cell(25,8,"Cedula",1,0,'C',1)
 		pdf.cell(50,8,"Nro de cuenta",1,0,'C',1)
-		pdf.cell(50,8,"Sueldo",1,0,'C',1)
-		pdf.cell(50,8,"Monto a cobrar",1,1,'C',1)
+		pdf.cell(32,8,"Sueldo",1,0,'C',1)
+		pdf.cell(32,8,"Monto a cobrar",1,1,'C',1)
 		##################################################################
 		browse_slip_id = self.browse(cr, uid, ids, context=None)
 		for x in browse_slip_id:
@@ -492,11 +537,11 @@ class Proceso_Nomina(osv.Model):
 					pdf.add_page()
 					pdf.set_fill_color(157,188,201)
 					pdf.ln(20) # Salto de linea
-					pdf.cell(65,8,"Nombre",1,0,'C',1)
+					pdf.cell(100,8,"Nombres",1,0,'C',1)
 					pdf.cell(25,8,"Cedula",1,0,'C',1)
 					pdf.cell(50,8,"Nro de cuenta",1,0,'C',1)
-					pdf.cell(50,8,"Sueldo",1,0,'C',1)
-					pdf.cell(50,8,"Monto a cobrar",1,1,'C',1)
+					pdf.cell(32,8,"Sueldo",1,0,'C',1)
+					pdf.cell(32,8,"Monto a cobrar",1,1,'C',1)
 					j=0
 				pdf.set_fill_color(255,255,255)
 				if j % 2 == 0:
@@ -510,27 +555,27 @@ class Proceso_Nomina(osv.Model):
 				elif n_ccount !=0:
 					cuenta = n_ccount[1][-20:]
 	
-				pdf.cell(65,8,str(self.elimina_tildes(x['nombres'])),1,0,'C',1)
+				pdf.cell(100,8,str(self.elimina_tildes(x['nombres'])),1,0,'C',1)
 				pdf.cell(25,8,str(x['cedula']),1,0,'C',1)
 				pdf.cell(50,8,str(cuenta),1,0,'C',1)
-				pdf.cell(50,8,str(x['sueldo']),1,0,'C',1)
-				pdf.cell(50,8,str(asignacion),1,1,'C',1)
+				pdf.cell(32,8,str(x['sueldo']),1,0,'C',1)
+				pdf.cell(32,8,str(asignacion),1,1,'C',1)
 			
 				j =j+1
 			
 			pdf.ln(10)
 			pdf.set_fill_color(157,188,201)
-			pdf.cell(65,8,"",0,0,'C',0)
+			pdf.cell(100,8,"",0,0,'C',0)
 			pdf.cell(25,8,"",0,0,'C',0)
 			pdf.cell(50,8,"",0,0,'C',0)
-			pdf.cell(50,8,"Personal",1,0,'C',1)
-			pdf.cell(50,8,"Monto total",1,1,'C',1)
-			pdf.cell(65,8,"",0,0,'C',0)
+			pdf.cell(32,8,"Personal",1,0,'C',1)
+			pdf.cell(32,8,"Monto total",1,1,'C',1)
+			pdf.cell(100,8,"",0,0,'C',0)
 			pdf.cell(25,8,"",0,0,'C',0)
 			pdf.cell(50,8,"",0,0,'C',0)
 			pdf.set_fill_color(255,255,255)
-			pdf.cell(50,8,str(personal)+' ('+str(j)+')',1,0,'C',1)
-			pdf.cell(50,8,str(monto),1,1,'C',1)
+			pdf.cell(32,8,str(personal)+' ('+str(j)+')',1,0,'C',1)
+			pdf.cell(32,8,str(monto),1,1,'C',1)
 			#####################################################################
 			dia = time.strftime('%d')
 			mes = time.strftime('%B')
@@ -591,7 +636,7 @@ class Proceso_Nomina(osv.Model):
 			sumatoria +=  float(employees[i]['monto_c'])
 			i = i + 1 # Iteracion de los datos
 		monto = sumatoria
-		
+		print "TOAL DE MONTO: "+str(monto)
 		self.write(cr, uid, ids, {'mount': monto}, context=context)
 	#####################################################################################################################
 	_columns = {

@@ -124,7 +124,7 @@ class Gestion_eventos(osv.Model):
 		'nacionalidad' : fields.many2one("res.country", "Nacionalidad", required = False),
 		'estado' : fields.many2one("res.country.state", "Estado", required = False, select="0"),
 		'ciudad' : fields.many2one("res.country.city", "Ciudad", required = False, select="0"),
-		'municipio' : fields.many2one("res.country.municipality", "Municipio", required = True, select="0"),
+		'municipio' : fields.many2one("res.country.municipality", "Municipio", required = True),
 		'parroquia' : fields.many2one("res.country.parish", "Parroquia", required = False, select="0"),
 		'participantes' : fields.char(string="Participantes", size=120, required=True),
 		'observacion' : fields.text(string='Observación', required=False),
@@ -139,8 +139,12 @@ class Gestion_eventos(osv.Model):
 		'rep_event_si' : fields.boolean(string="Si"),
 		'rep_event_no' : fields.boolean(string="No"),
 		'status' : fields.selection([('1','Pendiente'),('2','Realizado'),('3','Pospuesto'),('4','Reprogramado'),('5','Atrasado'),('6','Cancelado')], string="Acción", required=False),
-		'inicio' : fields.selection([('1','AM'),('2','PM')], string="", required=False),
-		'fin' : fields.selection([('1','AM'),('2','PM')], string="", required=False),
+		'inicio' : fields.selection([('1','AM'),('2','PM')], string="Inicio", required=True),
+		'fin' : fields.selection([('1','AM'),('2','PM')], string="Fin", required=True),
+		'foto_1' : fields.binary("",help="Foto A"),
+		'foto_2' : fields.binary("",help="Foto B"),
+		'foto_3' : fields.binary("",help="Foto C"),
+		'foto_4' : fields.binary("",help="Foto D"),
 		######################################################################################
 	}
 	

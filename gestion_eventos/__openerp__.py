@@ -8,7 +8,7 @@
      El módulo de Gestión de Eventos, permite la Gestión de Eventos para la Gobernación del Estado Aragua
       Edicion
       Gestión de Eventos
-      Ultima Actualización: 25 de Junio del 2014''',
+      Ultima Actualización: 26 de Junio del 2014''',
     'data' : [
       "views/gestion_eventos.xml", # Gestion de eventos
       "views/institucion_gerencia.xml", # Institucion / Gerencia
