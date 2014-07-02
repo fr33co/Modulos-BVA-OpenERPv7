@@ -26,6 +26,7 @@ class organos_sectores(osv.Model):
 
 
 	_rec_name = "sectores"
+	_order = "codigo"
 	_columns = {
 		'codigo' : fields.char(string="Código", required=False,  readonly=True),
 		'sectores' : fields.char(string="Sector", required=False),

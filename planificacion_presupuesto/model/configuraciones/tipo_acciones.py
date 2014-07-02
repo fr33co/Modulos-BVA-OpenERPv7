@@ -9,7 +9,8 @@ class tipo_acciones_centralizadas(osv.Model):
 
 	_name = "tipo.accion.centralizada"
 	
-	_rec_name ="a_centralizada"	
+	_rec_name ="a_centralizada"
+	_order = "a_centralizada"
 	_columns = {
 		
 		'a_centralizada' : fields.char(string="Acción Centralizada", required=False),

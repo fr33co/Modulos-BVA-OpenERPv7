@@ -1,0 +1,75 @@
+.separator{
+	background-color: #D3E7F7; !import
+	-moz-border-radius:9px;
+	border-radius:9px;
+	color: #537DB3;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.kanban_style{
+	background-color: #D3E7F7; !import
+	-moz-border-radius:9px;
+	border-radius:9px;
+	font-size: 12px;
+}
+
+.oe_form_field.fecha,input{
+	background-color: #D4E3ED; !import
+}
+
+.oe_form_sheetbg{
+	
+	border-radius: 9px;
+	-moz-border-radius: 9px;
+}
+
+.div_scroll
+{	width: 800px;
+	height:310px; 
+	overflow-x:hidden;
+	overflow-y:scroll;
+	border-bottom: 0px solid #CCC;
+	
+}
+
+.div_scroll_asid_dec
+{	width: 950px;
+	height:200px; 
+	overflow-x:hidden;
+	overflow-y:scroll;
+	border-bottom: 0px solid #CCC;
+	
+}
+
+.titulo{
+
+    text-transform: uppercase !important;
+}
+
+.mensaje{
+	background-color:#DFF0D8;
+	color:#2A4E35;width:450px;
+	heigth:150px;
+	-moz-border-radius:9px;
+	border-radius:9px;
+}
+.oe_form_required input:not([disabled]):not([readonly]), .openerp .oe_form .oe_form_required select:not([disabled]):not([readonly]), .openerp .oe_form .oe_form_required textarea:not([disabled]):not([readonly]) {
+	background-color: #B8DFEF !important; }
+.openerp .oe_form .oe_form_required input:not([disabled]):not([readonly]), .openerp .oe_form .oe_form_required select:not([disabled]):not([readonly]), .openerp .oe_form .oe_form_required textarea:not([disabled]):not([readonly]) {
+	background-color: #B8DFEF !important; }
+.openerp .oe_secondary_submenu .oe_active {
+	background: none repeat scroll 0 0 #5F8DC1;
+	border-bottom: 1px solid #dedede;
+	border-top: 1px solid lightGray;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) inset, 0 -1px 3px rgba(40, 40, 40, 0.2) inset;
+	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2); }
+
+/*.openerp .oe_login .oe_login_bottom { background-color: #8a0e0e;
+	background-image: linear-gradient(to bottom, #61b7d3, rgba(6, 96, 95, 0.56));
+	bottom: 0;
+	left: 0;
+	position: absolute;
+	right: 0;
+	text-shadow: 0 1px 1px #999999;
+	top: 50%; }*/

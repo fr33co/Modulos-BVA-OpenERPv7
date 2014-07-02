@@ -5,11 +5,10 @@
 <!--Registro de Proyectos para Planificacion y Presupuesto-->
         
 	<record model="ir.actions.act_window" id="proyecto_conaplan_list_action">
-	   <field name="name">Dirección de Planificación, Presupuesto y Control de Gestión</field>
-	   <field name="res_model">proyecto.conaplan</field>
-	   <field name="view_type">form</field>
-	   <field name="view_mode">tree,form</field>
-	   <field name="domain">[('user_register','=',uid)]</field>
+	    <field name="name">Dirección de Planificación, Presupuesto y Control de Gestión</field>
+	    <field name="res_model">proyecto.conaplan</field>
+	    <field name="view_type">form</field>
+	    <field name="view_mode">tree,form</field>
 	    <field name="help" type="html">
 
 	    </field>
@@ -25,8 +24,6 @@
 		    <field name="c_solicitud" />
 		    <field name="f_solicitud" />
 		    <field name="nombre_pro" />
-		    <field name="f_inicio" />
-		    <field name="f_fin" />
 		    <field name="etapa" />
 		    <field name="user_register" />
 		</tree>
@@ -44,6 +41,7 @@
 			<button name="reporte_anteproyecto" type="object" string="Exportar Anteproyecto" class="oe_highlight" />
 		    </header>
 		    <separator/>
+		    <div class="oe_form_sheetbg">
 		    <table style="width: 800px;">
 			<tr>
 			    <td style="width: 50px;">
@@ -77,12 +75,17 @@
 			    <td>
 				<field name="archivos" />
 			    </td>
+			    <td>
+				<font color="red" style="font-weight">
+				    **Si no Adjunta el Archivo no visualizara la ficha de regristro!!
+				</font>
+			    </td>
 			</tr>
 		    </table>
 		    <separator/>
-		    <field name="id" invisible="1" />
-		    <notebook style="font-size:11px">
-			<page string="Identificación" >
+		    <field name="id" invisible="1" /> 
+		    <notebook class="oe_form_sheetbg" style="font-size:11px" attrs="{'invisible': [('archivos', '=', False)]}" >
+			<page string="Identificación" class="oe_form_sheetbg">
 			    <separator string="1. Identificación del proponente" />		    
 			    <table style="font-size:11px">
 				<tr style="width:700px">
@@ -90,7 +93,8 @@
 					1.1. Organismo/Entempresa:
 				    </td>
 				    <td style="width: 200px">
-					<field name="organismo" on_change="on_change_entes(organismo)" style="width: 90%%"/>
+					<field name="organismo" placeholder="Seleccione su Institución"
+					       on_change="on_change_entes(organismo)" style="width: 90%%"/>
 				    </td>
 				    <td style="width:100px">
 					1.5. Cargo:
@@ -129,9 +133,9 @@
 			        </tr>
 			    </table>
 			</page>
-			<page string="Proyecto">
-			    <notebook>
-			    <page string="2. Datos del Proyecto">
+			<page string="Proyecto" class="oe_form_sheetbg">
+			    <notebook class="oe_form_sheetbg">
+			    <page string="2. Datos del Proyecto" class="oe_form_sheetbg">
 				 <separator string="2. Datos del Proyecto" />	    
 				<table>
 				    <tr style="width:850px">
@@ -139,7 +143,7 @@
 					    2.1. Nombre del Proyecto:
 					</td>
 					<td style="width: 200px" >
-					    <field name="nombre_pro" style="width: 315%%" />
+					    <field name="nombre_pro" placeholder="Nombre del proyecto que esta registrando." style="width: 315%%" />
 					</td>
 					<td style="width:250px">
 					    
@@ -159,15 +163,18 @@
 					    2.5. Costo del Proyecto:
 					</td>
 					<td>
-					    <field name="costo_proyecto" style="width: 90%%"/>
+					    <field name="costo_proyecto" style="width: 40%%"/>
+					    <font color="red" style="font-weight">
+						**Nota:
+					    </font>
 					</td>
 				    </tr>
 				    <tr>
 					<td>
-					    Fecha de Inicio:
+					    Fecha de Inicio y Culmincación:
 					</td>
 					<td>
-					    <field name="f_inicio" style="width: 90%%" on_change="duracion_proyecto(f_inicio,f_fin)"/>
+					    <field name="fecha_ini_fin" style="width: 90%%" />
 					</td>
 					<td>
 					    2.6. Fuente de Financiamiento:
@@ -178,10 +185,10 @@
 				    </tr>
 				    <tr>
 					<td>
-					    Fecha de Finalización:
+					    Año Fiscal:
 					</td>
 					<td>
-					    <field name="f_fin" style="width: 90%%" on_change="duracion_proyecto(f_inicio,f_fin)"/>
+					    <field name="year_fiscal"  placeholder="Año" style="width: 30%%"/>
 					</td>
 					<td>
 					    2.7. Indicador General:
@@ -195,7 +202,7 @@
 					    2.3. Duración:
 					</td>
 					<td>
-					    <field name="duracion" style="width: 90%%"/>
+					    <field name="duracion" style="width: 40%%"/>
 					</td>
 					<td>
 					    2.8. Fórmula del Indicador General:
@@ -209,7 +216,7 @@
 					    2.4. Etapa:
 					</td>
 					<td>
-					    <field name="etapa" style="width: 50%%"/>
+					    <field name="etapa" placeholder="Seleccione.." style="width: 50%%"/>
 					</td>
 					<td>
 					    2.9. Medio de Verificación:
@@ -218,9 +225,20 @@
 					    <field name="m_verificacion" style="width: 90%%"/>
 					</td>
 				    </tr>
+				    <tr>
+					<td colspan="3">
+					    <font color="red" style="font-weight">
+						<br/>
+						**Nota: El Costo total del proyecto se cargara automaticamente al
+						llenar la pestaña de metas financieras, NO lo asigne ningun monto.
+						
+					    </font>
+					</td>
+					
+				    </tr>
 				</table>
 			    </page>
-			    <page string="3. Localización">
+			    <page string="3. Localización" class="oe_form_sheetbg">
 				<separator string="3. Localización politico administrativa" /> 
 				<table>
 				    <tr style="width:800px">
@@ -228,7 +246,7 @@
 					    3.1. Ámbito: 
 					</td>
 					<td style="width: 600px">
-					    <field name="ambito" style="width: 20%%"/>
+					    <field name="ambito" style="width: 30%%"/>
 					</td>
 				    </tr>
 				    <tr>
@@ -236,16 +254,16 @@
 					    3.2. Específique: 
 					</td>
 					<td>
-					    <field name="especifique" style="width: 90%%"/>
+					    <field name="especifique" placeholder="Explique brevemente el por que del ambito seleccionado" style="width: 90%%"/>
 					</td>
 				    </tr>
 				</table>
 			    </page>
 			    </notebook>
 			</page>
-			<page string="Área Estratégica">
-			    <notebook>
-				<page string="4.1 Plan de la patria">
+			<page string="Área Estratégica" class="oe_form_sheetbg">
+			    <notebook class="oe_form_sheetbg">
+				<page string="4.1 Plan de la patria" class="oe_form_sheetbg">
 				<separator string="4.1 Plan de la Patria" />
 				<table style="width: 700px;">
 				    <tr>
@@ -253,7 +271,7 @@
 					    4.1. Plan de la Patria
 					</td>
 					<td >
-					    <field name="plan_patria" style="width: 500px;" />
+					    <field name="plan_patria" placeholder="Seleccione su correspondiente Plan de la Patria" style="width: 500px;" />
 					</td>
 				    </tr>
 				    <tr>
@@ -261,7 +279,8 @@
 					    4.1.1. Objetivo Histórico:
 					</td>
 					<td>
-					    <field name="obj_historico" domain= "[('plan_patria','=',plan_patria)]" />
+					    <field name="obj_historico" placeholder="Seleccione su Objetivo Histórico en base al Plan de la Patria"
+						   domain= "[('plan_patria','=',plan_patria)]" />
 					</td>
 				    </tr>
 				    <tr>
@@ -269,7 +288,8 @@
 					    4.1.2. Objetivo Nacional:
 					</td>
 					<td>
-					    <field name="obj_nacional" domain= "[('objetivo_historico','=',obj_historico)]" />
+					    <field name="obj_nacional" placeholder="Seleccione su Objetivo Nacional correspondiente a su Objetivo Histórico"
+						   domain= "[('objetivo_historico','=',obj_historico)]" />
 					</td>
 				    </tr>
 				    <tr>
@@ -277,7 +297,8 @@
 					    4.1.3. Objetivo Estratégico:
 					</td>
 					<td>
-					    <field name="obj_estrategico" domain= "[('objetivo_nacional','=',obj_nacional)]" />
+					    <field name="obj_estrategico" placeholder="Seleccione su Objetivo Estratégico correspondiente a su Objetivo Nacional"
+						   domain= "[('objetivo_nacional','=',obj_nacional)]" />
 					</td>
 				    </tr>
 				    <tr>
@@ -285,12 +306,13 @@
 					    4.1.4. Objetivo General:
 					</td>
 					<td>
-					    <field name="obj_general_plan" domain= "[('objetivo_estrategico','=',obj_estrategico)]" />
+					    <field name="obj_general_plan" placeholder="Seleccione su Objetivo General correspondiente a su Objetivo Estratégico"
+						   domain= "[('objetivo_estrategico','=',obj_estrategico)]" />
 					</td>
 				    </tr>
 				</table>
 				</page>
-				<page string="4.2 Plan de gobierno">
+				<page string="4.2 Plan de gobierno" class="oe_form_sheetbg">
 				<separator string="4.2 Plan de gobierno" />
 				<table>
 				    <tr  style="width:800px">
@@ -298,7 +320,7 @@
 						4.2.1 Plan de Gobierno:
 					</td>
 					<td style="width:400px">
-						<field name="plan_gobierno"  style="width: 90%%"/>
+						<field name="plan_gobierno" placeholder="Seleccione su correspondiente Plan de Gobierno"  style="width: 90%%"/>
 					</td>
 				    </tr>
 				    <tr>
@@ -306,7 +328,8 @@
 						4.2.2 Líneas Estratégicas del Plan de Gobierno:
 					</td>
 					<td>
-						<field name="linea_estrategica" domain= "[('plan_gobierno','=',plan_gobierno)]" style="width: 90%%"/>
+						<field name="linea_estrategica" placeholder="Seleccione la línea Estratégicas en base al Plan de Gobierno"
+						       domain= "[('plan_gobierno','=',plan_gobierno)]" style="width: 90%%"/>
 					</td>
 				    </tr>
 				    
@@ -323,7 +346,7 @@
 					    4.2.3. Sector:
 					</td>
 					<td>
-					    <field name="sector" style="width: 90%%"/>
+					    <field name="sector" placeholder="Sector al que va dirigido el Proyecto" style="width: 75%%"/>
 					</td>
 				    </tr>
 				    <tr>
@@ -331,16 +354,16 @@
 					    4.2.4. Tipo de Inversión:
 					</td>
 					<td>
-					    <field name="tipo" style="width: 90%%"/>
+					    <field name="tipo" placeholder="Seleccione.." style="width: 45%%"/>
 					</td>
 				    </tr>
 				</table>
 				</page>
 			    </notebook>
 			</page>
-			<page string="Descripción">
-			    <notebook>
-			    <page string="5. Problema y Justificación">
+			<page string="Descripción" class="oe_form_sheetbg">
+			    <notebook class="oe_form_sheetbg">
+			    <page string="5. Problema y Justificación" class="oe_form_sheetbg">
 			    <separator string="5. Identificación del problema y justificación" />
 			    <table style="width: 700px;">
 				<tr>
@@ -348,7 +371,8 @@
 					5.1. Descripción del problema:
 				    </td>
 				    <td style="width: 500px;">
-					<field name="desc_problema" />
+					<field name="desc_problema" placeholder="Descripción concreta y concisa sobre la
+					problematica de su proyecto, recuerde cuenta con un MAXIMO de: 1700 Caracteres.." />
 				    </td>
 				</tr>
 				<tr>
@@ -356,7 +380,7 @@
 					5.2. Objetivo General:
 				    </td>
 				    <td>
-					<field name="obj_general" />
+					<field name="obj_general" placeholder="Objetivo General de su proyecto.." />
 				    </td>
 			        </tr>
 				<tr>
@@ -364,12 +388,12 @@
 					5.3. Importancia e Impacto:
 				    </td>
 				    <td>
-					<field name="imp_impacto" />
+					<field name="imp_impacto" placeholder="Descripcion concreta del impacto e importancia que tendra su proyecto.." />
 				    </td>
 			        </tr>
 			    </table>
 			    </page>
-			    <page string="6. Beneficiarios">
+			    <page string="6. Beneficiarios" class="oe_form_sheetbg">
 			    <separator string="6. Población beneficiada por la ejecución del proyecto" />
 			    <table style="width: 700px;">
 				<tr>
@@ -398,20 +422,20 @@
 			        </tr>
 			    </table>
 			    </page>
-			    <page string="7. Conexiones">
+			    <page string="7. Conexiones" class="oe_form_sheetbg">
 			    <separator string="7. Conexiones inter-institucionales" />
-			    <table style="width: 900px;">
+			    <table style="width: 850px;">
 				<tr>
 				    <td style="width: 200px;">
 					7.1 Requiere acciones (no financieras) de otra Institución:
 				    </td>
-				    <td style="width: 70px;">
-					<field name="reque_accion" style="width: 40px;" />
+				    <td style="width: 50px;">
+					<field name="reque_accion" style="width: 20px;" />
 				    </td>
-				    <td style="width: 100px;" >
+				    <td style="width: 80px;" >
 					7.1.1 Institución:
 				    </td>
-				    <td style="width: 350px;" >
+				    <td style="width: 320px;" >
 					<field name="institucion_req" style="width: 190px;" />
 				    </td>
 				</tr>
@@ -426,21 +450,21 @@
 					7.1.2 Específique:
 				    </td>
 				    <td >
-					<field name="explique_req" />
+					<field name="explique_req" placeholder="Explique brevemente por que requiere acciones (no financieras) de otra institución" />
 				    </td>
 			        </tr>
 				<tr>
 				    <td style="width: 200px;">
 					7.2 Contribuye o complementa acciones de otras Instituciones:
 				    </td>
-				    <td style="width: 100px;">
+				    <td style="width: 50px;">
 					<field name="contri_accion" style="width: 20px;" />
 				    </td>
-				    <td style="width: 100px;" >
+				    <td style="width: 80px;" >
 					7.2.1 Institución:
 				    </td>
 				    <td style="width: 350px;" >
-					<field name="contri_institucion" style="width: 190px;" />
+					<field name="contri_institucion" style="width: 190px;"/>
 				    </td>
 				</tr>
 				<tr>
@@ -454,21 +478,21 @@
 					7.2.2 Específique:
 				    </td>
 				    <td >
-					<field name="contri_explique" />
+					<field name="contri_explique" placeholder="Explique brevemente por que contribuye en acciones de otra institución"/>
 				    </td>
 			        </tr>
 				<tr>
 				    <td style="width: 200px;">
 					7.3 Entra en conflicto otra institución:
 				    </td>
-				    <td style="width: 100px;">
+				    <td style="width: 50px;">
 					<field name="conflicto" style="width: 20px;" />
 				    </td>
-				    <td style="width: 100px;" >
+				    <td style="width: 80px;" >
 					7.2.1 Institución:
 				    </td>
 				    <td style="width: 350px;" >
-					<field name="institucion_conf" style="width: 190px;" />
+					<field name="institucion_conf" style="width: 190px;"/>
 				    </td>
 				</tr>
 				<tr>
@@ -482,12 +506,12 @@
 					7.1.2 Específique:
 				    </td>
 				    <td >
-					<field name="explique_con_conf" />
+					<field name="explique_con_conf" placeholder="Explique brevemente por que entra en conflicto con otra institución"/>
 				    </td>
 			        </tr>
 			    </table>
 			    </page>
-			    <page string="8. Empleos">
+			    <page string="8. Empleos" class="oe_form_sheetbg">
 			    <separator string="8. Empleos estimados por la ejecución del proyecto" />
 			    <table style="width: 600px;">
 				<tr>
@@ -526,8 +550,8 @@
 			    </page>
 			    </notebook>
 			</page>
-			<page string="Acciones" >
-			    <separator string="9. Acciones especificas" />
+			<page string="Acciones" class="oe_form_sheetbg" >
+			    <separator string="9. Acciones específicas" />
 			    <field name="acciones_especificas" on_change="total_acciones(acciones_especificas)">
 				<tree string="Acciones Especificas" editable="bottom">
 				    <field name="nombre_accion" />
@@ -549,9 +573,12 @@
 				</tr>
 			    </table>
 			</page>
-			<page string="Metas" >
+			<page string="Metas" class="oe_form_sheetbg">
 			    <separator string="10. Metas financieras" />
 			    <button name="carga_acciones" type="object" string="Cargar acciones"/>
+			    <font color="red" style="font-weight">
+				**Nota: Haga clic para cargar las acciones.
+			    </font>
 			    <field name="metas_financieras" on_change="total_metas(metas_financieras)">
 				<tree string="Metas financieras" editable="bottom">
 				    <field name="nom_accion_metas" />
@@ -571,8 +598,8 @@
 				</tr>
 			    </table>
 			</page>
-			<page string="Imputación" >
-			<separator string="11. Imputacion presupuestaria" />
+			<page string="Imputación" class="oe_form_sheetbg" >
+			<separator string="11. Imputación presupuestaria" />
 			<field name="imputacion_presu" on_change="total_imputaciones(imputacion_presu)">
 			    <tree string="Imputacion presupuestaria" editable="bottom">
 				<field name="codigo"  /> <!-- on_change="on_change_codigos(codigo)"-->
@@ -595,29 +622,27 @@
 			</page>
 			
 		    </notebook>
-		    
+		    </div>
 
 		</form>
 	    </field>			
 	</record>
 
-<!-- Filtro de solicitudes de soporte (por fechas, cod de solicitud y nombre del representante) -->
-        <!--<record model="ir.ui.view" id="proyecto_conaplan_canaimas_id">
-            <field name="name">Solicitud</field>
+<!-- Filtro Objetivos Históricos -->
+        <record model="ir.ui.view" id="buscar_proyecto_conaplan">
+            <field name="name">Proyectos Presupuesto</field>
             <field name="model">proyecto.conaplan</field>
             <field name="arch" type="xml">      
-                <search string="Busqueda Solicitudes de Soporte Canaimas">
-                    <filter name="solicitudes" domain="[('c_solicitud','=', uid)]" string="Solicitudes de Soporte" icon="terp-partner" />
-                    <field name="c_solicitud" />
-                    <field name="status" />
-                    <field name="f_solicitud" />
-                    <field name="f_entrega" />
-                    <field name="cedula" />
-                    <field name="nombre_r" />
-                    <field name="apellido_r" />
+                <search string="Busqueda de Proyectos">
+			<filter name="busqueda_proyectos" domain="[('objetivo_historico','=', uid)]" string="Proyectos" icon="terp-partner" />
+			<field name="c_solicitud" />
+			<field name="f_solicitud" />
+			<field name="nombre_pro" />
+			<field name="etapa" />
+			<field name="user_register" />
                 </search>
             </field>            
-        </record>-->
+        </record>
 
 
 	<menuitem id="main_proyecto_conaplan_menu" name="Nueva Etapa Aragua" /> 

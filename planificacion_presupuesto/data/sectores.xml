@@ -9,7 +9,7 @@
             <!-- ###########  ##### -->
             <record id="sectores01" model="organos.sectores">
                 <field name="codigo">01</field>
-                <field name="sectores">Dircción superior de gobierno</field>
+                <field name="sectores">Dirección Superior de Gobierno</field>
             </record>
             <record id="sectores02" model="organos.sectores">
                 <field name="codigo">02</field>

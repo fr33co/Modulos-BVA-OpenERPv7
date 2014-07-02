@@ -13,7 +13,7 @@ class organos_entes(osv.Model):
 	_columns = {
 		'user_register': fields.many2one('res.users', 'Registrado por:', readonly=True),
 		'f_solicitud': fields.char('Fecha de Elaboración:', readonly=True, required=True),
-		'nombre_ente' : fields.char(string="", required=True),
+		'nombre_ente' : fields.char(string="Nombre del Organo/Ente/Institución", required=True),
 		'siglas' : fields.char(string="Unidad de Medida", required=True),
 		'correo' : fields.char(string="Cantidad", required=False),
 		'tipo': fields.selection([('1','Órgano'), ('2','Ente'), ('3','Empresa'), ('4','Unidad de Apoyo')], string="Tipo de Institución"),
@@ -25,7 +25,7 @@ class organos_entes(osv.Model):
 		'cargo' : fields.char(string="Cargo", required=False),
 		'telefono' : fields.char(string="Teléfono", size=11, required=False),
 		'ci' : fields.char(string="C.I.", size=8, required=False),
-		'direccion' : fields.char(string="Dirección", required=False),
+		'direccion' : fields.char(string="Dirección", size=170, required=False),
 	}
 	_defaults = {
 		'f_solicitud': lambda *a: time.strftime("%d/%m/%Y"),

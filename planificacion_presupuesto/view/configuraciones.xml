@@ -32,6 +32,9 @@
 			<field name="model">organos.entes</field>
 			<field name="arch" type="xml">
 			<form string="Dirección de Planificación, Presupuesto y Control de Gestión" version="7.0">
+				<div class="oe_form_sheetbg">
+					
+				
 				<group>
 				    <group>
 					<field name="user_register" />
@@ -67,19 +70,19 @@
 						Nombre del Responsable
 					    </td>
 					    <td>
-						<field name="nom_responsable" style="width: 90%%" />
+						<field name="nom_responsable" placeholder="Maxima Autoridad" style="width: 90%%" />
 					    </td>
 					    <td>
 						Cédula
 					    </td>
 					    <td>
-						<field name="ci" style="width: 60%%"/>
+						<field name="ci" placeholder="12123456" style="width: 60%%"/>
 					    </td>
 					    <td>
 						Teléfono
 					    </td>
 					    <td>
-						<field name="telefono" style="width: 60%%"/>
+						<field name="telefono" placeholder="02445552233" style="width: 60%%"/>
 					    </td>
 					</tr>
 					<tr>
@@ -87,7 +90,7 @@
 						Cargo
 					    </td>
 					    <td>
-						<field name="cargo" style="width: 90%%"/>
+						<field name="cargo" placeholder="Cargo del Representante" style="width: 90%%"/>
 					    </td>
 					    <td>
 						Sector
@@ -99,7 +102,7 @@
 						Correo de Contacto
 					    </td>
 					    <td style="width: 225px">
-						<field name="correo" style="width: 90%%"/>
+						<field name="correo" placeholder="nombre@correo.com" style="width: 90%%"/>
 					    </td>
 					</tr>
 					<tr>
@@ -107,7 +110,7 @@
 						Dirección
 					    </td>
 					    <td colspan="3">
-						<field name="direccion" style="width: 96%%"/>
+						<field name="direccion" placeholder="Dirección Completa de la institución" style="width: 96%%"/>
 					    </td>
 					    <td>
 						Tipo de Estructura
@@ -117,27 +120,25 @@
 					    </td>
 					</tr>
 				</table>
-				
+				</div>
 			</form>
 			</field>			
 	</record>
         
-<!-- Filtro de solicitudes de accion_centralizadaes (cod de solicitud y nombre del representante) -->
-<!--        <record model="ir.ui.view" id="buscar_accion_centralizada">
-            <field name="name">Solicitud</field>
-            <field name="model">accion.centralizada</field>
+<!-- Filtro Organos / Entes Registrados en el menu de configuaciones -->
+        <record model="ir.ui.view" id="buscar_insticiones_organos">
+            <field name="name">Organos / Entes</field>
+            <field name="model">organos.entes</field>
             <field name="arch" type="xml">      
-                <search string="Busqueda Solicitudes de Soporte Canaimas">
-                    <filter name="accion_centralizadaes" domain="[('c_solicitud','=', uid)]" string="Solicitudes de Reparación" icon="terp-partner" />
-                    <field name="c_solicitud" />
-                    <field name="status" />
-                    <field name="serial" />
-                    <field name="hardware" />
-                    <field name="software" />
+                <search string="Busqueda de Instituciones">
+			<filter name="busqueda_entes" domain="[('nombre_ente','=', uid)]" string="Busqueda de Institución" icon="terp-partner" />
+			<field name="nombre_ente"/>
+			<field name="tipo" />
+			<field name="sector" />
                 </search>
             </field>            
-        </record>-->
-<!--Menu-->
+        </record>
+
 
 <!--Registro y Administración de Organos Entes -->
 
@@ -167,11 +168,24 @@
 				<form string="Acciones" version="7.0">
 					<group>
 						<field name="codigo" class="oe_inline"/>
-						<field name="sectores" class="oe_inline"/>	
+						<field name="sectores" placeholder="Nombre del Sector" class="oe_inline"/>	
 					</group>
 				</form>
 			</field>			
 		</record>
+
+<!-- Filtro Sectores Registrados en el menu de configuaciones -->
+        <record model="ir.ui.view" id="buscar_sectores">
+            <field name="name">Organos / Sectores</field>
+            <field name="model">organos.sectores</field>
+            <field name="arch" type="xml">      
+                <search string="Busqueda de Instituciones">
+			<filter name="busqueda_entes" domain="[('codigo','=', uid)]" string="Busqueda de Institución" icon="terp-partner" />
+			<field name="codigo"/>
+			<field name="sectores" />
+                </search>
+            </field>            
+        </record>
 
 <!--Registro y Administración de Organos Entes -->
 
@@ -239,6 +253,19 @@
 			</field>			
 		</record>
 		
+<!-- Filtro de Acciones centralizadas-->
+        <record model="ir.ui.view" id="buscar_acciones_centralizadas">
+            <field name="name">Tipo acciones Centralizadas Filtro</field>
+            <field name="model">tipo.accion.centralizada</field>
+            <field name="arch" type="xml">      
+                <search string="Busqueda de Instituciones">
+			<filter name="acc_centralizada" domain="[('a_centralizada','=', uid)]" string="Acciones Centralizadas " icon="terp-partner" />
+			<field name="a_centralizada"/>
+                </search>
+            </field>            
+        </record>
+
+		
 <!--Registro de Acciones especifica -->
 
 		<record model="ir.actions.act_window" id="tipo_acciones_especifica_list_action">
@@ -273,7 +300,7 @@
 			</field>			
 		</record>
 
-<!--Registro de Acciones especifica -->
+<!--Registro de Partidas Ligadas a las Acciones Centralizadas -->
 
 		<record model="ir.actions.act_window" id="partidas_centralizada_list_action">
 		    <field name="name">Partidas Centralizada</field>
@@ -282,7 +309,7 @@
 		    <field name="view_mode">tree,form</field>
 		</record> 
 
-<!--Form Tree especifica-->
+<!--Form Tree -->
 
 		<record model="ir.ui.view" id="partidas_centralizada_tree_view">
 			<field name="name">partida centralizada tree</field>
@@ -308,7 +335,7 @@
 			</field>			
 		</record>
 
-<!--Registro de Acciones especifica -->
+<!--Registro de Partidas Presupuestarias -->
 
 		<record model="ir.actions.act_window" id="partidas_presupuestaria_list_action">
 		    <field name="name">Partidas Presupuestarias</field>
@@ -317,7 +344,7 @@
 		    <field name="view_mode">tree,form</field>
 		</record> 
 
-<!--Form Tree especifica-->
+<!--Form Tree de las Partidas-->
 
 		<record model="ir.ui.view" id="partidas_presupuestaria_tree_view">
 			<field name="name">partida presupuestaria tree</field>

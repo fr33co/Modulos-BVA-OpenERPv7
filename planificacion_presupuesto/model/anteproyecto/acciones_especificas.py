@@ -28,7 +28,7 @@ class acciones_especificas(osv.Model):
 
 	_columns = {
 		'acciones_ids':fields.many2one('proyecto.conaplan', 'acciones_especificas', ondelete='cascade', select=False),
-		'nombre_accion' : fields.char(string='Nombre de la Acción Específica', size=40, required=False),
+		'nombre_accion' : fields.char(string='Nombre de la Acción Específica', size=65, required=False),
 		'unidad_medida' : fields.char(string="Unidad de Medida", size=25, required=False),
 		'medio' : fields.char(string="Medio de Verificación", size=25, required=False),
 		'trim_i' : fields.integer(string="Trimestre I", required=False),

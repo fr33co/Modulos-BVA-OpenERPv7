@@ -86,6 +86,7 @@ class accion_centralizada(osv.Model):
             'telefono': datos.telefono,
             'correo': datos.correo,
 	    'cedula': datos.ci,
+	    'siglas': datos.siglas,
      
         })
         return {'value' : values}  
@@ -184,6 +185,7 @@ class accion_centralizada(osv.Model):
             ci = y.cedula.encode("UTF-8").decode("UTF-8")
             autori = y.n_autoridad.encode("UTF-8").decode("UTF-8")
             cargo = y.cargo.encode("UTF-8").decode("UTF-8")
+	    sigla = y.siglas.encode("UTF-8").decode("UTF-8")
             tel = y.telefono.encode("UTF-8").decode("UTF-8")
             email = y.correo.encode("UTF-8").decode("UTF-8")
             politica = y.poli_presu.encode("UTF-8").decode("UTF-8")
@@ -225,7 +227,6 @@ class accion_centralizada(osv.Model):
             pdf.set_font('Arial','',8)
             pdf.cell(20,5,tel,'TBR',1,'L',1)
 
-            pdf.ln(5)
             pdf.set_fill_color(199,15,15)
             pdf.set_text_color(255,255,255)
             pdf.set_font('Arial','B',10)
@@ -233,9 +234,8 @@ class accion_centralizada(osv.Model):
             pdf.set_fill_color(255,255,255)
             pdf.set_text_color(24,29,31)
             pdf.set_font('Arial','',8)
-            pdf.multi_cell(190,5,politica,'LTBR',0,'J',0)
+            pdf.multi_cell(190,5,politica,'LTBR','J',0)
 
-            pdf.ln(5)
             pdf.set_fill_color(199,15,15)
             pdf.set_text_color(255,255,255)
             pdf.set_font('Arial','B',10)
@@ -253,18 +253,16 @@ class accion_centralizada(osv.Model):
             pdf.set_font('Arial','',8)
 	    pdf.multi_cell(190,4,acc_espe,'LBR',0,'J',0)
 
-
-	    pdf.ln(5)
 	    pdf.set_fill_color(199,15,15)
 	    pdf.set_text_color(255,255,255)
 	    pdf.set_font('Arial','B',10)
 	    pdf.cell(190,5,"4. ACTIVIDADES DE LA ACCIÓN ESPECÍFICA".decode("UTF-8"),'LTBR',1,'C',1)
 	    pdf.cell(190,5,"4.1. Distribución de las Actividades".decode("UTF-8"),'LTBR',1,'C',1)
 	    pdf.set_font('Arial','B',9)
-	    pdf.cell(50,5,"Actividades".decode("UTF-8"),'LTBR',0,'C',1)
+	    pdf.cell(54,5,"Actividades".decode("UTF-8"),'LTBR',0,'C',1)
 	    pdf.cell(35, 5,"Unidad de Medida".decode("UTF-8"),'LTB',0,'C',1)
 	    pdf.cell(40, 5,"Medio de Verificación".decode("UTF-8"),'LTB',0,'C',1)
-	    pdf.cell(20,5,"Cantidad".decode("UTF-8"),'LBTR',0,'C',1)
+	    pdf.cell(16,5,"Cantidad".decode("UTF-8"),'LBTR',0,'C',1)
 	    pdf.cell(45, 5,"Indicadores de la Actividad".decode("UTF-8"),'LTBR',1,'C',1)
 	    pdf.set_fill_color(255,255,255)
 	    pdf.set_text_color(24,29,31)
@@ -285,13 +283,12 @@ class accion_centralizada(osv.Model):
 		indi = d['indicadores_act']
 
 		pdf.set_font('Arial','',6)
-		pdf.cell(50,5, act.encode("UTF-8").decode("UTF-8"),'LTB',0,'J',0),
+		pdf.cell(54,5, act.encode("UTF-8").decode("UTF-8"),'LTB',0,'J',0),
 		pdf.cell(35, 5, unid.encode("UTF-8").decode("UTF-8"),'LTB',0,'C',1)
 		pdf.cell(40, 5, medio.encode("UTF-8").decode("UTF-8"),'LTB',0,'C',1)
-		pdf.cell(20,5, str(cant),'LBTR',0,'C',1)
+		pdf.cell(16,5, str(cant),'LBTR',0,'C',1)
 		pdf.cell(45, 5, indi.encode("UTF-8").decode("UTF-8"),'LTBR',1,'C',1)
 
-	    pdf.ln(5)
 	    
 	    pdf.set_fill_color(199,15,15)
 	    pdf.set_text_color(255,255,255)
@@ -300,11 +297,11 @@ class accion_centralizada(osv.Model):
 	    
 	    
 	    pdf.set_font('Arial','B',9)
-	    pdf.cell(50,5,"Actividades".decode("UTF-8"),'LTBR',0,'C',1)
-	    pdf.cell(30, 5,"I Trimestre".decode("UTF-8"),'LTB',0,'C',1)
-	    pdf.cell(30, 5,"II Trimestre".decode("UTF-8"),'LTB',0,'C',1)
-	    pdf.cell(30, 5,"III Trimestre".decode("UTF-8"),'LTB',0,'C',1)
-	    pdf.cell(30, 5,"IV Trimestre".decode("UTF-8"),'LTB',0,'C',1)
+	    pdf.cell(54,5,"Actividades".decode("UTF-8"),'LTBR',0,'C',1)
+	    pdf.cell(29, 5,"I Trimestre".decode("UTF-8"),'LTB',0,'C',1)
+	    pdf.cell(29, 5,"II Trimestre".decode("UTF-8"),'LTB',0,'C',1)
+	    pdf.cell(29, 5,"III Trimestre".decode("UTF-8"),'LTB',0,'C',1)
+	    pdf.cell(29, 5,"IV Trimestre".decode("UTF-8"),'LTB',0,'C',1)
 	    pdf.cell(20,5,"TOTAL".decode("UTF-8"),'LBTR',1,'C',1) 
 	    pdf.set_fill_color(255,255,255)
 	    pdf.set_text_color(24,29,31)
@@ -326,32 +323,33 @@ class accion_centralizada(osv.Model):
 		total_trim = int(a['total_trim'])
 		
 		pdf.set_font('Arial','',6)
-		pdf.cell(50,5, act.encode("UTF-8").decode("UTF-8"),'LTBR',0,'C',1)
-		pdf.cell(30, 5, str(uno),'LTB',0,'C',1)
-		pdf.cell(30, 5, str(dos),'LTB',0,'C',1)
-		pdf.cell(30, 5, str(tres),'LTB',0,'C',1)
-		pdf.cell(30, 5, str(cuatro),'LTB',0,'C',1)
+		pdf.cell(54,5, act.encode("UTF-8").decode("UTF-8"),'LTBR',0,'C',1)
+		pdf.cell(29, 5, str(uno),'LTB',0,'C',1)
+		pdf.cell(29, 5, str(dos),'LTB',0,'C',1)
+		pdf.cell(29, 5, str(tres),'LTB',0,'C',1)
+		pdf.cell(29, 5, str(cuatro),'LTB',0,'C',1)
 		pdf.cell(20,5, str(total_trim),'LBTR',1,'C',1) 
 
 	    pdf.set_font('Arial','B',9)
 	    pdf.cell(170, 5, "TOTALES",'LTB',0,'C',1)
 	    pdf.cell(20,5, "",'LBTR',1,'C',1) 
-
-
 	    
-	    pdf.ln(5)
 	    
+	    pdf.alias_nb_pages() # LLAMADA DE PAGINACION
+	    pdf.add_page() # AÑADE UNA NUEVA PAGINACIO
+	    pdf.set_y(43)
+	    pdf.set_x(10)
 	    pdf.set_fill_color(199,15,15)
 	    pdf.set_text_color(255,255,255)
 	    pdf.set_font('Arial','B',10)
 	    pdf.cell(190,5,"5. METAS FINANCIERAS DE LAS ACCIÓN ESPECÍFICA".decode("UTF-8"),'LTBR',1,'C',1)
-	    pdf.cell(190,5,"5.1. Distribución tRIMESTRAL".decode("UTF-8"),'LTBR',1,'C',1)
+	    pdf.cell(190,5,"5.1. Distribución Trimestral".decode("UTF-8"),'LTBR',1,'C',1)
 	    pdf.set_font('Arial','B',9)
-	    pdf.cell(50,5,"Actividades".decode("UTF-8"),'LTBR',0,'C',1)
-	    pdf.cell(30, 5,"I Trimestre".decode("UTF-8"),'LTB',0,'C',1)
-	    pdf.cell(30, 5,"II Trimestre".decode("UTF-8"),'LTB',0,'C',1)
-	    pdf.cell(30, 5,"III Trimestre".decode("UTF-8"),'LTB',0,'C',1)
-	    pdf.cell(30, 5,"IV Trimestre".decode("UTF-8"),'LTB',0,'C',1)
+	    pdf.cell(54,5,"Actividades".decode("UTF-8"),'LTBR',0,'C',1)
+	    pdf.cell(29, 5,"I Trimestre".decode("UTF-8"),'LTB',0,'C',1)
+	    pdf.cell(29, 5,"II Trimestre".decode("UTF-8"),'LTB',0,'C',1)
+	    pdf.cell(29, 5,"III Trimestre".decode("UTF-8"),'LTB',0,'C',1)
+	    pdf.cell(29, 5,"IV Trimestre".decode("UTF-8"),'LTB',0,'C',1)
 	    pdf.cell(20,5,"TOTAL".decode("UTF-8"),'LBTR',1,'C',1)   
 	    pdf.set_fill_color(255,255,255)
 	    pdf.set_text_color(24,29,31)
@@ -373,11 +371,11 @@ class accion_centralizada(osv.Model):
 		total_m = float(m['total_trim'])
 
 		pdf.set_font('Arial','',6)
-		pdf.cell(50,4,act.encode("UTF-8").decode("UTF-8"),'LTBR',0,'L',1)
-		pdf.cell(30,4,str(uno),'LTBR',0,'R',1)
-		pdf.cell(30,4,str(dos),'LTBR',0,'R',1)
-		pdf.cell(30,4,str(tres),'LTBR',0,'R',1)
-		pdf.cell(30,4,str(cuatro),'LTBR',0,'R',1)
+		pdf.cell(54,4,act.encode("UTF-8").decode("UTF-8"),'LTBR',0,'L',1)
+		pdf.cell(29,4,str(uno),'LTBR',0,'R',1)
+		pdf.cell(29,4,str(dos),'LTBR',0,'R',1)
+		pdf.cell(29,4,str(tres),'LTBR',0,'R',1)
+		pdf.cell(29,4,str(cuatro),'LTBR',0,'R',1)
 		pdf.cell(20,4,str(total_m),'LTBR',1,'R',1) 
 
 	    pdf.set_font('Arial','B',9)
@@ -443,11 +441,11 @@ class accion_centralizada(osv.Model):
 	pdf.cell(20,4,"",'LTBR',1,'R',1)   
 
 
-	nom = c_id+'.pdf'
+	nom = c_id+"-"+sigla+'.pdf'
         pdf.output('/home/administrador/openerp70/modules/planificacion_presupuesto/reportes/'+nom,'F')
 
-        archivo = open('/home/administrador/openerp70/modules/planificacion_presupuesto/reportes/'+nom)
-
+        #archivo = open('openerp/addons/planificacion_presupuesto/reportes/'+nom)
+	archivo = open('/home/administrador/openerp70/modules/planificacion_presupuesto/reportes/'+nom)
 	r_archivo = self.pool.get('reportes.presupuesto').create(cr, uid, {
 		'name' : nom,
 		'res_name' : nom,
@@ -472,6 +470,7 @@ class accion_centralizada(osv.Model):
 	'cargo': fields.char('Cargo:', required=True),
 	'telefono': fields.char('Teléfono:', required=True),
 	'correo': fields.char('Correo Electrónico:', required=True),
+	'siglas': fields.char('Siglas:'),
 	#Pestaña2
 	'poli_presu': fields.text('Política Presupuestaría:', required=True),
 	#Pestaña3
