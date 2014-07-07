@@ -2,487 +2,487 @@
     <openerp>
         <data>
             <!-- ###############################################################
-                 # Filtro para el modelo de proyectos                          #
+                 # Filtro para el modelo de acciones                           #
                  #                                                             #
                  ############################################################### -->
 
-            <record id="proyecto_1" model="ir.filters">
+            <record id="accion_1" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','fojia')]</field> <!--Filtro-->
                 <field name="user_id">20</field>
                 <field name="name">FOJIA</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_2" model="ir.filters">
+            <record id="accion_2" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','vida')]</field> <!--Filtro-->
                 <field name="user_id">21</field>
                 <field name="name">VIDA</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_3" model="ir.filters">
+            <record id="accion_3" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','irda')]</field> <!--Filtro-->
                 <field name="user_id">22</field>
                 <field name="name">IRDA</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_4" model="ir.filters">
+            <record id="accion_4" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','sager')]</field> <!--Filtro-->
                 <field name="user_id">23</field>
                 <field name="name">SAGER</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_5" model="ir.filters">
+            <record id="accion_5" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','osa')]</field> <!--Filtro-->
                 <field name="user_id">24</field>
                 <field name="name">OSA</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_6" model="ir.filters">
+            <record id="accion_6" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','sspppc')]</field> <!--Filtro-->
                 <field name="user_id">25</field>
                 <field name="name">SSPPPC</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_7" model="ir.filters">
+            <record id="accion_7" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','ica')]</field> <!--Filtro-->
                 <field name="user_id">26</field>
                 <field name="name">ICA</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_8" model="ir.filters">
+            <record id="accion_8" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','bva')]</field> <!--Filtro-->
                 <field name="user_id">27</field>
                 <field name="name">BVA</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_9" model="ir.filters">
+            <record id="accion_9" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','ssfpp')]</field> <!--Filtro-->
                 <field name="user_id">28</field>
                 <field name="name">SSFPP</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_10" model="ir.filters">
+            <record id="accion_10" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','uem')]</field> <!--Filtro-->
                 <field name="user_id">29</field>
                 <field name="name">UEM</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_11" model="ir.filters">
+            <record id="accion_11" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','frnsa')]</field> <!--Filtro-->
                 <field name="user_id">30</field>
                 <field name="name">FRNSA</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_12" model="ir.filters">
+            <record id="accion_12" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','ima')]</field> <!--Filtro-->
                 <field name="user_id">31</field>
                 <field name="name">IMA</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_13" model="ir.filters">
+            <record id="accion_13" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','tepp')]</field> <!--Filtro-->
                 <field name="user_id">32</field>
                 <field name="name">TEPP</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_14" model="ir.filters">
+            <record id="accion_14" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','insajuv')]</field> <!--Filtro-->
                 <field name="user_id">33</field>
                 <field name="name">INSAJUV</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_15" model="ir.filters">
+            <record id="accion_15" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','ssiga')]</field> <!--Filtro-->
                 <field name="user_id">34</field>
                 <field name="name">SSIGA</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_16" model="ir.filters">
+            <record id="accion_16" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','sapanna')]</field> <!--Filtro-->
                 <field name="user_id">35</field>
                 <field name="name">SAPANNA</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_17" model="ir.filters">
+            <record id="accion_17" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','ssppea')]</field> <!--Filtro-->
                 <field name="user_id">36</field>
                 <field name="name">SSPPEA</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_18" model="ir.filters">
+            <record id="accion_18" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','ssppamig')]</field> <!--Filtro-->
                 <field name="user_id">37</field>
                 <field name="name">SSPPAMIG</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_19" model="ir.filters">
+            <record id="accion_19" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','sspds')]</field> <!--Filtro-->
                 <field name="user_id">38</field>
                 <field name="name">SSPDS</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_20" model="ir.filters">
+            <record id="accion_20" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','aramica')]</field> <!--Filtro-->
                 <field name="user_id">39</field>
                 <field name="name">ARAMICA</field>
                 <field name="context">{}</field>
             </record>
-            <!--############################################################################ -->
-            <record id="proyecto_21" model="ir.filters">
+            <!-- ####################################################################### -->
+            <record id="accion_21" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','alas')]</field> <!--Filtro-->
                 <field name="user_id">40</field>
                 <field name="name">ALAS</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_22" model="ir.filters">
+            <record id="accion_22" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','sacccp')]</field> <!--Filtro-->
                 <field name="user_id">41</field>
                 <field name="name">SACCCP</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_23" model="ir.filters">
+            <record id="accion_23" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','cincatesa')]</field> <!--Filtro-->
                 <field name="user_id">42</field>
                 <field name="name">CINCATESA</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_24" model="ir.filters">
+            <record id="accion_24" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','ssppda')]</field> <!--Filtro-->
                 <field name="user_id">43</field>
                 <field name="name">SSPPDA</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_25" model="ir.filters">
+            <record id="accion_25" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','pstajp')]</field> <!--Filtro-->
                 <field name="user_id">44</field>
                 <field name="name">PSTAJP</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_26" model="ir.filters">
+            <record id="accion_26" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','arawak')]</field> <!--Filtro-->
                 <field name="user_id">45</field>
                 <field name="name">ARAWAK</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_27" model="ir.filters">
+            <record id="accion_27" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','seta')]</field> <!--Filtro-->
                 <field name="user_id">46</field>
                 <field name="name">SETA</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_28" model="ir.filters">
+            <record id="accion_28" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','sedec')]</field> <!--Filtro-->
                 <field name="user_id">47</field>
                 <field name="name">SEDEC</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_29" model="ir.filters">
+            <record id="accion_29" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','iobpasla')]</field> <!--Filtro-->
                 <field name="user_id">49</field>
                 <field name="name">IOBPASLA</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_30" model="ir.filters">
+            <record id="accion_30" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','ssppmc')]</field> <!--Filtro-->
                 <field name="user_id">50</field>
                 <field name="name">SSPPMC</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_31" model="ir.filters">
+            <record id="accion_31" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','wvera')]</field> <!--Filtro-->
                 <field name="user_id">51</field>
                 <field name="name">WVERA</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_32" model="ir.filters">
+            <record id="accion_32" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','frcrv')]</field> <!--Filtro-->
                 <field name="user_id">52</field>
                 <field name="name">FRCRV</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_33" model="ir.filters">
+            <record id="accion_33" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','telearagua')]</field> <!--Filtro-->
                 <field name="user_id">53</field>
                 <field name="name">TELEARAGUA</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_34" model="ir.filters">
+            <record id="accion_34" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','fondesa')]</field> <!--Filtro-->
                 <field name="user_id">54</field>
                 <field name="name">FONDESA</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_35" model="ir.filters">
+            <record id="accion_35" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','iatur')]</field> <!--Filtro-->
                 <field name="user_id">56</field>
                 <field name="name">IATUR</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_36" model="ir.filters">
+            <record id="accion_36" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','fsbra')]</field> <!--Filtro-->
                 <field name="user_id">57</field>
                 <field name="name">FSBRA</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_37" model="ir.filters">
+            <record id="accion_37" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','corposalud')]</field> <!--Filtro-->
                 <field name="user_id">58</field>
                 <field name="name">CORPOSALUD</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_38" model="ir.filters">
+            <record id="accion_38" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','fundaragua')]</field> <!--Filtro-->
                 <field name="user_id">59</field>
                 <field name="name">FUNDARAGUA</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_39" model="ir.filters">
+            <record id="accion_39" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','construaragua')]</field> <!--Filtro-->
                 <field name="user_id">60</field>
                 <field name="name">CONTRUARAGUA</field>
                 <field name="context">{}</field>
             </record>
-            <!-- ######################################################################## -->
-            <record id="proyecto_41" model="ir.filters">
+            <!-- ############################################################################ -->
+            <record id="accion_41" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','transaragua')]</field> <!--Filtro-->
                 <field name="user_id">61</field>
                 <field name="name">TRANSARAGUA</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_42" model="ir.filters">
+            <record id="accion_42" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','sspaot')]</field> <!--Filtro-->
                 <field name="user_id">62</field>
                 <field name="name">SSPAOT</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_43" model="ir.filters">
+            <record id="accion_43" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','ssppidu')]</field> <!--Filtro-->
                 <field name="user_id">63</field>
                 <field name="name">SSPPIDU</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_44" model="ir.filters">
+            <record id="accion_44" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','saaat')]</field> <!--Filtro-->
                 <field name="user_id">64</field>
                 <field name="name">SAAAT</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_45" model="ir.filters">
+            <record id="accion_45" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','vasa')]</field> <!--Filtro-->
                 <field name="user_id">65</field>
                 <field name="name">VASA</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_46" model="ir.filters">
+            <record id="accion_46" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','sasiae171')]</field> <!--Filtro-->
                 <field name="user_id">66</field>
                 <field name="name">SASIAE171</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_47" model="ir.filters">
+            <record id="accion_47" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','PCA')]</field> <!--Filtro-->
                 <field name="user_id">67</field>
                 <field name="name">PCA</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_48" model="ir.filters">
+            <record id="accion_48" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','CBEA')]</field> <!--Filtro-->
                 <field name="user_id">68</field>
                 <field name="name">CBEA</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_49" model="ir.filters">
+            <record id="accion_49" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','fatva')]</field> <!--Filtro-->
                 <field name="user_id">69</field>
                 <field name="name">FATVA</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_50" model="ir.filters">
+            <record id="accion_50" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','inpoaragua')]</field> <!--Filtro-->
                 <field name="user_id">70</field>
                 <field name="name">INPOARAGUA</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_51" model="ir.filters">
+            <record id="accion_51" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','fundaparques')]</field> <!--Filtro-->
                 <field name="user_id">71</field>
                 <field name="name">FUNDAPARQUES</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_52" model="ir.filters">
+            <record id="accion_52" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','ssspc')]</field> <!--Filtro-->
                 <field name="user_id">72</field>
                 <field name="name">SSSPC</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_53" model="ir.filters">
+            <record id="accion_53" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','dpa')]</field> <!--Filtro-->
                 <field name="user_id">73</field>
                 <field name="name">DPA</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_54" model="ir.filters">
+            <record id="accion_54" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','gbarrhh')]</field> <!--Filtro-->
                 <field name="user_id">74</field>
                 <field name="name">GBARRHH</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_55" model="ir.filters">
+            <record id="accion_55" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','diprp')]</field> <!--Filtro-->
                 <field name="user_id">75</field>
                 <field name="name">DIPRP</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_56" model="ir.filters">
+            <record id="accion_56" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','dppcg')]</field> <!--Filtro-->
                 <field name="user_id">76</field>
                 <field name="name">DPPCG</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_57" model="ir.filters">
+            <record id="accion_57" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','uai')]</field> <!--Filtro-->
                 <field name="user_id">77</field>
                 <field name="name">UAI</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_58" model="ir.filters">
+            <record id="accion_58" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','sdespacho')]</field> <!--Filtro-->
                 <field name="user_id">78</field>
                 <field name="name">SDESPACHO</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_59" model="ir.filters">
+            <record id="accion_59" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','cjgba')]</field> <!--Filtro-->
                 <field name="user_id">79</field>
                 <field name="name">CJGBA</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_60" model="ir.filters">
+            <record id="accion_60" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','age')]</field> <!--Filtro-->
                 <field name="user_id">80</field>
                 <field name="name">AGE</field>
                 <field name="context">{}</field>
             </record>
-            <record id="proyecto_61" model="ir.filters">
+            <record id="accion_61" model="ir.filters">
                 <field name="is_default">TRUE</field>
-                <field name="model_id">proyecto.conaplan</field>
+                <field name="model_id">accion.centralizada</field>
                 <field name="domain">[('user_register','=','dts')]</field> <!--Filtro-->
                 <field name="user_id">82</field>
                 <field name="name">DTS</field>
@@ -490,3 +490,4 @@
             </record>
         </data>
     </openerp>
+

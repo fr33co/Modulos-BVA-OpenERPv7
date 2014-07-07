@@ -138,6 +138,7 @@ class solicitud_soporte(osv.Model):
 	exp_c = ""
 	int_r = ""
 	int_c = ""
+	obj_g = ""
 	conf_int = ""
 	conf_exp = ""
 	emp_dir_f = 0
@@ -155,8 +156,8 @@ class solicitud_soporte(osv.Model):
 	    
 	    proyecto = x.nombre_pro.encode("UTF-8").decode("UTF-8")
 	    dura = x.duracion.encode("UTF-8").decode("UTF-8")
-	    inicio = x.f_inicio.encode("UTF-8").decode("UTF-8")
-	    fin = x.f_fin.encode("UTF-8").decode("UTF-8")
+	    inicio = x.fecha_ini_fin.encode("UTF-8").decode("UTF-8")
+	    fin = int(x.year_fiscal)
 	    ###########################
 	    if int(x.etapa) == 1:
 		etapa = "Nueva"
@@ -206,7 +207,12 @@ class solicitud_soporte(osv.Model):
 	    obj_h = x.obj_historico.objetivo_historico.encode("UTF-8").decode("UTF-8")
 	    obj_n = x.obj_nacional.objetivo_nacional.encode("UTF-8").decode("UTF-8")
 	    obj_e = x.obj_estrategico.objetivo_estrategico.encode("UTF-8").decode("UTF-8")
-	    obj_g = x.obj_general_plan.objetivo_general.encode("UTF-8").decode("UTF-8")
+	    #obj_g = x.obj_general_plan.objetivo_general.encode("UTF-8").decode("UTF-8")
+
+	    if x.obj_general_plan.objetivo_general is None:
+		obj_g == ""
+	    else:
+		obj_g = x.obj_general_plan.objetivo_general.encode("UTF-8").decode("UTF-8")
 
 	    
 	    plan_g = x.plan_gobierno.plan_gobierno.encode("UTF-8").decode("UTF-8")
@@ -313,34 +319,35 @@ class solicitud_soporte(osv.Model):
 	    #1. Identificación de proponente
 	    pdf.cell(47,5,"1.1 Organismo/Ente/Empresa:".decode("UTF-8"),'LTB',0,'L',1)
 	    pdf.set_font('Arial','',8)
-	    pdf.cell(82,5,ente,'BTR',0,'L',1)
+	    pdf.cell(143,5,ente,'BTR',1,'L',1)
 	    pdf.set_font('Arial','B',9)
 	    pdf.cell(41,5,"1.2. Fecha de Elaboración:".decode("UTF-8"),'LTB',0,'L',1)
 	    pdf.set_font('Arial','',8)
-	    pdf.cell(20,5,fec,'TBR',1,'L',1)
-    
-	    pdf.set_font('Arial','B',9)
-	    pdf.cell(23,5,"1.3. Domicilio:".decode("UTF-8"),'LTB',0,'L',1)
-	    pdf.set_font('Arial','',8)
-	    pdf.cell(167,5,domici,'BTR',1,'L',1)
-	    
+	    pdf.cell(17,5,fec,'TBR',0,'L',1)
 	    pdf.set_font('Arial','B',9)
 	    pdf.cell(28,5,"1.4. Responsable:".decode("UTF-8"),'LTB',0,'L',1)
 	    pdf.set_font('Arial','',8)
-	    pdf.cell(52,5,resp,'TBR',0,'L',1)
-	    pdf.set_font('Arial','B',9)
-	    pdf.cell(18,5,"1.5. Cargo:".decode("UTF-8"),'LTB',0,'L',1)
-	    pdf.set_font('Arial','',8)
-	    pdf.cell(50,5,cargo,'BTR',0,'L',1)
+	    pdf.cell(62,5,resp,'TBR',0,'L',1)
 	    pdf.set_font('Arial','B',9)
 	    pdf.cell(22,5,"1.6. Teléfono:".decode("UTF-8"),'LTB',0,'L',1)
 	    pdf.set_font('Arial','',8)
 	    pdf.cell(20,5,tel,'BTR',1,'L',1)
+    
+	    pdf.set_font('Arial','B',9)
+	    pdf.cell(190,5,"1.3. Domicilio:".decode("UTF-8"),'LTR',1,'L',1)
+	    pdf.set_font('Arial','',8)
+	    pdf.multi_cell(190,5,domici,'LBR','J',1)
+	    
+	   
+	    pdf.set_font('Arial','B',9)
+	    pdf.cell(18,5,"1.5. Cargo:".decode("UTF-8"),'LTB',0,'L',1)
+	    pdf.set_font('Arial','',8)
+	    pdf.cell(60,5,cargo,'BTR',0,'L',1)
 	    
 	    pdf.set_font('Arial','B',9)
 	    pdf.cell(38,5,"1.7. Correo Electrónico:".decode("UTF-8"),'LTB',0,'L',1)
 	    pdf.set_font('Arial','',8)
-	    pdf.cell(152,5,correo,'TBR',1,'L',1)
+	    pdf.cell(74,5,correo,'TBR',1,'L',1)
 	    
 	    #2.Datos del Proyecto
 	    pdf.set_fill_color(199,15,15)
@@ -355,53 +362,50 @@ class solicitud_soporte(osv.Model):
 	    pdf.multi_cell(190,5,proyecto,'LBR',0,'J',0)
 
 	    pdf.set_font('Arial','B',9)
-	    pdf.cell(24,5,"2.2. Ubicación:".decode("UTF-8"),'LTB',0,'L',1)
+	    pdf.cell(190,5,"2.2. Ubicación:".decode("UTF-8"),'LTR',1,'L',1)
 	    pdf.set_font('Arial','',8)
-	    pdf.cell(166,5,domici,'TBR',1,'L',1)
+	    pdf.multi_cell(190,5,domici,'LBR','J',1)
 	    
 	    pdf.set_font('Arial','B',9)
 	    pdf.cell(22,5,"2.3. Duración:".decode("UTF-8"),'LTB',0,'L',1)
 	    pdf.set_font('Arial','',8)
-	    pdf.cell(40,5,dura,'BTR',0,'L',1)
+	    pdf.cell(10,5,dura,'BTR',0,'L',1)
 	    pdf.set_font('Arial','B',9)
-	    pdf.cell(25,5,"Fecha de inicio:".decode("UTF-8"),'LTB',0,'L',1)
+	    pdf.cell(50,5,"Fecha de Inicio y Culmincación:".decode("UTF-8"),'LTB',0,'L',1)
 	    pdf.set_font('Arial','',8)
-	    pdf.cell(17,5,inicio,'BTR',0,'L',1)
+	    pdf.cell(42,5,inicio,'BTR',0,'L',1)
 	    pdf.set_font('Arial','B',9)
-	    pdf.cell(21,5,"Fecha de fin:".decode("UTF-8"),'LTB',0,'L',1)
+	    pdf.cell(18,5,"Año Fiscal:".decode("UTF-8"),'LTB',0,'L',1)
 	    pdf.set_font('Arial','',8)
-	    pdf.cell(17,5,fin,'TBR',0,'L',1)
+	    pdf.cell(10,5,str(fin),'TBR',0,'L',1)
 	    pdf.set_font('Arial','B',9)
 	    pdf.cell(17,5,"2.4. Etapa:".decode("UTF-8"),'LTB',0,'L',1)
 	    pdf.set_font('Arial','',8)
-	    pdf.cell(31,5,str(etapa).decode("UTF-8"),'TBR',1,'L',1)
+	    pdf.cell(21,5,str(etapa).decode("UTF-8"),'TBR',1,'L',1)
 	    
-	    pdf.set_font('Arial','B',9)
-	    pdf.cell(28,5,"Proyecto Nuevo:".decode("UTF-8"),'LTB',0,'L',1)
-	    pdf.set_font('Arial','',8)
-	    pdf.cell(62,5,npro,'BTR',0,'L',1)
+
 	    pdf.set_font('Arial','B',9)
 	    pdf.cell(38,5,"2.5. Costo del Proyecto:".decode("UTF-8"),'LTB',0,'L',1)
 	    pdf.set_font('Arial','',8)
-	    pdf.cell(62,5,str(costo)+""+"Bs.",'BTR',1,'L',1)
+	    pdf.cell(50,5,str(costo)+" "+"Bs.",'BTR',0,'L',1)
 	    
 	    pdf.set_font('Arial','B',9)
 	    pdf.cell(48,5,"2.6. Fuente de Financiamiento:".decode("UTF-8"),'LTB',0,'L',1)
 	    pdf.set_font('Arial','',8)
-	    pdf.cell(54,5,str(fuente_f).decode("UTF-8"),'BTR',0,'L',1)
+	    pdf.cell(54,5,str(fuente_f).decode("UTF-8"),'BTR',1,'L',1)
 	    pdf.set_font('Arial','B',9)
 	    pdf.cell(35, 5,"2.7. Indicador General: ".decode("UTF-8"),'LTB',0,'L',1)
 	    pdf.set_font('Arial','',8)
-	    pdf.cell(53,5,indi,'BTR',1,'L',1)
-	    
+	    pdf.cell(155,5,indi,'BTR',1,'L',1)
 	    pdf.set_font('Arial','B',9)
-	    pdf.cell(55,5,"2.8. Fórmula del Indicador General:".decode("UTF-8"),'LTB',0,'L',1)
+	    pdf.cell(54,5,"2.8. Fórmula del Indicador General:".decode("UTF-8"),'LTB',0,'L',1)
 	    pdf.set_font('Arial','',8)
-	    pdf.cell(47,5,form,'BTR',0,'L',1)
+	    pdf.cell(136,5,form,'BTR',1,'L',1)
 	    pdf.set_font('Arial','B',9)
-	    pdf.cell(42, 5,"2.9. Medio de Verificación:".decode("UTF-8"),'LTB',0,'L',1)
+	    pdf.cell(41, 5,"2.9. Medio de Verificación:".decode("UTF-8"),'LTB',0,'L',1)
 	    pdf.set_font('Arial','',8)
-	    pdf.cell(46,5,verificacion,'BTR',1,'L',1)
+	    pdf.cell(149,5,verificacion,'BTR',1,'L',1)
+
 	    
 	    #3.LOCALIZACIÓN POLÍTICO ADMINISTRATIVA
 	    pdf.set_fill_color(199,15,15)
@@ -413,11 +417,12 @@ class solicitud_soporte(osv.Model):
 	    pdf.set_font('Arial','B',9)
 	    pdf.cell(20,5,"3.1. Ámbito:".decode("UTF-8"),'LTB',0,'L',1)
 	    pdf.set_font('Arial','',8)
-	    pdf.cell(35,5,str(amb).decode("UTF-8"),'BTR',0,'L',1)
+	    pdf.cell(170,5,str(amb).decode("UTF-8"),'BTR',1,'L',1)
 	    pdf.set_font('Arial','B',9)
-	    pdf.cell(27, 5,"3.2. Específique:".decode("UTF-8"),'LTB',0,'L',1)
+	    pdf.cell(190, 5,"3.2. Específique:".decode("UTF-8"),'LTR',1,'L',1)
 	    pdf.set_font('Arial','',8)
-	    pdf.cell(108,5,espe,'BTR',1,'L',1)
+	    pdf.multi_cell(190,5,espe,'LBR','J',1)
+	    #pdf.cell(108,5,espe,'BTR',1,'L',1)
 	    
 	    #4.ÁREA ESTRATÉGICA
 	    pdf.set_fill_color(199,15,15)
@@ -429,21 +434,21 @@ class solicitud_soporte(osv.Model):
 	    pdf.set_fill_color(255,255,255)
 	    pdf.set_text_color(24,29,31)
 	    pdf.set_font('Arial','B',9)
-	    pdf.cell(45,10,"4.1.1. Objetivo Histórico:".decode("UTF-8"),'LT',0,'L',0)
+	    pdf.cell(190,5,"4.1.1. Objetivo Histórico:".decode("UTF-8"),'LTR',1,'L',0)
 	    pdf.set_font('Arial','',8)
-	    pdf.multi_cell(145,5,obj_h,'TBR',0,'J',0)
+	    pdf.multi_cell(190,5,obj_h,1,'J',0)
 	    pdf.set_font('Arial','B',9)
-	    pdf.cell(45,5,"4.1.2. Objetivo Nacional:".decode("UTF-8"),'LT',0,'L',0)
+	    pdf.cell(190,5,"4.1.2. Objetivo Nacional:".decode("UTF-8"),'LTR',1,'L',0)
 	    pdf.set_font('Arial','',8)
-	    pdf.multi_cell(145,5,obj_n,'TBR',0,'J',0)
+	    pdf.multi_cell(190,5,obj_n,1,'J',0)
 	    pdf.set_font('Arial','B',9)
-	    pdf.cell(45,10,"4.1.3. Objetivo Estratégico:".decode("UTF-8"),'LT',0,'L',1)
+	    pdf.cell(190,5,"4.1.3. Objetivo Estratégico:".decode("UTF-8"),'LTR',1,'L',1)
 	    pdf.set_font('Arial','',8)
-	    pdf.multi_cell(145,5,obj_e,'TBR',0,'J',0)
+	    pdf.multi_cell(190,5,obj_e,1,'J',0)
 	    pdf.set_font('Arial','B',9)
-	    pdf.cell(45,15,"4.1.4. Objetivo General:".decode("UTF-8"),'LTB',0,'L',1)
+	    pdf.cell(190,5,"4.1.4. Objetivo General:".decode("UTF-8"),'LTR',1,'L',1)
 	    pdf.set_font('Arial','',8)
-	    pdf.multi_cell(145,5,obj_g,'TBR',0,'J',0)
+	    pdf.multi_cell(190,5,obj_g,1,'J',0)
 	    
 	    
 	    #4.2
@@ -461,18 +466,22 @@ class solicitud_soporte(osv.Model):
 	    pdf.set_font('Arial','B',9)
 	    pdf.cell(38,5,"4.2.2. Área de Inversión:".decode("UTF-8"),'LTB',0,'L',1)
 	    pdf.set_font('Arial','',8)
-	    pdf.cell(65,5,area_inv,'BTR',0,'L',1)
+	    pdf.cell(152,5,area_inv,'BTR',1,'L',1)
 	    pdf.set_font('Arial','B',9)
 	    pdf.cell(21, 5,"4.2.3. Sector:".decode("UTF-8"),'LTB',0,'L',1)
 	    pdf.set_font('Arial','',8)
-	    pdf.cell(66,5,sector,'BTR',1,'L',1)
+	    pdf.cell(169,5,sector,'BTR',1,'L',1)
 	    pdf.set_font('Arial','B',9)
 	    pdf.cell(18,5,"4.2.4. Tipo:".decode("UTF-8"),'LTB',0,'L',1)
 	    pdf.set_font('Arial','',8)
 	    pdf.cell(172,5,str(tipo).decode("UTF-8"),'TBR',1,'J',1)
 	    
 	    
+	    pdf.alias_nb_pages() # LLAMADA DE PAGINACION
+	    pdf.add_page() # AÑADE UNA NUEVA PAGINACION
 	    #5.
+	    pdf.set_y(43)
+	    pdf.set_x(10)
 	    pdf.set_fill_color(199,15,15)
 	    pdf.set_text_color(255,255,255)
 	    pdf.set_font('Arial','B',10)
@@ -482,21 +491,15 @@ class solicitud_soporte(osv.Model):
 	    pdf.set_font('Arial','B',9)
 	    pdf.cell(190,5,"5.1 Descripción del problema:".decode("UTF-8"),'LTR',1,'L',1)
 	    pdf.set_font('Arial','',8)
-	    pdf.multi_cell(190,5,problema,'LBR',0,'J',0)
-	    
-	    
-	    pdf.alias_nb_pages() # LLAMADA DE PAGINACION
-	    pdf.add_page() # AÑADE UNA NUEVA PAGINACION
-	    pdf.set_y(43)
-	    pdf.set_x(10)
+	    pdf.multi_cell(190,5,problema,'LBR','J',0)
 	    pdf.set_font('Arial','B',9)
 	    pdf.cell(190,5,"5.2. Objetivo General ".decode("UTF-8"),'LTR',1,'L',1)
 	    pdf.set_font('Arial','',8)
-	    pdf.multi_cell(190,5,obj_g_pro,'LBR',0,'J',0)
+	    pdf.multi_cell(190,5,obj_g_pro,'LBR','J',0)
 	    pdf.set_font('Arial','B',9)
 	    pdf.cell(190,5,"5.1. Importancia e Impacto".decode("UTF-8"),'LTR',1,'L',1)
 	    pdf.set_font('Arial','',8)
-	    pdf.multi_cell(190,5,impacto,'LBR',0,'J',0)
+	    pdf.multi_cell(190,5,impacto,'LBR','J',0)
 
 
 	    #6.
@@ -590,34 +593,36 @@ class solicitud_soporte(osv.Model):
 	    pdf.cell(60, 5,"8.2. N° Estimado de empleos directos:".decode("UTF-8"),'LTB',0,'L',1)
 	    pdf.set_font('Arial','',8)
 	    pdf.cell(35,5,str(emp_dir_i),'BTR',1,'L',1)
-	    
+
+	    pdf.alias_nb_pages() # LLAMADA DE PAGINACION
+	    pdf.add_page() # AÑADE UNA NUEVA PAGINAC
+	    #9.
+	    pdf.set_y(43)
+	    pdf.set_x(10)
 	    pdf.set_fill_color(199,15,15)
 	    pdf.set_text_color(255,255,255)
 	    pdf.set_font('Arial','B',10)
 	    pdf.cell(190,5,"9. ACCIONES ESPECÍFICAS".decode("UTF-8"),'LTBR',1,'C',1)
 	    pdf.set_fill_color(255,255,255)
 	    pdf.set_text_color(24,29,31)
-	    
-	    #9.
-
 	    pdf.set_font('Arial','B',9)
-	    pdf.cell(50,4,"Nombre de la Acción Específica".decode("UTF-8"),'LTR',0,'C',1)
+	    pdf.cell(75,4,"Nombre de la Acción Específica".decode("UTF-8"),'LTR',0,'C',1)
 	    pdf.cell(30,4,"Unidad de Medida".decode("UTF-8"),'LTR',0,'C',1)
 	    pdf.cell(30,4,"Medio de".decode("UTF-8"),'LTR',0,'C',1)
-	    pdf.cell(60,4,"Distribución Trimestral".decode("UTF-8"),'LTBR',0,'C',1)
-	    pdf.cell(20,4,"Total".decode("UTF-8"),'LTR',1,'C',1)
+	    pdf.cell(40,4,"Distribución Trimestral".decode("UTF-8"),'LTBR',0,'C',1)
+	    pdf.cell(15,4,"Total".decode("UTF-8"),'LTR',1,'C',1)
 	    
 	    pdf.set_font('Arial','',9)
-	    pdf.cell(50,4,"",'LBR',0,'C',1)
+	    pdf.cell(75,4,"",'LBR',0,'C',1)
 	    pdf.cell(30,4,"",'LBR',0,'C',1)
 	    pdf.set_font('Arial','B',9)
 	    pdf.cell(30,4,"Verificación".decode("UTF-8"),'LBR',0,'C',1)
 	    pdf.set_font('Arial','',9)
-	    pdf.cell(15,4,"I",'LTBR',0,'C',1)
-	    pdf.cell(15,4,"II",'LTBR',0,'C',1)
-	    pdf.cell(15,4,"III",'LTBR',0,'C',1)
-	    pdf.cell(15,4,"IV",'LTBR',0,'C',1)
-	    pdf.cell(20,4,"".decode("UTF-8"),'LBR',1,'C',1)
+	    pdf.cell(10,4,"I",'LTBR',0,'C',1)
+	    pdf.cell(10,4,"II",'LTBR',0,'C',1)
+	    pdf.cell(10,4,"III",'LTBR',0,'C',1)
+	    pdf.cell(10,4,"IV",'LTBR',0,'C',1)
+	    pdf.cell(15,4,"".decode("UTF-8"),'LBR',1,'C',1)
 	   
 	
 	data_ids = self.read(cr, uid, ids, context=context)[0]
@@ -663,33 +668,23 @@ class solicitud_soporte(osv.Model):
 	    
 	    
 	    pdf.set_font('Arial','',7)
-	    pdf.cell(50,4,n_acc.encode("UTF-8").decode("UTF-8"),'LTBR',0,'C',1)
+	    pdf.cell(75,4,n_acc.encode("UTF-8").decode("UTF-8"),'LTBR',0,'L',1)
 	    pdf.cell(30,4,unid.encode("UTF-8").decode("UTF-8"),'LTBR',0,'C',1)
 	    pdf.cell(30,4,med.encode("UTF-8").decode("UTF-8"),'LTBR',0,'C',1)
-	    pdf.cell(15,4,str(uno),'LTBR',0,'C',1)
-	    pdf.cell(15,4,str(dos),'LTBR',0,'C',1)
-	    pdf.cell(15,4,str(tres),'LTBR',0,'C',1)
-	    pdf.cell(15,4,str(cuatro),'LTBR',0,'C',1)
-	    pdf.cell(20,4,str(total_a),'LTBR',1,'C',1)
+	    pdf.cell(10,4,str(uno),'LTBR',0,'C',1)
+	    pdf.cell(10,4,str(dos),'LTBR',0,'C',1)
+	    pdf.cell(10,4,str(tres),'LTBR',0,'C',1)
+	    pdf.cell(10,4,str(cuatro),'LTBR',0,'C',1)
+	    pdf.cell(15,4,str(total_a),'LTBR',1,'C',1)
 	    
-	#    if j == 9:
-	#	pdf.alias_nb_pages() # LLAMADA DE PAGINACION
-	#	pdf.add_page() # AÑADE UNA NUEVA PAGINACION
-	#	pdf.set_y(43)
-	#	pdf.set_x(10)
-	#
-	#	
-	#	j=0
-	#	
-	#    j=j+1
 	t_acciones = int(x['total_acciones'])
 	pdf.set_font('Arial','B',9)
-	pdf.cell(110,4,"Totales".encode("UTF-8").decode("UTF-8"),'LTBR',0,'C',1)
-	pdf.cell(15,4,"",'LTBR',0,'C',1)
-	pdf.cell(15,4,"",'LTBR',0,'C',1)
-	pdf.cell(15,4,"",'LTBR',0,'C',1)
-	pdf.cell(15,4,"",'LTBR',0,'C',1)
-	pdf.cell(20,4,str(t_acciones),'LTBR',1,'C',1)
+	pdf.cell(135,4,"Totales".encode("UTF-8").decode("UTF-8"),'LTBR',0,'C',1)
+	pdf.cell(10,4,"",'LTBR',0,'C',1)
+	pdf.cell(10,4,"",'LTBR',0,'C',1)
+	pdf.cell(10,4,"",'LTBR',0,'C',1)
+	pdf.cell(10,4,"",'LTBR',0,'C',1)
+	pdf.cell(15,4,str(t_acciones),'LTBR',1,'C',1)
 	
 	
 	pdf.set_fill_color(199,15,15)
@@ -748,12 +743,12 @@ class solicitud_soporte(osv.Model):
 	pdf.cell(20,4,str(t_metas),'LTBR',1,'R',1)
 	
 	 
-	pdf.alias_nb_pages() # LLAMADA DE PAGINACION
-	pdf.add_page() # AÑADE UNA NUEVA PAGINACIO
+	#pdf.alias_nb_pages() # LLAMADA DE PAGINACION
+	#pdf.add_page() # AÑADE UNA NUEVA PAGINACIO
     
 	#11
-	pdf.set_y(43)
-	pdf.set_x(10)
+	#pdf.set_y(43)
+	#pdf.set_x(10)
 	pdf.set_fill_color(199,15,15)
 	pdf.set_text_color(255,255,255)
 	pdf.set_font('Arial','B',10)
@@ -967,19 +962,21 @@ class solicitud_soporte(osv.Model):
 	#Pestaña2
 	'nombre_pro': fields.char('Nombre del Proyecto', required=True),
 	'ubicacion': fields.char('Ubicación',  required=True),
-	'duracion': fields.char('Duración',  required=True),
-	'f_inicio': fields.date('Fecha de Inicio', required=True),
-	'f_fin': fields.date('Fecha de Finalización', required=True),
+	'fecha_ini_fin' : fields.char('Fecha de Inicio y Culminación',  readonly=True,  required=True),
+	'year_fiscal': fields.selection([(num, str(num)) for num in range(2013, (datetime.now().year)+30 )], 'Año Fiscal', required=True),
+	'duracion': fields.char('Duración:',  readonly=True,  required=True),
 	'etapa': fields.selection([('1','Nueva'), ('2','Continuación')], string="Etapa", required=True),
 	'proy_nuevo': fields.char('Proyecto Nuevo', required=False),
 	'costo_proyecto': fields.float('Costo del Proyecto', readonly=False),
 	'fuente_fin': fields.selection([('1','SITUADO CONSTITUCIONAL'), ('2','F.C.I'), ('3','INGRESOS PROPÍOS'), ('4','OTROS')], string="Fuente de Financiamiento:", required=False),
-	'indicador': fields.char('Indicador General', required=True),
-	'formula': fields.char('Fórmula del Indicador General:', required=True),
-	'm_verificacion': fields.char('Medio de Verificación:', required=True),
+	'indicador': fields.char('Indicador General', size=120, required=True),
+	'formula': fields.char('Fórmula del Indicador General:', size=100, required=True),
+	'm_verificacion': fields.char('Medio de Verificación:', size=120, required=True),
 	#Pestaña3
-	'ambito': fields.selection([('1','Internacional'), ('2','Nacional'), ('3','Estadal'), ('4','Municipal'), ('5','Parroquia'),('6','Sin Extensión Territorial')], string="Ámbito", required=True),
-	'especifique': fields.text('Específique:', required=True),
+	'ambito': fields.selection([('1','Internacional'), ('2','Nacional'), ('3','Estadal'),
+	    ('4','Municipal'), ('5','Parroquia'),('6','Sin Extensión Territorial'),('7','Comunal')
+	    ], string="Ámbito", required=True),
+	'especifique': fields.text('Específique:', size=200, required=True),
 	#Pestaña4
 	'obj_general_plan' : fields.many2one('objetivo.general', 'Objetivos Generales', required=False),
 	'obj_estrategico' : fields.many2one('objetivo.estrategico', 'Objetivos Estratégico', required=True),
@@ -988,14 +985,14 @@ class solicitud_soporte(osv.Model):
 	'plan_patria': fields.many2one('plan.patria', 'Plan de la Patria', required=True),
 	'plan_gobierno': fields.many2one('plan.gobierno', 'Plan de Gobierno', required=True),
 	'linea_estrategica': fields.many2one('lineas.estrategicas', 'Lineas estrategicas de Accion', required=True),
-	'area_inversion': fields.char('Área de Inversión:', required=True),
+	'area_inversion': fields.char('Área de Inversión:', size=120, required=True),
 	'tipo': fields.selection([('1','Inversion Productiva'), ('2','Fortalecimiento Institucional'),
 	    ('3','Infraestructura'), ('4','Servicios')], string="Tipo de Inversión", required=True),
 	'sector':fields.many2one('organos.sectores', 'Sector', ondelete='cascade', select=False, required=True),
 	#Pestaña 5
 	'desc_problema': fields.text('Descripción del problema:', size=1700, required=True),
-	'obj_general': fields.text('Objetivo General:', required=True),
-	'imp_impacto': fields.text('Importancia e Impacto:', required=True),
+	'obj_general': fields.text('Objetivo General:', size=250, required=True),
+	'imp_impacto': fields.text('Importancia e Impacto:', size=300, required=True),
 	#Pestaña 6
 	'bene_femenino': fields.integer('Beneficiarios Femeninos:', required=False),
 	'bene_masculino': fields.integer('Beneficiarios Masculinos:', required=False),
@@ -1003,13 +1000,13 @@ class solicitud_soporte(osv.Model):
 	#Pestaña 7
 	'reque_accion': fields.selection([('1','SI'), ('2','NO')], string="7.1. Requiere acciones (no financieras) de otra institución:"),
 	'institucion_req': fields.many2one('organos.entes', 'Institución:', required=False),
-	'explique_req': fields.char('Explique:', required=False),
+	'explique_req': fields.char('Explique:', size=120, required=False),
 	'contri_accion': fields.selection([('1','SI'), ('2','NO')], string="7.2. Contribuye o complementa acciones de otras instituciones:"),
 	'contri_institucion': fields.many2one('organos.entes', 'Institución:', required=False),
-	'contri_explique': fields.char('Explique:', required=False),
+	'contri_explique': fields.char('Explique:', size=120, required=False),
 	'conflicto': fields.selection([('1','SI'), ('2','NO')], string="7.3. Entra en conflicto con otras instituciones:"),
 	'institucion_conf': fields.many2one('organos.entes', 'Institución:', required=False),
-	'explique_con_conf': fields.char('Explique:', required=False),
+	'explique_con_conf': fields.char('Explique:', size=120, required=False),
 	#pestaña8
 	'empleos_directos_f': fields.integer('N° Estimado de empleaos directos femeninos:', required=False),
 	'empleos_directos_m': fields.integer('N° Estimado de empleaos directos masculinos:', required=False),
@@ -1030,7 +1027,10 @@ class solicitud_soporte(osv.Model):
         
     _defaults = {
         'f_solicitud': lambda *a: time.strftime("%d/%m/%Y"),
+	#'year_fiscal': lambda *a: time.strftime('%Y'),
         'c_solicitud': _get_last_id,
+	'duracion': "1 Año",
+	'fecha_ini_fin': "01 de Enero / 31 de Diciembre",
         'user_register': lambda s, cr, uid, c: uid,
 	'reque_accion': '2',
 	'contri_accion': '2',

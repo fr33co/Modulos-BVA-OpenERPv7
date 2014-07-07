@@ -9,7 +9,7 @@
 		    <field name="res_model">accion.centralizada</field>
 		    <field name="view_type">form</field>
 		    <field name="view_mode">tree,form</field>
-		    <field name="domain">[('user_register','=',uid)]</field>
+		    <!--<field name="domain">[('user_register','=',uid)]</field>-->
 		</record> 
 
 <!--Tree Acciones para Planificacion y Presupuesto-->
@@ -56,7 +56,8 @@
 							1.1. Organismo/Ente/Empresa:
 						    </td>
 						    <td style="width: 300px">
-							<field name="organismo" on_change="on_change_ente(organismo)" style="width: 90%%"/>
+							<field name="organismo" placeholder="Seleccione su Institución"
+							       on_change="on_change_ente(organismo)" style="width: 90%%"/>
 						    </td>
 						    <td style="width:170px">
 							1.4. Cargo:
@@ -93,6 +94,20 @@
 							<field name="correo" style="width: 90%%"/>
 						    </td>
 						</tr>
+						<tr invisible="1">
+						    <td>
+							Siglas
+						    </td>
+						    <td>
+							<field name="siglas" style="width: 30%%"/>
+						    </td>
+						    <td>
+							
+						    </td>
+						    <td>
+							
+						    </td>
+						</tr>
 					</table>
 				</page>
 				<page string="Política y Acción">
@@ -100,7 +115,7 @@
 					<table>
 						<tr style="width:600px">
 						    <td style="width:600px">
-							<field name="poli_presu" style="width: 90%%"/>
+							<field name="poli_presu" placeholder="Por favor describa de forma breve, la política presupuestaria con la que trabajará" style="width: 90%%"/>
 						    </td>
 						</tr>
 					</table>
@@ -111,7 +126,8 @@
 							3.1. Nombre de la Acción Centralizada:
 						    </td>
 						    <td style="width: 400px">
-							<field name="n_accion_centra" on_change="on_change_acciones_especificas(n_accion_centra)" style="width: 85%%"/>
+							<field name="n_accion_centra" placeholder="Seleccione la Acción Centralizada que va a realizar"
+							       on_change="on_change_acciones_especificas(n_accion_centra)" style="width: 85%%"/>
 						    </td>
 						</tr>
 						<tr>
@@ -129,6 +145,10 @@
 					</table>
 					<div>
 						<button name="vincular_partida" type="object" string="Cargar Partidas" class="oe_highlight" />
+						<font color="red" style="font-weight">
+							Seleccione la Acción y haga clic en el botón.
+						</font>
+						
 					</div>
 				</page>
 				<!--<page string="Acción">
@@ -149,6 +169,9 @@
 				<page string="Distribución trimestral" >
 					<separator string="4.2. Distribución trimestral de las Actividades" />
 					<button name="carga_actividades" type="object" string="Cargar actividades"/>
+					<font color="red" style="font-weight">
+						**Nota: Haga clic para cargar las Actividades.
+					</font>
 					<field name="actividades_trimestrales" on_change="total_actividades(actividades_trimestrales)">
 						<tree string="Acciones Especificas" editable="bottom">
 							<field name="actividades" />
@@ -168,7 +191,7 @@
 						</tr>
 					</table>
 				</page>
-				<page string="Metas especificas" >
+				<page string="Metas específicas" >
 					<separator string="5.1. Distribución trimestral financiera" />
 					<field name="meta_acc_esp_trim" on_change="total_metas(meta_acc_esp_trim)">
 						<tree string="Acciones Especificas" editable="bottom">
@@ -217,22 +240,21 @@
 		</record>
         
 <!-- Filtro de solicitudes de accion_centralizadaes (cod de solicitud y nombre del representante) -->
-<!--        <record model="ir.ui.view" id="buscar_accion_centralizada">
-            <field name="name">Solicitud</field>
+        <record model="ir.ui.view" id="buscar_accion_centralizada">
+            <field name="name">Acciones Centralizadas</field>
             <field name="model">accion.centralizada</field>
             <field name="arch" type="xml">      
-                <search string="Busqueda Solicitudes de Soporte Canaimas">
-                    <filter name="accion_centralizadaes" domain="[('c_solicitud','=', uid)]" string="Solicitudes de Reparación" icon="terp-partner" />
-                    <field name="c_solicitud" />
-                    <field name="status" />
-                    <field name="serial" />
-                    <field name="hardware" />
-                    <field name="software" />
+                <search string="Busqueda Acciones Centralizadas">
+			<filter name="accion_centralizadaes" domain="[('c_solicitud','=', uid)]" string="Acciones Centralizadas" icon="terp-partner" />
+			<field name="c_solicitud"/>
+			<field name="f_solicitud" />
+			<field name="n_accion_centra" />
+			<field name="user_register" />
                 </search>
             </field>            
-        </record>-->
-<!--Menu-->
-
+        </record>
+	
+<!-- ####################### Menu ##########################-->
 		<menuitem id="accion_centralizada_menu" name="Acciones Centralizadas" parent="main_proyecto_conaplan_menu" sequence="1"/>
 		<menuitem id="registro_accion_centralizada_menu" name="Registro de acciones" parent="accion_centralizada_menu" action="accion_centralizada_list_action" />
         
