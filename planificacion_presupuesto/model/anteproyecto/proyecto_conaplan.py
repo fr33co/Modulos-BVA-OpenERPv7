@@ -86,7 +86,8 @@ class solicitud_soporte(osv.Model):
             'cargo' : datos.cargo,
             'telefono': datos.telefono,
             'correo': datos.correo,
-	    'ubicacion': datos.direccion,
+	    	'ubicacion': datos.direccion,
+	    	'siglas': datos.siglas,
      
         })
         return {'value' : values}    
@@ -959,6 +960,7 @@ class solicitud_soporte(osv.Model):
 	'cargo': fields.char('Cargo:', required=True),
 	'telefono': fields.char('Teléfono:', required=True),
 	'correo': fields.char('Correo Electrónico:', required=True),
+	'siglas': fields.char('Siglas:'),
 	#Pestaña2
 	'nombre_pro': fields.char('Nombre del Proyecto', required=True),
 	'ubicacion': fields.char('Ubicación',  required=True),
