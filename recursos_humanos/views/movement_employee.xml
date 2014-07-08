@@ -260,30 +260,23 @@
 		</form>
 	    </field>
 	</record>
-	<!-- Forma de busqueda para concepto-->
-	<!--<record model="ir.ui.view" id="search_concepts">
-		<field name="name">Actualización de reingreso de empleados.search</field>
+	<!-- Forma de busqueda para Movimiento de Empleados-->
+	<record model="ir.ui.view" id="search_movement">
+		<field name="name">Asignacion de movimiento de nomina a empleados.search</field>
 		<field name="model">hr.movement.employee</field>
 		<field name="arch" type="xml">
-		    <search string="Busqueda de Conceptos">
-			<filter name="codigo" domain="[('codigo','=', uid)]" string="Busqueda de Conceptos" icon="terp-partner" />
-			<field name="codigo" />
-			<field name="formula" />
-			<field name="concepto" />
-			<field name="items"/>
+		    <search string="Asignacion de movimiento de nomina a empleados">
+			<filter name="cedula" domain="[('cedula','=', uid)]" string="Busqueda de Asignaciones" icon="terp-partner" />
+			<field name="cedula"/>
+		    <field name="nombres"/>
+		    <field name="charge_acterior"/>
+		    <field name="emp"/>
+		    <field name="dep_lab"/>
+		    <field name="nomina_admin"/>
+		    <field name="sueldo"/>
+		    <field name="state"/>
 		    </search>
 		</field>
-	</record>-->
-	
-	<record id="search_asig_slip" model="ir.ui.view">
-	    <field name="name">Asignacion de movimiento de nomina a empleados</field>
-	    <field name="model">hr.movement.employee</field>
-	    <field name="type">search</field>
-	    <field name="arch" type="xml">
-		<search string="Busqueda por Estatus">
-		    <field name="status"/>
-		</search>
-	    </field>
 	</record>
 	
 	<record model="ir.ui.view" id="movement_employee_tree">

@@ -606,6 +606,244 @@ class Proceso_Nomina(osv.Model):
 				}, context=context)
 			
 			return id_att
+		
+	def generar_alimentacion(self, cr, uid, ids, context=None): # Generacion de la pre-nomina de los  empleados...
+
+		##########################################################################################
+		# Instancia de la clase heredada
+		pdf=fpdf_class.Alimentacion(orientation='L',unit='mm',format='A4') #HORIENTACION DE LA PAGINA
+
+		#pdf.set_title(title)
+		pdf.set_author('Jesus laya')
+		pdf.alias_nb_pages() # LLAMADA DE PAGINACION
+		pdf.add_page() # AÑADE UNA NUEVA PAGINACION
+		pdf.set_font('Times','',9) # TAMANO DE LA FUENTE
+		pdf.set_fill_color(255,255,255) # COLOR DE BOLDE DE LA CELDA
+		pdf.set_text_color(24,29,31) # COLOR DEL TEXTO
+		pdf.set_margins(20,10,10) # MARGENE DEL DOCUMENTO
+		pdf.ln(2) # Saldo de linea
+		# 10 y 50 eje x y y 200 dimencion
+		
+		pdf.ln()
+
+		browse_slip_id = self.browse(cr, uid, ids, context=None) # Captura de datos
+		for x in browse_slip_id:
+			personal = x.class_personal.clas_personal # Captura del personal
+			estado = x.state
+			type_slip = x.type_slip.id
+
+		mes = time.strftime('%B')
+		ano = time.strftime('%Y')
+		
+		pdf.cell(250,8,"NOMINA DE ALIMENTACION DEL PERSONAL "+str(personal.upper())+" MES DE "+str(mes.upper())+" "+str(ano)+"".decode('UTF-8'),0,0,'C',1)
+		
+		pdf.ln(10)
+		pdf.set_fill_color(157,188,201)
+		pdf.cell(103,8,"Pedido de Recargas Targetas Electrónicas".decode('UTF-8'),1,0,'C',1)
+		pdf.ln(10)
+		pdf.cell(10,8,"N°".decode('UTF-8'),1,0,'C',1)
+		pdf.cell(23,8,"Cédula".decode('UTF-8'),1,0,'C',1)
+		pdf.cell(70,8,"Apellido y Nombre".decode('UTF-8'),1,0,'C',1)
+		pdf.cell(24,8,"Fecha de Ingreso",1,0,'C',1)
+		pdf.cell(15,8,"Monto".decode('UTF-8'),1,0,'C',1)
+		pdf.cell(15,8,"Cantidad".decode('UTF-8'),1,0,'C',1)
+		pdf.cell(20,8,"Monto a Pagar".decode('UTF-8'),1,0,'C',1)
+		pdf.cell(70,8,"Dependencia".decode('UTF-8'),1,1,'C',1)
+		
+		data_ids = self.read(cr, uid, ids, context=context)[0]
+		alimen_id = data_ids['alim_ids'] # Grupo de IDS de la pre-nomina
+		
+		print "GRUPO DE IDS DE MODULO DE ALIMENTACION: "+str(alimen_id)
+		
+		ticket        = self.pool.get('hr.ticket') # Objeto hr_employee (Empleado)
+		
+		datos_a       = ticket.search(cr, uid, [('id','=',alimen_id),('tipo_recarga','=',1)], context=None)
+		data_ticket_a = ticket.read(cr,uid,datos_a,context=context)
+		
+		datos_b       = ticket.search(cr, uid, [('id','=',alimen_id),('tipo_recarga','=',2)], context=None)
+		data_ticket_b = ticket.read(cr,uid,datos_b,context=context)
+
+		j = len(data_ticket_a)
+		k = len(data_ticket_b)
+		j = 0
+		contador_a = 1
+		sum_ticket = 0
+		sum_monto = 0
+		
+		# TARGETAS ELECTRONICAS
+		a = 0
+		b = 0
+		c = 0
+		d = 0
+		for x in data_ticket_a:
+
+			cedula    = x['cedula']
+			nombres   = aceptar(x['nombres'])
+			fecha_ing = x['fecha_ingreso']
+			monto     = x['monto']
+			ticket    = x['ticket']
+			monto_p   = x['monto_p']
+			tipo      = x['tipo_recarga']
+			status    = x['status']
+
+			sum_ticket +=int(ticket)
+			sum_monto  +=float(monto_p)
+
+			if j == 12:
+				pdf.add_page()		
+				pdf.set_fill_color(157,188,201)
+				#~ pdf.ln(20) # Salto de linea
+				pdf.cell(10,8,"N°".decode('UTF-8'),1,0,'C',1)
+				pdf.cell(23,8,"Cédula".decode('UTF-8'),1,0,'C',1)
+				pdf.cell(70,8,"Apellido y Nombre".decode('UTF-8'),1,0,'C',1)
+				pdf.cell(24,8,"Fecha de Ingreso",1,0,'C',1)
+				pdf.cell(15,8,"Monto".decode('UTF-8'),1,0,'C',1)
+				pdf.cell(15,8,"Cantidad".decode('UTF-8'),1,0,'C',1)
+				pdf.cell(20,8,"Monto a Pagar".decode('UTF-8'),1,0,'C',1)
+				pdf.cell(70,8,"Dependencia".decode('UTF-8'),1,1,'C',1)
+				
+				j=0
+			pdf.set_fill_color(255,255,255)
+			if j % 2 == 0:
+				pdf.set_fill_color(234,234,234)
+			
+			pdf.set_text_color(0,0,0)
+			if j == 10 or j == 20 or j == 30:
+				pdf.set_text_color(24,29,31)
+			pdf.cell(10,8,str(contador_a),1,0,'C',1)
+			pdf.cell(23,8,cedula,1,0,'C',1)
+			pdf.cell(70,8,nombres,1,0,'C',1)
+			pdf.cell(24,8,fechas(fecha_ing),1,0,'C',1)
+			pdf.cell(15,8,monto,1,0,'C',1)
+			pdf.cell(15,8,ticket,1,0,'C',1)
+			pdf.cell(20,8,monto_p,1,0,'C',1)
+			pdf.cell(70,8,"A.C BIBLIOTECAS VIRTUALES DE ARAGUA ".decode('UTF-8'),1,1,'C',1)
+			
+			j = j + 1
+			contador_a = contador_a + 1
+		a = sum_ticket
+		b = sum_monto
+		
+		if int(k) != 0:
+
+			pdf.ln(20)
+			pdf.set_fill_color(157,188,201)
+			pdf.cell(103,8,"Pedido de Tickeras".decode('UTF-8'),1,0,'C',1)
+			pdf.ln(10)
+			pdf.cell(10,8,"N°".decode('UTF-8'),1,0,'C',1)
+			pdf.cell(23,8,"Cédula".decode('UTF-8'),1,0,'C',1)
+			pdf.cell(70,8,"Apellido y Nombre".decode('UTF-8'),1,0,'C',1)
+			pdf.cell(24,8,"Fecha de Ingreso",1,0,'C',1)
+			pdf.cell(15,8,"Monto".decode('UTF-8'),1,0,'C',1)
+			pdf.cell(15,8,"Cantidad".decode('UTF-8'),1,0,'C',1)
+			pdf.cell(20,8,"Monto a Pagar".decode('UTF-8'),1,0,'C',1)
+			pdf.cell(70,8,"Dependencia".decode('UTF-8'),1,1,'C',1)
+			#######################################################
+			
+			k = 0
+			contador_b = 1
+			sum_t = 0
+			sum_m = 0
+			# TICKERAS
+			for xx in data_ticket_b:
+				cedula    = xx['cedula']
+				nombres   = aceptar(xx['nombres'])
+				fecha_ing = xx['fecha_ingreso']
+				monto     = xx['monto']
+				ticket    = xx['ticket']
+				monto_p   = xx['monto_p']
+				tipo      = xx['tipo_recarga']
+				status    = xx['status']
+
+				sum_t +=int(ticket)
+				sum_m +=float(monto_p)
+
+				if k == 12:
+					pdf.add_page()		
+					pdf.set_fill_color(157,188,201)
+					#~ pdf.ln(20) # Salto de linea
+					pdf.cell(10,8,"N°".decode('UTF-8'),1,0,'C',1)
+					pdf.cell(23,8,"Cédula".decode('UTF-8'),1,0,'C',1)
+					pdf.cell(70,8,"Apellido y Nombre".decode('UTF-8'),1,0,'C',1)
+					pdf.cell(24,8,"Fecha de Ingreso",1,0,'C',1)
+					pdf.cell(15,8,"Monto".decode('UTF-8'),1,0,'C',1)
+					pdf.cell(15,8,"Cantidad".decode('UTF-8'),1,0,'C',1)
+					pdf.cell(20,8,"Monto a Pagar".decode('UTF-8'),1,0,'C',1)
+					pdf.cell(70,8,"Dependencia".decode('UTF-8'),1,1,'C',1)
+					#~ pdf.cell(30,8,"Sub total",1,1,'C',1)
+					k=0
+				pdf.set_fill_color(255,255,255)
+				if k % 2 == 0:
+					pdf.set_fill_color(234,234,234)
+				
+				pdf.set_text_color(0,0,0)
+				if k == 10 or k == 20 or k == 30:
+					pdf.set_text_color(24,29,31)
+				pdf.cell(10,8,str(contador_b),1,0,'C',1)
+				pdf.cell(23,8,cedula,1,0,'C',1)
+				pdf.cell(70,8,nombres,1,0,'C',1)
+				pdf.cell(24,8,fechas(fecha_ing),1,0,'C',1)
+				pdf.cell(15,8,monto,1,0,'C',1)
+				pdf.cell(15,8,ticket,1,0,'C',1)
+				pdf.cell(20,8,monto_p,1,0,'C',1)
+				pdf.cell(70,8,"A.C BIBLIOTECAS VIRTUALES DE ARAGUA ".decode('UTF-8'),1,1,'C',1)
+				
+				k = k + 1
+				contador_b = contador_b + 1
+			c = sum_t
+			d = sum_m
+			
+		pdf.ln(5)
+		pdf.set_fill_color(255,255,255)
+		pdf.cell(10,8,"",1,0,'C',1)
+		pdf.cell(93,8,"SUB TOTAL TARGETAS ELECTRONICAS",1,0,'C',1)
+		pdf.cell(24,8,"",1,0,'C',1)
+		pdf.cell(15,8,"",1,0,'C',1)
+		pdf.cell(15,8,str(a),1,0,'C',1)
+		pdf.cell(20,8,str(redondear(b)),1,0,'C',1)
+		pdf.cell(70,8,"".decode('UTF-8'),0,1,'C',1)
+		
+		pdf.set_fill_color(255,255,255)
+
+		if int(c) != 0 and int(d) != 0:
+			pdf.cell(10,8,"",1,0,'C',1)
+			pdf.cell(93,8,"SUB TOTAL TICKERAS",1,0,'C',1)
+			pdf.cell(24,8,"",1,0,'C',1)
+			pdf.cell(15,8,"",1,0,'C',1)
+			pdf.cell(15,8,str(c),1,0,'C',1)
+			pdf.cell(20,8,str(redondear(d)),1,0,'C',1)
+			pdf.cell(70,8,"".decode('UTF-8'),0,1,'C',1)
+		
+		pdf.set_fill_color(255,255,255)
+		pdf.cell(10,8,"",1,0,'C',1)
+		pdf.cell(93,8,"TOTAL PEDIDO "+str(personal.upper())+"",1,0,'C',1)
+		pdf.cell(24,8,"",1,0,'C',1)
+		pdf.cell(15,8,"",1,0,'C',1)
+		pdf.cell(15,8,str(a+c),1,0,'C',1)
+		pdf.cell(20,8,str(b+d),1,0,'C',1)
+		pdf.cell(70,8,"".decode('UTF-8'),0,1,'C',1)
+		
+		dia = time.strftime('%d')
+		mes = time.strftime('%B')
+		anyo = time.strftime('%Y')
+		fecha = dia+" de "+mes+" "+anyo
+		
+
+		title = 'NOMINA ALIMENTACION ('+aceptar(personal)+') '+fecha+'.pdf'
+		pdf.output('openerp/addons/recursos_humanos/ADMON/pre_nomina/'+title,'F') # Salida del documento
+		open_document = open('openerp/addons/recursos_humanos/ADMON/pre_nomina/'+title) # Apertura del documento
+		
+		# Guardamos el archivo pdf en ir.attachment.employee, (Nomina Alimentacion)
+		self.pool.get('ir.attachment.employee').create(cr, uid, {
+			'name': title,
+			'res_name': title,
+			'datas': base64.encodestring(open_document.read()),
+			'datas_fname': title,
+			'res_model': 'hr.ticket (Alimentacion)',
+			'description': "NOMINA ALIMENTACION "+title,
+		
+			}, context=context)	
+	
 	#####################################################################################################################
 	#				PROCESO PARA CALCULAR EL MONTO DE LA QUINCENA DEL MES
 	#####################################################################################################################
@@ -649,6 +887,7 @@ class Proceso_Nomina(osv.Model):
 		'mount' : fields.char(string="Monto", required=False),
 		'user': fields.many2one('res.users', 'Registrado por:', readonly=True),
 		'slip_ids' : fields.many2many("hr.movement.employee","proceso_payslip","id_slip","id_employee","Empleados",required=False),
+		'alim_ids' : fields.many2many("hr.ticket","proceso_alimentacion","id_model","id_alimen","Alimentacion",required=False),
 		#'archivos' : fields.one2many("ir.attachment", "nominas", string="Archivos de nómina", required="False"),
 		'state': fields.selection([
 			('draft', 'Pre nómina'),
@@ -671,4 +910,16 @@ class Proceso_Nomina(osv.Model):
 		
 
 	}
-	
+
+def aceptar(cadena):
+	result = cadena.encode('UTF-8').decode('UTF-8') # INSTITUCION
+	return result
+
+def fechas(fecha):
+	date = fecha.split("-")
+	nueva_fecha = date[2]+"/"+date[1]+"/"+date[0]
+	return nueva_fecha
+
+def redondear(cadena):
+	salida = "%.2f" % round(cadena,2)
+	return salida	

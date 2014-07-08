@@ -133,7 +133,7 @@ class Movement_employee_payslip(osv.Model):
 
 					monto      = float(sm)
 					can        = ""
-					operador_7   = monto * porcentaje # Concepto 116 Prima de Antiguedad
+					operador_7   = monto * porcentaje / int(2) # Concepto 116 Prima de Antiguedad
 					cr.execute("UPDATE hr_movement_payslip SET asignacion='"+str(redondear(operador_7))+"' WHERE cod='"+str(cod)+"' AND asig_deduc='"+str(filtro_id)+"';")
 					print "CALCULO CONCEPTO 116: "+str(operador_7)
 				
@@ -339,7 +339,7 @@ class Movement_employee_payslip(osv.Model):
 							caja_ahorro = 0.1
 						else:
 							caja_ahorro = 0.05
-					operador   = asignacion * caja_ahorro
+					operador   = asignacion * caja_ahorro / int(2)
 					deduc       = float(operador)
 					deduccion   = "%.2f" % round(deduc,2)
 					cr.execute("UPDATE hr_movement_payslip SET deduccion='"+str(deduccion)+"' WHERE cod='"+str(cod)+"' AND asig_deduc='"+str(filtro_id)+"';")
@@ -721,20 +721,20 @@ class Movement_employee_payslip(osv.Model):
 										employee = get_hr.read(cr,uid,search_get_hr,context=context) # Se refleja el resultado
 
 										for i in employee:
-											if str(i['marital']) == "False" or str(i['marital']) == "": # Validacion al momento del estado civil del empleado para la asignacion de la prima de hogar
-												raise osv.except_osv(_("Warning!"), _("Disculpe actualmente no cumple con la prima de hogar..."))
-											elif int(i['marital']) == 1:
-												raise osv.except_osv(_("Warning!"), _("Disculpe actualmente no cumple con la prima de hogar, esta Soltero..."))
-											else:
-												asig  = float(operador)
-												deduccion  = ""
-												asignacion   = "%.2f" % round(asig,2)
-												filtro      = "1"
-												nomina      = x.nomina_admin.id
-												self.save_concepts(cr,uid,ids,cedula,cod,frecuencia,descripcion,cantidad,asignacion,deduccion,asig_deduc,filtro,nomina,context)
+											# if str(i['marital']) == "False" or str(i['marital']) == "": # Validacion al momento del estado civil del empleado para la asignacion de la prima de hogar
+											# 	raise osv.except_osv(_("Warning!"), _("Disculpe actualmente no cumple con la prima de hogar..."))
+											# elif int(i['marital']) == 1:
+											# 	raise osv.except_osv(_("Warning!"), _("Disculpe actualmente no cumple con la prima de hogar, esta Soltero..."))
+											# else:
+											asig  = float(operador)
+											deduccion  = ""
+											asignacion   = "%.2f" % round(asig,2)
+											filtro      = "1"
+											nomina      = x.nomina_admin.id
+											self.save_concepts(cr,uid,ids,cedula,cod,frecuencia,descripcion,cantidad,asignacion,deduccion,asig_deduc,filtro,nomina,context)
 									else:
 										print "SOY LOS CONCEPTOS DEL 303 AL 306"
-										asig  = float(operador)
+										asig  = float(operador) / int(2)
 										
 										deduccion  = ""
 										asignacion   = "%.2f" % round(asig,2)
@@ -777,7 +777,7 @@ class Movement_employee_payslip(osv.Model):
 						else:
 							caja_ahorro = 0.05
 
-					operador   = asignacion * caja_ahorro
+					operador   = asignacion * caja_ahorro / int(2)
 					frecuencia = ""
 					deduccion  = ""
 
@@ -853,7 +853,7 @@ class Movement_employee_payslip(osv.Model):
 
 						monto      = float(x.sueldo)
 						can        = ""
-						operador   = monto * porcentaje# Concepto 116 Prima de Antiguedad
+						operador   = monto * porcentaje / int(2)# Concepto 116 Prima de Antiguedad
 						frecuencia = ""
 						deduccion  = ""
 
@@ -1181,7 +1181,7 @@ class Movement_employee_payslip(osv.Model):
 							raise osv.except_osv(_("Warning!"), _("Disculpe actualmente no dispone Prima por Hijos, intente de nuevo, o Contacte al Administrador del sitio..."))
 						else:
 							
-							operador   = valor # Salida de los resultados del monto a pagar (181)
+							operador   = valor / int(2) # Salida de los resultados del monto a pagar (181)
 							frecuencia = ""
 							deduccion  = ""
 							if int(x.frecuencia) == 1:
@@ -1305,7 +1305,7 @@ class Movement_employee_payslip(osv.Model):
 				else:
 
 					if str(x.emp.clas_personal) !="Obrero":
-						raise osv.except_osv(_("Warning!"), _("Disculpe el bono vacacional solo es asignado al personal Obrero..."))
+						raise osv.except_osv(_("Warning!"), _("Disculpe el Bono Nocturno solo es asignado al personal Obrero..."))
 					else:
 						fecha_actual = date.today() # Fecha actual d/m/Y
 						ano_actual = fecha_actual.year # Se optiene el año actual
@@ -1317,33 +1317,33 @@ class Movement_employee_payslip(osv.Model):
 						elif not data_asig_deduc['cant_horas']:
 							raise osv.except_osv(_("Warning!"), _("Disculpe debe ingresar el valor..."))
 						else:
-							if int(dia_actual) < 16:
-								raise osv.except_osv(_("Warning!"), _("Disculpe el bono vacacional es asignado mensualmente..."))
-							else:
-								sm    = float(x.sueldo)
-								dias1 = int(x.cant_dias)
-								dias2 = int(x.cant_horas)
-								monto = ((sm/dias1/int(7))*0.3)*dias2
+							# if int(dia_actual) < 16:
+							# 	raise osv.except_osv(_("Warning!"), _("Disculpe el bono vacacional es asignado mensualmente..."))
+							# else:
+							sm    = float(x.sueldo)
+							dias1 = int(x.cant_dias)
+							dias2 = int(x.cant_horas)
+							monto = ((sm/dias1/int(7))*0.3)*dias2
 
-								operador    = monto # Salida de los resultados del monto a pagar (181)
-								frecuencia  = ""
-								deduccion   = ""
-								if int(x.frecuencia) == 1:
-									frecuencia = "F"
-								elif int(x.frecuencia) == 2:
-									frecuencia = "E"
-								cedula      = x.cedula
-								cod         = x.codigo
-								frecuencia  = frecuencia
-								descripcion =  x.consulta.concepto
-								cantidad    = ""
-								asig_deduc  =  x.id
-								asig        = float(operador)
-								asignacion  = "%.2f" % round(asig,2)
-								filtro      = "1"
-								nomina      = x.nomina_admin.id
-								#Salida de los datos al modelo movimientos (hr.movement.payslip)
-								self.save_concepts(cr,uid,ids,cedula,cod,frecuencia,descripcion,cantidad,asignacion,deduccion,asig_deduc,filtro, nomina,context)
+							operador    = monto # Salida de los resultados del monto a pagar (181)
+							frecuencia  = ""
+							deduccion   = ""
+							if int(x.frecuencia) == 1:
+								frecuencia = "F"
+							elif int(x.frecuencia) == 2:
+								frecuencia = "E"
+							cedula      = x.cedula
+							cod         = x.codigo
+							frecuencia  = frecuencia
+							descripcion =  x.consulta.concepto
+							cantidad    = ""
+							asig_deduc  =  x.id
+							asig        = float(operador)
+							asignacion  = "%.2f" % round(asig,2)
+							filtro      = "1"
+							nomina      = x.nomina_admin.id
+							#Salida de los datos al modelo movimientos (hr.movement.payslip)
+							self.save_concepts(cr,uid,ids,cedula,cod,frecuencia,descripcion,cantidad,asignacion,deduccion,asig_deduc,filtro, nomina,context)
 			#########################################################################################
 			elif str(x.codigo) == "126" or str(x.codigo) == "142": # Bono vacacional (126)
 				get_hr = self.pool.get('hr.movement.payslip.vacaciones') # Objeto hr_movement_payslip (Empleado)

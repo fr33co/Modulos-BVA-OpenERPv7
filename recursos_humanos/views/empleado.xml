@@ -98,7 +98,8 @@
 				</xpath>
 				<xpath expr="//field[@name='ano_antiguedad']" position="before">
 
-					<field name="prima_responsabilidad" class="oe_inline" attrs="{'invisible': [('categoria', '=', '1') ] }"/>
+					<field name="prima_responsabilidad" class="oe_inline" attrs="{'invisible': [('categoria', '!=', '2') ] }"/>
+					<field name="tipo_recarga" attrs="{'invisible': [('categoria', '!=', '2') ] }"/>
 				</xpath>
 				<xpath expr="//field[@name='cedula']" position="before">
 
@@ -107,7 +108,7 @@
 
 				<xpath expr="//field[@name='tipo_nomina']" position="after">
 					<field name="nomina" attrs="{'invisible': [('categoria', '!=', '2') ] }"/>
-					<field name="class_personal" attrs="{'invisible': [('categoria', '!=', '2') ] }"/>
+					<field name="class_personal" attrs="{'invisible': [('categoria', '!=', '2') ] }" widget="selection"/>
 				</xpath>
 
 				<xpath expr="//field[@name='tiempo_servicio']" position="replace">
