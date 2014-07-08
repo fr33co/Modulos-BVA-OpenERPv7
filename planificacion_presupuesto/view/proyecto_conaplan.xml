@@ -131,6 +131,20 @@
 					<field name="correo" style="width: 90%%"/>
 				    </td>
 			        </tr>
+			    <tr invisible="1">
+				    <td>
+					Siglas
+				    </td>
+				    <td>
+					<field name="siglas" style="width: 30%%"/>
+				    </td>
+				    <td>
+					
+				    </td>
+				    <td>
+					
+				    </td>
+				</tr>
 			    </table>
 			</page>
 			<page string="Proyecto" class="oe_form_sheetbg">
