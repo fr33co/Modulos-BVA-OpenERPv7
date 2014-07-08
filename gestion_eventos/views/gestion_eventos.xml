@@ -23,6 +23,7 @@
           		<button name="gestion_reprogramado" attrs="{'invisible':[('status','in', ('1','2','4','6'))]}" type="object" string="Reprogramado" confirm="¿Esta seguro que desea Reprogramar el Evento?"/>
           		<button name="gestion_atrasado" attrs="{'invisible':[('status','in', ('3','2','4','5','6'))]}" type="object" string="Atrasado" confirm="¿Esta seguro que desea atrasar el Evento?"/>
 			<button name="gestion_cancelar" attrs="{'invisible':[('status','in', ('2','6'))]}" type="object" string="Cancelado" confirm="¿Esta seguro que desea Cancelar el Evento?"/>
+			<button name="emitir_foto" type="object" string="Reporte" confirm="¿Esta seguro que desea Visualizar el Reporte?" invisible="1"/>
 
           		<field name="status" widget="statusbar" statusbar_colors='{"progress":"red"}' />
 			</header>
@@ -114,7 +115,8 @@
 				</td>
 				<td><b>Participantes</b></td>
 				<td>
-					<field name="participantes" placeholder="Participantes" attrs="{'readonly':[('status','in', ('2','6'))]}"/>
+					<field name="participantes" placeholder="Número de Participantes" attrs="{'readonly':[('status','in', ('2','6'))]}"/>
+					<font color="red"><b>Número de Participantes</b></font>
 				</td>
 			    </tr>
 			    <tr>

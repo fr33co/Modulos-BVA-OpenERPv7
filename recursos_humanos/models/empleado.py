@@ -316,16 +316,27 @@ class Empleado(osv.Model):
 		data_emp = self.read(cr, uid, ids, context=context)[0] # Validacion para campos vacio
 		
 		for emp in browse_data:
-			cedula   = emp.cedula
-			cargo    = emp.job_id.id
-			tipo_emp = emp.class_personal.id
-			status   = emp.status
-			fecha_i  = emp.fecha_ingreso
-			nom      = emp.name_related.encode("UTF-8").decode('UTF-8')
-			sueldo   = emp.asignacion
-			servicio = emp.tiempo_servicio
-			depart   = emp.department_id.id
-			foto     = emp.image_medium
+			cedula    = emp.cedula
+			cargo     = emp.job_id.id
+			tipo_emp  = emp.class_personal.id
+			status    = emp.status
+			fecha_i   = emp.fecha_ingreso
+			nom       = emp.name_related.encode("UTF-8").decode('UTF-8')
+			sueldo    = emp.asignacion
+			servicio  = emp.tiempo_servicio
+			depart    = emp.department_id.id
+			foto      = emp.image_medium
+			tipo_pago = emp.tipo_recarga
+
+		asig     = self.pool.get('hr.asig.alimenacion')
+		asig_obj = asig.search(cr, uid, [])
+		data = asig.read(cr,uid,asig_obj,context=context)
+
+		for ali in data:
+			monto   = ali['monto']
+			ticket  = ali['ticket']
+			monto_p = ali['monto_p'] 
+			
 			
 		obj_dp = self.pool.get('hr.movement.employee')
 		search_obj = obj_dp.search(cr, uid, [('cedula','=',cedula)])
@@ -376,8 +387,21 @@ class Empleado(osv.Model):
 					'image':foto,
 					'tree_id':"3",
 				}, context=context)
-				
-				return id_att
+
+				# Proceso de Carga en Nomina de Alimentacion
+
+				id_att = self.pool.get("hr.ticket").create(cr, uid, {
+					'cedula': cedula,
+					'nombres': nom,
+					'fecha_ingreso': fecha_i,
+					'tipo_recarga': tipo_pago,
+					'class_personal': tipo_emp,
+					'monto': monto,
+					'ticket': ticket,
+					'monto_p': monto_p,
+				}, context=context)
+
+			return id_att
 			
 	def emitir_constancia(self, cr, uid, ids, context=None):
 		# Instancia de la clase heredada L es horizontal y P es vertical
@@ -404,6 +428,15 @@ class Empleado(osv.Model):
 		pdf.multi_cell(190, 5, 'La A.C BIBLIOTECAS VIRTUALES DE ARAGUA, certifica por medio de la presente,que la persona cuyos datos se muestran a continuación trabaja en esta institución'.decode("UTF-8"),'', 0,  'J', 0)
 		pdf.ln(10)
 
+		rrhh          = self.pool.get('hr.department')
+		gerentes      = rrhh.search(cr, uid, [('name','=','Gerencia de Recursos Humanos')])
+		datos         = rrhh.read(cr,uid,gerentes,context=context)
+		
+		for gen in datos:
+
+			g = gen['gerente'][1]
+			
+
 		for emp in self.browse(cr, uid, ids, context=None):
 			if str(emp.segundo_nombre) == "False":
 				emp.segundo_nombre = ""
@@ -415,26 +448,32 @@ class Empleado(osv.Model):
 				emp.segundo_apellido
 
 			nom       = emp.name_related
-			nombres   = str(emp.primer_nombre)+" "+str(emp.segundo_nombre)
-			apellidos = str(emp.primer_apellido)+" "+str(emp.segundo_apellido)
+			nombres   = aceptar(emp.primer_nombre)+" "+aceptar(emp.segundo_nombre)
+			apellidos = aceptar(emp.primer_apellido)+" "+aceptar(emp.segundo_apellido)
 			cedula    = emp.cedula
 			fecha     = format_fecha(emp.fecha_ingreso)
 			cargo     = emp.job_id.name
 			unidad    = emp.department_id.name
 			mensual   = redondear(emp.asignacion)
 
-			print "SUELDO: "+str(mensual)
+			ticket      = self.pool.get('hr.ticket') # Objeto hr_employee (Empleado)
+		
+			datos       = ticket.search(cr, uid, [('cedula','=',cedula)], context=None)
+			data_ticket = ticket.read(cr,uid,datos,context=context)
+
+			for datas in data_ticket:
+				monto_pagar = float(datas['monto_p'])
 
 		pdf.set_font('Arial','',10)
 		pdf.cell(50,5,"",'',0,'C',1)
 		pdf.cell(40,5,"Apellidos:",'',0,'L',1)
 		pdf.set_font('Arial','B',10)
-		pdf.cell(40,5,aceptar(apellidos),'',1,'L',1)
+		pdf.cell(40,5,apellidos,'',1,'L',1)
 		pdf.cell(50,5,"",'',0,'C',1)
 		pdf.set_font('Arial','',10)
 		pdf.cell(40,5,"Nombres:",'',0,'L',1)
 		pdf.set_font('Arial','B',10)
-		pdf.cell(40,5,aceptar(nombres),'',1,'L',1)
+		pdf.cell(40,5,nombres,'',1,'L',1)
 		pdf.cell(50,5,"",'',0,'C',1)
 		pdf.set_font('Arial','',10)
 		pdf.cell(40,5,"Cédula de Identidad:".decode("UTF-8"),'',0,'L',1)
@@ -469,23 +508,28 @@ class Empleado(osv.Model):
 		pdf.set_font('Arial','',10)
 		pdf.cell(40,5,"Bono de Alimentación".decode("UTF-8"),'',0,'L',1)
 		pdf.set_font('Arial','B',10)
-		pdf.cell(20,5,"1,605.00",'',1,'R',1)
+		pdf.cell(20,5,str(redondear(monto_pagar)),'',1,'R',1)
 		pdf.cell(50,5,"",'',0,'C',1)
 		pdf.set_font('Arial','B',10)
 		pdf.cell(40,5,"Total Ingresos:",'',0,'L',1)
 		pdf.cell(20,5,"6,845.00",'',1,'R',1)
 		pdf.ln(5)
 
+		dia = time.strftime('%d')
+		mes = time.strftime('%B')
+		ano = time.strftime('%Y')
+
+
 		pdf.set_font('Arial','',12)
 		pdf.cell(5,6,"",'',0,'L',1)
-		pdf.multi_cell(180, 5, 'Constancia que s expide sin tachadura y sin enmienda en Maracay Edo. Aragua a los 04 dias del mes Mayo del 2014'.decode("UTF-8"),'', 0,  'J', 0)
+		pdf.multi_cell(180, 5, 'Constancia que se expide sin tachadura y sin enmienda en Maracay Edo. Aragua a los '+str(dia)+' dias del mes '+str(mes.capitalize())+' del '+str(ano)+''.decode("UTF-8"),'', 0,  'J', 0)
 		pdf.set_y(155)
 		pdf.set_x(15)
 		pdf.cell(40,5,"Atentamente",'',0,'L',1)
 		pdf.ln(5)
 		pdf.set_y(180)
 		pdf.set_x(80)
-		pdf.cell(40,5,"Angel Guadarrama",'',0,'C',1)
+		pdf.cell(40,5,aceptar(g),'',0,'C',1)
 		pdf.ln(5)
 		pdf.set_x(80)
 		pdf.cell(40,5,"Gerente de Recursos Humanos",'',0,'C',1)
@@ -506,7 +550,7 @@ class Empleado(osv.Model):
 		#########################################################################
 		
 		
-		# Guardamos el archivo Constancia pdf en ir.attachment.employee
+		#Guardamos el archivo Constancia pdf en ir.attachment.employee
 		self.pool.get('ir.attachment.employee').create(cr, uid, {
 			'name': title,
 			'res_name': title,
@@ -514,7 +558,6 @@ class Empleado(osv.Model):
 			'datas_fname': title,
 			'res_model': 'hr.employee (Empleado)',
 			'description': "Pre-nomina "+title,
-		
 			}, context=context)
 	
 	_columns = {
@@ -532,6 +575,7 @@ class Empleado(osv.Model):
 		'marital' : fields.selection((('1','Soltero'),('2','Casado'),('3','Comcubinato'),('4','Unión de hechos estables')), "Estado civil", required=False),
 		'grado' : fields.many2one("hr.config.asignacion", "Grado de intrucción", required = False),
 		'nacimiento' : fields.char(string="Lugar de Nacimiento", size = 256, required=False),
+		'tipo_recarga': fields.selection((('1','Targeta Electrónica'),('2','Pedido de Tickeras')), "Recarga Alimentación", required=True),
 	}
 	#################################################################
 	
@@ -545,6 +589,7 @@ class Empleado(osv.Model):
 		'prima_responsabilidad': '2',
 		'nomina': _nomina,
 		'grado_instruccion': 1,
+		'tipo_recarga' : '1',
 	}
 
 def aceptar(cadena):
