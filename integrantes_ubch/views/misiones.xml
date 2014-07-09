@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	
+	<data>
+			
+		<!--Accionador para el menu de (Misión)-->
+		<record model="ir.actions.act_window" id="accion_lista_mision">
+			<field name="name">Misión</field>
+			<field name="res_model">integrante.mision</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Registrar Misión</p>
+			</field>
+		</record>
+		<!--Accionador para el menu de (Misión)-->
+		
+		<record model="ir.ui.view" id="vista_formulario_mision">
+			<field name="name">mision.form</field>
+			<field name="model">integrante.mision</field>
+			<field name="arch" type="xml">
+				<form string="Formulario de registro de misiones" version="7.0">	
+					<group colspan="4" col="3" string="Misión">
+						<group colspan="1" col="2">
+							<field name="codigo" invisible="1"/>
+							<field name="mision"/>
+						</group>
+					</group>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="vista_lista_mision">
+			<field name="name">mision.tree</field>
+			<field name="model">integrante.mision</field>
+			<field name="arch" type="xml">
+				<tree string="Misión" editable="bottom">
+					<field name="codigo" invisible="1"/>
+					<field name="mision"/>
+				</tree>
+			</field>
+		</record>
+		
+		<menuitem id="mision_integrante" name="Misiones Sociales" parent="menu_configuracion_integrantes" action="accion_lista_mision"/>
+			
+	</data>
+	
+</openerp>
+
