@@ -1,0 +1,10 @@
+import integrante
+import grupo_familiar
+import gradoInstruccion
+import profesion
+import ocupacion
+import misiones
+import consejo_comunal
+import archivos_integrantes
+import estadisticas_ubch
+import centro_electoral

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	
+	<data>
+			
+		<!--Accionador para el menu de grado de instrucción-->
+		<record model="ir.actions.act_window" id="accion_gradoInstruccion_integrante">
+			<field name="name">Grado de Instrucción</field>
+			<field name="res_model">integrante.gradoinstruccion</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Agregue un nuevo grado de instrucción</p>
+			</field>
+		</record>
+		<!--Accionador para el menu de grado de instrucción-->
+		
+		<record model="ir.ui.view" id="formulario_gradoInstruc_integrante">
+			<field name="name">gradoinstruccion.form</field>
+			<field name="model">integrante.gradoinstruccion</field>
+			<field name="arch" type="xml"> 
+				<form string="Formulario de Grado de Instruccion">
+					<group colspan="2">
+						<field name="grado_instruc" nolabel="0" colspan="1"/>
+					</group>
+				</form>
+			</field>
+		</record>
+		
+		<menuitem id="gradoInstruccion_integrante" name="Grados de Instrucción" parent="menu_configuracion_integrantes" action="accion_gradoInstruccion_integrante"/>
+			
+	</data>
+	
+</openerp>
+
+

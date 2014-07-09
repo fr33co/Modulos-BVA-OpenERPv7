@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+
+	<data>
+		
+		<!--Accionador para el menu de Integrantes-->
+		<record model="ir.actions.act_window" id="accion_vista_estadisticas_ubch">
+		 	<field name="name">Integrantes UBCH</field>
+			<field name="res_model">integrantes.estadisticas</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Registrar Integrante</p>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="vista_formulario_estadisticas_ubch">
+			<field name="name">estadisticas.form</field>
+			<field name="model">integrantes.estadisticas</field>
+			<field name="arch" type="xml">
+				<form string="Registro de integrantes" version="7.0">
+					<header>
+						<button name="estadisticas_centros" type="object" string="Generar Estadisticas" class="oe_highlight" />
+					</header>
+					
+					<group>
+						<group>
+							<field name="todo" nolabel="0" colspan="2"/>
+							<field name="country_id" nolabel="0" colspan="2" invisible="1"/>
+							<field name="estado" nolabel="0" colspan="2" readonly="1" domain="[('country_id','=',country_id)]" attrs="{'invisible': [('todo', '=', True) ] }"/>
+							<field name="municipio" nolabel="0" colspan="2" domain="[('state_id','=',estado)]" attrs="{'invisible': [('todo', '=', True) ] }"/>
+							<field name="fecha_creacion" nolabel="0" colspan="2" invisible="1"/>
+						</group>
+					</group>
+					
+				</form>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="vista_tree_estadisticas_ubch">
+			<field name="name">estadisticas.tree</field>
+			<field name="model">integrantes.estadisticas</field>
+			<field name="arch" type="xml">
+				<tree string="Lista de estadísticas">
+					<field name="todo" nolabel="0" colspan="2"/>
+					<field name="fecha_creacion" nolabel="0" colspan="2"/>
+				</tree>
+			</field>
+		</record>
+		
+		<menuitem parent="menu_reportes_integrantes" id="estadistica_ubch" action="accion_vista_estadisticas_ubch" name="Estadisticas UBCH"/>
+
+	</data>
+</openerp>
