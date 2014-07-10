@@ -80,7 +80,12 @@ def gen_est_centros(cr, todo, municipio):
 			cr.execute("SELECT count(*) as disc FROM "+modelo_integrantes+" WHERE centro_votacion = "+str(centros[0])+" AND discapacidad = '1'")
 			TCD = cr.fetchone()[0]
 			#Consultar todos los registros para el centro de votación especificado, los cuales tengan familiares con discapacidad
-			cr.execute('SELECT count(*) as F FROM '+modelo_integrantes+' WHERE centro_votacion = '+str(centros[0]))
+			cr.execute('SELECT id FROM '+modelo_integrantes+' WHERE centro_votacion = '+str(centros[0]))
+			for integrante in cr.fetchall():
+				id_integ = integrante[0]
+				#~ print id_integ
+				cr.execute("SELECT count(*) as fam_disc FROM "+modelo_familiares+" WHERE integrante = "+str(id_integ)+" AND discapacidad = '1'")
+				FCD = FCD + cr.fetchone()[0]
 			#Consultar todos los registros pertenecientes a un consejo comunal para el centro de votación especificado
 			cr.execute("SELECT count(*) as i_c FROM "+modelo_integrantes+" WHERE centro_votacion = "+str(centros[0])+" AND consejo_cumunal = TRUE")
 			PCC = cr.fetchone()[0]
@@ -90,6 +95,7 @@ def gen_est_centros(cr, todo, municipio):
 			F_totales = F_totales + F
 			M_totales = M_totales + M
 			TCD_totales = TCD_totales + TCD
+			FCD_totales = FCD_totales + FCD
 			PCC_totales = PCC_totales + PCC
 			total_integrantes = total_integrantes + integrantes_centro
 		else:
@@ -104,7 +110,12 @@ def gen_est_centros(cr, todo, municipio):
 				cr.execute("SELECT count(*) as disc FROM "+modelo_integrantes+" WHERE centro_votacion = "+str(centros[0])+" AND discapacidad = '1'")
 				TCD = cr.fetchone()[0]
 				#Consultar todos los registros para el centro de votación especificado, los cuales tengan familiares con discapacidad
-				cr.execute('SELECT count(*) as F FROM '+modelo_integrantes+' WHERE centro_votacion = '+str(centros[0]))
+				cr.execute('SELECT id FROM '+modelo_integrantes+' WHERE centro_votacion = '+str(centros[0]))
+				for integrante in cr.fetchall():
+					id_integ = integrante[0]
+					print id_integ
+					cr.execute("SELECT count(*) as fam_disc FROM "+modelo_familiares+" WHERE integrante = "+str(id_integ)+" AND discapacidad = '1'")
+					FCD = cr.fetchone()[0]
 				#Consultar todos los registros pertenecientes a un consejo comunal para el centro de votación especificado
 				cr.execute("SELECT count(*) as i_c FROM "+modelo_integrantes+" WHERE centro_votacion = "+str(centros[0])+" AND consejo_cumunal = TRUE")
 				PCC = cr.fetchone()[0]
@@ -114,6 +125,7 @@ def gen_est_centros(cr, todo, municipio):
 				F_totales = F_totales + F
 				M_totales = M_totales + M
 				TCD_totales = TCD_totales + TCD
+				FCD_totales = FCD_totales + FCD
 				PCC_totales = PCC_totales + PCC
 				total_integrantes = total_integrantes + integrantes_centro
 			else:
@@ -127,7 +139,12 @@ def gen_est_centros(cr, todo, municipio):
 				cr.execute("SELECT count(*) as disc FROM "+modelo_integrantes+" WHERE municipio = "+str(municipio)+" AND centro_votacion = "+str(centros[0])+" AND discapacidad = '1'")
 				TCD = cr.fetchone()[0]
 				#Consultar todos los registros para el centro de votación especificado, los cuales tengan familiares con discapacidad
-				cr.execute('SELECT count(*) as F FROM '+modelo_integrantes+' WHERE municipio = '+str(municipio)+' AND centro_votacion = '+str(centros[0]))
+				cr.execute('SELECT id FROM '+modelo_integrantes+' WHERE municipio = '+str(municipio)+' centro_votacion = '+str(centros[0]))
+				for integrante in cr.fetchall():
+					id_integ = integrante[0]
+					print id_integ
+					cr.execute("SELECT count(*) as fam_disc FROM "+modelo_familiares+" WHERE integrante = "+str(id_integ)+" AND discapacidad = '1'")
+					FCD = cr.fetchone()[0]
 				#Consultar todos los registros pertenecientes a un consejo comunal para el centro de votación especificado
 				cr.execute("SELECT count(*) as i_c FROM "+modelo_integrantes+" WHERE municipio = "+str(municipio)+" AND centro_votacion = "+str(centros[0])+" AND consejo_cumunal = TRUE")
 				PCC = cr.fetchone()[0]
@@ -137,6 +154,7 @@ def gen_est_centros(cr, todo, municipio):
 				F_totales = F_totales + F
 				M_totales = M_totales + M
 				TCD_totales = TCD_totales + TCD
+				FCD_totales = FCD_totales + FCD
 				PCC_totales = PCC_totales + PCC
 				total_integrantes = total_integrantes + integrantes_centro
 		
@@ -169,7 +187,7 @@ def gen_est_centros(cr, todo, municipio):
 		pdf.cell(15,5,str(F),'LTBR',0,'C',1)
 		pdf.cell(15,5,str(M),'LTBR',0,'C',1)
 		pdf.cell(15,5,str(TCD),'LTBR',0,'C',1)
-		pdf.cell(15,5,"25000".decode("UTF-8"),'LTBR',0,'C',1)
+		pdf.cell(15,5,str(FCD),'LTBR',0,'C',1)
 		pdf.cell(20,5,str(PCC),'LTBR',0,'C',1)
 		pdf.cell(25,5,str(integrantes_centro),'LTBR',1,'C',1)
 		
@@ -178,12 +196,12 @@ def gen_est_centros(cr, todo, municipio):
 			pdf.set_text_color(255,255,255)
 			pdf.set_font('Arial','B',8)
 			pdf.cell(150,5,"TOTALES".decode("UTF-8"),'LTBR',0,'L',1)
-			pdf.cell(15,5,"22000".decode("UTF-8"),'LTBR',0,'C',1)
-			pdf.cell(15,5,"30000".decode("UTF-8"),'LTBR',0,'C',1)
-			pdf.cell(15,5,"5000".decode("UTF-8"),'LTBR',0,'C',1)
-			pdf.cell(15,5,"250000".decode("UTF-8"),'LTBR',0,'C',1)
-			pdf.cell(20,5,"12500".decode("UTF-8"),'LTBR',0,'C',1)
-			pdf.cell(25,5,"12500".decode("UTF-8"),'LTBR',1,'C',1)
+			pdf.cell(15,5,str(F_totales),'LTBR',0,'C',1)
+			pdf.cell(15,5,str(M_totales),'LTBR',0,'C',1)
+			pdf.cell(15,5,str(TCD_totales),'LTBR',0,'C',1)
+			pdf.cell(15,5,str(FCD_totales),'LTBR',0,'C',1)
+			pdf.cell(20,5,str(PCC_totales),'LTBR',0,'C',1)
+			pdf.cell(25,5,str(total_integrantes),'LTBR',1,'C',1)
 			pdf.set_fill_color(255,255,255)
 			pdf.set_text_color(24,29,31)
 			pdf.line(10, 189, 265, 189) 
@@ -202,57 +220,57 @@ def gen_est_centros(cr, todo, municipio):
 	pdf.set_text_color(255,255,255)
 	pdf.set_font('Arial','B',8)
 	pdf.cell(150,5,"TOTALES".decode("UTF-8"),'LTBR',0,'L',1)
-	pdf.cell(15,5,"22000".decode("UTF-8"),'LTBR',0,'C',1)
-	pdf.cell(15,5,"30000".decode("UTF-8"),'LTBR',0,'C',1)
-	pdf.cell(15,5,"5000".decode("UTF-8"),'LTBR',0,'C',1)
-	pdf.cell(15,5,"250000".decode("UTF-8"),'LTBR',0,'C',1)
-	pdf.cell(20,5,"12500".decode("UTF-8"),'LTBR',0,'C',1)
-	pdf.cell(25,5,"12500".decode("UTF-8"),'LTBR',1,'C',1)
+	pdf.cell(15,5,str(F_totales),'LTBR',0,'C',1)
+	pdf.cell(15,5,str(M_totales),'LTBR',0,'C',1)
+	pdf.cell(15,5,str(TCD_totales),'LTBR',0,'C',1)
+	pdf.cell(15,5,str(FCD_totales),'LTBR',0,'C',1)
+	pdf.cell(20,5,str(PCC_totales),'LTBR',0,'C',1)
+	pdf.cell(25,5,str(total_integrantes),'LTBR',1,'C',1)
 	pdf.set_fill_color(255,255,255)
 	pdf.set_text_color(24,29,31)
 
 	pdf.ln(10)
 
-	pdf.set_fill_color(97,97,97)
-	pdf.set_text_color(255,255,255)
-	pdf.set_font('Arial','B',8)
-	pdf.cell(180,5,"TOTAL".decode("UTF-8"),'LTBR',1,'C',1)
-	pdf.cell(15,5,"F".decode("UTF-8"),'LTBR',0,'C',1)
-	pdf.set_fill_color(255,255,255)
-	pdf.set_text_color(24,29,31)
-	pdf.cell(15,5,str(F_totales),'LTBR',0,'C',1)
-	pdf.set_fill_color(97,97,97)
-	pdf.set_text_color(255,255,255)
-	pdf.cell(15,5,"M".decode("UTF-8"),'LTBR',0,'C',1)
-	pdf.set_fill_color(255,255,255)
-	pdf.set_text_color(24,29,31)
-	pdf.cell(15,5,str(M_totales),'LTBR',0,'C',1)
-	pdf.set_fill_color(97,97,97)
-	pdf.set_text_color(255,255,255)
-	pdf.cell(15,5,"TCD".decode("UTF-8"),'LTBR',0,'C',1)
-	pdf.set_fill_color(255,255,255)
-	pdf.set_text_color(24,29,31)
-	pdf.cell(15,5,str(TCD_totales),'LTBR',0,'C',1)
-	pdf.set_fill_color(97,97,97)
-	pdf.set_text_color(255,255,255)
-	pdf.cell(15,5,"FCD".decode("UTF-8"),'LTBR',0,'C',1)
-	pdf.set_fill_color(255,255,255)
-	pdf.set_text_color(24,29,31)
-	pdf.cell(15,5,"0".decode("UTF-8"),'LTBR',0,'C',1)
-	pdf.set_fill_color(97,97,97)
-	pdf.set_text_color(255,255,255)
-	pdf.cell(15,5,"PCC".decode("UTF-8"),'LTBR',0,'C',1)
-	pdf.set_fill_color(255,255,255)
-	pdf.set_text_color(24,29,31)
-	pdf.cell(15,5,str(PCC_totales),'LTBR',0,'C',1)
-	pdf.set_fill_color(97,97,97)
-	pdf.set_text_color(255,255,255)
-	pdf.cell(15,5,"TOTAL".decode("UTF-8"),'LTBR',0,'C',1)
-	pdf.set_fill_color(255,255,255)
-	pdf.set_text_color(24,29,31)
-	pdf.cell(15,5,str(total_integrantes),'LTBR',0,'C',1)
-	pdf.set_fill_color(255,255,255)
-	pdf.set_text_color(24,29,31)
+	#~ pdf.set_fill_color(97,97,97)
+	#~ pdf.set_text_color(255,255,255)
+	#~ pdf.set_font('Arial','B',8)
+	#~ pdf.cell(180,5,"TOTAL".decode("UTF-8"),'LTBR',1,'C',1)
+	#~ pdf.cell(15,5,"F".decode("UTF-8"),'LTBR',0,'C',1)
+	#~ pdf.set_fill_color(255,255,255)
+	#~ pdf.set_text_color(24,29,31)
+	#~ pdf.cell(15,5,str(F_totales),'LTBR',0,'C',1)
+	#~ pdf.set_fill_color(97,97,97)
+	#~ pdf.set_text_color(255,255,255)
+	#~ pdf.cell(15,5,"M".decode("UTF-8"),'LTBR',0,'C',1)
+	#~ pdf.set_fill_color(255,255,255)
+	#~ pdf.set_text_color(24,29,31)
+	#~ pdf.cell(15,5,str(M_totales),'LTBR',0,'C',1)
+	#~ pdf.set_fill_color(97,97,97)
+	#~ pdf.set_text_color(255,255,255)
+	#~ pdf.cell(15,5,"TCD".decode("UTF-8"),'LTBR',0,'C',1)
+	#~ pdf.set_fill_color(255,255,255)
+	#~ pdf.set_text_color(24,29,31)
+	#~ pdf.cell(15,5,str(TCD_totales),'LTBR',0,'C',1)
+	#~ pdf.set_fill_color(97,97,97)
+	#~ pdf.set_text_color(255,255,255)
+	#~ pdf.cell(15,5,"FCD".decode("UTF-8"),'LTBR',0,'C',1)
+	#~ pdf.set_fill_color(255,255,255)
+	#~ pdf.set_text_color(24,29,31)
+	#~ pdf.cell(15,5,str(FCD_totales),'LTBR',0,'C',1)
+	#~ pdf.set_fill_color(97,97,97)
+	#~ pdf.set_text_color(255,255,255)
+	#~ pdf.cell(15,5,"PCC".decode("UTF-8"),'LTBR',0,'C',1)
+	#~ pdf.set_fill_color(255,255,255)
+	#~ pdf.set_text_color(24,29,31)
+	#~ pdf.cell(15,5,str(PCC_totales),'LTBR',0,'C',1)
+	#~ pdf.set_fill_color(97,97,97)
+	#~ pdf.set_text_color(255,255,255)
+	#~ pdf.cell(15,5,"TOTAL".decode("UTF-8"),'LTBR',0,'C',1)
+	#~ pdf.set_fill_color(255,255,255)
+	#~ pdf.set_text_color(24,29,31)
+	#~ pdf.cell(15,5,str(total_integrantes),'LTBR',0,'C',1)
+	#~ pdf.set_fill_color(255,255,255)
+	#~ pdf.set_text_color(24,29,31)
 
 
 
@@ -273,7 +291,7 @@ def gen_est_centros(cr, todo, municipio):
 	#~ pdf.output('openerp/addons/integrantes_ubch/reportes/estadisticas/'+nombre_archivo,'F')
 	#~ archivo = open('openerp/addons/integrantes_ubch/reportes/estadisticas/'+nombre_archivo)
 	#Ruta servidor
-	pdf.output('/home/administrador/openerp70/modules/integrnates_ubch/reportes/estadisticas/estadisticas_ubch.pdf','F')
+	pdf.output('/home/administrador/openerp70/modules/integrnates_ubch/reportes/estadisticas/'+nombre_archivo,'F')
 	archivo = open('/home/administrador/openerp70/modules/integrantes_ubch/reportes/estadisticas/'+nombre_archivo)
 	
 	return nombre_archivo, archivo

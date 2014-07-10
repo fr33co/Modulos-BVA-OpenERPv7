@@ -14,7 +14,7 @@ class PDF(FPDF):
 		# ALINEACION DE LA IMAGEN EN LA CABECERA DEL DOCUMENTO
 		# (CAMPO 1 = HORIZONTAL , CAMPO 2 = VERTICAL, CAMPO 3 = DIMENCION DE LA IMAGEN)
 		
-		self.image('/home/administrador/openerp70/modules/integrantes_ubch/img/estadisticas.jpg',10,10,255)
+		self.image('openerp/addons/integrantes_ubch/img/estadisticas.jpg',10,10,255)
 		#Calcular ancho del texto (title) y establecer posición
 		#w=self.get_string_width(title)+6
 		#self.set_x((210-w)/2)

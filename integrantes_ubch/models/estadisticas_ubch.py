@@ -31,33 +31,18 @@ class EstadisticasUBCH(osv.Model):
 			municipio = estadistica.municipio.id
 			#~ print "Estadísticas de los centros electorales"
 			
-			if todo == True:
-				#~ print str(todo)
-				#Obtención de los valores retornados por la función que genera el archivo	de reporte de estadísticas
-				nom, archivo = estadistica_ubch_reporte.gen_est_centros(cr, todo, municipio)
-				#Registro del archivo de reporte en la base de datos
-				id_att = self.pool.get('ir.attachment').create(cr, uid, {
-					'integrante_id': id_est, 
-					'name': nom,
-					'res_name': nom,
-					'datas': base64.encodestring(archivo.read()),
-					'datas_fname': nom,
-					'res_model': 'integrantes.estadisticas',
-					}, context=context)
-				
-			else:
-				#~ print str(todo)+" "+str(estado)+" "+str(municipio)
-				#Obtención de los valores retornados por la función que genera el archivo	de reporte de estadísticas
-				nom, archivo = estadistica_ubch_reporte.gen_est_centros(cr, todo, municipio)
-				#Registro del archivo de reporte en la base de datos
-				id_att = self.pool.get('ir.attachment').create(cr, uid, {
-					'integrante_id': id_est, 
-					'name': nom,
-					'res_name': nom,
-					'datas': base64.encodestring(archivo.read()),
-					'datas_fname': nom,
-					'res_model': 'integrantes.estadisticas',
-					}, context=context)
+			#~ print str(todo)
+			#Obtención de los valores retornados por la función que genera el archivo	de reporte de estadísticas
+			nom, archivo = estadistica_ubch_reporte.gen_est_centros(cr, todo, municipio)
+			#Registro del archivo de reporte en la base de datos
+			id_att = self.pool.get('ir.attachment').create(cr, uid, {
+				'integrante_id': id_est, 
+				'name': nom,
+				'res_name': nom,
+				'datas': base64.encodestring(archivo.read()),
+				'datas_fname': nom,
+				'res_model': 'integrantes.estadisticas',
+				}, context=context)
 					
 		return "Vacío"
 	
