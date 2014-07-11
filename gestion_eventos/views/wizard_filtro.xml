@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!--  PROCESO DE BUSQUEDA -->
+        <record model="ir.actions.act_window" id="action_report">
+            <field name="name">Prodeso de busqueda</field>
+            <field name="res_model">gestion.filtro</field>
+            <field name="view_type">form</field>
+            <field  name="view_mode">tree,form</field>
+        </record>
+
+        <record id="view_eventos_wizard" model="ir.ui.view">
+            <field name="name">Prodeso de busqueda</field>
+            <field name="model">gestion.filtro</field>
+            <field name="arch" type="xml">
+                <form string="Gestión de Reportes" version="7.0">
+                        <table style="width:960px;align:center;">
+                            <tr>
+                                <td class="separator">
+                                    <b>Emisión de Reportes</b>
+                                </td>
+                            </tr>
+                        </table>
+                        <notebook colspan="4">
+                            <page string="Busqueda por Cantidad / Todos">
+                            <table>
+                                <tr attrs="{'invisible': [('asc_desc', '=', 'todos') ] }">
+                                    <td><b>Cantidad: </b></td>
+                                    <td><field name="cantidad"/></td>
+                                </tr>
+                            </table>
+                            </page>
+                            <page attrs="{'invisible': [('asc_desc', '!=', 'fechas') ] }" string="Busqueda por fecha de Inicio / Fin">
+                                <table>
+                                <!-- BUSQUEDA POR FECHA DE INICIO Y FECHA FIN -->
+                                
+                                <tr>
+                                    <td><b>Fecha Inicio: </b></td>
+                                    <td><field name="fecha_inicio" on_change="search_fec(fecha_inicio,'1')"/></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Fecha Fin: </b></td>
+                                    <td><field name="fecha_fin" on_change="search_fec(fecha_fin,'2')"/></td>
+                                </tr>
+                            </table>
+                            </page>
+                            
+                            <page string="Busqueda por Ente / Adscrito" attrs="{'invisible': [('asc_desc', '!=', 'departamento') ] }">
+                                <table>
+                                <!-- BUSQUEDA POR INSTITUCION -->
+                                
+                                <tr>
+                                    <td><b>Institución: </b></td>
+                                    <td><field name="institucion" widget="selection" on_change="search_dep(institucion,'3')"/></td>
+                                </tr>
+                            </table>
+                            </page>
+                        </notebook>
+                        <table>
+                        <tr>
+                            <td><b>Buscar por: </b></td>
+                            <td><field name="asc_desc"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <button name="gestion_emitir_detallado" type="object" string="Generar Detallado de Eventos" icon="gtk-apply" class="detallado"/>
+                                <field name="user" invisible="1"/>
+                            </td>
+                        </tr>
+                        </table>
+                        <table style="width:960px;align:center;">
+                            <tr>
+                                <td class="enunciado">
+                                    <b>Nota: Todos los Documentos se guardaran en la pestaña Reportes </b>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+            </field>
+        </record>
+
+         <act_window name="Proceso de Busqueda"
+            res_model="gestion.filtro"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"
+            id="action_report"/>
+
+        <menuitem parent="menu_gestion" id="gestion_report" action="action_report" name="Emitir Reporte" sequence="2"/>
+
+    </data>
+</openerp>

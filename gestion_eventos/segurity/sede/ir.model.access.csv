@@ -1,0 +1,11 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+
+gestion_eventos_full_sede,gestion_eventos_full_sede,model_gestion_eventos,grupo_sede,1,0,1,0
+gestion_filtro_full_sede,gestion_filtro_full_sede,model_gestion_filtro,grupo_sede,1,0,0,0
+gestion_inst_gerencia_full_sede,gestion_inst_gerencia_full_sede,model_gestion_inst_gerencia,grupo_sede,1,0,0,0
+ir_documento_full_sede,ir_documento_full_sede,model_ir_documento,grupo_sede,1,0,1,0
+
+
+
+
+

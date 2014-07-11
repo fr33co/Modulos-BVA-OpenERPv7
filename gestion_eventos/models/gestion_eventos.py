@@ -40,6 +40,7 @@ class Gestion_eventos(osv.Model):
 	
 	_name = 'gestion.eventos'
 	_rec_name = 'actividad'
+	_order = "institucion asc"
 	
 	
 	def emitir_foto(self, cr, uid, ids, context=None):
@@ -224,17 +225,19 @@ class Gestion_eventos(osv.Model):
 
 		datos_code = obj_dp.read(cr,uid,search_obj_code,context=context)
 		#=========================================================================
-		if not datos_code[0]['gerente']:
+		if not datos_code:
 			
 			values.update({
 				
 				'responsable' : None,
+				'relation' : None,
 				})
 		else:
 			
 			values.update({
 				
 				'responsable' : datos_code[0]['gerente'],
+				'relation' : datos_code[0]['relation'],
 				})
 
 		return {'value' : values}
@@ -321,7 +324,7 @@ class Gestion_eventos(osv.Model):
 		'estado' : fields.many2one("res.country.state", "Estado", required = False, select="0"),
 		'ciudad' : fields.many2one("res.country.city", "Ciudad", required = False, select="0"),
 		'municipio' : fields.many2one("res.country.municipality", "Municipio", required = True),
-		'parroquia' : fields.many2one("res.country.parish", "Parroquia", required = False, select="0"),
+		'parroquia' : fields.many2one("res.country.parish", "Parroquia", required = True, select="0"),
 		'participantes' : fields.char(string="Participantes", size=4, required=True),
 		'observacion' : fields.text(string='Observación', required=False),
 		'recursos': fields.text(string="Recursos", size=500, required=False),
@@ -341,6 +344,7 @@ class Gestion_eventos(osv.Model):
 		'foto_2' : fields.binary("",help="Foto B"),
 		'foto_3' : fields.binary("",help="Foto C"),
 		'foto_4' : fields.binary("",help="Foto D"),
+		'relation' : fields.char(string="Relation", size=5, required=False),
 		######################################################################################
 	}
 	

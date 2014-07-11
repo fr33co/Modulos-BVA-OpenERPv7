@@ -1,0 +1,42 @@
+#####################################################
+#               USUARIOS POR SEDES
+#####################################################
+..Hospital Militar --> bvhm --> bvhm2014
+..Morean Soto --> bvms --> bvms2014 listo
+..Upel Marcaro --> bvupel --> bvupel2014 listo
+..Turmero --> bvt --> bvt2014 listo
+..Villa de Cura --> bvvc --> bvvc2014 listo
+..Maracay --> bvm --> bvm2014 listo
+..Barrio El Carmen --> bvbc --> bvbc2014 listo
+..Tiempo Meteorológico --> bvtm --> bvtm2014
+..Contraloría --> bvcea --> bvcea2014 listo
+..UPEL Maracay --> bvupelmaracay --> bvupelmaracay2014 listo
+..IRDA --> bvirda --> bvirda2014 listo
+..San Vicente --> bvsv --> bvsv2014
+..Brisas del Lago --> bvbl --> bvbl2014 listo
+..UCV --> bvucv --> bvucv2014 listo
+..San Mateo --> bvsm --> bvsm2014 listo
+..La Victoria --> bvlv --> bvlv2014 listo
+..Santa Cruz --> bvstc --> bvstc2014 listo
+..Palo Negro --> bvpn --> bvpn2014 listo
+..Cagua --> bvcag --> bvcag2014 listo
+..Colonia Tovar --> bvct --> bvct2014 listo
+..Camatagua --> bvctg --> bvctg2014 listo
+..San Casimiro --> bvsc --> bvsc2014 listo
+..Vallecito --> bvva --> bvva2014
+..San Sebastián de los Reyes --> bvssr --> bvssr2014
+..Quebrada Honda --> bvqh --> bvqh2014 listo
+..Barbacoa --> bvba --> bvba2014 listo
+..San Francisco de Cara --> bvsfc --> bvsfc2014 listo
+..Ocumare de la Costa --> bvoc --> bvoc2014
+..Chuao --> bvchu --> bvchu2014 listo
+..Cepe --> bvcepe --> bvcepe2014
+#####################################################
+#               USUARIOS POR EJE
+#####################################################
+..Eje Centro --> cec --> cec2014
+..Eje Costa --> ceco --> ceco2014
+..Eje Este --> cee --> cee2014
+..Eje Metro --> cem --> cem2014
+..Eje Sur --> ces --> ces2014
+#####################################################

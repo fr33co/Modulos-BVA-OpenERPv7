@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <openerp>
+        <data>
+
+<!-- CARGA DE SEDES -->
+
+            <record id="dese_1" model="gestion.inst.gerencia">
+                <field name="name">Hospital Militar</field>
+                <field name="gerente">Odra Padrón</field>
+                <field name="item">1</field>
+                <field name="relation">1</field>
+            </record>
+            <record id="dese_2" model="gestion.inst.gerencia">
+                <field name="name">Morean Soto</field>
+                <field name="gerente">Esglaine Tovar</field>
+                <field name="item">1</field>
+                <field name="relation">1</field>
+            </record>
+            <record id="dese_3" model="gestion.inst.gerencia">
+                <field name="name">Upel Macaro</field>
+                <field name="gerente">Osmir Torrealba</field>
+                <field name="item">1</field>
+                <field name="relation">1</field>
+            </record>
+            <record id="dese_4" model="gestion.inst.gerencia">
+                <field name="name">Turmero</field>
+                <field name="gerente">Amayaira Silva</field>
+                <field name="item">1</field>
+                <field name="relation">1</field>
+            </record>
+            <record id="dese_5" model="gestion.inst.gerencia">
+                <field name="name">Villa de Cura</field>
+                <field name="gerente">Yesenia Torrealba</field>
+                <field name="item">1</field>
+                <field name="relation">1</field>
+            </record>
+            <record id="dese_6" model="gestion.inst.gerencia">
+                <field name="name">Maracay</field>
+                <field name="gerente">Deivi Perez</field>
+                <field name="item">1</field>
+                <field name="relation">2</field>
+            </record>
+            <record id="dese_7" model="gestion.inst.gerencia">
+                <field name="name">Barrio El Carmen</field>
+                <field name="gerente">Karina Colmenares</field>
+                <field name="item">1</field>
+                <field name="relation">2</field>
+            </record>
+            <record id="dese_8" model="gestion.inst.gerencia">
+                <field name="name">Tiempo Meteorológico</field>
+                <field name="gerente">Isaura Gamez</field>
+                <field name="item">1</field>
+                <field name="relation">2</field>
+            </record>
+            <record id="dese_9" model="gestion.inst.gerencia">
+                <field name="name">Contraloría</field>
+                <field name="gerente">Sara Velasquez</field>
+                <field name="item">1</field>
+                <field name="relation">2</field>
+            </record>
+            <record id="dese_10" model="gestion.inst.gerencia">
+                <field name="name">UPEL MARACAY</field>
+                <field name="gerente">Alvaro Flores</field>
+                <field name="item">1</field>
+                <field name="relation">2</field>
+            </record>
+            <record id="dese_11" model="gestion.inst.gerencia">
+                <field name="name">IRDA</field>
+                <field name="gerente">Jose Miguel Aguilar</field>
+                <field name="item">1</field>
+                <field name="relation">2</field>
+            </record>
+            <record id="dese_12" model="gestion.inst.gerencia">
+                <field name="name">San Vicente</field>
+                <field name="gerente">Yeesica Machado</field>
+                <field name="item">1</field>
+                <field name="relation">2</field>
+            </record>
+            <record id="dese_13" model="gestion.inst.gerencia">
+                <field name="name">Brisas del Lago</field>
+                <field name="gerente">Clara Romero</field>
+                <field name="item">1</field>
+                <field name="relation">2</field>
+            </record>
+            <record id="dese_14" model="gestion.inst.gerencia">
+                <field name="name">UCV</field>
+                <field name="gerente">David Paez</field>
+                <field name="item">1</field>
+                <field name="relation">2</field>
+            </record>
+            <record id="dese_15" model="gestion.inst.gerencia">
+                <field name="name">San Mateo</field>
+                <field name="gerente">Anakarina Ojeda</field>
+                <field name="item">1</field>
+                <field name="relation">3</field>
+            </record>
+            <record id="dese_16" model="gestion.inst.gerencia">
+                <field name="name">La Victoria</field>
+                <field name="gerente">Kenya Morillo</field>
+                <field name="item">1</field>
+                <field name="relation">3</field>
+            </record>
+            <record id="dese_17" model="gestion.inst.gerencia">
+                <field name="name">Santa Cruz</field>
+                <field name="gerente">Rut García</field>
+                <field name="item">1</field>
+                <field name="relation">3</field>
+            </record>
+            <record id="dese_18" model="gestion.inst.gerencia">
+                <field name="name">Palo Negro</field>
+                <field name="gerente">Gabriela Mogollón</field>
+                <field name="item">1</field>
+                <field name="relation">3</field>
+            </record>
+            <record id="dese_19" model="gestion.inst.gerencia">
+                <field name="name">Cagua</field>
+                <field name="gerente">Adriana Cabrera</field>
+                <field name="item">1</field>
+                <field name="relation">3</field>
+            </record>
+            <record id="dese_20" model="gestion.inst.gerencia">
+                <field name="name">Colonia Tovar</field>
+                <field name="gerente">José Luis Carrillo</field>
+                <field name="item">1</field>
+                <field name="relation">3</field>
+            </record>
+            <record id="dese_21" model="gestion.inst.gerencia">
+                <field name="name">Camatagua</field>
+                <field name="gerente">Nixon Bandres</field>
+                <field name="item">1</field>
+                <field name="relation">4</field>
+            </record>
+            <record id="dese_22" model="gestion.inst.gerencia">
+                <field name="name">San Casimiro</field>
+                <field name="gerente">Yaide Hernández</field>
+                <field name="item">1</field>
+                <field name="relation">4</field>
+            </record>
+            <record id="dese_23" model="gestion.inst.gerencia">
+                <field name="name">Vallecito</field>
+                <field name="gerente">Belkis Bravo</field>
+                <field name="item">1</field>
+                <field name="relation">4</field>
+            </record>
+            <record id="dese_24" model="gestion.inst.gerencia">
+                <field name="name">San Sebastián de los Reyes</field>
+                <field name="gerente">Jean Carlos Rodríguez</field>
+                <field name="item">1</field>
+                <field name="relation">4</field>
+            </record>
+            <record id="dese_25" model="gestion.inst.gerencia">
+                <field name="name">Quebrada Honda</field>
+                <field name="gerente">Yajaira Gómez</field>
+                <field name="item">1</field>
+                <field name="relation">4</field>
+            </record>
+            <record id="dese_26" model="gestion.inst.gerencia">
+                <field name="name">Barbacoa</field>
+                <field name="gerente">Yori Guariguata</field>
+                <field name="item">1</field>
+                <field name="relation">4</field>
+            </record>
+            <record id="dese_27" model="gestion.inst.gerencia">
+                <field name="name">San Francisco de Cara</field>
+                <field name="gerente">Everlin Paredes</field>
+                <field name="item">1</field>
+                <field name="relation">4</field>
+            </record>
+            <record id="dese_28" model="gestion.inst.gerencia">
+                <field name="name">Ocumare de la Costa</field>
+                <field name="gerente">Josefa Arias (Mantenimiento)</field>
+                <field name="item">1</field>
+                <field name="relation">5</field>
+            </record>
+            <record id="dese_29" model="gestion.inst.gerencia">
+                <field name="name">Chuao</field>
+                <field name="gerente">Cristobal Infante</field>
+                <field name="item">1</field>
+                <field name="relation">5</field>
+            </record>
+            <record id="dese_30" model="gestion.inst.gerencia">
+                <field name="name">Cepe</field>
+                <field name="gerente">Mabel Mayora</field>
+                <field name="item">1</field>
+                <field name="relation">5</field>
+            </record>
+
+
+            <!-- FILTRO PARA DOMAIN PARA SEDE -->
+
+            <record id="domain_sede_1" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">[('institucion.name','=','Hospital Militar')]</field> 
+                <field name="user_id">72</field>
+                <field name="name">Hospital Militar</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="domain_sede_2" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">[('institucion.name','=','Morean Soto')]</field> 
+                <field name="user_id">73</field>
+                <field name="name">Morean Soto</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="domain_sede_3" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">[('institucion.name','=','Upel Marcaro')]</field> 
+                <field name="user_id">74</field>
+                <field name="name">Upel Marcaro</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="domain_sede_4" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">[('institucion.name','=','Turmero')]</field> 
+                <field name="user_id">75</field>
+                <field name="name">Turmero</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="domain_sede_5" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">[('institucion.name','=','Villa de Cura')]</field> 
+                <field name="user_id">76</field>
+                <field name="name">Villa de Cura</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="domain_sede_6" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">[('institucion.name','=','Maracay')]</field> 
+                <field name="user_id">77</field>
+                <field name="name">Maracay</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="domain_sede_7" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">[('institucion.name','=','Barrio El Carmen')]</field> 
+                <field name="user_id">78</field>
+                <field name="name">Barrio El Carmen</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="domain_sede_8" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">[('institucion.name','=','Tiempo Meteorológico')]</field> 
+                <field name="user_id">79</field>
+                <field name="name">Tiempo Meteorológico</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="domain_sede_9" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">[('institucion.name','=','Contraloría')]</field> 
+                <field name="user_id">80</field>
+                <field name="name">Contraloría</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="domain_sede_10" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">[('institucion.name','=','UPEL Maracay')]</field> 
+                <field name="user_id">81</field>
+                <field name="name">UPEL Maracay</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="domain_sede_11" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">[('institucion.name','=','IRDA')]</field> 
+                <field name="user_id">82</field>
+                <field name="name">IRDA</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="domain_sede_12" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">[('institucion.name','=','San Vicente')]</field> 
+                <field name="user_id">83</field>
+                <field name="name">San Vicente</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="domain_sede_13" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">[('institucion.name','=','Brisas del Lago')]</field> 
+                <field name="user_id">84</field>
+                <field name="name">Brisas del Lago</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="domain_sede_14" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">[('institucion.name','=','UCV')]</field> 
+                <field name="user_id">85</field>
+                <field name="name">UCV</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="domain_sede_15" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">[('institucion.name','=','San Mateo')]</field> 
+                <field name="user_id">86</field>
+                <field name="name">San Mateo</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="domain_sede_16" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">[('institucion.name','=','La Victoria')]</field> 
+                <field name="user_id">87</field>
+                <field name="name">La Victoria</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="domain_sede_17" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">[('institucion.name','=','Santa Cruz')]</field> 
+                <field name="user_id">88</field>
+                <field name="name">Santa Cruz</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="domain_sede_18" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">[('institucion.name','=','Palo Negro')]</field> 
+                <field name="user_id">89</field>
+                <field name="name">Palo Negro</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="domain_sede_19" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">[('institucion.name','=','Cagua')]</field> 
+                <field name="user_id">90</field>
+                <field name="name">Cagua</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="domain_sede_20" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">[('institucion.name','=','Colonia Tovar')]</field> 
+                <field name="user_id">91</field>
+                <field name="name">Colonia Tovar</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="domain_sede_21" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">[('institucion.name','=','Camatagua')]</field> 
+                <field name="user_id">92</field>
+                <field name="name">Camatagua</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="domain_sede_22" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">[('institucion.name','=','San Casimiro')]</field> 
+                <field name="user_id">93</field>
+                <field name="name">San Casimiro</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="domain_sede_23" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">[('institucion.name','=','Vallecito')]</field> 
+                <field name="user_id">94</field>
+                <field name="name">Vallecito</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="domain_sede_24" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">[('institucion.name','=','San Sebastián de los Reyes')]</field> 
+                <field name="user_id">95</field>
+                <field name="name">San Sebastián de los Reyes</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="domain_sede_25" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">[('institucion.name','=','Quebrada Honda')]</field> 
+                <field name="user_id">96</field>
+                <field name="name">Quebrada Honda</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="domain_sede_26" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">[('institucion.name','=','Barbacoa')]</field> 
+                <field name="user_id">97</field>
+                <field name="name">Barbacoa</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="domain_sede_27" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">[('institucion.name','=','San Francisco de Cara')]</field> 
+                <field name="user_id">98</field>
+                <field name="name">San Francisco de Cara</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="domain_sede_28" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">[('institucion.name','=','Ocumare de la Costa')]</field> 
+                <field name="user_id">99</field>
+                <field name="name">Ocumare de la Costa</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="domain_sede_29" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">[('institucion.name','=','Chuao')]</field> 
+                <field name="user_id">100</field>
+                <field name="name">Chuao</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="domain_sede_30" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">[('institucion.name','=','Cepe')]</field> 
+                <field name="user_id">101</field>
+                <field name="name">Cepe</field>
+                <field name="context">{}</field>
+            </record>
+
+    	</data>
+	</openerp>
