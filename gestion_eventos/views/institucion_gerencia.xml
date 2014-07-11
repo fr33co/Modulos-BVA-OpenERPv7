@@ -6,7 +6,7 @@
 			    <field name="name">Institución / Gerencia</field>
 			    <field name="res_model">gestion.inst.gerencia</field>
 			    <field name="view_type">form</field>
-			    <field name="view_mode">kanban,form</field>
+			    <field name="view_mode">tree,kanban,form</field>
 			</record>
     
 			<record id="view_ins_geren" model="ir.ui.view">
@@ -16,7 +16,8 @@
 				<form string="Formulario de Institución / Gerencia" version="7.0">
 				    <field name="name"/>
 				    <field name="gerente"/>
-				    <field name="compania"/>
+				    <field name="relation" invisible="1"/>
+				    <field name="compania" invisible="1"/>
 				</form>
 				    
 			    </field>
@@ -56,17 +57,19 @@
 			<field name="name">Institución / Gerencia.tree</field>
 			<field name="model">gestion.inst.gerencia</field>
 			<field name="arch" type="xml">
-			    <tree string="Lista de Institución / Gerencia">
+			    <tree string="Lista de Institución / Gerencia" colors="#FE6D14:item=='1';#1949BC:item=='2'" toolbar="1">
 				<field name="name"/>
 				<field name="gerente"/>
-				<field name="compania"/>
+				<field name="relation" invisible="1"/>
+				<field name="item" invisible="1"/>
+				<field name="compania" invisible="1"/>
 			    </tree>
 			</field>
 		</record>
 
         <menuitem name="Mantenimiento" parent="menu_gestion_eventos" id="sub_menu_ins_geren" sequence="3"/>
 
-        <menuitem parent="sub_menu_ins_geren" id="ins_geren" action="action_g_ins_gen" name="Institución / Gerencia" sequence="1"/>
+        <menuitem parent="sub_menu_ins_geren" id="ins_geren" action="action_g_ins_gen" name="Entes / Adscrito" sequence="1"/>
         
     </data>
 </openerp>

@@ -137,6 +137,7 @@ class Gestion_reportes(osv.osv):
 			fec_fin    = gestion.fecha_fin # CAPTURA DE FECHA DE FIN DEL EVENTO
 			user       = gestion.user.login # SE CAPTURA EL USUARIO LOGEADO
 			ins        = gestion.institucion.id
+			inst       = gestion.institucion.name.encode('UTF-8').decode('UTF-8')
 
 		if str(mostrar) == "todos": # CONDICIONAL PARA TODOS LOS REGISTROS
 			cabezera = "Detallado de Eventos"
@@ -170,7 +171,7 @@ class Gestion_reportes(osv.osv):
 			else:
 				cr.execute('SELECT ge.name, mun.name, par.name, g.create_date, g.actividad,g.participantes,g.responsable,g.status,g.direccion,g.hora_inicio,g.hora_fin,g.inicio,g.fin,g.fecha_inicio,g.fecha_fin FROM gestion_eventos AS g ,gestion_inst_gerencia AS ge, res_country_municipality AS mun, res_country_parish AS par WHERE g.institucion=ge.id AND g.municipio=mun.id AND g.parroquia=par.id ORDER BY status '+str(mostrar)+' LIMIT '+str(cantidad)+'')
 		elif str(mostrar) == "departamento": # CONDICIONAL PARA TODOS LOS REGISTROS
-			cabezera = "Detallado Por Departamento"
+			cabezera = "Detallado Por "+str(inst)+""
 			item     = "departamento"
 			if not campo['institucion']:
 				raise osv.except_osv(_("Warning!"), _("Disculpe debe seleccionar el Departamento..."))
@@ -197,7 +198,7 @@ class Gestion_reportes(osv.osv):
 		ws1.write(1, 2, 'DIRECCION',style0)
 		ws1.write(1, 3, 'ACTIVIDAD',style0)
 		ws1.write(1, 4, 'PARTICIPANTES',style0)
-		ws1.write(1, 5, 'INSTITUCION / GERENCIA',style0)
+		ws1.write(1, 5, 'ENTE / ADSCRITO',style0)
 		ws1.write(1, 6, 'RESPONSABLE',style0)
 		ws1.write(1, 7, 'ESTATUS',style0)
 		ws1.write(1, 8, 'FECHA',style0)
@@ -231,7 +232,13 @@ class Gestion_reportes(osv.osv):
 			fecha           = format_fecha(fecha_actual[0])
 			horas           = hora[0].split(' ')
 			hora_actual     = horas[1]
-			direccion       = detallado[8].encode('UTF-8').decode('UTF-8')
+			direccion       = detallado[8]
+
+			if not direccion:
+				direccion = ""
+			else:
+				direccion
+
 			fecha_de_inicio = detallado[9]
 			fecha_de_fin    = detallado[10]
 			inicio          = detallado[11]
@@ -248,8 +255,6 @@ class Gestion_reportes(osv.osv):
 				 fi = "PM"
 			else:
 				fi = "AM"
-				
-				 
 				
 			if int(detallado[7]) == 1:
 				status = "Pendiente"
@@ -292,7 +297,7 @@ class Gestion_reportes(osv.osv):
 			pdf.set_font('Arial','',8)
 			pdf.cell(5,5,"".decode("UTF-8"),'BTR',1,'L',1)
 			pdf.set_font('Arial','B',9)
-			pdf.cell(217,5,"Dirección: ".decode("UTF-8")+direccion,'LTB',0,'L',1)
+			pdf.cell(217,5,"Dirección: ".decode("UTF-8")+aceptar(direccion),'LTB',0,'L',1)
 			pdf.set_font('Arial','',8)
 			pdf.set_font('Arial','B',9)
 			pdf.set_font('Arial','',8)
@@ -316,7 +321,7 @@ class Gestion_reportes(osv.osv):
 	
 			pdf.cell(260,10,actividad,'LTBR',1,'L',1)
 	
-			pdf.cell(150,10,"Institución / Gerencia: ".decode("UTF-8")+institucion,'LTBR',0,'L',1)
+			pdf.cell(150,10,"Ente / adscrito: ".decode("UTF-8")+institucion,'LTBR',0,'L',1)
 			pdf.cell(60,10,"Responsable: ".decode("UTF-8")+responsable,'LTBR',0,'L',1)
 			pdf.cell(50,10,"Estátus: ".decode("UTF-8")+status,'LTBR',1,'L',1)
 			
@@ -396,14 +401,14 @@ class Gestion_reportes(osv.osv):
 		wb.save('/home/administrador/openerp70/modules/gestion_eventos/reportes/'+title_xls)
 		archivo_xls = open('/home/administrador/openerp70/modules/gestion_eventos/reportes/'+title_xls)
 		
-		#~ wb.save('openerp/addons/gestion_eventos/reportes/'+title_xls)
-		#~ archivo_xls = open('openerp/addons/gestion_eventos/reportes/'+title_xls)
+		# wb.save('openerp/addons/gestion_eventos/reportes/'+title_xls)
+		# archivo_xls = open('openerp/addons/gestion_eventos/reportes/'+title_xls)
 		
 		pdf.output('/home/administrador/openerp70/modules/gestion_eventos/reportes/'+title,'F')
 		documento = open('/home/administrador/openerp70/modules/gestion_eventos/reportes/'+title) # Apertura del documento
 		
-		#~ pdf.output('openerp/addons/gestion_eventos/reportes/'+title,'F')
-		#~ documento = open('openerp/addons/gestion_eventos/reportes/'+title) # Apertura del documento
+		# pdf.output('openerp/addons/gestion_eventos/reportes/'+title,'F')
+		# documento = open('openerp/addons/gestion_eventos/reportes/'+title) # Apertura del documento
 		
 		# Guardamos el archivo pdf en gestion.eventos
 		self.pool.get('ir.documento').create(cr, uid, {
@@ -440,7 +445,15 @@ class Gestion_reportes(osv.osv):
 		'user': lambda s, cr, uid, c: uid, # Captura del usuario logeado
 	}
 # FORMATEAR FECHA (FUNCION GLOBAL PARA EL FORMATO DE FECHAS
+def aceptar(cadena):
+	result = cadena.encode('UTF-8').decode('UTF-8') # INSTITUCION
+	return result
+
 def format_fecha(fecha):
 	date = fecha.split("-")
 	nueva_fecha = date[2]+"/"+date[1]+"/"+date[0]
 	return nueva_fecha
+
+def redondear(cadena):
+	salida = "%.2f" % round(cadena,2)
+	return salida

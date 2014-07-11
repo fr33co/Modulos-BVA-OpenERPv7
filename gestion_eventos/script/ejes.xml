@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <openerp>
+        <data>
+	    
+	    <record id="grupo_eventos" model="res.groups">
+                <field name="name">Gestion Eventos / manager</field>
+            </record>
+	    
+	    <!--GRUPO POR SEDE-->
+	    <record id="grupo_sede" model="res.groups">
+                <field name="name">Gestion Eventos / sede</field>
+            </record>
+	    
+	    <!--GRUPO POR EJE-->
+	    <record id="grupo_eje" model="res.groups">
+                <field name="name">Gestion Eventos / eje</field>
+            </record>
+
+<!-- CARGA DE EJES -->
+
+            <record id="eje_1" model="gestion.inst.gerencia">
+                <field name="name">Eje Centro</field>
+                <field name="gerente">CEC</field>
+                <field name="item">2</field>
+            </record>
+            <record id="eje_2" model="gestion.inst.gerencia">
+                <field name="name">Eje Costa</field>
+                <field name="gerente">CECO</field>
+                <field name="item">2</field>
+            </record>
+            <record id="eje_3" model="gestion.inst.gerencia">
+                <field name="name">Eje Este</field>
+                <field name="gerente">CEE</field>
+                <field name="item">2</field>
+            </record>
+            <record id="eje_4" model="gestion.inst.gerencia">
+                <field name="name">Eje Metro</field>
+                <field name="gerente">CEM</field>
+                <field name="item">2</field>
+            </record>
+            <record id="eje_5" model="gestion.inst.gerencia">
+                <field name="name">Eje Sur</field>
+                <field name="gerente">CES</field>
+                <field name="item">2</field>
+            </record>
+	    
+<!--FILTRO PARA EJES PARA VISUALIZAR SOLO LA INFORMACION CARGADA POR EL MISMO Y DE LAS SEDES ADSCRITA-->
+	    
+	       <record id="eje_domain_1" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">['|',('user.login','=','cec'),('relation','=','1')]</field> 
+                <field name="user_id">102</field>
+                <field name="name">Coordinador / Eje Centro</field>
+                <field name="context">{}</field>
+            </record>
+	       <record id="eje_domain_2" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">['|',('user.login','=','ceco'),('relation','=','5')]</field>
+                <field name="user_id">103</field>
+                <field name="name">Coordinador / Eje Costa</field>
+                <field name="context">{}</field>
+            </record>
+	       <record id="eje_domain_3" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">['|',('user.login','=','cee'),('relation','=','3')]</field>
+                <field name="user_id">104</field>
+                <field name="name">Coordinador / Eje Este</field>
+                <field name="context">{}</field>
+            </record>
+	       <record id="eje_domain_4" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">['|',('user.login','=','cem'),('relation','=','2')]</field>
+                <field name="user_id">105</field>
+                <field name="name">Coordinador / Eje Metro</field>
+                <field name="context">{}</field>
+            </record>
+	       <record id="eje_domain_5" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">['|',('user.login','=','ces'),('relation','=','4')]</field>
+                <field name="user_id">106</field>
+                <field name="name">Coordinador / Eje Sur</field>
+                <field name="context">{}</field>
+            </record>
+            
+    	</data>
+	</openerp>

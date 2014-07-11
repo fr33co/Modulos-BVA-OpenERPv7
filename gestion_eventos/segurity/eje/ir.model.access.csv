@@ -1,0 +1,11 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+
+gestion_eventos_full_eje,gestion_eventos_full_eje,model_gestion_eventos,grupo_eje,1,0,1,0
+gestion_filtro_full_eje,gestion_filtro_full_eje,model_gestion_filtro,grupo_eje,1,0,0,0
+gestion_inst_gerencia_full_eje,gestion_inst_gerencia_full_eje,model_gestion_inst_gerencia,grupo_eje,1,0,0,0
+ir_documento_full_eje,ir_documento_full_eje,model_ir_documento,grupo_eje,1,0,1,0
+
+
+
+
+

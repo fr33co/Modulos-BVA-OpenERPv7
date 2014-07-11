@@ -18,11 +18,11 @@
 			
 			<!--ACCION PARA VALIDAR LOS ESTATUS BOTON EVENTO-->
 			
-			<button name="gestion_realizado" type="object" attrs="{'invisible':[('status','in', ('2','3','5','6'))]}" string="Realizado" confirm="¿Esta seguro que desea Realizar el Evento?"/>
-          		<button name="gestion_suspendido" attrs="{'invisible':[('status','in', ('2','3','5','6'))]}" type="object" string="Pospuesto" confirm="¿Esta seguro que desea Posponer el Evento?"/>
-          		<button name="gestion_reprogramado" attrs="{'invisible':[('status','in', ('1','2','4','6'))]}" type="object" string="Reprogramado" confirm="¿Esta seguro que desea Reprogramar el Evento?"/>
-          		<button name="gestion_atrasado" attrs="{'invisible':[('status','in', ('3','2','4','5','6'))]}" type="object" string="Atrasado" confirm="¿Esta seguro que desea atrasar el Evento?"/>
-			<button name="gestion_cancelar" attrs="{'invisible':[('status','in', ('2','6'))]}" type="object" string="Cancelado" confirm="¿Esta seguro que desea Cancelar el Evento?"/>
+			<button name="gestion_realizado" type="object" attrs="{'invisible':[('status','in', ('2','3','5','6'))]}" string="Realizado" confirm="¿Esta seguro que desea Realizar el Evento?" class="detallado"/>
+          		<button name="gestion_suspendido" attrs="{'invisible':[('status','in', ('2','3','5','6'))]}" type="object" string="Pospuesto" confirm="¿Esta seguro que desea Posponer el Evento?" class="detallado"/>
+          		<button name="gestion_reprogramado" attrs="{'invisible':[('status','in', ('1','2','4','6'))]}" type="object" string="Reprogramado" confirm="¿Esta seguro que desea Reprogramar el Evento?" class="detallado"/>
+          		<button name="gestion_atrasado" attrs="{'invisible':[('status','in', ('3','2','4','5','6'))]}" type="object" string="Atrasado" confirm="¿Esta seguro que desea atrasar el Evento?" class="detallado"/>
+			<button name="gestion_cancelar" attrs="{'invisible':[('status','in', ('2','6'))]}" type="object" string="Cancelado" confirm="¿Esta seguro que desea Cancelar el Evento?" class="detallado"/>
 			<button name="emitir_foto" type="object" string="Reporte" confirm="¿Esta seguro que desea Visualizar el Reporte?" invisible="1"/>
 
           		<field name="status" widget="statusbar" statusbar_colors='{"progress":"red"}' />
@@ -38,7 +38,7 @@
 			    </tr>
 			    <tr>
 				<td style="align:center;">
-				    <b>Institución / Gerencia</b>
+				    <b>Ente / Adscrito</b>
 				</td>
 				<td>
 				    <field widget="selection" name="institucion" placeholder="Institución / Gerencia" on_change="search_ins_geren(institucion)" attrs="{'readonly':[('status','in', ('2','6'))]}"/>
@@ -60,9 +60,11 @@
 			<table style="width:900px;" border="0">
 			    <tr>
 				<td><b>Fecha Inicio</b></td>
-				<td><field name="fecha_inicio" on_change="search_date_ini(fecha_inicio)" placeholder="Fecha Inicio..." attrs="{'readonly':[('status','in', ('2','6'))]}"/></td>
+				<!-- on_change="search_date_ini(fecha_inicio)" -->
+				<td><field name="fecha_inicio" placeholder="Fecha Inicio..." attrs="{'readonly':[('status','in', ('2','6'))]}"/></td>
 				<td><b>Fecha Fin</b></td>
-				<td><field name="fecha_fin" on_change="search_date_fin(fecha_fin)" placeholder="Fecha Fin..." attrs="{'readonly':[('status','in', ('2','6'))]}"/></td>
+				<!-- on_change="search_date_fin(fecha_fin)" -->
+				<td><field name="fecha_fin" placeholder="Fecha Fin..." attrs="{'readonly':[('status','in', ('2','6'))]}"/></td>
 				<td><b>Hora Inicio</b></td>
 				<td>
 					<field name="hora_inicio" style="width:50px;" placeholder="Hora Inicio..." attrs="{'readonly':[('status','in', ('2','6'))]}"/>
@@ -181,6 +183,7 @@
 							</div>
 							<div style="float:left;margin-left:450px;" invisible="1">
 							    <field name="user"/>
+							    <field name="relation"/>
 							</div>
 							
 						    </td>
@@ -357,6 +360,7 @@
 				<field name="responsable"/>
 				<field name="status"/>
 				<field name="status_logistico"/>
+				<field name="user"/>
 			</tree>
 		</field>
 	</record>
