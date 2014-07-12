@@ -18,18 +18,21 @@
 			<field name="name">estadisticas.form</field>
 			<field name="model">integrantes.estadisticas</field>
 			<field name="arch" type="xml">
-				<form string="Registro de integrantes" version="7.0">
+				<form string="Generación de estadísticas" version="7.0">
 					<header>
 						<button name="estadisticas_centros" type="object" string="Generar Estadisticas" class="oe_highlight" />
 					</header>
 					
-					<group>
+					<group string="Generación de estadísticas">
 						<group>
 							<field name="todo" nolabel="0" colspan="2"/>
 							<field name="country_id" nolabel="0" colspan="2" invisible="1"/>
 							<field name="estado" nolabel="0" colspan="2" readonly="1" domain="[('country_id','=',country_id)]" attrs="{'invisible': [('todo', '=', True) ] }"/>
 							<field name="municipio" nolabel="0" colspan="2" domain="[('state_id','=',estado)]" attrs="{'invisible': [('todo', '=', True) ] }"/>
 							<field name="fecha_creacion" nolabel="0" colspan="2" invisible="1"/>
+						</group>
+						<group>
+							<label string="Marque esta casilla para un reporte general" attrs="{'invisible': [('todo', '=', True) ] }"/>
 						</group>
 					</group>
 					
@@ -48,7 +51,7 @@
 			</field>
 		</record>
 		
-		<menuitem parent="menu_reportes_integrantes" id="estadistica_ubch" action="accion_vista_estadisticas_ubch" name="Estadisticas UBCH"/>
+		<menuitem parent="menu_integrantes_main" id="estadistica_ubch" action="accion_vista_estadisticas_ubch" name="Estadisticas UBCH"/>
 
 	</data>
 </openerp>

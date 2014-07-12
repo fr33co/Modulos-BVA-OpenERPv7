@@ -22,7 +22,7 @@
 					<header>
 						<button name="reporte_integrantes" type="object" string="Exportar Integrante" class="oe_highlight" />
 					</header>
-					
+					<separator string="Generación de estadísticas"/>
 					<group>
 						<group>
 							<field name="foto" widget="image" class="oe_left oe_avatar" nolabel="1"/>

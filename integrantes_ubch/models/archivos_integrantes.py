@@ -10,6 +10,7 @@ class ArchivosIntegrantes(osv.Model):
 		
 	_columns = {
 		'integrante_id' : fields.many2one("integrantes.ubch", "Integrante", required=False),
+		'municipio' : fields.char(string="Municipio", required=False),
 		#~ 'fecha_creacion' : fields.datetime(string="Fecha de creación", required=False)
 		#~ 'categoria' : fields.char(string="Categoría", size=1, required=False),
 		#~ El campo 'categoria' ha sido descartado como campo de identificación, en sustitución
