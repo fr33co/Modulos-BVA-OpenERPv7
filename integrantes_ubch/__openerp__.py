@@ -18,6 +18,7 @@
       "views/misiones.xml",
       "views/consejo_comunal.xml",
       "views/archivos_integrantes.xml",
+      "views/archivos_estadisticas_gen.xml",
       "views/estadisticas_ubch.xml",
       "views/centro_electoral.xml",
       "data/reg_grados_instruc.xml",

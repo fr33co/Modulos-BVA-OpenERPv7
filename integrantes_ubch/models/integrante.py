@@ -124,7 +124,7 @@ class Integrante(osv.Model):
 			if y.centro_votacion == False:
 				c_votacion = ""
 			else:
-				c_votacion = y.centro_votacion.encode("UTF-8").decode("UTF-8")	
+				c_votacion = y.centro_votacion.centro.encode("UTF-8").decode("UTF-8")	
 			
 			if int(y.estado_civil) == 1:
 				civil = "Soltero"
@@ -275,15 +275,15 @@ class Integrante(osv.Model):
 			pdf.set_fill_color(255,255,255)
 			pdf.set_text_color(24,29,31)
 			
-			if y.profesion == False:
+			if not y.profesion:
 				profesion = ""
 			else:
 				profesion = y.profesion.profesion.encode("UTF-8").decode("UTF-8")
-			if y.ocupacion == False:
+			if not y.ocupacion:
 				ocupacion = ""
 			else:
 				ocupacion = y.ocupacion.ocupacion.encode("UTF-8").decode("UTF-8")
-			if y.experiencia == False:
+			if not y.experiencia:
 				experiencia = ""
 			else:
 				experiencia = y.experiencia.encode("UTF-8").decode("UTF-8")
@@ -508,18 +508,18 @@ class Integrante(osv.Model):
 			
 			nom = nombre+'.pdf'
 			#Ruta local
-			pdf.output('openerp/addons/integrantes_ubch/reportes/constancias/'+nom,'F')
-			archivo = open('openerp/addons/integrantes_ubch/reportes/constancias/'+nom)
+			#~ pdf.output('openerp/addons/integrantes_ubch/reportes/constancias/'+nom,'F')
+			#~ archivo = open('openerp/addons/integrantes_ubch/reportes/constancias/'+nom)
 			#Ruta servidor
-			#~ pdf.output('/home/administrador/openerp70/modules/integrantes_ubch/reportes/'+nom,'F')
-			#~ archivo = open('/home/administrador/openerp70/modules/integrantes_ubch/reportes/'+nom)
+			pdf.output('/home/administrador/openerp70/modules/integrantes_ubch/reportes/'+nom,'F')
+			archivo = open('/home/administrador/openerp70/modules/integrantes_ubch/reportes/'+nom)
 			
 			#Registro del archivo de reporte en la base de datos
 			id_att = self.pool.get('ir.attachment').create(cr, uid, {
 				'integrante_id': y.id, 
 				'name': nom,
-				'nombre': nom,
 				'res_name': nom,
+				'municipio' : municipio,
 				'datas': base64.encodestring(archivo.read()),
 				'datas_fname': nom,
 				'res_model': 'integrantes.ubch',
