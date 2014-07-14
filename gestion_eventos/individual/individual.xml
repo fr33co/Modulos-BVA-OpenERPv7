@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <report id="reporte_individual" string="Evento Individual"
+            model="gestion.eventos" name="Evento Individual"
+            rml="gestion_eventos/individual/individual.rml" />
+    </data>
+</openerp>
+

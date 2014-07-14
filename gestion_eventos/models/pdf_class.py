@@ -15,8 +15,8 @@ class Detallado(FPDF):
 		# (CAMPO 1 = HORIZONTAL , CAMPO 2 = VERTICAL, CAMPO 3 = DIMENCION DE LA IMAGEN)
 		
 		# LOCAL
-		# self.image('openerp/addons/gestion_eventos/img/gob.jpg',5,10,50) # Imagen Izquierda
-		# self.image('openerp/addons/gestion_eventos/img/logo_bva2.jpg',220,15,50) # Imagen Derecha
+		#~ self.image('openerp/addons/gestion_eventos/img/gob.jpg',5,10,50) # Imagen Izquierda
+		#~ self.image('openerp/addons/gestion_eventos/img/logo_bva2.jpg',220,15,50) # Imagen Derecha
 		# self.image('openerp/addons/gestion_eventos/img/footer.jpg',220,15,50) # Imagen Footer
 		
 		# SERVIDOR
