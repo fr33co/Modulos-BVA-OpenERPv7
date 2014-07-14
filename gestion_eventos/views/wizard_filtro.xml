@@ -25,7 +25,8 @@
                         <notebook colspan="4">
                             <page string="Busqueda por Cantidad / Todos">
                             <table>
-                                <tr attrs="{'invisible': [('asc_desc', '=', 'todos') ] }">
+                                <tr attrs="{'invisible':[('asc_desc','in', ('todos','prensa'))]}"
+                                    >
                                     <td><b>Cantidad: </b></td>
                                     <td><field name="cantidad"/></td>
                                 </tr>

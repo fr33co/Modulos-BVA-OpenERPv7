@@ -146,6 +146,12 @@ class Gestion_reportes(osv.osv_memory):
             #print "FILTRO PARA TODOS LOS EVENTOS"
             cr.execute('SELECT ge.name, mun.name, par.name, g.create_date, g.actividad,g.participantes,g.responsable,g.status,g.direccion,g.hora_inicio,g.hora_fin,g.inicio,g.fin,g.fecha_inicio,g.fecha_fin FROM gestion_eventos AS g ,gestion_inst_gerencia AS ge, res_country_municipality AS mun, res_country_parish AS par WHERE g.institucion=ge.id AND g.municipio=mun.id AND g.parroquia=par.id')
 
+        elif str(mostrar) == "prensa": # CONDICIONAL PARA TODOS LOS REGISTROS QUE ESTEN POR PRENSA
+            cabezera = "Detallado por Prensa"
+            item     = "prensa"
+            #print "FILTRO PARA TODOS LOS EVENTOS"
+            cr.execute('SELECT ge.name, mun.name, par.name, g.create_date, g.actividad,g.participantes,g.responsable,g.status,g.direccion,g.hora_inicio,g.hora_fin,g.inicio,g.fin,g.fecha_inicio,g.fecha_fin FROM gestion_eventos AS g ,gestion_inst_gerencia AS ge, res_country_municipality AS mun, res_country_parish AS par WHERE g.institucion=ge.id AND g.municipio=mun.id AND g.parroquia=par.id AND g.si=True')
+
         elif str(mostrar) == "fechas": # CONDICIONAL PARA TODOS LA BUSQUEDA DE FECHAS FIN / INICIO
             cabezera = "Detallado de Eventos por Fehas"
             item     = "fechas"
@@ -235,7 +241,7 @@ class Gestion_reportes(osv.osv_memory):
             hora_actual     = horas[1]
             direccion       = detallado[8]
             
-            if not direccion:
+            if not direccion: # Campo Vacio (Validacion)
                 direccion = ""
             else:
                 direccion
@@ -257,8 +263,7 @@ class Gestion_reportes(osv.osv_memory):
             else:
                 fi = "AM"
                 
-                 
-                
+            # Conteo de los Estatus
             if int(detallado[7]) == 1:
                 status = "Pendiente"
                 can_1  += len(detallado[7])
@@ -401,17 +406,17 @@ class Gestion_reportes(osv.osv_memory):
         title     = cabezera.upper()+ "("+fecha.upper()+") Usuario ".upper()+str(user).upper()+" "".pdf"
         title_xls = cabezera.upper()+ "("+fecha.upper()+")Usuario ".upper()+str(user).upper()+".xls"
         
-        #~ wb.save('/home/administrador/openerp70/modules/gestion_eventos/reportes/'+title_xls)
-        #~ archivo_xls = open('/home/administrador/openerp70/modules/gestion_eventos/reportes/'+title_xls)
+        wb.save('/home/administrador/openerp70/modules/gestion_eventos/reportes/'+title_xls)
+        archivo_xls = open('/home/administrador/openerp70/modules/gestion_eventos/reportes/'+title_xls)
         
-        wb.save('openerp/addons/gestion_eventos/reportes/'+title_xls)
-        archivo_xls = open('openerp/addons/gestion_eventos/reportes/'+title_xls)
+        #~ wb.save('openerp/addons/gestion_eventos/reportes/'+title_xls)
+        #~ archivo_xls = open('openerp/addons/gestion_eventos/reportes/'+title_xls)
         
-        #~ pdf.output('/home/administrador/openerp70/modules/gestion_eventos/reportes/'+title,'F')
-        #~ documento = open('/home/administrador/openerp70/modules/gestion_eventos/reportes/'+title) # Apertura del documento
+        pdf.output('/home/administrador/openerp70/modules/gestion_eventos/reportes/'+title,'F')
+        documento = open('/home/administrador/openerp70/modules/gestion_eventos/reportes/'+title) # Apertura del documento
         
-        pdf.output('openerp/addons/gestion_eventos/reportes/'+title,'F')
-        documento = open('openerp/addons/gestion_eventos/reportes/'+title) # Apertura del documento
+        #~ pdf.output('openerp/addons/gestion_eventos/reportes/'+title,'F')
+        #~ documento = open('openerp/addons/gestion_eventos/reportes/'+title) # Apertura del documento
         
         # Guardamos el archivo pdf en gestion.eventos
         self.pool.get('ir.documento').create(cr, uid, {
@@ -437,7 +442,7 @@ class Gestion_reportes(osv.osv_memory):
     _columns = {
 
         'cantidad': fields.char(string="Cantidad", required = False),
-        'asc_desc' : fields.selection([('todos','Todos'),('asc','Asendente'),('desc','Decendente'),('fechas','Fechas'),('departamento','Ente Adscrito')], string="Mostrar en Forma", required=True),
+        'asc_desc' : fields.selection([('todos','Todos'),('asc','Asendente'),('desc','Decendente'),('fechas','Fechas'),('departamento','Ente Adscrito'),('prensa','Prensa')], string="Mostrar en Forma", required=True),
         'user': fields.many2one('res.users', 'Registrado por:', readonly=True), # Usuario logeado
         'fecha_inicio' : fields.date(string="Fecha Inicio", required=False),
         'fecha_fin' : fields.date(string="Fecha Fin", required=False),

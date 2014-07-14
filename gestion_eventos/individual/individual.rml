@@ -121,28 +121,5 @@
 	<para style="P1">
       <font color="white"> </font>
     </para>
-	<blockTable colWidths="528" style="estilo">
-		<tr>
-			<td>
-				<para style="P2">
-					FOTOS ADJUNTAS
-				</para>
-			</td>
-		</tr>
-	</blockTable>
-	<blockTable colWidths="175.0,176.0,175.0" style="estilo_2">
-		<tr>
-			<td>
-				<image width="165" height="195">[[ e.foto_1 or removeParentNode('image') ]]</image>
-			</td>
-			
-			<td>
-				<image width="165" height="195">[[ e.foto_2 or removeParentNode('image') ]]</image>
-			</td>
-			<td>
-				<image width="165" height="195">[[ e.foto_3 or removeParentNode('image') ]]</image>
-			</td>
-		</tr>
-	</blockTable>
   </story>
 </document>
