@@ -17,14 +17,15 @@
 		<!-- Proceso de busqueda por municipio-->
 
 <!--
-		<record id="search_filter_estadisticas" model="ir.ui.view">
+		<record id="view_estadisticas_search" model="ir.ui.view">
 			<field name="name">Filtro de Estadisticas</field>
 			<field name="model">ir.attachment</field>
-			<field name="inherit_id" rel="base.ir_filters_view_tree"/>
 			<field name="arch" type="xml">
-				<field name="name" position="after">
-					<field name="municipio"/>
-				</field>
+				<search string="Archivos">
+					<field name="name" position="after">
+						<field name="municipio"/>
+					</field>
+				</search>
 			</field>
 		</record>
 -->
@@ -37,8 +38,11 @@
 				<field name="datas_fname" position="replace">
 					<field name="datas_fname" invisible="1"/>
 				</field>
-				<field name="datas_fname" position="after">
-					<field name="municipio"/>
+				<field name="company_id" position="replace">
+					<field name="company_id" invisible="1"/>
+				</field>
+				<field name="create_uid" position="replace">
+					<field name="create_uid" invisible="1"/>
 				</field>
 			</field>
 		</record>

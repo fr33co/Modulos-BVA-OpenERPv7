@@ -64,7 +64,7 @@ def gen_est_centros(cr, estado):
 			FCD_totales_m = 0
 			PCC_totales_m = 0
 			total_integrantes_m = 0
-			
+				
 			pdf.set_fill_color(199,15,15)
 			pdf.set_text_color(255,255,255)
 			pdf.cell(7,5,"#",'LTBR',0,'C',1)
@@ -134,22 +134,23 @@ def gen_est_centros(cr, estado):
 					PCC_totales = PCC_totales + PCC
 					total_integrantes = total_integrantes + integrantes_centro
 					
-					if j == 24:
-						pdf.add_page()
-						pdf.set_fill_color(199,15,15)
-						pdf.set_text_color(255,255,255)
-						pdf.set_font('Arial','B',11)
-						pdf.cell(150,5,"Centro Electoral".decode("UTF-8"),'LTBR',0,'C',1)
-						pdf.cell(15,5,"F".decode("UTF-8"),'LTBR',0,'C',1)
-						pdf.cell(15,5,"M".decode("UTF-8"),'LTBR',0,'C',1)
-						pdf.cell(15,5,"TCD".decode("UTF-8"),'LTBR',0,'C',1)
-						pdf.cell(15,5,"FCD".decode("UTF-8"),'LTBR',0,'C',1)
-						pdf.cell(20,5,"PCC".decode("UTF-8"),'LTBR',0,'C',1)
-						pdf.cell(25,5,"Total p/ C.E.".decode("UTF-8"),'LTBR',1,'C',1)
-						pdf.set_fill_color(255,255,255)
-						pdf.set_text_color(24,29,31)	
-								
-						j=0	
+					#~ if j == 24:
+						#~ pdf.add_page()
+						#~ pdf.set_fill_color(199,15,15)
+						#~ pdf.set_text_color(255,255,255)
+						#~ pdf.set_font('Arial','B',11)
+						#~ pdf.cell(150,5,"Centro Electoral (Municipio: "+reg_mun[1]+")".decode("UTF-8"),'LTBR',0,'C',1)
+						#~ pdf.cell(15,5,"F".decode("UTF-8"),'LTBR',0,'C',1)
+						#~ pdf.cell(15,5,"M".decode("UTF-8"),'LTBR',0,'C',1)
+						#~ pdf.cell(15,5,"TCD".decode("UTF-8"),'LTBR',0,'C',1)
+						#~ pdf.cell(15,5,"FCD".decode("UTF-8"),'LTBR',0,'C',1)
+						#~ pdf.cell(20,5,"PCC".decode("UTF-8"),'LTBR',0,'C',1)
+						#~ pdf.cell(25,5,"Total p/ C.E.".decode("UTF-8"),'LTBR',1,'C',1)
+						#~ pdf.set_fill_color(255,255,255)
+						#~ pdf.set_text_color(24,29,31)	
+								#~ 
+						#~ j=0	
+						
 					pdf.set_fill_color(191,191,191)
 					pdf.set_text_color(24,29,31)
 					pdf.set_font('Arial','B',8)
@@ -166,28 +167,28 @@ def gen_est_centros(cr, estado):
 					pdf.cell(20,5,str(PCC),'LTBR',0,'C',1)
 					pdf.cell(25,5,str(integrantes_centro),'LTBR',1,'C',1)
 					
-					if k == 24:
-						pdf.set_fill_color(97,97,97)
-						pdf.set_text_color(255,255,255)
-						pdf.set_font('Arial','B',8)
-						pdf.cell(150,5,"TOTALES".decode("UTF-8"),'LTBR',0,'L',1)
-						pdf.cell(15,5,str(F_totales_m),'LTBR',0,'C',1)
-						pdf.cell(15,5,str(M_totales_m),'LTBR',0,'C',1)
-						pdf.cell(15,5,str(TCD_totales_m),'LTBR',0,'C',1)
-						pdf.cell(15,5,str(FCD_totales_m),'LTBR',0,'C',1)
-						pdf.cell(20,5,str(PCC_totales_m),'LTBR',0,'C',1)
-						pdf.cell(25,5,str(total_integrantes_m),'LTBR',1,'C',1)
-						pdf.set_fill_color(255,255,255)
-						pdf.set_text_color(24,29,31)
-						pdf.line(10, 189, 265, 189) 
-						pdf.set_y(190)
-						pdf.set_x(10)
-						pdf.set_text_color(110,108,108)
-						pdf.set_font('Arial','B',8)
-						pdf.cell(15,5,"Leyenda:".decode("UTF-8"),'',0,'C',1)
-						pdf.set_font('Arial','',8)
-						pdf.cell(185,5,"Femenino (F), Masculino (M), Titulares con Discapacidad (TCD), Familiares con de Discapacidad (FCD), Pertenecientes a un Cosejo Comunal (PCC), Total por Centro Electoral (Total p/ C.E.)".decode("UTF-8"),'',1,'L',1)
-						k = 0
+					#~ if k == 24:
+						#~ pdf.set_fill_color(97,97,97)
+						#~ pdf.set_text_color(255,255,255)
+						#~ pdf.set_font('Arial','B',8)
+						#~ pdf.cell(150,5,"Totales (Municipio: "+reg_mun[1]+")".decode("UTF-8"),'LTBR',0,'L',1)
+						#~ pdf.cell(15,5,str(F_totales_m),'LTBR',0,'C',1)
+						#~ pdf.cell(15,5,str(M_totales_m),'LTBR',0,'C',1)
+						#~ pdf.cell(15,5,str(TCD_totales_m),'LTBR',0,'C',1)
+						#~ pdf.cell(15,5,str(FCD_totales_m),'LTBR',0,'C',1)
+						#~ pdf.cell(20,5,str(PCC_totales_m),'LTBR',0,'C',1)
+						#~ pdf.cell(25,5,str(total_integrantes_m),'LTBR',1,'C',1)
+						#~ pdf.set_fill_color(255,255,255)
+						#~ pdf.set_text_color(24,29,31)
+						#~ pdf.line(10, 189, 265, 189) 
+						#~ pdf.set_y(190)
+						#~ pdf.set_x(10)
+						#~ pdf.set_text_color(110,108,108)
+						#~ pdf.set_font('Arial','B',8)
+						#~ pdf.cell(15,5,"Leyenda:".decode("UTF-8"),'',0,'C',1)
+						#~ pdf.set_font('Arial','',8)
+						#~ pdf.cell(185,5,"Femenino (F), Masculino (M), Titulares con Discapacidad (TCD), Familiares con de Discapacidad (FCD), Pertenecientes a un Cosejo Comunal (PCC), Total por Centro Electoral (Total p/ C.E.)".decode("UTF-8"),'',1,'L',1)
+						#~ k = 0
 					j = j+1
 					k = k+1
 					
@@ -203,7 +204,8 @@ def gen_est_centros(cr, estado):
 			pdf.cell(25,5,str(total_integrantes_m),'LTBR',1,'C',1)
 			pdf.set_fill_color(255,255,255)
 			pdf.set_text_color(24,29,31)
-
+			pdf.ln(5)
+	
 	pdf.ln(10)
 
 	pdf.set_fill_color(97,97,97)
@@ -258,10 +260,10 @@ def gen_est_centros(cr, estado):
 	pdf.set_font('Arial','',8)
 	pdf.cell(185,5,"Femenino (F), Masculino (M), Titulares con Discapacidad (TCD), Familiares con Discapacidad (FCD), Pertenecientes a un Cosejo Comunal (PCC), Total por Centro Electoral (Total p/ C.E.)".decode("UTF-8"),'',1,'L',1)
 
-
+	pdf.set_auto_page_break(1, margin=200)
 
 	#Nombre del archivo
-	nombre_archivo = 'estadisticas_ubch'+time.strftime('(%d-%m-%y)')+'.pdf'
+	nombre_archivo = 'estadisticas_ubch_general_'+time.strftime('%d-%m-%y')+'.pdf'
 	#Ruta local
 	#~ pdf.output('openerp/addons/integrantes_ubch/reportes/estadisticas/'+nombre_archivo,'F')
 	#~ archivo = open('openerp/addons/integrantes_ubch/reportes/estadisticas/'+nombre_archivo)

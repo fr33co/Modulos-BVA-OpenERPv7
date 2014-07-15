@@ -8,7 +8,7 @@
 		 	<field name="name">Integrantes UBCH</field>
 			<field name="res_model">integrantes.estadisticas</field>
 			<field name="view_type">form</field>
-			<field name="view_mode">tree,form</field>
+			<field name="view_mode">form</field>
 			<field name="help" type="html">
 				<p class="oe_view_nocontent_create">Registrar Integrante</p>
 			</field>
@@ -22,7 +22,8 @@
 					<header>
 						<button name="estadisticas_centros" type="object" string="Generar Estadisticas" class="oe_highlight" />
 					</header>
-					
+					<separator string="Generación de estadísticas"/>
+<!--
 					<group string="Generación de estadísticas">
 						<group>
 							<field name="todo" nolabel="0" colspan="2"/>
@@ -32,24 +33,60 @@
 							<field name="fecha_creacion" nolabel="0" colspan="2" invisible="1"/>
 						</group>
 						<group>
-							<label string="Marque esta casilla para un reporte general" attrs="{'invisible': [('todo', '=', True) ] }"/>
+							<font color="red" style="font-weight">
+									**Marque esta casilla para un reporte general!!
+							</font>
 						</group>
 					</group>
-					
+-->
+					<table style="width: 600px;">
+						<tr>
+							<td style="width: 50px;font-weight:bold">
+							Todos los municipios:
+							</td>
+							<td style="width: 100px;">
+								<field name="todo" nolabel="0"/>
+								<font color="red" style="font-weight" attrs="{'invisible': [('todo', '=', True) ] }">
+									   **Marque esta casilla para un reporte general!!
+								</font>
+								<field name="country_id" nolabel="0" colspan="2" invisible="1"/>
+							</td>
+						</tr>
+						<tr>
+							<td style="width: 70px;font-weight:bold" attrs="{'invisible': [('todo', '=', True) ] }">
+							Estado:
+							</td>
+							<td style="width: 100px;">
+								<field name="estado" nolabel="0" colspan="2" readonly="1" domain="[('country_id','=',country_id)]" attrs="{'invisible': [('todo', '=', True) ] }"/>
+							</td>
+						</tr>
+						<tr>
+							<td style="width: 90px;font-weight:bold" attrs="{'invisible': [('todo', '=', True) ] }">
+							Municipio:
+							</td>
+							<td style="width: 100px;">
+								<field name="municipio" nolabel="0" colspan="2" domain="[('state_id','=',estado)]" attrs="{'invisible': [('todo', '=', True) ] }"/>
+								<field name="fecha_creacion" nolabel="0" colspan="2" invisible="1"/>
+							</td>
+						</tr>
+					</table>
 				</form>
 			</field>
 		</record>
 		
+<!--
 		<record model="ir.ui.view" id="vista_tree_estadisticas_ubch">
 			<field name="name">estadisticas.tree</field>
 			<field name="model">integrantes.estadisticas</field>
 			<field name="arch" type="xml">
 				<tree string="Lista de estadísticas">
 					<field name="todo" nolabel="0" colspan="2"/>
+					<field name="municipio" nolabel="0" colspan="2"/>
 					<field name="fecha_creacion" nolabel="0" colspan="2"/>
 				</tree>
 			</field>
 		</record>
+-->
 		
 		<menuitem parent="menu_integrantes_main" id="estadistica_ubch" action="accion_vista_estadisticas_ubch" name="Estadisticas UBCH"/>
 

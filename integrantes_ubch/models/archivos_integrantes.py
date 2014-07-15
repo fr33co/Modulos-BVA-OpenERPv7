@@ -7,9 +7,12 @@ from openerp.osv import osv, fields
 class ArchivosIntegrantes(osv.Model):
 	
 	_inherit = 'ir.attachment'
+	
+	_order = 'create_date desc'
 		
 	_columns = {
 		'integrante_id' : fields.many2one("integrantes.ubch", "Integrante", required=False),
+		'estadistica_id' : fields.many2one("integrantes.estadisticas", "Estadística", required=False),
 		'municipio' : fields.char(string="Municipio", required=False),
 		#~ 'fecha_creacion' : fields.datetime(string="Fecha de creación", required=False)
 		#~ 'categoria' : fields.char(string="Categoría", size=1, required=False),
