@@ -99,7 +99,7 @@ class NominaBecados(osv.Model):
 				codigo = str(mes)+str(anyo)+str(cedula)
 								
 				#Verificamos si la nómina individual del becado ya fue generada (se toma en cuenta el código)
-				search_nomina1 = obj_proceso_nomina.search(cr, uid, [('codigo','=',codigo)], count=False)
+				search_nomina1 = obj_proceso_nomina.search(cr, uid, [('codigo','=',codigo),('nomina','=',id_nomina)], count=False)
 				
 				if not search_nomina1: #Verificar esto, al parecer impide que se listen algunas nóminas individuales 
 				
