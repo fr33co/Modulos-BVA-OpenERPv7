@@ -488,6 +488,14 @@
                 <field name="name">DTS</field>
                 <field name="context">{}</field>
             </record>
+            <record id="reporte_62" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">reportes.presupuesto</field>
+                <field name="domain">[('create_uid','=','sdg')]</field> <!--Filtro-->
+                <field name="user_id">85</field>
+                <field name="name">SECRETARÍA DE GOBIERNO</field>
+                <field name="context">{}</field>
+            </record>
         </data>
     </openerp>
 
