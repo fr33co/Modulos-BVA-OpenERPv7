@@ -519,7 +519,7 @@ class Integrante(osv.Model):
 				'integrante_id': y.id, 
 				'name': nom,
 				'res_name': nom,
-				'municipio' : municipio,
+				#~ 'municipio' : municipio,
 				'datas': base64.encodestring(archivo.read()),
 				'datas_fname': nom,
 				'res_model': 'integrantes.ubch',

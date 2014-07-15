@@ -6,6 +6,7 @@ from datetime import datetime
 from datetime import timedelta
 from dateutil import relativedelta
 import os
+import commands
 from openerp.tools.translate import _
 from openerp.osv import fields, osv
 import base64#Necesario para la generación del .txt
@@ -22,6 +23,9 @@ class EstadisticasUBCH(osv.Model):
 	
 	#Método para generar las estadísticas generales de los centros electorales
 	def estadisticas_centros(self, cr, uid, ids, context=None):
+		
+		nom = "vacio"
+		archivo = "vacio"
 		
 		browse_id = self.browse(cr, uid, ids, context=context)
 		
@@ -44,24 +48,27 @@ class EstadisticasUBCH(osv.Model):
 					nom_municipio = estadistica.municipio.name.encode("UTF-8").decode("UTF-8")
 					#Obtención de los valores retornados por la función que genera el archivo	de reporte de estadísticas
 					nom, archivo = estadistica_ubch_reporte2.gen_est_centros_mun(cr, municipio)	
-				
-			#Registro del archivo de reporte en la base de datos
-			id_att = self.pool.get('ir.attachment').create(cr, uid, {
-				'integrante_id': id_est, 
-				'name': nom,
-				'res_name': nom,
-				'municipio' : nom_municipio,
-				'datas': base64.encodestring(archivo.read()),
-				'datas_fname': nom,
-				'res_model': 'integrantes.estadisticas',
-				}, context=context)
+			
+			if nom != "vacio" and archivo != "vacio":	
+				#Registro del archivo de reporte en la base de datos
+				id_att = self.pool.get('ir.attachment').create(cr, uid, {
+					'estadistica_id': id_est, 
+					'name': nom,
+					'res_name': nom,
+					#~ 'municipio' : nom_municipio,
+					'datas': base64.encodestring(archivo.read()),
+					'datas_fname': nom,
+					'res_model': 'integrantes.estadisticas',
+					}, context=context)
+			else:
+				raise osv.except_osv(_("Warning!"), _("No se generó el documento, no hay integrantes para el municipio selccionado."))
 					
 		return "Vacío"
 	
 	
 	#Definición de las columnas del modelo----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	_columns = {
-		'todo' : fields.boolean(string="Todo",required=False,help="Marque esta casilla para un reporte general"),
+		'todo' : fields.boolean(string="Todos los municipios",required=False,help="Marque esta casilla para un reporte general"),
 		'country_id' : fields.many2one("res.country", "País", required=True),
 		'estado' : fields.many2one("res.country.state", "Estado", required = True, select="0"),
 		'municipio' : fields.many2one("res.country.municipality", "Municipio", required = False, select="0"),
