@@ -58,7 +58,7 @@
 					<group col="4" colspan="4">
 						<group string="Selección de Becados">
 							<div class="div_scroll_becado">
-								<field name="becados" nolabel="1" mode="tree" readonly="0" domain="[('categoria','=','1'),'|',('status','=','1'),('status','!=','1'),('tipo_beca','=',tipo_beca)]"/>
+								<field name="becados" nolabel="1" mode="tree" readonly="0" domain="[('categoria','=','1'),'|',('status','=','1'),('status','=','5'),('tipo_beca','=',tipo_beca)]"/>
 							</div>
 						</group>
 					</group>
