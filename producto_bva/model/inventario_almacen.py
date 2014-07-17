@@ -162,9 +162,13 @@ class almacen_bva(osv.Model):
 		pdf.cell(84,6,"Firma:",'LTBR',0,'L',0)
 		pdf.cell(83,6,"Firma:",'LTBR',1,'L',1)
 		
-		pdf.output('openerp/addons/producto_bva/reporte/intentario_almacen.pdf','F')
+		nom = nombre_r+'.pdf' #Nombre del archivo .pdf
+
 		
-		archivo = open('openerp/addons/producto_bva/reporte/intentario_almacen.pdf')
+		pdf.output('/home/administrador/openerp70/modules/producto_bva/reporte/'+nom,'F')
+	
+		#archivo = open('openerp/addons/planificacion_presupuesto/reportes/'+nom)
+		archivo = open('/home/administrador/openerp70/modules/producto_bva/reporte/'+nom)
 		
 		nom = nombre_r+" "+fecha+'.pdf' #Nombre del archivo .pdf
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 	<data>
-	<!--  Registro de Codigos de bienes que  no poseen codigo ni serial -->
+	<!--  Registro de Codigos de bienes  -->
 		<record model="ir.actions.act_window" id="codigos_bienes_list_action">
 			    <field name="name">Codigos de bienes no legibles</field>
 			    <field name="res_model">codigos.bva</field>
@@ -12,7 +12,7 @@
 			    </field>
 		</record> 
 
-	<!-- Vista Form Registro de Codigos de bienes que  no poseen codigo ni serial -->
+	<!-- Vista Form Registro de Codigos de bienes -->
 		<record model="ir.ui.view" id="codigos_form_view">
 			<field name="name">codigos form</field>
 			<field name="model">codigos.bva</field>
@@ -28,7 +28,7 @@
 			</field>			
 		</record>
 		
-	<!-- Vista Tree Registro de Codigos de bienes que  no poseen codigo ni serial -->
+	<!-- Vista Tree Registro de Codigos de bienes -->
 		<record model="ir.ui.view" id="codigos_tree_bva_view">
 			<field name="name">codigos form</field>
 			<field name="model">codigos.bva</field>
@@ -40,86 +40,6 @@
 			</field>
 		</record>
 
-	<!--  Registro de Procesos de incorporación -->
-		<record model="ir.actions.act_window" id="proceso_incorporacion_list_action">
-			<field name="name">Procesos de incorporación</field>
-			<field name="res_model">procesos.incorporaciones</field>
-			<field name="view_type">form</field>
-			<field name="view_mode">tree,form</field>
-			<field name="help" type="html">
-				<p class="oe_view_nocontent_create">Registro de Procesos de Incorporación</p>
-			</field>
-		</record>
-		
-	<!-- Vista Form Registro de Procesos de incorporación -->
-		<record model="ir.ui.view" id="procesos_incorporacion_form_view">
-			<field name="name">procesos form</field>
-			<field name="model">procesos.incorporaciones</field>
-			<field name="arch" type="xml">
-				<form string="Materiales Form" version="7.0">	
-					<group col="2" colspan="2" string="Procesos de Incorporación">
-						<group>
-							<field name="incorporaciones" class="oe_inline" colspan="2"/>
-							<field name="descripcion" class="oe_inline" colspan="2"/>
-						</group>
-					</group>
-				</form>
-			</field>			
-		</record>
-
-	<!-- Vista Tree Registro de Procesos de incorporación -->
-		<record model="ir.ui.view" id="incorporaciones_tree_bva_view">
-			<field name="name">procesos.incorporaciones.tree.bva</field>
-			<field name="model">procesos.incorporaciones</field>
-			<field name="arch" type="xml">
-				<tree string="Incorporaciones" >
-					<field name="incorporaciones" />
-					<field name="descripcion" />
-				</tree>
-			</field>
-		</record>
-		
-	<!-- Registro de Procesos de desincorporación -->
-		<record model="ir.actions.act_window" id="proceso_desincorporacion_list_action">
-			<field name="name">Procesos de desincorporación</field>
-			<field name="res_model">procesos.desincorporacion</field>
-			<field name="view_type">form</field>
-			<field name="view_mode">tree,form</field>
-			<field name="help" type="html">
-				<p class="oe_view_nocontent_create">Registro de Procesos de Desincorporación</p>
-			</field>
-		</record>
-		
-	<!-- Vista Form Registro de Procesos de desincorporación -->	
-		<record model="ir.ui.view" id="procesos_desincorporacion_form_view">
-			<field name="name">procesos form</field>
-			<field name="model">procesos.desincorporacion</field>
-			<field name="arch" type="xml">
-				<form string="Materiales Form" version="7.0">	
-					<group col="2" colspan="2" string="Procesos de Desincorporación">
-						<group>
-							<field name="desincorporaciones" class="oe_inline" colspan="2"/>
-							<field name="descripcion" class="oe_inline" colspan="2"/>
-						</group>
-					</group>
-				</form>
-			</field>			
-		</record>
-
-	<!-- Vista Tree Registro de Procesos de desincorporación -->
-		<record model="ir.ui.view" id="desincorporaciones_tree_bva_view">
-			<field name="name">procesos.desincorporaciones.tree.bva</field>
-			<field name="model">procesos.desincorporacion</field>
-			<field name="arch" type="xml">
-				<tree string="Desincorporaciones" >
-					<field name="desincorporaciones" />
-					<field name="descripcion" />
-				</tree>
-			</field>
-		</record>
-
 		<menuitem id="codigos_menu" name="Codigos de Bienes" parent="stock.menu_stock_configuration" action="codigos_bienes_list_action" sequence="4" />
-		<menuitem id="procesos_incorporacion_menu" name="Procesos de Incorporación" parent="stock.menu_stock_configuration" action="proceso_incorporacion_list_action" sequence="5" />
-		<menuitem id="procesos_desincorporacion_menu" name="Procesos de Desincorporación" parent="stock.menu_stock_configuration" action="proceso_desincorporacion_list_action" sequence="6" />
 	</data>
 </openerp>

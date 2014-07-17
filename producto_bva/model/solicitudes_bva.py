@@ -279,9 +279,11 @@ class solicitudes_bva(osv.Model):
 		pdf.cell(70,5,"Firma:",'LTBR',0,'L',0)
 		pdf.cell(70,5,"Firma:",'LTBR',1,'L',0)
 		
-		pdf.output('openerp/addons/producto_bva/reporte/ejemplo2.pdf','F')
-		
-		archivo = open('openerp/addons/producto_bva/reporte/ejemplo2.pdf')
+		nom = corre+'.pdf'
+		pdf.output('/home/administrador/openerp70/modules/producto_bva/reporte/'+nom,'F')
+	
+		#archivo = open('openerp/addons/planificacion_presupuesto/reportes/'+nom)
+		archivo = open('/home/administrador/openerp70/modules/producto_bva/reporte/'+nom)
 		
 		nom = nombre_s+" "+fecha+'.pdf' #Nombre del archivo .pdf
 

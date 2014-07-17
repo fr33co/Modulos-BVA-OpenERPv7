@@ -246,9 +246,13 @@ class movimientos_bva(osv.Model):
 			
 			cr.execute("UPDATE product_product SET ubicacion=%s WHERE id=%s;", (ubic_f, id_pro))
 		
-		pdf.output('openerp/addons/producto_bva/reporte/movimientos.pdf','F')
+		nom = codigo+'.pdf' #Nombre del archivo .pdf
+
 		
-		archivo = open('openerp/addons/producto_bva/reporte/movimientos.pdf')
+		pdf.output('/home/administrador/openerp70/modules/producto_bva/reporte/'+nom,'F')
+	
+		#archivo = open('openerp/addons/planificacion_presupuesto/reportes/'+nom)
+		archivo = open('/home/administrador/openerp70/modules/producto_bva/reporte/'+nom)
 		
 		nom = "Movimiento de "+descripcion+" "+fecha+'.pdf' #Nombre del archivo .pdf
 		
@@ -272,8 +276,8 @@ class movimientos_bva(osv.Model):
 		'sg' : fields.char(string="S/G", required=False),
 		's' : fields.char(string="S", required=False),
 		'bva' : fields.char(string="N de Identificacion"),
-		'estado' : fields.char(string="Status", required=False),
-		'v_total' : fields.char(string="Valor Unitario Bs.", required=False),
+		'estado' : fields.selection((('1','Bueno'), ('2','Malo')),'Status', required=True),
+		'v_total' : fields.float(string="Valor Unitario Bs.", required=False),
 		'nota' : fields.text(string="Nota", required=False),
 		'correlativo' : fields.char(string="Correlativo", required=False),
 		'justificacion' : fields.char(string="Justificación", required=False),
