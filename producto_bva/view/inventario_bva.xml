@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
   	<data>
+	<!-- Herencia de vista Form de Categoria de Productos donde se le agrega los campos de clasificacion -->,
   		<record model="ir.ui.view" id="inventario_form_bva_view">
 			<field name="name">inventario.form.bva</field>
 			<field name="model">stock.inventory</field>
 			<field name="inherit_id" ref="stock.view_inventory_form" />
 			<field name="arch" type="xml" >
-				<button name="action_confirm" position="after">
+				<button name="action_confirm" position="replace">
+					<button name="action_confirm2" states="draft" string="Confirmar Inventario"
+						type="object" class="oe_highlight" groups="stock.group_stock_user"/>
+				</button>
+				
+				<button name="action_cancel_inventory" position="after">
 					<button name="generate_inventario" string="Exportar Reporte de Inventario"
 						attrs="{'invisible': [('state','in',['draft','confirm'])]}" type="object" class="oe_highlight" />
 				</button>
-				
 				<field name="name" position="after">
 					<field name="ubicacion"/>
 					<field name="fecha_rep" class="oe_inline"/>
@@ -99,7 +104,7 @@
 					<field name="sg" invisible="0"/>
 					<field name="s" invisible="0"/>
 					<field name="nidentificacion" class="oe_inline" />
-					<field name="estado" invisible="1" />
+					<field name="estado" invisible="0" />
 					<field name="v_unitario" invisible="1"/>
 					<field name="v_total" invisible="1"/>
 				</tree>
@@ -122,7 +127,7 @@
 						<field name="sg" invisible="0"/>
 						<field name="s" invisible="0"/>
 						<field name="nidentificacion" class="oe_inline" />
-						<field name="estado" invisible="1" />
+						<field name="estado" invisible="1"/>
 						<field name="v_unitario" invisible="1"/>
 						<field name="v_total" invisible="1"/>
 						<button name="%(stock.action_view_stock_inventory_line_split)d"
@@ -130,6 +135,16 @@
 						    type="action" icon="gtk-justify-fill"/>
 					</group>
 				</form>
+			</field>
+		</record>
+		<record id="wizard_llenar_inventario_view" model="ir.ui.view">
+			<field name="name">stock.fill.inventory.bva.form</field>
+			<field name="model">stock.fill.inventory</field>
+			<field name="inherit_id" ref="stock.view_stock_fill_inventory" />
+			<field name="arch" type="xml">
+				<button name="fill_inventory" string="Fill Inventory" position="replace">
+					<button name="llenar_inventario" string="Llennar Invenrario" type="object" class="oe_highlight"/>
+				</button>
 			</field>
 		</record>
 

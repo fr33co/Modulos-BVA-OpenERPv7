@@ -23,7 +23,7 @@ import categoria_producto
 import inventario
 import almacen
 import configuraciones
-import desincorporacion
+#import desincorporacion
 import nota_entrega
 import movimientos_bva
 import reportes_menu

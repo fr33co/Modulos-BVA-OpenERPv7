@@ -3,6 +3,12 @@ from openerp.osv import osv, fields
 
 class categoria_producto_bva(osv.Model):
 
+	"""
+	Herencia de la clase categoria de producto, para poder agregarle los campos Grupo(g), Sub-Grupo(s)
+	Sector(s).
+	"""
+
+
 	_inherit = "product.category"
 	_columns = {
 		'g' : fields.char(string="G", size=2, required=True),

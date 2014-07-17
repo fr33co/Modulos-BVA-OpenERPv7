@@ -197,20 +197,36 @@ class ubicacion_producto(osv.Model):
 		for data in self.browse(cr, uid, ids, context=context):
 			if data.new_quantity < 0:
 			    raise osv.except_osv(_('Warning!'), _('Quantity cannot be negative.'))
-			inventory_id = inventry_obj.create(cr , uid, {'name': _('INV: %s') % tools.ustr(res_original.name)}, context=context)
+			na = "(N/A)"
 			ubic= data.location_id.id
 			prod = res_original.id
+			est = res_original.estado
+			inventory_id = inventry_obj.create(cr , uid, {
+				'name': _('INV: %s') % tools.ustr(res_original.name),
+				'ubicacion': ubic,
+				 'servicio': na,
+				}, context=context)
+			
+
+
 			line_data ={
 			    'inventory_id' : inventory_id,
 			    'product_qty' : data.new_quantity,
 			    'location_id' : data.location_id.id,
+			    'g' : res_original.g,
+			    'sg' : res_original.sg,
+			    's' : res_original.s,
+			    'estado' : res_original.estado,
+			    'nidentificacion' : res_original.nidentificacion,
+			    'v_unitario' : float(res_original.v_unitario),
+			    'v_total' : float(res_original.v_total),
 			    'product_id' : rec_id,
 			    'product_uom' : res_original.uom_id.id,
 			    'prod_lot_id' : data.prodlot_id.id
 			}
 			inventry_line_obj.create(cr , uid, line_data, context=context)
 
-			inventry_obj.action_confirm(cr, uid, [inventory_id], context=context)
+			inventry_obj.action_confirm2(cr, uid, [inventory_id], context=context)
 			inventry_obj.action_done(cr, uid, [inventory_id], context=context)
 			
 			cr.execute("UPDATE product_product SET ubicacion=%s WHERE id=%s;", (ubic, prod))

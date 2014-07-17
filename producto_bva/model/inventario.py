@@ -8,6 +8,20 @@ from time import gmtime, strftime
 from openerp.osv import osv, fields
 from datetime import datetime, timedelta
 
+from dateutil.relativedelta import relativedelta
+from operator import itemgetter
+from itertools import groupby
+from openerp.osv import fields, osv, orm
+from openerp.tools.translate import _
+from openerp import netsvc
+from openerp import tools
+from openerp.tools import float_compare, DEFAULT_SERVER_DATETIME_FORMAT
+import openerp.addons.decimal_precision as dp
+import logging
+_logger = logging.getLogger(__name__)
+
+from openerp.tools import mute_logger
+
 class inventario_bva(osv.Model):
 
 	_inherit = "stock.inventory"
@@ -35,12 +49,78 @@ class inventario_bva(osv.Model):
 		return {'value' : values}
 	
 	"""
+	Metodo que heredo del modelo stock.inventory donde cada vez que hago un inventario y le doy click
+	al boton confirmar inventario, genero un movimiento. Para que adicionalmente de la información que
+	ya mandaba, agregue los campos: g, sg, s, estado, bva y v_total
+
+	"""
+	
+	def action_confirm2(self, cr, uid, ids, context=None):
+		""" Confirm the inventory and writes its finished date
+		@return: True
+		"""
+		if context is None:
+		    context = {}
+		# to perform the correct inventory corrections we need analyze stock location by
+		# location, never recursively, so we use a special context
+		product_context = dict(context, compute_child=False)
+	
+		location_obj = self.pool.get('stock.location')
+		for inv in self.browse(cr, uid, ids, context=context):
+		    move_ids = []
+		    for line in inv.inventory_line_id:
+			pid = line.product_id.id
+			product_context.update(uom=line.product_uom.id, to_date=inv.date, date=inv.date, prodlot_id=line.prod_lot_id.id)
+			amount = location_obj._product_get(cr, uid, line.location_id.id, [pid], product_context)[pid]
+			change = line.product_qty - amount
+			lot_id = line.prod_lot_id.id
+			if change:
+			    location_id = line.product_id.property_stock_inventory.id
+			    value = {
+				'name': _('INV:') + (line.inventory_id.name or ''),
+				'product_id': line.product_id.id,
+				'product_uom': line.product_uom.id,
+				'g' : line.g,
+				'sg' : line.sg,
+				's' : line.s,
+				'estado' : line.estado,
+				'bva' : line.nidentificacion,
+				'v_total' : float(line.v_total),
+				'prodlot_id': lot_id,
+				'date': inv.date,
+			    }
+	
+			    if change > 0:
+				value.update( {
+				    'product_qty': change,
+				    'location_id': location_id,
+				    'location_dest_id': line.location_id.id,
+				})
+			    else:
+				value.update( {
+				    'product_qty': -change,
+				    'location_id': line.location_id.id,
+				    'location_dest_id': location_id,
+				})
+			    move_ids.append(self._inventory_line_hook(cr, uid, line, value))
+		    self.write(cr, uid, [inv.id], {'state': 'confirm', 'move_ids': [(6, 0, move_ids)]})
+		    self.pool.get('stock.move').action_confirm(cr, uid, move_ids, context=context)
+		return True
+	
+	
+	
+	
+	
+	
+	
+	"""
 	Metodo con el cual genero el archivo .pdf el cual contiene el formato de inventario de bienes
 	"""
 
 	def generate_inventario(self, cr, uid, ids, context=None): # Generacion de inventario
 		
 		# Instancia de la clase heredada L es horizontal y P es vertical
+		# format A4, A3 o letter que son los formatos de la hoja (oficio, carta, etc)
 
 		pdf=class_pdf.PDF(orientation='L',unit='mm',format='letter') #HORIENTACION DE LA PAGINA
 		
@@ -48,30 +128,60 @@ class inventario_bva(osv.Model):
 		pdf.set_author('Marcel Arcuri')
 		pdf.alias_nb_pages() # LLAMADA DE PAGINACION
 		pdf.add_page() # AÑADE UNA NUEVA PAGINACION
-		#pdf.set_font('Times','',10) # TAMANO DE LA FUENTE
+		#pdf.set_font('Times','',10) # TAMANO Y TIPO DE LETRA DE LA FUENTE
 		pdf.set_font('Arial','B',15)
-		pdf.set_fill_color(157,188,201) # COLOR DE BOLDE DE LA CELDA
+		pdf.set_fill_color(157,188,201) # COLOR DE BORDE DE LA CELDA
 		pdf.set_text_color(24,29,31) # COLOR DEL TEXTO
-		#pdf.set_margins(8,10,10) # MARGENE DEL DOCUMENTO
+		#pdf.set_margins(8,10,10) # MARGENES DEL DOCUMENTO
 		#pdf.ln(20) # Saldo de linea
 		# 10 y 50 eje x y y 200 dimencion
 		#pdf.line(10, 40, 200, 40) Linea
 		inven = self.browse(cr, uid, ids, context=context)
 		#pdf.ln(5)
+		fec = ""
+		servi = ""
+		estado = ""
+		municipio = ""
+		parroquia = ""
+		direccion = ""
 		for x in inven:
 			#variables que contienen informacion del modelo para ser colocada en los encabezados
 			#del formato
+
 			ubi = x.ubicacion.name.encode("UTF-8").decode("UTF-8")
-			fec = x.fecha_rep
-			servi = x.servicio
-			estado = x.estado.encode("UTF-8").decode("UTF-8")
-			municipio = x.municipio.encode("UTF-8").decode("UTF-8")
-			parroquia = x.parroquia.encode("UTF-8").decode("UTF-8")
-			direccion = x.direccion.encode("UTF-8").decode("UTF-8")
+			
+			if x.fecha_rep == False:
+				fec == ""
+			else:
+				fec = x.fecha_rep.encode("UTF-8").decode("UTF-8")
+			
+			if x.servicio == False:
+				servi == ""
+			else:
+				servi = x.servicio.encode("UTF-8").decode("UTF-8")
+				
+			if x.estado == False:
+				estado == ""
+			else:
+				estado = x.estado.encode("UTF-8").decode("UTF-8")
+			
+			if x.municipio == False:
+				municipio == ""
+			else:
+				municipio = x.municipio.encode("UTF-8").decode("UTF-8")
+			if x.parroquia == False:
+				parroquia == ""
+			else:
+				parroquia = x.parroquia.encode("UTF-8").decode("UTF-8")
+				
+			if x.direccion == False:
+				direccion == ""
+			else:
+				direccion = x.direccion.encode("UTF-8").decode("UTF-8")
+			
 			nombre = x.name.encode("UTF-8").decode("UTF-8")
 			
 			#Encabezado principal
-			#pdf.ln(-5)
 			
 			pdf.set_fill_color(255,255,255)
 			pdf.set_font('Arial','B',12)
@@ -112,7 +222,7 @@ class inventario_bva(osv.Model):
 			pdf.write(30,"8. Fecha: "+fec)
 			
 			# Fila de la cabezera de la tabla
-			#pdf.ln(-5)
+
 			pdf.set_y(75)
 			pdf.cell(24,5,"Clasificacion",'LTBR',1,'C',1)
 			pdf.cell(8,5,"G",'LTBR',0,'C',1)
@@ -172,6 +282,12 @@ class inventario_bva(osv.Model):
 				i['v_total'] = 0.0
 			else:
 				i['v_total']
+			
+			if i['estado'] == '1':
+				esta = 'Bueno'
+			else:
+				esta = 'Malo'
+
 				
 			if j == 20:
 				pdf.add_page()
@@ -217,7 +333,7 @@ class inventario_bva(osv.Model):
 				pdf.write(30,"8. Fecha: "+fec)
 				
 				# Fila de la cabezara de la tabla
-				#pdf.ln(-5)
+				
 				pdf.set_y(75)
 				pdf.cell(24,5,"Clasificacion",'LTBR',1,'C',1)
 				pdf.cell(8,5,"G",'LTBR',0,'C',1)
@@ -260,7 +376,7 @@ class inventario_bva(osv.Model):
 			pdf.cell(8,5,str(i['s']),'LTBR',0,'C',1)
 			pdf.cell(20,5,str(cantidad),'LTBR',0,'C',1)
 			pdf.cell(25,5,str(i['nidentificacion']),'LTBR',0,'C',1)
-			pdf.cell(20,5,str(i['estado']),'LTBR',0,'C',1)
+			pdf.cell(20,5,esta,'LTBR',0,'C',1)
 			pdf.cell(111,5,str(i['product_id'][1]).decode("UTF-8"),'LTBR',0,'C',1)
 			pdf.cell(30,5,str(i['v_unitario']),'LTBR',0,'C',1)
 			pdf.cell(30,5,str(i['v_total']),'LTBR',1,'C',1)
@@ -300,15 +416,19 @@ class inventario_bva(osv.Model):
 		pdf.cell(60,5,"",0,1,'R',0)
 
 
-		"""
+
+		
+		nom = nombre+" "+str(fec)+'.pdf' #Nombre del archivo .pdf
+
+		
+		pdf.output('/home/administrador/openerp70/modules/producto_bva/reporte/'+nom,'F')
+	
+		#archivo = open('openerp/addons/planificacion_presupuesto/reportes/'+nom)
+		archivo = open('/home/administrador/openerp70/modules/producto_bva/reporte/'+nom)
 		
 		"""
-		pdf.output('openerp/addons/producto_bva/reporte/ejemplo.pdf','F')
-		
-		archivo = open('openerp/addons/producto_bva/reporte/ejemplo.pdf')
-		
-		nom = nombre+" "+fec+'.pdf' #Nombre del archivo .pdf
-		print nom
+		Mandamos el archivo al modelo de reportes, donde se iran almacenando
+		"""
 		r_archivo = self.pool.get('reporte.documentos').create(cr, uid, {
 		 	'name' : nom,
 		 	'res_name' : nom,
@@ -329,9 +449,7 @@ class inventario_bva(osv.Model):
 		'municipio': fields.char('Municipio:'),
 		'parroquia': fields.char('Parroquia:'),
 		'direccion': fields.char('Dirección:'),
-		'servicio': fields.char('Servicio:', required=False),
-		
-		
+		'servicio': fields.char('Servicio:', required=False),	
 	}
 
 	_defaults = {
@@ -366,11 +484,12 @@ class inventario_bva2(osv.Model):
 			val = 'Bueno'
 		else:
 			val = 'Malo'
+		print val
 		values.update({
 			'g' : obj_product.g,
 			'sg' : obj_product.sg,
 			's' : obj_product.s,
-			'estado' : val,
+			'estado' : obj_product.estado,
 			'nidentificacion' : obj_product.nidentificacion,
 			'v_unitario' : obj_product.v_unitario,
 			'v_total' : obj_product.v_total,
@@ -386,10 +505,117 @@ class inventario_bva2(osv.Model):
  		'sg' : fields.char(string="S/G", required=False),
  		's' : fields.char(string="S", required=False),
  		'nidentificacion' : fields.char(string="N de Identificacion", required=False),
- 		'estado' : fields.char(string="Status", required=False),
+		'estado' : fields.selection((('1','Bueno'), ('2','Malo')),'Status', required=False),
+ 		#'estado' : fields.char(string="Status", required=False),
  		'v_unitario' : fields.char(string="Valor Unitario Bs.", required=False),
  		'v_total' : fields.char(string="Valor Unitario Bs.", required=False),
 
  	}
 
+class ubicacion_producto(osv.Model):
 
+	"""
+	Herencia del metodo de llenado de inventario, del wizar stock.fill.inventory con la finalidad
+	de que aparte de traer los datos que busca por defecto, agregue otros requeridos.
+	"""
+
+
+	_inherit = "stock.fill.inventory"
+
+	def llenar_inventario(self, cr, uid, ids, context=None):
+
+		if context is None:
+		    context = {}
+	
+		inventory_line_obj = self.pool.get('stock.inventory.line')
+		location_obj = self.pool.get('stock.location')
+		move_obj = self.pool.get('stock.move')
+		uom_obj = self.pool.get('product.uom')
+		if ids and len(ids):
+		    ids = ids[0]
+		else:
+		     return {'type': 'ir.actions.act_window_close'}
+		fill_inventory = self.browse(cr, uid, ids, context=context)
+		res = {}
+		res_location = {}
+	
+		if fill_inventory.recursive:
+		    location_ids = location_obj.search(cr, uid, [('location_id',
+				     'child_of', [fill_inventory.location_id.id])], order="id",
+				     context=context)
+		else:
+		    location_ids = [fill_inventory.location_id.id]
+	
+		res = {}
+		flag = False
+	
+		for location in location_ids:
+		    datas = {}
+		    res[location] = {}
+		    move_ids = move_obj.search(cr, uid, ['|',('location_dest_id','=',location),('location_id','=',location),('state','=','done')], context=context)
+		    #read_llenar  = move_obj.read(cr, uid, move_ids, context=None)
+		    #print read_llenar['sg']
+		    for move in move_obj.browse(cr, uid, move_ids, context=context):
+			lot_id = move.prodlot_id.id
+			prod_id = move.product_id.id
+			print "Elemento"
+			sub_grupo = move.sg
+			sector = move.s
+			grupo = move.g
+			esta = move.estado
+			codigo= move.bva
+			bsf = move.v_total
+			if move.location_dest_id.id != move.location_id.id:
+			    if move.location_dest_id.id == location:
+				qty = uom_obj._compute_qty(cr, uid, move.product_uom.id,move.product_qty, move.product_id.uom_id.id)
+			    else:
+				qty = -uom_obj._compute_qty(cr, uid, move.product_uom.id,move.product_qty, move.product_id.uom_id.id)
+	
+	
+			    if datas.get((prod_id, lot_id)):
+				qty += datas[(prod_id, lot_id)]['product_qty']
+	
+			    datas[(prod_id, lot_id)] = {
+					'product_id': prod_id,
+					'location_id': location,
+					'product_qty': qty,
+					'g' : grupo,
+					'sg' : sub_grupo,
+					's' : sector,
+					'estado' : esta,
+					'nidentificacion' : codigo,
+					'v_total' : bsf,
+					'product_uom': move.product_id.uom_id.id,
+					'prod_lot_id': lot_id
+				}
+	
+		    if datas:
+			flag = True
+			res[location] = datas
+	
+		if not flag:
+		    raise osv.except_osv(_('Warning!'), _('No product in this location. Please select a location in the product form.'))
+	
+		for stock_move in res.values():
+		    for stock_move_details in stock_move.values():
+			stock_move_details.update({'inventory_id': context['active_ids'][0]})
+			domain = []
+			for field, value in stock_move_details.items():
+			    if field == 'product_qty' and fill_inventory.set_stock_zero:
+				 domain.append((field, 'in', [value,'0']))
+				 continue
+			    domain.append((field, '=', value))
+	
+			if fill_inventory.set_stock_zero:
+			    stock_move_details.update({'product_qty': 0})
+	
+			line_ids = inventory_line_obj.search(cr, uid, domain, context=context)
+	
+			if not line_ids:
+			    inventory_line_obj.create(cr, uid, stock_move_details, context=context)
+	
+		return {'type': 'ir.actions.act_window_close'}
+    
+	#stock_fill_inventory()
+    
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
