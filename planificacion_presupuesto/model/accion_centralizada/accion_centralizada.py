@@ -136,12 +136,11 @@ class accion_centralizada(osv.Model):
         values = {}
         if not n_accion_centra:
             return values
+	print n_accion_centra
         datos = self.pool.get('tipo.accion.especifica')
 	datos_acciones = datos.search(cr, uid, [('a_centralizada','=',n_accion_centra)], context=None)
 	especificas = datos.read(cr,uid,datos_acciones,context=context)
-	
 	acc_espe = ""
-	
 	for k in especificas:
 	    acc_espec = k['a_especifica'].encode("UTF-8").decode("UTF-8")+"\n"
 	    acc_espe = acc_espe + acc_espec
@@ -460,9 +459,10 @@ class accion_centralizada(osv.Model):
 	
 
     _columns = {
-        'c_solicitud' : fields.char(string="ID", size=255, required=True),
+	'estatus': fields.selection([('1','Revisando'), ('2','Rechazado'), ('3','Para Ajuste'), ('4','Aprobado')], string="Estatus"),
+        'c_solicitud' : fields.char(string="ID", size=255, required=True, readonly=True),
 	'user_register': fields.many2one('res.users', 'Registrado por:', readonly=True),
-	'f_solicitud': fields.char('Fecha de Elaboración:', required=True),
+	'f_solicitud': fields.char('Fecha de Elaboración:', required=True, readonly=True),
 	#Pestaña1
 	'organismo': fields.many2one('organos.entes', 'Organismo/Ente/Empresa:', required=True),
         'n_autoridad': fields.char('Nombre de la Máxima Autoridad de la Institución:', required=True),
@@ -488,12 +488,27 @@ class accion_centralizada(osv.Model):
 	#pestaña 7
 	'imputacion_acciones':fields.one2many('imputacion.accion.centralizada', 'imputacion_acc_ids',required=False),
 	'total_imputaciones':fields.float(string="Cant. total", required=False), #Nuevo
+	#Pestaña Observaciones
+	'revisado': fields.char('Revisado por:', readonly=True, required=False),
+	'fecha_revision': fields.char('Fecha de Revisión:', readonly=True, required=False),
+	'partida01': fields.float(string="4.01", size=10, readonly=True, required=False),
+	'partida02': fields.float(string="4.02", size=10, readonly=True, required=False),
+	'partida03': fields.float(string="4.03", size=10, readonly=True, required=False),
+	'partida04': fields.float(string="4.04", size=10, readonly=True, required=False),
+	'partida05': fields.float(string="4.05", size=10, readonly=True, required=False),
+	'partida07': fields.float(string="4.07", size=10, readonly=True, required=False),
+	'partida10': fields.float(string="4.10", size=10, readonly=True, required=False),
+	'partida11': fields.float(string="4.11", size=10, readonly=True, required=False),
+	'partida12': fields.float(string="4.12", size=10, readonly=True, required=False),
+	'observaciones': fields.text('Observaciones:', readonly=True, required=False),
+	'monto_asignado': fields.float(string="Monto Asignado", readonly=True, required=False),
         }
 
     _defaults = {
         'f_solicitud': lambda *a: time.strftime("%d/%m/%Y"),
         'c_solicitud': _get_last_id,
         'user_register': lambda s, cr, uid, c: uid,
+	'estatus': '1',
   
     }     
 

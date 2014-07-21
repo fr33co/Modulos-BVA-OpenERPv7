@@ -54,16 +54,70 @@
 	-moz-border-radius:9px;
 	border-radius:9px;
 }
-.oe_form_required input:not([disabled]):not([readonly]), .openerp .oe_form .oe_form_required select:not([disabled]):not([readonly]), .openerp .oe_form .oe_form_required textarea:not([disabled]):not([readonly]) {
-	background-color: #B8DFEF !important; }
+.oe_form_required input:not([disabled]):not([readonly]),.openerp .oe_form .oe_form_required select:not([disabled]):not([readonly]), .openerp .oe_form .oe_form_required textarea:not([disabled]):not([readonly]) {
+	background-color: #B32D24 !important; }
+	
 .openerp .oe_form .oe_form_required input:not([disabled]):not([readonly]), .openerp .oe_form .oe_form_required select:not([disabled]):not([readonly]), .openerp .oe_form .oe_form_required textarea:not([disabled]):not([readonly]) {
-	background-color: #B8DFEF !important; }
+	background-color: #FCA635  !important; }
+
 .openerp .oe_secondary_submenu .oe_active {
-	background: none repeat scroll 0 0 #5F8DC1;
+	background: none repeat scroll 0 0 #B32D24;
 	border-bottom: 1px solid #dedede;
 	border-top: 1px solid lightGray;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) inset, 0 -1px 3px rgba(40, 40, 40, 0.2) inset;
 	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2); }
+
+
+.openerp .oe_secondary_menu_section {
+    color: #0074C1;
+    font-weight: bold;
+    margin-left: 8px;
+}
+.openerp .oe_horizontal_separator {
+    color: #0074C1;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 15px 0 10px;
+}
+.openerp button.ajuste {
+    background-color: white;
+    color: white;
+    background-image: linear-gradient(to bottom, #0CAF52, #0B5E2E);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(155, 155, 155, 0.4) inset;
+}
+.openerp button.aprobado {
+    background-color: white;
+    color: white;
+    background-image: linear-gradient(to bottom, #4D7BD2, #233C6C);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(155, 155, 155, 0.4) inset;
+}
+.openerp button.oe_highlight {
+    background-color: green;
+    background-image: linear-gradient(to bottom, #df3f3f, #a21a1a);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(155, 155, 155, 0.4) inset;
+}
+.openerp button.exportar {
+    background-color: green;
+    color: white;
+    background-image: linear-gradient(to bottom, #fca656, #fd6f1c);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(155, 155, 155, 0.4) inset;
+}
+
+.openerp .oe_topbar {
+    background-color: #454343;
+    background-image: linear-gradient(to bottom, #B32D24, #B32D24);
+    height: 32px;
+    width: 100%;
+}
+
+.openerp .oe_menu > li > .oe_active {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4) inset;
+    text-shadow: 0 0 3px black;
+}
+
+
+
 
 /*.openerp .oe_login .oe_login_bottom { background-color: #8a0e0e;
 	background-image: linear-gradient(to bottom, #61b7d3, rgba(6, 96, 95, 0.56));

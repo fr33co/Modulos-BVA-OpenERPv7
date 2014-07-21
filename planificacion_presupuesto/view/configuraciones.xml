@@ -33,8 +33,6 @@
 			<field name="arch" type="xml">
 			<form string="Dirección de Planificación, Presupuesto y Control de Gestión" version="7.0">
 				<div class="oe_form_sheetbg">
-					
-				
 				<group>
 				    <group>
 					<field name="user_register" />
@@ -316,6 +314,7 @@
 			<field name="model">partida.centralizada</field>
 			<field name="arch" type="xml">
 				<tree string="Acciones">
+					<field name="codigo"/>
 					<field name="partida"/>
 					<field name="a_centralizada" />
 				</tree>

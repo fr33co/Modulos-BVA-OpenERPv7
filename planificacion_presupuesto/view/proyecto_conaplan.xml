@@ -20,12 +20,13 @@
 	    <field name="name">Dirección de Planificación, Presupuesto y Control de Gestión</field>
 	    <field name="model">proyecto.conaplan</field>
 	    <field name="arch" type="xml">
-		<tree string="" >
+		<tree string="" colors="red:estatus=='2';blue:estatus=='4';black:estatus=='1';green:estatus=='3'" >
 		    <field name="c_solicitud" />
 		    <field name="f_solicitud" />
 		    <field name="nombre_pro" />
 		    <field name="etapa" />
 		    <field name="user_register" />
+		    <field name="estatus"/>
 		</tree>
 	    </field>			
 	</record>
@@ -39,25 +40,28 @@
 		<form string="" version="7.0">
 		    <header>
 			<button name="reporte_anteproyecto" type="object" string="Exportar Anteproyecto" class="oe_highlight" />
+			<button name="resumen_proyecto" type="object" string="Resumen de Proyecto" class="oe_highlight" />
+			
+                        <field name="estatus" widget="statusbar"/>
 		    </header>
 		    <separator/>
 		    <div class="oe_form_sheetbg">
 		    <table style="width: 800px;">
 			<tr>
 			    <td style="width: 50px;">
-				Código:
+				<b>Código:</b>
 			    </td>
 			    <td style="width: 100px;">
 				<field name="c_solicitud" style="width: 90px;" />
 			    </td>
 			    <td style="width: 70px;">
-				Registrado por:
+				<b>Registrado por:</b>
 			    </td>
 			    <td style="width: 100px;">
 				<field name="user_register" />
 			    </td>
 			    <td style="width: 90px;">
-				Fecha de Solicitud:
+				<b>Fecha de Solicitud:</b>
 			    </td>
 			    <td style="width: 100px;">
 				<field name="f_solicitud" style="width: 90px;"/>
@@ -68,7 +72,7 @@
 		    <table>
 			<tr>
 			    <td style="width: 100px;">
-				Adjuntar Archivo:
+				<b>Adjuntar Archivo:</b>
 			    </td>
 			</tr>
 			<tr>
@@ -77,7 +81,7 @@
 			    </td>
 			    <td>
 				<font color="red" style="font-weight">
-				    **Si no Adjunta el Archivo no visualizara la ficha de regristro!!
+				    <b>**Si no Adjunta el Archivo no visualizara la ficha de regristro!!</b>
 				</font>
 			    </td>
 			</tr>
@@ -90,14 +94,14 @@
 			    <table style="font-size:11px">
 				<tr style="width:700px">
 				    <td style="width:200px">
-					1.1. Organismo/Entempresa:
+					<b>1.1. Organismo/Entempresa:</b>
 				    </td>
 				    <td style="width: 200px">
 					<field name="organismo" placeholder="Seleccione su Institución"
 					       on_change="on_change_entes(organismo)" style="width: 90%%"/>
 				    </td>
 				    <td style="width:100px">
-					1.5. Cargo:
+					<b>1.5. Cargo:</b>
 				    </td>
 				    <td style="width: 200px">
 					<field name="cargo" style="width: 90%%"/>
@@ -105,13 +109,13 @@
 				</tr>
 				<tr>
 				    <td style="width:25%%">
-					1.3. Domicilio:
+					<b>1.3. Domicilio:</b>
 				    </td>
 				    <td>
 					<field name="domicilio" style="width: 90%%"/>
 				    </td>
 				    <td style="width:25%%">
-					1.6. Teléfono:
+					<b>1.6. Teléfono:</b>
 				    </td>
 				    <td>
 					<field name="telefono" style="width: 90%%"/>
@@ -119,19 +123,19 @@
 			        </tr>
 				<tr>
 				    <td style="width:25%%">
-					1.4. Responsable:
+					<b>1.4. Responsable:</b>
 				    </td>
 				    <td>
 					<field name="responsable" style="width: 90%%"/>
 				    </td>
 				    <td style="width:25%%">
-					1.7. Correo Electrónico:
+					<b>1.7. Correo Electrónico:</b>
 				    </td>
 				    <td>
 					<field name="correo" style="width: 90%%"/>
 				    </td>
 			        </tr>
-			    <tr invisible="1">
+				<tr invisible="1">
 				    <td>
 					Siglas
 				    </td>
@@ -154,7 +158,7 @@
 				<table>
 				    <tr style="width:850px">
 					<td style="width:200px">
-					    2.1. Nombre del Proyecto:
+					    <b>2.1. Nombre del Proyecto:</b>
 					</td>
 					<td style="width: 200px" >
 					    <field name="nombre_pro" placeholder="Nombre del proyecto que esta registrando." style="width: 315%%" />
@@ -168,30 +172,30 @@
 				    </tr>
 				    <tr>
 					<td>
-					    2.2. Ubicación:
+					    <b>2.2. Ubicación:</b>
 					</td>
 					<td>
 					    <field name="ubicacion" style="width: 90%%"/>
 					</td>
 					<td>
-					    2.5. Costo del Proyecto:
+					    <b>2.5. Costo del Proyecto:</b>
 					</td>
 					<td>
 					    <field name="costo_proyecto" style="width: 40%%"/>
 					    <font color="red" style="font-weight">
-						**Nota:
+						<b>**Nota:</b>
 					    </font>
 					</td>
 				    </tr>
 				    <tr>
 					<td>
-					    Fecha de Inicio y Culmincación:
+					    <b>Fecha de Inicio y Culmincación:</b>
 					</td>
 					<td>
 					    <field name="fecha_ini_fin" style="width: 90%%" />
 					</td>
 					<td>
-					    2.6. Fuente de Financiamiento:
+					    <b>2.6. Fuente de Financiamiento:</b>
 					</td>
 					<td>
 					    <field name="fuente_fin" style="width: 90%%"/>
@@ -199,13 +203,13 @@
 				    </tr>
 				    <tr>
 					<td>
-					    Año Fiscal:
+					    <b>Año Fiscal:</b>
 					</td>
 					<td>
 					    <field name="year_fiscal"  placeholder="Año" style="width: 30%%"/>
 					</td>
 					<td>
-					    2.7. Indicador General:
+					    <b>2.7. Indicador General:</b>
 					</td>
 					<td>
 					    <field name="indicador" style="width: 90%%"/>
@@ -213,13 +217,13 @@
 				    </tr>
 				    <tr>
 					<td>
-					    2.3. Duración:
+					    <b>2.3. Duración:</b>
 					</td>
 					<td>
 					    <field name="duracion" style="width: 40%%"/>
 					</td>
 					<td>
-					    2.8. Fórmula del Indicador General:
+					    <b>2.8. Fórmula del Indicador General:</b>
 					</td>
 					<td>
 					    <field name="formula" style="width: 90%%"/>
@@ -227,13 +231,13 @@
 				    </tr>
 				    <tr>
 					<td>
-					    2.4. Etapa:
+					    <b>2.4. Etapa:</b>
 					</td>
 					<td>
 					    <field name="etapa" placeholder="Seleccione.." style="width: 50%%"/>
 					</td>
 					<td>
-					    2.9. Medio de Verificación:
+					    <b>2.9. Medio de Verificación:</b>
 					</td>
 					<td>
 					    <field name="m_verificacion" style="width: 90%%"/>
@@ -243,8 +247,8 @@
 					<td colspan="3">
 					    <font color="red" style="font-weight">
 						<br/>
-						**Nota: El Costo total del proyecto se cargara automaticamente al
-						llenar la pestaña de metas financieras, NO lo asigne ningun monto.
+						<b>**Nota: El Costo total del proyecto se cargara automaticamente al
+						llenar la pestaña de metas financieras, NO lo asigne ningun monto.</b>
 						
 					    </font>
 					</td>
@@ -257,7 +261,7 @@
 				<table>
 				    <tr style="width:800px">
 					<td style="width:150px">
-					    3.1. Ámbito: 
+					    <b>3.1. Ámbito:</b>
 					</td>
 					<td style="width: 600px">
 					    <field name="ambito" style="width: 30%%"/>
@@ -265,7 +269,7 @@
 				    </tr>
 				    <tr>
 					<td>
-					    3.2. Específique: 
+					    <b>3.2. Específique:</b>
 					</td>
 					<td>
 					    <field name="especifique" placeholder="Explique brevemente el por que del ambito seleccionado" style="width: 90%%"/>
@@ -282,7 +286,7 @@
 				<table style="width: 700px;">
 				    <tr>
 					<td style="width: 200px;">
-					    4.1. Plan de la Patria
+					    <b>4.1. Plan de la Patria</b>
 					</td>
 					<td >
 					    <field name="plan_patria" placeholder="Seleccione su correspondiente Plan de la Patria" style="width: 500px;" />
@@ -290,7 +294,7 @@
 				    </tr>
 				    <tr>
 					<td>
-					    4.1.1. Objetivo Histórico:
+					    <b>4.1.1. Objetivo Histórico:</b>
 					</td>
 					<td>
 					    <field name="obj_historico" placeholder="Seleccione su Objetivo Histórico en base al Plan de la Patria"
@@ -299,7 +303,7 @@
 				    </tr>
 				    <tr>
 					<td>
-					    4.1.2. Objetivo Nacional:
+					    <b>4.1.2. Objetivo Nacional:</b>
 					</td>
 					<td>
 					    <field name="obj_nacional" placeholder="Seleccione su Objetivo Nacional correspondiente a su Objetivo Histórico"
@@ -308,7 +312,7 @@
 				    </tr>
 				    <tr>
 					<td>
-					    4.1.3. Objetivo Estratégico:
+					    <b>4.1.3. Objetivo Estratégico:</b>
 					</td>
 					<td>
 					    <field name="obj_estrategico" placeholder="Seleccione su Objetivo Estratégico correspondiente a su Objetivo Nacional"
@@ -317,7 +321,7 @@
 				    </tr>
 				    <tr>
 					<td>
-					    4.1.4. Objetivo General:
+					    <b>4.1.4. Objetivo General:</b>
 					</td>
 					<td>
 					    <field name="obj_general_plan" placeholder="Seleccione su Objetivo General correspondiente a su Objetivo Estratégico"
@@ -331,7 +335,7 @@
 				<table>
 				    <tr  style="width:800px">
 					<td  style="width:200px">
-						4.2.1 Plan de Gobierno:
+						<b>4.2.1 Plan de Gobierno:</b>
 					</td>
 					<td style="width:400px">
 						<field name="plan_gobierno" placeholder="Seleccione su correspondiente Plan de Gobierno"  style="width: 90%%"/>
@@ -339,17 +343,17 @@
 				    </tr>
 				    <tr>
 					<td>
-						4.2.2 Líneas Estratégicas del Plan de Gobierno:
+					    <b>4.2.2 Líneas Estratégicas del Plan de Gobierno:</b>
 					</td>
 					<td>
-						<field name="linea_estrategica" placeholder="Seleccione la línea Estratégicas en base al Plan de Gobierno"
+					    <field name="linea_estrategica" placeholder="Seleccione la línea Estratégicas en base al Plan de Gobierno"
 						       domain= "[('plan_gobierno','=',plan_gobierno)]" style="width: 90%%"/>
 					</td>
 				    </tr>
 				    
 				    <tr>
 					<td>
-					    4.2.2. Área de Inversión: 
+					    <b>4.2.2. Área de Inversión: </b>
 					</td>
 					<td>
 					    <field name="area_inversion" style="width: 90%%"/>
@@ -357,7 +361,7 @@
 				    </tr>
 				    <tr>
 					<td>
-					    4.2.3. Sector:
+					    <b>4.2.3. Sector:</b>
 					</td>
 					<td>
 					    <field name="sector" placeholder="Sector al que va dirigido el Proyecto" style="width: 75%%"/>
@@ -365,7 +369,7 @@
 				    </tr>
 				    <tr>
 					<td>
-					    4.2.4. Tipo de Inversión:
+					    <b>4.2.4. Tipo de Inversión:</b>
 					</td>
 					<td>
 					    <field name="tipo" placeholder="Seleccione.." style="width: 45%%"/>
@@ -382,7 +386,7 @@
 			    <table style="width: 700px;">
 				<tr>
 				    <td style="width: 200px;">
-					5.1. Descripción del problema:
+					<b>5.1. Descripción del problema:</b>
 				    </td>
 				    <td style="width: 500px;">
 					<field name="desc_problema" placeholder="Descripción concreta y concisa sobre la
@@ -391,7 +395,7 @@
 				</tr>
 				<tr>
 				    <td>
-					5.2. Objetivo General:
+					<b>5.2. Objetivo General:</b>
 				    </td>
 				    <td>
 					<field name="obj_general" placeholder="Objetivo General de su proyecto.." />
@@ -399,7 +403,7 @@
 			        </tr>
 				<tr>
 				    <td>
-					5.3. Importancia e Impacto:
+					<b>5.3. Importancia e Impacto:</b>
 				    </td>
 				    <td>
 					<field name="imp_impacto" placeholder="Descripcion concreta del impacto e importancia que tendra su proyecto.." />
@@ -412,7 +416,7 @@
 			    <table style="width: 700px;">
 				<tr>
 				    <td style="width: 200px;">
-					6.1 Beneficiarios Femeninos
+					<b>6.1 Beneficiarios Femeninos</b>
 				    </td>
 				    <td >
 					<field name="bene_femenino" on_change="on_change_total(bene_femenino,bene_masculino)" />
@@ -420,7 +424,7 @@
 				</tr>
 				<tr>
 				    <td>
-					6.2 Beneficiarios Masculinos
+					<b>6.2 Beneficiarios Masculinos</b>
 				    </td>
 				    <td>
 					<field name="bene_masculino" on_change="on_change_total(bene_femenino,bene_masculino)" />
@@ -428,7 +432,7 @@
 			        </tr>
 				<tr>
 				    <td>
-					6.3 Beneficiarios Totales
+					<b>6.3 Beneficiarios Totales</b>
 				    </td>
 				    <td>
 					<field name="bene_total" />
@@ -441,13 +445,13 @@
 			    <table style="width: 850px;">
 				<tr>
 				    <td style="width: 200px;">
-					7.1 Requiere acciones (no financieras) de otra Institución:
+					<b>7.1 Requiere acciones (no financieras) de otra Institución:</b>
 				    </td>
 				    <td style="width: 50px;">
 					<field name="reque_accion" style="width: 20px;" />
 				    </td>
 				    <td style="width: 80px;" >
-					7.1.1 Institución:
+					<b>7.1.1 Institución:</b>
 				    </td>
 				    <td style="width: 320px;" >
 					<field name="institucion_req" style="width: 190px;" />
@@ -461,7 +465,7 @@
 					
 				    </td>
 				    <td>
-					7.1.2 Específique:
+					<b>7.1.2 Específique:</b>
 				    </td>
 				    <td >
 					<field name="explique_req" placeholder="Explique brevemente por que requiere acciones (no financieras) de otra institución" />
@@ -469,13 +473,13 @@
 			        </tr>
 				<tr>
 				    <td style="width: 200px;">
-					7.2 Contribuye o complementa acciones de otras Instituciones:
+					<b>7.2 Contribuye o complementa acciones de otras Instituciones:</b>
 				    </td>
 				    <td style="width: 50px;">
 					<field name="contri_accion" style="width: 20px;" />
 				    </td>
 				    <td style="width: 80px;" >
-					7.2.1 Institución:
+					<b>7.2.1 Institución:</b>
 				    </td>
 				    <td style="width: 350px;" >
 					<field name="contri_institucion" style="width: 190px;"/>
@@ -489,7 +493,7 @@
 					
 				    </td>
 				    <td>
-					7.2.2 Específique:
+					<b>7.2.2 Específique:</b>
 				    </td>
 				    <td >
 					<field name="contri_explique" placeholder="Explique brevemente por que contribuye en acciones de otra institución"/>
@@ -497,13 +501,13 @@
 			        </tr>
 				<tr>
 				    <td style="width: 200px;">
-					7.3 Entra en conflicto otra institución:
+					<b>7.3 Entra en conflicto otra institución:</b>
 				    </td>
 				    <td style="width: 50px;">
 					<field name="conflicto" style="width: 20px;" />
 				    </td>
 				    <td style="width: 80px;" >
-					7.2.1 Institución:
+					<b>7.2.1 Institución:</b>
 				    </td>
 				    <td style="width: 350px;" >
 					<field name="institucion_conf" style="width: 190px;"/>
@@ -517,7 +521,7 @@
 					
 				    </td>
 				    <td>
-					7.1.2 Específique:
+					<b>7.1.2 Específique:</b>
 				    </td>
 				    <td >
 					<field name="explique_con_conf" placeholder="Explique brevemente por que entra en conflicto con otra institución"/>
@@ -530,7 +534,7 @@
 			    <table style="width: 600px;">
 				<tr>
 				    <td style="width: 300px;">
-					8.1. Estimado de empleos directos femeninos:
+					<b>8.1. Estimado de empleos directos femeninos:</b>
 				    </td>
 				    <td >
 					<field name="empleos_directos_f" on_change="on_change_total_estimado(empleos_directos_f,empleos_directos_m)" />
@@ -538,7 +542,7 @@
 				</tr>
 				<tr>
 				    <td>
-					8.2. Estimado de empleos directos masculinos:
+					<b>8.2. Estimado de empleos directos masculinos:</b>
 				    </td>
 				    <td>
 					<field name="empleos_directos_m" on_change="on_change_total_estimado(empleos_directos_f,empleos_directos_m)" />
@@ -546,7 +550,7 @@
 			        </tr>
 				<tr>
 				    <td>
-					8.3. Estimado totales de empleos directos:
+					<b>8.3. Estimado totales de empleos directos:</b>
 				    </td>
 				    <td>
 					<field name="t_emple_directos" />
@@ -554,7 +558,7 @@
 			        </tr>
 				<tr>
 				    <td>
-					8.4. Estimado de empleos indirectos:
+					<b>8.4. Estimado de empleos indirectos:</b>
 				    </td>
 				    <td>
 					<field name="empleados_indirectos" />
@@ -581,7 +585,7 @@
 			    <table align="right">
 				<tr>
 				    <td>
-					<label string="Cant. total"/>
+					<b><label string="Cant. total"/></b>
 					<field name="total_acciones" nolabel="0"/>
 				    </td>
 				</tr>
@@ -606,7 +610,7 @@
 			    <table align="right">
 				<tr>
 				    <td>
-					<label string="Cant. total"/>
+					<b><label string="Cant. total"/></b>
 					<field name="total_metas" nolabel="0"/>
 				    </td>
 				</tr>
@@ -628,13 +632,164 @@
 			<table align="right">
 			    <tr>
 				<td>
-				    <label string="Cant. total"/>
+				    <b><label string="Cant. total"/></b>
 				    <field name="total_imputaciones" nolabel="0"/>
 				</td>
 			    </tr>
 			</table>
 			</page>
-			
+			<page string="Observaciones" class="oe_form_sheetbg" >
+			    <table>
+				<tr>
+				    <td style="width: 90px;">
+					<b>Revisado por:</b>
+				    </td>
+				    <td style="width: 120px;">
+					<field name="revisado" style="width:90%%"/>
+				    </td>
+				    <td style="width: 110px;"> 
+					<b>Fecha de Revisión:</b>
+				    </td>
+				    <td style="width: 90px;">
+					<field name="fecha_revision" style="width:90%%"/>
+				    </td>
+				</tr>
+			    </table>
+			    <separator />
+			    <table attrs="{'invisible':[('estatus','in', ('1','2','3'))]}" style="width:400px">
+				<b attrs="{'invisible':[('estatus','in', ('1','2','3'))]}" >Montos por partida:</b>
+				<tr style="background-color:#2D77BE; color:white" >
+				    <td style="width:20px">
+					<b>Código</b>
+				    </td>
+				    <td style="width:215px">
+					<b>Nombre de la Partida</b>
+				    </td>
+				    <td style="width:80px">
+					<b>Monto Asignado</b>
+				    </td>
+				</tr>
+				<tr attrs="{'invisible':[('partida01','=', 0,00)]}">
+					<td >
+						<b>4.01</b>
+					</td>
+					<td>
+						<b>Gastos de Personal</b>
+					</td>
+					<td>
+						<field name="partida01" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)" />
+					</td>
+				</tr>
+				<tr attrs="{'invisible':[('partida02','=', 0,00)]}">
+					<td >
+						<b>4.02</b>
+					</td>
+					<td>
+						<b>Materiales, Suministros y Mercancías</b>
+					</td>
+					<td>
+						<field name="partida02" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)" />
+					</td>
+				</tr>
+				<tr attrs="{'invisible':[('partida03','=', 0,00)]}">
+					<td>
+						<b>4.03</b>
+					</td>
+					<td>
+						<b>Servicios no personales</b>
+					</td>
+					<td>
+						<field name="partida03" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)" />
+					</td>
+				</tr>
+				<tr attrs="{'invisible':[('partida04','=', 0,00)]}">
+					<td>
+						<b>4.04</b>
+					</td>
+					<td>
+						<b>Activos Realess</b>
+					</td>
+					<td>
+						<field name="partida04" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)" />
+					</td>
+				</tr>
+				<tr attrs="{'invisible':[('partida05','=', 0,00)]}">
+					<td>
+						<b>4.05</b>
+					</td>
+					<td>
+						<b>Activos Financieros</b>
+					</td>
+					<td>
+						<field name="partida05" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)" />
+					</td>
+				</tr>
+				<tr attrs="{'invisible':[('partida07','=', 0,00)]}">
+					<td>
+						<b>4.07</b>
+					</td>
+					<td>
+						<b>Transferencias y Donaciones</b>
+					</td>
+					<td>
+						<field name="partida07" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)"/>
+					</td>
+				</tr>
+				<tr attrs="{'invisible':[('partida10','=', 0,00)]}">
+					<td>
+						<b>4.10</b>
+					</td>
+					<td>
+						<b>Servicio de la Deuda Pública</b>
+					</td>
+					<td>
+						<field name="partida10" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)"/>
+					</td>
+				</tr>
+				<tr attrs="{'invisible':[('partida11','=', 0,00)]}">
+					<td>
+						<b>4.11</b>
+					</td>
+					<td>
+						<b>Disminución de Pasivos</b>
+					</td>
+					<td>
+						<field name="partida11" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)"/>
+					</td>
+				</tr>
+				<tr attrs="{'invisible':[('partida12','=', 0,00)]}">
+					<td>
+						<b>4.12</b>
+					</td>
+					<td>
+						<b>Disminución de Patrimonio</b>
+					</td>
+					<td>
+						<field name="partida12" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)"/>
+					</td>
+				</tr>
+				<tr style="background-color:#BFBFBF; color:black">
+				    <td  colspan="2">
+					<b>Monto Total Asignado al Proyecto:</b>
+				    </td>
+				    <td style="width:105px">
+					<b><field name="monto_asignado" /></b>
+				    </td>
+				</tr>
+			    </table>
+			    <separator />
+			    <table>
+				<tr>
+				    <b>Observaciones:</b>
+				</tr>
+				<tr>
+				    <td style="width:700px">
+					<field name="observaciones"/>
+				    </td>
+				</tr>
+			    </table>
+			    
+			</page>
 		    </notebook>
 		    </div>
 
@@ -661,7 +816,8 @@
 
 	<menuitem id="main_proyecto_conaplan_menu" name="Nueva Etapa Aragua" /> 
 	<menuitem id="proyecto_conaplan_menu" name="Proyectos" parent="main_proyecto_conaplan_menu" sequence="2" />
-	<menuitem id="proyectos_menu" name="Registrar Proyectos" parent="proyecto_conaplan_menu" action="proyecto_conaplan_list_action" />
+	<menuitem id="proyectos_menu" name="Registrar Proyectos" parent="proyecto_conaplan_menu" action="proyecto_conaplan_list_action" sequence="1"/>
+
 		
     </data>
 </openerp>

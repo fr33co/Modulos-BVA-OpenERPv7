@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <report id="reporte_observaciones" string="Observaciones" model="observacion.proyecto"
+                name="reporte_observaciones" />
+    </data>
+</openerp>
