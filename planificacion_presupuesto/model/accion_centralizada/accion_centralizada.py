@@ -592,8 +592,20 @@ class accion_centralizada(osv.Model):
 		cantidad_meta_v = 0
 		total_metas = total_metas + cantidad_meta_v
 	    else:
-		cantidad_meta_v = mt[2]['total_trim']
-		total_metas = total_metas + cantidad_meta_v
+				claves = mt[2].keys() #Variable que obtiene las claves del diccionario
+				#Verificamos si existe la clave 'total'
+				n_c = 0 #Contador de clave
+				for clv in claves:
+					if clv == 'total_trim':
+						n_c = n_c + 1
+						
+				if n_c > 0:				
+					cantidad_meta_v = mt[2]['total_trim']
+					total_metas = total_metas + cantidad_meta_v
+					
+					for meta2 in proyecto.meta_acc_esp_trim:
+						if meta2.id == mt[1] and mt[2] != False:
+							total_metas = total_metas - meta2.total_trim
 		    
 	    j = j + 1
 	
@@ -634,8 +646,21 @@ class accion_centralizada(osv.Model):
 		cantidad_imp_v = 0
 		total_imputaciones = total_imputaciones + cantidad_imp_v
 	    else:
-		cantidad_imp_v = imp[2]['total_impu']
-		total_imputaciones = total_imputaciones + cantidad_imp_v  
+				claves = imp[2].keys() #Variable que obtiene las claves del diccionario
+				#Verificamos si existe la clave 'total'
+				n_c = 0 #Contador de clave
+				for clv in claves:
+					if clv == 'total_impu':
+						n_c = n_c + 1
+		
+				if n_c > 0:				
+					cantidad_imp_v = imp[2]['total_impu']
+					total_imputaciones = total_imputaciones + cantidad_imp_v  
+					
+					for imputacion2 in proyecto.imputacion_acciones:
+						if imputacion2.id == imp[1] and imp[2] != False:
+							total_imputaciones = total_imputaciones - imputacion2.total_impu
+					
 	    j = j + 1
 	
 	values.update({
@@ -675,9 +700,21 @@ class accion_centralizada(osv.Model):
 		cantidad_act_v = 0
 		total_actividades = total_actividades + cantidad_act_v
 	    else:
-		#~ print act[2]['total_trim']
-		cantidad_act_v = act[2]['total_trim']
-		total_actividades = total_actividades + cantidad_act_v
+				claves = act[2].keys() #Variable que obtiene las claves del diccionario
+				#Verificamos si existe la clave 'total'
+				n_c = 0 #Contador de clave
+				for clv in claves:
+					if clv == 'total_trim':
+						n_c = n_c + 1
+		
+				if n_c > 0:				
+					#~ print act[2]['total_trim']
+					cantidad_act_v = act[2]['total_trim']
+					total_actividades = total_actividades + cantidad_act_v
+					
+					for actividad2 in proyecto.actividades_trimestrales:
+						if actividad2.id == act[1] and act[2] != False:
+							total_actividades = total_actividades - actividad2.total_trim
 		    
 	    j = j + 1
 	
