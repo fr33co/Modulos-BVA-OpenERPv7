@@ -40,7 +40,7 @@
 		<form string="" version="7.0">
 		    <header>
 			<button name="reporte_anteproyecto" type="object" string="Exportar Anteproyecto" class="oe_highlight" />
-			<button name="resumen_proyecto" type="object" string="Resumen de Proyecto" class="oe_highlight" />
+			<!--<button name="resumen_proyecto" type="object" string="Resumen de Proyecto" class="oe_highlight" />-->
 			
                         <field name="estatus" widget="statusbar"/>
 		    </header>
