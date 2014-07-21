@@ -1265,9 +1265,21 @@ class solicitud_soporte(osv.Model):
 			cantidad_meta_v = 0
 			total_metas = total_metas + cantidad_meta_v
 		else:
-			#~ print mt[2]['total_meta']
-			cantidad_meta_v = mt[2]['total_meta']
-			total_metas = total_metas + cantidad_meta_v
+			claves = mt[2].keys() #Variable que obtiene las claves del diccionario
+			#Verificamos si existe la clave 'total'
+			n_c = 0 #Contador de clave
+			for clv in claves:
+				if clv == 'total_meta':
+					n_c = n_c + 1
+			
+			if n_c > 0:		
+				#~ print mt[2]['total_meta']
+				cantidad_meta_v = mt[2]['total_meta']
+				total_metas = total_metas + cantidad_meta_v
+				
+				for meta2 in proyecto.metas_financieras:
+					if meta2.id == mt[1] and mt[2] != False:
+						total_metas = total_metas - meta2.total_meta
 			
 		j = j + 1
 	
@@ -1313,9 +1325,21 @@ class solicitud_soporte(osv.Model):
 			cantidad_imp_v = 0
 			total_imputaciones = total_imputaciones + cantidad_imp_v
 		else:
-			#~ print mt[2]['total_impu']
-			cantidad_imp_v = imp[2]['total_impu']
-			total_imputaciones = total_imputaciones + cantidad_imp_v
+			claves = imp[2].keys() #Variable que obtiene las claves del diccionario
+			#Verificamos si existe la clave 'total'
+			n_c = 0 #Contador de clave
+			for clv in claves:
+				if clv == 'total_impu':
+					n_c = n_c + 1
+			
+			if n_c > 0:			
+				#~ print mt[2]['total_impu']
+				cantidad_imp_v = imp[2]['total_impu']
+				total_imputaciones = total_imputaciones + cantidad_imp_v
+				
+				for imputacion2 in proyecto.imputacion_presu:
+					if imputacion2.id == imp[1] and imp[2] != False:
+						total_imputaciones = total_imputaciones - imputacion2.total_impu
 			
 		j = j + 1
 	
@@ -1360,9 +1384,20 @@ class solicitud_soporte(osv.Model):
 			cantidad_acc_v = 0
 			total_acciones = total_acciones + cantidad_acc_v
 		else:
-			#~ print acc[2]['total']
-			cantidad_acc_v = acc[2]['total']
-			total_acciones = total_acciones + cantidad_acc_v
+			claves = acc[2].keys() #Variable que obtiene las claves del diccionario
+			#Verificamos si existe la clave 'total'
+			n_c = 0 #Contador de clave
+			for clv in claves:
+				if clv == 'total':
+					n_c = n_c + 1
+			
+			if n_c > 0:
+				cantidad_acc_v = acc[2]['total']
+				total_acciones = total_acciones + cantidad_acc_v
+				
+				for accion2 in proyecto.acciones_especificas:
+					if accion2.id == acc[1] and acc[2] != False:
+						total_acciones = total_acciones - accion2.total
 			
 		j = j + 1
 	
