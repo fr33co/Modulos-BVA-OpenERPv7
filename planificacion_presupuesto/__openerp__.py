@@ -18,12 +18,17 @@
         'view/proyecto_conaplan.xml',
         'view/accion_centralizada.xml',
         'view/configuraciones.xml',
+        'view/observaciones.xml',
         'view/plan_gobierno.xml',
         'view/plan_de_la_patria.xml',
         'view/reporte_presupuesto.xml',
+        'view/reporte_generales.xml',
+        #'wizard/wizard_resumen.xml',
         'security/groups.xml',
         'security/ir.model.access.csv',
 
+        
+
         ],
-        #'css': [ 'static/src/css/style.css' ],
+        'css': [ 'static/src/css/style.css' ],
 }

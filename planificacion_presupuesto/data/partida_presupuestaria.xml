@@ -45,66 +45,6 @@
                 <field name="codigo">4.12</field>
                 <field name="partida">Disminución de Patrimonio</field>
             </record>
- 
-
-            
-            <!--
-             <record id="partida01" model="partida.presupuestaria">
-                <field name="codigo">4.01</field>
-                <field name="partida">Gastos de Personal</field>
-                <field name="a_centralizada" ref="centralizada01"/>
-            </record>
-            <record id="partida02" model="partida.presupuestaria">
-                <field name="codigo">4.03</field>
-                <field name="partida">Servicios no personales</field>
-                <field name="a_centralizada" ref="centralizada01"/>
-            </record>
->
-            <record id="partida03" model="partida.presupuestaria">
-                <field name="codigo">4.03</field>
-                <field name="partida">4.02 Materiales, Suministros y Mercancías</field>
-                <field name="a_centralizada" ref="centralizada02"/>
-            </record>
-            <record id="partida04" model="partida.presupuestaria">
-                <field name="codigo">4.03</field>
-                <field name="partida">4.03 Servicios no personales</field>
-                <field name="a_centralizada" ref="centralizada02"/>
-            </record>
-            <record id="partida05" model="partida.presupuestaria">
-                <field name="codigo">4.03</field>
-                <field name="partida">4.04 Activos Reales”</field>
-                <field name="a_centralizada" ref="centralizada02"/>
-            </record>
-            <record id="partida06" model="partida.presupuestaria">
-                <field name="codigo">4.03</field>
-                <field name="partida">4.05 Activos Financieros</field>
-                <field name="a_centralizada" ref="centralizada02"/>
-            </record>
-            <record id="partida07" model="partida.presupuestaria">
-                <field name="codigo">4.03</field>
-                <field name="partida">4.07 Transferencias y Donaciones</field>
-                <field name="a_centralizada" ref="centralizada02"/>
-            </record>
-            <record id="partida08" model="partida.presupuestaria">
-                <field name="codigo">4.03</field>
-                <field name="partida">411 Disminución de Pasivos</field>
-                <field name="a_centralizada" ref="centralizada02"/>
-            </record>
-            <record id="partida09" model="partida.presupuestaria">
-                <field name="codigo">4.03</field>
-                <field name="partida">412 Disminución de Patrimonio</field>
-                <field name="a_centralizada" ref="centralizada02"/>
-            </record>
-
-        
-        
-            <record id="partida09" model="partida.presupuestaria">
-                <field name="partida">412 Disminución de Patrimonio</field>
-                <field name="a_centralizada" ref="centralizada02"/>
-            </record>-->
-            
-            
-            
-            
+      
         </data>
     </openerp>

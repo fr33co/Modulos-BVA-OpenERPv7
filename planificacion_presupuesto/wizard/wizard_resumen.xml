@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		 <record id="action_wizard_resumen" model="ir.actions.act_window">
+			<field name="name">Consultas Generales </field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">wizard.resumen</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+
+<!--Form y Tree Plan de Gobierno-->
+		<record model="ir.ui.view" id="wizard_resumen_form_view">
+			<field name="name">Resumen de Proyectos</field>
+			<field name="model">wizard.resumen</field>
+			<field name="arch" type="xml">
+				<form string="Planes" version="7.0">
+					<separator string="Resumen Anual" />
+					<!--<notebook>
+						<page string="Resumen Anual">
+							<table >
+								<tr style="width:230px">
+									<td style="width:130px">
+										<b>Seleccione el Año:</b>
+									</td>
+									<td style="width:50px">
+										<field name="year_fiscal"  style="width: 30%%"/>
+									</td>
+								</tr>
+							</table>
+							<footer>
+								<button name="resumen_de_proyectos" string="Resumen" type="object" class="oe_highlight"/>
+								
+								<button string="Cancel" class="oe_link" special="cancel" />
+							</footer>
+						</page>
+					</notebook>-->
+					<field name="year_fiscal"  style="width: 30%%"/>
+					<button name="resumen_sectores" string="Sectores" type="object" class="oe_highlight"/>
+					
+				</form>
+			</field>			
+		</record>
+
+		<act_window name="Consulta Generales"
+			    res_model="wizard.resumen"
+			    view_mode="form" target="new"
+			    key2="client_action_multi"
+			    id="action_resumenes"/>
+		<menuitem id="resumenes_menu" name="Resumenes" parent="proyecto_conaplan_menu" action="action_wizard_resumen" sequence="3"/>
+	</data>
+</openerp>

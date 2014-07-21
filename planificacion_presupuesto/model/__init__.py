@@ -1,4 +1,4 @@
 import accion_centralizada
 import anteproyecto
 import configuraciones
-import reportes_presupuesto
+import registro_reporte

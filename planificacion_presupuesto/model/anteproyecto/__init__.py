@@ -2,3 +2,5 @@ import acciones_especificas
 import imputacion_presupuestaria
 import metas_financieras
 import proyecto_conaplan
+import observacion_proyecto
+#import wizard_resumen

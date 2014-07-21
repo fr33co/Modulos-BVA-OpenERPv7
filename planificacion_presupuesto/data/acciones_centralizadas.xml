@@ -27,17 +27,17 @@
             </record>
             
             <!-- ###############################################################
-                 # Listado de tipos de Acciones CentralizadaS                  #
+                 # Listado de tipos de Acciones Especificas                    #
                  #                                                             #
                  ############################################################### -->
             
-            <!-- ###########  ##### -->
+            <!-- ########### 01 ##### -->
             <record id="especificas01" model="tipo.accion.especifica">
                 <field name="a_especifica">Asignación y control de los recursos para gastos de los trabajadores</field>
                 <field name="a_centralizada" ref="centralizada01"/>
             </record>
             
-            <!-- ###########  ##### -->
+            <!-- ########### 02 ##### -->
             <record id="especificas02" model="tipo.accion.especifica">
                  <field name="a_especifica">Apoyo institucional a las acciones específicas de los proyectos del ente</field>
                 <field name="a_centralizada" ref="centralizada02"/>
@@ -51,25 +51,25 @@
                 <field name="a_centralizada" ref="centralizada02"/>
             </record>
             
-            <!-- ###########  ##### -->
+            <!-- ########### 03 ##### -->
             <record id="especificas05" model="tipo.accion.especifica">
                 <field name="a_especifica">Asignación y control de los recursos para gastos de los pensionados, pensionadas, jubilados y jubiladas</field>
                 <field name="a_centralizada" ref="centralizada03"/>
             </record>
             
-            <!-- ###########  ##### -->
+            <!-- ########### 04 ##### -->
             <record id="especificas06" model="tipo.accion.especifica">
                 <field name="a_especifica">Asignación y control de los aportes constitucionales y legales</field>
                 <field name="a_centralizada" ref="centralizada04"/>
             </record>
             
-            <!-- ###########  ##### -->
+            <!-- ########### 05 ##### -->
             <record id="especificas07" model="tipo.accion.especifica">
                 <field name="a_especifica">Asignación y control de los recursos para  el servicio de la deuda pública nacional</field>
                 <field name="a_centralizada" ref="centralizada05"/>
             </record>
             
-            <!-- ###########  ##### -->
+            <!-- ########### 06 ##### -->
             <record id="especificas08" model="tipo.accion.especifica">
                 <field name="a_especifica">Las determinadas según el propósito de la Acción Centralizada</field>
                 <field name="a_centralizada" ref="centralizada06"/>

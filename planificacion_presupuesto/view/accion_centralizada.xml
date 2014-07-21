@@ -18,11 +18,12 @@
 			<field name="name">accion.centralizada.tree</field>
 			<field name="model">accion.centralizada</field>
 			<field name="arch" type="xml">
-				<tree string="Acciones">
+				<tree string="Acciones" colors="red:estatus=='2';blue:estatus=='4';black:estatus=='1';green:estatus=='3'">
 					<field name="c_solicitud"/>
 					<field name="f_solicitud" />
 					<field name="n_accion_centra" />
 					<field name="user_register" />
+					<field name="estatus"/>
 				</tree>
 			</field>			
 		</record>
@@ -36,8 +37,10 @@
 			<form string="Dirección de Planificación, Presupuesto y Control de Gestión" version="7.0">
 				<header>
 					<button name="reporte_acciones" type="object" string="Exportar Acción" class="oe_highlight" />
+					<field name="estatus" widget="statusbar"/>
 				</header>
 				<separator/>
+				<div class="oe_form_sheetbg">
 				<group>
 				    <group>
 					<field name="c_solicitud" class="oe_inline"/>
@@ -53,14 +56,14 @@
 					<table>
 						<tr style="width:1000px">
 						    <td style="width:200px">
-							1.1. Organismo/Ente/Empresa:
+							<b>1.1. Organismo/Ente/Empresa:</b>
 						    </td>
 						    <td style="width: 300px">
 							<field name="organismo" placeholder="Seleccione su Institución"
 							       on_change="on_change_ente(organismo)" style="width: 90%%"/>
 						    </td>
 						    <td style="width:170px">
-							1.4. Cargo:
+							<b>1.4. Cargo:</b>
 						    </td>
 						    <td style="width: 300px">
 							<field name="cargo" style="width: 90%%"/>
@@ -68,13 +71,13 @@
 						</tr>
 						<tr>
 						    <td>
-							1.2. Nombre de la Máxima Autoridad de la Institución:
+							<b>1.2. Nombre de la Máxima Autoridad de la Institución:</b>
 						    </td>
 						    <td>
 							<field name="n_autoridad" style="width: 90%%"/>
 						    </td>
 						    <td>
-							1.5. Teléfono:
+							<b>1.5. Teléfono:</b>
 						    </td>
 						    <td>
 							<field name="telefono" style="width: 40%%"/>
@@ -82,13 +85,13 @@
 						</tr>
 						<tr>
 						    <td>
-							1.3. C.I.:
+							<b>1.3. C.I.:</b>
 						    </td>
 						    <td>
 							<field name="cedula" style="width: 30%%"/>
 						    </td>
 						    <td>
-							1.6. Correo Electrónico:
+							<b>1.6. Correo Electrónico:</b>
 						    </td>
 						    <td>
 							<field name="correo" style="width: 90%%"/>
@@ -121,9 +124,9 @@
 					</table>
 					<separator string="3. Acción Centralizada" />		    
 					<table>
-						<tr style="width:600px">
-						    <td style="width:200px">
-							3.1. Nombre de la Acción Centralizada:
+						<tr style="width:700px">
+						    <td style="width:220px">
+							<b>3.1. Nombre de la Acción Centralizada:</b>
 						    </td>
 						    <td style="width: 400px">
 							<field name="n_accion_centra" placeholder="Seleccione la Acción Centralizada que va a realizar"
@@ -132,7 +135,7 @@
 						</tr>
 						<tr>
 						    <td>
-							3.2. Nombre de la Acción Específica:
+							<b>3.2. Nombre de la Acción Específica:</b>
 						    </td>
 						    <td>
 						    </td>
@@ -146,7 +149,7 @@
 					<div>
 						<button name="vincular_partida" type="object" string="Cargar Partidas" class="oe_highlight" />
 						<font color="red" style="font-weight">
-							Seleccione la Acción y haga clic en el botón.
+							<b>Seleccione la Acción y haga clic en el botón.</b>
 						</font>
 						
 					</div>
@@ -170,7 +173,7 @@
 					<separator string="4.2. Distribución trimestral de las Actividades" />
 					<button name="carga_actividades" type="object" string="Cargar actividades"/>
 					<font color="red" style="font-weight">
-						**Nota: Haga clic para cargar las Actividades.
+						<b>**Nota: Haga clic para cargar las Actividades.</b>
 					</font>
 					<field name="actividades_trimestrales" on_change="total_actividades(actividades_trimestrales)">
 						<tree string="Acciones Especificas" editable="bottom">
@@ -185,7 +188,7 @@
 					<table align="right">
 						<tr>
 							<td>
-								<label string="Cant. total"/>
+								<b><label string="Cant. total"/></b>
 								<field name="total_actividades" nolabel="0"/>
 							</td>
 						</tr>
@@ -206,7 +209,7 @@
 					<table align="right">
 						<tr>
 							<td>
-								<label string="Cant. total"/>
+								<b><label string="Cant. total"/></b>
 								<field name="total_metas" nolabel="0"/>
 							</td>
 						</tr>
@@ -227,14 +230,168 @@
 					</field>
 					<table align="right">
 						<tr>
-							<td	>
-								<label string="Cant. total"/>
+							<td>
+								<b><label string="Cant. total"/></b>
 								<field name="total_imputaciones" nolabel="0"/>
 							</td>
 						</tr>
 					</table>
 				</page>
+				<page string="Observaciones" class="oe_form_sheetbg" >
+					<table>
+					    <tr>
+						<td style="width: 90px;">
+						    <b>Revisado por:</b>
+						</td>
+						<td style="width: 120px;">
+						    <field name="revisado" style="width:90%%"/>
+						</td>
+						<td style="width: 110px;"> 
+						    <b>Fecha de Revisión:</b>
+						</td>
+						<td style="width: 90px;">
+						    <field name="fecha_revision" style="width:90%%"/>
+						</td>
+					    </tr>
+					</table>
+					<separator />
+					<b attrs="{'invisible':[('estatus','in', ('1','2','3'))]}">Montos por partida:</b>
+					<table attrs="{'invisible':[('estatus','in', ('1','2','3'))]}" style="width:400px">
+						<tr style="background-color:#2D77BE; color:white" >
+							<td style="width:20px">
+								<b>Código</b>
+							</td>
+							<td style="width:215px">
+								<b>Nombre de la Partida</b>
+							</td>
+							<td style="width:80px">
+								<b>Monto Asignado</b>
+							</td>
+						</tr>
+						<tr attrs="{'invisible':[('partida01','=', 0,00)]}">
+							<td >
+								<b>4.01</b>
+							</td>
+							<td>
+								<b>Gastos de Personal</b>
+							</td>
+							<td>
+								<field name="partida01" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)" />
+							</td>
+						</tr>
+						<tr attrs="{'invisible':[('partida02','=', 0,00)]}">
+							<td >
+								<b>4.02</b>
+							</td>
+							<td>
+								<b>Materiales, Suministros y Mercancías</b>
+							</td>
+							<td>
+								<field name="partida02" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)" />
+							</td>
+						</tr>
+						<tr attrs="{'invisible':[('partida03','=', 0,00)]}">
+							<td>
+								<b>4.03</b>
+							</td>
+							<td>
+								<b>Servicios no personales</b>
+							</td>
+							<td>
+								<field name="partida03" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)" />
+							</td>
+						</tr>
+						<tr attrs="{'invisible':[('partida04','=', 0,00)]}">
+							<td>
+								<b>4.04</b>
+							</td>
+							<td>
+								<b>Activos Realess</b>
+							</td>
+							<td>
+								<field name="partida04" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)" />
+							</td>
+						</tr>
+						<tr attrs="{'invisible':[('partida05','=', 0,00)]}">
+							<td>
+								<b>4.05</b>
+							</td>
+							<td>
+								<b>Activos Financieros</b>
+							</td>
+							<td>
+								<field name="partida05" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)" />
+							</td>
+						</tr>
+						<tr attrs="{'invisible':[('partida07','=', 0,00)]}">
+							<td>
+								<b>4.07</b>
+							</td>
+							<td>
+								<b>Transferencias y Donaciones</b>
+							</td>
+							<td>
+								<field name="partida07" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)"/>
+							</td>
+						</tr>
+						<tr attrs="{'invisible':[('partida10','=', 0,00)]}">
+							<td>
+								<b>4.10</b>
+							</td>
+							<td>
+								<b>Servicio de la Deuda Pública</b>
+							</td>
+							<td>
+								<field name="partida10" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)"/>
+							</td>
+						</tr>
+						<tr attrs="{'invisible':[('partida11','=', 0,00)]}">
+							<td>
+								<b>4.11</b>
+							</td>
+							<td>
+								<b>Disminución de Pasivos</b>
+							</td>
+							<td>
+								<field name="partida11" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)"/>
+							</td>
+						</tr>
+						<tr attrs="{'invisible':[('partida12','=', 0,00)]}">
+							<td>
+								<b>4.12</b>
+							</td>
+							<td>
+								<b>Disminución de Patrimonio</b>
+							</td>
+							<td>
+								<field name="partida12" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)"/>
+							</td>
+						</tr>
+						<tr style="background-color:#BFBFBF; color:black">
+							<td  colspan="2">
+								<b>Monto Total Asignado al Proyecto:</b>
+							</td>
+							<td style="width:105px">
+								<b><field name="monto_asignado" /></b>
+							</td>
+						</tr>
+					</table>
+					<separator />
+					<table >
+					    <tr>
+						<td>
+						    <b>Observaciones:</b>
+						</td>
+					    </tr>
+					    <tr>
+						<td colspan="6">
+						    <field name="observaciones" />
+						</td>
+					    </tr>
+					</table>
+				</page>
 				</notebook>
+				</div>
 				</form>
 			</field>			
 		</record>
@@ -256,7 +413,7 @@
 	
 <!-- ####################### Menu ##########################-->
 		<menuitem id="accion_centralizada_menu" name="Acciones Centralizadas" parent="main_proyecto_conaplan_menu" sequence="1"/>
-		<menuitem id="registro_accion_centralizada_menu" name="Registro de acciones" parent="accion_centralizada_menu" action="accion_centralizada_list_action" />
+		<menuitem id="registro_accion_centralizada_menu" name="Registro de acciones" parent="accion_centralizada_menu" action="accion_centralizada_list_action" sequence="1" />
         
 	</data>
 </openerp>

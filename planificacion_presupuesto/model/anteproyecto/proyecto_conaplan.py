@@ -71,6 +71,8 @@ class solicitud_soporte(osv.Model):
     def elimina_tildes(self, s):
     
         return ''.join((c for c in unicodedata.normalize('NFD', s) if unicodedata.category(c) != 'Mn'))
+
+
     
     """
     Metodo que trae la informacion de cada Ente/Organizacion.
@@ -86,9 +88,9 @@ class solicitud_soporte(osv.Model):
             'cargo' : datos.cargo,
             'telefono': datos.telefono,
             'correo': datos.correo,
-	    	'ubicacion': datos.direccion,
-	    	'siglas': datos.siglas,
-     
+	    'ubicacion': datos.direccion,
+	    'siglas': datos.siglas,
+
         })
         return {'value' : values}    
 
@@ -108,7 +110,7 @@ class solicitud_soporte(osv.Model):
 
 
 
-	"""
+    """
     Metodo con el cual genero el archivo .pdf 
     """
 
@@ -208,7 +210,6 @@ class solicitud_soporte(osv.Model):
 	    obj_h = x.obj_historico.objetivo_historico.encode("UTF-8").decode("UTF-8")
 	    obj_n = x.obj_nacional.objetivo_nacional.encode("UTF-8").decode("UTF-8")
 	    obj_e = x.obj_estrategico.objetivo_estrategico.encode("UTF-8").decode("UTF-8")
-	    #obj_g = x.obj_general_plan.objetivo_general.encode("UTF-8").decode("UTF-8")
 
 	    if x.obj_general_plan.objetivo_general is None:
 		obj_g == ""
@@ -832,6 +833,144 @@ class solicitud_soporte(osv.Model):
 	return r_archivo
 	
 	  
+    """
+    Metodo con el cual genero el archivo .pdf 
+    """
+
+    def resumen_proyecto(self, cr, uid, ids, context=None): # Generacion de inventario
+
+	# Instancia de la clase heredada L es horizontal y P es vertical
+	# format A4, A3 o letter que son los formatos de la hoja (oficio, carta, etc)
+
+	pdf=class_pdf.PDF3(orientation='P',unit='mm',format='letter') #HORIENTACION DE LA PAGINA
+	
+	#pdf.set_title(title)
+	pdf.set_author('Marcel Arcuri')
+	pdf.alias_nb_pages() # LLAMADA DE PAGINACION
+	pdf.add_page() # AÑADE UNA NUEVA PAGINACION
+	#pdf.set_font('Times','',10) # TAMANO Y TIPO DE LETRA DE LA FUENTE
+	pdf.set_font('Arial','B',15)
+	pdf.set_fill_color(157,188,201) # COLOR DE BORDE DE LA CELDA
+	pdf.set_text_color(24,29,31) # COLOR DEL TEXTO
+	pdf.set_margins(20,5,10) # MARGENE DEL DOCUMENTO
+	pdf.set_line_width(0.25)
+	pdf.set_y(58)
+	pdf.set_x(20)
+	pdf.line(20, 73, 20, 260)
+	pdf.line(20, 260, 205, 260)
+	pdf.line(205, 260, 205, 73 )
+	pdf.set_fill_color(255,255,255)
+	pdf.set_text_color(24,29,31)
+	
+	resumen = self.browse(cr, uid, ids, context=context)
+	npro = ""
+	obj_g = ""
+
+	for x in resumen:
+	    ente = x.organismo.nombre_ente.encode("UTF-8").decode("UTF-8")
+	    fec = x.f_solicitud.split("/")
+	    fec_ley = fec[2]
+	    proyecto = x.nombre_pro.encode("UTF-8").decode("UTF-8")
+	    obj_g_pro = x.obj_general.encode("UTF-8").decode("UTF-8")
+	    costo = float(x['costo_proyecto'])
+	    
+	    obj_h = x.obj_historico.objetivo_historico.encode("UTF-8").decode("UTF-8")
+	    obj_n = x.obj_nacional.objetivo_nacional.encode("UTF-8").decode("UTF-8")
+	    obj_e = x.obj_estrategico.objetivo_estrategico.encode("UTF-8").decode("UTF-8")
+
+	    if x.obj_general_plan.objetivo_general is None:
+		obj_g == ""
+	    else:
+		obj_g = x.obj_general_plan.objetivo_general.encode("UTF-8").decode("UTF-8")
+
+	    
+	    plan_g = x.plan_gobierno.plan_gobierno.encode("UTF-8").decode("UTF-8")
+	    linea_est = x.linea_estrategica.lineas_estrategicas.encode("UTF-8").decode("UTF-8")
+	    
+	    hist = "OBJETIVO HISTÓRICO: ".decode("UTF-8")
+	    estr = "OBJETIVO ESTRATÉGICO: ".decode("UTF-8")
+	    linea = "LÍNEA ESTRÁTEGICA DEL PAN DE GOBIERNO: ".decode("UTF-8")
+	    pdf.set_y(5)
+	    pdf.set_x(97)
+	    pdf.set_font('Times','',4)
+	    pdf.write(20,"REPÚBLICA BOLIVARIANA".decode("UTF-8"))
+	    pdf.set_y(7)
+	    pdf.set_x(101)
+	    pdf.write(20,"DE VENEZUELA".decode("UTF-8"))
+	    
+	    pdf.set_y(36)
+	    pdf.set_x(98)
+	    pdf.write(20,"CONSEJO LEGISLATIVO".decode("UTF-8"))
+	    pdf.set_y(38)
+	    pdf.set_x(99)
+	    pdf.write(20,"DEL ESTADO ARAGUA".decode("UTF-8"))
+	    
+	    pdf.set_font('Times','',7)
+	    pdf.set_y(50)
+	    pdf.set_x(20)
+	    pdf.cell(150,4,ente.upper(),'LTB',0,'L',1)
+	    pdf.cell(35,4,"LEY DE PRESUPUESTO "+str(fec_ley).decode("UTF-8"),'TBR',1,'L',1)
+	    pdf.multi_cell(185,4,"PROYECTO: "+proyecto.upper(),'LTR','J',1)
+	    pdf.multi_cell(185,4,"OBJETIVO GENERAL DEL PROYECTO: "+obj_g_pro.upper(),'LR','J',1)
+	    pdf.cell(185,4,"MONTO: "+str(costo)+" Bolívares",'LR',1,'J',1)
+	    pdf.multi_cell(185,4,hist+obj_h.upper(),'LR','J',1)
+	    pdf.multi_cell(185,4,"OBJETIVO NACIONAL: "+obj_n.upper(),'LR','J',1)
+	    pdf.multi_cell(185,4,estr+obj_e.upper(),'LR','J',1)
+	    pdf.multi_cell(185,4,"OBJETIVO GENERAL: "+obj_g.upper(),'LR','J',1)
+	    pdf.multi_cell(185,4,linea+linea_est.upper(),'LR','L',1)
+	    
+	    
+	    pdf.cell(25,4,"ESTRUCTURA".decode("UTF-8"),'LTR',0,'C',1)
+	    pdf.cell(55,4,"".decode("UTF-8"),'LT',0,'C',1)
+	    pdf.cell(105,4,"FUENTE DE FINANCIAMIENTO".decode("UTF-8"),'LTBR',1,'C',1)
+	    
+	    pdf.cell(25,3,"PRESUPUESTARIA ".decode("UTF-8"),'LR',0,'C',1)
+	    pdf.cell(55,3,"DENOMINACIÓN".decode("UTF-8"),'LR',0,'C',1)
+	    pdf.cell(25,3,"SITUADO".decode("UTF-8"),'LTR',0,'C',1)
+	    pdf.cell(20,3,"GESTIÓN".decode("UTF-8"),'LTR',0,'C',1)
+	    pdf.cell(30,3,"FONDO COMPENSACIÓN".decode("UTF-8"),'LTR',0,'C',1)
+	    pdf.cell(30,3,"TOTAL".decode("UTF-8"),'LTR',1,'C',1)
+	    pdf.cell(25,3," ".decode("UTF-8"),'LBR',0,'C',1)
+	    pdf.cell(55,3,"".decode("UTF-8"),'LBR',0,'C',1)
+	    pdf.cell(25,3,"CONSTITUCIONAL".decode("UTF-8"),'LBR',0,'C',1)
+	    pdf.cell(20,3,"FISCAL".decode("UTF-8"),'LBR',0,'C',1)
+	    pdf.cell(30,3,"INTERTERRITORIAL".decode("UTF-8"),'LBR',0,'C',1)
+	    pdf.cell(30,3,"PRESUPUESTO 2014".decode("UTF-8"),'LBR',1,'C',1)
+	    pdf.cell(185,4,"".decode("UTF-8"),'LTR',1,'C',1)
+	    impu_ids = self.read(cr, uid, ids, context=context)[0]
+	    imp_id = impu_ids['imputacion_presu'] # Grupo de IDS
+
+	    imp_pre = self.pool.get('imputacion.presupuestaria') # Objeto 
+	    imputa = imp_pre.search(cr, uid, [('id','=',imp_id)], context=None)
+	    imputa_presu = imp_pre.read(cr,uid,imputa,context=context)
+
+    
+	    for d in imputa_presu:
+		codi = d['codigo']
+		#partida = x.partida_presu.nombre_ente.encode("UTF-8").decode("UTF-8")
+		partida = d['partida_presu'][1]
+		tri_total_i = float(d['total_impu'])
+
+		pdf.cell(25,6,str(codi),'L',0,'C',1)
+		pdf.cell(55,6,partida.encode("UTF-8").decode("UTF-8"),'',0,'L',1)
+		pdf.cell(25,6,str(tri_total_i),'',0,'R',1)
+		pdf.cell(20,6,"0,00".decode("UTF-8"),'',0,'R',1)
+		pdf.cell(30,6,"0,00".decode("UTF-8"),'',0,'R',1)
+		pdf.cell(30,6,str(tri_total_i),'R',1,'R',1)
+ 
+	    total_pro = float(x['total_imputaciones'])
+	    pdf.set_y(255)
+	    pdf.set_x(20)
+	    pdf.cell(155,5,"TOTAL",'LTBR',0,'L',1)
+	    #pdf.set_y(200)
+	    #pdf.set_x(175)
+	    pdf.cell(30,5,str(total_pro),'LTBR',0,'R',1)
+	    
+	    nom = "Resumen"+".pdf"
+
+	    pdf.output('openerp/addons/planificacion_presupuesto/reportes/'+nom,'F')
+	    
+	    
 	  #Funciones para la validación de las fechas de inicio y fin de un proyecto
     def duracion_proyecto(self, cr, uid, ids, fecha_ini, fecha_fin, context=None): 
 
@@ -947,6 +1086,7 @@ class solicitud_soporte(osv.Model):
 				  
 
     _columns = {
+	'estatus': fields.selection([('1','Revisando'), ('2','Rechazado'), ('3','Para Ajuste'), ('4','Aprobado')], string="Estatus"),
         'c_solicitud' : fields.char(string="ID", size=255, required=False, readonly=True),
 	'user_register': fields.many2one('res.users', 'Registrado por:', readonly=True),
 	#'archivos': fields.function(_data_get, fnct_inv=_data_set, string='Cargar Archivos', type="binary", nodrop=True),
@@ -970,7 +1110,7 @@ class solicitud_soporte(osv.Model):
 	'etapa': fields.selection([('1','Nueva'), ('2','Continuación')], string="Etapa", required=True),
 	'proy_nuevo': fields.char('Proyecto Nuevo', required=False),
 	'costo_proyecto': fields.float('Costo del Proyecto', readonly=False),
-	'fuente_fin': fields.selection([('1','SITUADO CONSTITUCIONAL'), ('2','F.C.I'), ('3','INGRESOS PROPÍOS'), ('4','OTROS')], string="Fuente de Financiamiento:", required=False),
+	'fuente_fin': fields.selection([('1','SITUADO CONSTITUCIONAL'), ('2','F.C.I'), ('3','INGRESOS PROPÍOS'), ('4','OTROS')], string="Fuente de Financiamiento:", readonly=True),
 	'indicador': fields.char('Indicador General', size=120, required=True),
 	'formula': fields.char('Fórmula del Indicador General:', size=100, required=True),
 	'm_verificacion': fields.char('Medio de Verificación:', size=120, required=True),
@@ -1023,13 +1163,25 @@ class solicitud_soporte(osv.Model):
 	#pestañas11
 	'imputacion_presu':fields.one2many('imputacion.presupuestaria', 'imputacion_ids',required=False),
 	'total_imputaciones':fields.float(string="Cant. total", required=False), #Nuevo
-
+	#Pestaña Observaciones
+	'revisado': fields.char('Revisado por:', readonly=True, required=False),
+	'fecha_revision': fields.char('Fecha de Revisión:', readonly=True, required=False),
+	'partida01': fields.float(string="4.01", size=10, readonly=True, required=False),
+	'partida02': fields.float(string="4.02", size=10, readonly=True, required=False),
+	'partida03': fields.float(string="4.03", size=10, readonly=True, required=False),
+	'partida04': fields.float(string="4.04", size=10, readonly=True, required=False),
+	'partida05': fields.float(string="4.05", size=10, readonly=True, required=False),
+	'partida07': fields.float(string="4.07", size=10, readonly=True, required=False),
+	'partida10': fields.float(string="4.10", size=10, readonly=True, required=False),
+	'partida11': fields.float(string="4.11", size=10, readonly=True, required=False),
+	'partida12': fields.float(string="4.12", size=10, readonly=True, required=False),
+	'observaciones': fields.text('Observaciones:', readonly=True, required=False),
+	'monto_asignado': fields.float(string="Monto Asignado", readonly=True, required=False),
         }
         
         
     _defaults = {
         'f_solicitud': lambda *a: time.strftime("%d/%m/%Y"),
-	#'year_fiscal': lambda *a: time.strftime('%Y'),
         'c_solicitud': _get_last_id,
 	'duracion': "1 Año",
 	'fecha_ini_fin': "01 de Enero / 31 de Diciembre",
@@ -1037,6 +1189,7 @@ class solicitud_soporte(osv.Model):
 	'reque_accion': '2',
 	'contri_accion': '2',
 	'conflicto': '2',
+	'estatus': '1',
     }
     
     #Método para copiar las acciones de la pestañe de 'Acciones' a la pestaña de 'Metas'

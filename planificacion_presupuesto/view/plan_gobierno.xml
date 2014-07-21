@@ -1,23 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 	<data>
-            
-<!-- Filtro de solicitudes de accion_centralizadaes (cod de solicitud y nombre del representante) -->
-<!--        <record model="ir.ui.view" id="buscar_accion_centralizada">
-            <field name="name">Solicitud</field>
-            <field name="model">accion.centralizada</field>
-            <field name="arch" type="xml">      
-                <search string="Busqueda Solicitudes de Soporte Canaimas">
-                    <filter name="accion_centralizadaes" domain="[('c_solicitud','=', uid)]" string="Solicitudes de Reparación" icon="terp-partner" />
-                    <field name="c_solicitud" />
-                    <field name="status" />
-                    <field name="serial" />
-                    <field name="hardware" />
-                    <field name="software" />
-                </search>
-            </field>            
-        </record>-->
-<!--Menu-->
 
 <!--Registro Plan de Gobierno -->
 
