@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	
+	<data>
+			
+		<!--Accionador para el menu de (Grupo Familiar)-->
+		<record model="ir.actions.act_window" id="accion_lista_grupo_familiar">
+			<field name="name">Grupo Familiar</field>
+			<field name="res_model">grupo.familiar</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Registrar Grupo Familiar del Integrante</p>
+			</field>
+		</record>
+		<!--Accionador para el menu de (Grupo Familiar)-->
+		
+		<record model="ir.ui.view" id="vista_formulario_grupo_familiar">
+			<field name="name">grupo_familiar.form</field>
+			<field name="model">grupo.familiar</field>
+			<field name="arch" type="xml">
+				<form string="Formulario de Grupo Familiar" version="7.0">	
+					<group colspan="4" col="3" string="Datos del Familiar">
+						<group colspan="1" col="2" string="Información básica">
+<!--
+							<field name="cedula" placeholder="Cédula"/>
+-->
+							<field name="cedula"/>
+							<field name="nombre_apellido" placeholder="Nombre y Apellido"/>
+							<field name="telefono"/>
+							<field name="ocupacion"/>
+							<field name="edad"/>
+							<field name="parentesco"/>
+							<field name="discapacidad"/>
+							<field name="situacion_medica"/>
+							<field name="observacion"/>
+						</group>
+<!--
+						<group colspan="1" col="2" string="">
+						
+						</group>
+-->
+					</group>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="vista_lista_grupo_familiar">
+			<field name="name">grupo_familiar.tree</field>
+			<field name="model">grupo.familiar</field>
+			<field name="arch" type="xml">
+				<tree string="Grupo Familiar" editable="bottom">
+<!--
+					<field name="cedula_becado"/>
+-->
+					<field name="parentesco"/>
+					<field name="cedula"/>
+					<field name="nombre_apellido"/>
+					<field name="telefono"/>
+					<field name="ocupacion"/>
+					<field name="edad"/>
+					<field name="discapacidad"/>
+					<field name="situacion_medica"/>
+					<field name="observacion"/>
+				</tree>
+			</field>
+		</record>
+			
+	</data>
+	
+</openerp>
+

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	
+	<data>
+		
+		<record model="ir.actions.act_window" id="accion_lista_archivos_estadisticas">
+			<field name="name">Archivos de estadísticas</field>
+			<field name="res_model">ir.attachment</field>
+			<field name="view_type">form</field>
+			<field name="domain">[('res_model','ilike','integrantes.estadisticas')]</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Agregue un nuevo archivo</p>
+			</field>
+		</record>
+		
+		<!-- Proceso de busqueda por municipio-->
+
+<!--
+		<record id="view_estadisticas_search" model="ir.ui.view">
+			<field name="name">Filtro de Estadisticas</field>
+			<field name="model">ir.attachment</field>
+			<field name="arch" type="xml">
+				<search string="Archivos">
+					<field name="name" position="after">
+						<field name="municipio"/>
+					</field>
+				</search>
+			</field>
+		</record>
+-->
+		
+		<record model="ir.ui.view" id="vista_tree_estadisticas">
+			<field name="name">Archivos de estadísticas</field>
+			<field name="model">ir.attachment</field>
+			<field name="inherit_id" ref="base.view_attachment_tree"/>
+			<field name="arch" type="xml">
+				<field name="datas_fname" position="replace">
+					<field name="datas_fname" invisible="1"/>
+				</field>
+				<field name="company_id" position="replace">
+					<field name="company_id" invisible="1"/>
+				</field>
+				<field name="create_uid" position="replace">
+					<field name="create_uid" invisible="1"/>
+				</field>
+			</field>
+		</record>
+		
+		<menuitem parent="menu_reportes_integrantes" id="reporte_estadisticas" action="accion_lista_archivos_estadisticas" name="Estadísticas UBCH"/>
+			
+	</data>
+	
+</openerp>
+

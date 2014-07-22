@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+
+	<data>
+		
+		<!--Accionador para el menu de Integrantes-->
+		<record model="ir.actions.act_window" id="accion_vista_beneficiarios">
+		 	<field name="name">Beneficiarios</field>
+			<field name="res_model">tesoreria.beneficiario</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Registrar Beneficiario</p>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="vista_formulario_beneficiarios">
+			<field name="name">beneficiario.form</field>
+			<field name="model">tesoreria.beneficiario</field>
+			<field name="arch" type="xml">
+				<form string="Actualización de Beneficiarios" version="7.0">
+<!--
+					<header>
+						<button name="reporte_integrantes" type="object" string="Exportar Integrante" class="oe_highlight" />
+					</header>
+-->
+					<separator string="Actualización de Beneficiarios"/>
+					<group>
+						<group>
+							<field name="tipo_benef" nolabel="0" colspan="2"/>
+							<field name="cedula_rif" nolabel="0" colspan="2"/>
+							<field name="nombre" nolabel="0" colspan="2"/>
+							<field name="telefono" nolabel="0" colspan="2"/>
+							<field name="alquiler" nolabel="0" colspan="2" />
+						</group>
+						<group>
+							<field name="country_id" nolabel="0" colspan="2" invisible="1"/>
+							<field name="estado" nolabel="0" colspan="2" domain="[('country_id','=',country_id)]"/>
+							<field name="municipio" nolabel="0" colspan="2" domain="[('state_id','=',estado)]"/>
+							<field name="parroquia" nolabel="0" colspan="2" domain="[('municipalities_id','=',municipio)]"/>
+							<field name="direccion" nolabel="0" colspan="2"/>
+						</group>
+					</group>
+				</form>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="vista_tree_beneficiarios">
+			<field name="name">beneficiario.tree</field>
+			<field name="model">tesoreria.beneficiario</field>
+			<field name="arch" type="xml">
+				<tree string="Lista de beneficiarios">
+					<field name="cedula_rif" nolabel="0" colspan="2"/>
+					<field name="nombre" nolabel="0" colspan="2"/>
+					<field name="telefono" nolabel="0" colspan="2"/>
+					<field name="alquiler" nolabel="0" colspan="2"/>
+				</tree>
+			</field>
+		</record>
+		
+		<menuitem name="Tesorería" id="menu_tesoreria"/>
+		<menuitem name="Actualizar" id="menu_actualizar_main" parent="menu_tesoreria" sequence="1"/>
+<!--
+		<menuitem name="Reportes" id="menu_reportes_integrantes" parent="menu_integrantes" sequence="2"/>
+		<menuitem name="Configuración" id="menu_configuracion_beneficiarios" parent="menu_beneficiarios" sequence="3"/>
+-->
+		<menuitem parent="menu_actualizar_main" id="beneficiario" action="accion_vista_beneficiarios" name="Beneficiario"/>
+
+	</data>
+</openerp>
