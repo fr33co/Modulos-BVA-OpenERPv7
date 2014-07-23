@@ -14,9 +14,10 @@
       "views/bancos.xml",
       "views/cuentas.xml",
       "views/anyo_fiscal.xml",
+      "views/tipo_ben.xml",
       #~ "data/reg_grados_instruc.xml",
       #"reportes/report_becados.xml",
-      #~ "categorias/mantenimiento.xml",
+      "categorias/mantenimiento.xml",
       #~ "seguridad/groups.xml", #Activar la carga de este archivo sólo al instalar, luego comentarlo.
       #""seguridad/users.xml", #Activar la carga de este archivo sólo al instalar, luego comentarlo.
       #~ "seguridad/ir.model.access.csv",
