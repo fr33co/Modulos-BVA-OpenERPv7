@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+
+	<data>
+		
+		<!--Accionador para el menu de Integrantes-->
+		<record model="ir.actions.act_window" id="accion_vista_integrantes">
+		 	<field name="name">Integrantes UBCH</field>
+			<field name="res_model">integrantes.ubch</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Registrar Integrante</p>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="vista_formulario_integrantes">
+			<field name="name">integrantes.form</field>
+			<field name="model">integrantes.ubch</field>
+			<field name="arch" type="xml">
+				<form string="Registro de integrantes" version="7.0">
+					<header>
+						<button name="reporte_integrantes" type="object" string="Exportar Integrante" class="oe_highlight" />
+					</header>
+					<separator string="Generación de estadísticas"/>
+					<group>
+						<group>
+							<field name="foto" widget="image" class="oe_left oe_avatar" nolabel="1"/>
+						</group>
+						<group>
+						</group>
+					</group>
+					<group>
+						<group>
+							<field name="nacionalidad" nolabel="0" colspan="2"/>
+							<field name="cedula" nolabel="0" colspan="2"/>
+							<field name="nombre_apellido" nolabel="0" colspan="2"/>
+							<field name="edad" nolabel="0" colspan="2"/>
+							<field name="sexo" nolabel="0" colspan="2"/>
+						</group>
+						<group>
+							<field name="estado_civil" nolabel="0" colspan="2"/>
+							<field name="grado_instruc" nolabel="0" colspan="2"/>
+							<field name="centro_votacion" nolabel="0" colspan="2"/>
+							<field name="discapacidad" nolabel="0" colspan="2"/>
+							<field name="tipo_discapacidad" nolabel="0" colspan="2" attrs="{'invisible': [('discapacidad', '!=', '1') ] }"/>
+						</group>
+					</group>
+					<notebook>
+						<page string="Residencia" >
+							<group>
+								<group>
+									<field name="country_id" nolabel="0" colspan="2" invisible="1"/>
+									<field name="estado" nolabel="0" colspan="2" domain="[('country_id','=',country_id)]"/>
+									<field name="municipio" nolabel="0" colspan="2" domain="[('state_id','=',estado)]"/>
+									<field name="parroquia" nolabel="0" colspan="2" domain="[('municipalities_id','=',municipio)]"/>
+									<field name="sector" nolabel="0" colspan="2"/>
+								</group>
+								<group>
+									<field name="direccion" nolabel="0" colspan="2"/>
+									<field name="comuna" nolabel="0" colspan="2"/>
+									<field name="tlf_fijo" nolabel="0" colspan="2"/>
+									<field name="tlf_movil" nolabel="0" colspan="2"/>
+									<field name="correo" nolabel="0" colspan="2"/>
+								</group>
+							</group>
+						</page>
+						<page string="Ocupación" >
+							<group>
+								<group>
+									<field name="profesion" nolabel="0" colspan="2"/>
+									<field name="ocupacion" nolabel="0" colspan="2"/>
+									<field name="experiencia" nolabel="0" colspan="2"/>
+								</group>
+								<group>
+								
+								</group>
+							</group>
+						</page>
+						<page string="Grupo Familiar" >
+							<group>
+								<field name="familiar" nolabel="1" editable="botom"/>
+							</group>
+						</page>
+						<page string="Actividades" >
+							<group>
+								<group>
+									<field name="vinculacion" nolabel="0" colspan="2"/>
+									<field name="militancia_psuv" nolabel="0" colspan="2"/>
+									<field name="otra_responsabilidad" nolabel="0" colspan="2" attrs="{'invisible': [('militancia_psuv', '=', False) ] }"/>
+									<field name="consejo_cumunal" nolabel="0" colspan="2"/>
+									<field name="responsabilidad" nolabel="0" colspan="2" attrs="{'invisible': [('consejo_cumunal', '=', False) ] }"/>
+									<field name="mision_beneficio" widget="many2many_tags" nolabel="0" colspan="2"/>
+<!--
+									<label for="category_ids" class="oe_edit_only" groups="base.group_hr_user"/>
+                  <field name="category_ids" widget="many2many_tags" placeholder="e.g. Part Time" groups="base.group_hr_user"/> Elementos para aplicar al campo 'mision_beneficio'
+-->
+									<field name="nombre_consejo" nolabel="0" colspan="2" attrs="{'invisible': [('consejo_cumunal', '=', False) ] }"/>
+									<field name="otro_ente" nolabel="0" colspan="2"/>
+									<field name="otro_ente_desc" nolabel="0" colspan="2" attrs="{'invisible': [('otro_ente', '=', False) ] }"/>
+								</group>
+							</group>
+						</page>
+						<page string="Valoración Política" >
+							<group>
+								<field name="valoracion_politica" nolabel="1"/>
+							</group>
+						</page>
+					</notebook>
+				</form>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="vista_tree_integrantes">
+			<field name="name">integrantes.tree</field>
+			<field name="model">integrantes.ubch</field>
+			<field name="arch" type="xml">
+				<tree string="Lista de integrantes">
+					<field name="cedula" nolabel="0" colspan="2"/>
+					<field name="nombre_apellido" nolabel="0" colspan="2"/>
+					<field name="edad" nolabel="0" colspan="2"/>
+					<field name="tlf_movil" nolabel="0" colspan="2"/>
+					<field name="correo" nolabel="0" colspan="2"/>
+				</tree>
+			</field>
+		</record>
+		
+		<menuitem name="Integrantes UBCH" id="menu_integrantes"/>
+		<menuitem name="Integrante" id="menu_integrantes_main" parent="menu_integrantes" sequence="1"/>
+		<menuitem name="Reportes" id="menu_reportes_integrantes" parent="menu_integrantes" sequence="2"/>
+		<menuitem name="Configuración" id="menu_configuracion_integrantes" parent="menu_integrantes" sequence="3"/>
+		<menuitem parent="menu_integrantes_main" id="integrante" action="accion_vista_integrantes" name="Ficha Personal"/>
+<!--
+		<menuitem id="menu_principal_mantenimiento" name="Mantenimiento" parent="menu_desarrollo_social" sequence="3"/>
+-->
+
+	</data>
+</openerp>

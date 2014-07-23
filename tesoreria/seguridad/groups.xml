@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<openerp>
+		<data>
+			<!--Registro de grupos iniciales-->
+			<record id="grupo_integrantes_1" model="res.groups">
+					<field name="name">Integrantes UBCH / manager</field>
+			</record>
+			<record id="grupo_integrantes_2" model="res.groups">
+					<field name="name">Integrantes UBCH / usuario</field>
+			</record>
+			<!--Registro de grupos iniciales-->
+		</data>
+	</openerp>

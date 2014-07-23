@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<openerp>
+		<data>
+			<!--Registros básicos para el modelo de grado de instruccion-->
+			
+			<!--Grados de instruccion-->
+			<record id="grado_instruc_1" model="integrante.gradoinstruccion">
+				<field name="grado_instruc">Bachiller</field>
+			</record>
+			<record id="grado_instruc_2" model="integrante.gradoinstruccion">
+				<field name="grado_instruc">Universitario</field>
+			</record>
+			<record id="grado_instruc_3" model="integrante.gradoinstruccion">
+				<field name="grado_instruc">Técnico Medio</field>
+			</record>
+			<record id="grado_instruc_4" model="integrante.gradoinstruccion">
+				<field name="grado_instruc">Técnico Universitario</field>
+			</record>
+			<record id="grado_instruc_5" model="integrante.gradoinstruccion">
+				<field name="grado_instruc">universitario(a) / Licenciado(a)</field>
+			</record>
+			<record id="grado_instruc_6" model="integrante.gradoinstruccion">
+				<field name="grado_instruc">Especialización / Diplomado</field>
+			</record>
+			<record id="grado_instruc_7" model="integrante.gradoinstruccion">
+				<field name="grado_instruc">Maestria</field>
+			</record>
+			<record id="grado_instruc_8" model="integrante.gradoinstruccion">
+				<field name="grado_instruc">Doctorado</field>
+			</record>
+			<!--Grados de instruccion-->
+			
+		</data>
+	</openerp>

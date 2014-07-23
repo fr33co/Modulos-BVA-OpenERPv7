@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	
+	<data>
+		
+		<record model="ir.actions.act_window" id="accion_lista_archivos_integrante">
+			<field name="name">Archivos de integrante</field>
+			<field name="res_model">ir.attachment</field>
+			<field name="view_type">form</field>
+			<field name="domain">[('res_model','ilike','integrantes.ubch')]</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Agregue un nuevo archivo</p>
+			</field>
+		</record>
+		
+		<menuitem parent="menu_reportes_integrantes" id="reporte_integrante" action="accion_lista_archivos_integrante" name="Ficha Integrantes UBCH"/>
+			
+	</data>
+	
+</openerp>

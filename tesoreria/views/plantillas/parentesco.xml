@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	
+	<data>
+			
+		<!--Accionador para el menu de Departamentos-->
+		<record model="ir.actions.act_window" id="accion_lista_parentescos">
+			<field name="name">Parentescos</field>
+			<field name="res_model">becados.parentescos</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Registrar Parentesco</p>
+			</field>
+		</record>
+		<!--Accionador para el menu de Departamentos-->
+		
+		<record model="ir.ui.view" id="vista_formulario_parentescos">
+			<field name="name">parentescos.form</field>
+			<field name="model">becados.parentescos</field>
+			<field name="arch" type="xml">
+				<form string="Formulario de Parentescos">
+					<group colspan="2" col="4">
+						<field name="parentesco" nolabel="0" colspan="2"/>
+					</group>
+				</form>
+			</field>
+		</record>
+		
+		<menuitem id="menu_parentescos" name="Parentescos" parent="menu_secundario_mantenimiento" action="accion_lista_parentescos"/>
+			
+	</data>
+	
+</openerp>
+

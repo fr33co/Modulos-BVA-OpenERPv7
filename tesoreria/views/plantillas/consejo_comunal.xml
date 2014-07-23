@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	
+	<data>
+			
+		<!--Accionador para el menu de (consejo comunal)-->
+		<record model="ir.actions.act_window" id="accion_lista_consejo">
+			<field name="name">Consejo Comunal</field>
+			<field name="res_model">integrante.consejocomunal</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Registrar Consejo Comunal</p>
+			</field>
+		</record>
+		<!--Accionador para el menu de (consejo comunal)-->
+		
+		<record model="ir.ui.view" id="vista_formulario_consejo">
+			<field name="name">consejocomunal.form</field>
+			<field name="model">integrante.consejocomunal</field>
+			<field name="arch" type="xml">
+				<form string="Formulario de registro de consejos comunales" version="7.0">	
+					<group colspan="4" col="3" string="Consejo Comunal">
+						<group colspan="1" col="2">
+							<field name="codigo" invisible="1"/>
+							<field name="consejo_comunal"/>
+						</group>
+					</group>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="vista_lista_consejo">
+			<field name="name">consejocomunal.tree</field>
+			<field name="model">integrante.consejocomunal</field>
+			<field name="arch" type="xml">
+				<tree string="Consejo Comunal" editable="bottom">
+					<field name="codigo" invisible="1"/>
+					<field name="consejo_comunal"/>
+				</tree>
+			</field>
+		</record>
+		
+		<menuitem id="consejo_integrante" name="Consejos Comunales" parent="menu_configuracion_integrantes" action="accion_lista_consejo"/>
+			
+	</data>
+	
+</openerp>
+

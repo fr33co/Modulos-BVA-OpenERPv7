@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+
+	<data>
+		
+		<!--Accionador para el menu de Integrantes-->
+		<record model="ir.actions.act_window" id="accion_vista_bancos">
+		 	<field name="name">Bancos</field>
+			<field name="res_model">tesoreria.banco</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Registrar Nuevo Tipo de Banco</p>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="vista_formulario_bancos">
+			<field name="name">banco.form</field>
+			<field name="model">tesoreria.banco</field>
+			<field name="arch" type="xml">
+				<form string="Actualización de Bancos" version="7.0">
+<!--
+					<header>
+						<button name="reporte_integrantes" type="object" string="Exportar Integrante" class="oe_highlight" />
+					</header>
+-->
+					<separator string="Actualización de Tipos de Bancos"/>
+					<group>
+						<group>
+							<field name="codigo" nolabel="0" colspan="2"/>
+							<field name="descripcion" nolabel="0" colspan="2"/>
+							<!--<field name="secuenciador" nolabel="0" colspan="2"/>-->
+						</group>
+						<group>
+						</group>
+					</group>
+				</form>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="vista_tree_bancos">
+			<field name="name">banco.tree</field>
+			<field name="model">tesoreria.banco</field>
+			<field name="arch" type="xml">
+				<tree string="Lista de bancos">
+					<field name="codigo" nolabel="0" colspan="2"/>
+					<field name="descripcion" nolabel="0" colspan="2"/>
+					<!--<field name="secuenciador" nolabel="0" colspan="2"/>-->
+				</tree>
+			</field>
+		</record>
+		
+<!--
+		<menuitem name="Tesorería" id="menu_tesoreria"/>
+		<menuitem name="Actualizar" id="menu_actualizar_main" parent="menu_tesoreria" sequence="1"/>
+		
+		<menuitem name="Reportes" id="menu_reportes_integrantes" parent="menu_integrantes" sequence="2"/>
+		<menuitem name="Configuración" id="menu_configuracion_beneficiarios" parent="menu_beneficiarios" sequence="3"/>
+-->
+		<menuitem parent="menu_actualizar_main" id="banco" action="accion_vista_bancos" name="Banco"/>
+
+	</data>
+</openerp>
+

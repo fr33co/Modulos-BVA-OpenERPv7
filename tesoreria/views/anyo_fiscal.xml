@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+
+	<data>
+		
+		<record model="ir.actions.act_window" id="accion_vista_anyofiscal">
+		 	<field name="name">Ejercicio Fiscal</field>
+			<field name="res_model">tesoreria.anyofiscal</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Ejercicio Fiscal</p>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="vista_formulario_anyofiscal">
+			<field name="name">anyofiscal.form</field>
+			<field name="model">tesoreria.anyofiscal</field>
+			<field name="arch" type="xml">
+				<form string="Cambiar el Ejercicio Fiscal" version="7.0">
+<!--
+					<header>
+						<button name="reporte_integrantes" type="object" string="Exportar Integrante" class="oe_highlight" />
+					</header>
+-->
+					<separator string="Cambiar el Ejercicio Fiscal"/>
+					<group>
+						<group>
+							<field name="anyo_fiscal" nolabel="0" colspan="2"/>
+						</group>
+						<group>
+						</group>
+					</group>
+				</form>
+			</field>
+		</record>
+		
+<!--
+		<menuitem name="Tesorería" id="menu_tesoreria"/>
+		<menuitem name="Actualizar" id="menu_actualizar_main" parent="menu_tesoreria" sequence="1"/>
+		
+		<menuitem name="Reportes" id="menu_reportes_integrantes" parent="menu_integrantes" sequence="2"/>
+		<menuitem name="Configuración" id="menu_configuracion_beneficiarios" parent="menu_beneficiarios" sequence="3"/>
+-->
+		<menuitem parent="menu_actualizar_main" id="anyofiscal" action="accion_vista_anyofiscal" name="Año Fiscal"/>
+
+	</data>
+</openerp>
+
+

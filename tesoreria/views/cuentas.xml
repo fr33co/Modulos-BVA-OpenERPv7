@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+
+	<data>
+		
+		<record model="ir.actions.act_window" id="accion_vista_cuentas">
+		 	<field name="name">Cuentas</field>
+			<field name="res_model">tesoreria.cuenta</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Registrar Nueva Cuenta</p>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="vista_formulario_cuentas">
+			<field name="name">cuenta.form</field>
+			<field name="model">tesoreria.cuenta</field>
+			<field name="arch" type="xml">
+				<form string="Actualización de Cuentas Bancarias" version="7.0">
+<!--
+					<header>
+						<button name="reporte_integrantes" type="object" string="Exportar Integrante" class="oe_highlight" />
+					</header>
+-->
+					<separator string="Actualización de Cuentas Bancarias"/>
+					<group>
+						<group>
+							<field name="codigo" nolabel="0" colspan="2" invisible="0"/>
+							<field name="tipo_banco" nolabel="0" colspan="2" on_change="generar_codigo(tipo_banco)"/>
+							<field name="cuenta" nolabel="0" colspan="2"/>
+							<field name="tipo" nolabel="0" colspan="2"/>
+							<field name="descripcion" nolabel="0" colspan="2"/>
+							<field name="estatus" nolabel="0" colspan="2"/>
+						</group>
+						<group>
+							<field name="fecha_apertura" nolabel="0" colspan="2"/>
+							<field name="saldo_ini" nolabel="0" colspan="2"/>
+							<field name="saldo_act" nolabel="0" colspan="2"/>
+							<field name="sucursal" nolabel="0" colspan="2"/>
+							<field name="ciudad" nolabel="0" colspan="2"/>
+						</group>
+					</group>
+				</form>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="vista_tree_cuentas">
+			<field name="name">cuenta.tree</field>
+			<field name="model">tesoreria.cuenta</field>
+			<field name="arch" type="xml">
+				<tree string="Lista de bancos">
+					<field name="codigo" nolabel="0" colspan="2"/>
+					<field name="cuenta" nolabel="0" colspan="2"/>
+					<field name="descripcion" nolabel="0" colspan="2"/>
+					<field name="tipo" nolabel="0" colspan="2"/>
+					<field name="fecha_apertura" nolabel="0" colspan="2"/>
+					<field name="saldo_act" nolabel="0" colspan="2"/>
+					<field name="estatus" nolabel="0" colspan="2"/>
+					<field name="sucursal" nolabel="0" colspan="2"/>
+<!--
+					<field name="ciudad" nolabel="0" colspan="2"/>
+-->
+				</tree>
+			</field>
+		</record>
+		
+<!--
+		<menuitem name="Tesorería" id="menu_tesoreria"/>
+		<menuitem name="Actualizar" id="menu_actualizar_main" parent="menu_tesoreria" sequence="1"/>
+		
+		<menuitem name="Reportes" id="menu_reportes_integrantes" parent="menu_integrantes" sequence="2"/>
+		<menuitem name="Configuración" id="menu_configuracion_beneficiarios" parent="menu_beneficiarios" sequence="3"/>
+-->
+		<menuitem parent="menu_actualizar_main" id="cuenta" action="accion_vista_cuentas" name="Cuenta"/>
+
+	</data>
+</openerp>
+
+

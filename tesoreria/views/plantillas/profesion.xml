@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	
+	<data>
+			
+		<!--Accionador para el menu de (Profesión)-->
+		<record model="ir.actions.act_window" id="accion_lista_profesion">
+			<field name="name">Profesión</field>
+			<field name="res_model">integrante.profesion</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Registrar profesiones</p>
+			</field>
+		</record>
+		<!--Accionador para el menu de (Profesión)-->
+		
+		<record model="ir.ui.view" id="vista_formulario_profesion">
+			<field name="name">profesion.form</field>
+			<field name="model">integrante.profesion</field>
+			<field name="arch" type="xml">
+				<form string="Formulario de registro de profesiones" version="7.0">	
+					<group colspan="4" col="3" string="Profesión">
+						<group colspan="1" col="2">
+							<field name="codigo" invisible="1"/>
+							<field name="profesion"/>
+						</group>
+					</group>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="vista_lista_profesion">
+			<field name="name">profesion.tree</field>
+			<field name="model">integrante.profesion</field>
+			<field name="arch" type="xml">
+				<tree string="Carga Familiar" editable="bottom">
+					<field name="codigo" invisible="1"/>
+					<field name="profesion"/>
+				</tree>
+			</field>
+		</record>
+		
+		<menuitem id="profesion_integrante" name="Profesiones" parent="menu_configuracion_integrantes" action="accion_lista_profesion"/>
+			
+	</data>
+	
+</openerp>
+

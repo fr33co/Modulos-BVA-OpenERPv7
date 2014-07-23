@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	
+	<data>
+			
+		<!--Accionador para el menu de (Ocupación)-->
+		<record model="ir.actions.act_window" id="accion_lista_ocupacion">
+			<field name="name">Ocupación</field>
+			<field name="res_model">integrante.ocupacion</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Registrar Ocupación</p>
+			</field>
+		</record>
+		<!--Accionador para el menu de (Ocupación)-->
+		
+		<record model="ir.ui.view" id="vista_formulario_ocupacion">
+			<field name="name">ocupacion.form</field>
+			<field name="model">integrante.ocupacion</field>
+			<field name="arch" type="xml">
+				<form string="Formulario de registro de ocupaciones" version="7.0">	
+					<group colspan="4" col="3" string="Ocupación">
+						<group colspan="1" col="2">
+							<field name="codigo" invisible="1"/>
+							<field name="ocupacion"/>
+						</group>
+					</group>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="vista_lista_ocupacion">
+			<field name="name">ocupacion.tree</field>
+			<field name="model">integrante.ocupacion</field>
+			<field name="arch" type="xml">
+				<tree string="Ocupación" editable="bottom">
+					<field name="codigo" invisible="1"/>
+					<field name="ocupacion"/>
+				</tree>
+			</field>
+		</record>
+		
+		<menuitem id="ocupacion_integrante" name="Ocupaciones" parent="menu_configuracion_integrantes" action="accion_lista_ocupacion"/>
+			
+	</data>
+	
+</openerp>
+
