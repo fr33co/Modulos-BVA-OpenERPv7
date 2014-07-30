@@ -49,7 +49,8 @@ class NominaBecadoIndividual(osv.Model):
 						bono_mes = (leer_tipobeca[0]['asignacion']*3)/12
 						bono_total = bono_mes*int(cant_meses)
 						valores.update({
-							'monto' : leer_tipobeca[0]['asignacion']+bono_total,
+							'monto' : bono_total,
+							#~ 'monto' : leer_tipobeca[0]['asignacion']+bono_total, Esta opción es por si se necesita generar la nómina junto con el bono
 						})
 				else:
 					valores.update({

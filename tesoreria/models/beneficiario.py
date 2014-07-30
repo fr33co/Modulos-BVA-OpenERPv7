@@ -15,7 +15,7 @@ class Beneficiario(osv.Model):
 
 	_columns = {
 		'nacionalidad' : fields.selection((('1','V'),('2','E')),"Nacionalidad", required = False),
-		'tipo_benef' : fields.selection((('1','Uno'),('2','Dos')), "Tipo de Benef/Prov/Dpto", required = True),
+		'tipo_benef' : fields.many2one("tesoreria.tipobeneficiario", "Tipo de Benef/Prov/Dpto", required = True),
 		'cedula_rif': fields.char(string = "Cédula o Rif", size = 9, required = True, help="Indique la cedula o el rif"),
 		'nombre' : fields.char(string="Nombre o Razón Social", required = True),
 		'country_id' : fields.many2one("res.country", "País", required=True),
