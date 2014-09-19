@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+			<record model="ir.actions.act_window" id="action_solicitud_materiales">
+			    <field name="name">Solicitud de Materiales</field>
+			    <field name="res_model">comp.entrada.materiales</field>
+			    <field name="view_type">form</field>
+			    <field name="view_mode">tree,form</field>
+			</record>
+    
+			<record id="view_solicitud_m_c" model="ir.ui.view">
+				<field name="name">Solicitud de Materiales</field>
+				<field name="model">comp.entrada.materiales</field>
+				<field name="arch" type="xml">
+						<form string="Solicitud de Materiales" version="7.0">
+				    <header>
+							<button name="emitir_solicitud_material" type="object" string="Realizar Solicitud Presupuestaria" class="detallado" confirm="¿Esta seguro que desea Remitir la Solicitud de Materiales?" attrs="{'invisible':[('id','=', False)]}"/>
+				    </header>
+				    <sheet>
+								<center>
+									
+										<div class="oe_form_sheetbg">
+												<table style="width:700px;">
+													<tr class="separator">
+														<td colspan="4">Solicitud de Materiales Presupuestario</td>
+													</tr>
+													<tr>
+														<td id="bold">Fecha Presupuestaria</td>
+														<td><field name="fecha" placeholder="Fecha de Solicitud Presupuestaria"/></td>
+														<td id="bold">Solicitante</td>
+														<td><field name="solicitante" placeholder="Area Solicitante"/></td>
+													</tr>
+													<tr>
+														<td id="bold">Proveedor</td>
+														<td colspan="3">
+															<field name="proveedor"/>
+															<field name="id" invisible="1"/>
+															</td>
+													</tr>
+													<tr>
+														<td id="bold_color" colspan="4">
+															<notebook colspan="4">
+																<page string="Solicitud de Material Presupuestario">
+																	<field name="material_id_compras" nolabel="1">
+																		<tree string="Materiales a Solicitar" editable="bottom">
+																			<field name="partida" placeholder="Partida Presupuestaria" on_change="search_m(partida,'2')"/>
+																			<field name="part"/>
+																			<field name="cod_part_g" placeholder="General"/>
+																			<field name="cod_part_e" placeholder="Especifica"/>
+																			<field name="cod_part_sub_e" placeholder="Sub Especifica"/>
+																			<field name="tipo" placeholder="Tipo de Material"/>
+																			<field name="descripcion" on_change="search_m(descripcion,'1')" domain="[('t_materiales','=',tipo)]" placeholder="Descripción del Material"/>
+																			<field name="cantidad" placeholder="Cantidad"/>
+<!--
+																			<field name="modelo" placeholder="Modelo"/>
+																			<field name="marca" placeholder="Marca"/>
+-->
+																			<field name="unidad" placeholder="Unidad"/>
+																			<field name="foto_referencial" widget="image" class="oe_left oe_avatar" nolabel="0" invisible="1"/>
+																		</tree>
+																	</field>
+																</page>
+															</notebook>
+														</td>
+													</tr>
+													<tr>
+														<td id="titulo" style="font-weigth:bold;">Observaciones</td>
+													</tr>
+													<tr>
+														<td id="bold" colspan="4">
+															<field name="observaciones"/>
+														</td>
+													</tr>
+												</table>
+										</div>
+								</center>
+						</sheet>
+						</form>                     
+				</field>
+			</record>
+
+			<!-- Forma de busqueda para Solicitud de Materiales-->
+			<!--<record model="ir.ui.view" id="search_recurso_logistico">
+				<field name="name">Solicitud de Materiales.search</field>
+				<field name="model">comp.entrada.materiales</field>
+				<field name="arch" type="xml">
+                                    <search string="Busqueda de Grado">
+                                        <filter name="tipo" domain="[('tipo','=', uid)]" string="Busqueda de tipo Grado de Instrucción" icon="terp-partner" />
+                                        <field name="tipo" />
+                                        <field name="grado" />
+                                    </search>
+				</field>			
+			</record>-->
+
+			<record model="ir.ui.view" id="solicitud_m_c_tree">
+			<field name="name">Solicitud de Materiales.tree</field>
+			<field name="model">comp.entrada.materiales</field>
+			<field name="arch" type="xml">
+			<tree string="Lista de Solicitud de Materiales">
+					<field name="nombre"/>
+					<field name="solicitante"/>
+			</tree>
+			</field>
+                        </record>
+        
+        <menuitem parent="menu_gestion_compras_main" id="menu_solicitud_s_com" action="action_solicitud_materiales" name="Solicitud de Materiales (Partidas)" sequence="4"/>
+    </data>
+</openerp>

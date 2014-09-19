@@ -14,5 +14,5 @@ hr_concepts_full_BVA,hr_concepts_full_BVA,model_hr_concepts,res_groups_rrhh,1,1,
 ir_attachment_employee_full_BVA,ir_attachment_employee_full_BVA,model_ir_attachment_employee,res_groups_rrhh,1,0,1,0
 hr_ticket_full_BVA,hr_ticket_full_BVA,model_hr_ticket,res_groups_rrhh,1,1,1,1
 hr_asig_alimenacion_full_BVA,hr_asig_alimenacion_full_BVA,model_hr_asig_alimenacion,res_groups_rrhh,1,1,1,0
-hr_propietario,hr_propietario_full_BVA,model_hr_propietario,res_groups_rrhh,1,1,1,1
+hr_employee_quincena,hr_employee_quincena_full_BVA,model_hr_employee_quincena,res_groups_rrhh,1,1,1,1
 

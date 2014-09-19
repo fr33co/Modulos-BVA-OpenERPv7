@@ -530,6 +530,8 @@
                 <field name="name">Proceso de Selección</field>
                 <field name="context">{}</field>
             </record>
+            
+            
 <!--===================================================================-->
                         <!-- Grado de Instrucción -->
 <!--===================================================================-->
@@ -675,7 +677,7 @@
             </record>
             <record id="job_17" model="hr.job">
                 <field name="cod">00-017</field>
-                <field name="name">Gerente de Desarollo Social</field>
+                <field name="name">Gerente de Desarrollo Social</field>
                 <field name="nivel">1</field>
             </record>
             <record id="job_18" model="hr.job">
@@ -685,12 +687,12 @@
             </record>
             <record id="job_19" model="hr.job">
                 <field name="cod">00-019</field>
-                <field name="name">Gerente de Desarollo y Aplicaciones</field>
+                <field name="name">Gerente de Desarrollo y Aplicaciones</field>
                 <field name="nivel">1</field>
             </record>
             <record id="job_20" model="hr.job">
                 <field name="cod">00-020</field>
-                <field name="name">Gerente de Desarollo y Aplicaciones (E)</field>
+                <field name="name">Gerente de Desarrollo y Aplicaciones (E)</field>
                 <field name="nivel">1</field>
             </record>
             <record id="job_21" model="hr.job">

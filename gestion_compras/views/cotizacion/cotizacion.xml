@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+	<record model="ir.actions.act_window" id="action_c">
+	    <field name="name">Gestión de Compras / Cotizacion</field>
+	    <field name="res_model">cotizacion</field>
+	    <field name="view_type">form</field>
+	    <field name="view_mode">tree,form</field>
+	</record>
+
+	<record id="vista_compras" model="ir.ui.view">
+	    <field name="name">Gestión de Compras / Cotizacion</field>
+	    <field name="model">cotizacion</field>
+	    <field name="arch" type="xml">
+		<form string="Formulario de Grado" version="7.0">
+		    <header>
+			<button name="send_cotizacion" type="object" string="Enviar por Correo Electrónico" confirm="¿Esta seguro que desea enviar el proceso de la Cotización al Proveedor?" class="detallado" icon="terp-mail-message-new"/>
+			<button name="generar_cotizacion" type="object" string="Imprimir" confirm="¿Esta seguro que desea Imprimir el Formato de Cotización?" class="detallado" attrs="{'invisible':[('id','=', False)]}"/>
+			<button name="cancelar_cotizacion" type="object" string="Cancelar Pedido" confirm="¿Esta seguro que desea canselar el Pedido?" class="detallado" attrs="{'invisible':[('status','in', ('realizado'))]}"/>
+			
+			<!--FLUJO DE TRABAJO PROCESO DE COTIZACION-->
+			<field name="status" widget="statusbar" statusbar_colors='{"progress":"red"}' />
+			
+		    </header>
+		    <center>
+			<br/>
+			<sheet>
+			<div class="oe_form_sheetbg">
+			<table style="width:860px;font-weight:bold;">
+			    <tr>
+				<td class="separator" colspan="4">Proceso de Cotización</td>
+			    </tr>
+			    <tr>
+				<td>
+				    Proveedor
+				</td>
+				<td>
+				    <field name="proveedor" widget="selection"/>
+				    <field name="id" invisible="1"/>
+				</td>
+				<td>
+				    Fecha / Cotizacion
+				</td>
+				<td>
+				    <field name="fecha_orden"/>
+				</td>
+			    </tr>
+			    <tr>
+				<td>
+				    Referencia del Proveedor
+				</td>
+				<td>
+				    <field name="referencia_proveedor"/>
+				    <field name="user" invisible="1"/>
+				</td>
+				<td>N° Cotizacion</td>
+				<td style="width:10px;"><field name="n_cotizacion"/></td>
+			    </tr>
+			    <tr>
+				<td>Unidad Solicitante</td>
+				<td><field name="unidad" widget="selection"/></td>
+				<td>Telefono</td>
+				<td>
+				    <field name="tlf"/>
+				    <div id="titulo">Ejemplo: 0000-000-00-00</div>
+				</td>
+			    </tr>
+			    <tr>
+				<td>Solicitud</td>
+				<td><field name="item" style="width:150px;"/></td>
+			    </tr>
+			    <tr>
+				<td colspan="6">
+				    <notebook colspan="4">
+					<page string="Materiales para la Solicitud de Cotizaciones">
+					    <field name="material_ids" nolabel="1" on_change="red_cotizacion(material_ids)">
+								<tree string="Materiales a Solicitar" editable="bottom">
+										<field name="tipo" placeholder="Tipo"/>
+										<field name="descripcion" on_change="search_materiales(descripcion)" domain="[('t_materiales','=',tipo)]" placeholder="Descripción del Material"/>
+										<field name="cantidad" placeholder="Cantidad"/>
+										<field name="modelo" placeholder="Modelo"/>
+										<field name="marca" placeholder="Marca"/>
+										<field name="unidad" placeholder="Unidad"/>
+										<field name="foto_referencial" widget="image" class="oe_left oe_avatar" nolabel="0"/>
+								</tree>
+					    </field>
+					</page>
+					
+				    </notebook>
+				</td>
+			    </tr>
+			    <tr>
+				<td>Direccion</td>
+			    </tr>
+			    <tr>
+				<td colspan="4">
+				    <field name="direccion"/>
+				</td>
+			    </tr>
+			    <tr>
+				<td colspan="4">
+				    <div id="titulo" style="text-align:center;background-color:#FFFFFF;">
+					Desarrollado en la Gerencia de Desarrollo y Aplicaciones con Tecnología OpenERP 7.0<br/> Ing. Jesús Laya
+				    </div>
+				</td>
+			    </tr>
+			</table>
+			</div>
+		</sheet>
+		    </center>
+		</form>
+	    </field>
+	</record>
+	<!--LISTA TREE COTIZACION-->
+	<record model="ir.ui.view" id="cotizacion_tree">
+	    <field name="name">Grado.tree</field>
+	    <field name="model">cotizacion</field>
+	    <field name="arch" type="xml">
+		    <tree string="Lista de Cotizaciones">
+			    <field name="proveedor"/>
+			    <field name="unidad"/>
+			    <field name="n_cotizacion"/>
+			    <field name="fecha_orden"/>
+			    <field name="referencia_proveedor"/>
+			    <field name="material_ids"/>
+			    <field name="item"/>
+		    </tree>
+	    </field>
+	</record>
+	
+	<menuitem name="Unidad Compras" id="menu_gestion_compras"/>
+	<menuitem name="Compras" id="menu_gestion_compras_main" parent="menu_gestion_compras" sequence="1"/>
+	<menuitem parent="menu_gestion_compras_main" id="compras" action="action_c" name="Solicitud de Cotizaciones" sequence="1"/>
+    </data>
+</openerp>

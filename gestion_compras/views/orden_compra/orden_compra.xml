@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+	<record model="ir.actions.act_window" id="action_orden_compras">
+	    <field name="name">Orden de Compra</field>
+	    <field name="res_model">orden.compra</field>
+	    <field name="view_type">form</field>
+	    <field name="view_mode">tree,form</field>
+	</record>
+
+	<record id="vista_orden_compras" model="ir.ui.view">
+	    <field name="name">Orden de Compra</field>
+	    <field name="model">orden.compra</field>
+	    <field name="arch" type="xml">
+		<form string="Formulario de Grado" version="7.0">
+		    <header>
+			<button name="generar_orden" type="object" string="Generar Orden de Compra" confirm="¿Esta seguro que desea generar la Orden de Compra?" class="detallado" attrs="{'invisible':[('id','=', False)]}"/>
+			
+<!--
+			<button string="Aprobar Orden" name="script_aprobado" type="object" class="detallado" />
+-->
+			<field name="state" widget="statusbar"/>
+		    </header>
+                    <sheet>
+                    <div class="oe_form_sheetbg">
+		    <center>
+			<br/>
+                <div class="separator">      
+				Orden de Compra Ejercicio Fiscal
+                <field name="ano_fiscal" class="oe_inline" readonly="1"/>
+                </div>
+                        <!--PANELES DE SELECCION-->
+                        <notebook colspan="4">
+                            
+                            <page string="Orden de Compra">
+                                <div class="oe_form_sheetbg">
+                                <table style="width:860px;font-weight:bold;">
+                                    <tr>
+                                        <td>
+                                            Tipo Doc
+                                        </td>
+                                        <td>
+                                            <field name="tipo_doc" placeholder="Tipo Documento"/>
+                                            <field name="id" invisible="1"/>
+                                        </td>
+                                        <td>Número</td>
+                                        <td>
+                                            <field name="numero" class="oe_inline" placeholder="N° Correlativo"/>
+					    <field name="oficio" class="oe_inline" placeholder="N° de Oficio" invisible="1"/>
+                                        </td>
+                                        <td>Fecha de la Orden</td>
+                                        <td>
+                                            <field name="fecha"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td id="titulo">Beneficiario</td>
+                                        <td><field name="beneficiario" placeholder="Beneficiario"/></td>
+                                        <td>Cedula o Rif</td>
+                                        <td><field name="ced_rif" class="oe_inline" placeholder="Cedula o Rif" id="titulo2"/></td>
+                                        <td id="titulo">Unidad Solicitante</td>
+                                        <td><field name="unidad" placeholder="Unidad Solicitante"/></td>
+                                    </tr>
+				    <tr><td>Telefono</td>
+					<td><field name="tlf"/></td>
+				    </tr>
+                                </table>
+                                </div>
+                                <notebook colspan="4">
+                                    <page string="Requisicion">
+                                    <div class="oe_form_sheetbg">
+                                    <table style="width:860px;font-weight:bold;">
+                                        <tr>
+                                            <td>Fecha / Requisicion <field name="fecha_req"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Requisicion</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="6">
+                                                <field name="requisicion" placeholder="Requisicion"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    </div>
+                                    </page>
+                                    <page string="Concepto / Proyecto y Accion de la Orden">
+                                        <div class="oe_form_sheetbg">
+                                        <table style="width:870px;font-weight:bold;">
+                                            <tr>
+                                                <td>Concepto</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="6">
+                                                    <field name="concepto" placeholder="Concepto"/>
+						    <field name="user" invisible="1"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="25%%">Proyecto y Accion de la Orden</td>
+                                                <td><field name="proy_accion" placeholder="Proyecto y Accion de la Orden"/></td>
+                                            </tr>
+                                        </table>
+                                        </div>
+                                    </page>
+                                </notebook>
+                            </page>
+                            <page string="Detalles de la Orden de Compra">
+                                <div class="oe_form_sheetbg">
+                                <table style="width:860px;font-weight:bold;">
+                                    <tr>
+                                        <td width="25%%">Cod. Presupuestario</td>
+                                        <td>
+																					<field name="cod_pre" class="oe_inline" placeholder="Codigo Presupuestario" on_change="search_proyecto(cod_pre)"/>
+																					</td>
+                                        <td>Disponibilidad</td>
+                                        <td>
+					    <field name="disponibilidad" class="oe_inline" placeholder="Disponibilidad"/>
+					    <div id="titulo" attrs="{'invisible':[('disponibilidad','!=', ('0,0'))]}">Sin Recursos 0,0</div>
+					    <div id="titulo2" attrs="{'invisible':[('disponibilidad','=', ('0,0'))]}">Disponibilidad</div>
+					
+					</td>
+                                    </tr>
+				    <tr>
+					<td id="titulo">Proyecto</td>
+				    </tr>
+				    <tr>
+                                        <td colspan="6">
+					    <field name="proyecto" id="titulo" placeholder="Proyecto..."/>
+					</td>
+				    </tr>
+				    <tr>
+                                        <td colspan="6">
+					    <div class="separator" id="titulo">Materiales para la Orden de Compra</div>
+					</td>
+				    </tr>
+				    <tr>
+					<td>Impuesto Sobre la Renta</td>
+					<td><field name="impuesto" widget="selection"/></td>
+				    </tr>
+                                    <tr>
+                                        <td colspan="6">
+                                            <field name="item_ids" nolabel="1" on_change="total_orden_compra(item_ids)" id="titulo2">
+                                                <tree string="Materiales para la Orden de Compra" editable="bottom">
+                                                    <!--<field name="tipo_doc" placeholder="Tipo Doc"/>-->
+                                                    <!--<field name="numero" placeholder="N° Correlativo"/>-->
+                                                    <field name="categoria" placeholder="Categoria"/>
+                                                    <field name="partida" placeholder="Partida" on_change="search_partida(partida,'1')"/>
+						    <field name="cod_partida" placeholder="Codigo"/>
+                                                    <field name="cantidad" placeholder="cantidad"/>
+                                                    <field name="descripcion" placeholder="Descripcion"/>
+                                                    <field name="unidad" placeholder="Unidad" widget="selection"/>
+                                                    <field name="precio" placeholder="Precio" on_change="search_partida(precio,'2')"/>
+                                                    <field name="sub_total" placeholder="Sub-Total"/>
+                                                    <!--<field name="impuesto" widget="selection" placeholder="Impuesto"/>-->
+                                                </tree>
+					    </field>
+                                        </td>
+                                    </tr>
+				    <tr>
+                                        <td colspan="6">
+					    <div id="barra">
+						<!--BARRA DE ESTADO, PARA LOS MONTOS DE LOS MATERIALES SOLICITADOS, PARA EL PROCESO DE ORDEN DE COMPRA-->
+						<table style="margin-left:650px;">
+						    <tr>
+							<td>IVA</td>
+							<td><field name="iva" class="oe_inline" placeholder="IVA"/></td>
+						    </tr>
+						    <tr>
+							<td>Sub Total</td>
+							<td><field name="sub_total" class="oe_inline" placeholder="Sub Total"/></td>
+						    </tr>
+						    <tr>
+							<td>Total</td>
+							<td><field name="total" class="oe_inline" placeholder="Total"/></td>
+						    </tr>
+						</table>
+					    </div>
+					</td>
+				    </tr>
+                                </table>
+                                </div>
+                            </page>
+                        </notebook>
+                    </center>
+                    </div>
+                    </sheet>
+		</form>
+	    </field>
+	</record>
+	
+	<!--LISTA TREE COTIZACION-->
+	<record model="ir.ui.view" id="orden_compra_tree">
+	    <field name="name">Orden de compra.tree</field>
+	    <field name="model">orden.compra</field>
+	    <field name="arch" type="xml">
+		    <tree string="Lista de Orden de Compra">
+			<field name="tipo_doc"/>
+			<field name="numero"/>
+			<field name="beneficiario"/>
+			<field name="unidad"/>
+		    </tree>
+	    </field>
+	</record>
+	
+	<menuitem parent="menu_gestion_compras_main" id="menu_orden_compras" action="action_orden_compras" name="Orden de Compra" sequence="4"/>
+    </data>
+</openerp>
