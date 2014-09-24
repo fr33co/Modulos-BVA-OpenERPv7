@@ -1,0 +1,90 @@
+
+
+
+#bold_color{
+	font-weight:bold;
+	color:#8F241D;
+}
+
+#bold{
+	font-weight:bold;
+}
+
+.separator{
+	background-color: #D3E7F7; !import
+	-moz-border-radius:9px;
+	border-radius:9px;
+	color: #537DB3;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+#barra{
+	background-color: #BFBFBF; !import
+	-moz-border-radius:9px;
+	border-radius:9px;
+	color: #1D0C0C;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.kanban_style{
+	background-color: #D3E7F7; !import
+	-moz-border-radius:9px;
+	border-radius:9px;
+	font-size: 12px;
+}
+
+.oe_form_field.fecha,input{
+	background-color: #D4E3ED; !import
+}
+
+.oe_form_sheetbg{
+	
+	border-radius: 9px;
+	-moz-border-radius: 9px;
+}
+
+.div_scroll
+{	width: 800px;
+	height:310px; 
+	overflow-x:hidden;
+	overflow-y:scroll;
+	border-bottom: 0px solid #CCC;
+	
+}
+
+.div_scroll_asid_dec
+{	width: 950px;
+	height:200px; 
+	overflow-x:hidden;
+	overflow-y:scroll;
+	border-bottom: 0px solid #CCC;
+	
+}
+
+#titulo{
+
+    color:red; !important;
+}
+#titulo2{
+
+    color:#1142E0; !important;
+}
+
+.mensaje{
+	background-color:#DFF0D8;
+	color:#2A4E35;width:450px;
+	heigth:150px;
+	-moz-border-radius:9px;
+	border-radius:9px;
+}
+
+.enunciado{
+	background-color: #F7B179; !import
+	-moz-border-radius:9px;
+	border-radius:9px;
+	color: #000000;
+	font-size: 14px;
+	
+}

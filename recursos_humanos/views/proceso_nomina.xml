@@ -20,24 +20,24 @@
 				<header>
 				<field name="state" widget="statusbar"/>
 				<div attrs="{'invisible':[('type_slip','in', (1,2,3,4))]}">
-				<button name="close_payslip_run" type="object" string="Cerrar Pre nómina" class="oe_highlight" confirm="¿Esta seguro que desea cerrar la nómina?" icon="gtk-apply" states="draft"/>
-				<button name="generar_alimentacion" type="object" string="Generar Nómina de Alimentación" class="oe_highlight" confirm="¿Esta seguro que desea Generar la Nómina de  Alimentación?" icon="gtk-apply" states="close"/>
-				<button string="Modificar" name="draft_payslip_run" type="object" states="close" />
+				<button name="close_payslip_run" type="object" string="Cerrar Pre nómina" class="detallado" confirm="¿Esta seguro que desea cerrar la nómina?" icon="gtk-apply" states="draft"/>
+				<button name="generar_alimentacion"  type="object" string="Generar Nómina de Alimentación" class="detallado" confirm="¿Esta seguro que desea Generar la Nómina de  Alimentación?" icon="gtk-apply" states="close"/>
+				<button string="Modificar" name="draft_payslip_run" type="object" states="close" class="detallado" />
 				</div>
 				
 				<div attrs="{'invisible':[('type_slip','in', (5))]}">
-				    <button name="close_payslip_run" type="object" string="Cerrar Pre nómina" states="draft" class="oe_highlight" confirm="¿Esta seguro que desea cerrar la nómina?" icon="gtk-apply"/>
+				    <button name="close_payslip_run" type="object" string="Cerrar Pre nómina" states="draft" class="detallado" confirm="¿Esta seguro que desea cerrar la nómina?" icon="gtk-apply"/>
 				    
 				    <!--Boton para generar el diskette al banco-->
-				    <button name="generate_txt_slip" type="object" string="Diskette al Banco" confirm="¿Desea generar el TXT de todos los empleados, correspondientes a la nómina?" icon="gtk-apply" attrs="{'invisible': [('state', '!=', 'close') ] }" class="oe_highlight"/>
-				    <button name="generate_xsl_slip" type="object" string="Resumen de Conceptos por Banco" confirm="¿Desea generar el XSL de todos los empleados, correspondientes a la nómina?" icon="gtk-apply" attrs="{'invisible': [('state', '!=', 'close') ] }" class="oe_highlight"/>
+				    <button name="generate_txt_slip" type="object" string="Diskette al Banco" confirm="¿Desea generar el TXT de todos los empleados, correspondientes a la nómina?" icon="gtk-apply" attrs="{'invisible': [('state', '!=', 'close') ] }" class="detallado"/>
+				    <button name="generate_xsl_slip" type="object" string="Resumen de Conceptos por Banco" confirm="¿Desea generar el XSL de todos los empleados, correspondientes a la nómina?" icon="gtk-apply" attrs="{'invisible': [('state', '!=', 'close') ] }" class="detallado"/>
 				    <!--Boton para crear listado de Pre nomina-->
-				    <button name="generate_pre_slip" type="object" string="Pre-nómina"  confirm="¿Desea generar el listado de la pre nómina?" icon="gtk-apply" attrs="{'invisible': [('state', '!=', 'draft') ] }" class="oe_highlight"/>
+				    <button name="generate_pre_slip" type="object" string="Pre-nómina"  confirm="¿Desea generar el listado de la pre nómina?" icon="gtk-apply" attrs="{'invisible': [('state', '!=', 'draft') ] }" class="detallado"/>
 				    <!--Boton para generar la nomina-->
-				    <button name="generate_pre_slip" type="object" string="Resumen de Nómina"  confirm="¿Desea generar el listado de la Nómina?" icon="gtk-apply" attrs="{'invisible': [('state', '!=', 'close') ] }" class="oe_highlight"/>
-				    <button name="generate_pre_slip" type="object" string="Detallado por Banco"  confirm="¿Desea generar el listado de la Nómina?" icon="gtk-apply" attrs="{'invisible': [('state', '!=', 'close') ] }" class="oe_highlight"/>
-				    <button name="generate_pre_slip" type="object" string="Resumen por Personal"  confirm="¿Desea generar el listado de la Nómina?" icon="gtk-apply" attrs="{'invisible': [('state', '!=', 'close') ] }" class="oe_highlight"/>
-				    <button string="Modificar" name="draft_payslip_run" type="object" states="close" />
+				    <button name="generate_pre_slip" type="object" string="Resumen de Nómina"  confirm="¿Desea generar el listado de la Nómina?" icon="gtk-apply" attrs="{'invisible': [('state', '!=', 'close') ] }" class="detallado"/>
+				    <button name="generate_pre_slip" type="object" string="Detallado por Banco"  confirm="¿Desea generar el listado de la Nómina?" icon="gtk-apply" attrs="{'invisible': [('state', '!=', 'close') ] }" class="detallado"/>
+				    <button name="generate_pre_slip" type="object" string="Resumen por Personal"  confirm="¿Desea generar el listado de la Nómina?" icon="gtk-apply" attrs="{'invisible': [('state', '!=', 'close') ] }" class="detallado"/>
+				    <button string="Modificar" name="draft_payslip_run" type="object" states="close" class="detallado" />
 				</div>
 				
 			</header>
@@ -89,7 +89,7 @@
 					    <tr>
 						<td>
 						    <font style="color:red;">
-							<button name="mount_slip_ids" type="object" string="Monto" attrs="{'invisible': [('state', '=', 'close') ] }" confirm="Desea realizar el calculo para el total de la quincena de este mes?"/>
+							<button name="mount_slip_ids" class="detallado" type="object" string="Monto" attrs="{'invisible': [('state', '=', 'close') ] }" confirm="Desea realizar el calculo para el total de la quincena de este mes?"/>
 						    </font>
 						    <font style="color:white;">--</font>
 						</td>
@@ -99,6 +99,10 @@
 						<td>
 						    <field name="mount" style="width:65%%;" readonly="1"/>
 						</td>
+						<td>
+						    <button name="vincular_quincena" class="detallado" type="object" string="Vincular / Quincena" attrs="{'invisible':[('type_slip','in', (5))]}" confirm="Desea vincular las Quincena a los Empleados?"/>
+						</td>
+						
 					    </tr>
 					    </table>
 					    </div>
@@ -107,6 +111,21 @@
 						<div class="div_scroll">
 					    <field name="alim_ids" nolabel="1" mode="tree" domain= "[('class_personal','=',class_personal),('status','=',1)]"/>
 					    </div>
+					</page>
+					<page string="Salario Integral / Empleado" attrs="{'invisible':[('type_slip','in', (5))]}">
+					    <table>
+						<tr>
+						    <td>
+							<field name="hr_ids" nolabel="1">
+							    <tree string="Salario Integral Quincenal" editable="bottom">
+								<field name="cedula" placeholder="Cédula"/>
+								<field name="nombre" placeholder="Nombre"/>
+								<field name="monto_quincena" placeholder="Salario / Integral"/>
+							    </tree>
+							</field>
+						    </td>
+						</tr>
+					    </table>
 					</page>
 				</notebook>
 				</td>

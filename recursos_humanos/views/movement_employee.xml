@@ -15,6 +15,7 @@
 	    <field name="arch" type="xml">
 		<form string="Asignación de movimiento a empleados" version="7.0">
 			<header>
+				<button name="estado" type="object" string="Realizar enlace" class="detallado" icon="gtk-apply"/>
           		<field name="state" widget="statusbar" statusbar_colors='{"progress":"red"}' />
 			</header>
 		    <fielset>
@@ -50,7 +51,7 @@
 							<td style="width:150px;"><b>Cédula</b></td>
 							<td><!--on_change="data_employee(cedula)"-->
 							    <field name="cedula" style="width:100px;border-color:white;" readonly="1"/>
-							    <button name="actualizar" string="Actualizar montos" type="object" attrs="{'invisible': ['|',('state', '=', '5'),('state', '=', '7')]}"/>
+							    <button name="actualizar" string="Actualizar montos" class="detallado" type="object" attrs="{'invisible': ['|',('state', '=', '5'),('state', '=', '7')]}" invisible="1"/>
 							</td>
 							<td style="width:150px;"><b>Fecha de ingreso</b></td>
 							<td>
@@ -108,11 +109,12 @@
 						    <tr>
 							<td><b>Frecuencia</b></td>
 							<td><field name="frecuencia" placeholder="Frecuencia"/></td>
+							<td attrs="{'invisible': [('codigo', '!=', '126'),('codigo', '!=', '142')] }">
+							    <button name="generar" type="object" string="Procesar" class="detallado" icon="gtk-apply" invisible="1"/>
+							</td>
+							<td attrs="{'invisible': [('codigo', '!=', '126'),('codigo', '!=', '142')] }">Tipo Bono <field name="tipo_bono"/></td>
 							<td attrs="{'invisible': [('codigo', '!=', '104'),('codigo', '!=', '243'),('codigo', '!=', '107'),('codigo', '!=', '208'),('codigo', '!=', '210'),('codigo', '!=', '249'),('codigo', '!=', '168'),('codigo', '!=', '154'),('codigo', '!=', '303'),('codigo', '!=', '304'),('codigo', '!=', '305'),('codigo', '!=', '306'),('codigo', '!=', '509'),('codigo', '!=', '605'),('codigo', '!=', '606'),('codigo', '!=', '607'),('codigo', '!=', '608'),('codigo', '!=', '519'),('codigo', '!=', '604'),('codigo', '!=', '908'),('codigo', '!=', '185')] }">
 							    <b>Monto en Bs</b>
-							</td>
-							<td attrs="{'invisible': [('codigo', '!=', '126'),('codigo', '!=', '142')] }">
-							    <b>Bono</b>
 							</td>
 							<td attrs="{'invisible': [('codigo', '!=', '502'),('codigo', '!=', '561'),('codigo', '!=', '514'),('codigo', '!=', '562')]}">
 								<b>Cant lunes</b>
@@ -126,7 +128,8 @@
 							<td attrs="{'invisible': [('codigo', '!=', '008'),('codigo', '!=', '009'),('codigo', '!=', '101'),('codigo', '!=', '103'),('codigo', '!=', '125'),('codigo', '!=', '134'),('codigo', '!=', '143'),('codigo', '!=', '150'),('codigo', '!=', '151'),('codigo', '!=', '456'),('codigo', '!=', '102'),('codigo', '!=', '182'),('codigo', '!=', '462'),('codigo', '!=', '903'),('codigo', '!=', '183'),('codigo', '!=', '184'),('codigo', '!=', '149') ] }">
 							    <field name="formula" placeholder="Formula"/>
 							</td>
-						    </tr>
+						    </tr> 
+						    
 						    <tr>
 							<td attrs="{'invisible': [('codigo', '!=', '008'),('codigo', '!=', '009'),('codigo', '!=', '101'),('codigo', '!=', '103'),('codigo', '!=', '125'),('codigo', '!=', '134'),('codigo', '!=', '143'),('codigo', '!=', '150'),('codigo', '!=', '151'),('codigo', '!=', '456'),('codigo', '!=', '102'),('codigo', '!=', '182'),('codigo', '!=', '462'),('codigo', '!=', '903'),('codigo', '!=', '148'),('codigo', '!=', '183'),('codigo', '!=', '184'),('codigo', '!=', '149') ] }">
 							    <b>Cant</b>
@@ -148,10 +151,10 @@
 						    </tr>
 						    <tr>
 							<td>
-							    <button name="calculo_asig" string="Calcular" type="object"/>
+							    <button name="calculo_asig" string="Calcular" class="detallado" type="object"/>
 							</td>
 							<td>
-							    <button name="resetear" string="Resetear" type="object"/>
+							    <button name="resetear" string="Resetear" class="detallado" type="object"/>
 							</td>
 						    </tr>
 						    </table>
@@ -189,8 +192,8 @@
 							    <field name="codigo_delete_vac" placeholder="Código" attrs="{'invisible': [('nomina_admin', '!=', 3)]}"/>
 							</div>
 							<div style="float:left;width:90px;">
-							    <button name="borrar" string="Borrar" type="object" attrs="{'invisible': [('nomina_admin', '!=', 1)]}"/>
-							    <button name="borrar" string="Borrar" type="object" attrs="{'invisible': [('nomina_admin', '!=', 3)]}"/>
+							    <button name="borrar" string="Borrar" class="detallado" type="object" attrs="{'invisible': [('nomina_admin', '!=', 1)]}"/>
+							    <button name="borrar" string="Borrar" class="detallado" type="object" attrs="{'invisible': [('nomina_admin', '!=', 3)]}"/>
 							</div>
 							</div>
 							<div class="div_scroll_asid_dec" attrs="{'invisible': [('nomina_admin', '!=', 1)]}">
@@ -275,6 +278,7 @@
 		    <field name="nomina_admin"/>
 		    <field name="sueldo"/>
 		    <field name="state"/>
+		    <field name="estado"/>
 		    </search>
 		</field>
 	</record>
@@ -293,6 +297,7 @@
 		    <field name="sueldo"/>
 		    <field name="tree_id" invisible="1"/>
 		    <field name="state"/>
+		    <field name="estado"/>
 		</tree>
 	    </field>
         </record> 

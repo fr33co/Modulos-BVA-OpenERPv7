@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!--  PROCESO DE BUSQUEDA -->
+        <record model="ir.actions.act_window" id="action_hr_filtro">
+            <field name="name">Busqueda Personalizada</field>
+            <field name="res_model">hr.filtro</field>
+            <field name="view_type">form</field>
+            <field  name="view_mode">tree,form</field>
+        </record>
+
+        <record id="view_hr_wizard" model="ir.ui.view">
+            <field name="name">Busqueda Personalizada</field>
+            <field name="model">hr.filtro</field>
+            <field name="arch" type="xml">
+                <form string="Gestión de Reportes" version="7.0">
+                        <table style="width:960px;align:center;">
+                            <tr>
+                                <td class="separator" colspan="2">
+                                    <b>Emisión de Reportes</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="backgroud-color:silver;">
+                                    <b><font color="#FFFFFF">----</font>Constancia:</b>  <field name="constancia"/>
+                                    <b><font color="#FFFFFF">----</font>Solicitud Targeta:</b>  <field name="targeta"/>
+                                    <b><font color="#FFFFFF">----</font>Solicitud Recarga:</b>  <field name="recarga"/>
+                                    <b><font color="#FFFFFF">----</font>Bono Vacacional:</b>  <field name="bonos"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <notebook colspan="4">
+                            <page string="Proceso de Busqueda" attrs="{'invisible':[('constancia','in', (False))]}">
+                            <table>
+                                <tr>
+                                    <td><b>Cédula: </b></td>
+                                    <td><field name="cedula"/></td>
+                                </tr>
+                            </table>
+                            <table>
+                                <tr>
+                                    <td colspan="2">
+                                        <button name="emitir_contancia" type="object" string="Generar Constancia" icon="gtk-apply" class="detallado"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            </page>
+                            <page string="Solicitud de Targeta" attrs="{'invisible':[('targeta','in', (False))]}">
+                                <b>Personal: </b><field name="class_personal_targeta" class="oe_inline"/>
+                                <field name="alim_ids" nolabel="1" mode="tree" domain= "['|',('class_personal','=',class_personal_targeta),('status','=',1)'|',('estado','=',2)]"/>
+                                <button name="gestion_emitir_detallado" type="object" string="Generar Solicitud de Targeta" icon="gtk-apply" class="detallado"/>
+                            </page>
+                            <page string="Solicitud de Recarga" attrs="{'invisible':[('recarga','in', (False))]}">
+                                <b>Personal: </b><field name="class_personal_recarga" class="oe_inline"/>
+                                <field name="recarga_ids" nolabel="1" mode="tree" domain= "['|',('class_personal','=',class_personal_targeta),('status','=',1)'|',('estado','=',2)]"/>
+                                <button name="gestion_emitir_detallado" type="object" string="Generar Solicitud de Recarga" icon="gtk-apply" class="detallado"/>
+                            </page>
+                            <page string="Emisión de Bono Vacacional" attrs="{'invisible':[('bonos','in', (False))]}">
+                            <table>
+                                <tr>
+                                    <td><b>Bono:</b></td>
+                                    <td><field name="cedula_bono"/></td>
+                                </tr>
+                            </table>
+                            <table>
+                                <tr>
+                                    <td colspan="2">
+                                        <button name="emitir_bono" type="object" string="Generar Bono" icon="gtk-apply" class="detallado"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            </page>
+                        </notebook>
+                        <table style="width:960px;align:center;">
+                            <tr>
+                                <td class="enunciado">
+                                    <b>Nota: Todos los Documentos se guardaran en la pestaña Reportes </b>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+            </field>
+        </record>
+
+         <act_window name="Busqueda Personalizada"
+            res_model="hr.filtro"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"
+            id="action_hr_filtro"/>
+
+        <menuitem parent="recursos_humanos_main" id="hr_reporte" action="action_hr_filtro" name="Busqueda / Filtros" sequence="5"/>
+
+    </data>
+</openerp>

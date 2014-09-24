@@ -26,3 +26,4 @@ import configuracion_asignacion
 import propietario
 import hr_ticket # Nomina de cesta Ticket
 import hr_asig_alimentacion # Asignacion / Alimentacion
+import hr_filtro

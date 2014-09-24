@@ -844,13 +844,47 @@ class Proceso_Nomina(osv.Model):
 		
 			}, context=context)	
 	
+	
+	
+	#####################################################################################################################
+	def vincular_quincena(self, cr, uid, ids, context=None): # Asignacion de laa Quiincena a los Emplea,dos
+		data_ids = self.read(cr, uid, ids, context=context)[0]
+		quincena_id = data_ids['slip_ids']
+		print "GRUPO DE IDS: "+str(quincena_id)
+		
+		hr_q     = self.pool.get('hr.movement.employee') # Objeto hr_employee (Empleado)
+		datos    = hr_q.search(cr, uid, [('id','=',quincena_id)], context=None) # 
+		quincena = hr_q.read(cr,uid,datos,context=context) # Lectura modo array del objecto
+		
+		for x in quincena:
+			print "CEDULA: "+str(x['cedula'])
+			print "NOMBRES: "+str(x['nombres'])
+			print "MONTO QUINCENAL: "+str(x['monto_c'])
+			
+			cedula   = x['cedula']
+			nombres  = x['nombres']
+			quincena = x['monto_c']
+			
+			for x in self.browse(cr, uid, ids, context=None):
+				id_filter = x.id
+			
+			
+			# Guardamos la data en 
+			self.pool.get('hr.employee.quincena').create(cr, uid, {
+				'cedula': cedula,
+				'nombre': nombres,
+				'monto_quincena': quincena,
+				'quincena_id' : id_filter,
+			
+				}, context=context)
+			
 	#####################################################################################################################
 	#				PROCESO PARA CALCULAR EL MONTO DE LA QUINCENA DEL MES
 	#####################################################################################################################
 	def mount_slip_ids(self, cr, uid, ids, context=None): # Boton de accion para calcular en monto de la quincena del mes
 		
 		values = {}
-		
+		suma   = 0.00
 		data_ids = self.read(cr, uid, ids, context=context)[0] # Lectura de grupo de ids
 		browse_data = self.browse(cr, uid, ids, context=None) #Lectura del propio objeto (Registro
 		
@@ -868,13 +902,10 @@ class Proceso_Nomina(osv.Model):
 		i = 0
 		sumatoria = 0
 		while (i < len(employees)):
-			
-			print "NOMBRES: "+str(employees[i]['nombres'])
-			print "GRUPO DE CONCEPTOS: "+str(employees[i]['movement_ids'])
-			sumatoria +=  float(employees[i]['monto_c'])
+			suma     +=  float(employees[i]['monto_c'])
+			sumatoria =  punto_decimal(str(suma))
 			i = i + 1 # Iteracion de los datos
 		monto = sumatoria
-		print "TOAL DE MONTO: "+str(monto)
 		self.write(cr, uid, ids, {'mount': monto}, context=context)
 	#####################################################################################################################
 	_columns = {
@@ -900,6 +931,7 @@ class Proceso_Nomina(osv.Model):
 		'date_end': fields.date('Hasta', required=True, readonly=True, states={'draft': [('readonly', False)]}),
 		'slip_ids' : fields.many2many("hr.movement.employee","proceso_payslip","id_slip","id_employee","Empleados", required = False,readonly=True, states={'draft': [('readonly', False)]}),
 		'mount' : fields.char(string="Monto", required=False, readonly=True, states={'draft': [('readonly', False)]}),
+		'hr_ids' : fields.one2many('hr.employee.quincena', 'quincena_id', string='Materiales'), 
 	}
 
 	_defaults = {
@@ -910,16 +942,54 @@ class Proceso_Nomina(osv.Model):
 		
 
 	}
+	
+	
+	
+# CLASE PARA LAS ASIGNACIONES DE LO QUE LE CORRESPONDE A LAS QUINCENAS DE LOS TRABAJADORES PARA EL PROCESO DE CALCULO A Y ASIGNACION
+class Quincena_employee(osv.Model):
+	_name="hr.employee.quincena"
+	
+	#_order = 'cedula' # Ordenamos por cedula del empleado
+	#_order = 'nomina_admin' # Ordenamos por nominas
+	#_rec_name = 'nombres'
+	
+	_columns = {
+		'quincena_id' : fields.many2one('hr.payslip.employee', 'hr_ids', ondelete='cascade', select=False),
+		'cedula' : fields.char(string="Cédula", size=11, required=False),
+		'nombre' : fields.char(string="Nombre", size=50, required=False),
+		'monto_quincena' : fields.char(string="Salario Integral / Quincena", size=11, required=False),
+	}
+	
+	_defaults = {
+		
+	}
 
+
+# metodo global para acentos
 def aceptar(cadena):
 	result = cadena.encode('UTF-8').decode('UTF-8') # INSTITUCION
 	return result
 
+# Metodo global para fechas
 def fechas(fecha):
 	date = fecha.split("-")
 	nueva_fecha = date[2]+"/"+date[1]+"/"+date[0]
 	return nueva_fecha
 
+# Metodo global para redondear
 def redondear(cadena):
 	salida = "%.2f" % round(cadena,2)
-	return salida	
+	return salida
+
+# PROCESO DE PUNTO DECIMAL, PARA LA CONVERSION DE CIFRAS
+def punto_decimal(snum):
+    "Adicionar comas como separadores de miles a n. n debe ser de tipo string"
+    s = snum;
+    i = s.index('.') # Se busca la posición del punto decimal
+    while i > 3:
+        i = i - 3
+        s = s[:i] +  '#' + s[i:]
+	
+    n = s.replace(".", ",", 5);
+    t = n.replace("#", ".", 5);
+    return t

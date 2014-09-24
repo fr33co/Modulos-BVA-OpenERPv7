@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+			<record model="ir.actions.act_window" id="action_control_perceptivo">
+			    <field name="name">Solicitud de Materiales</field>
+			    <field name="res_model">control.perceptivo</field>
+			    <field name="view_type">form</field>
+			    <field name="view_mode">tree,form</field>
+			</record>
+    
+			<record id="view_control_perceptivo" model="ir.ui.view">
+				<field name="name">Solicitud de Materiales</field>
+				<field name="model">control.perceptivo</field>
+				<field name="arch" type="xml">
+					<form string="Solicitud de Materiales" version="7.0">
+						<header>
+							<button name="emitir_solicitud_material" type="object" string="Generar Control Perceptivo" class="detallado" confirm="¿Esta seguro que desea Generar el Control Perceptivo?" attrs="{'invisible':[('id','=', False)]}"/>
+							
+				    </header>
+							<center>
+								<sheet>
+									<div class="oe_form_sheetbg">
+											<table style="width:800px;" border="0">
+													<tr>
+															<td colspan="6" style="text-align:left;" class="separator">
+																<b>Control Perceptivo</b>
+															</td>
+													</tr>
+													<tr>
+															<td id="bold">
+																	Área Receptora
+															</td>
+															<td colspan="5">
+																	<field name="solicitante" placeholder="Area Receptora" widget="selection"/>
+																	<field name="id" invisible="1"/>
+															</td>
+													</tr>
+													<tr>
+														<td><b>Documento</b></td>
+														<td id="bold"><field name="documento"/></td>
+														<td id="bold">N° de Identificación</td>
+														<td><field name="n_iden" placeholder="N° de Identificación"/></td>
+														<td style="align:center;" id="bold">
+																	Fecha
+															</td>
+															<td style="align:center;">
+																	<field name="fecha" placeholder="Fecha de Solicitud"/>
+															</td>
+													</tr>
+													<tr>
+														<td><b>Proveedor</b></td>
+														<td colspan="5"><field name="proveedor" widget="selection" placeholder="Proveedor..."/></td>
+													</tr>
+													<tr>
+														<td id="bold">Tipo de Orden</td>
+														<td colspan="3"><field name="tipo_orden" placeholder="Tipo de Orden"/></td>
+														<td id="bold">N° de Orden</td>
+														<td><field name="num_orden" on_change="search_num_orden(num_orden)"/></td>
+													</tr>
+													<tr>
+														<td id="bold">Fecha / Orden</td>
+														<td><field name="fecha_orden"/></td>
+														<td id="bold" style="color:red;">Monto Recibido</td>
+														<td><field name="monto_recibido" placeholder="Monto Recibido"/></td>
+													</tr>
+													<tr>
+														<td id="bold">Encargado</td>
+														<td><field name="encargado" colspan="3"/></td>
+													</tr>
+													<tr>
+														<td colspan="6">
+														<notebook colspan="4">
+															<page string="Control Perceptivo">
+																<field name="material_ids" nolabel="1">
+																	<tree string="Materiales a Solicitar" editable="bottom">
+																		<field name="tipo" placeholder="Tipo"/>
+																		<field name="cantidad" placeholder="Cantidad"/>
+																		<field name="denominacion" placeholder="Denominación del Bien" domain="[('t_materiales','=',tipo)]"/>
+																		<field name="descripcion" placeholder="Descripción del Bien"/>
+																		<field name="modelo" placeholder="Modelo"/>
+																		<field name="marca" placeholder="Marca"/>
+<!--
+																		<field name="tipo" placeholder="Tipo de Material"/>
+-->
+<!--
+																		<field name="unidad" placeholder="Unidad"/>
+-->
+<!--
+																		<field name="foto_referencial" widget="image" class="oe_left oe_avatar" nolabel="0"/>
+-->
+																	</tree>
+																</field>
+															</page>
+															
+														</notebook>
+														</td>
+														</tr>
+													<!--</div>-->
+													<tr>
+															<td colspan="6" style="text-align:left;" class="separator">
+																<b>Información Adicional</b>
+															</td>
+														</tr>
+													<tr>
+													<td colspan="6">
+													<field name="observaciones"/>
+													</td>
+													</tr>
+											</table>
+									</div>
+								</sheet>
+							</center>
+					</form>
+							
+			</field>
+			</record>
+
+			<!-- Forma de busqueda para Solicitud de Materiales-->
+			<!--<record model="ir.ui.view" id="search_recurso_logistico">
+				<field name="name">Solicitud de Materiales.search</field>
+				<field name="model">control.perceptivoitud</field>
+				<field name="arch" type="xml">
+                                    <search string="Busqueda de Grado">
+                                        <filter name="tipo" domain="[('tipo','=', uid)]" string="Busqueda de tipo Grado de Instrucción" icon="terp-partner" />
+                                        <field name="tipo" />
+                                        <field name="grado" />
+                                    </search>
+				</field>			
+			</record>-->
+
+			<record model="ir.ui.view" id="control_perceptivo_tree">
+				<field name="name">Solicitud de Materiales.tree</field>
+				<field name="model">control.perceptivo</field>
+				<field name="arch" type="xml">
+				<tree string="Lista de Solicitud de Materiales">
+						<field name="solicitante"/>
+						<field name="documento"/>
+						<field name="n_iden"/>
+						<field name="fecha"/>
+						<field name="proveedor"/>
+						<field name="tipo_orden"/>
+						<field name="num_orden"/>
+						<field name="fecha_orden"/>
+						<field name="monto_recibido"/>
+						<field name="encargado"/>
+						<field name="material_ids"/>
+				</tree>
+				</field>
+			</record>
+        
+        <menuitem parent="menu_gestion_compras_main" id="menu_control_perceptivo" action="action_control_perceptivo" name="Control Perceptivo" sequence="6"/>
+    </data>
+</openerp>

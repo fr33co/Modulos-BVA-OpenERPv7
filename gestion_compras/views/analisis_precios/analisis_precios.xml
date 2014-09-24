@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+	<record model="ir.actions.act_window" id="action_analisis_precios">
+	    <field name="name">Orden de Compra</field>
+	    <field name="res_model">analisis.precios</field>
+	    <field name="view_type">form</field>
+	    <field name="view_mode">tree,form</field>
+	</record>
+
+	<record id="vista_analisis_precios" model="ir.ui.view">
+	    <field name="name">Orden de Compra</field>
+	    <field name="model">analisis.precios</field>
+	    <field name="arch" type="xml">
+		<form string="Formulario de Grado" version="7.0">
+		    <header>
+			<button name="generar_analisis_precios" type="object" string="Generar Análisis de Precios" confirm="¿Esta seguro que desea generar el Analisis de Precios?" class="detallado" icon="gtk-print" attrs="{'invisible':[('id','=', False)]}"/>
+		    </header>
+                    <center>
+                    <sheet>
+                    <div class="oe_form_sheetbg">
+                    <table style="font-weight:bold;width:860px;">
+                        <tr>
+                            <td class="separator">Observaciones de los Materiales y o Servicios Solicitados</td>
+                        </tr>
+                        <tr>
+                            <td id="titulo">
+                                Impuesto Sobre la Renta (IVA)
+                                <field name="impuesto" widget="selection" placeholder="Impuesto Sobre la Renta (IVA)"/>
+                                <field name="id" invisible="1"/>
+                            </td>
+                        </tr>
+                        <tr>
+													<td id="titulo">Observación</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <field name="descripcion" placeholder="Observaciones de los Materiales y o Servicios representados por los Proveedores"/>
+                            </td>
+                        </tr>
+                        <tr>
+													<td id="titulo">Elaborado por: <field name="elaborado"/></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <notebook colspan="4">
+                                    <page string="Lista de Cotizaciónes">
+                                    <!--###################################################################-->
+                                        <field name="item_one" nolabel="1" on_change="total_cotizacion('1',item_one)" id="titulo2">
+                                            <tree string="Materiales para la Orden de Compra" editable="bottom">
+																								<field name="tipo" placeholder="Tipo"/>
+                                                <field name="descripcion" placeholder="Descripcion" domain="[('t_materiales','=',tipo)]"/>
+<!--
+                                                ELEMENTO PARA LA PESTANA DE COTIZACION I
+-->
+                                                <field name="cantidad_one" placeholder="cantidad"/>
+                                                <field name="unidad_one" placeholder="Unidad" widget="selection"/>
+                                                <field name="precio_one" placeholder="Precio" on_change="search_valores_one(precio_one,'2')"/>
+                                                <field name="sub_total_one" placeholder="Sub-Total"/>
+<!--
+                                                ELEMENTO PARA LA PESTANA DE COTIZACION II -->
+<!--
+                                                <field name="cantidad_two" placeholder="cantidad"/>
+-->
+<!--
+                                                <field name="unidad_two" placeholder="Unidad" widget="selection"/>
+-->
+                                                <field name="precio_two" placeholder="Precio" on_change="search_valores_two(precio_two,'2')"/>
+                                                <field name="sub_total_two" placeholder="Sub-Total"/>
+<!--
+                                                ELEMENTO PARA LA PESTANA DE COTIZACION III
+-->
+<!--
+												<field name="cantidad_tree" placeholder="cantidad"/>
+-->
+<!--
+                                                <field name="unidad_tree" placeholder="Unidad" widget="selection"/>
+-->
+                                                <field name="precio_tree" placeholder="Precio" on_change="search_valores_tree(precio_tree,'2')"/>
+                                                <field name="sub_total_tree" placeholder="Sub-Total"/>
+
+                                            </tree>
+                                        </field>
+                                        
+                                        <table style="width:860px;">
+											<tr style="background-color:#575454;color:#FFFFFF;text-align:center;">
+												<td>Cotizacion I</td>
+												<td>Cotizacion II</td>
+												<td>Cotizacion III</td>
+											</tr>
+											<tr>
+												<td>
+													<div id="barra" style="width:250px;">
+                                            
+														<table style="margin-left:70px;">
+															<tr>
+																<td>IVA</td>
+																<td><field name="iva_one" class="oe_inline" placeholder="IVA"/></td>
+															</tr>
+															<tr>
+																<td>Sub Total</td>
+																<td><field name="sub_total_one" class="oe_inline" placeholder="Sub Total"/></td>
+															</tr>
+															<tr>
+																<td>Total</td>
+																<td><field name="total_one" class="oe_inline" placeholder="Total"/></td>
+															</tr>
+														</table>
+													</div>
+												</td>
+												<td>
+													<div id="barra" style="width:250px;">
+                                            
+														<table style="margin-left:70px;">
+															<tr>
+																<td>IVA</td>
+																<td><field name="iva_two" class="oe_inline" placeholder="IVA"/></td>
+															</tr>
+															<tr>
+																<td>Sub Total</td>
+																<td><field name="sub_total_two" class="oe_inline" placeholder="Sub Total"/></td>
+															</tr>
+															<tr>
+																<td>Total</td>
+																<td><field name="total_two" class="oe_inline" placeholder="Total"/></td>
+															</tr>
+														</table>
+													</div>
+												</td>
+												<td>
+													<div id="barra" style="width:250px;">
+                                            
+														<table style="margin-left:70px;">
+															<tr>
+																<td>IVA</td>
+																<td><field name="iva_tree" class="oe_inline" placeholder="IVA"/></td>
+															</tr>
+															<tr>
+																<td>Sub Total</td>
+																<td><field name="sub_total_tree" class="oe_inline" placeholder="Sub Total"/></td>
+															</tr>
+															<tr>
+																<td>Total</td>
+																<td><field name="total_tree" class="oe_inline" placeholder="Total"/></td>
+															</tr>
+														</table>
+													</div>
+												</td>
+											</tr>
+                                        </table>
+                                    <!--###################################################################-->
+                                    </page>
+                                </notebook>
+                            </td>
+                        </tr>
+                    </table>
+                    </div>
+                    </sheet>
+                    </center>
+		</form>
+	    </field>
+	</record>
+	
+	<!--LISTA TREE PARA LA LISTA DE PROVEEDORES PARA EL PROCESO DE ANALISIS DE PRECIOS DE LA OFERTA DE LOS PRODUCTOS Y O SERVICIOS SOLICITADOS-->
+	<record model="ir.ui.view" id="analisis_precios_tree">
+	    <field name="name">Orden de compra.tree</field>
+	    <field name="model">analisis.precios</field>
+	    <field name="arch" type="xml">
+		    <tree string="Lista de Orden de Compra">
+			<field name="descripcion"/>
+			<field name="iva_one"/>
+			<field name="sub_total_one"/>
+			<field name="total_one"/>
+			<field name="iva_two"/>
+			<field name="sub_total_two"/>
+			<field name="total_tree"/>
+			<field name="iva_tree"/>
+			<field name="sub_total_tree"/>
+			<field name="total_tree"/>
+			<field name="item_one"/>
+		    </tree>
+	    </field>
+	</record>
+	
+	<menuitem parent="menu_gestion_compras_main" id="menu_analisis_precios" action="action_analisis_precios" name="Análisis de Precios" sequence="2"/>
+    </data>
+</openerp>

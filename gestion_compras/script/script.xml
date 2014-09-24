@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <openerp>
+        <data>
+						<record id="account_tax_1" model="account.tax">
+                <field name="name">IVA (0.0%)</field>
+            </record>
+        </data>
+    </openerp>

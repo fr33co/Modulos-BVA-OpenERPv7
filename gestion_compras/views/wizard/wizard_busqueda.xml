@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!--  PROCESO DE BUSQUEDA -->
+        <record model="ir.actions.act_window" id="action_wizard_busqueda">
+            <field name="name">Busqueda Personalizada</field>
+            <field name="res_model">wizard.busqueda</field>
+            <field name="view_type">form</field>
+            <field  name="view_mode">tree,form</field>
+        </record>
+
+        <record id="view_wizard_busqueda" model="ir.ui.view">
+            <field name="name">Busqueda Personalizada</field>
+            <field name="model">wizard.busqueda</field>
+            <field name="arch" type="xml">
+                <form string="Gestión de Reportes" version="7.0">
+                        <table style="width:960px;align:center;">
+                            <tr>
+                                <td class="separator" colspan="2">
+                                    <b>Emisión de Reportes</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="backgroud-color:silver;">
+                                    <field name="correlativo"/>
+                                    
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+            </field>
+        </record>
+
+         <act_window name="Gestión de Compras"
+            res_model="wizard.busqueda"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"
+            id="action_wizard_busqueda"/>
+
+        <menuitem parent="menu_compras" id="hr_reportes_busqueda" action="action_wizard_busqueda" name="Busqueda / Filtros" sequence="2"/>
+
+    </data>
+</openerp>

@@ -372,21 +372,21 @@ class Empleado(osv.Model):
 					'image':foto,
 					'tree_id':"1",
 				}, context=context)
-				# Nomina de vacaciones
-				id_att = self.pool.get("hr.movement.employee").create(cr, uid, {
-					'nomina_admin': "3",
-					'cedula': cedula,
-					'charge_acterior': cargo,
-					'emp': tipo_emp,
-					'status': status,
-					'date_ingreso': fecha_i,
-					'nombres': nom,
-					'sueldo': sueldo,
-					'ano_servicio': servicio,
-					'dep_lab':depart,
-					'image':foto,
-					'tree_id':"3",
-				}, context=context)
+				## Nomina de vacaciones
+				#id_att = self.pool.get("hr.movement.employee").create(cr, uid, {
+				#	'nomina_admin': "3",
+				#	'cedula': cedula,
+				#	'charge_acterior': cargo,
+				#	'emp': tipo_emp,
+				#	'status': status,
+				#	'date_ingreso': fecha_i,
+				#	'nombres': nom,
+				#	'sueldo': sueldo,
+				#	'ano_servicio': servicio,
+				#	'dep_lab':depart,
+				#	'image':foto,
+				#	'tree_id':"3",
+				#}, context=context)
 
 				# Proceso de Carga en Nomina de Alimentacion
 
@@ -572,7 +572,7 @@ class Empleado(osv.Model):
 		'caja_ahorro' : fields.char(string="% Caja de Ahorro", size=10),
 		'mount_total' : fields.float(string="Monto total", size=10),
 		'nomina' : fields.many2one("hr.nomina.adm", "Nomina", required = False),
-		'marital' : fields.selection((('1','Soltero'),('2','Casado'),('3','Comcubinato'),('4','Unión de hechos estables')), "Estado civil", required=False),
+		'marital' : fields.selection((('1','Soltero(a)'),('2','Casado(a)'),('3','Comcubinato'),('4','Unión de hechos estables')), "Estado civil", required=False),
 		'grado' : fields.many2one("hr.config.asignacion", "Grado de intrucción", required = False),
 		'nacimiento' : fields.char(string="Lugar de Nacimiento", size = 256, required=False),
 		'tipo_recarga': fields.selection((('1','Targeta Electrónica'),('2','Pedido de Tickeras')), "Recarga Alimentación", required=True),

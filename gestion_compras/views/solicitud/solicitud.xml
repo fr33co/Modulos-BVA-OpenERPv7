@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+			<record model="ir.actions.act_window" id="action_solicitud_comp">
+			    <field name="name">Solicitud de Materiales</field>
+			    <field name="res_model">comp.solicitud</field>
+			    <field name="view_type">form</field>
+			    <field name="view_mode">tree,form</field>
+			</record>
+    
+			<record id="view_solicitud_c" model="ir.ui.view">
+                            <field name="name">Solicitud de Materiales</field>
+                            <field name="model">comp.solicitud</field>
+                            <field name="arch" type="xml">
+                                <form string="Solicitud de Materiales" version="7.0">
+				    <header>
+					<button name="emitir_solicitud_material" type="object" string="Remitir Solicitud de materiales de Limpieza / Oficina" class="detallado" confirm="¿Esta seguro que desea Remitir la Solicitud de Materiales?" attrs="{'invisible':[('item','in', ('servicios','tecnologico'))]}"/>
+					<button name="emitir_solicitud_material_servicios_tennologico" type="object" string="Remitir Solicitud de materiales de Servicios / Tecnológico" class="detallado" confirm="¿Esta seguro que desea Remitir la Solicitud de Materiales?" attrs="{'invisible':[('item','in', ('limpieza','papeleria'))]}"/>
+					
+				    </header>
+                                    <center>
+                                    	<sheet>
+                                        <div class="oe_form_sheetbg">
+                                            <table style="width:800px;" border="0">
+                                                <tr>
+                                                    <td colspan="6" style="text-align:left;" class="separator">
+                                                            <b>Solicitud de Materiales, Equipos y Servicios</b>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="align:center;">
+                                                        <b>Correlativo</b>
+                                                    </td>
+                                                    <td>
+                                                        <field name="nombre" placeholder="Nombre de Referencia"/>
+                                                    </td>
+						    <td style="align:center;">
+                                                        <b>Fecha de Solicitud</b>
+                                                    </td>
+						    <td style="align:center;">
+                                                        <field name="fecha" placeholder="Fecha de Solicitud"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <b>Area Solicitante</b>
+                                                    </td>
+                                                    <td colspan="2">
+                                                        <field name="solicitante" placeholder="Area Solicitante"/>
+                                                    </td>
+                                                </tr>
+						
+                                                <tr>
+                                                    <td colspan="6" class="separator">
+                                                            <b>Material a Solicitar</b>
+                                                    </td>
+                                                </tr>
+						<tr>
+						    <td style="font-weight:bold;">Solicitar</td>
+						    <td>
+							<field name="item"/>
+						    </td>
+						</tr>
+						<tr>
+                                                    <td colspan="6">
+							<notebook colspan="4">
+							    <page string="Limpieza / Oficina" attrs="{'invisible':[('item','in', ('servicios','tecnologico'))]}">
+								<field name="material_ids" nolabel="1">
+								    <tree string="Materiales a Solicitar" editable="bottom">
+									<field name="descripcion" on_change="search_materiales(descripcion)"  placeholder="Descripción del Material"/>
+									<field name="cantidad" placeholder="Cantidad"/>
+									<field name="modelo" placeholder="Modelo"/>
+									<field name="marca" placeholder="Marca"/>
+									<field name="tipo" placeholder="Tipo de Material"/>
+									<field name="unidad" placeholder="Unidad"/>
+									<field name="foto_referencial" widget="image" class="oe_left oe_avatar" nolabel="0"/>
+								    </tree>
+								</field>
+							    </page>
+							    <!--PANEL PARA ANEXAR LOS PRODUCTOS SOLICITADOS POR CADA GERENCIA SOLICITANTE-->
+							    <page string="Servicios / Tecnológico" attrs="{'invisible':[('item','in', ('limpieza','papeleria'))]}">
+								<field name="material_p_ids" nolabel="1">
+								    <tree string="Materiales a Solicitar / Servicios Generales / Tecnologicos" editable="bottom">
+									<field name="descripcion" placeholder="Productos" on_change="search_productos(descripcion)"/>
+									<field name="n_identificacion"/>
+									<field name="cantidad" placeholder="Cantidad"/>
+									<field name="modelo" placeholder="Modelo"/>
+									<field name="marca" placeholder="Marca"/>
+									<field name="tipo" placeholder="Tipo"/>
+									<!--<field name="unidad" placeholder="Unidad"/>-->
+									<!--<field name="foto_referencial" widget="image" class="oe_left oe_avatar" nolabel="0"/>-->
+								    </tree>
+								</field>
+							    </page>
+							</notebook>
+                                                    </td>
+                                                </tr>
+						<!--</div>-->
+						
+						<tr>
+                                                    <td colspan="6" style="text-align:left;" class="separator">
+                                                            <b>Información Adicional</b>
+                                                    </td>
+                                                </tr>
+						<tr>
+						    <td colspan="6">
+							<field name="observaciones"/>
+						    </td>
+						</tr>
+                                            </table>
+                                        </div>
+                                    	</sheet>
+                                    </center>
+                                </form>
+                                    
+                            </field>
+			</record>
+
+			<!-- Forma de busqueda para Solicitud de Materiales-->
+			<!--<record model="ir.ui.view" id="search_recurso_logistico">
+				<field name="name">Solicitud de Materiales.search</field>
+				<field name="model">comp.solicituditud</field>
+				<field name="arch" type="xml">
+                                    <search string="Busqueda de Grado">
+                                        <filter name="tipo" domain="[('tipo','=', uid)]" string="Busqueda de tipo Grado de Instrucción" icon="terp-partner" />
+                                        <field name="tipo" />
+                                        <field name="grado" />
+                                    </search>
+				</field>			
+			</record>-->
+
+			<record model="ir.ui.view" id="solicitud_c_tree">
+			<field name="name">Solicitud de Materiales.tree</field>
+			<field name="model">comp.solicitud</field>
+			<field name="arch" type="xml">
+                            <tree string="Lista de Solicitud de Materiales">
+                                <field name="nombre"/>
+                                <field name="solicitante"/>
+				<field name="item"/>
+				<field name="material_ids"/>
+				<field name="material_p_ids"/>
+                            </tree>
+			</field>
+                        </record>
+        
+        <menuitem parent="menu_gestion_compras_main" id="menu_solicitud_c" action="action_solicitud_comp" name="Solicitud de Materiales" sequence="3"/>
+    </data>
+</openerp>

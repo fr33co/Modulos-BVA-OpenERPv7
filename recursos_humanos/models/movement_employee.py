@@ -8,6 +8,8 @@ from datetime import date
 from openerp.osv import osv, fields
 from openerp.tools.translate import _
 
+import fpdf_class
+
 # CLASE DE MOVIMIENTOS ASIGNADOS A LA NOMINA
 class Movement_employee_payslip(osv.Model):
 	_name="hr.movement.employee"
@@ -19,6 +21,57 @@ class Movement_employee_payslip(osv.Model):
 	#
 	##################################################################################################################
 	
+	def estado(self, cr, uid, ids, context=None):
+		return self.write(cr, uid, ids, {'estado': '2'}, context=context)
+	
+	# METODO PARA CAPTURAR LAS 2 QUINCENAS ANTERIORES PARA CALCULAR LO CORRESPONDIENTE AL BONO VACACIONAL Y POST VACACIONAL
+	def generar(self, cr, uid, ids, context=None):
+		
+		data = self.read(cr, uid, ids, context=context)[0] # Validacion para campos vacio
+		
+		# ITERAMOS SOBRE EL OBJETO PARA EL CAMPO CEDULA
+		for x in self.browse(cr, uid, ids, context=None):
+			cedula = x.cedula # CEDULA
+			sueldo = x.sueldo
+			bono   = x.tipo_bono
+			print "TIPO DE BONO:"+str(x.tipo_bono)
+			# ALICUOTA BONO FIN DE AÑO
+			alicuota_bfa = (float(sueldo)/int(30)*95)/int(12)
+			print "ALICUOTA BONO FIN DE AÑO: "+str(alicuota_bfa) 
+			
+		# Campo Vacio
+		if not data['tipo_bono']:
+			raise osv.except_osv(_("Warning!"), _("Disculpe debe ingresar Tipo de Bono, intente de nuevo..."))
+		
+		# En caso contrario se produce la accion
+		else:
+			# CONSULTA PARA LEER LOS MONTO DE LAS QUINCENAS ANTERIORES PARA EL CONCEPTO DE VACACIONES Y POST VACACIONAL
+			cr.execute('SELECT cedula, nombre, monto_quincena FROM hr_employee_quincena WHERE cedula LIKE '"'"+str(cedula)+"'"'')
+			
+			monto = 0
+			monto_total = 0
+			for nomina in cr.fetchall():
+				print "CEDULA: "+str(nomina[0])
+				print "NOMBRES: "+str(nomina[1])
+				print "MONTO QUINCENAL: "+str(nomina[2])
+				monto += float(nomina[2])
+			
+			monto_total = monto
+			s_d_v = ((monto_total) + alicuota_bfa) 
+			
+			print "MONTO: "+str(fpdf_class.decimal(monto_total))
+			print "SALARIO DIARIO PARA VACACIONES: "+str(fpdf_class.decimal(s_d_v))
+
+			# CAPTURA DEL BONO VACACIONAL BONO VACACIONAL / POST VACACIONAL
+
+			sub_bono_vacacional = s_d_v / 30
+			bono_vacacional     = int(45) * sub_bono_vacacional
+
+			print "SUB TOTAL DE BONO VACACIONAL: "+str(sub_bono_vacacional)
+			print "TOTAL DE BONO VACACIONAL: "+str(bono_vacacional)
+			
+			
+
 	def actualizar(self, cr, uid, ids, context=None): # Metodo para Recalcular los montos cuando surja un cambio de la asignacion del empleado
 		browse_data = self.browse(cr, uid, ids, context=None) #Lectura del propio objeto (Registro
 		data_ids = self.read(cr, uid, ids, context=context)[0] # Validacion para campos vacio
@@ -1346,8 +1399,8 @@ class Movement_employee_payslip(osv.Model):
 							self.save_concepts(cr,uid,ids,cedula,cod,frecuencia,descripcion,cantidad,asignacion,deduccion,asig_deduc,filtro, nomina,context)
 			#########################################################################################
 			elif str(x.codigo) == "126" or str(x.codigo) == "142": # Bono vacacional (126)
-				get_hr = self.pool.get('hr.movement.payslip.vacaciones') # Objeto hr_movement_payslip (Empleado)
-				search_get = get_hr.search(cr, uid, [('cod','=',x.codigo),('asig_deduc_vac','=',x.id)], context=None) # Se busca el ID dado
+				get_hr = self.pool.get('hr.movement.payslip') # Objeto hr_movement_payslip (Empleado)
+				search_get = get_hr.search(cr, uid, [('cod','=',x.codigo),('asig_deduc','=',x.id)], context=None) # Se busca el ID dado
 				register_id = get_hr.read(cr,uid,search_get,context=context) # Se refleja el resultado
 
 				cod = ""
@@ -1356,107 +1409,75 @@ class Movement_employee_payslip(osv.Model):
 				if cod == x.codigo: # En caso de que exista, emita un mensaje de que ya el registro existe
 
 					self.write(cr, uid, ids, {'codigo': '','consulta':'','frecuencia':'','formula':'','cant_dias':'','cant_horas':'','monto':'','filtro':'1'}, context=context) # Reseteo los valores a vacio
+				# BLOQUE DE CODIGO PARA GENERAR LA NOMINA DE VACACIONES
 				else:
-					if str(x.nomina_admin.tipo_nomina) !="Vacaciones": # NOmina de vacaciones
-						raise osv.except_osv(_("Warning!"), _("Disculpe el concepto "+str(x.consulta.concepto)+" no corresponde a la nomina Regular, intente de nuevo..."))
+					
+					data = self.read(cr, uid, ids, context=context)[0] # Validacion para campos vacio
+		
+					# ITERAMOS SOBRE EL OBJETO PARA EL CAMPO CEDULA
+					for x in self.browse(cr, uid, ids, context=None):
+						cedula = x.cedula # CEDULA
+						sueldo = x.sueldo
+						bono   = x.tipo_bono
+						print "TIPO DE BONO:"+str(x.tipo_bono)
+						# ALICUOTA BONO FIN DE AÑO
+						alicuota_bfa = (float(sueldo)/int(30)*95)/int(12)
+						print "ALICUOTA BONO FIN DE AÑO: "+str(alicuota_bfa) 
+						
+					# Campo Vacio
+					if not data['tipo_bono']:
+						raise osv.except_osv(_("Warning!"), _("Disculpe debe ingresar Tipo de Bono, intente de nuevo..."))
+					
+					# En caso contrario se produce la accion
 					else:
-						get_hr = self.pool.get('hr.movement.payslip') # Objeto hr_employee (Empleado)
-	
-						search_get_hr = get_hr.search(cr, uid, [('asig_deduc','=',x.id),('incidencia','=','si')], context=None) # Se busca el ID dado
-						employee_cod = get_hr.read(cr,uid,search_get_hr,context=context) # Se refleja el resultado
-						sum_incidencias   = 0
-						result_incidencia = 0
-						for i in employee_cod:
-							cod = i['cod']
-							sum_incidencias += float(i['asignacion']) # Sumatoria de los conceptos que tengan incidencias a excepcion del mismo concepto a calcular
-							result_incidencia = float(sum_incidencias)
-						if int(result_incidencia) == 0:
-							raise osv.except_osv(_("Warning!"), _("Disculpe debe disponer de algun concepto, intente de nuevo..."))
-						else:
-							incidencias = result_incidencia # Resultado de la operacion
-							###############################################
-							#         	Salario diario
-							###############################################
-							sm           = float(x.sueldo) # Sueldo mensual
-							diario       = sm / int(30) # Monto diario
-							#Realizar consulta sobre otras remuneraciones
-							print "INCIDENCIAS: "+str(incidencias)
-							remuneracion = float(incidencias) / int(30) # Otras remuneraciones
-							AL_BFA       = (sm/int(30))*int(95)/int(360) # Alicuota Bono fin de ano
-							total_diario = float(diario) + float(remuneracion) + float(AL_BFA)# Total diario
+						# CONSULTA PARA LEER LOS MONTO DE LAS QUINCENAS ANTERIORES PARA EL CONCEPTO DE VACACIONES Y POST VACACIONAL
+						cr.execute('SELECT cedula, nombre, monto_quincena FROM hr_employee_quincena WHERE cedula LIKE '"'"+str(cedula)+"'"'')
+						
+						monto = 0
+						monto_total = 0
+						for nomina in cr.fetchall():
+							print "CEDULA: "+str(nomina[0])
+							print "NOMBRES: "+str(nomina[1])
+							print "MONTO QUINCENAL: "+str(nomina[2])
+							monto += float(nomina[2])
+						
+						monto_total = monto
+						s_d_v = ((monto_total) + alicuota_bfa) 
+						
+						print "MONTO: "+str(fpdf_class.decimal(monto_total))
+						print "SALARIO DIARIO PARA VACACIONES: "+str(fpdf_class.decimal(s_d_v))
 
-							print "SUELDO DIARIO: "+str(diario)
-							print "SUELDO OTRAS REMUNERACIONES: "+str(remuneracion)
-							print "ALICUOTA BONO FIN DE ANO: "+str(AL_BFA)
-							print "TOTAL DIARIO: "+str(total_diario)
-							###############################################
-							#	  Bono vacacional empleados
-							###############################################
-							if str(x.emp.clas_personal) == "Empleado Fijo" or str(x.emp.clas_personal) == "Directivo":
-								if str(x.consulta.concepto) == "Bono vacacional":
-									dias_corres    = int(45) # Dias corresponden a empleados
-								else: # Bono post vacacional para el personal empleado
-									dias_corres    = int(18) # Dias corresponden a empleados
-								operacion_bono = dias_corres * total_diario # Asignacion Bono Vacacional para el pesonal empleado
-								print "BONO VACACIONAL EMPLEADOS: "+str(operacion_bono)
-								###############################################
-								#        Bono Post vacacional empleados
-								###############################################
-								#dias_corres_post    = int(18)
-								#operacion_bono_post = dias_corres_post * total_diario
-								#print "BONO POST VACACIONAL EMPLEADOS: "+str(operacion_bono_post)
-								operador    = operacion_bono # Salida de los resultados del monto a pagar (181)
-								frecuencia  = ""
-								deduccion   = ""
-								if int(x.frecuencia) == 1:
-									frecuencia = "F"
-								elif int(x.frecuencia) == 2:
-									frecuencia = "E"
-								cedula      = x.cedula
-								cod         = x.codigo
-								frecuencia  = frecuencia
-								descripcion =  x.consulta.concepto
-								cantidad    = ""
-								asig_deduc  =  x.id
-								asig        = float(operador)
-								asignacion  = "%.2f" % round(asig,2)
-								filtro      = "1"
-								nomina      = x.nomina_admin.id
-								#Salida de los datos al modelo movimientos (hr.movement.payslip)
-								self.save_concepts(cr,uid,ids,cedula,cod,frecuencia,descripcion,cantidad,asignacion,deduccion,asig_deduc,filtro,nomina,context)
-							elif str(x.emp.clas_personal) == "Obrero": # Personal Obrero Bono vacacional y Post vacacional
-								#print "Accion obrero"
-								if str(x.consulta.concepto) == "Bono vacacional":
-									dias_corres    = int(50) # Dias corresponden a empleados
-								else: # Bono post vacacional para el personal empleado
-									dias_corres    = int(30) # Dias corresponden a empleados
-								operacion_bono = dias_corres * total_diario # Asignacion Bono Vacacional para el pesonal empleado
-								print "BONO VACACIONAL OBRERO: "+str(operacion_bono)
-								###############################################
-								#        Bono Post vacacional empleados
-								###############################################
-								#dias_corres_post    = int(18)
-								#operacion_bono_post = dias_corres_post * total_diario
-								#print "BONO POST VACACIONAL EMPLEADOS: "+str(operacion_bono_post)
-								operador    = operacion_bono # Salida de los resultados del monto a pagar (181)
-								frecuencia  = ""
-								deduccion   = ""
-								if int(x.frecuencia) == 1:
-									frecuencia = "F"
-								elif int(x.frecuencia) == 2:
-									frecuencia = "E"
-								cedula      = x.cedula
-								cod         = x.codigo
-								frecuencia  = frecuencia
-								descripcion =  x.consulta.concepto
-								cantidad    = ""
-								asig_deduc  =  x.id
-								asig        = float(operador)
-								asignacion  = "%.2f" % round(asig,2)
-								filtro      = "1"
-								nomina      = x.nomina_admin.id
-								#Salida de los datos al modelo movimientos (hr.movement.payslip)
-								self.save_concepts(cr,uid,ids,cedula,cod,frecuencia,descripcion,cantidad,asignacion,deduccion,asig_deduc,filtro,nomina,context)
+						# CAPTURA DEL BONO VACACIONAL BONO VACACIONAL / POST VACACIONAL
+
+						sub_bono_vacacional = s_d_v / 30
+						bono_vacacional     = int(45) * sub_bono_vacacional
+
+						print "SUB TOTAL DE BONO VACACIONAL: "+str(sub_bono_vacacional)
+						print "TOTAL DE BONO VACACIONAL: "+str(bono_vacacional)
+						
+						bono_vacacional_trab = bono_vacacional
+									
+						# PROCESO PARA EL CALCULO DE BONO VACACIONAL 126 Y 142
+							
+						operador    = bono_vacacional_trab # Salida de los resultados del monto a pagar (181)
+						frecuencia  = ""
+						deduccion   = ""
+						if int(x.frecuencia) == 1:
+							frecuencia = "F"
+						elif int(x.frecuencia) == 2:
+							frecuencia = "E"
+						cedula      = x.cedula
+						cod         = x.codigo
+						frecuencia  = frecuencia
+						descripcion =  x.consulta.concepto
+						cantidad    = ""
+						asig_deduc  =  x.id
+						asig        = float(operador)
+						asignacion  = "%.2f" % round(asig,2)
+						filtro      = "1"
+						nomina      = x.nomina_admin.id
+						#Salida de los datos al modelo movimientos (hr.movement.payslip)
+						self.save_concepts(cr,uid,ids,cedula,cod,frecuencia,descripcion,cantidad,asignacion,deduccion,asig_deduc,filtro,nomina,context)
 	#########################################################################################################
 	#Metodo global para guardar los conceptos Asignacion/ Deduccion, segun los conceptos asignados
 	#########################################################################################################
@@ -1481,7 +1502,7 @@ class Movement_employee_payslip(osv.Model):
 				relacion = 'asig_deduc_vac' # Relacion a nomina de Vacaciones
 				modelo = 'hr.movement.payslip.vacaciones' # modelo Relacional
 
-		if str(cod) == "008" or str(cod) == "009" or str(cod) == "101" or str(cod) == "125" or str(cod) == "104" or str(cod) == "243" or str(cod) == "107" or str(cod) == "116" or str(cod) == "208" or str(cod) == "181" or str(cod) == "210" or str(cod) == "126" or str(cod) == "142" or str(cod) == "134" or str(cod) == "148" or str(cod) == "143" or str(cod) == "149" or str(cod) == "150" or str(cod) == "151" or str(cod) == "249" or str(cod) == "168" or str(cod) == "154" or str(cod) == "456" or str(cod) == "102" or str(cod) == "182" or str(cod) == "462" or str(cod) == "126" or str(cod) == "142":
+		if str(cod) == "008" or str(cod) == "009" or str(cod) == "101" or str(cod) == "125" or str(cod) == "104" or str(cod) == "243" or str(cod) == "107" or str(cod) == "116" or str(cod) == "208" or str(cod) == "181" or str(cod) == "210" or str(cod) == "126" or str(cod) == "142" or str(cod) == "134" or str(cod) == "148" or str(cod) == "143" or str(cod) == "149" or str(cod) == "150" or str(cod) == "151" or str(cod) == "249" or str(cod) == "168" or str(cod) == "154" or str(cod) == "456" or str(cod) == "102" or str(cod) == "182" or str(cod) == "462" or str(cod) == "126" or str(cod) == "142" or str(cod) == "103":
 			incidencia = "si"
 		else:
 			incidencia = "no"
@@ -1597,12 +1618,30 @@ class Movement_employee_payslip(osv.Model):
 	    'accion': fields.char(string = "", size = 10, required = False), # Elemento de accion
 	    'tree_id' : fields.selection((('1','Regular'),('2','Bono fin de año'),('3','Vacaciones'),('4','Juguetes')), "Nomina", required=False),
 	    'state' : fields.selection([('1','Activo'),('5','Suspendido'),('7','Egresado'),('6','Vacaciones'),('3','Reposo Médico')], string="Estado"),
+	    'estado' : fields.selection([('1','No asignado'),('2','Asignado')], string="Asignación"),
+	    'primera_quincena' : fields.char(string ="Primera Quincena", size = 5, required = False),
+	    'segunda_quincena' : fields.char(string ="Segunda Quincena", size = 5, required = False),
+	    'tipo_bono' : fields.selection((('45','45'),('18','18'),('50','50'),('30','30')), "Tipo Bono", required=False),
 	}
 
 	_defaults = {
 		'state':'1',
+		'estado': '1',
 	}
 
 def redondear(cadena):
 	salida = "%.2f" % round(cadena,2)
 	return salida
+
+# PROCESO DE PUNTO DECIMAL, PARA LA CONVERSION DE CIFRAS
+def punto_decimal(snum):
+    "Adicionar comas como separadores de miles a n. n debe ser de tipo string"
+    s = snum;
+    i = s.index('.') # Se busca la posición del punto decimal
+    while i > 3:
+        i = i - 3
+        s = s[:i] +  '#' + s[i:]
+	
+    n = s.replace(".", ",", 5);
+    t = n.replace("#", ".", 5);
+    return t

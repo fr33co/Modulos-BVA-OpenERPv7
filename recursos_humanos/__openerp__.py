@@ -11,7 +11,7 @@
       Generación de Reportes
 			Generación de Nóminas'
       Generación de archivos TXT
-      Ultima Actualización: 08 de Julio del 2014''',
+      Ultima Actualización: 16 de Julio del 2014''',
     'data' : [
       "views/empleado.xml",
       #"views/seguridad_salud_laboral.xml",
@@ -43,6 +43,7 @@
       "views/propietario.xml",
       "views/hr_ticket.xml",
       "views/hr_asig_alimentacion.xml",
+      "views/hr_filtro.xml",
 
       # "views/tipoNomina.xml",
       "views/carga_familiar_employee.xml",
