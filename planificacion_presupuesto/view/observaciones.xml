@@ -1,517 +1,933 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-	<data>
+    <data>
 
-<!--Registro Observaciones de los Proyectos -->
+        <!--Registro Observaciones de los Proyectos -->
 
-		<record model="ir.actions.act_window" id="observaciones_proyectos_list_action">
-		    <field name="name">Observaciones de los Proyectos </field>
-		    <field name="res_model">observacion.proyecto</field>
-		    <field name="view_type">form</field>
-		    <field name="view_mode">tree,form</field>
-		</record> 
+        <record model="ir.actions.act_window" id="observaciones_proyectos_list_action">
+            <field name="name">Observaciones de los Proyectos </field>
+            <field name="res_model">observacion.proyecto</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record> 
 
-<!--Form y Tree Observaciones de los Proyectos -->
+        <!--Form y Tree Observaciones de los Proyectos -->
 
-		<record model="ir.ui.view" id="observaciones_proyectos_tree_view">
-			<field name="name">Observaciones de los Proyectos </field>
-			<field name="model">observacion.proyecto</field>
-			<field name="arch" type="xml">
-				<tree string="Observaciones" colors="red:estatus=='2';blue:estatus=='4';black:estatus=='1';green:estatus=='3'">
-					<field name="codigo"/>
-					<field name="nombre_pro"/>
-					<field name="revisado"/>
-					<field name="fecha"/>
-					<field name="estatus"/>
-				</tree>
-			</field>			
-		</record>
-		<record model="ir.ui.view" id="observaciones_proyectos_form_view">
-			<field name="name">Observaciones de los Proyectos</field>
-			<field name="model">observacion.proyecto</field>
-			<field name="arch" type="xml">
-				<form string="Observaciones" version="7.0">
-					<header>
-						<button name="action_ajustar" type="object" string="Pre-Aprobar" class="ajuste"
-						attrs="{'invisible':[('estatus','in', ('3','4'))]}"/>
-						<button name="action_rechasado" type="object" string="Rechazar Proyecto" class="oe_highlight"
-							attrs="{'invisible':[('estatus','in', ('1','2','3'))]}"/>
-						<button name="action_aprobado" type="object" string="Aprobar" class="aprobado"
-							attrs="{'invisible':[('estatus','in', ('1','2'))]}"/>
-						<field name="estatus" widget="statusbar"/>
-					</header>
-					<field name="id" invisible="1"/>
-					<div class="oe_form_sheetbg">
-					<separator string="Datos del Proyecto"/>
+        <record model="ir.ui.view" id="observaciones_proyectos_tree_view">
+            <field name="name">Observaciones de los Proyectos </field>
+            <field name="model">observacion.proyecto</field>
+            <field name="arch" type="xml">
+                <tree string="Observaciones" colors="red:estatus=='2';blue:estatus=='4';black:estatus=='1';green:estatus=='3'">
+                    <field name="codigo"/>
+                    <field name="nombre_pro"/>
+                    <field name="revisado"/>
+                    <field name="fecha"/>
+                    <field name="estatus"/>
+                </tree>
+            </field>			
+        </record>
+        <record model="ir.ui.view" id="observaciones_proyectos_form_view">
+            <field name="name">Observaciones de los Proyectos</field>
+            <field name="model">observacion.proyecto</field>
+            <field name="arch" type="xml">
+                <form string="Observaciones" version="7.0">
+                    <header>
+                        <button name="action_ajustar" type="object" string="Pre-Aprobar" class="ajuste" attrs="{'invisible':[('estatus','in', ('3','4'))]}"/>
+                        <button name="action_rechasado" type="object" string="Rechazar Proyecto" class="oe_highlight" attrs="{'invisible':[('estatus','in', ('1','2','3'))]}"/>
+                        <button name="action_aprobado" type="object" string="Aprobar" class="aprobado" attrs="{'invisible':[('estatus','in', ('1','2'))]}"/>
+                        <field name="estatus" widget="statusbar"/>
+                    </header>
+                    <field name="id" invisible="1"/>
+                    <div class="oe_form_sheetbg">
+                        <separator string="Datos del Proyecto"/>
 					
-					<table >
-						<tr style="width:800px">
-							<td style="width:75px">
-								<b>Institución:</b>
-							</td>
-							<td style="width:300px">
-								<field name="ente" style="width:95%%" placeholder="Seleccione la Institución"/>
-							</td>
-							<td  style="width:100px">
-								<b>ID del Proyecto:</b>
-							</td>
-							<td style="width:100px">
-								<field name="codigo" style="width:90%%"
-								domain= "[('organismo','=',ente)]"
-								on_change="on_change_proyecto(codigo)"/>
-							</td>
-							<td  style="width:55px">
-								<b>Fecha:</b>
-							</td>
-							<td style="width:75px">
-								<field name="fecha" style="width:95%%"/>
-							</td>
-						</tr>							
-					</table>
-					<table>
-						<tr>
-							<td style="width:140px">
-								<b>Nombre del Proyecto:</b>
-							</td>
-							<td style="width:560px" >
-								<field name="nombre_pro"/>
-							</td>
+                        <table >
+                            <tr style="width:800px">
+                                <td style="width:75px">
+                                    <b>Institución:</b>
+                                </td>
+                                <td style="width:300px">
+                                    <field name="ente" style="width:95%%" placeholder="Seleccione la Institución"/>
+                                </td>
+                                <td  style="width:100px">
+                                    <b>ID del Proyecto:</b>
+                                </td>
+                                <td style="width:100px">
+                                    <field name="codigo" style="width:90%%" domain= "[('organismo','=',ente)]" on_change="on_change_proyecto(codigo)"/>
+                                </td>
+                                <td  style="width:55px">
+                                    <b>Fecha:</b>
+                                </td>
+                                <td style="width:75px">
+                                    <field name="fecha" style="width:95%%"/>
+                                </td>
+                            </tr>							
+                        </table>
+                        <table>
+                            <tr>
+                                <td style="width:140px">
+                                    <b>Nombre del Proyecto:</b>
+                                </td>
+                                <td style="width:560px" >
+                                    <field name="nombre_pro"/>
+                                </td>
 
-						</tr>
-					</table>
-					<table>
-						<tr style="width:850px">
-							<td  style="width:80px">
-								<b>Año Fiscal:</b>
-							</td>
-							<td style="width:100px">
-								<field name="a_fiscal" style="width:50%%"/>
-							</td>
-							<td  style="width:120px">
-								<b>Monto Solicitado:</b>
-							</td>
-							<td style="width:130px">
-								<field name="monto_solicitado"/>
-							</td>
-						</tr>
-					</table>
-					<separator string="Observaciones/Correciones"/>
-					<table>
-						<tr>
-							<td style="width:95px">
-								<b>Revisado por:</b>
-							</td>
-							<td style="width:120px">
-								<field name="revisado" style="width:90%%"/>
-							</td>
-							<td style="width:170px">
-								<b>Fuente de Financiamiento:</b>
-							</td>
-							<td style="width:210px">
-								<field name="fuente_fin"/>
-							</td>
-							<!--<td invisible="1">
-								<field name="siglas"/>
-							</td>-->
-						</tr>
-					</table>
-					<separator />
-					<b>Montos por partida:</b>
-					<table  style="width:400px">
-						<tr style="background-color:#2D77BE; color:white" >
-							<td style="width:20px">
-								<b>Código</b>
-							</td>
-							<td style="width:215px">
-								<b>Nombre de la Partida</b>
-							</td>
-							<td style="width:80px">
-								<b>Monto Asignado</b>
-							</td>
-						</tr>
-						<tr>
-							<td >
-								<b>4.01</b>
-							</td>
-							<td>
-								<b>Gastos de Personal</b>
-							</td>
-							<td>
-								<field name="partida01" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)" />
-							</td>
-						</tr>
-						<tr>
-							<td >
-								<b>4.02</b>
-							</td>
-							<td>
-								<b>Materiales, Suministros y Mercancías</b>
-							</td>
-							<td>
-								<field name="partida02" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)" />
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<b>4.03</b>
-							</td>
-							<td>
-								<b>Servicios no personales</b>
-							</td>
-							<td>
-								<field name="partida03" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)" />
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<b>4.04</b>
-							</td>
-							<td>
-								<b>Activos Reales</b>
-							</td>
-							<td>
-								<field name="partida04" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)" />
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<b>4.05</b>
-							</td>
-							<td>
-								<b>Activos Financieros</b>
-							</td>
-							<td>
-								<field name="partida05" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)" />
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<b>4.07</b>
-							</td>
-							<td>
-								<b>Transferencias y Donaciones</b>
-							</td>
-							<td>
-								<field name="partida07" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)"/>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<b>4.10</b>
-							</td>
-							<td>
-								<b>Servicio de la Deuda Pública</b>
-							</td>
-							<td>
-								<field name="partida10" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)"/>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<b>4.11</b>
-							</td>
-							<td>
-								<b>Disminución de Pasivos</b>
-							</td>
-							<td>
-								<field name="partida11" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)"/>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<b>4.12</b>
-							</td>
-							<td>
-								<b>Disminución de Patrimonio</b>
-							</td>
-							<td>
-								<field name="partida12" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)"/>
-							</td>
-						</tr>
-						<tr style="background-color:#BFBFBF; color:black">
-							<td  colspan="2">
-								<b>Monto Total Asignado al Proyecto:</b>
-							</td>
-							<td style="width:105px">
-								<b><field name="monto" /></b>
-							</td>
-						</tr>
-					</table>
-					<separator />
-					<table>
-						<tr>
-							<b>Observaciones:</b>
-						</tr>
-						<tr>
-							<td style="width:700px">
-								<field name="observaciones"/>
-							</td>
-						</tr>
-					</table>
-					<footer >
-						<button name="observacion_ajutes" type="object" string="Observaciones Preliminares" class="exportar"
-							attrs="{'invisible':[('estatus','in', ('1','2'))]}"/>
-						<button name="observaciones_finales" type="object" string="Observaciones Finales" class="exportar"
-							attrs="{'invisible':[('estatus','in', ('1','2','3'))]}"/>
-					</footer>
-					</div>
-				</form>
-			</field>			
-		</record>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr style="width:850px">
+                                <td  style="width:80px">
+                                    <b>Año Fiscal:</b>
+                                </td>
+                                <td style="width:100px">
+                                    <field name="a_fiscal" style="width:50%%"/>
+                                </td>
+                                <td  style="width:120px">
+                                    <b>Monto Solicitado:</b>
+                                </td>
+                                <td style="width:130px">
+                                    <field name="monto_solicitado"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <separator string="Observaciones/Correcciones"/>
+                        <table>
+                            <tr>
+                                <td style="width:95px">
+                                    <b>Revisado por:</b>
+                                </td>
+                                <td style="width:120px">
+                                    <field name="revisado" style="width:90%%"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr>
+                                <td style="width:185px">
+                                    <b>Estructura Presupuestaria:</b>
+                                </td>
+                                <td style="width:425px" >
+                                    <field name="estruc_presu" style="width:25%%"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <separator />
+                        <b>Montos por partida:</b>
+                        <table  style="width:100%%">
+				<tr style="width:120px">
+					<td colspan="7" style="text-align:center">
+						<b>Fuente de Financiamiento</b>
+					</td>
+				</tr>
+                            <tr style="background-color:#2D77BE; color:white" >
+                                <td style="width:60px">
+                                    <b>Código</b>
+                                </td>
+                                <td style="">
+                                    <b>Nombre de la Partida</b>
+                                </td>
+                                <td style="">
+                                    <b>Monto Solicitado</b>
+                                </td>
+				<td style="">
+					<b>Situado Constitucional</b>
+                                </td>
+				<td style="">
+					<b>Gestión Fiscal</b>
+				</td>
+				<td style="">
+					<b>Fondo de Compensación Interterritorial</b>
+				</td>
+				<td style="">
+					<b>Transferencias Internas Corrientes de la República</b>
+				</td>
+				<td style="">
+					<b>Monto Asignado</b>
+                </td>
+                            </tr>
+                            <tr>
+                                <td >
+                                    <b>4.01</b>
+                                </td>
+                                <td>
+                                    <b>Gastos de Personal</b>
+                                </td>
+                                <td>
+                                    <field name="partida01s"/>
+                                </td>
+				<td>
+                                    <field name="situado01" style="width:100%%"        on_change="monto_asignado(situado01,gestion01,fondo01,transferencias01,'1')"/>
+                                </td>
+				<td>
+                                    <field name="gestion01" style="width:100%%"        on_change="monto_asignado(situado01,gestion01,fondo01,transferencias01,'1')"/>
+                                </td>
+				<td>
+                                    <field name="fondo01" style="width:100%%"          on_change="monto_asignado(situado01,gestion01,fondo01,transferencias01,'1')"/>
+                                </td>
+				<td>
+                                    <field name="transferencias01" style="width:100%%" on_change="monto_asignado(situado01,gestion01,fondo01,transferencias01,'1')"/>
+                                </td>
+				<td>
+                                    <field name="total_partidas01" style="width:100%%" on_change="suma_partidas(total_partidas01,total_partidas02,total_partidas03,total_partidas04,total_partidas05,total_partidas07,total_partidas10,total_partidas11,total_partidas12,total_partidas98)"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td >
+                                    <b>4.02</b>
+                                </td>
+                                <td>
+                                    <b>Materiales, Suministros y Mercancías</b>
+                                </td>
+                                <td>
+                                    <field name="partida02s"  />
+                                </td>
+				<td>
+                                    <field name="situado02" style="width:100%%"        on_change="monto_asignado(situado02,gestion02,fondo02,transferencias02,'2')"/>
+                                </td>
+				<td>
+                                    <field name="gestion02" style="width:100%%"        on_change="monto_asignado(situado02,gestion02,fondo02,transferencias02,'2')"/>
+                                </td>
+				<td>
+                                    <field name="fondo02" style="width:100%%"          on_change="monto_asignado(situado02,gestion02,fondo02,transferencias02,'2')"/>
+                                </td>
+				<td>
+                                    <field name="transferencias02" style="width:100%%" on_change="monto_asignado(situado02,gestion02,fondo02,transferencias02,'2')"/>
+                                </td>
+				<td>
+                                    <field name="total_partidas02" style="width:100%%" on_change="suma_partidas(total_partidas01,total_partidas02,total_partidas03,total_partidas04,total_partidas05,total_partidas07,total_partidas10,total_partidas11,total_partidas12,total_partidas98)"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>4.03</b>
+                                </td>
+                                <td>
+                                    <b>Servicios no personales</b>
+                                </td>
+                                <td>
+                                    <field name="partida03s"  />
+                                </td>
+				<td>
+                                    <field name="situado03" style="width:100%%"        on_change="monto_asignado(situado03,gestion03,fondo03,transferencias03, '3')"/>
+                                </td>
+				<td>
+                                    <field name="gestion03" style="width:100%%"        on_change="monto_asignado(situado03,gestion03,fondo03,transferencias03, '3')"/>
+                                </td>
+				<td>
+                                    <field name="fondo03" style="width:100%%"          on_change="monto_asignado(situado03,gestion03,fondo03,transferencias03, '3')"/>
+                                </td>
+				<td>
+                                    <field name="transferencias03" style="width:100%%" on_change="monto_asignado(situado03,gestion03,fondo03,transferencias03, '3')"/>
+                                </td>
+				<td>
+                                    <field name="total_partidas03" style="width:100%%" on_change="suma_partidas(total_partidas01,total_partidas02,total_partidas03,total_partidas04,total_partidas05,total_partidas07,total_partidas10,total_partidas11,total_partidas12,total_partidas98)"/>
+                                </td>
+                                <!--<td>
+                                    <field name="partida03" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)" />
+                                </td>-->
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>4.04</b>
+                                </td>
+                                <td>
+                                    <b>Activos Reales</b>
+                                </td>
+                                <td>
+                                    <field name="partida04s"  />
+                                </td>
+				<td>
+                                    <field name="situado04" style="width:100%%"        on_change="monto_asignado(situado04,gestion04,fondo04,transferencias04, '4')"/>
+                                </td>
+				<td>
+                                    <field name="gestion04" style="width:100%%"        on_change="monto_asignado(situado04,gestion04,fondo04,transferencias04, '4')"/>
+                                </td>
+				<td>
+                                    <field name="fondo04" style="width:100%%"          on_change="monto_asignado(situado04,gestion04,fondo04,transferencias04, '4')"/>
+                                </td>
+				<td>
+                                    <field name="transferencias04" style="width:100%%" on_change="monto_asignado(situado04,gestion04,fondo04,transferencias04, '4')"/>
+                                </td>
+				<td>
+                                    <field name="total_partidas04" style="width:100%%" on_change="suma_partidas(total_partidas01,total_partidas02,total_partidas03,total_partidas04,total_partidas05,total_partidas07,total_partidas10,total_partidas11,total_partidas12,total_partidas98)"/>
+                                </td>
+                                <!--<td>
+                                    <field name="partida04" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)" />
+                                </td>-->
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>4.05</b>
+                                </td>
+                                <td>
+                                    <b>Activos Financieros</b>
+                                </td>
+                                <td>
+                                    <field name="partida05s"  />
+                                </td>
+				<td>
+                                    <field name="situado05" style="width:100%%"        on_change="monto_asignado(situado05,gestion05,fondo05,transferencias05, '5')"/>
+                                </td>
+				<td>
+                                    <field name="gestion05" style="width:100%%"        on_change="monto_asignado(situado05,gestion05,fondo05,transferencias05, '5')"/>
+                                </td>
+				<td>
+                                    <field name="fondo05" style="width:100%%"          on_change="monto_asignado(situado05,gestion05,fondo05,transferencias05, '5')"/>
+                                </td>
+				<td>
+                                    <field name="transferencias05" style="width:100%%" on_change="monto_asignado(situado05,gestion05,fondo05,transferencias05, '5')"/>
+                                </td>
+				<td>
+                                    <field name="total_partidas05" style="width:100%%" on_change="suma_partidas(total_partidas01,total_partidas02,total_partidas03,total_partidas04,total_partidas05,total_partidas07,total_partidas10,total_partidas11,total_partidas12,total_partidas98)"/>
+                                </td>
+                                <!--<td>
+                                    <field name="partida05" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)" />
+                                </td>-->
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>4.07</b>
+                                </td>
+                                <td>
+                                    <b>Transferencias y Donaciones</b>
+                                </td>
+                                <td>
+                                    <field name="partida07s"  />
+                                </td>
+				<td>
+                                    <field name="situado07" style="width:100%%"        on_change="monto_asignado(situado07,gestion07,fondo07,transferencias07, '7')"/>
+                                </td>
+				<td>
+                                    <field name="gestion07" style="width:100%%"        on_change="monto_asignado(situado07,gestion07,fondo07,transferencias07, '7')"/>
+                                </td>
+				<td>
+                                    <field name="fondo07" style="width:100%%"          on_change="monto_asignado(situado07,gestion07,fondo07,transferencias07, '7')"/>
+                                </td>
+				<td>
+                                    <field name="transferencias07" style="width:100%%" on_change="monto_asignado(situado07,gestion07,fondo07,transferencias07, '7')"/>
+                                </td>
+				<td>
+                                    <field name="total_partidas07" style="width:100%%" on_change="suma_partidas(total_partidas01,total_partidas02,total_partidas03,total_partidas04,total_partidas05,total_partidas07,total_partidas10,total_partidas11,total_partidas12,total_partidas98)"/>
+                                </td>
+                                <!--<td>
+                                    <field name="partida07" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)"/>
+                                </td>-->
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>4.10</b>
+                                </td>
+                                <td>
+                                    <b>Servicio de la Deuda Pública</b>
+                                </td>
+                                <td>
+                                    <field name="partida10s"  />
+                                </td>
+				<td>
+                                    <field name="situado10" style="width:100%%"        on_change="monto_asignado(situado10,gestion10,fondo10,transferencias10,'10')"/>
+                                </td>
+				<td>
+                                    <field name="gestion10" style="width:100%%"        on_change="monto_asignado(situado10,gestion10,fondo10,transferencias10,'10')"/>
+                                </td>
+				<td>
+                                    <field name="fondo10" style="width:100%%"          on_change="monto_asignado(situado10,gestion10,fondo10,transferencias10,'10')"/>
+                                </td>
+				<td>
+                                    <field name="transferencias10" style="width:100%%" on_change="monto_asignado(situado10,gestion10,fondo10,transferencias10,'10')"/>
+                                </td>
+				<td>
+                                    <field name="total_partidas10" style="width:100%%" on_change="suma_partidas(total_partidas01,total_partidas02,total_partidas03,total_partidas04,total_partidas05,total_partidas07,total_partidas10,total_partidas11,total_partidas12,total_partidas98)"/>
+                                </td>
+                                <!--<td>
+                                    <field name="partida10" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)"/>
+                                </td>-->
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>4.11</b>
+                                </td>
+                                <td>
+                                    <b>Disminución de Pasivos</b>
+                                </td>
+                                <td>
+                                    <field name="partida11s"  />
+                                </td>
+				<td>
+                                    <field name="situado11" style="width:100%%"        on_change="monto_asignado(situado11,gestion11,fondo11,transferencias11,'11')"/>
+                                </td>
+				<td>
+                                    <field name="gestion11" style="width:100%%"        on_change="monto_asignado(situado11,gestion11,fondo11,transferencias11,'11')"/>
+                                </td>
+				<td>
+                                    <field name="fondo11" style="width:100%%"          on_change="monto_asignado(situado11,gestion11,fondo11,transferencias11,'11')"/>
+                                </td>
+				<td>
+                                    <field name="transferencias11" style="width:100%%" on_change="monto_asignado(situado11,gestion11,fondo11,transferencias11,'11')"/>
+                                </td>
+				<td>
+                                    <field name="total_partidas11" style="width:100%%" on_change="suma_partidas(total_partidas01,total_partidas02,total_partidas03,total_partidas04,total_partidas05,total_partidas07,total_partidas10,total_partidas11,total_partidas12,total_partidas98)"/>
+                                </td>
+                                <!--<td>
+                                    <field name="partida11" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)"/>
+                                </td>-->
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>4.12</b>
+                                </td>
+                                <td>
+                                    <b>Disminución de Patrimonio</b>
+                                </td>
+                                <td>
+                                    <field name="partida12s"  />
+                                </td>
+				<td>
+                                    <field name="situado12" style="width:100%%"        on_change="monto_asignado(situado12,gestion12,fondo12,transferencias12,'12')"/>
+                                </td>
+				<td>
+                                    <field name="gestion12" style="width:100%%"        on_change="monto_asignado(situado12,gestion12,fondo12,transferencias12,'12')"/>
+                                </td>
+				<td>
+                                    <field name="fondo12" style="width:100%%"          on_change="monto_asignado(situado12,gestion12,fondo12,transferencias12,'12')"/>
+                                </td>
+				<td>
+                                    <field name="transferencias12" style="width:100%%" on_change="monto_asignado(situado12,gestion12,fondo12,transferencias12,'12')"/>
+                                </td>
+				<td>
+                                    <field name="total_partidas12" style="width:100%%" on_change="suma_partidas(total_partidas01,total_partidas02,total_partidas03,total_partidas04,total_partidas05,total_partidas07,total_partidas10,total_partidas11,total_partidas12,total_partidas98)"/>
+                                </td>
+       
+                            </tr>
+			    <tr>
+                                <td>
+                                    <b>4.98</b>
+                                </td>
+                                <td>
+                                    <b>Rectificaciones al presupuesto</b>
+                                </td>
+                                <td>
+                                    <field name="partida98s"  />
+                                </td>
+                <td>
+                                    <field name="situado98" style="width:100%%"        on_change="monto_asignado(situado98,gestion98,fondo98,transferencias98, '98')"/>
+                                </td>
+                <td>
+                                    <field name="gestion98" style="width:100%%"        on_change="monto_asignado(situado98,gestion98,fondo98,transferencias98, '98')"/>
+                                </td>
+                <td>
+                                    <field name="fondo98" style="width:100%%"          on_change="monto_asignado(situado98,gestion98,fondo98,transferencias98, '98')"/>
+                                </td>
+                <td>
+                                    <field name="transferencias98" style="width:100%%" on_change="monto_asignado(situado98,gestion98,fondo98,transferencias98, '98')"/>
+                                </td>
+                <td>
+                                    <field name="total_partidas98" style="width:100%%" on_change="suma_partidas(total_partidas01,total_partidas02,total_partidas03,total_partidas04,total_partidas05,total_partidas07,total_partidas10,total_partidas11,total_partidas12,total_partidas98)"/>
+                                </td>
+                                <!--<td>
+                                    <field name="partida05" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)" />
+                                </td>-->
+                            </tr>
+                            <tr style="background-color:#BFBFBF; color:black">
+                                <td  colspan="7">
+                                    <b>Monto Total Asignado al Proyecto:</b>
+                                </td>
+                                <td  style="width:105px">
+                                    <b>
+                                        <field name="monto" />
+                                    </b>
+                                </td>
+                            </tr>
+				<footer>
+					<tr>
+						<td colspan="4" style="text-align:left">
+							<button name="action_asignar" type="object" string="Asignar Montos" class="exportar" />
+						</td>
+					</tr>
+				</footer>
+                        </table>
+                        <separator />
+                        <table>
+                            <tr>
+                                <b>Observaciones:</b>
+                            </tr>
+                            <tr>
+                                <td style="width:700px">
+                                    <field name="observaciones"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <footer >
+                            <button name="observacion_ajutes" type="object" string="Observaciones Preliminares" class="exportar" attrs="{'invisible':[('estatus','in', ('1','2'))]}"/>
+                            <button name="observaciones_finales" type="object" string="Observaciones Finales" class="exportar"   attrs="{'invisible':[('estatus','in', ('1','2','3'))]}"/>
+                        </footer>
+                    </div>
+                </form>
+            </field>			
+        </record>
 
-<!--Registro Observaciones de Acciones Centralizadas -->
+        <!--Registro Observaciones de Acciones Centralizadas -->
 
-		<record model="ir.actions.act_window" id="observaciones_acciones_list_action">
-		    <field name="name">Observaciones de las Acciones Centralizadas </field>
-		    <field name="res_model">observacion.accion</field>
-		    <field name="view_type">form</field>
-		    <field name="view_mode">tree,form</field>
-		</record> 
+        <record model="ir.actions.act_window" id="observaciones_acciones_list_action">
+            <field name="name">Observaciones de las Acciones Centralizadas </field>
+            <field name="res_model">observacion.accion</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record> 
 
-<!--Form y Tree Acciones Centralizadas-->
+        <!--Form y Tree Acciones Centralizadas-->
 
-		<record model="ir.ui.view" id="observaciones_acciones_tree_view">
-			<field name="name">Observaciones de Acciones Centralizadas </field>
-			<field name="model">observacion.accion</field>
-			<field name="arch" type="xml">
-				<tree string="Observaciones" colors="red:estatus=='2';blue:estatus=='4';black:estatus=='1';green:estatus=='3'">
-					<field name="codigo"/>
-					<field name="accion_centra"/>
-					<field name="revisado"/>
-					<field name="fecha"/>
-					<field name="estatus"/>
-				</tree>
-			</field>			
-		</record>
-		<record model="ir.ui.view" id="observaciones_acciones_form_view">
-			<field name="name">Observaciones Acciones Centralizadas</field>
-			<field name="model">observacion.accion</field>
-			<field name="arch" type="xml">
-				<form string="Observaciones" version="7.0">
-					<header >
-						<button name="action_ajustar" type="object" string="Pre-Aprobar" class="ajuste"
-						attrs="{'invisible':[('estatus','in', ('3','4'))]}"/>
-						<button name="action_rechasado" type="object" string="Rechazar Proyecto" class="oe_highlight"
-							attrs="{'invisible':[('estatus','in', ('1','2','3'))]}"/>
-						<button name="action_aprobado" type="object" string="Aprobar" class="aprobado"
-							attrs="{'invisible':[('estatus','in', ('1','2'))]}"/>
-						<field name="estatus" widget="statusbar"/>
-					</header>
-					<field name="id" invisible="1"/>
-					<div class="oe_form_sheetbg">
-					<table >
-						<tr style="width:800px">
-							<td style="width:75px">
-								<b>Institución:</b>
-							</td>
-							<td style="width:300px">
-								<field name="ente" style="width:95%%" placeholder="Seleccione la Institución"/>
-							</td>
-							<td  style="width:100px">
-								<b>ID de la Acción:</b>
-							</td>
-							<td style="width:100px">
-								<field name="codigo" style="width:90%%"
-								domain= "[('organismo','=',ente)]"
-								on_change="on_change_proyecto(codigo)"/>
-							</td>
-							<td  style="width:55px">
-								<b>Fecha:</b>
-							</td>
-							<td style="width:75px">
-								<field name="fecha" style="width:90%%"/>
-							</td>
-						</tr>							
-					</table>
-					<table>
-						<tr>
-							<td style="width:140px">
-								<b>Nombre de la Acción:</b>
-							</td>
-							<td style="width:559px" >
-								<field name="accion_centra"/>
-							</td>
+        <record model="ir.ui.view" id="observaciones_acciones_tree_view">
+            <field name="name">Observaciones de Acciones Centralizadas </field>
+            <field name="model">observacion.accion</field>
+            <field name="arch" type="xml">
+                <tree string="Observaciones" colors="red:estatus=='2';blue:estatus=='4';black:estatus=='1';green:estatus=='3'">
+				
+                    <field name="codigo"/>
+                    <field name="accion_centra"/>
+                    <field name="revisado"/>
+                    <field name="fecha"/>
+                    <field name="estatus"/>
+                </tree>
+            </field>			
+        </record>
+        <record model="ir.ui.view" id="observaciones_acciones_form_view">
+            <field name="name">Observaciones Acciones Centralizadas</field>
+            <field name="model">observacion.accion</field>
+            <field name="arch" type="xml">
+                <form string="Observaciones" version="7.0">
+                    <header >
+                        <button name="action_ajustar" type="object" string="Pre-Aprobar" class="ajuste" attrs="{'invisible':[('estatus','in', ('3','4'))]}"/>
+                        <button name="action_rechasado" type="object" string="Rechazar Proyecto" class="oe_highlight" attrs="{'invisible':[('estatus','in', ('1','2','3'))]}"/>
+                        <button name="action_aprobado" type="object" string="Aprobar" class="aprobado" attrs="{'invisible':[('estatus','in', ('1','2'))]}"/>
+                        <field name="estatus" widget="statusbar"/>
+                    </header>
+                    <field name="id" invisible="1"/>
+                    <div class="oe_form_sheetbg">
+                        <table >
+                            <tr style="width:800px">
+                                <td style="width:75px">
+                                    <b>Institución:</b>
+                                </td>
+                                <td style="width:300px">
+                                    <field name="ente" style="width:95%%" placeholder="Seleccione la Institución"/>
+                                </td>
+                                <td  style="width:100px">
+                                    <b>ID de la Acción:</b>
+                                </td>
+                                <td style="width:100px">
+                                    <field name="codigo" style="width:90%%" domain= "[('organismo','=',ente)]" on_change="on_change_proyecto(codigo)"/>
+                                </td>
+                                <td  style="width:55px">
+                                    <b>Fecha:</b>
+                                </td>
+                                <td style="width:75px">
+                                    <field name="fecha" style="width:90%%"/>
+                                </td>
+                            </tr>							
+                        </table>
+                        <table>
+                            <tr>
+                                <td style="width:140px">
+                                    <b>Nombre de la Acción:</b>
+                                </td>
+                                <td style="width:559px" >
+                                    <field name="accion_centra"/>
+                                </td>
 
-						</tr>
-					</table>
-					<table>
-						<tr style="width:850px">
-							<td  style="width:80px">
-								<b>Año Fiscal:</b>
-							</td>
-							<td style="width:110px">
-								<field name="a_fiscal" style="width:50%%"/>
-							</td>
-							<td  style="width:110px">
-								<b>Monto Solicitado:</b>
-							</td>
-							<td style="width:125px">
-								<field name="monto_solicitado"/>
-							</td>
-						</tr>
-					</table>
-					<table>
-						<tr>
-							<td style="width:90px">
-								<b>Revisado por:</b>
-							</td>
-							<td style="width:120px">
-								<field name="revisado" style="width:90%%"/>
-							</td>
-							<td invisible="1">
-								<field name="siglas"/>
-							</td>
-						</tr>
-					</table>
-					<separator />
-					<b>Montos por partida:</b>
-					<table  style="width:400px">
-						<tr style="background-color:#2D77BE; color:white" >
-							<td style="width:20px">
-								<b>Código</b>
-							</td>
-							<td style="width:215px">
-								<b>Nombre de la Partida</b>
-							</td>
-							<td style="width:80px">
-								<b>Monto Asignado</b>
-							</td>
-						</tr>
-						<tr attrs="{'invisible':[('accion_centra','!=', ('Dirección y coordinación de los gastos de los trabajadores'))]}">
-							<td >
-								<b>4.01</b>
-							</td>
-							<td>
-								<b>Gastos de Personal</b>
-							</td>
-							<td>
-								<field name="partida01" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)" />
-							</td>
-						</tr>
-						<tr attrs="{'invisible':[('accion_centra','!=', ('Gestión Administrativa'))]}">
-							<td >
-								<b>4.02</b>
-							</td>
-							<td>
-								<b>Materiales, Suministros y Mercancías</b>
-							</td>
-							<td>
-								<field name="partida02" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)" />
-							</td>
-						</tr>
-						<tr attrs="{'invisible':[('accion_centra','!=',('Gestión Administrativa')), ('accion_centra','!=',('Previsión y protección social')),('accion_centra','!=',('Dirección y coordinación de los gastos de los trabajadores'))]}">
-							<td>
-								<b>4.03</b>
-							</td>
-							<td>
-								<b>Servicios no personales</b>
-							</td>
-							<td>
-								<field name="partida03" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)" />
-							</td>
-						</tr>
-						<tr attrs="{'invisible':[('accion_centra','!=', ('Gestión Administrativa'))]}">
-							<td>
-								<b>4.04</b>
-							</td>
-							<td>
-								<b>Activos Reales</b>
-							</td>
-							<td>
-								<field name="partida04" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)" />
-							</td>
-						</tr>
-						<tr attrs="{'invisible':[('accion_centra','!=', ('Gestión Administrativa')), ('accion_centra','!=', ('Dirección y coordinación del servicio de la deuda pública nacional'))]}">
-							<td>
-								<b>4.05</b>
-							</td>
-							<td>
-								<b>Activos Financieros</b>
-							</td>
-							<td>
-								<field name="partida05" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)" />
-							</td>
-						</tr>
-						<tr attrs="{'invisible':[('accion_centra','!=', ('Gestión Administrativa')), ('accion_centra','!=', ('Dirección y coordinación del servicio de la deuda pública nacional')),
-						('accion_centra','!=', ('Asignaciones predeterminadas')),('accion_centra','!=', ('Previsión y protección social'))]}">
-							<td>
-								<b>4.07</b>
-							</td>
-							<td>
-								<b>Transferencias y Donaciones</b>
-							</td>
-							<td>
-								<field name="partida07" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)"/>
-							</td>
-						</tr>
-						<tr attrs="{'invisible':[('accion_centra','!=', ('Dirección y coordinación del servicio de la deuda pública nacional'))]}">
-							<td>
-								<b>4.10</b>
-							</td>
-							<td>
-								<b>Servicio de la Deuda Pública</b>
-							</td>
-							<td>
-								<field name="partida10" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)"/>
-							</td>
-						</tr>
-						<tr attrs="{'invisible':[('accion_centra','!=', ('Gestión Administrativa')), ('accion_centra','!=', ('Dirección y coordinación del servicio de la deuda pública nacional'))]}">
-							<td>
-								<b>4.11</b>
-							</td>
-							<td>
-								<b>Disminución de Pasivos</b>
-							</td>
-							<td>
-								<field name="partida11" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)"/>
-							</td>
-						</tr>
-						<tr attrs="{'invisible':[('accion_centra','!=', ('Gestión Administrativa'))]}">
-							<td>
-								<b>4.12</b>
-							</td>
-							<td>
-								<b>Disminución de Patrimonio</b>
-							</td>
-							<td>
-								<field name="partida12" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)"/>
-							</td>
-						</tr>
-						<tr style="background-color:#BFBFBF; color:black">
-							<td  colspan="2">
-								<b>Monto Total Asignado al Proyecto:</b>
-							</td>
-							<td style="width:105px">
-								<b><field name="monto" /></b>
-							</td>
-						</tr>
-					</table>
-					<separator/>
-					<table>
-						<tr>
-							<b>Observaciones:</b>
-						</tr>
-						<tr>
-							<td style="width:700px">
-								<field name="observaciones"/>
-							</td>
-						</tr>
-					</table>
-					<footer >
-						<button name="observacion_ajutes" type="object" string="Observaciones Preliminares" class="exportar"
-							attrs="{'invisible':[('estatus','in', ('1','2'))]}"/>
-						<button name="observaciones_finales" type="object" string="Observaciones Finales" class="exportar"
-							attrs="{'invisible':[('estatus','in', ('1','2','3'))]}"/>
-					</footer>
-					</div>
-				</form>
-			</field>			
-		</record>
-
-		
-	<menuitem id="observaciones_acciones_menu" name="Observaciones" parent="accion_centralizada_menu" action="observaciones_acciones_list_action" sequence="2"/>
-	<menuitem id="observaciones_proyectos_menu" name="Observaciones" parent="proyecto_conaplan_menu" action="observaciones_proyectos_list_action" sequence="2"/>
-
-		
-	</data>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr style="width:850px">
+                                <td  style="width:80px">
+                                    <b>Año Fiscal:</b>
+                                </td>
+                                <td style="width:110px">
+                                    <field name="a_fiscal" style="width:50%%"/>
+                                </td>
+                                <td  style="width:110px">
+                                    <b>Monto Solicitado:</b>
+                                </td>
+                                <td style="width:125px">
+                                    <field name="monto_solicitado"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <separator string="Observaciones/Correcciones"/>
+                        <table>
+                            <tr>
+                                <td style="width:90px">
+                                    <b>Revisado por:</b>
+                                </td>
+                                <td style="width:120px">
+                                    <field name="revisado" style="width:90%%"/>
+                                </td>
+                                <td invisible="1">
+                                    <field name="siglas"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <b>Estructura Presupuestaria:</b>
+                                </td>
+                                <td>
+                                    <field name="estruc_presu" style="width:25%%"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <separator />
+                        <b>Montos por partida:</b>
+                        <table  style="width:100%%">
+				<tr style="width:120px">
+					<td colspan="7" style="text-align:center">
+						<b>Fuente de Financiamiento</b>
+					</td>
+				</tr>
+                            <tr style="background-color:#2D77BE; color:white" >
+                                <td style="width:20px">
+                                    <b>Código</b>
+                                </td>
+                                <td style="width:215px">
+                                    <b>Nombre de la Partida</b>
+                                </td>
+				<td style="width:80px">
+                                    <b>Monto Solicitado</b>
+                                </td>
+                                <td style="">
+                                    <b>Situado Constitucional</b>
+                                                </td>
+                                <td style="">
+                                    <b>Gestión Fiscal</b>
+                                </td>
+                                <td style="">
+                                    <b>Fondo de Compensación Interterritorial</b>
+                                </td>
+                                <td style="">
+                                    <b>Transferencias Internas Corrientes de la República</b>
+                                </td>
+                                <td style="width:120px">
+                                    <b>Monto Asignado</b>
+                                </td>
+                            </tr>
+                            <tr attrs="{'invisible':[('accion_centra','!=', ('Dirección y coordinación de los gastos de los trabajadores'))]}">
+                                <td >
+                                    <b>4.01</b>
+                                </td>
+                                <td>
+                                    <b>Gastos de Personal</b>
+                                </td>
+				<td>
+                                    <field name="partida01s"/>
+                                </td>
+                                <td>
+                                    <field name="situado01" style="width:100%%"        on_change="monto_asignado(situado01,gestion01,fondo01,transferencias01,'1')"/>
+                                </td>
+				<td>
+                                    <field name="gestion01" style="width:100%%"        on_change="monto_asignado(situado01,gestion01,fondo01,transferencias01,'1')"/>
+                                </td>
+				<td>
+                                    <field name="fondo01" style="width:100%%"          on_change="monto_asignado(situado01,gestion01,fondo01,transferencias01,'1')"/>
+                                </td>
+				<td>
+                                    <field name="transferencias01" style="width:100%%" on_change="monto_asignado(situado01,gestion01,fondo01,transferencias01,'1')"/>
+                                </td>
+				<td>
+                                    <field name="total_partidas01" style="width:100%%" on_change="suma_partidas(total_partidas01,total_partidas02,total_partidas03,total_partidas04,total_partidas05,total_partidas07,total_partidas10,total_partidas11,total_partidas12,total_partidas98)"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td >
+                                    <b>4.02</b>
+                                </td>
+                                <td>
+                                    <b>Materiales, Suministros y Mercancías</b>
+                                </td>
+                                <td>
+                                    <field name="partida02s"/>
+                                </td>
+                <td>
+                                    <field name="situado02" style="width:100%%"        on_change="monto_asignado(situado02,gestion02,fondo02,transferencias02,'2')"/>
+                                </td>
+                <td>
+                                    <field name="gestion02" style="width:100%%"        on_change="monto_asignado(situado02,gestion02,fondo02,transferencias02,'2')"/>
+                                </td>
+                <td>
+                                    <field name="fondo02" style="width:100%%"          on_change="monto_asignado(situado02,gestion02,fondo02,transferencias02,'2')"/>
+                                </td>
+                <td>
+                                    <field name="transferencias02" style="width:100%%" on_change="monto_asignado(situado02,gestion02,fondo02,transferencias02,'2')"/>
+                                </td>
+                <td>
+                                    <field name="total_partidas02" style="width:100%%" on_change="suma_partidas(total_partidas01,total_partidas02,total_partidas03,total_partidas04,total_partidas05,total_partidas07,total_partidas10,total_partidas11,total_partidas12,total_partidas98)"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>4.03</b>
+                                </td>
+                                <td>
+                                    <b>Servicios no personales</b>
+                                </td>
+                                <td>
+                                    <field name="partida03s"  />
+                                </td>
+                <td>
+                                    <field name="situado03" style="width:100%%"        on_change="monto_asignado(situado03,gestion03,fondo03,transferencias03, '3')"/>
+                                </td>
+                <td>
+                                    <field name="gestion03" style="width:100%%"        on_change="monto_asignado(situado03,gestion03,fondo03,transferencias03, '3')"/>
+                                </td>
+                <td>
+                                    <field name="fondo03" style="width:100%%"          on_change="monto_asignado(situado03,gestion03,fondo03,transferencias03, '3')"/>
+                                </td>
+                <td>
+                                    <field name="transferencias03" style="width:100%%" on_change="monto_asignado(situado03,gestion03,fondo03,transferencias03, '3')"/>
+                                </td>
+                <td>
+                                    <field name="total_partidas03" style="width:100%%" on_change="suma_partidas(total_partidas01,total_partidas02,total_partidas03,total_partidas04,total_partidas05,total_partidas07,total_partidas10,total_partidas11,total_partidas12,total_partidas98)"/>
+                                </td>
+                                <!--<td>
+                                    <field name="partida03" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)" />
+                                </td>-->
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>4.04</b>
+                                </td>
+                                <td>
+                                    <b>Activos Reales</b>
+                                </td>
+                                <td>
+                                    <field name="partida04s"  />
+                                </td>
+                <td>
+                                    <field name="situado04" style="width:100%%"        on_change="monto_asignado(situado04,gestion04,fondo04,transferencias04, '4')"/>
+                                </td>
+                <td>
+                                    <field name="gestion04" style="width:100%%"        on_change="monto_asignado(situado04,gestion04,fondo04,transferencias04, '4')"/>
+                                </td>
+                <td>
+                                    <field name="fondo04" style="width:100%%"          on_change="monto_asignado(situado04,gestion04,fondo04,transferencias04, '4')"/>
+                                </td>
+                <td>
+                                    <field name="transferencias04" style="width:100%%" on_change="monto_asignado(situado04,gestion04,fondo04,transferencias04, '4')"/>
+                                </td>
+                <td>
+                                    <field name="total_partidas04" style="width:100%%" on_change="suma_partidas(total_partidas01,total_partidas02,total_partidas03,total_partidas04,total_partidas05,total_partidas07,total_partidas10,total_partidas11,total_partidas12,total_partidas98)"/>
+                                </td>
+                                <!--<td>
+                                    <field name="partida04" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)" />
+                                </td>-->
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>4.05</b>
+                                </td>
+                                <td>
+                                    <b>Activos Financieros</b>
+                                </td>
+                                <td>
+                                    <field name="partida05s"  />
+                                </td>
+                <td>
+                                    <field name="situado05" style="width:100%%"        on_change="monto_asignado(situado05,gestion05,fondo05,transferencias05, '5')"/>
+                                </td>
+                <td>
+                                    <field name="gestion05" style="width:100%%"        on_change="monto_asignado(situado05,gestion05,fondo05,transferencias05, '5')"/>
+                                </td>
+                <td>
+                                    <field name="fondo05" style="width:100%%"          on_change="monto_asignado(situado05,gestion05,fondo05,transferencias05, '5')"/>
+                                </td>
+                <td>
+                                    <field name="transferencias05" style="width:100%%" on_change="monto_asignado(situado05,gestion05,fondo05,transferencias05, '5')"/>
+                                </td>
+                <td>
+                                    <field name="total_partidas05" style="width:100%%" on_change="suma_partidas(total_partidas01,total_partidas02,total_partidas03,total_partidas04,total_partidas05,total_partidas07,total_partidas10,total_partidas11,total_partidas12,total_partidas98)"/>
+                                </td>
+                                <!--<td>
+                                    <field name="partida05" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)" />
+                                </td>-->
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>4.07</b>
+                                </td>
+                                <td>
+                                    <b>Transferencias y Donaciones</b>
+                                </td>
+                                <td>
+                                    <field name="partida07s"  />
+                                </td>
+                <td>
+                                    <field name="situado07" style="width:100%%"        on_change="monto_asignado(situado07,gestion07,fondo07,transferencias07, '7')"/>
+                                </td>
+                <td>
+                                    <field name="gestion07" style="width:100%%"        on_change="monto_asignado(situado07,gestion07,fondo07,transferencias07, '7')"/>
+                                </td>
+                <td>
+                                    <field name="fondo07" style="width:100%%"          on_change="monto_asignado(situado07,gestion07,fondo07,transferencias07, '7')"/>
+                                </td>
+                <td>
+                                    <field name="transferencias07" style="width:100%%" on_change="monto_asignado(situado07,gestion07,fondo07,transferencias07, '7')"/>
+                                </td>
+                <td>
+                                    <field name="total_partidas07" style="width:100%%" on_change="suma_partidas(total_partidas01,total_partidas02,total_partidas03,total_partidas04,total_partidas05,total_partidas07,total_partidas10,total_partidas11,total_partidas12,total_partidas98)"/>
+                                </td>
+                                <!--<td>
+                                    <field name="partida07" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)"/>
+                                </td>-->
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>4.10</b>
+                                </td>
+                                <td>
+                                    <b>Servicio de la Deuda Pública</b>
+                                </td>
+                                <td>
+                                    <field name="partida10s"  />
+                                </td>
+                <td>
+                                    <field name="situado10" style="width:100%%"        on_change="monto_asignado(situado10,gestion10,fondo10,transferencias10,'10')"/>
+                                </td>
+                <td>
+                                    <field name="gestion10" style="width:100%%"        on_change="monto_asignado(situado10,gestion10,fondo10,transferencias10,'10')"/>
+                                </td>
+                <td>
+                                    <field name="fondo10" style="width:100%%"          on_change="monto_asignado(situado10,gestion10,fondo10,transferencias10,'10')"/>
+                                </td>
+                <td>
+                                    <field name="transferencias10" style="width:100%%" on_change="monto_asignado(situado10,gestion10,fondo10,transferencias10,'10')"/>
+                                </td>
+                <td>
+                                    <field name="total_partidas10" style="width:100%%" on_change="suma_partidas(total_partidas01,total_partidas02,total_partidas03,total_partidas04,total_partidas05,total_partidas07,total_partidas10,total_partidas11,total_partidas12,total_partidas98)"/>
+                                </td>
+                                <!--<td>
+                                    <field name="partida10" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)"/>
+                                </td>-->
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>4.11</b>
+                                </td>
+                                <td>
+                                    <b>Disminución de Pasivos</b>
+                                </td>
+                                <td>
+                                    <field name="partida11s"  />
+                                </td>
+                <td>
+                                    <field name="situado11" style="width:100%%"        on_change="monto_asignado(situado11,gestion11,fondo11,transferencias11,'11')"/>
+                                </td>
+                <td>
+                                    <field name="gestion11" style="width:100%%"        on_change="monto_asignado(situado11,gestion11,fondo11,transferencias11,'11')"/>
+                                </td>
+                <td>
+                                    <field name="fondo11" style="width:100%%"          on_change="monto_asignado(situado11,gestion11,fondo11,transferencias11,'11')"/>
+                                </td>
+                <td>
+                                    <field name="transferencias11" style="width:100%%" on_change="monto_asignado(situado11,gestion11,fondo11,transferencias11,'11')"/>
+                                </td>
+                <td>
+                                    <field name="total_partidas11" style="width:100%%" on_change="suma_partidas(total_partidas01,total_partidas02,total_partidas03,total_partidas04,total_partidas05,total_partidas07,total_partidas10,total_partidas11,total_partidas12,total_partidas98)"/>
+                                </td>
+                                <!--<td>
+                                    <field name="partida11" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)"/>
+                                </td>-->
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>4.12</b>
+                                </td>
+                                <td>
+                                    <b>Disminución de Patrimonio</b>
+                                </td>
+                                <td>
+                                    <field name="partida12s"/>
+                                </td>
+                <td>
+                                    <field name="situado12" style="width:100%%"        on_change="monto_asignado(situado12,gestion12,fondo12,transferencias12,'12')"/>
+                                </td>
+                <td>
+                                    <field name="gestion12" style="width:100%%"        on_change="monto_asignado(situado12,gestion12,fondo12,transferencias12,'12')"/>
+                                </td>
+                <td>
+                                    <field name="fondo12" style="width:100%%"          on_change="monto_asignado(situado12,gestion12,fondo12,transferencias12,'12')"/>
+                                </td>
+                <td>
+                                    <field name="transferencias12" style="width:100%%" on_change="monto_asignado(situado12,gestion12,fondo12,transferencias12,'12')"/>
+                                </td>
+                <td>
+                                    <field name="total_partidas12" style="width:100%%" on_change="suma_partidas(total_partidas01,total_partidas02,total_partidas03,total_partidas04,total_partidas05,total_partidas07,total_partidas10,total_partidas11,total_partidas12,total_partidas98)"/>
+                                </td>
+       
+                            </tr>
+			    <tr>
+                                <td>
+                                    <b>4.98</b>
+                                </td>
+                                <td>
+                                    <b>Rectificaciones al presupuesto</b>
+                                </td>
+                                <td>
+                                    <field name="partida98s"  />
+                                </td>
+                <td>
+                                    <field name="situado98" style="width:100%%"        on_change="monto_asignado(situado98,gestion98,fondo98,transferencias98, '98')"/>
+                                </td>
+                <td>
+                                    <field name="gestion98" style="width:100%%"        on_change="monto_asignado(situado98,gestion98,fondo98,transferencias98, '98')"/>
+                                </td>
+                <td>
+                                    <field name="fondo98" style="width:100%%"          on_change="monto_asignado(situado98,gestion98,fondo98,transferencias98, '98')"/>
+                                </td>
+                <td>
+                                    <field name="transferencias98" style="width:100%%" on_change="monto_asignado(situado98,gestion98,fondo98,transferencias98, '98')"/>
+                                </td>
+                <td>
+                                    <field name="total_partidas98" style="width:100%%" on_change="suma_partidas(total_partidas01,total_partidas02,total_partidas03,total_partidas04,total_partidas05,total_partidas07,total_partidas10,total_partidas11,total_partidas12,total_partidas98)"/>
+                                </td>
+                                <!--<td>
+                                    <field name="partida05" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)" />
+                                </td>-->
+                            </tr>
+                            <tr style="background-color:#BFBFBF; color:black">
+                                <td  colspan="7">
+                                    <b>Monto Total Asignado a la Acción:</b>
+                                </td>
+                                <td style="width:105px">
+                                    <b>
+                                        <field name="monto" />
+                                    </b>
+                                </td>
+                            </tr>
+			<footer>
+				<tr>
+					<td colspan="4" style="text-align:left">
+						<button name="action_asignar" type="object" string="Asignar Montos" class="exportar" />
+					</td>
+				</tr>
+			</footer>
+                        </table>
+                        <separator/>
+                        <table>
+                            <tr>
+                                <b>Observaciones:</b>
+                            </tr>
+                            <tr>
+                                <td style="width:700px">
+                                    <field name="observaciones"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <footer >
+                            <button name="observacion_ajutes"    type="object" string="Observaciones Preliminares" class="exportar" attrs="{'invisible':[('estatus','in', ('1','2'))]}"/>
+                            <button name="observaciones_finales" type="object" string="Observaciones Finales" class="exportar" attrs="{'invisible':[('estatus','in', ('1','2','3'))]}"/>
+                        </footer>
+                    </div>
+                </form>
+            </field>			
+        </record>		
+        <menuitem id="observaciones_acciones_menu" name="Observaciones" parent="accion_centralizada_menu" action="observaciones_acciones_list_action" sequence="2"/>
+        <menuitem id="observaciones_proyectos_menu" name="Observaciones" parent="proyecto_conaplan_menu" action="observaciones_proyectos_list_action" sequence="2"/>
+    </data>
 </openerp>

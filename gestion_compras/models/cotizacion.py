@@ -29,7 +29,13 @@ class Gestion_compras(osv.Model):
 	
 	_order = 'proveedor'
 	
-	_rec_name = 'referencia_proveedor'
+	_rec_name = 'n_cotizacion'
+	
+	def cancelar_cotizacion(self, cr, uid, ids, context=None):
+		return self.write(cr, uid, ids, {'status': 'cancelado'}, context=context)
+		
+	def realizar_cotizacion(self, cr, uid, ids, context=None):
+		return self.write(cr, uid, ids, {'status': 'realizado'}, context=context)	
 	
 	#METODO PARA LA LECTURA DE LOS ELEMENTOS SELECCIONADOS (MATERIALES)
 	
@@ -269,7 +275,7 @@ class Gestion_compras(osv.Model):
 		'proveedor' : fields.many2one("res.partner", "Proveedor", required = True),
 		'fecha_orden' : fields.date(string="Fecha de Orden", required=True),
 		'referencia_proveedor' : fields.char(string="Actividad", size=256, required=True),
-		'status' : fields.selection([('borrador','OC en Borrador'),('enviado','Petición de Cotización enviada'),('realizado','Realizado')], string="Acción", required=False),
+		'status' : fields.selection([('borrador','OC en Borrador'),('enviado','Petición de Cotización enviada'),('realizado','Realizado'),('cancelado','Cancelado')], string="Acción", required=False),
 		'user': fields.many2one('res.users', 'Registrado por:', readonly=True), # Usuario logeado
 		'direccion' : fields.text(string='Direccion', required=True),
 		'n_cotizacion' : fields.char(string="Numero de Cotizacion", size=25, required=True),

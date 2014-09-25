@@ -70,9 +70,11 @@ class Solicitud(osv.Model):
 			pdf.multi_cell(190,5,pdf_class.acento(solicitante),'LTBR','J',1)
 			pdf.cell(190,5,"DESCRIPCIÓN DE LOS MATERIALES, EQUIPOS Y SERVICIOS SOLICITADOS".decode("UTF-8"),'LTBR',1,'C',1)
 			pdf.cell(80,5,"IMPUTAC. PRESUP.".decode("UTF-8"),'LTBR',0,'C',1)
+			pdf.set_font('Arial','B',7)
 			pdf.cell(20,5,"CANTIDAD".decode("UTF-8"),'LTR',0,'C',1)
 			pdf.cell(20,5,"UNIDAD".decode("UTF-8"),'LTR',0,'C',1)
 			pdf.cell(70,5,"DESCRIPCIÓN".decode("UTF-8"),'LTR',1,'C',1)
+			pdf.set_font('Arial','B',7)
 			pdf.cell(20,5,"PART".decode("UTF-8"),'LTBR',0,'C',1)
 			pdf.cell(20,5,"GENER".decode("UTF-8"),'LTBR',0,'C',1)
 			pdf.cell(20,5,"ESPECI".decode("UTF-8"),'LTBR',0,'C',1)
@@ -86,12 +88,14 @@ class Solicitud(osv.Model):
 			
 			for m_p in one_2_mamy_pre:
 				partida  = m_p.part # PARTIDA
-				part_g   = m_p.cod_part_g # PARTIDA GENERAL
-				part_e   = m_p.cod_part_e # PARTIDA ESPECIFICA
-				part_s_e = m_p.cod_part_sub_e # PARTIDA SUB ESPECIFICA
-				cantidad = m_p.cantidad # CANTIDAD
-				unidad   = m_p.unidad.name # UNIDAD
-				desc     = m_p.descripcion.descripcion # DECRIPCION DEL MATERIAL SOLICITADO
+				
+				part           = partida[0:4]
+				general        = partida[5:7]
+				especifica     = partida[8:10]
+				sub_especifica = partida[11:13]
+				cantidad       = m_p.cantidad # CANTIDAD
+				unidad         = m_p.unidad.name # UNIDAD
+				desc           = m_p.descripcion.descripcion # DECRIPCION DEL MATERIAL SOLICITADO
 			
 				if j == 20:
 					pdf.add_page()
@@ -117,13 +121,15 @@ class Solicitud(osv.Model):
 					pdf.multi_cell(190,5,pdf_class.acento(solicitante),'LTBR','J',1)
 					pdf.cell(190,5,"DESCRIPCIÓN DE LOS MATERIALES, EQUIPOS Y SERVICIOS SOLICITADOS".decode("UTF-8"),'LTBR',1,'C',1)
 					pdf.cell(80,5,"IMPUTAC. PRESUP.".decode("UTF-8"),'LTBR',0,'C',1)
+					pdf.set_font('Arial','B',7)
 					pdf.cell(20,5,"CANTIDAD".decode("UTF-8"),'LTR',0,'C',1)
 					pdf.cell(20,5,"UNIDAD".decode("UTF-8"),'LTR',0,'C',1)
 					pdf.cell(70,5,"DESCRIPCIÓN".decode("UTF-8"),'LTR',1,'C',1)
-					pdf.cell(20,5,"PART".decode("UTF-8"),'LTBR',0,'C',1)
-					pdf.cell(20,5,"GENER".decode("UTF-8"),'LTBR',0,'C',1)
-					pdf.cell(20,5,"ESPECI".decode("UTF-8"),'LTBR',0,'C',1)
-					pdf.cell(20,5,"SUB-ESPEC".decode("UTF-8"),'LTBR',0,'C',1)
+					pdf.set_font('Arial','B',7)
+					pdf.cell(10,5,"PART".decode("UTF-8"),'LTBR',0,'C',1)
+					pdf.cell(10,5,"GENER".decode("UTF-8"),'LTBR',0,'C',1)
+					pdf.cell(10,5,"ESPECI".decode("UTF-8"),'LTBR',0,'C',1)
+					pdf.cell(10,5,"SUB-ESPEC".decode("UTF-8"),'LTBR',0,'C',1)
 					pdf.cell(20,5,"".decode("UTF-8"),'LBR',0,'C',1)
 					pdf.cell(20,5,"".decode("UTF-8"),'LBR',0,'C',1)
 					pdf.cell(70,5,"".decode("UTF-8"),'LBR',1,'C',1)
@@ -132,10 +138,10 @@ class Solicitud(osv.Model):
 				
 				# Fila de la cabezara de la tabla # Relacion a DB
 				pdf.set_font('Arial','',8)
-				pdf.cell(20,5,str(partida),'LTBR',0,'C',1)
-				pdf.cell(20,5,str(part_g),'LTBR',0,'C',1)
-				pdf.cell(20,5,str(part_e),'LTBR',0,'C',1)
-				pdf.cell(20,5,str(part_s_e),'LTBR',0,'C',1)
+				pdf.cell(20,5,str(part),'LTBR',0,'C',1)
+				pdf.cell(20,5,str(general),'LTBR',0,'C',1)
+				pdf.cell(20,5,str(especifica),'LTBR',0,'C',1)
+				pdf.cell(20,5,str(sub_especifica),'LTBR',0,'C',1)
 				pdf.cell(20,5,str(cantidad),'LBR',0,'C',1)
 				pdf.cell(20,5,str(unidad),'LBR',0,'C',1)
 				pdf.cell(70,5,pdf_class.acento(desc),'LBR',1,'C',1)
@@ -158,28 +164,28 @@ class Solicitud(osv.Model):
 			pdf.cell(190,5,pdf_class.acento(proveedor),'LTBR',1,'C',1)
 
 
-			pdf.output('openerp/addons/gestion_compras/reportes/entrada_materiales/solicitud Materiales Presupuestario.pdf','F')
+			#~ pdf.output('openerp/addons/gestion_compras/reportes/entrada_materiales/solicitud Materiales Presupuestario.pdf','F')
 			####################################################################################
-			#~ dia   = time.strftime('%d')
-			#~ mes   = time.strftime('%B')
-			#~ ano  = time.strftime('%Y')
-			#~ fechas = dia+" de "+mes+" "+ano
-			#~ 
-			#~ title = "Solicitud Materiales ("+fechas+").pdf"
-			#~ 
-			#~ pdf.output('openerp/addons/gestion_compras/reportes/'+title,'F')
-			#~ documento = open('openerp/addons/gestion_compras/reportes/'+title) # Apertura del documento
-					#~ 
-			#~ # Guardamos el archivo pdf en gestion.eventos
-			#~ self.pool.get('adjunto.documento').create(cr, uid, {
-					#~ 'name': title,
-					#~ 'res_name': title,
-					#~ 'datas': base64.encodestring(documento.read()),
-					#~ 'datas_fname': title,
-					#~ 'res_model': 'gestion.eventos (Gesti?n de Eventos)',
-					#~ 'description': title,
-					#~ 'item': "materiales",
-					#~ }, context=context)
+			dia   = time.strftime('%d')
+			mes   = time.strftime('%B')
+			ano  = time.strftime('%Y')
+			fechas = dia+" de "+mes+" "+ano
+			
+			title = "Solicitud Materiales Presupuestario ("+fechas+").pdf"
+			
+			pdf.output('openerp/addons/gestion_compras/reportes/entrada_materiales/'+title,'F')
+			documento = open('openerp/addons/gestion_compras/reportes/entrada_materiales/'+title) # Apertura del documento
+					
+			# Guardamos el archivo pdf en comp.entrada.materiales
+			self.pool.get('adjunto.documento').create(cr, uid, {
+					'name': title,
+					'res_name': title,
+					'datas': base64.encodestring(documento.read()),
+					'datas_fname': title,
+					'res_model': 'gestion.eventos (Gesti?n de Eventos)',
+					'description': title,
+					'item': "",
+					}, context=context)
 		    
 	######################################################################################	
 	# METODO PARA LA GENERACION DE CORRELATIVO (ELEMENTO DE IDENTIFICACION)
@@ -303,11 +309,8 @@ class solicitud_material(osv.Model):
 		'modelo' : fields.char(string="Modelo", required=False),
 		'marca'  : fields.char(string="Marca", required=False),
 		'foto_referencial' : fields.binary("Foto Referencial",help="Foto Referencial"),
-		'part' : fields.char(string='Partida',required=False),
 		'partida' : fields.many2one('presupuesto.partidas','Partida Presupuestaria',required=False),
-		'cod_part_g' : fields.char(string="General", required=False),
-		'cod_part_e' : fields.char(string="Especifica", required=False),
-		'cod_part_sub_e' : fields.char(string="Sub Específica", required=False),
+		'part' : fields.char(string='Partida',required=False),
 	}
 
 ######################################################################

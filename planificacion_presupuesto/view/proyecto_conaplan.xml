@@ -38,9 +38,20 @@
 		<field name="model">proyecto.conaplan</field>
 		<field name="arch" type="xml">
 		<form string="" version="7.0">
+		    <style type="text/css">
+			span.monto{
+			    color:#FF0000 !important;
+			    font-weight:bold;
+			}
+			span.monto input[type="text"]{
+                           color:#FF0000 !important;
+                           font-weight:bold;
+			   text-align:right;
+                       }
+		    </style>
 		    <header>
 			<button name="reporte_anteproyecto" type="object" string="Exportar Anteproyecto" class="oe_highlight" />
-			<!--<button name="resumen_proyecto" type="object" string="Resumen de Proyecto" class="oe_highlight" />-->
+			<button name="resumen_proyecto" type="object" string="Resumen de Proyecto" class="oe_highlight" />
 			
                         <field name="estatus" widget="statusbar"/>
 		    </header>
@@ -81,7 +92,7 @@
 			    </td>
 			    <td>
 				<font color="red" style="font-weight">
-				    <b>**Si no Adjunta el Archivo no visualizara la ficha de regristro!!</b>
+				    <b>**Si no Adjunta el Archivo no visualizara la ficha de registro!!</b>
 				</font>
 			    </td>
 			</tr>
@@ -580,13 +591,14 @@
 				    <field name="trim_iii" on_change="suma_trimestres(trim_i,trim_ii,trim_iii,trim_iv)" sum="Total Acciones Trimestre III"/>
 				    <field name="trim_iv" on_change="suma_trimestres(trim_i,trim_ii,trim_iii,trim_iv)" sum="Total Acciones Trimestre IV"/>
 				    <field name="total" sum="Total Acciones"/>
+				    
 				</tree>
 			    </field>
 			    <table align="right">
 				<tr>
 				    <td>
 					<b><label string="Cant. total"/></b>
-					<field name="total_acciones" nolabel="0"/>
+					<field class="monto" name="total_acciones" nolabel="0"/>
 				    </td>
 				</tr>
 			    </table>
@@ -607,11 +619,11 @@
 				    <field name="total_meta" sum="Total Metas"/>
 				</tree>
 			    </field>
-			    <table align="right">
+			    <table align="right" border="0" style="width:100%%">
 				<tr>
-				    <td>
+				    <td style="text-align:right;padding-right:3%%">
 					<b><label string="Cant. total"/></b>
-					<field name="total_metas" nolabel="0"/>
+					<field class="monto" name="total_metas" nolabel="0"/>
 				    </td>
 				</tr>
 			    </table>
@@ -619,7 +631,7 @@
 			<page string="Imputación" class="oe_form_sheetbg" >
 			<separator string="11. Imputación presupuestaria" />
 			<field name="imputacion_presu" on_change="total_imputaciones(imputacion_presu)">
-			    <tree string="Imputacion presupuestaria" editable="bottom">
+			    <tree string="Imputacion presupuestaria" editable="bottom" colors="red:monto_asignado&gt;0" >
 				<field name="codigo"  /> <!-- on_change="on_change_codigos(codigo)"-->
 				<field name="partida_presu" on_change="on_change_partidas(partida_presu)" />
 				<field name="trim_1" on_change="suma_trimestres(trim_1,trim_2,trim_3,trim_4)" sum="Total Imputaciones Trimestre I"/>
@@ -627,14 +639,16 @@
 				<field name="trim_3" on_change="suma_trimestres(trim_1,trim_2,trim_3,trim_4)" sum="Total Imputaciones Trimestre III"/>
 				<field name="trim_4" on_change="suma_trimestres(trim_1,trim_2,trim_3,trim_4)" sum="Total Imputaciones Trimestre IV"/>
 				<field name="total_impu" sum="Total Imputaciones"/>
+				<field name="monto_asignado"/>
 			    </tree>
 			</field>
-			<table align="right">
+			<table style="width:100%%;" border="0">
 			    <tr>
-				<td>
-				    <b><label string="Cant. total"/></b>
-				    <field name="total_imputaciones" nolabel="0"/>
+				<td style="text-align:right;padding-right:1%%">
+				    <b><div>Cant. total</div></b>
+				    <field class="monto" name="total_imputaciones" nolabel="0"/>
 				</td>
+				<td style="width:16%%;"></td>
 			    </tr>
 			</table>
 			</page>
@@ -653,6 +667,15 @@
 				    <td style="width: 90px;">
 					<field name="fecha_revision" style="width:90%%"/>
 				    </td>
+				</tr>
+				<tr>
+				    <td colspan="2">
+					<b>Estructura Presupuestaria:</b>
+				    </td>
+				    <td>
+					<field name="estruc_presu" style="width:90%%"/>
+				    </td>
+
 				</tr>
 			    </table>
 			    <separator />
@@ -677,7 +700,7 @@
 						<b>Gastos de Personal</b>
 					</td>
 					<td>
-						<field name="partida01" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)" />
+						<field name="partida01" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12,partida98)" />
 					</td>
 				</tr>
 				<tr attrs="{'invisible':[('partida02','=', 0,00)]}">
@@ -688,7 +711,7 @@
 						<b>Materiales, Suministros y Mercancías</b>
 					</td>
 					<td>
-						<field name="partida02" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)" />
+						<field name="partida02" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12,partida98)" />
 					</td>
 				</tr>
 				<tr attrs="{'invisible':[('partida03','=', 0,00)]}">
@@ -699,7 +722,7 @@
 						<b>Servicios no personales</b>
 					</td>
 					<td>
-						<field name="partida03" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)" />
+						<field name="partida03" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12,partida98)" />
 					</td>
 				</tr>
 				<tr attrs="{'invisible':[('partida04','=', 0,00)]}">
@@ -710,7 +733,7 @@
 						<b>Activos Realess</b>
 					</td>
 					<td>
-						<field name="partida04" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)" />
+						<field name="partida04" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12,partida98)" />
 					</td>
 				</tr>
 				<tr attrs="{'invisible':[('partida05','=', 0,00)]}">
@@ -721,7 +744,7 @@
 						<b>Activos Financieros</b>
 					</td>
 					<td>
-						<field name="partida05" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)" />
+						<field name="partida05" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12,partida98)" />
 					</td>
 				</tr>
 				<tr attrs="{'invisible':[('partida07','=', 0,00)]}">
@@ -732,7 +755,7 @@
 						<b>Transferencias y Donaciones</b>
 					</td>
 					<td>
-						<field name="partida07" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)"/>
+						<field name="partida07" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12,partida98)"/>
 					</td>
 				</tr>
 				<tr attrs="{'invisible':[('partida10','=', 0,00)]}">
@@ -743,7 +766,7 @@
 						<b>Servicio de la Deuda Pública</b>
 					</td>
 					<td>
-						<field name="partida10" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)"/>
+						<field name="partida10" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12,partida98)"/>
 					</td>
 				</tr>
 				<tr attrs="{'invisible':[('partida11','=', 0,00)]}">
@@ -754,7 +777,7 @@
 						<b>Disminución de Pasivos</b>
 					</td>
 					<td>
-						<field name="partida11" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)"/>
+						<field name="partida11" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12,partida98)"/>
 					</td>
 				</tr>
 				<tr attrs="{'invisible':[('partida12','=', 0,00)]}">
@@ -765,7 +788,18 @@
 						<b>Disminución de Patrimonio</b>
 					</td>
 					<td>
-						<field name="partida12" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12)"/>
+						<field name="partida12" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12,partida98)"/>
+					</td>
+				</tr>
+				<tr attrs="{'invisible':[('partida98','=', 0,00)]}">
+					<td>
+						<b>4.98</b>
+					</td>
+					<td>
+						<b>Rectificaciones al Presupuesto</b>
+					</td>
+					<td>
+						<field name="partida98" on_change="suma_partidas(partida01,partida02,partida03,partida04,partida05,partida07,partida10,partida11,partida12,partida98)"/>
 					</td>
 				</tr>
 				<tr style="background-color:#BFBFBF; color:black">

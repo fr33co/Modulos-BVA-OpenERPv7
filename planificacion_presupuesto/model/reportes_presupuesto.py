@@ -11,7 +11,7 @@ from openerp import SUPERUSER_ID
 
 _logger = logging.getLogger(__name__)
 
-class reportes_presupuesto(osv.osv):
+class reportes_canaimas(osv.osv):
     """Attachments are used to link binary files or url to any openerp document.
 
     External attachment storage
@@ -124,12 +124,12 @@ class reportes_presupuesto(osv.osv):
                 self._file_delete(cr, uid, location, attach.store_fname)
             fname = self._file_write(cr, uid, location, value)
             # SUPERUSER_ID as probably don't have write access, trigger during create
-            super(reportes_presupuesto, self).write(cr, SUPERUSER_ID, [id], {'store_fname': fname, 'file_size': file_size}, context=context)
+            super(reportes_canaimas, self).write(cr, SUPERUSER_ID, [id], {'store_fname': fname, 'file_size': file_size}, context=context)
         else:
-            super(reportes_presupuesto, self).write(cr, SUPERUSER_ID, [id], {'db_datas': value, 'file_size': file_size}, context=context)
+            super(reportes_canaimas, self).write(cr, SUPERUSER_ID, [id], {'db_datas': value, 'file_size': file_size}, context=context)
         return True
 
-    _name = 'reportes.presupuesto'
+    _name = 'reportes.canaimas'
     _columns = {
         'name': fields.char('Nombre de Referencia',size=256, required=True),
         'datas_fname': fields.char('Nombre del Archivo',size=256),
@@ -148,24 +148,24 @@ class reportes_presupuesto(osv.osv):
         'store_fname': fields.char('Nombre del archivo almacenado', size=256),
         'db_datas': fields.binary('Data de base de datos'),
         'file_size': fields.integer('Tamaño del archivo'),
-        'registro': fields.char('Registro de:',size=50),
+        'gerencia': fields.char('Gerencia:',size=50),
     }
 
     _defaults = {
         'type': 'binary',
         'file_size': 0,
-        'company_id': lambda s,cr,uid,c: s.pool.get('res.company')._company_default_get(cr, uid, 'reportes.presupuesto', context=c),
+        'company_id': lambda s,cr,uid,c: s.pool.get('res.company')._company_default_get(cr, uid, 'reportes.canaimas', context=c),
     }
 
     def _auto_init(self, cr, context=None):
-        super(reportes_presupuesto, self)._auto_init(cr, context)
+        super(reportes_canaimas, self)._auto_init(cr, context)
         cr.execute('SELECT indexname FROM pg_indexes WHERE indexname = %s', ('ir_attachment_res_idx',))
         if not cr.fetchone():
-            cr.execute('CREATE INDEX ir_attachment_res_idx ON reportes_presupuesto (res_model, res_id)')
+            cr.execute('CREATE INDEX ir_attachment_res_idx ON reportes_canaimas (res_model, res_id)')
             cr.commit()
 
     def check(self, cr, uid, ids, mode, context=None, values=None):
-        """Restricts the access to an reportes_presupuesto , according to referred model
+        """Restricts the access to an reportes_canaimas , according to referred model
         In the 'document' module, it is overriden to relax this hard rule, since
         more complex ones apply there.
         """
@@ -173,7 +173,7 @@ class reportes_presupuesto(osv.osv):
         if ids:
             if isinstance(ids, (int, long)):
                 ids = [ids]
-            cr.execute('SELECT DISTINCT res_model, res_id FROM reportes_presupuesto WHERE id = ANY (%s)', (ids,))
+            cr.execute('SELECT DISTINCT res_model, res_id FROM reportes_canaimas WHERE id = ANY (%s)', (ids,))
             for rmod, rid in cr.fetchall():
                 if not (rmod and rid):
                     continue
@@ -191,7 +191,7 @@ class reportes_presupuesto(osv.osv):
             self.pool.get(model).check_access_rule(cr, uid, mids, mode, context=context)
 
     def _search(self, cr, uid, args, offset=0, limit=None, order=None, context=None, count=False, access_rights_uid=None):
-        ids = super(reportes_presupuesto, self)._search(cr, uid, args, offset=offset,
+        ids = super(reportes_canaimas, self)._search(cr, uid, args, offset=offset,
                                                  limit=limit, order=order,
                                                  context=context, count=False,
                                                  access_rights_uid=access_rights_uid)
@@ -210,7 +210,7 @@ class reportes_presupuesto(osv.osv):
         # the linked document.
         # Use pure SQL rather than read() as it is about 50% faster for large dbs (100k+ docs),
         # and the permissions are checked in super() and below anyway.
-        cr.execute("""SELECT id, res_model, res_id FROM reportes_presupuesto WHERE id = ANY(%s)""", (list(ids),))
+        cr.execute("""SELECT id, res_model, res_id FROM reportes_canaimas WHERE id = ANY(%s)""", (list(ids),))
         targets = cr.dictfetchall()
         model_attachments = {}
         for target_dict in targets:
@@ -247,7 +247,7 @@ class reportes_presupuesto(osv.osv):
         if isinstance(ids, (int, long)):
             ids = [ids]
         self.check(cr, uid, ids, 'read', context=context)
-        return super(reportes_presupuesto, self).read(cr, uid, ids, fields_to_read, context, load)
+        return super(reportes_canaimas, self).read(cr, uid, ids, fields_to_read, context, load)
 
     def write(self, cr, uid, ids, vals, context=None):
         if isinstance(ids, (int, long)):
@@ -255,11 +255,11 @@ class reportes_presupuesto(osv.osv):
         self.check(cr, uid, ids, 'write', context=context, values=vals)
         if 'file_size' in vals:
             del vals['file_size']
-        return super(reportes_presupuesto, self).write(cr, uid, ids, vals, context)
+        return super(reportes_canaimas, self).write(cr, uid, ids, vals, context)
 
     def copy(self, cr, uid, id, default=None, context=None):
         self.check(cr, uid, [id], 'write', context=context)
-        return super(reportes_presupuesto, self).copy(cr, uid, id, default, context)
+        return super(reportes_canaimas, self).copy(cr, uid, id, default, context)
 
     def unlink(self, cr, uid, ids, context=None):
         if isinstance(ids, (int, long)):
@@ -270,13 +270,13 @@ class reportes_presupuesto(osv.osv):
             for attach in self.browse(cr, uid, ids, context=context):
                 if attach.store_fname:
                     self._file_delete(cr, uid, location, attach.store_fname)
-        return super(reportes_presupuesto, self).unlink(cr, uid, ids, context)
+        return super(reportes_canaimas, self).unlink(cr, uid, ids, context)
 
     def create(self, cr, uid, values, context=None):
         self.check(cr, uid, [], mode='write', context=context, values=values)
         if 'file_size' in values:
             del values['file_size']
-        return super(reportes_presupuesto, self).create(cr, uid, values, context)
+        return super(reportes_canaimas, self).create(cr, uid, values, context)
 
     def action_get(self, cr, uid, context=None):
         return self.pool.get('ir.actions.act_window').for_xml_id(

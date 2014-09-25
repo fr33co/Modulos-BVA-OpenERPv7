@@ -16,7 +16,7 @@
 
 		<record model="ir.ui.view" id="vista_formulario_tipoben">
 			<field name="name">tipobeneficiario.form</field>
-			<field name="model">tesoreria.banco</field>
+			<field name="model">tesoreria.tipobeneficiario</field>
 			<field name="arch" type="xml">
 				<form string="Actualización de Tipos de Beneficiarios" version="7.0">
 <!--

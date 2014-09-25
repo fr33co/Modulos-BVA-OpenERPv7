@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <openerp>
+        <data>
+            <record id="group_bienes_nacionales_administrador" model="res.groups">
+                <field name="name">Bienes Nacionales / Administrador</field>
+            </record>
+            <record id="group_bienes_nacionales_usuario" model="res.groups">
+                <field name="name">Bienes Nacionales / Usuario</field>
+            </record>
+
+        </data>
+    </openerp>

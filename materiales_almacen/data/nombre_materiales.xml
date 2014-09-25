@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <openerp>
+        <data>
+<!--===========================================================================-->
+                        <!-- Materiales de Oficina -->
+<!--===========================================================================-->
+            <record id="papeleria_1" model="materiales.almacen">
+                <field name="descripcion">RESMA DE HOJAS TAMAÑO CARTA</field>
+                <field name="t_materiales">2</field>
+                <field name="unidad">1</field>
+            </record>
+            <record id="papeleria_2" model="materiales.almacen">
+                <field name="descripcion">RESMA DE HOJAS TAMAÑO OFICIO</field>
+                <field name="t_materiales">2</field>
+                <field name="unidad">1</field>
+            </record>
+            <record id="papeleria_3" model="materiales.almacen">
+                <field name="descripcion">PAPEL CONTAC TRANSPARENTE</field>
+                <field name="t_materiales">2</field>
+                <field name="unidad">1</field>
+            </record>
+            <record id="papeleria_4" model="materiales.almacen">
+                <field name="descripcion">CARPETAS DE FIBRA TAMAÑO OFICIO</field>
+                <field name="t_materiales">2</field>
+                <field name="unidad">1</field>
+            </record>
+            <record id="papeleria_5" model="materiales.almacen">
+                <field name="descripcion">CARPETAS DE FIBRA TAMAÑO CARTA</field>
+                <field name="t_materiales">2</field>
+                <field name="unidad">1</field>
+            </record>
+            <record id="papeleria_6" model="materiales.almacen">
+                <field name="descripcion">CARPETAS DE MANILA TAMAÑO OFICIO</field>
+                <field name="t_materiales">2</field>
+                <field name="unidad">1</field>
+            </record>
+            <record id="papeleria_7" model="materiales.almacen">
+                <field name="descripcion">CARPETAS DE MANILA TAMAÑO CARTA</field>
+                <field name="t_materiales">2</field>
+                <field name="unidad">1</field>
+            </record>
+            <record id="papeleria_8" model="materiales.almacen">
+                <field name="descripcion">CARPETAS LOMO ANCHO</field>
+                <field name="t_materiales">2</field>
+                <field name="unidad">1</field>
+            </record>
+            <record id="papeleria_9" model="materiales.almacen">
+                <field name="descripcion">BOLIGRAFOS TINTA NEGRO</field>
+                <field name="t_materiales">2</field>
+                <field name="unidad">1</field>
+            </record>
+            <record id="papeleria_10" model="materiales.almacen">
+                <field name="descripcion">LAPIZ DE GRAFITO</field>
+                <field name="t_materiales">2</field>
+                <field name="unidad">1</field>
+            </record>
+            <record id="papeleria_11" model="materiales.almacen">
+                <field name="descripcion">PEGA DE BARRA</field>
+                <field name="t_materiales">2</field>
+                <field name="unidad">1</field>
+            </record>
+            <record id="papeleria_12" model="materiales.almacen">
+                <field name="descripcion">CAJA DE CLIPS PEQUEÑO</field>
+                <field name="t_materiales">2</field>
+                <field name="unidad">1</field>
+            </record>
+            <record id="papeleria_13" model="materiales.almacen">
+                <field name="descripcion">CINTA PLASTICA GRANDE</field>
+                <field name="t_materiales">2</field>
+                <field name="unidad">1</field>
+            </record>
+            <record id="papeleria_14" model="materiales.almacen">
+                <field name="descripcion">CINTA PLASTICA PEQUEÑA</field>
+                <field name="t_materiales">2</field>
+                <field name="unidad">1</field>
+            </record>
+            <record id="papeleria_15" model="materiales.almacen">
+                <field name="descripcion">MARCADORES ACRILICOS</field>
+                <field name="t_materiales">2</field>
+                <field name="unidad">1</field>
+            </record>
+            <record id="papeleria_16" model="materiales.almacen">
+                <field name="descripcion">BORRADOR PARA PIZARRA ACRILICA</field>
+                <field name="t_materiales">2</field>
+                <field name="unidad">1</field>
+            </record>
+        
+<!--===========================================================================-->
+                        <!-- Materiales de Limpieza -->
+<!--===========================================================================-->
+            <record id="limpieza_1" model="materiales.almacen">
+                <field name="descripcion">DESINFECTANTE</field>
+                <field name="t_materiales">1</field>
+                <field name="unidad">11</field>
+            </record>
+            <record id="limpieza_2" model="materiales.almacen">
+                <field name="descripcion">CERA</field>
+                <field name="t_materiales">1</field>
+                <field name="unidad">11</field>
+            </record>
+            <record id="limpieza_3" model="materiales.almacen">
+                <field name="descripcion">CLORO</field>
+                <field name="t_materiales">1</field>
+                <field name="unidad">11</field>
+            </record>
+            <record id="limpieza_4" model="materiales.almacen">
+                <field name="descripcion">JABON  LIQUIDO </field>
+                <field name="t_materiales">1</field>
+                <field name="unidad">11</field>
+            </record>
+            <record id="limpieza_5" model="materiales.almacen">
+                <field name="descripcion">JABON EN POLVO</field>
+                <field name="t_materiales">1</field>
+                <field name="unidad">11</field>
+            </record>
+            <record id="limpieza_6" model="materiales.almacen">
+                <field name="descripcion">CEPILLO DE LAVAR</field>
+                <field name="t_materiales">1</field>
+                <field name="unidad">1</field>
+            </record>
+            <record id="limpieza_7" model="materiales.almacen">
+                <field name="descripcion">ESPONJA</field>
+                <field name="t_materiales">1</field>
+                <field name="unidad">1</field>
+            </record>
+            <record id="limpieza_8" model="materiales.almacen">
+                <field name="descripcion">TOBOS</field>
+                <field name="t_materiales">1</field>
+                <field name="unidad">1</field>
+            </record>
+            <record id="limpieza_9" model="materiales.almacen">
+                <field name="descripcion">HARAGAN pequeño</field>
+                <field name="t_materiales">1</field>
+                <field name="unidad">1</field>
+            </record>
+            <record id="limpieza_10" model="materiales.almacen">
+                <field name="descripcion">TAPA BOCA</field>
+                <field name="t_materiales">1</field>
+                <field name="unidad">1</field>
+            </record>
+            <record id="limpieza_11" model="materiales.almacen">
+                <field name="descripcion">GUANTES</field>
+                <field name="t_materiales">1</field>
+                <field name="unidad">1</field>
+            </record>
+            <record id="limpieza_12" model="materiales.almacen">
+                <field name="descripcion">ESCOBILLON</field>
+                <field name="t_materiales">1</field>
+                <field name="unidad">1</field>
+            </record>
+            <record id="limpieza_13" model="materiales.almacen">
+                <field name="descripcion">MOPAS</field>
+                <field name="t_materiales">1</field>
+                <field name="unidad">1</field>
+            </record>
+             <record id="limpieza_14" model="materiales.almacen">
+                <field name="descripcion">LIMPIA POCETA</field>
+                <field name="t_materiales">1</field>
+                <field name="unidad">11</field>
+            </record>
+            <record id="limpieza_15" model="materiales.almacen">
+                <field name="descripcion">BOLSAS BLANCAS</field>
+                <field name="t_materiales">1</field>
+                <field name="unidad">1</field>
+            </record>
+            <record id="limpieza_16" model="materiales.almacen">
+                <field name="descripcion">BOLSAS NEGRAS</field>
+                <field name="t_materiales">1</field>
+                <field name="unidad">1</field>
+            </record>
+            <record id="limpieza_17" model="materiales.almacen">
+                <field name="descripcion">TOALLA DE MANO</field>
+                <field name="t_materiales">1</field>
+                <field name="unidad">1</field>
+            </record>
+            <record id="limpieza_18" model="materiales.almacen">
+                <field name="descripcion">PAPEL HIGIENICO</field>
+                <field name="t_materiales">1</field>
+                <field name="unidad">1</field>
+            </record>
+            <record id="limpieza_19" model="materiales.almacen">
+                <field name="descripcion">COLETO</field>
+                <field name="t_materiales">1</field>
+                <field name="unidad">1</field>
+            </record>
+            <record id="limpieza_20" model="materiales.almacen">
+                <field name="descripcion">LANILLAS</field>
+                <field name="t_materiales">1</field>
+                <field name="unidad">1</field>
+            </record>
+            <record id="limpieza_21" model="materiales.almacen">
+                <field name="descripcion">CEPILLOS DE BARRER</field>
+                <field name="t_materiales">1</field>
+                <field name="unidad">1</field>
+            </record>
+            <record id="limpieza_22" model="materiales.almacen">
+                <field name="descripcion">PALAS</field>
+                <field name="t_materiales">1</field>
+                <field name="unidad">1</field>
+            </record>
+            <record id="limpieza_23" model="materiales.almacen">
+                <field name="descripcion">CHUPONES DE PASETA</field>
+                <field name="t_materiales">1</field>
+                <field name="unidad">1</field>
+            </record>
+            <record id="limpieza_24" model="materiales.almacen">
+                <field name="descripcion">CEPILLOS PARA PACETAS</field>
+                <field name="t_materiales">1</field>
+                <field name="unidad">1</field>
+            </record>
+            <record id="limpieza_25" model="materiales.almacen">
+                <field name="descripcion">PRIDES</field>
+                <field name="t_materiales">1</field>
+                <field name="unidad">1</field>
+            </record>
+            <record id="limpieza_26" model="materiales.almacen">
+                <field name="descripcion">LIMPIA PORCELANA</field>
+                <field name="t_materiales">1</field>
+                <field name="unidad">11</field>
+            </record>
+            <record id="limpieza_27" model="materiales.almacen">
+                <field name="descripcion">DESMANCHA PISOS</field>
+                <field name="t_materiales">1</field>
+                <field name="unidad">1</field>
+            </record>
+        </data>
+    </openerp>

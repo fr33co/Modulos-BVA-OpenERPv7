@@ -116,18 +116,26 @@
 			</field>
 			</record>
 
-			<!-- Forma de busqueda para Solicitud de Materiales-->
-			<!--<record model="ir.ui.view" id="search_recurso_logistico">
-				<field name="name">Solicitud de Materiales.search</field>
-				<field name="model">control.perceptivoitud</field>
-				<field name="arch" type="xml">
-                                    <search string="Busqueda de Grado">
-                                        <filter name="tipo" domain="[('tipo','=', uid)]" string="Busqueda de tipo Grado de Instrucción" icon="terp-partner" />
-                                        <field name="tipo" />
-                                        <field name="grado" />
-                                    </search>
+			<record model="ir.ui.view" id="search_control_perceptivo"><!-- Filtro para la busqueda de evaluacion -->
+				<field name="name">busqueda.search</field>
+				<field name="model">control.perceptivo</field>
+				<field name="arch" type="xml">		
+					<search string="Busqueda por Control Perceptivo">
+						<filter name="tipo_doc" domain="[('tipo_doc','=', uid)]" string="Busqueda por Control Perceptivo" icon="terp-partner"/>
+							<field name="solicitante"/>
+							<field name="documento"/>
+							<field name="n_iden"/>
+							<field name="fecha"/>
+							<field name="proveedor"/>
+							<field name="tipo_orden"/>
+							<field name="num_orden"/>
+							<field name="fecha_orden"/>
+							<field name="monto_recibido"/>
+							<field name="encargado"/>
+							<field name="material_ids"/>
+					</search>
 				</field>			
-			</record>-->
+			</record>
 
 			<record model="ir.ui.view" id="control_perceptivo_tree">
 				<field name="name">Solicitud de Materiales.tree</field>

@@ -67,7 +67,6 @@ class NominaBecados(osv.Model):
 			mes = x_browse_id.mes #Leer el mes de la nómina actual
 			tiponomina = x_browse_id.tipo_nomina #Leer el tipo de nómina de la nómina actual
 			tiponominaletras = x_browse_id.tipo_nomina.tipo_nomina
-			tiponominacodigo = x_browse_id.tipo_nomina.cod_nom
 			stage = x_browse_id.stage_id #Leer el estado de la nómina actual
 			#~ print "Id de la pre-nómina: "+str(id_nomina)+"\n"
 			#~ print "mes de la pre-nómina: "+str(mes)+"\n"
@@ -79,12 +78,10 @@ class NominaBecados(osv.Model):
 				tipo_beca = becado.tipo_beca.id
 				status = becado.status
 				#Definir el monto de la asignación para los becados según el tipo de nómina (en letras) escogido
-				if tiponominacodigo == "001":
+				if tiponominaletras == "Regular":
 					monto = becado.tipo_beca.asignacion
-				elif tiponominacodigo == "002":
-					monto = becado.tipo_beca.asignacion*3
 				else:
-					monto = becado.tipo_beca.asignacion
+					monto = becado.tipo_beca.asignacion*4
 					
 				#Definir tipo de asignación para los becados según el tipo de nómina (en letras) escogido
 				if tiponominaletras == "Regular":

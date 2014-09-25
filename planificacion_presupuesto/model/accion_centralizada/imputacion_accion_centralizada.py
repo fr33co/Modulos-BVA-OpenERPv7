@@ -21,17 +21,17 @@ class imputacion_accion_centralizada(osv.Model):
                 
                 return resultado
 	
-	#def on_change_partidas(self, cr, uid, ids, partida_presu, context=None):
-	#	values = {}
-	#	if not partida_presu:
-	#		return values
-	#	datos = self.pool.get('partida.presupuestaria').browse(cr, uid, partida_presu, context=context)
-	#
-	#	values.update({
-	#		'codigo' : datos.codigo,
-	#
-	#	})
-	#	return {'value' : values}
+	def on_change_partidas(self, cr, uid, ids, partida_presu, context=None):
+		values = {}
+		if not partida_presu:
+			return values
+		datos = self.pool.get('partida.presupuestaria').browse(cr, uid, partida_presu, context=context)
+	
+		values.update({
+			'codigo' : datos.codigo,
+	
+		})
+		return {'value' : values}
 	#
 	#def on_change_codigos(self, cr, uid, ids, codigo, context=None):
 	#	values = {}
@@ -59,4 +59,5 @@ class imputacion_accion_centralizada(osv.Model):
 		'trim_3' : fields.float(string="Trimestre III", required=False),
 		'trim_4' : fields.float(string="Trimestre IV", required=False),
 		'total_impu' : fields.float(string="Cantidad", required=False),
+		'monto_asignado' : fields.float(string="Monto Asignado", readonly=True)
 	}

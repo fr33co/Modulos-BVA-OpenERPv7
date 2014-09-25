@@ -22,9 +22,13 @@
                                 </td>
                             </tr>
                             <tr>
+																<td>Desde</td>
                                 <td style="backgroud-color:silver;">
-                                    <field name="correlativo"/>
-                                    
+                                    <field name="desde"/>
+                                </td>
+                                <td>Hasta</td>
+                                <td style="backgroud-color:silver;">
+                                    <field name="hasta"/>
                                 </td>
                             </tr>
                         </table>
@@ -39,7 +43,7 @@
             key2="client_action_multi"
             id="action_wizard_busqueda"/>
 
-        <menuitem parent="menu_compras" id="hr_reportes_busqueda" action="action_wizard_busqueda" name="Busqueda / Filtros" sequence="2"/>
+        <menuitem parent="menu_compras" id="hr_reportes_busqueda" action="action_wizard_busqueda" name="Emitir Compromisos" sequence="2"/>
 
     </data>
 </openerp>

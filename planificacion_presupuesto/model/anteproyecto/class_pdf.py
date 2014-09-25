@@ -15,7 +15,8 @@ class PDF(FPDF):
 		# (CAMPO 1 = HORIZONTAL , CAMPO 2 = VERTICAL, CAMPO 3 = DIMENCION DE LA IMAGEN)
 		
 		#self.image('/home/administrador/openerp70/modules/planificacion_presupuesto/img/tope-conaplan.jpg',10,10,190)
-		self.image('/home/administrador/openerp70/modules/planificacion_presupuesto/img/banner_proyecto.jpg',10,10,190)
+		#self.image('/home/administrador/openerp70/modules/planificacion_presupuesto/img/banner_proyecto.jpg',10,10,190)
+		#self.image('openerp/addons/planificacion_presupuesto/img/banner_proyecto.jpg',10,10,190)
 		#Calcular ancho del texto (title) y establecer posición
 		#w=self.get_string_width(title)+6
 		#self.set_x((210-w)/2)
@@ -82,8 +83,8 @@ class PDF2(FPDF):
 		
 		# ALINEACION DE LA IMAGEN EN LA CABECERA DEL DOCUMENTO
 		# (CAMPO 1 = HORIZONTAL , CAMPO 2 = VERTICAL, CAMPO 3 = DIMENCION DE LA IMAGEN)
-		self.image('/home/administrador/openerp70/modules/planificacion_presupuesto/img/banner_proyecto_observaciones.jpg',10,10,190)
-		#self.image('openerp/addons/planificacion_presupuesto/img/banner_proyecto_observaciones.jpg',10,10,190)
+		#self.image('/home/administrador/openerp70/modules/planificacion_presupuesto/img/banner_proyecto_observaciones.jpg',10,10,190)
+		self.image('openerp/addons/planificacion_presupuesto/img/banner_proyecto_observaciones.jpg',10,10,190)
 		#Calcular ancho del texto (title) y establecer posición
 		#w=self.get_string_width(title)+6
 		#self.set_x((210-w)/2)
@@ -150,6 +151,7 @@ class PDF3(FPDF):
 		# (CAMPO 1 = HORIZONTAL , CAMPO 2 = VERTICAL, CAMPO 3 = DIMENCION DE LA IMAGEN)
 		
 		self.image('openerp/addons/planificacion_presupuesto/img/001.jpg',90,17,35)
+		#self.image('/home/administrador/openerp70/modules/planificacion_presupuesto/img/001.jpg',90,17,35)
 		#Calcular ancho del texto (title) y establecer posición
 		#w=self.get_string_width(title)+6
 		#self.set_x((210-w)/2)
@@ -176,7 +178,7 @@ class PDF3(FPDF):
 		#~ self.set_text_color(128)
 		self.set_text_color(0)
 		#Numero de pagina
-		self.cell(0,10,'PLAN OPERATIVO ANUAL ESTADAL 2014',0,0,'R',1) 
+		#self.cell(0,10,'PLAN OPERATIVO ANUAL ESTADAL 2014',0,0,'R',1) 
 		
 	def chapter_title(self,num,label):
 		#Arial 12
@@ -206,3 +208,4 @@ class PDF3(FPDF):
 		self.add_page()
 		self.chapter_title(num,title)
 		self.chapter_body(name)
+

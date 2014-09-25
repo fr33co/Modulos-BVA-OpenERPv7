@@ -23,10 +23,10 @@
         'view/plan_de_la_patria.xml',
         'view/reporte_presupuesto.xml',
         'view/reporte_generales.xml',
-        #'wizard/wizard_resumen.xml',
+        'wizard/wizard_resumen.xml',
         'security/groups.xml',
         'security/ir.model.access.csv',
-
+        'wizard/wizard_ley_presupuestaria.xml',
         
 
         ],

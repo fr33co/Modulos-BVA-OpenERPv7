@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <openerp>
+        <data>
+            <record id="group_materiales_suministros_administrador" model="res.groups">
+                <field name="name">Materiales y Suministros / Administrador</field>
+            </record>
+            <record id="group_materiales_suministros_usuario" model="res.groups">
+                <field name="name">Materiales y Suministros / Solicitante</field>
+            </record>
+        </data>
+    </openerp>

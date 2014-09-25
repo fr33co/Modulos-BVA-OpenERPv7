@@ -1,0 +1,6 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+
+movimientos_full_Administrador,movimientos_full_Administrador,model_stock_move,group_bienes_nacionales_administrador,1,1,1,1
+
+
+

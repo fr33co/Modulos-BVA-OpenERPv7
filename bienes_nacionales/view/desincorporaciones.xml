@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  	<data>
+		<!--  Registro de Desincorporaciones de bienes -->
+  		<record model="ir.actions.act_window" id="desincorporaciones_list_action">
+			<field name="name">Desincorporaciones bva</field>
+			<field name="res_model">desincorporaciones.bva</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Registro de desincorporaciones </p>
+			</field>
+		</record> 
+
+		<!--  Vista Form para el Registro de Desincorporaciones de bienes -->
+  		<record model="ir.ui.view" id="desincorporaciones_form_bva_view">
+			<field name="name">descincorporaciones.form.bva</field>
+			<field name="model">desincorporaciones.bva</field>
+			<field name="arch" type="xml" >
+				<form string="Desincorporaciones" version="7.0">
+					<group>
+						<table>
+							<tr>
+								<td><label for="codigo"/></td>
+								<td><label for="f_solicitud"/></td>
+								<td><label for="t_desincorporacion"/></td>
+							</tr>
+							<tr>
+								<td><field name="codigo" style="width: 50%%" nolabel="0" /></td>
+								<td><field name="f_solicitud" style="width: 50%%" nolabel="0" /></td>
+								<td><field name="t_desincorporacion" style="width: 100%%" nolabel="0" /></td>
+							</tr>
+						</table>
+						<separator />
+						<table>
+							<tr>
+								<td><label for="cedula_b"/></td>
+								<td><label for="desincorporado"/></td>
+							</tr>
+							<tr>
+								<td><field name="cedula_b" style="width: 50%%" nolabel="0" on_change="on_change_cedula_desincorporador(cedula_b)"/></td>
+								<td><field name="desincorporado" style="width: 80%%" nolabel="0" /></td>
+							</tr>
+							<tr>
+								<td><label for="cedula_p"/></td>
+								<td><label for="presidente"/></td>
+							</tr>
+							<tr>
+								<td><field name="cedula_p" style="width: 50%%" on_change="on_change_cedula_presidente(cedula_p)" /></td>
+								<td><field name="presidente" style="width: 80%%" /></td>
+							</tr>
+							<tr>
+								<td><label for="cedula_a"/></td>
+								<td><label for="administradora"/></td>
+							</tr>
+							<tr>
+								<td><field name="cedula_a" style="width: 50%%" on_change="on_change_cedula_administrador(cedula_a)" /></td>
+								<td><field name="administradora" style="width: 80%%" /></td>
+							</tr>
+						</table>
+					</group>
+					<field name="f_solicitudr"  invisible="1"/>
+					<label for="descripcion"/>
+					<field name="descripcion"/>
+						<notebook>
+							<page string="Bienes a desincorporar" >
+								<field name="bienes">
+									<tree string="Desincorporaciones" editable="bottom">
+										<field name="ubicacion" />
+										<field name="nidentificacion" on_change="on_change_bienes(nidentificacion)"/>
+										<field name="bva"  />
+										<field name="g" />
+										<field name="sg" />
+										<field name="s" />
+										<field name="cantidad"  invisible="False" />
+										<field name="estado"  invisible="False" />
+										<field name="v_unitario"  invisible="False" />
+										<field name="v_total"  invisible="False" />
+									</tree>
+								</field>
+							</page>
+						</notebook>
+				</form>
+			</field>			
+		</record>
+	<!--  Vista Tree Registro de Desincorporaciones de bienes -->
+		<record model="ir.ui.view" id="desincorporaciones_tree_bva_view">
+			<field name="name">desincorporaciones.tree.bva</field>
+			<field name="model">desincorporaciones.bva</field>
+			<field name="arch" type="xml">
+				<tree string="Incorporaciones" >
+					<field name="codigo" />
+					<field name="f_solicitud"/>	
+				</tree>			 
+			</field>
+		</record>
+		
+	<!-- Filtro para buscar desincorporaciones realizadas -->
+		<record model="ir.ui.view" id="buscar_desincorporaciones_bva">
+			<field name="name">filtro/busqueda desincorporaciones</field>
+			<field name="model">desincorporaciones.bva</field>
+			<field name="arch" type="xml">      
+				<search string="Busqueda de Desincorporaciones">
+					 <filter name="solicitudes" domain="[('codigo','=', uid)]" string="Codigo de Desincorporación" icon="terp-partner" />
+					<field name="codigo" />
+					<field name="f_solicitud" />
+				</search>
+			</field>            
+		</record>
+		
+		<menuitem id="desincorporaciones_bva_menu" name="Desincorporación de Elementos" parent="stock.menu_stock_product" action="desincorporaciones_list_action" sequence="6" />
+   	</data>
+</openerp>

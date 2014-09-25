@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <openerp>
+        <data>
+            <!-- ###############################################################
+                 # Listado de los PROCESOS DE DESINCORPORACIÓN en bienes       #
+                 #                                                             #
+                 ############################################################### -->
+
+            <!-- ########### ##### -->
+            <record id="t_desincorporacion01" model="procesos.desincorporacion">
+                <field name="desincorporaciones">Desincorporación por traspaso</field>
+            </record>
+            <record id="t_desincorporacion02" model="procesos.desincorporacion">
+                <field name="desincorporaciones">Ventas</field>
+            </record>
+            <record id="t_desincorporacion03" model="procesos.desincorporacion">
+                <field name="desincorporaciones">Suministro de bienes a contratistas</field>
+            </record>
+            <record id="t_desincorporacion04" model="procesos.desincorporacion">
+                <field name="desincorporaciones">Suministro de bienes a otras entidades</field>
+            </record>
+            <record id="t_desincorporacion05" model="procesos.desincorporacion">
+                <field name="desincorporaciones">Desarme</field>
+            </record>
+            <record id="t_desincorporacion06" model="procesos.desincorporacion">
+                <field name="desincorporaciones">Invisibilidad</field>
+            </record>
+             <record id="t_desincorporacion07" model="procesos.desincorporacion">
+                <field name="desincorporaciones">Deterioro</field>
+            </record>
+            <record id="t_desincorporacion08" model="procesos.desincorporacion">
+                <field name="desincorporaciones">Demolición</field>
+            </record>
+             <record id="t_desincorporacion09" model="procesos.desincorporacion">
+                <field name="desincorporaciones">Muerte  de Semovientes</field>
+            </record>
+            <record id="t_desincorporacion10" model="procesos.desincorporacion">
+                <field name="desincorporaciones">Faltante de por Investigar</field>
+            </record>
+            <record id="t_desincorporacion11" model="procesos.desincorporacion">
+                <field name="desincorporaciones">Desincorporación por permuta</field>
+            </record>
+            <record id="t_desincorporacion12" model="procesos.desincorporacion">
+                <field name="desincorporaciones">Desincorporación por donación</field>
+            </record>
+            <record id="t_desincorporacion13" model="procesos.desincorporacion">
+                <field name="desincorporaciones">Desincorporación por adscripción</field>
+            </record>
+            <record id="t_desincorporacion14" model="procesos.desincorporacion">
+                <field name="desincorporaciones">Por asignar</field>
+            </record>
+            <record id="t_desincorporacion15" model="procesos.desincorporacion">
+                <field name="desincorporaciones">Desincorporación por cambio de sub-agrupación</field>
+            </record>
+            <record id="t_desincorporacion16" model="procesos.desincorporacion">
+                <field name="desincorporaciones">Corrección de incorporación</field>
+            </record>
+            <record id="t_desincorporacion17" model="procesos.desincorporacion">
+                <field name="desincorporaciones">Desincorporación por otros conceptos</field>
+            </record>
+        </data>
+    </openerp>

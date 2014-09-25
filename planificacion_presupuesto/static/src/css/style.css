@@ -96,6 +96,8 @@
     background-image: linear-gradient(to bottom, #df3f3f, #a21a1a);
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(155, 155, 155, 0.4) inset;
 }
+
+/*Estilo para el boton exportar observacion preliminar*/
 .openerp button.exportar {
     background-color: green;
     color: white;
@@ -116,7 +118,20 @@
     text-shadow: 0 0 3px black;
 }
 
-
+/*Estilo para el String de la pestaña*/
+.openerp .oe_notebook > li.ui-state-active > a, .openerp .oe_notebook > li.ui-state-active > a:hover {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #7B9EC8;
+    color: black;
+    border-color: #dddddd #dddddd transparent;
+    border-image: none;
+    border-style: solid;
+    border-width: 1px;
+    cursor: default;
+}
 
 
 /*.openerp .oe_login .oe_login_bottom { background-color: #8a0e0e;

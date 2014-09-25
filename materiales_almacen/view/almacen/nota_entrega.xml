@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!--Menu Nota de Entrega -->
+        <record model="ir.actions.act_window" id="nota_entrega_list_action">
+            <field name="name">Nota de Entrega</field>
+            <field name="res_model">nota.entrega</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Realizar Nota de Entrega</p>
+            </field>
+        </record> 
+        
+        <!-- Vista Form de Nota de entrega-->
+        <record model="ir.ui.view" id="nota_form_view">
+            <field name="name">nota entrega form</field>
+            <field name="model">nota.entrega</field>
+            <field name="arch" type="xml">
+                <form string="Nota Form" version="7.0">
+                    <header>
+                        <button string="Procesar" type="object" name="procesar" class="procesar"
+                            confirm="¿Está usted seguro de cambiar el ESTADO de la solicitud a PROCESADA?"
+                            attrs="{'invisible':['|',('estatus','=', '2'),'|',('estatus','=', '3'),'|',('id','=', False )]}"/>
+                        <button string="Rechazar" type="object" name="rechasar" class="rechazar"
+                            confirm="¿Está usted seguro de cambiar el ESTADO de la solicitud a RECHAZADA?"
+                            attrs="{'invisible':['|',('estatus','=', '2'),'|',('estatus','=', '3'),'|',('id','=', False )]}"/>
+                        <field name="estatus" widget="statusbar"/>
+                    </header>
+                    
+                    <field name="id" invisible="1"/>
+                    
+                    <sheet>
+                    <div class="oe_form_sheetbg">
+                        <separator string="Datos Nota de Entrega"/>
+                        <table>
+                            <tr style="width:700px">
+                                <td style="width:140px">
+                                    <b>Correlativo</b>
+                                </td>
+                                <td style="width:90px">
+                                    <field name="c_nota" />
+                                </td>
+                                <td style="width:115px">
+                                    <b>Registrado por</b>
+                                </td>
+                                <td style="width:125px">
+                                    <field name="recibido" />
+                                </td>
+                                <td style="width:60px">
+                                    <b>Fecha</b>
+                                </td>
+                                <td style="width:100px"> 
+                                    <field name="fecha" />
+                                </td>
+                                <td style="width:10px"></td>
+                                <td >
+                                    <button name="generar_nota_entrega" string="Exportar Nota de Entrega"
+                                     attrs="{'invisible':[('estatus','==', '1')]}" type="object" 
+                                      class="imprimir" icon="STOCK_PRINT"/>
+                                </td>
+                            </tr>
+                        </table> 
+                        <separator string="Información de Solicitud"/>
+                        <table>
+                            <tr style="width:900px">
+                                <td style="width:140px">
+                                    <b>Código de Solicitud</b>
+                                </td>
+                                <td style="width:100px">
+                                    <field name="c_solicitud" attrs="{'readonly':[('estatus','!=', '1')]}" on_change="on_change_datos(c_solicitud)" default_focus="1" style="width:90%%" />
+                                </td>
+                                <td style="width:100px">
+                                    <b>Solicitado por</b>
+                                </td>
+                                <td style="width:140px">
+                                    <field name="solicitado" attrs="{'readonly':[('estatus','!=', '1')]}" style="width:90%%"  />
+                                </td>
+                                <td style="width:50px">
+                                    <b>Área</b>
+                                </td>
+                                <td style="width:350px">
+                                    <field name="area" attrs="{'readonly':[('estatus','!=', '1')]}" style="width:100%%"  />
+                                </td>
+                            </tr>
+                        </table>
+                        <separator string="Tipo de Material"/>
+                        <table>
+                            <tr style="width:800px">
+                            <td style="width:90px">
+                                <b>Limpieza: </b>
+                                <field name="limpieza"
+                                    attrs="{'readonly':['|',('s_generales','=', True),'|',('oficina_papeleria','=', True),'|',('tecnologico','=', True),'|',('otros','=', True),'|',('estatus','=', '2')]}" />
+                            </td>
+                            <td style="width:160px">
+                                <b>Servicios Generales: </b><field name="s_generales" attrs="{'readonly':['|',('limpieza','=', True),'|',('oficina_papeleria','=', True),'|',('tecnologico','=', True),'|',('otros','=', True),'|',('estatus','=', '2')]}"  />
+                            </td>
+                            <td style="width:140px">
+                                <b>Oficina Papeleria: </b><field name="oficina_papeleria" attrs="{'readonly':['|',('s_generales','=', True),'|',('limpieza','=', True),'|',('tecnologico','=', True),'|',('otros','=', True),'|',('estatus','=', '2')]}"  />
+                            </td>
+                             <td style="width:110px">
+                                <b>Técnologico: </b><field name="tecnologico" attrs="{'readonly':['|',('s_generales','=', True),'|',('oficina_papeleria','=', True),'|',('limpieza','=', True),'|',('otros','=', True),'|',('estatus','=', '2')]}"  />
+                            </td>
+                            <td style="width:80px">
+                                <b>Otros: </b><field name="otros" attrs="{'readonly':['|',('s_generales','=', True),'|',('oficina_papeleria','=', True),'|',('tecnologico','=', True),'|',('limpieza','=', True),'|',('estatus','=', '2')]}" />
+                            </td>
+                        </tr>
+                        </table>
+                        <button string="Cargar cantidades" class="cargar" icon="STOCK_ADD" attrs="{'invisible':[('estatus','!=', '1')]}" type="object" name="cargar_cantidades"/>
+                        <notebook>
+                            
+                        <page string="Materiales">
+                        <group>
+                            <group string="Materiales">
+                                <div class="div_scroll_bienes">
+                                    <field name="mate_nota" nolabel="1" attrs="{'readonly':[('estatus','!=', '1')]}" >
+                                    <tree string="Materiales" editable="bottom">
+                                        <field name="descripcion" />
+                                        <field name="cantidad" on_change="on_change_comparar(cantidad,cantidad_stock)"/>
+                                        <field name="cantidad_stock" />
+                                        <field name="unidad" /> 
+                                    </tree>
+                                </field>    
+                                </div>
+                            </group>
+                        </group>
+                        </page>
+                        <page string="Observaciones">
+                            <field name="observaciones" />
+                        </page>
+                        </notebook>
+                    </div>
+                    </sheet>
+                </form>
+            </field>            
+        </record>
+
+        <!--Vista Tree de Nota de entrega-->
+        <record model="ir.ui.view" id="nota_entrega_tree_view">
+            <field name="name">almacen.tree</field>
+            <field name="model">nota.entrega</field>
+            <field name="arch" type="xml">
+                <tree string="Materiales Tree" colors="BF9427:estatus=='1';Red:estatus=='2';Blue:estatus=='3'" >
+                    <field name="c_nota" />
+                    <field name="area" />
+                    <field name="fecha" />
+                    <field name="estatus"/>
+                </tree>
+            </field>            
+        </record>
+
+        <record model="ir.ui.view" id="buscar_nota_id">
+            <field name="name">nota.search</field>
+            <field name="model">nota.entrega</field>
+            <field name="arch" type="xml">      
+                <search string="Busqueda Materiales BVA">
+                    <!--<filter name="nota" domain="[('nombre','=', uid)]" string="Nota de entrega" icon="terp-partner" />-->
+                    <field name="c_nota" />
+                    <field name="area" />
+                    <field name="fecha" />
+                </search>
+            </field>            
+        </record>
+        <menuitem id="main_nota_entrega_menu" name="Notas de Entrega" parent="main_materiales_menu" sequence="4" />
+        <menuitem id="nota_entrega_menu" name="Crear Nota" parent="main_nota_entrega_menu" action="nota_entrega_list_action" />
+    </data>
+</openerp>

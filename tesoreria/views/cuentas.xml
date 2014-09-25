@@ -5,7 +5,7 @@
 		
 		<record model="ir.actions.act_window" id="accion_vista_cuentas">
 		 	<field name="name">Cuentas</field>
-			<field name="res_model">tesoreria.cuenta</field>
+			<field name="res_model">res.partner.bank</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
 			<field name="help" type="html">
@@ -15,14 +15,14 @@
 
 		<record model="ir.ui.view" id="vista_formulario_cuentas">
 			<field name="name">cuenta.form</field>
-			<field name="model">tesoreria.cuenta</field>
+			<field name="model">res.partner.bank</field>
+			<field name="inherit_id" ref="base.view_partner_bank_form"/>
 			<field name="arch" type="xml">
-				<form string="Actualización de Cuentas Bancarias" version="7.0">
 <!--
+				<form string="Actualización de Cuentas Bancarias" version="7.0">
 					<header>
 						<button name="reporte_integrantes" type="object" string="Exportar Integrante" class="oe_highlight" />
 					</header>
--->
 					<separator string="Actualización de Cuentas Bancarias"/>
 					<group>
 						<group>
@@ -42,9 +42,32 @@
 						</group>
 					</group>
 				</form>
+-->
+				<field name="acc_number" position="before">
+					<field name="codigo" invisible="1"></field>
+				</field>
+				<field name="zip" position="replace">
+					<field name="zip" invisible="1"></field>
+				</field>
+				<field name="bank_bic" position="replace">
+					<field name="bank_bic" on_change="generar_codigo(bank)"></field>
+				</field>
+				<field name="state_id" position="replace">
+					<field name="state_id" invisible="1"></field>
+				</field>
+				<field name="country_id" position="after">
+					<field name="state_id" placeholder="Estado"></field>
+				</field>
+				<field name="partner_id" position="after">
+					<label string="Nombre del propietario" for="owner_name"/>
+				</field>
+				<label string="Address" position="replace">
+					<label string="Address" invisible="1" />
+				</label>
 			</field>
 		</record>
 		
+<!--
 		<record model="ir.ui.view" id="vista_tree_cuentas">
 			<field name="name">cuenta.tree</field>
 			<field name="model">tesoreria.cuenta</field>
@@ -58,12 +81,11 @@
 					<field name="saldo_act" nolabel="0" colspan="2"/>
 					<field name="estatus" nolabel="0" colspan="2"/>
 					<field name="sucursal" nolabel="0" colspan="2"/>
-<!--
 					<field name="ciudad" nolabel="0" colspan="2"/>
--->
 				</tree>
 			</field>
 		</record>
+-->
 		
 <!--
 		<menuitem name="Tesorería" id="menu_tesoreria"/>
@@ -72,7 +94,7 @@
 		<menuitem name="Reportes" id="menu_reportes_integrantes" parent="menu_integrantes" sequence="2"/>
 		<menuitem name="Configuración" id="menu_configuracion_beneficiarios" parent="menu_beneficiarios" sequence="3"/>
 -->
-		<menuitem parent="menu_actualizar_main" id="cuenta" action="accion_vista_cuentas" name="Cuenta"/>
+		<menuitem parent="menu_actualizar_main" id="cuenta" action="accion_vista_cuentas" name="Cuentas"/>
 
 	</data>
 </openerp>

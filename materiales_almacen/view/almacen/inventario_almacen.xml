@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!--Menu Inventario de Almacen -->
+        <record model="ir.actions.act_window" id="inventario_almacen_list_action">
+            <field name="name">Inventario de almacen</field>
+            <field name="res_model">inventario.almacen</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Realizar Inventario almacen</p>
+            </field>
+        </record> 
+
+        <!-- Vista Form de Inventario de Almacen-->
+        <record model="ir.ui.view" id="inventario_almacen_form_view">
+            <field name="name">inventario almacen form</field>
+            <field name="model">inventario.almacen</field>
+            <field name="arch" type="xml">
+                <form string="Nota Form" version="7.0">
+                    <header>
+                         <button name="generar_inventario_almacen" class="imprimir" icon="STOCK_PRINT"
+                                 type="object" string="Exportar Inventario de Almacen"
+                                 confirm="¿Esta SEGURO que quiere generar un reporte total de existencias en ese momento?"/>
+                    </header>
+                    <sheet>
+                    <div class="oe_form_sheetbg">
+                    
+                    <group string="Inventario Almacen">
+                        <group>
+                            <field name="nombre" placeholder="Inventario Actual para el Mes X"/>
+                            <field name="usuario_login" class="oe_inline" />
+                            
+                        </group>
+                        <group>
+                            <field name="date"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Inventario de Almacen" >
+                            <field name="almacen_m" nolabel="1" class="oe_form_sheetbg">	
+                                <tree string="Inventario de Almacen" editable="bottom">
+                                    <field name="gerencia" />
+                                    <field name="t_materiales" />
+                                    <field name="descripcion" domain="[('t_materiales','=',t_materiales)]" on_change="on_change_inventario_materiales(descripcion,gerencia)" />
+                                    <field name="cantidad" />
+                                    <field name="unidad" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    </div>
+                    </sheet>
+                </form>
+            </field>            
+        </record>
+        <!--  Vista Tree Inventario de Almacen -->	
+        <record model="ir.ui.view" id="inventario_almacen_tree_bva_view">
+                <field name="name">inventario.almacen.tree.bva</field>
+                <field name="model">inventario.almacen</field>
+                <field name="arch" type="xml">
+                        <tree string="Inventario de Materiales" >
+                                <field name="nombre" />
+                                <field name="date"/>
+                                <field name="usuario_login" />
+                        </tree>				 
+                </field>
+        </record>
+        
+
+        <menuitem id="inventario_total_menu" name="Total de Existencias" parent="main_materiales_menu" sequence="3" />
+        <menuitem id="menu_inventario_almacen" name="Inventario del Almacen" action="inventario_almacen_list_action"  parent="inventario_total_menu"/>
+        
+    </data>
+</openerp>

@@ -504,6 +504,54 @@
                 <field name="name">SABAAT</field>
                 <field name="context">{}</field>
             </record>
+            <record id="reporte_64" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">reportes.presupuesto</field>
+                <field name="domain">[('create_uid','=','cdea')]</field> <!--Filtro-->
+                <field name="user_id">101</field>
+                <field name="name">CDEA</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="reporte_65" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">reportes.presupuesto</field>
+                <field name="domain">[('create_uid','=','pgea')]</field> <!--Filtro-->
+                <field name="user_id">81</field>
+                <field name="name">PGEA</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="reporte_66" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">reportes.presupuesto</field>
+                <field name="domain">[('create_uid','=','ssppt')]</field> <!--Filtro-->
+                <field name="user_id">96</field>
+                <field name="name">SSPPT</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="reporte_67" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">reportes.presupuesto</field>
+                <field name="domain">[('create_uid','=','sfatva')]</field> <!--Filtro-->
+                <field name="user_id">103</field>
+                <field name="name">SFATVA</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="reporte_68" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">reportes.presupuesto</field>
+                <field name="domain">[('create_uid','=','ssppj')]</field> <!--Filtro-->
+                <field name="user_id">102</field>
+                <field name="name">SSPPJ</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="reporte_69" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">reportes.presupuesto</field>
+                <field name="domain">[('create_uid','=','scafc')]</field> <!--Filtro-->
+                <field name="user_id">105</field>
+                <field name="name">SCAFC</field>
+                <field name="context">{}</field>
+            </record>
         </data>
     </openerp>
 

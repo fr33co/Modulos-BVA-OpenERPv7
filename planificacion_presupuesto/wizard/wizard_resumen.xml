@@ -17,28 +17,27 @@
 			<field name="model">wizard.resumen</field>
 			<field name="arch" type="xml">
 				<form string="Planes" version="7.0">
-					<separator string="Resumen Anual" />
-					<!--<notebook>
-						<page string="Resumen Anual">
-							<table >
-								<tr style="width:230px">
-									<td style="width:130px">
-										<b>Seleccione el Año:</b>
-									</td>
-									<td style="width:50px">
-										<field name="year_fiscal"  style="width: 30%%"/>
-									</td>
-								</tr>
-							</table>
-							<footer>
-								<button name="resumen_de_proyectos" string="Resumen" type="object" class="oe_highlight"/>
-								
-								<button string="Cancel" class="oe_link" special="cancel" />
-							</footer>
-						</page>
-					</notebook>-->
-					<field name="year_fiscal"  style="width: 30%%"/>
-					<button name="resumen_sectores" string="Sectores" type="object" class="oe_highlight"/>
+				<separator string="Resumenes" />
+				<table>
+				<tr style="width:200px">
+					<td style="width:130px">
+						<b>Seleccione el Año:</b>
+					</td>
+					<td style="width:50px">
+						<field name="year_fiscal"  style="width: 30%%"/>
+					</td>
+				</tr>
+				</table>
+				<notebook >
+					<page string="Clasificación Sectorial">
+						<separator string="Planificación y Presupuesto según clasificación sectorial"/>
+						<button name="resumen_sectores" string="Sectores" type="object" class="oe_highlight"/>
+					</page>
+					<page string="Listado de Proyectos">
+						<separator string="Listado de Proyectos"/>
+						<button name="resumen_de_proyectos" string="Listado" type="object" class="oe_highlight"/>
+					</page>
+				</notebook>
 					
 				</form>
 			</field>			

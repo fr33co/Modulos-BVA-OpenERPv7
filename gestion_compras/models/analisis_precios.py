@@ -22,7 +22,7 @@ class Analisis_precios(osv.Model):
 	
 	_order = 'descripcion'
 	
-	_rec_name = 'descripcion'
+	_rec_name = 'elaborado'
 
 	def generar_analisis_precios(self, cr, uid, ids, context=None):
 
@@ -34,19 +34,19 @@ class Analisis_precios(osv.Model):
 			elaborado             = x.elaborado # ENCARGADO DE LA ELABORACION DE ANALSIS DE PRECIOS
 			
 			# ELEMENTOS PARA IVA / PRECIO Y SUB TOTAL
-			#################################
-			s_total_one    = x.sub_total_one
-			iva_one        = x.iva_one
-			total_one      = x.total_one
-			#################################
-			s_total_two    = x.sub_total_two
-			iva_two        = x.iva_two
-			total_two      = x.total_two
-			#################################
-			s_total_tree    = x.sub_total_tree
-			iva_tree       = x.iva_tree
-			total_tree      = x.total_tree
-			#################################
+			###################################################
+			s_total_one    = pdf_class.decimal(x.sub_total_one)
+			iva_one        = pdf_class.decimal(x.iva_one)
+			total_one      = pdf_class.decimal(x.total_one)
+			###################################################
+			s_total_two    = pdf_class.decimal(x.sub_total_two)
+			iva_two        = pdf_class.decimal(x.iva_two)
+			total_two      = pdf_class.decimal(x.total_two)
+			###################################################
+			s_total_tree   = pdf_class.decimal(x.sub_total_tree)
+			iva_tree       = pdf_class.decimal(x.iva_tree)
+			total_tree     = pdf_class.decimal(x.total_tree)
+			###################################################
 			
 			# Creamos el Formato de PDF de Analisis de Precios de los distintos Proveedores seleccionados
 			#####################################################################################################
@@ -97,12 +97,12 @@ class Analisis_precios(osv.Model):
 				descripcion    = c_one.descripcion.descripcion
 				cantidad       = c_one.cantidad_one
 				unidad         = c_one.unidad_one.name
-				precio_one     = float(c_one.precio_one)
-				sub_total_one  = float(c_one.sub_total_one)
-				precio_two     = float(c_one.precio_two)
-				sub_total_two  = float(c_one.sub_total_two)
-				precio_tree    = float(c_one.precio_tree)
-				sub_total_tree = float(c_one.sub_total_tree)
+				precio_one     = pdf_class.decimal(float(c_one.precio_one))
+				sub_total_one  = pdf_class.decimal(float(c_one.sub_total_one))
+				precio_two     = pdf_class.decimal(float(c_one.precio_two))
+				sub_total_two  = pdf_class.decimal(float(c_one.sub_total_two))
+				precio_tree    = pdf_class.decimal(float(c_one.precio_tree))
+				sub_total_tree = pdf_class.decimal(float(c_one.sub_total_tree))
 				
 				if j == 20:
 					pdf.add_page()

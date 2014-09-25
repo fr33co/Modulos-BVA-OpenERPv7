@@ -1,0 +1,141 @@
+.div_scroll_bienes {
+    height: 400px;
+    overflow: scroll;
+}
+
+/*Color de la letras de los menus principales (Gris Oscuro)*/
+.openerp .oe_secondary_menu_section {
+    color: #564F4F;
+    font-weight: bold;
+    margin-left: 8px;
+}
+
+/*Color del sombreado de los sub-menus (Gris)*/
+.openerp .oe_secondary_submenu .oe_active {
+    background: none repeat scroll 0 0 #837878;
+    border-bottom: 1px solid #000000;
+    border-top: 1px solid lightgrey;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) inset, 0 -1px 3px rgba(40, 40, 40, 0.2) inset;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+/*Color de los campos requeridos*/
+
+.openerp .oe_form .oe_form_required input:not([disabled]):not([readonly]),
+.openerp .oe_form .oe_form_required select:not([disabled]):not([readonly]),
+.openerp .oe_form .oe_form_required textarea:not([disabled]):not([readonly]) {
+    background-color: #F4D15C !important;
+}
+
+/*Color del texto de los separadores */
+.openerp .oe_horizontal_separator {
+    color: #e40606;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 15px 0 10px;
+}
+
+/*Color del barra de menu principal (Rojo Oscuro)*/
+.openerp .oe_topbar {
+    background-color: #454343;
+    background-image: linear-gradient(to bottom, #B32D24, #B32D24);
+    height: 32px;
+    width: 100%;
+}
+
+.openerp .oe_menu > li > .oe_active {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4) inset;
+    text-shadow: 0 0 3px black;
+}
+
+/*Textura del formulario*/
+.oe_form_sheetbg{
+	
+	border-radius: 9px;
+	-moz-border-radius: 9px;
+}
+/*fondo para el separador*/
+.separator_style{
+	background-color: #F4D15C;
+        /*border: 1px solid #000000;*/
+	/*border-radius: 9px;*/
+	/*-moz-border-radius: 9px;*/
+}
+
+/*Color many2one*/
+.openerp .oe_application a {
+    color: #8F241D;
+}
+
+/*Color para el boton imprimir*/
+.openerp button.imprimir {
+    background-color: black;
+    color: black;
+    background-image: linear-gradient(to bottom, #FFFF00, #F5C00C);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(155, 155, 155, 0.4) inset;
+}
+/*Color para el boton Emitir solicitud*/
+.openerp button.enviar {
+    background-color: black;
+    color: white;
+    background-image: linear-gradient(to bottom, #0CCB0C, #138113);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(155, 155, 155, 0.4) inset;
+}
+/*Estilo con textura para los formularios*/
+.oe_form_sheetbg{
+
+border-radius: 9px;
+mozborder-radius: 9px;
+}
+
+/*Color para el boton Cargar Cantidades solicitud*/
+.openerp button.cargar {
+    background-color: black;
+    color: white;
+    background-image: linear-gradient(to bottom, #0CD10C, #138113);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(155, 155, 155, 0.4) inset;
+}
+/*Color para el boton Procesar solicitud*/
+.openerp button.procesar {
+    background-color: white;
+    color: white;
+    background-image: linear-gradient(to bottom, #4D7BD2, #233C6C);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(155, 155, 155, 0.4) inset;
+}
+/*Color para el boton Rechazar solicitud*/
+.openerp button.rechazar {
+    background-color: white;
+    color: white;
+    background-image: linear-gradient(to bottom, #FF0000, #9C1515);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(155, 155, 155, 0.4) inset;
+}
+
+.openerp .oe_form header {
+    background-color: #ededed;
+    background-image: linear-gradient(to bottom, #7c7777, #564f4f);
+    border-bottom: 1px solid #cacaca;
+    overflow: hidden;
+    padding-left: 2px;
+    position: relative;
+}
+
+/*Estilo para el String de la pestaña*/
+.openerp .oe_notebook > li.ui-state-active > a, .openerp .oe_notebook > li.ui-state-active > a:hover {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #7B9EC8;
+    color: black;
+    border-color: #dddddd #dddddd transparent;
+    border-image: none;
+    border-style: solid;
+    border-width: 1px;
+    cursor: default;
+}
+
+.div_scroll_ {
+    height: 200px;
+    overflow:
+}

@@ -49,8 +49,7 @@ class NominaBecadoIndividual(osv.Model):
 						bono_mes = (leer_tipobeca[0]['asignacion']*3)/12
 						bono_total = bono_mes*int(cant_meses)
 						valores.update({
-							'monto' : bono_total,
-							#~ 'monto' : leer_tipobeca[0]['asignacion']+bono_total, Esta opción es por si se necesita generar la nómina junto con el bono
+							'monto' : leer_tipobeca[0]['asignacion']+bono_total,
 						})
 				else:
 					valores.update({
@@ -61,7 +60,7 @@ class NominaBecadoIndividual(osv.Model):
 	
 	_columns = {
 		'nomina' : fields.many2one("becados.nomina", "Nómina", required=False),
-		'codigo' : fields.char(string="Código", size=20, required=False),
+		'codigo' : fields.char(string="Código", size=25, required=False),
 		'becado': fields.many2one("hr.employee", "Becado", required = True, domain=[('categoria','=','1')]), #Anteriormente domain=[('categoria','=','1'),('status','=','1')]
 		'anyo' : fields.char(string="Año",required=True),
 		'mes' : fields.selection((('Enero','Enero'),('Febrero','Febrero'),('Marzo','Marzo'),('Abril','Abril'),('Mayo','Mayo'),('Junio','Junio'),('Julio','Julio'),('Agosto','Agosto'),('Septiembre','Septiembre'),('Octubre','Octubre'),('Noviembre','Noviembre'),('Diciembre','Diciembre')),"Mes",required=True),
