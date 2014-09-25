@@ -57,6 +57,7 @@ def gen_res_bank(cr, uid, id_nomina, nomina, periodo_ini, periodo_fin, tipo_beca
 			b_esp_comision = 0
 			b_esp_cyber = 0
 			b_cyber = 0
+			b_excel = 0
 			j = 0 #Contador para registros
 			for registro in data:
 				#Contamos los becados activos e inactivos
@@ -85,6 +86,10 @@ def gen_res_bank(cr, uid, id_nomina, nomina, periodo_ini, periodo_fin, tipo_beca
 					#Cantidad por beca cyberguía
 					if registro[17] == "007":
 						b_cyber = b_cyber + reg_m
+					#Cantidad por beca cyberguía
+					if registro[17] == "008":
+						b_excel = b_excel + reg_m
+						#~ print "Monto Beca Excelencia: "+str(b_excel)
 						
 					#SUBTOTAL
 					monto_sub_total = monto_sub_total + reg_m 
@@ -157,6 +162,13 @@ def gen_res_bank(cr, uid, id_nomina, nomina, periodo_ini, periodo_fin, tipo_beca
 				pdf.cell(20,6,'007','B',0,'C',1)
 				pdf.cell(80,6,'BECA CYBERGUÍA'.decode("UTF-8"),'B',0,'C',1)
 				pdf.cell(30,6,str(b_cyber),'B',0,'C',1)
+				pdf.cell(30,6,"",'B',0,'C',1)
+				pdf.cell(30,6,"",'B',1,'C',1)
+			if b_excel > 0:
+				pdf.set_text_color(77,77,77)
+				pdf.cell(20,6,'008','B',0,'C',1)
+				pdf.cell(80,6,'BECA EXCELENCIA'.decode("UTF-8"),'B',0,'C',1)
+				pdf.cell(30,6,str(b_excel),'B',0,'C',1)
 				pdf.cell(30,6,"",'B',0,'C',1)
 				pdf.cell(30,6,"",'B',1,'C',1)
 			pdf.set_text_color(0,0,0)

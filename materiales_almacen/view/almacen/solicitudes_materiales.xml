@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!--Menu solicitudes materiales -->
+        <record model="ir.actions.act_window" id="solicitudes_list_action">
+            <field name="name">Solicitudes de Materiales</field>
+            <field name="res_model">solicitudes.materiales</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Realizar Solicitudes</p>
+            </field>
+        </record> 
+        <!-- vista Form solicitudes materiales -->
+        <record model="ir.ui.view" id="solicitudes_form_materiales_view">
+            <field name="name">solicitudes.form.materiales</field>
+            <field name="model">solicitudes.materiales</field>
+            <field name="arch" type="xml">
+                <form string="Nota Form" version="7.0">
+                    <header>
+                        <button string="Emitir" class="enviar"
+                                attrs="{'invisible':['|',('estatus','=', '2'),'|',('estatus','=', '3'),'|',('estatus','=', '4'),'|',('id','=', False)]}"
+                                confirm="¿Ha llenado completamente la solicitud y está usted seguro de Emitirla? (Recuerde: una vez emitida no podra editarla )"
+                                type="object" name="action_generar"/>
+                        <field name="estatus" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                    <div class="oe_form_sheetbg">
+                    <field name="id" invisible="1"/>
+                    <separator string="Solicitudes de Materiales"/>
+                    <table>
+                        <tr style="width:700px">
+                            <td style="width:150px">
+                                <b>Fecha de la solicitud:</b>
+                            </td>
+                            <td style="width:80px">
+                                 <field name="fecha" style="width: 90%%"/>
+                            </td>
+                            <td style="width:120px">
+                            </td>
+                            <td style="width:100px">
+                                <b> Correlativo :</b>
+                            </td>
+                            <td style="width:200px">
+                                 <field name="correlativo" style="width: 90%%"/>
+                            </td>
+                            <td style="width:40px">
+                                
+                            </td>
+                            <td>
+                                <button name="generar_solicitud" class="imprimir" icon="STOCK_PRINT" attrs="{'invisible':[('estatus','=', ('1'))]}" type="object" string="Generar Reporte" />
+                            </td>
+                        </tr>
+                    </table>
+                    <separator string="Información"/>
+                    <table>
+                         <tr style="width:800px">
+                            <td style="width:150px">
+                                <b>Nombre de referencia:</b>
+                            </td>
+                            <td colspan="4">
+                                 <field name="nombre" attrs="{'readonly':[('estatus','!=', '1')]}" default_focus="1" style="width: 95%%" />
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                        <tr style="width:800px">
+                            <td style="width:150px">
+                                <b>Solicitado por:</b>
+                            </td>
+                            <td style="width:200px">
+                                 <field name="user_register"  style="width: 90%%" />
+                            </td>
+                            <td style="width:130px">
+                                <b>Área Solicitante:</b>
+                            </td>
+                            <td style="width:300px">
+                                 <field name="area" attrs="{'readonly':[('estatus','!=', '1')]}" style="width: 90%%"/>
+                            </td>
+                        </tr>                    </table>
+                    <separator string="Tipo de Material"/>
+                    <table>
+                        <tr style="width:800px">
+                            <td style="width:90px">
+                                <b>Limpieza: </b>
+                                <field name="limpieza"
+                                    attrs="{'readonly':['|',('s_generales','=', True),'|',('oficina_papeleria','=', True),'|',('tecnologico','=', True),'|',('otros','=', True),'|',('estatus','!=', '1')]}" />
+                            </td>
+                            <td style="width:160px">
+                                <b>Servicios Generales: </b><field name="s_generales" attrs="{'readonly':['|',('limpieza','=', True),'|',('oficina_papeleria','=', True),'|',('tecnologico','=', True),'|',('otros','=', True),'|',('estatus','!=', '1')]}"  />
+                            </td>
+                            <td style="width:140px">
+                                <b>Oficina Papeleria: </b><field name="oficina_papeleria" attrs="{'readonly':['|',('s_generales','=', True),'|',('limpieza','=', True),'|',('tecnologico','=', True),'|',('otros','=', True),'|',('estatus','!=', '1')]}"  />
+                            </td>
+                             <td style="width:110px">
+                                <b>Técnologico: </b><field name="tecnologico" attrs="{'readonly':['|',('s_generales','=', True),'|',('oficina_papeleria','=', True),'|',('limpieza','=', True),'|',('otros','=', True),'|',('estatus','!=', '1')]}"  />
+                            </td>
+                            <td style="width:80px">
+                                <b>Otros: </b><field name="otros" attrs="{'readonly':['|',('s_generales','=', True),'|',('oficina_papeleria','=', True),'|',('tecnologico','=', True),'|',('limpieza','=', True),'|',('estatus','!=', '1')]}" />
+                            </td>
+                        </tr>
+                    </table>
+                    <table>
+                    <notebook >
+                        <page string="Materiales a Solicitar"> 
+                            <group>
+                                <group string="Materiales">             
+                                    <field name="almacen" nolabel="1" attrs="{'readonly':[('estatus','!=', '1')]}" >
+                                        <tree string="Materiales" editable="bottom">
+                                            <field name="t_materiales"  />
+                                            <field name="descripcion" domain="[('t_materiales','=',t_materiales)]" on_change="on_change_datos(descripcion)" />
+                                            <field name="cantidad" />
+                                            <field name="unidad" />
+                                        </tree>
+                                    </field>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Observaciones">
+                            <field name="observaciones" />
+                        </page>
+                    </notebook>
+                    </table>
+                    </div>
+                    </sheet>
+                </form>
+            </field>		
+        </record>
+
+        <!--Vista tree Solicitud -->
+
+        <record model="ir.ui.view" id="solicitud_materiales_tree_view">
+            <field name="name">Solicitud de Materiales</field>
+            <field name="model">solicitudes.materiales</field>
+            <field name="arch" type="xml">
+                <tree string="Solicitud de Materiales" colors="#BF9427:estatus=='1';Black:estatus=='2';Red:estatus=='3';Green:estatus=='4'" >
+                    <field name="correlativo" />
+                    <field name="nombre" />
+                    <field name="area" />
+                    <field name="fecha" />
+                    <field name="estatus"/>
+                    <field name="limpieza" invisible="1"/>
+                    <field name="s_generales" invisible="1" />
+                    <field name="oficina_papeleria" invisible="1" />
+                    <field name="tecnologico" invisible="1"/>
+                    <field name="otros" invisible="1" />
+                </tree>
+            </field>            
+        </record>
+
+        <!-- Filtro de solicitudes de soporte (por fechas, cod de solicitud y nombre del representante) -->
+        <record model="ir.ui.view" id="buscar_solicitudes_materiales_id">
+            <field name="name">Solicitud</field>
+            <field name="model">solicitudes.materiales</field>
+            <field name="arch" type="xml">      
+                <search string="Busqueda Solicitudes de Soporte Canaimas">
+                    <filter name="solicitudes" domain="[('correlativo','=', uid)]" string="Solicitudes" icon="terp-partner" />
+                     <field name="correlativo" />
+                    <field name="nombre" />
+                    <field name="area" />
+                    <field name="fecha" />
+                    <field name="limpieza" invisible="1"/>
+                    <field name="s_generales" invisible="1" />
+                    <field name="oficina_papeleria" invisible="1" />
+                    <field name="tecnologico" invisible="1"/>
+                    <field name="otros" invisible="1" />
+                </search>
+            </field>            
+        </record>
+        <menuitem id="solicitar_materiales_menu" name="Solicitud de Materiales" parent="main_materiales_menu" sequence="1" />
+        <menuitem id="solicitudes_materiales_menu" name="Realizar Solicitud" parent="solicitar_materiales_menu" action="solicitudes_list_action" />
+    </data>
+</openerp>

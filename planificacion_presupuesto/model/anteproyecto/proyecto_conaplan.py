@@ -156,6 +156,8 @@ class solicitud_soporte(osv.Model):
 	    cargo = x.cargo.encode("UTF-8").decode("UTF-8")
 	    tel = x.telefono.encode("UTF-8").decode("UTF-8")
 	    correo = x.correo.encode("UTF-8").decode("UTF-8")
+	    ubica = x.ubicacion.encode("UTF-8").decode("UTF-8")
+	    print ubica
 	    
 	    proyecto = x.nombre_pro.encode("UTF-8").decode("UTF-8")
 	    dura = x.duracion.encode("UTF-8").decode("UTF-8")
@@ -183,7 +185,7 @@ class solicitud_soporte(osv.Model):
 	    elif int(x.fuente_fin) == 3:
 		fuente_f = "INGRESOS PROPÍOS"
 	    elif int(x.fuente_fin) == 4:
-		fuente_f = "OTROS"
+		fuente_f = "T.C.I.R." 
 
 	    
 	    
@@ -366,7 +368,7 @@ class solicitud_soporte(osv.Model):
 	    pdf.set_font('Arial','B',9)
 	    pdf.cell(190,5,"2.2. Ubicación:".decode("UTF-8"),'LTR',1,'L',1)
 	    pdf.set_font('Arial','',8)
-	    pdf.multi_cell(190,5,domici,'LBR','J',1)
+	    pdf.multi_cell(190,5,ubica,'LBR','J',1)
 	    
 	    pdf.set_font('Arial','B',9)
 	    pdf.cell(22,5,"2.3. Duración:".decode("UTF-8"),'LTB',0,'L',1)
@@ -817,9 +819,10 @@ class solicitud_soporte(osv.Model):
 
 
 
-	pdf.output('/home/administrador/openerp70/modules/planificacion_presupuesto/reportes/'+nom,'F')
-	
-	archivo = open('/home/administrador/openerp70/modules/planificacion_presupuesto/reportes/'+nom)
+	pdf.output('openerp/addons/planificacion_presupuesto/reportes/'+nom,'F')
+	#pdf.output('/home/administrador/openerp70/modules/planificacion_presupuesto/reportes/'+nom,'F')
+	archivo = open('openerp/addons/planificacion_presupuesto/reportes/'+nom)
+	#archivo = open('/home/administrador/openerp70/modules/planificacion_presupuesto/reportes/'+nom)
 	
 	r_archivo = self.pool.get('reportes.presupuesto').create(cr, uid, {
 		'name' : nom,
@@ -856,9 +859,9 @@ class solicitud_soporte(osv.Model):
 	pdf.set_line_width(0.25)
 	pdf.set_y(58)
 	pdf.set_x(20)
-	pdf.line(20, 73, 20, 260)
-	pdf.line(20, 260, 205, 260)
-	pdf.line(205, 260, 205, 73 )
+	pdf.line(20, 73, 20, 259)
+	#pdf.line(20, 260, 205, 260)
+	pdf.line(205, 259, 205, 73 )
 	pdf.set_fill_color(255,255,255)
 	pdf.set_text_color(24,29,31)
 	
@@ -869,7 +872,7 @@ class solicitud_soporte(osv.Model):
 	for x in resumen:
 	    ente = x.organismo.nombre_ente.encode("UTF-8").decode("UTF-8")
 	    fec = x.f_solicitud.split("/")
-	    fec_ley = fec[2]
+	    fec_ley = int(x.year_fiscal)
 	    proyecto = x.nombre_pro.encode("UTF-8").decode("UTF-8")
 	    obj_g_pro = x.obj_general.encode("UTF-8").decode("UTF-8")
 	    costo = float(x['costo_proyecto'])
@@ -890,6 +893,8 @@ class solicitud_soporte(osv.Model):
 	    hist = "OBJETIVO HISTÓRICO: ".decode("UTF-8")
 	    estr = "OBJETIVO ESTRATÉGICO: ".decode("UTF-8")
 	    linea = "LÍNEA ESTRÁTEGICA DEL PAN DE GOBIERNO: ".decode("UTF-8")
+	    bsf = "Bolívares".decode("UTF-8")
+	    
 	    pdf.set_y(5)
 	    pdf.set_x(97)
 	    pdf.set_font('Times','',4)
@@ -905,21 +910,49 @@ class solicitud_soporte(osv.Model):
 	    pdf.set_x(99)
 	    pdf.write(20,"DEL ESTADO ARAGUA".decode("UTF-8"))
 	    
-	    pdf.set_font('Times','',7)
+	    pdf.set_font('Times','B',7)
+	    pdf.set_fill_color(191,191,191) #Color de las Celdas
+	    pdf.set_text_color(0,0,0) #Color del Texto
 	    pdf.set_y(50)
 	    pdf.set_x(20)
 	    pdf.cell(150,4,ente.upper(),'LTB',0,'L',1)
 	    pdf.cell(35,4,"LEY DE PRESUPUESTO "+str(fec_ley).decode("UTF-8"),'TBR',1,'L',1)
-	    pdf.multi_cell(185,4,"PROYECTO: "+proyecto.upper(),'LTR','J',1)
-	    pdf.multi_cell(185,4,"OBJETIVO GENERAL DEL PROYECTO: "+obj_g_pro.upper(),'LR','J',1)
-	    pdf.cell(185,4,"MONTO: "+str(costo)+" Bolívares",'LR',1,'J',1)
-	    pdf.multi_cell(185,4,hist+obj_h.upper(),'LR','J',1)
-	    pdf.multi_cell(185,4,"OBJETIVO NACIONAL: "+obj_n.upper(),'LR','J',1)
-	    pdf.multi_cell(185,4,estr+obj_e.upper(),'LR','J',1)
-	    pdf.multi_cell(185,4,"OBJETIVO GENERAL: "+obj_g.upper(),'LR','J',1)
-	    pdf.multi_cell(185,4,linea+linea_est.upper(),'LR','L',1)
+	    pdf.set_fill_color(255,255,255)
+	    pdf.set_text_color(24,29,31)
+	    pdf.cell(185,3,"PROYECTO: ".decode("UTF-8"),'LTR',1,'L',1)
+	    pdf.set_font('Times','',7)
+	    pdf.multi_cell(185,4,proyecto.upper(),'LR','J',1)
 	    
+	    pdf.set_font('Times','B',7)
+	    pdf.cell(185,3,"OBJETIVO GENERAL DEL PROYECTO: ".decode("UTF-8"),'LR',1,'L',1)
+	    pdf.set_font('Times','',7)
+	    pdf.multi_cell(185,4,obj_g_pro.upper(),'LR','J',1)
+	    pdf.set_font('Times','B',7)
+	    #pdf.cell(185,3,"MONTO: ".decode("UTF-8"),'LR',0,'R',1)
+	    pdf.cell(185,4,"MONTO: "+addComa(str(costo))+" "+bsf,'LR',1,'J',1)
+	    pdf.set_font('Times','B',7)
+	    pdf.cell(185,3,"OBJETIVO HISTÓRICO: ".decode("UTF-8"),'LR',1,'LR',1)
+	    pdf.set_font('Times','',7)
+	    pdf.multi_cell(185,4,obj_h.upper(),'LR','J',1)
+	    pdf.set_font('Times','B',7)
+	    pdf.cell(185,3,"OBJETIVO NACIONAL: ".decode("UTF-8"),'LR',1,'LR',1)
+	    pdf.set_font('Times','',7)
+	    pdf.multi_cell(185,4,obj_n.upper(),'LR','J',1)
+	    pdf.set_font('Times','B',7)
+	    pdf.cell(185,3,"OBJETIVO ESTRATÉGICO: ".decode("UTF-8"),'LR',1,'LR',1)
+	    pdf.set_font('Times','',7)
+	    pdf.multi_cell(185,4,obj_e.upper(),'LR','J',1)
+	    pdf.set_font('Times','B',7)
+	    pdf.cell(185,3,"OBJETIVO GENERAL: ".decode("UTF-8"),'LR',1,'LR',1)
+	    pdf.set_font('Times','',7)
+	    pdf.multi_cell(185,4,obj_g.upper(),'LR','J',1)
+	    pdf.set_font('Times','B',7)
+	    pdf.cell(185,3,"LÍNEA ESTRÁTEGICA DEL PAN DE GOBIERNO: ".decode("UTF-8"),'LR',1,'LR',1)
+	    pdf.set_font('Times','',7)
+	    pdf.multi_cell(185,4,linea_est.upper(),'LR','L',1)
 	    
+	    pdf.set_fill_color(191,191,191) #Color de las Celdas
+	    pdf.set_text_color(0,0,0) #Color del Texto
 	    pdf.cell(25,4,"ESTRUCTURA".decode("UTF-8"),'LTR',0,'C',1)
 	    pdf.cell(55,4,"".decode("UTF-8"),'LT',0,'C',1)
 	    pdf.cell(105,4,"FUENTE DE FINANCIAMIENTO".decode("UTF-8"),'LTBR',1,'C',1)
@@ -936,6 +969,8 @@ class solicitud_soporte(osv.Model):
 	    pdf.cell(20,3,"FISCAL".decode("UTF-8"),'LBR',0,'C',1)
 	    pdf.cell(30,3,"INTERTERRITORIAL".decode("UTF-8"),'LBR',0,'C',1)
 	    pdf.cell(30,3,"PRESUPUESTO 2014".decode("UTF-8"),'LBR',1,'C',1)
+	    pdf.set_fill_color(255,255,255)
+	    pdf.set_text_color(24,29,31)
 	    pdf.cell(185,4,"".decode("UTF-8"),'LTR',1,'C',1)
 	    impu_ids = self.read(cr, uid, ids, context=context)[0]
 	    imp_id = impu_ids['imputacion_presu'] # Grupo de IDS
@@ -950,26 +985,52 @@ class solicitud_soporte(osv.Model):
 		#partida = x.partida_presu.nombre_ente.encode("UTF-8").decode("UTF-8")
 		partida = d['partida_presu'][1]
 		tri_total_i = float(d['total_impu'])
-
+		fuente = x.fuente_fin
+		if int(x.fuente_fin) == 1:
+		    situado = tri_total_i
+		else:
+		    situado = 0.0
+		if int(x.fuente_fin) == 2:
+		    fci = tri_total_i
+		else:
+		    fci = 0.0
+		if int(x.fuente_fin) == 3:
+		    gestion = tri_total_i
+		else:
+		    gestion = 0.0
+		
 		pdf.cell(25,6,str(codi),'L',0,'C',1)
 		pdf.cell(55,6,partida.encode("UTF-8").decode("UTF-8"),'',0,'L',1)
-		pdf.cell(25,6,str(tri_total_i),'',0,'R',1)
-		pdf.cell(20,6,"0,00".decode("UTF-8"),'',0,'R',1)
-		pdf.cell(30,6,"0,00".decode("UTF-8"),'',0,'R',1)
-		pdf.cell(30,6,str(tri_total_i),'R',1,'R',1)
+		pdf.cell(25,6,addComa(str(situado)),'',0,'R',1)
+		pdf.cell(20,6,addComa(str(gestion)),'',0,'R',1)
+		pdf.cell(30,6,addComa(str(fci)),'',0,'R',1)
+		pdf.cell(30,6,addComa(str(tri_total_i)),'R',1,'R',1)
  
 	    total_pro = float(x['total_imputaciones'])
-	    pdf.set_y(255)
+	    pdf.set_font('Times','B',7)
+	    pdf.set_fill_color(191,191,191) #Color de las Celdas
+	    pdf.set_text_color(0,0,0) #Color del Texto
+	    pdf.set_y(254)
 	    pdf.set_x(20)
 	    pdf.cell(155,5,"TOTAL",'LTBR',0,'L',1)
 	    #pdf.set_y(200)
 	    #pdf.set_x(175)
-	    pdf.cell(30,5,str(total_pro),'LTBR',0,'R',1)
+	    pdf.cell(30,5,"Bs. "+addComa(str(total_pro)),'LTBR',0,'R',1)
+	    pdf.set_fill_color(255,255,255)
+	    pdf.set_text_color(24,29,31)
 	    
 	    nom = "Resumen"+".pdf"
-
-	    pdf.output('openerp/addons/planificacion_presupuesto/reportes/'+nom,'F')
 	    
+	    
+	    rutausuario =  os.getcwd()
+	    rutax       = os.path.split(rutausuario+'planificacion_presupuesto')
+	    rutadir     = rutax[0]
+	    
+	    pdf.output(rutadir+'/reportes/'+nom,'F')
+	    #pdf.output('/home/administrador/openerp70/modules/planificacion_presupuesto/reportes/'+nom,'F')
+	    archivo = open(rutadir+'/reportes/'+nom)
+	    
+
 	    
 	  #Funciones para la validación de las fechas de inicio y fin de un proyecto
     def duracion_proyecto(self, cr, uid, ids, fecha_ini, fecha_fin, context=None): 
@@ -1110,7 +1171,7 @@ class solicitud_soporte(osv.Model):
 	'etapa': fields.selection([('1','Nueva'), ('2','Continuación')], string="Etapa", required=True),
 	'proy_nuevo': fields.char('Proyecto Nuevo', required=False),
 	'costo_proyecto': fields.float('Costo del Proyecto', readonly=False),
-	'fuente_fin': fields.selection([('1','SITUADO CONSTITUCIONAL'), ('2','F.C.I'), ('3','INGRESOS PROPÍOS'), ('4','OTROS')], string="Fuente de Financiamiento:", readonly=True),
+	'fuente_fin': fields.selection([('1','SITUADO CONSTITUCIONAL'), ('2','F.C.I'), ('3','INGRESOS PROPÍOS'), ('4','TRANSFERENCIAS CORRIENTES INTERNAS DE LA REPÚBLICAS')], string="Fuente de Financiamiento:", required=True),
 	'indicador': fields.char('Indicador General', size=120, required=True),
 	'formula': fields.char('Fórmula del Indicador General:', size=100, required=True),
 	'm_verificacion': fields.char('Medio de Verificación:', size=120, required=True),
@@ -1166,18 +1227,21 @@ class solicitud_soporte(osv.Model):
 	#Pestaña Observaciones
 	'revisado': fields.char('Revisado por:', readonly=True, required=False),
 	'fecha_revision': fields.char('Fecha de Revisión:', readonly=True, required=False),
-	'partida01': fields.float(string="4.01", size=10, readonly=True, required=False),
-	'partida02': fields.float(string="4.02", size=10, readonly=True, required=False),
-	'partida03': fields.float(string="4.03", size=10, readonly=True, required=False),
-	'partida04': fields.float(string="4.04", size=10, readonly=True, required=False),
-	'partida05': fields.float(string="4.05", size=10, readonly=True, required=False),
-	'partida07': fields.float(string="4.07", size=10, readonly=True, required=False),
-	'partida10': fields.float(string="4.10", size=10, readonly=True, required=False),
-	'partida11': fields.float(string="4.11", size=10, readonly=True, required=False),
-	'partida12': fields.float(string="4.12", size=10, readonly=True, required=False),
+	'partida01': fields.float(string="4.01", readonly=True, required=False),
+	'partida02': fields.float(string="4.02", readonly=True, required=False),
+	'partida03': fields.float(string="4.03", readonly=True, required=False),
+	'partida04': fields.float(string="4.04", readonly=True, required=False),
+	'partida05': fields.float(string="4.05", readonly=True, required=False),
+	'partida07': fields.float(string="4.07", readonly=True, required=False),
+	'partida10': fields.float(string="4.10", readonly=True, required=False),
+	'partida11': fields.float(string="4.11", readonly=True, required=False),
+	'partida12': fields.float(string="4.12", readonly=True, required=False),
+	'partida98': fields.float(string="4.98", readonly=True, required=False),
 	'observaciones': fields.text('Observaciones:', readonly=True, required=False),
 	'monto_asignado': fields.float(string="Monto Asignado", readonly=True, required=False),
-        }
+        'estruc_presu': fields.char('Estructura Presupuestaria:', readonly=True, required=False),
+	
+	}
         
         
     _defaults = {
@@ -1233,177 +1297,114 @@ class solicitud_soporte(osv.Model):
     
     #Función para el cálculo del monto total de las metas del proyecto________________________________________________________________________________
     def total_metas(self, cr, uid, ids, metas, context=None):
-			
-	values = {}
+	total    = 0.00
+	values   = {}
+	trim_1   = 0.00
+	trim_2  = 0.00
+	trim_3 = 0.00
+	trim_4  = 0.00
+	sfl_trasmov  = self.pool.get('metas.financieras')
 	
-	cantidad_meta_m = 0
+	line_ids_trim = resolve_o2m_operations(cr, uid, sfl_trasmov, metas, ["trim_1","trim_2","trim_3","trim_4"], context)
 	
-	cantidad_meta_v = 0
-	
-	total_metas = 0
-
-	browse_id = self.browse(cr, uid, ids, context=context)
-	
-	#Segmento que obtiene los montos directamente del modelo
-	i = 0
-	for proyecto in browse_id:
-		i = 0
-		for meta in proyecto.metas_financieras:
-			cantidad_meta_m = meta.total_meta
-			total_metas = total_metas + cantidad_meta_m
-			#~ print "cant. meta"+str(i+1)+": "+str(cantidad_meta_m)
-		#~ print "Total metas: "+str(total_metas)+"\n"
-		i = i + 1
-		
-	#Segmento que obtiene los montos directamente de la vista
-	j = 0
-	for mt in metas:
-		#~ print "Registro meta"+str(j+1)+": "+str(mt)
-		#~ print "Datos meta"+str(j+1)+": "+str(mt[2])
-		if not mt[2]:
-			#~ print "0.0"
-			cantidad_meta_v = 0
-			total_metas = total_metas + cantidad_meta_v
-		else:
-			claves = mt[2].keys() #Variable que obtiene las claves del diccionario
-			#Verificamos si existe la clave 'total'
-			n_c = 0 #Contador de clave
-			for clv in claves:
-				if clv == 'total_meta':
-					n_c = n_c + 1
-			
-			if n_c > 0:		
-				#~ print mt[2]['total_meta']
-				cantidad_meta_v = mt[2]['total_meta']
-				total_metas = total_metas + cantidad_meta_v
-				
-				for meta2 in proyecto.metas_financieras:
-					if meta2.id == mt[1] and mt[2] != False:
-						total_metas = total_metas - meta2.total_meta
-			
-		j = j + 1
+	for line_trim in line_ids_trim:
+	    trim_1   += line_trim.get('trim_1',trim_1)
+	    trim_2  += line_trim.get('trim_2',trim_2)
+	    trim_3 += line_trim.get('trim_3',trim_3)
+	    trim_4  += line_trim.get('trim_4',trim_4)
+	    
+	total = trim_1 +trim_2 + trim_3 + trim_4
 	
 	values.update({
-		'total_metas' : total_metas,
-		'costo_proyecto' : total_metas,
+		'total_metas' : total,
 	})
-	
-	return {'value':values}
-					
-				
+	return {'value':values}    
+    
     #~ Función para el cálculo del monto total de las imputaciones presupuestarias________________________________________________________________________________
     def total_imputaciones(self, cr, uid, ids, imputaciones, context=None):
-			
-	values = {}
+	total    = 0.00
+	values   = {}
+	trim_1   = 0.00
+	trim_2  = 0.00
+	trim_3 = 0.00
+	trim_4  = 0.00
 	
-	cantidad_imp_m = 0
+	sfl_trasmov  = self.pool.get('imputacion.presupuestaria')
 	
-	cantidad_imp_v = 0
+	line_ids_trim = resolve_o2m_operations(cr, uid, sfl_trasmov, imputaciones, ["trim_1","trim_2","trim_3","trim_4"], context)
 	
-	total_imputaciones = 0
-
-	browse_id = self.browse(cr, uid, ids, context=context)
-	
-	#Segmento que obtiene los montos directamente del modelo
-	i = 0
-	for proyecto in browse_id:
-		i = 0
-		for imputacion in proyecto.imputacion_presu:
-			cantidad_imp_m = imputacion.total_impu
-			total_imputaciones = total_imputaciones + cantidad_imp_m
-			#~ print "cant. meta"+str(i+1)+": "+str(cantidad_imp_m)
-		#~ print "Total metas: "+str(total_metas)+"\n"
-		i = i + 1
-		
-	#Segmento que obtiene los montos directamente de la vista
-	j = 0
-	for imp in imputaciones:
-		#~ print "Registro imputación"+str(j+1)+": "+str(imp)
-		#~ print "Datos imputación"+str(j+1)+": "+str(imp[2])
-		if not imp[2]:
-			#~ print "0.0"
-			cantidad_imp_v = 0
-			total_imputaciones = total_imputaciones + cantidad_imp_v
-		else:
-			claves = imp[2].keys() #Variable que obtiene las claves del diccionario
-			#Verificamos si existe la clave 'total'
-			n_c = 0 #Contador de clave
-			for clv in claves:
-				if clv == 'total_impu':
-					n_c = n_c + 1
-			
-			if n_c > 0:			
-				#~ print mt[2]['total_impu']
-				cantidad_imp_v = imp[2]['total_impu']
-				total_imputaciones = total_imputaciones + cantidad_imp_v
-				
-				for imputacion2 in proyecto.imputacion_presu:
-					if imputacion2.id == imp[1] and imp[2] != False:
-						total_imputaciones = total_imputaciones - imputacion2.total_impu
-			
-		j = j + 1
+	for line_trim in line_ids_trim:
+	    trim_1   += line_trim.get('trim_1',trim_1)
+	    trim_2  += line_trim.get('trim_2',trim_2)
+	    trim_3 += line_trim.get('trim_3',trim_3)
+	    trim_4  += line_trim.get('trim_4',trim_4)
+	    
+	total = trim_1 +trim_2 + trim_3 + trim_4
 	
 	values.update({
-		'total_imputaciones' : total_imputaciones,
+		'total_imputaciones' : total,
 	})
-	
 	return {'value':values}
-				
-				
+	
     #~ Función para el cálculo de la cantidad total de acciones________________________________________________________________________________
     def total_acciones(self, cr, uid, ids, acciones, context=None):
-			
-	values = {}
+	total    = 0.00
+	values   = {}
+	trim_i   = 0.00
+	trim_ii  = 0.00
+	trim_iii = 0.00
+	trim_iv  = 0.00
+	sfl_trasmov  = self.pool.get('acciones.especificas')
 	
-	cantidad_acc_m = 0
+	line_ids_trim = resolve_o2m_operations(cr, uid, sfl_trasmov, acciones, ["trim_i","trim_ii","trim_iii","trim_iv"], context)
 	
-	cantidad_acc_v = 0
-	
-	total_acciones = 0
-
-	browse_id = self.browse(cr, uid, ids, context=context)
-	
-	#Segmento que obtiene los montos directamente del modelo
-	i = 0
-	for proyecto in browse_id:
-		i = 0
-		for accion in proyecto.acciones_especificas:
-			cantidad_acc_m = accion.total
-			total_acciones = total_acciones + cantidad_acc_m
-			#~ print "cant. acción"+str(i+1)+": "+str(cantidad_acc_m)
-		#~ print "Total acciones: "+str(total_acciones)+"\n"
-		i = i + 1
-		
-	#Segmento que obtiene los montos directamente de la vista
-	j = 0
-	for acc in acciones:
-		#~ print "Registro acción"+str(j+1)+": "+str(acc)
-		#~ print "Datos acción"+str(j+1)+": "+str(acc[2])
-		if not acc[2]:
-			#~ print "0.0"
-			cantidad_acc_v = 0
-			total_acciones = total_acciones + cantidad_acc_v
-		else:
-			claves = acc[2].keys() #Variable que obtiene las claves del diccionario
-			#Verificamos si existe la clave 'total'
-			n_c = 0 #Contador de clave
-			for clv in claves:
-				if clv == 'total':
-					n_c = n_c + 1
-			
-			if n_c > 0:
-				cantidad_acc_v = acc[2]['total']
-				total_acciones = total_acciones + cantidad_acc_v
-				
-				for accion2 in proyecto.acciones_especificas:
-					if accion2.id == acc[1] and acc[2] != False:
-						total_acciones = total_acciones - accion2.total
-			
-		j = j + 1
+	for line_trim in line_ids_trim:
+	    trim_i   += line_trim.get('trim_i',trim_i)
+	    trim_ii  += line_trim.get('trim_ii',trim_ii)
+	    trim_iii += line_trim.get('trim_iii',trim_iii)
+	    trim_iv  += line_trim.get('trim_iv',trim_iv)
+	    
+	total = trim_i +trim_ii + trim_iii + trim_iv
 	
 	values.update({
-		'total_acciones' : total_acciones,
+		'total_acciones' : total,
 	})
-	
 	return {'value':values}
 
+def addComa( snum ):
+    "Adicionar comas como separadores de miles a n. n debe ser de tipo string"
+    s = snum;
+    i = s.index('.') # Se busca la posición del punto decimal
+    while i > 3:
+        i = i - 3
+        s = s[:i] +  '#' + s[i:]
+	
+    n = s.replace(".", ",", 5);
+    t = n.replace("#", ".", 5);
+    return t
+
+def resolve_o2m_operations(cr, uid, target_osv, operations, fields, context):
+    results = []
+    for operation in operations:
+        result = None
+        if not isinstance(operation, (list, tuple)):
+            result = target_osv.read(cr, uid, operation, fields, context=context)
+        elif operation[0] == 0:
+            # may be necessary to check if all the fields are here and get the default values?
+            result = operation[2]
+        elif operation[0] == 1:
+            result = target_osv.read(cr, uid, operation[1], fields, context=context)
+            if not result: result = {}
+            result.update(operation[2])
+        elif operation[0] == 4:
+            result = target_osv.read(cr, uid, operation[1], fields, context=context)
+        if result != None:
+            results.append(result)
+    return results
+
+def ruta( usuario ):
+    ruta = '/home'
+    if usuario == 'administrador':
+        ruta = '/home/administrador/openerp70/modules/planificacion_presupuesto'
+
+    return rut

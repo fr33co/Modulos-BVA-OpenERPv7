@@ -160,7 +160,7 @@ class accion_centralizada(osv.Model):
         # Instancia de la clase heredada L es horizontal y P es vertical
         # format A4, A3 o letter que son los formatos de la hoja (oficio, carta, etc)
 
-        pdf=class_pdf.PDF(orientation='P',unit='mm',format='letter') #HORIENTACION DE LA PAGINA
+        pdf=class_pdf.PDF(orientation='P',unit='mm',format='letter') #ORIENTACION DE LA PAGINA
         
         #pdf.set_title(title)
         pdf.set_author('Marcel Arcuri')
@@ -440,11 +440,21 @@ class accion_centralizada(osv.Model):
 	pdf.cell(20,4,"",'LTBR',1,'R',1)   
 
 
-	nom = c_id+"-"+sigla+'.pdf'
-        pdf.output('/home/administrador/openerp70/modules/planificacion_presupuesto/reportes/'+nom,'F')
-
+    	nom = c_id+"-"+sigla+'.pdf'
+        #        #pdf.output('/home/administrador/openerp70/modules/planificacion_presupuesto/reportes/'+nom,'F')
+        #        pdf.output('openerp/addons/planificacion_presupuesto/reportes/'+nom,'F')
+	    #rutausuario =  os.getcwd()
+        #rutax       = os.path.split(rutausuario+'planificacion_presupuesto')
+        #rutadir     = rutax[0]
+        
+        
+        ruta_fun = ruta('')
+        
+        pdf.output(ruta_fun+'/reportes/'+nom,'F')
+        #pdf.output('/home/administrador/openerp70/modules/planificacion_presupuesto/reportes/'+nom,'F')
+        archivo = open(ruta_fun+'/reportes/'+nom)
         #archivo = open('openerp/addons/planificacion_presupuesto/reportes/'+nom)
-	archivo = open('/home/administrador/openerp70/modules/planificacion_presupuesto/reportes/'+nom)
+	#archivo = open('/home/administrador/openerp70/modules/planificacion_presupuesto/reportes/'+nom)
 	r_archivo = self.pool.get('reportes.presupuesto').create(cr, uid, {
 		'name' : nom,
 		'res_name' : nom,
@@ -491,18 +501,22 @@ class accion_centralizada(osv.Model):
 	#Pestaña Observaciones
 	'revisado': fields.char('Revisado por:', readonly=True, required=False),
 	'fecha_revision': fields.char('Fecha de Revisión:', readonly=True, required=False),
-	'partida01': fields.float(string="4.01", size=10, readonly=True, required=False),
-	'partida02': fields.float(string="4.02", size=10, readonly=True, required=False),
-	'partida03': fields.float(string="4.03", size=10, readonly=True, required=False),
-	'partida04': fields.float(string="4.04", size=10, readonly=True, required=False),
-	'partida05': fields.float(string="4.05", size=10, readonly=True, required=False),
-	'partida07': fields.float(string="4.07", size=10, readonly=True, required=False),
-	'partida10': fields.float(string="4.10", size=10, readonly=True, required=False),
-	'partida11': fields.float(string="4.11", size=10, readonly=True, required=False),
-	'partida12': fields.float(string="4.12", size=10, readonly=True, required=False),
+	'partida01': fields.float(string="4.01", readonly=True, required=False),
+	'partida02': fields.float(string="4.02", readonly=True, required=False),
+	'partida03': fields.float(string="4.03", readonly=True, required=False),
+	'partida04': fields.float(string="4.04", readonly=True, required=False),
+	'partida05': fields.float(string="4.05", readonly=True, required=False),
+	'partida07': fields.float(string="4.07", readonly=True, required=False),
+	'partida10': fields.float(string="4.10", readonly=True, required=False),
+	'partida11': fields.float(string="4.11", readonly=True, required=False),
+	'partida12': fields.float(string="4.12", readonly=True, required=False),
+	'partida98': fields.float(string="4.98", readonly=True, required=False),
 	'observaciones': fields.text('Observaciones:', readonly=True, required=False),
 	'monto_asignado': fields.float(string="Monto Asignado", readonly=True, required=False),
-        }
+        'estruc_presu': fields.char('Estructura Presupuestaria:', readonly=True, required=False),
+	#'fuente_fin': fields.selection([('1','SITUADO CONSTITUCIONAL'), ('2','F.C.I'), ('3','INGRESOS PROPÍOS'), ('4','TRANSFERENCIAS CORRIENTES INTERNAS DE LA REPÚBLICA')], string="Fuente de Financiamiento:", readonly=True, required=False),
+
+	}
 
     _defaults = {
         'f_solicitud': lambda *a: time.strftime("%d/%m/%Y"),
@@ -592,20 +606,20 @@ class accion_centralizada(osv.Model):
 		cantidad_meta_v = 0
 		total_metas = total_metas + cantidad_meta_v
 	    else:
-				claves = mt[2].keys() #Variable que obtiene las claves del diccionario
-				#Verificamos si existe la clave 'total'
-				n_c = 0 #Contador de clave
-				for clv in claves:
-					if clv == 'total_trim':
-						n_c = n_c + 1
-						
-				if n_c > 0:				
-					cantidad_meta_v = mt[2]['total_trim']
-					total_metas = total_metas + cantidad_meta_v
-					
-					for meta2 in proyecto.meta_acc_esp_trim:
-						if meta2.id == mt[1] and mt[2] != False:
-							total_metas = total_metas - meta2.total_trim
+		claves = mt[2].keys() #Variable que obtiene las claves del diccionario
+		#Verificamos si existe la clave 'total'
+		n_c = 0 #Contador de clave
+		for clv in claves:
+		    if clv == 'total_trim':
+			n_c = n_c + 1
+				
+		if n_c > 0:				
+		    cantidad_meta_v = mt[2]['total_trim']
+		    total_metas = total_metas + cantidad_meta_v
+		    
+		    for meta2 in proyecto.meta_acc_esp_trim:
+			if meta2.id == mt[1] and mt[2] != False:
+			    total_metas = total_metas - meta2.total_trim
 		    
 	    j = j + 1
 	
@@ -646,20 +660,20 @@ class accion_centralizada(osv.Model):
 		cantidad_imp_v = 0
 		total_imputaciones = total_imputaciones + cantidad_imp_v
 	    else:
-				claves = imp[2].keys() #Variable que obtiene las claves del diccionario
-				#Verificamos si existe la clave 'total'
-				n_c = 0 #Contador de clave
-				for clv in claves:
-					if clv == 'total_impu':
-						n_c = n_c + 1
-		
-				if n_c > 0:				
-					cantidad_imp_v = imp[2]['total_impu']
-					total_imputaciones = total_imputaciones + cantidad_imp_v  
-					
-					for imputacion2 in proyecto.imputacion_acciones:
-						if imputacion2.id == imp[1] and imp[2] != False:
-							total_imputaciones = total_imputaciones - imputacion2.total_impu
+		claves = imp[2].keys() #Variable que obtiene las claves del diccionario
+		#Verificamos si existe la clave 'total'
+		n_c = 0 #Contador de clave
+		for clv in claves:
+		    if clv == 'total_impu':
+			n_c = n_c + 1
+
+		if n_c > 0:				
+		    cantidad_imp_v = imp[2]['total_impu']
+		    total_imputaciones = total_imputaciones + cantidad_imp_v  
+		    
+		    for imputacion2 in proyecto.imputacion_acciones:
+			if imputacion2.id == imp[1] and imp[2] != False:
+			    total_imputaciones = total_imputaciones - imputacion2.total_impu
 					
 	    j = j + 1
 	
@@ -700,21 +714,21 @@ class accion_centralizada(osv.Model):
 		cantidad_act_v = 0
 		total_actividades = total_actividades + cantidad_act_v
 	    else:
-				claves = act[2].keys() #Variable que obtiene las claves del diccionario
-				#Verificamos si existe la clave 'total'
-				n_c = 0 #Contador de clave
-				for clv in claves:
-					if clv == 'total_trim':
-						n_c = n_c + 1
-		
-				if n_c > 0:				
-					#~ print act[2]['total_trim']
-					cantidad_act_v = act[2]['total_trim']
-					total_actividades = total_actividades + cantidad_act_v
-					
-					for actividad2 in proyecto.actividades_trimestrales:
-						if actividad2.id == act[1] and act[2] != False:
-							total_actividades = total_actividades - actividad2.total_trim
+		claves = act[2].keys() #Variable que obtiene las claves del diccionario
+		#Verificamos si existe la clave 'total'
+		n_c = 0 #Contador de clave
+		for clv in claves:
+		    if clv == 'total_trim':
+			n_c = n_c + 1
+
+		if n_c > 0:				
+		    #~ print act[2]['total_trim']
+		    cantidad_act_v = act[2]['total_trim']
+		    total_actividades = total_actividades + cantidad_act_v
+		    
+		    for actividad2 in proyecto.actividades_trimestrales:
+			if actividad2.id == act[1] and act[2] != False:
+			    total_actividades = total_actividades - actividad2.total_trim
 		    
 	    j = j + 1
 	
@@ -723,3 +737,10 @@ class accion_centralizada(osv.Model):
 	})
 	
 	return {'value':values}
+
+def ruta( usuario ):
+    ruta = '/home'
+    if usuario == 'administrador':
+        ruta = '/home/administrador/openerp70/modules/planificacion_presupuesto'
+
+    return ruta

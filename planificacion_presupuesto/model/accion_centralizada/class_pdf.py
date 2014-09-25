@@ -14,7 +14,8 @@ class PDF(FPDF):
 		# ALINEACION DE LA IMAGEN EN LA CABECERA DEL DOCUMENTO
 		# (CAMPO 1 = HORIZONTAL , CAMPO 2 = VERTICAL, CAMPO 3 = DIMENCION DE LA IMAGEN)
 		
-		self.image('/home/administrador/openerp70/modules/planificacion_presupuesto/img/banner_accion.jpg',10,10,190)
+		#self.image('/home/administrador/openerp70/modules/planificacion_presupuesto/img/banner_accion.jpg',10,10,190)
+		self.image('/home/jdaponte/openerp7/openerp/addons/planificacion_presupuesto/img/banner_accion.jpg',10,10,190)
 		#self.image('/home/administrador/openerp70/modules/planificacion_presupuesto/img/tope-conaplan.jpg',10,10,190)
 		#Calcular ancho del texto (title) y establecer posición
 		#w=self.get_string_width(title)+6
@@ -81,8 +82,8 @@ class PDF2(FPDF):
 		# ALINEACION DE LA IMAGEN EN LA CABECERA DEL DOCUMENTO
 		# (CAMPO 1 = HORIZONTAL , CAMPO 2 = VERTICAL, CAMPO 3 = DIMENCION DE LA IMAGEN)
 		
-		self.image('/home/administrador/openerp70/modules/planificacion_presupuesto/img/banner_proyecto_observaciones.jpg',10,10,190)
-		#self.image('openerp/addons/planificacion_presupuesto/img/banner_proyecto_observaciones.jpg',10,10,190)
+		#self.image('/home/administrador/openerp70/modules/planificacion_presupuesto/img/banner_proyecto_observaciones.jpg',10,10,190)
+		self.image('/home/jdaponte/openerp7/openerp/addons/planificacion_presupuesto/img/banner_proyecto_observaciones.jpg',10,10,190)
 		
 		#Calcular ancho del texto (title) y establecer posición
 		#w=self.get_string_width(title)+6

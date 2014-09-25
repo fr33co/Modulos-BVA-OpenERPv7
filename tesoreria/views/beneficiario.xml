@@ -3,10 +3,10 @@
 
 	<data>
 		
-		<!--Accionador para el menu de Integrantes-->
+		<!--Accionador para el menu de Beneficiarios-->
 		<record model="ir.actions.act_window" id="accion_vista_beneficiarios">
 		 	<field name="name">Beneficiarios</field>
-			<field name="res_model">tesoreria.beneficiario</field>
+			<field name="res_model">res.partner</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
 			<field name="help" type="html">
@@ -16,14 +16,13 @@
 
 		<record model="ir.ui.view" id="vista_formulario_beneficiarios">
 			<field name="name">beneficiario.form</field>
-			<field name="model">tesoreria.beneficiario</field>
+			<field name="model">res.partner</field>
 			<field name="arch" type="xml">
-				<form string="Actualización de Beneficiarios" version="7.0">
 <!--
+				<form string="Actualización de Beneficiarios" version="7.0">
 					<header>
 						<button name="reporte_integrantes" type="object" string="Exportar Integrante" class="oe_highlight" />
 					</header>
--->
 					<separator string="Actualización de Beneficiarios"/>
 					<group>
 						<group>
@@ -42,12 +41,17 @@
 						</group>
 					</group>
 				</form>
+-->
+				<field name="supplier" position="after">
+					<field name="beneficiario"/>
+				</field>
 			</field>
 		</record>
 		
+<!--
 		<record model="ir.ui.view" id="vista_tree_beneficiarios">
 			<field name="name">beneficiario.tree</field>
-			<field name="model">tesoreria.beneficiario</field>
+			<field name="model">res.partner</field>
 			<field name="arch" type="xml">
 				<tree string="Lista de beneficiarios">
 					<field name="cedula_rif" nolabel="0" colspan="2"/>
@@ -57,14 +61,15 @@
 				</tree>
 			</field>
 		</record>
+-->
 		
 		<menuitem name="Tesorería" id="menu_tesoreria"/>
-		<menuitem name="Actualizar" id="menu_actualizar_main" parent="menu_tesoreria" sequence="1"/>
+		<menuitem name="Configuración" id="menu_actualizar_main" parent="menu_tesoreria" sequence="4"/>
 <!--
 		<menuitem name="Reportes" id="menu_reportes_integrantes" parent="menu_integrantes" sequence="2"/>
 		<menuitem name="Configuración" id="menu_configuracion_beneficiarios" parent="menu_beneficiarios" sequence="3"/>
--->
 		<menuitem parent="menu_actualizar_main" id="beneficiario" action="accion_vista_beneficiarios" name="Beneficiario"/>
+-->
 
 	</data>
 </openerp>

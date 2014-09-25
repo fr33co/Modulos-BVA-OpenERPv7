@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+
+	<data>
+		
+		<!--Accionador para el menu de Elaboración de cheques-->
+		<record model="ir.actions.act_window" id="accion_cheque">
+		 	<field name="name">Elaborar cheques</field>
+			<field name="res_model">tesoreria.cheques</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Nuevo cheque</p>
+			</field>
+		</record>
+		<!--Accionador para el menu de Elaboración de cheques-->
+
+		<record model="ir.ui.view" id="vista_formulario_cheque">
+			<field name="name">cheque.form</field>
+			<field name="model">tesoreria.cheques</field>
+			<field name="arch" type="xml">
+				<form string="Generación de cheques" version="7.0">
+					<header>
+						<button name="action_ordenar" type="object" string="Ejecutar"
+						 stage_id="ejecutado" attrs="{'invisible':[('stage_id','in',('ejecutado','anulado'))]}" confirm="¿Esta usted seguro de pasar al siguiente proceso?" help="Pasar a estado de ejecutado"/>
+						<button name="action_anular" type="object" string="Anular"
+						 stage_id="anulado" attrs="{'invisible':[('stage_id','in',('borrador','anulado'))]}" confirm="¿Esta usted seguro de pasar al siguiente proceso?" help="Pasar a estado de anulado"/>
+						<field name="stage_id" widget="statusbar"/>
+					</header>
+					<sheet>
+					<separator string="Elaborar cheque"/>
+<!--
+					<table>
+						<tr>
+							<td><button name="reportes_ordenes" type="object" string="Imprimir" class="oe_highlight" icon="gtk-print" attrs="{'invisible':[('stage_id','=','borrador')]}"/></td>
+						</tr>
+					</table>
+-->
+					<group>
+						<group>
+							<field name="id" invisible="1"/>
+							<field name="cheque"/>
+<!--
+							<field name="tipo_pago" nolabel="0" colspan="2"/>
+							<field name="num_pago" nolabel="0" colspan="2"/>
+							<field name="fecha_pago" nolabel="0" colspan="2"/>
+							<field name="observacion" nolabel="0" colspan="2" />
+-->
+						</group>
+						<group>
+<!--
+							<field name="ced_rif_ben" nolabel="0" colspan="2" on_change="carga_benef('1',ced_rif_ben)"/>
+							<field name="beneficiario" nolabel="0" colspan="2"  on_change="carga_benef('2',beneficiario)"/>
+							<field name="ced_rif_ces" nolabel="0" colspan="2" />
+							<field name="cesionado" nolabel="0" colspan="2" />
+							<field name="unidad_solicitante" nolabel="0" colspan="2"/>
+							<field name="requisicion" nolabel="0" colspan="2"/>
+							<field name="fecha_req" nolabel="0" colspan="2"/>
+-->
+						</group>
+					</group>
+<!--
+					<notebook>
+						<page string="Compromisos a Causar">
+							<group>
+								<group>
+									<field name="tipo_compromiso" nolabel="0" colspan="2" on_change="carga_compromiso(tipo_compromiso,num_compromiso)"/>
+								</group>
+								<group>
+									<field name="num_compromiso" nolabel="0" colspan="2" on_change="carga_compromiso(tipo_compromiso,num_compromiso)"/>
+								</group>
+							</group>
+							<group>
+								<group>
+									<button name="carga_compromiso_mov" type="object" string="Cargar Compromisos" class="oe_highlight"/>
+									<field name="compromisos" nolabel="1" colspan="2" editable="bottom" readonly="1"/>
+								</group>
+							</group>				
+						</page>
+					</notebook>
+					
+-->
+				</sheet>
+				</form>
+			</field>
+		</record>
+		
+<!--
+		<record model="ir.ui.view" id="vista_tree_cheque">
+			<field name="name">cheques.tree</field>
+			<field name="model">tesoreria.cheques</field>
+			<field name="arch" type="xml">
+				<tree string="Lista de cheques">
+					<field name="tipo_pago" nolabel="0" colspan="2"/>
+					<field name="num_pago" nolabel="0" colspan="2"/>
+					<field name="fecha_pago" nolabel="0" colspan="2"/>
+					<field name="ced_rif_ben" nolabel="0" colspan="2"/>
+					<field name="ced_rif_ces" nolabel="0" colspan="2"/>
+				</tree>
+			</field>
+		</record>
+-->
+		
+<!--
+		<menuitem name="Tesorería" id="menu_tesoreria"/>
+-->
+		<menuitem name="Tesorería" id="submenu_tesoreria" parent="menu_tesoreria" sequence="2"/>
+		<menuitem parent="submenu_tesoreria" id="cheques" action="accion_cheque" name="Cheques"/>
+
+	</data>
+</openerp>
+

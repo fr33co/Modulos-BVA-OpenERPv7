@@ -504,5 +504,53 @@
                 <field name="name">SABAAT</field>
                 <field name="context">{}</field>
             </record>
+            <record id="proyecto_64" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">proyecto.conaplan</field>
+                <field name="domain">[('user_register','=','cdea')]</field> 
+                <field name="user_id">101</field>
+                <field name="name">CDEA</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="proyecto_65" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">proyecto.conaplan</field>
+                <field name="domain">[('user_register','=','pgea')]</field> 
+                <field name="user_id">81</field>
+                <field name="name">PGEA</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="proyecto_66" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">proyecto.conaplan</field>
+                <field name="domain">[('user_register','=','ssppt')]</field> 
+                <field name="user_id">96</field>
+                <field name="name">SSPPT</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="proyecto_67" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">proyecto.conaplan</field>
+                <field name="domain">[('user_register','=','sfatva')]</field> 
+                <field name="user_id">103</field>
+                <field name="name">SFATVA</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="proyecto_68" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">proyecto.conaplan</field>
+                <field name="domain">[('user_register','=','ssppj')]</field> 
+                <field name="user_id">102</field>
+                <field name="name">SSPPJ</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="proyecto_69" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">proyecto.conaplan</field>
+                <field name="domain">[('user_register','=','scafc')]</field> 
+                <field name="user_id">105</field>
+                <field name="name">SCAFC</field>
+                <field name="context">{}</field>
+            </record>
         </data>
     </openerp>

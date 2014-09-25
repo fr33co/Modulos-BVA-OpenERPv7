@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+         <record id="action_wizard_ley_presupuestaria" model="ir.actions.act_window">
+            <field name="name">Consultas de Ley Presupuestaria</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wizard.ley.presupuestaria</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+<!--Form y Tree Plan de Gobierno-->
+        <record model="ir.ui.view" id="wizard_ley_presupuestaria_form_view">
+            <field name="name">Resumen de Ley Presupuestaria</field>
+            <field name="model">wizard.ley.presupuestaria</field>
+            <field name="arch" type="xml">
+                <form string="Planes" version="7.0">
+                <separator string="Resumen de Ley Presupuestaria" />
+                <table>
+                <tr style="width:200px">
+                    <td style="width:130px">
+                        <b>Seleccione el Año:</b>
+                    </td>
+                    <td style="width:50px">
+                        <field name="year_fiscal"  style="width: 30%%"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button name="resumen_ley_presupuestaria" string="Generar" type="object" class="oe_highlight"/>
+                    </td>
+                </tr>
+                </table>      
+                </form>
+            </field>            
+        </record>
+
+        <act_window name="Consultas de Ley Presupuestaria"
+                    res_model="wizard.ley.presupuestaria"
+                    view_mode="form" target="new"
+                    key2="client_action_multi"
+                   id="action_resumen"/>
+        <menuitem id="menu_ley_presu" name="Ley Presupuestaria" parent="proyecto_conaplan_menu" sequence="4"/>     
+        <menuitem id="resumenes_menu_ley_presu" name="Resumen" parent="menu_ley_presu" action="action_wizard_ley_presupuestaria" sequence="1"/>
+    </data>
+</openerp>

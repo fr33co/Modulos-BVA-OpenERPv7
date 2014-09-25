@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	<!--  Registro de Codigos de bienes  -->
+		<record model="ir.actions.act_window" id="codigos_bienes_list_action">
+			    <field name="name">Codigos de bienes no legibles</field>
+			    <field name="res_model">codigos.gba</field>
+			    <field name="view_type">form</field>
+			    <field name="view_mode">tree,form</field>
+			    <field name="help" type="html">
+					<p class="oe_view_nocontent_create">Registro de códigos para Bienes Nacionales</p>
+			    </field>
+		</record> 
+
+	<!-- Vista Form Registro de Codigos de bienes -->
+		<record model="ir.ui.view" id="codigos_form_view">
+			<field name="name">codigos form</field>
+			<field name="model">codigos.gba</field>
+			<field name="arch" type="xml">
+				<form string="Codigos GBA Form" version="7.0">
+					<separator class="separator_style" string="Código de Bien Nacional" />
+					<table class="oe_form_sheetbg">
+						<tr style="width:600px">
+							<td style="width:100px">
+								<b>Código: </b>
+							</td>
+							<td style="width:400px">
+								<field name="codigo" style="width: 40%%"/>
+							</td>
+						</tr>
+						<tr style="width:600px">
+							<td style="width:100px">
+								<b>Descripción: </b>
+							</td>
+							<td style="width:400px">
+								<field name="descripcion" style="width: 90%%"/>
+							</td>
+						</tr>
+					</table>
+				</form>
+			</field>			
+		</record>
+
+		<menuitem id="codigos_menu" name="Codigos de Bienes" parent="stock.menu_stock_configuration" action="codigos_bienes_list_action" sequence="4" />
+	</data>
+</openerp>

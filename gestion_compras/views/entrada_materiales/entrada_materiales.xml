@@ -29,12 +29,12 @@
 														<td id="bold">Fecha Presupuestaria</td>
 														<td><field name="fecha" placeholder="Fecha de Solicitud Presupuestaria"/></td>
 														<td id="bold">Solicitante</td>
-														<td><field name="solicitante" placeholder="Area Solicitante"/></td>
+														<td><field name="solicitante" placeholder="Area Solicitante" widget="selection"/></td>
 													</tr>
 													<tr>
 														<td id="bold">Proveedor</td>
 														<td colspan="3">
-															<field name="proveedor"/>
+															<field name="proveedor" widget="selection"/>
 															<field name="id" invisible="1"/>
 															</td>
 													</tr>
@@ -46,9 +46,6 @@
 																		<tree string="Materiales a Solicitar" editable="bottom">
 																			<field name="partida" placeholder="Partida Presupuestaria" on_change="search_m(partida,'2')"/>
 																			<field name="part"/>
-																			<field name="cod_part_g" placeholder="General"/>
-																			<field name="cod_part_e" placeholder="Especifica"/>
-																			<field name="cod_part_sub_e" placeholder="Sub Especifica"/>
 																			<field name="tipo" placeholder="Tipo de Material"/>
 																			<field name="descripcion" on_change="search_m(descripcion,'1')" domain="[('t_materiales','=',tipo)]" placeholder="Descripción del Material"/>
 																			<field name="cantidad" placeholder="Cantidad"/>
@@ -80,26 +77,31 @@
 				</field>
 			</record>
 
-			<!-- Forma de busqueda para Solicitud de Materiales-->
-			<!--<record model="ir.ui.view" id="search_recurso_logistico">
-				<field name="name">Solicitud de Materiales.search</field>
+			<record model="ir.ui.view" id="search_entrada_materiales"><!-- Filtro para la busqueda de evaluacion -->
+				<field name="name">busqueda.search</field>
 				<field name="model">comp.entrada.materiales</field>
-				<field name="arch" type="xml">
-                                    <search string="Busqueda de Grado">
-                                        <filter name="tipo" domain="[('tipo','=', uid)]" string="Busqueda de tipo Grado de Instrucción" icon="terp-partner" />
-                                        <field name="tipo" />
-                                        <field name="grado" />
-                                    </search>
+				<field name="arch" type="xml">		
+					<search string="Busqueda por Materiales Presupuestario">
+						<filter name="solicitante" domain="[('solicitante','=', uid)]" string="Busqueda por Materiales Presupuestario" icon="terp-partner"/>
+							<field name="solicitante"/>
+							<field name="proveedor"/>
+							<field name="fecha"/>
+							<field name="material_id_compras"/>
+							<field name="observaciones"/>
+					</search>
 				</field>			
-			</record>-->
+			</record>
 
 			<record model="ir.ui.view" id="solicitud_m_c_tree">
 			<field name="name">Solicitud de Materiales.tree</field>
 			<field name="model">comp.entrada.materiales</field>
 			<field name="arch" type="xml">
 			<tree string="Lista de Solicitud de Materiales">
-					<field name="nombre"/>
 					<field name="solicitante"/>
+					<field name="proveedor"/>
+					<field name="fecha"/>
+					<field name="material_id_compras"/>
+					<field name="observaciones"/>
 			</tree>
 			</field>
                         </record>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <openerp>
+        <data>
+            <!-- ###############################################################
+                 # Listado de los PROCESOS DE INCORPORACIÓN presentes en bienes#
+                 #                                                             #
+                 ############################################################### -->
+
+            <!-- ###########  ##### -->
+            <record id="t_incorporacion01" model="procesos.incorporaciones">
+                <field name="incorporaciones">Inventario Inicial</field>
+            </record>
+            <record id="t_incorporacion02" model="procesos.incorporaciones">
+                <field name="incorporaciones">Incorporación por traspaso</field>
+            </record>
+            <record id="t_incorporacion03" model="procesos.incorporaciones">
+                <field name="incorporaciones">Compras</field>
+            </record>
+            <record id="t_incorporacion04" model="procesos.incorporaciones">
+                <field name="incorporaciones">Construcción de Inmuebles</field>
+            </record>
+            <record id="t_incorporacion05" model="procesos.incorporaciones">
+                <field name="incorporaciones">Adiciones y Mejoras</field>
+            </record>
+            <record id="t_incorporacion06" model="procesos.incorporaciones">
+                <field name="incorporaciones">Producción de Elementos</field>
+            </record>
+             <record id="t_incorporacion07" model="procesos.incorporaciones">
+                <field name="incorporaciones">Suministro de bienes de otras entidades</field>
+            </record>
+            <record id="t_incorporacion08" model="procesos.incorporaciones">
+                <field name="incorporaciones">Devolución de bienes suministrados a contratistas</field>
+            </record>
+             <record id="t_incorporacion09" model="procesos.incorporaciones">
+                <field name="incorporaciones">Nacimiento de Semovientes</field>
+            </record>
+            <record id="t_incorporacion10" model="procesos.incorporaciones">
+                <field name="incorporaciones">Reconstrucción de equipos</field>
+            </record>
+            <record id="t_incorporacion11" model="procesos.incorporaciones">
+                <field name="incorporaciones">Incorporación por donación</field>
+            </record>
+            <record id="t_incorporacion12" model="procesos.incorporaciones">
+                <field name="incorporaciones">Incorporación por permuta</field>
+            </record>
+            <record id="t_incorporacion13" model="procesos.incorporaciones">
+                <field name="incorporaciones">Adscripción de bienes</field>
+            </record>
+            <record id="t_incorporacion14" model="procesos.incorporaciones">
+                <field name="incorporaciones">Omisión de inventario</field>
+            </record>
+            <record id="t_incorporacion15" model="procesos.incorporaciones">
+                <field name="incorporaciones">Por asignar</field>
+            </record>
+            <record id="t_incorporacion16" model="procesos.incorporaciones">
+                <field name="incorporaciones">Incorporación por cambio de sub-agrupación</field>
+            </record>
+            <record id="t_incorporacion17" model="procesos.incorporaciones">
+                <field name="incorporaciones">Corrección de desincorporaciones</field>
+            </record>
+            <record id="t_incorporacion18" model="procesos.incorporaciones">
+                <field name="incorporaciones">Incorporaciones por otros conceptos</field>
+            </record>
+            <record id="t_incorporacion19" model="procesos.incorporaciones">
+                <field name="incorporaciones">Incorporación de muebles procedentes de los almacenes</field>
+            </record>
+           
+        </data>
+    </openerp>

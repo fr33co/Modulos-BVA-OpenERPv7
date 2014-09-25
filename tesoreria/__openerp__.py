@@ -2,7 +2,7 @@
     'name' : "Tesoreria",
     'category' : "Tesoreria",
     'version' : "1.0",
-    'depends' : ['base','l10n_ve_topology'],
+    'depends' : ['base','l10n_ve_topology','presupuesto'],
     'author' : "José Solorzano - Departamento de Desarrollo y Aplicaciones - AC. Bibliotecas Virtuales de Aragua",
     'description' : '''\
      El modulo de Tesorería permite el manejo y gestión de emisiones de cheques y ordenes de pagos para los beneficiarios y proveedores de la institución:
@@ -15,9 +15,13 @@
       "views/cuentas.xml",
       "views/anyo_fiscal.xml",
       "views/tipo_ben.xml",
+      "views/orden_pago.xml",
+      "views/compromisos.xml",
+      "views/cheques.xml",
       #~ "data/reg_grados_instruc.xml",
       #"reportes/report_becados.xml",
       "categorias/mantenimiento.xml",
+      "views/document_tesoreria.xml",
       #~ "seguridad/groups.xml", #Activar la carga de este archivo sólo al instalar, luego comentarlo.
       #""seguridad/users.xml", #Activar la carga de este archivo sólo al instalar, luego comentarlo.
       #~ "seguridad/ir.model.access.csv",

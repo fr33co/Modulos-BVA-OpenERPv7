@@ -161,23 +161,44 @@
 	    </field>
 	</record>
 	
+	<record model="ir.ui.view" id="search_analisis_precios"><!-- Filtro para la busqueda de evaluacion -->
+		<field name="name">busqueda.search</field>
+		<field name="model">analisis.precios</field>
+		<field name="arch" type="xml">		
+			<search string="Busqueda por Analisis Precios">
+				<filter name="descripcion" domain="[('descripcion','=', uid)]" string="Busqueda por Analisis Precios" icon="terp-partner"/>
+					<field name="descripcion"/>
+					<field name="iva_one"/>
+					<field name="sub_total_one"/>
+					<field name="total_one"/>
+					<field name="iva_two"/>
+					<field name="sub_total_two"/>
+					<field name="total_tree"/>
+					<field name="iva_tree"/>
+					<field name="sub_total_tree"/>
+					<field name="total_tree"/>
+					<field name="item_one"/>
+			</search>
+		</field>			
+	</record>
+	
 	<!--LISTA TREE PARA LA LISTA DE PROVEEDORES PARA EL PROCESO DE ANALISIS DE PRECIOS DE LA OFERTA DE LOS PRODUCTOS Y O SERVICIOS SOLICITADOS-->
 	<record model="ir.ui.view" id="analisis_precios_tree">
 	    <field name="name">Orden de compra.tree</field>
 	    <field name="model">analisis.precios</field>
 	    <field name="arch" type="xml">
 		    <tree string="Lista de Orden de Compra">
-			<field name="descripcion"/>
-			<field name="iva_one"/>
-			<field name="sub_total_one"/>
-			<field name="total_one"/>
-			<field name="iva_two"/>
-			<field name="sub_total_two"/>
-			<field name="total_tree"/>
-			<field name="iva_tree"/>
-			<field name="sub_total_tree"/>
-			<field name="total_tree"/>
-			<field name="item_one"/>
+					<field name="descripcion"/>
+					<field name="iva_one"/>
+					<field name="sub_total_one"/>
+					<field name="total_one"/>
+					<field name="iva_two"/>
+					<field name="sub_total_two"/>
+					<field name="total_tree"/>
+					<field name="iva_tree"/>
+					<field name="sub_total_tree"/>
+					<field name="total_tree"/>
+					<field name="item_one"/>
 		    </tree>
 	    </field>
 	</record>

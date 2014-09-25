@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+
+	<data>
+		
+		<!--Accionador para el menu de Compromisos-->
+		<record model="ir.actions.act_window" id="accion_compromisos">
+		 	<field name="name">Compromisos</field>
+			<field name="res_model">tesoreria.compromisos</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Nuevo compromiso</p>
+			</field>
+		</record>
+		<!--Accionador para el menu de Compromisos-->
+
+		<record model="ir.ui.view" id="vista_formulario_compromisos">
+			<field name="name">compromisos.form</field>
+			<field name="model">tesoreria.compromisos</field>
+			<field name="arch" type="xml">
+				<form string="Actualización de Movimientos" version="7.0">
+<!--
+					<header>
+						<button name="reporte_integrantes" type="object" string="Exportar Integrante" class="oe_highlight" />
+					</header>
+-->
+					<separator string="Actualización de Compromiso"/>
+					<group>
+						<group>
+							<field name="n_doc" nolabel="0" colspan="2"/>
+							<field name="num_compromiso" nolabel="0" colspan="2"/>
+							<field name="proyec_acc" nolabel="0" colspan="2"/>
+						</group>
+						<group>
+							<field name="partida" nolabel="0" colspan="2"/>
+							<field name="desc_partida" nolabel="0" colspan="2"/>
+							<field name="monto_causar" nolabel="0" colspan="2" />
+							<field name="monto_emitir" nolabel="0" colspan="2" />
+						</group>
+					</group>
+				</form>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="vista_tree_compromisos">
+			<field name="name">compromisos.tree</field>
+			<field name="model">tesoreria.compromisos</field>
+			<field name="arch" type="xml">
+				<tree string="Lista de Compromiso" editable="bottom">
+					<field name="n_doc" nolabel="0" colspan="2"/>
+					<field name="num_compromiso" nolabel="0" colspan="2"/>
+					<field name="proyec_acc" nolabel="0" colspan="2"/>
+					<field name="partida" nolabel="0" colspan="2"/>
+					<field name="desc_partida" nolabel="0" colspan="2"/>
+					<field name="monto_causar" nolabel="0" colspan="2"/>
+					<field name="monto_emitir" nolabel="0" colspan="2" sum="Total"/>
+				</tree>
+			</field>
+		</record>
+
+	</data>
+</openerp>
+
+

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  	<data>
+	<!-- Herencia de vista Form de Categoria de Productos donde se le agrega los campos de clasificacion -->,
+  		<record model="ir.ui.view" id="inventario_form_bva_view">
+			<field name="name">inventario.form.bva</field>
+			<field name="model">stock.inventory</field>
+			<field name="inherit_id" ref="stock.view_inventory_form" />
+			<field name="arch" type="xml" >
+				<button name="action_confirm" position="replace">
+					<button name="action_confirm2" states="draft" string="Confirmar Inventario"
+						type="object" class="confirmar" groups="stock.group_stock_user"
+						/>
+				</button>
+				<button name="action_done" position="replace">
+					<button name="action_done" states="confirm" string="Validate Inventory"
+						type="object" class="validar" groups="stock.group_stock_manager"/>
+				</button>
+				<button name="action_cancel_inventory" position="replace">
+					<button name="action_cancel_inventory" states="draft,confirm,done"
+						string="Cancel Inventory" type="object" icon="gtk-cancel"/>
+				</button>
+				<field name="name" position="after">
+					<field name="ubicacion"/>
+					<field name="fecha_rep" class="oe_inline"/>
+					<field name="servicio" class="oe_inline"/>
+					<field name="direccion" invisible="1"/>
+				</field>
+				<field name="date" position="after">
+					<field name="usuario_login"/>
+					<field name="institucion" on_change="on_change_direccion(institucion)"/>
+					<button name="generate_inventario" icon="gtk-print" string="Exportar Reporte de Inventario"
+						attrs="{'invisible':[('state','!=', 'done')]}" type="object" class="imprimir" />
+					<field name="estado" invisible="1"/>
+					<field name="municipio" invisible="1"/>
+					<field name="parroquia" invisible="1"/>
+				</field>
+				<page string="General Information" position="replace">
+					<page string="General Information" position="replace">
+					<field name="inventory_line_id">
+						<tree string="Products" editable="bottom">
+							<field domain="[('usage','=','internal')]" name="location_id" groups="stock.group_locations"/>
+							<field context="{'location':location_id, 'uom':product_uom, 'to_date':parent.date}" name="product_id" on_change="on_change_product_id(location_id,product_id,product_uom,parent.date)"  domain="[('location_id','=',location_id)]"/>
+							<field name="product_qty"/>
+							<field name="product_uom" groups="product.group_uom"/>
+							<field name="prod_lot_id" groups="stock.group_production_lot"/>
+							<field name="g" invisible="0"/>
+							<field name="sg" invisible="0"/>
+							<field name="s" invisible="0"/>
+							<field name="nidentificacion" class="oe_inline" invisible="1" />
+							<field name="estado" invisible="1" />
+							<field name="v_unitario" invisible="1"/>
+							<field name="v_total" invisible="1"/>
+							<button name="%(stock.action_view_stock_inventory_line_split)d"
+							 string="Split inventory lines" groups="stock.group_inventory_valuation"
+							 type="action" icon="gtk-justify-fill" states="draft,confirm"/>
+							<field name="state" invisible="True"/>
+						</tree>
+						<form string="Products" version="7.0">
+						    <group>
+							<group>
+							    <field domain="[('usage','=','internal')]" name="location_id"/>
+							    <field context="{'location':location_id, 'uom':product_uom, 'to_date':parent.date}" name="product_id" on_change="on_change_product_id(location_id,product_id,product_uom,parent.date)"  domain="[('type','&lt;&gt;','service')]"/>
+							</group>
+							<group>
+							    <label for="product_qty"/>
+							    <div>
+								<field name="product_qty" class="oe_inline"/>
+								<field name="product_uom" class="oe_inline" groups="product.group_uom"/>
+							    </div>
+							    <field name="prod_lot_id" groups="stock.group_production_lot"/>
+							    <button name="%(stock.action_view_stock_inventory_line_split)d"
+							    string="Split inventory lines" groups="stock.group_inventory_valuation"
+							    type="action" icon="gtk-justify-fill"/>
+							</group>
+						    </group>
+						</form>
+					    </field>
+					</page>
+				</page>
+			</field>			
+		</record>
+
+		<record model="ir.ui.view" id="inventario_tree_bva_view">
+			<field name="name">inventario.tree.bva</field>
+			<field name="model">stock.inventory</field>
+			<field name="inherit_id" ref="stock.view_inventory_tree" />
+			<field name="arch" type="xml">
+				<field name="date" position="before">
+					<field name="usuario_login"/>
+				</field>				 
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="inventario_tree_bva2_view">
+			<field name="name">inventario tree</field>
+			<field name="model">stock.inventory.line</field>
+			<field name="inherit_id" ref="stock.stock_inventory_line_tree" />
+			<field name="arch" type="xml">
+				<tree string="Stock Inventory Lines" position="replace">
+					<field name="product_id"/>
+					<field name="product_qty"/>
+					<field name="product_uom" groups="product.group_uom"  invisible="0"/>
+					<field name="prod_lot_id" groups="stock.group_production_lot"  />
+					<button name="%(stock.action_view_stock_inventory_line_split)d"
+						string="Split inventory lines" groups="stock.group_inventory_valuation"
+						type="action" icon="gtk-justify-fill"/>
+					<field name="location_id" groups="stock.group_locations"/>
+					<field name="g" invisible="0"/>
+					<field name="sg" invisible="0"/>
+					<field name="s" invisible="0"/>
+					<field name="nidentificacion" class="oe_inline" />
+					<field name="estado" invisible="0" />
+					<field name="v_unitario" invisible="1"/>
+					<field name="v_total" invisible="1"/>
+				</tree>
+			</field>
+		</record>
+		
+		<record id="view_inventory_line_form_bva" model="ir.ui.view">
+			<field name="name">stock.inventory.line.form</field>
+			<field name="model">stock.inventory.line</field>
+			<field name="inherit_id" ref="stock.view_inventory_line_form" />
+			<field name="arch" type="xml">
+				<form string="Stock Inventory Lines" version="7.0">
+					<group col="4">
+						<field context="{'location':location_id, 'uom':product_uom, 'to_date':parent.date}" name="product_id" on_change="on_change_product_id(location_id,product_id,product_uom,parent.date)" domain="[('type','&lt;&gt;','service')]"/>
+						<field name="product_qty"/>
+						<field name="product_uom" groups="product.group_uom"/>
+						<field name="prod_lot_id" groups="stock.group_production_lot"/>
+						<field domain="[('usage','=','internal')]" name="location_id"/>
+						<field name="g" invisible="0"/>
+						<field name="sg" invisible="0"/>
+						<field name="s" invisible="0"/>
+						<field name="nidentificacion" class="oe_inline" />
+						<field name="estado" invisible="1"/>
+						<field name="v_unitario" invisible="1"/>
+						<field name="v_total" invisible="1"/>
+						<button name="%(stock.action_view_stock_inventory_line_split)d"
+						    string="Split Inventory Line" groups="stock.group_inventory_valuation"
+						    type="action" icon="gtk-justify-fill"/>
+					</group>
+				</form>
+			</field>
+		</record>
+		<record id="wizard_llenar_inventario_view" model="ir.ui.view">
+			<field name="name">stock.fill.inventory.bva.form</field>
+			<field name="model">stock.fill.inventory</field>
+			<field name="inherit_id" ref="stock.view_stock_fill_inventory" />
+			<field name="arch" type="xml">
+				<button name="fill_inventory" string="Fill Inventory" position="replace">
+					<button name="llenar_inventario" string="Llennar Invenrario" type="object" class="oe_highlight"/>
+				</button>
+			</field>
+		</record>
+
+   	</data>
+</openerp>

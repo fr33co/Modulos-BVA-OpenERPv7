@@ -47,15 +47,16 @@ class Proceso_busqueda(osv.osv_memory):
     #################################################################
     _columns = {
 
-        'correlativo': fields.char(string="Correlativo", required = False),
-	#'targeta' : fields.boolean(string="Targeta"),
-	#'recarga' : fields.boolean(string="Recarga"),
-	#'constancia' : fields.boolean(string="Constancia"),
-	#'class_personal_targeta' : fields.many2one("becados.clasper", "Personal", required = False),
-	#'class_personal_recarga' : fields.many2one("becados.clasper", "Personal", required = False),
-	#'alim_ids' : fields.many2many("hr.ticket","proceso_targeta","id_model","id_targeta","Targeta",required=False),
-	#'recarga_ids' : fields.many2many("hr.ticket","proceso_recarga","id_model","id_recarga","Recarga",required=False),
-        
+        'desde': fields.datetime(string="Desde", required = False),
+        'hasta': fields.datetime(string="Hasta", required = False),
+				#'targeta' : fields.boolean(string="Targeta"),
+				#'recarga' : fields.boolean(string="Recarga"),
+				#'constancia' : fields.boolean(string="Constancia"),
+				#'class_personal_targeta' : fields.many2one("becados.clasper", "Personal", required = False),
+				#'class_personal_recarga' : fields.many2one("becados.clasper", "Personal", required = False),
+				#'alim_ids' : fields.many2many("hr.ticket","proceso_targeta","id_model","id_targeta","Targeta",required=False),
+				#'recarga_ids' : fields.many2many("hr.ticket","proceso_recarga","id_model","id_recarga","Recarga",required=False),
+						
     }
 
     _defaults = {

@@ -24,6 +24,9 @@ class imputacion_presupuestaria(osv.Model):
 	
 	def on_change_partidas(self, cr, uid, ids, partida_presu, context=None):
 		values = {}
+			
+		
+			
 		if not partida_presu:
 			return values
 		datos = self.pool.get('partida.presupuestaria').browse(cr, uid, partida_presu, context=context)
@@ -61,4 +64,24 @@ class imputacion_presupuestaria(osv.Model):
 		'trim_3' : fields.float(string="Trimestre III", required=False),
 		'trim_4' : fields.float(string="Trimestre IV", required=False),
 		'total_impu' : fields.float(string="Cantidad", required=False),
+		'monto_asignado' : fields.float(string="Monto Asignado", readonly=True)
 	}
+
+def resolve_o2m_operations(cr, uid, target_osv, operations, fields, context):
+    results = []
+    for operation in operations:
+        result = None
+        if not isinstance(operation, (list, tuple)):
+            result = target_osv.read(cr, uid, operation, fields, context=context)
+        elif operation[0] == 0:
+            # may be necessary to check if all the fields are here and get the default values?
+            result = operation[2]
+        elif operation[0] == 1:
+            result = target_osv.read(cr, uid, operation[1], fields, context=context)
+            if not result: result = {}
+            result.update(operation[2])
+        elif operation[0] == 4:
+            result = target_osv.read(cr, uid, operation[1], fields, context=context)
+        if result != None:
+            results.append(result)
+    return results

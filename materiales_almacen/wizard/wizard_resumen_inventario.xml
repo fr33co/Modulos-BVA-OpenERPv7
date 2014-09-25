@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		 <record id="action_wizard_resumen_inventario" model="ir.actions.act_window">
+			<field name="name">Consultas Generales </field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">wizard.resumen.inventario</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+
+<!--Form y Tree Plan de Gobierno-->
+		<record model="ir.ui.view" id="wizard_resumen_inventario_form_view">
+			<field name="name">Resumen de Proyectos</field>
+			<field name="model">wizard.resumen.inventario</field>
+			<field name="arch" type="xml">
+				<form string="Planes" version="7.0">
+				<separator string="Inventario por tipo de Material" />
+				<table>
+				<tr style="width:300px">
+					<td style="width:130px">
+						<b>Fecha:</b>
+					</td>
+					<td style="width:80px">
+						<field name="fecha"  style="width: 100%%"/>
+					</td>
+				</tr>
+				<tr style="width:300px">
+					<td style="width:130px">
+						<b>Tipo de Material:</b>
+					</td>
+					<td style="width:80px">
+						<field name="t_materiales" on_change="buscar_tipo_material(t_materiales)" style="width: 100%%"/>
+					</td>
+				</tr>
+				</table>
+					<button name="generar_inventario_almacen" string="Generar Reporte" type="object" class="oe_highlight"/>
+				</form>
+			</field>			
+		</record>
+
+		<act_window name="Consulta Generales"
+			    res_model="wizard.resumen.inventario"
+			    view_mode="form" target="new"
+			    key2="client_action_multi"
+			    id="action_resumenes"/>
+		
+		<menuitem id="resumenes_menu" name="Resumenes" parent="inventario_total_menu" action="action_wizard_resumen_inventario" sequence="2"/>
+	</data>
+</openerp>

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  	<data>
+<!-- Herencia del modelo Producto-->
+	<record model="ir.ui.view" id="bienes_nacionales_form_gba_view">
+		<field name="name">bienes.nacionales.form.gba</field>
+		<field name="model">product.product</field>
+		<field name="inherit_id" ref="product.product_normal_form_view" />
+		<field name="arch" type="xml">
+		<data>
+		<!--	Herencia del formulario principal-->
+		<xpath expr="//div[@class='oe_title']" position="replace">
+			<div class="oe_title">
+			<table style="width:500px">
+				<tr>
+					<td style="width:150px"> <b>Clasificación del Bien</b>
+					</td>
+				</tr>
+				<tr>
+					<td style="width:350px">
+						<field name="categ_id" placeholder="Clasificación del Bien"
+						on_change="on_change_clasificacion(categ_id)" style="width:100%%"/>
+					</td>
+				</tr>
+			</table>
+			<table>
+				<tr style="width:400px">
+					<td style="width:30px">	<b>G:</b> </td>
+					<td style="width:80px">
+						<field name="g" style="width:90%%" placeholder="Grupo"/>
+					</td>
+					<td style="width:40px"> <b>SG:</b> </td>
+					<td style="width:100px">
+						<field name="sg" style="width:90%%" placeholder="Sub-Grupo"/>
+					</td>
+					<td style="width:30px">	<b>S:</b> </td>
+					<td style="width:90px">
+						<field name="s" style="width:90%%" placeholder="Sección"/>
+					</td>
+				</tr>
+			</table>
+			<table style="width:500px">
+				<tr>
+					<td style="width:300px"> <b>Nombre y Descripción del Elemento</b>
+					</td>
+					<td style="width:150px"> <b>Serial del Elemento</b>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<field name="nombre_des" placeholder="Nombre y Descripción del Elemento" style="width:90%%"/>
+					</td>
+					<td>
+						<field name="serial" class="oe_inline" placeholder="Serial del Elemento" style="width:90%%"/>
+					</td>
+				</tr>
+				<div name="options" groups="base.group_user">
+					<field name="sale_ok" invisible="True"/>
+					<label for="sale_ok" invisible="True"/>
+				</div>
+			</table>
+			</div>
+			
+		</xpath>
+		<!--	Herencia de la Pestaña Informacion-->
+		<xpath expr="///page[@string='Information']" position="replace">
+			<page string="Información">
+				<table>
+					<tr style="width:800px">
+						<td style="width:90px"> <b>Código</b>
+						</td>
+						<td style="width:120px">
+							<field name="codigo" widget="selection" class="oe_inline" on_change="on_change_codigo(codigo,numero,name,nombre_des, serial)" placeholder="Código del Bien" style="width:100%%" />
+						</td>
+						<td style="width:70px">
+							<field name="numero" on_change="on_change_identificacion_numero(codigo,numero,name,nombre_des, serial)" attrs="{'readonly':[('codigo','=','No se codifica')]}" style="width:90%%"/>
+						</td>
+						<td style="width:100px">
+						</td>
+						<td style="width:100px">
+							<b>Valor Total</b>
+						</td>
+						<td style="width:60px">
+							<field name="v_total" />
+						</td>
+					</tr>
+					<tr>
+						<td> <b>Estado</b> </td>
+						<td>
+							<field name="estado" style="width:100%%"  placeholder="Estado del Bien" on_change="on_change_identificacion(estado,codigo,numero,name,nombre_des, serial)"/>
+						</td>
+						<td colspan="2">
+						</td>
+						<td> <b>Valor Unitario</b></td>
+						<td><field name="v_unitario" />
+						</td>
+					</tr>
+					<tr>
+						<td> <b>Tipo de Bien</b> </td>
+						<td>
+							<field name="type" style="width:100%%" invisible="0"/>
+						</td>
+						<td colspan="2">
+						</td>
+						<td> <b>Donado</b> </td>
+						<td>
+							<field name="donacion" placeholder="Si el objeto fue donado"/>
+						</td>
+						
+					</tr>
+				</table>
+				<table style="width:580px">
+					<tr>
+						<td> <b>Observacones</b> </td>
+					</tr>
+					<tr>
+						<td>
+							<field name="description" placeholder="Descripcion y/o observación sobre el elemento"/>
+						</td>
+					</tr>
+				</table>
+				<table style="width:580px">
+					<tr>
+						<td> <field name="union" style="width: 90%%"/> </td>
+						<td> <field name="name" style="width: 90%%"/> </td>
+						<td> <field name="nidentificacion" style="width: 90%%"/> </td>
+					</tr>
+				</table>
+			</page>
+		</xpath>
+		</data>
+	</field>			
+	</record>
+	<!--	Herencia del la vista tree-->
+		<record model="ir.ui.view" id="bienes_nacionales_tree_gba_view">
+			<field name="name">bienes.nacionales.tree.bva</field>
+			<field name="model">product.product</field>
+			<field name="inherit_id" ref="product.product_product_tree_view" />
+			<field name="arch" type="xml">
+				<tree string="Products" position="replace">
+					<tree string="Bienes" >
+						<field name="g" />
+						<field name="sg" />
+						<field name="s" />
+						<field name="nidentificacion"/>
+						<field name="qty_available"/>
+						<field name="estado"/>
+						<field name="name"/>
+						<field name="v_unitario" />
+						<field name="v_total" />
+					</tree>
+				</tree>
+			</field>
+		</record>
+	<!--	Herencia de los filtros-->
+		<record id="bienes_nacionales_search_gba_view" model="ir.ui.view">
+			<field name="name">product.search.form</field>
+			<field name="model">product.product</field>
+			<field name="inherit_id" ref="product.product_search_form_view" />
+			<field name="arch" type="xml">
+				<field name="name" position="after">
+					<field name="g" />
+					<field name="sg" />
+					<field name="s" />
+					<field name="nidentificacion"/>
+					<field name="qty_available"/>
+					<field name="estado"/>
+					<field name="nombre_des" />
+					<field name="v_unitario" />
+					<field name="v_total" />
+				</field>
+			</field>
+		</record>
+	
+	<!--	Herencia del wizard que cambia la cantidad y ubicacion del bien-->
+		<record id="wizard_modificar_stock_view" model="ir.ui.view">
+			<field name="name">stock.change.product.qty.gba.form</field>
+			<field name="model">stock.change.product.qty</field>
+			<field name="inherit_id" ref="stock.view_change_product_quantity" />
+			<field name="arch" type="xml">
+				<button name="change_product_qty" string="_Apply" position="replace">
+					<button name="cambiar_producto" string="Aplicar" type="object" class="oe_highlight"/>
+				</button>
+			</field>
+		</record>
+	<!--	Herencia de la herencia de stock sobre producto para la insercion del campo ubicacion del bien-->
+		<record id="inventario_biene_view" model="ir.ui.view">
+			<field name="name">change.product.qty.form</field>
+			<field name="model">product.product</field>
+			<field name="inherit_id" ref="stock.view_normal_procurement_locations_form" />
+			<field name="arch" type="xml">
+				<field name="virtual_available" position="after">
+					<field name="ubicacion" class="oe_inline"/>
+				</field>
+			</field>
+		</record>
+   	</data>
+</openerp>

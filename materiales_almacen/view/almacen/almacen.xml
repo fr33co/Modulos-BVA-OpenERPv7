@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	<!--  Registro de Materiales -->	
+		<record model="ir.actions.act_window" id="materiales_almacen_list_action">
+			<field name="name">Material Almacen</field>
+			<field name="res_model">materiales.almacen</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				    <p class="oe_view_nocontent_create">Registras nuevos materiales de Almacen</p>
+			</field>
+		</record>
+		
+	<!--  Vista Form Registro de Materiales -->	
+		<record model="ir.ui.view" id="almacenp_form_view">
+			<field name="name">almacen form</field>
+			<field name="model">materiales.almacen</field>
+			<field name="arch" type="xml">
+				<form string="Materiales Form" version="7.0">
+					<sheet>
+					<div class="oe_form_sheetbg">
+					<separator string="Registro de Materiales de Almacen" />
+					<table style="width:500px">
+						<tr>
+							<td style="width:20px">
+								<b>Código:</b>
+							</td>
+							<td style="width:80px">
+								<field name="codigo"  style="width: 90%%"/>
+							</td>
+							<td style="width:90px">
+								 <b>Registrado por:</b>
+							</td>
+							<td style="width:110px">
+								<field name="user_register"  style="width: 90%%"/>
+							</td>
+							<td style="width:20px">
+								<b>Fecha:</b>
+							</td>
+							<td style="width:50px">
+								<field name="fecha" style="width: 90%%" />
+							</td>
+						</tr>
+					</table>
+					<separator string="Material"/>
+					<table style="width:400px">
+						<tr>
+							<td style="width:180px">
+								<b>Descripción del Material :</b>
+							</td>
+							<td colspan="2">
+								<field name="descripcion"  style="width: 90%%" default_focus="1"/>
+							</td>
+							
+						</tr>
+						<tr>
+							<td style="width:100px">
+								 <b>Tipo de Material:</b>
+							</td>
+							<td>
+								<field name="t_materiales"  style="width: 50%%"/>
+							</td>
+						</tr>
+						<tr>
+							<td style="width:110px">
+								<b>Unidad de Medida:</b>
+							</td>
+							<td>
+								<field name="unidad" style="width: 50%%" />
+							</td>
+						</tr>
+					</table>
+					</div>
+					</sheet>
+				</form>
+			</field>			
+		</record>
+
+	<!--  Vista Tree Registro de Materiales -->	
+		<record model="ir.ui.view" id="materiales_almacen_tree_bva_view">
+			<field name="name">materiales.almacen.tree.bva</field>
+			<field name="model">materiales.almacen</field>
+			<field name="arch" type="xml">
+				<tree string="Registro de Materiales" colors="#FA7E11:t_materiales=='1'; #34B434:t_materiales=='2'; #785B12:t_materiales=='3'; #5555F8:t_materiales=='4'">
+					<field name="descripcion" />
+					<field name="t_materiales"/>
+				</tree>				 
+			</field>
+		</record>
+		
+	<!-- Filtro para buscar por descripción o tipo de material -->
+		<record model="ir.ui.view" id="buscar_materiales_bva">
+			<field name="name">busqueda de materiales </field>
+			<field name="model">materiales.almacen</field>
+			<field name="arch" type="xml">      
+				<search string="Busqueda Materiales">
+					 <field name="descripcion" />
+					 <field name="t_materiales" />
+				</search>
+			</field>            
+		</record>
+		<menuitem id="main_materiales_menu" name="Materiales y Suministros" /> 
+		<menuitem id="registrar_materiales_menu" name="Registro de Materiales" parent="main_materiales_menu" sequence="2" />
+		<menuitem id="re_materiales_menu" name="Registrar Materiales" parent="registrar_materiales_menu" action="materiales_almacen_list_action" sequence="1" />
+
+	</data>
+</openerp>

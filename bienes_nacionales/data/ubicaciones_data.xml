@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <openerp>
+        <data>
+            <!-- #############################################################
+                 # Ubicaciones de cada dpto o gerencia en forma de almacenes #
+                 # tomadas del organigrama de la Institución                 #
+                 ############################################################# -->
+
+            <!-- ########### Ubicaión Principal o Cabeza del Organigrama ##### -->
+            <record id="ubicacion01" model="stock.location">
+                <field name="name">Presidencia</field>
+            </record>
+
+            <!-- ########### Ubicaciones directas a Presidencia ############## -->
+            <record id="sububicacion01" model="stock.location">
+                <field name="name">Auditoria Interna</field>
+                <field name="location_id" ref="ubicacion01" />
+            </record>
+            <record id="sububicacion02" model="stock.location">
+                <field name="name">Consultoria Juridica</field>
+                <field name="location_id" ref="ubicacion01" />
+            </record>
+            <record id="sububicacion03" model="stock.location">
+                <field name="name">G. de Administración</field>
+                <field name="location_id" ref="ubicacion01" />
+            </record>
+            <record id="sububicacion04" model="stock.location">
+                <field name="name">G. de Comunicación e Información</field>
+                <field name="location_id" ref="ubicacion01" />
+            </record>
+            <record id="sububicacion05" model="stock.location">
+                <field name="name">G. de General</field>
+                <field name="location_id" ref="ubicacion01" />
+            </record>
+            <record id="sububicacion06" model="stock.location">
+                <field name="name">G. Planificación, Presuepuesto y Control de Gestión</field>
+                <field name="location_id" ref="ubicacion01" />
+            </record>
+            <record id="sububicacion07" model="stock.location">
+                <field name="name">G. de Recursos Humanos</field>
+                <field name="location_id" ref="ubicacion01" />
+            </record>
+
+            <!-- ###### Unid, Dpto o Gerencias pertenecientes a G. Administración ###### -->
+            <record id="subadministracion01" model="stock.location">
+                <field name="name">Compras</field>
+                <field name="location_id" ref="sububicacion03" />
+            </record>
+            <record id="subadministracion02" model="stock.location">
+                <field name="name">Contabilidad</field>
+                <field name="location_id" ref="sububicacion03" />
+            </record>
+            <record id="subadministracion03" model="stock.location">
+                <field name="name">Unidad de Bienes y Suministros</field>
+                <field name="location_id" ref="sububicacion03" />
+            </record>
+            <record id="subadministracion04" model="stock.location">
+                <field name="name">Unidad de Servicios Generales</field>
+                <field name="location_id" ref="sububicacion03" />
+            </record>
+            <record id="subadministracion05" model="stock.location">
+                <field name="name">Tesoreria</field>
+                <field name="location_id" ref="sububicacion03" />
+            </record>
+
+            <!-- ###### Unid, Dpto o Gerencias pertenecientes a G. General ###### -->
+            <record id="subgeneral01" model="stock.location">
+                <field name="name">G. Tecnologáa</field>
+                <field name="location_id" ref="sububicacion05" />
+            </record>
+            <record id="subgeneral02" model="stock.location">
+                <field name="name">G. Desarrollo y Aplicación</field>
+                <field name="location_id" ref="sububicacion05" />
+            </record>
+            <record id="subgeneral03" model="stock.location">
+                <field name="name">G. Operaciones</field>
+                <field name="location_id" ref="sububicacion05" />
+            </record>
+            <record id="subgeneral04" model="stock.location">
+                <field name="name">Unidad de Proyectos</field>
+                <field name="location_id" ref="sububicacion05" />
+            </record>
+            <record id="subgeneral05" model="stock.location">
+                <field name="name">G. Desarrollo Social y Atención al Ciudadano</field>
+                <field name="location_id" ref="sububicacion05" />
+            </record>
+            <record id="subgeneral06" model="stock.location">
+                <field name="name">G. Infraestructura</field>
+                <field name="location_id" ref="sububicacion05" />
+            </record>
+
+            <!-- ###### Coordinaciones pertenecientes a la G. de Operaciones-->
+            <record id="subgoperaciones01" model="stock.location">
+                <field name="name">Coordinacion Eje Metro</field>
+                <field name="location_id" ref="subgeneral03" />
+            </record>
+            <record id="subgoperaciones02" model="stock.location">
+                <field name="name">Coordinacion Eje Este</field>
+                <field name="location_id" ref="subgeneral03" />
+            </record>
+            <record id="subgoperaciones03" model="stock.location">
+                <field name="name">Coordinacion Eje Sur</field>
+                <field name="location_id" ref="subgeneral03" />
+            </record>
+            <record id="subgoperaciones04" model="stock.location">
+                <field name="name">Coordinacion Eje Oeste</field>
+                <field name="location_id" ref="subgeneral03" />
+            </record>
+            <record id="subgoperaciones05" model="stock.location">
+                <field name="name">Coordinacion Eje Costa</field>
+                <field name="location_id" ref="subgeneral03" />
+            </record>
+
+            <!-- ###### Unid, Dpto o Gerencias pertenecientes a G. RRHH ###### -->
+            <record id="subrrhh01" model="stock.location">
+                <field name="name">Higiene y Seguridad Laboral</field>
+                <field name="location_id" ref="sububicacion07" />
+            </record>
+
+        </data>
+    </openerp>

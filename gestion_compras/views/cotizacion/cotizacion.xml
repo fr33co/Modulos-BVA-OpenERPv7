@@ -15,8 +15,9 @@
 		<form string="Formulario de Grado" version="7.0">
 		    <header>
 			<button name="send_cotizacion" type="object" string="Enviar por Correo Electrónico" confirm="¿Esta seguro que desea enviar el proceso de la Cotización al Proveedor?" class="detallado" icon="terp-mail-message-new"/>
-			<button name="generar_cotizacion" type="object" string="Imprimir" confirm="¿Esta seguro que desea Imprimir el Formato de Cotización?" class="detallado" attrs="{'invisible':[('id','=', False)]}"/>
-			<button name="cancelar_cotizacion" type="object" string="Cancelar Pedido" confirm="¿Esta seguro que desea canselar el Pedido?" class="detallado" attrs="{'invisible':[('status','in', ('realizado'))]}"/>
+			<button name="generar_cotizacion" type="object" string="Imprimir" icon="terp-marketing" confirm="¿Esta seguro que desea Imprimir el Formato de Cotización?" class="detallado" attrs="{'invisible':[('id','=', False)]}"/>
+			<button name="cancelar_cotizacion" type="object" string="Cancelar" icon="gtk-cancel" confirm="¿Esta seguro que desea cancelar el Pedido de Cotización?" class="detallado" attrs="{'invisible':[('status','in', ('realizado'))]}"/>
+			<button name="realizar_cotizacion" type="object" string="Procesar" icon="gtk-apply" confirm="¿Esta seguro que desea Realizar el Pedido de Cotización?" class="detallado" attrs="{'invisible':[('status','in', ('realizado'))]}"/>
 			
 			<!--FLUJO DE TRABAJO PROCESO DE COTIZACION-->
 			<field name="status" widget="statusbar" statusbar_colors='{"progress":"red"}' />
@@ -111,6 +112,25 @@
 		</form>
 	    </field>
 	</record>
+	
+	<!-- Forma de busqueda para concepto-->
+	<record model="ir.ui.view" id="search_cotizacion"><!-- Filtro para la busqueda de evaluacion -->
+		<field name="name">busqueda.search</field>
+		<field name="model">cotizacion</field>
+		<field name="arch" type="xml">		
+			<search string="Busqueda por Cotización">
+				<filter name="proveedor" domain="[('proveedor','=', uid)]" string="Busqueda por tipo de Cotización" icon="terp-partner"/>
+				<field name="proveedor"/>
+				<field name="unidad"/>
+				<field name="n_cotizacion"/>
+				<field name="fecha_orden"/>
+				<field name="referencia_proveedor"/>
+				<field name="material_ids"/>
+				<field name="item"/>
+			</search>
+		</field>			
+	</record>
+	
 	<!--LISTA TREE COTIZACION-->
 	<record model="ir.ui.view" id="cotizacion_tree">
 	    <field name="name">Grado.tree</field>

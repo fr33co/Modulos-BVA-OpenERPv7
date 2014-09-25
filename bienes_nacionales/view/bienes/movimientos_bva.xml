@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  	<data>
+<!-- Herencia de vista Form de Movimientos de Productos -->
+	<record model="ir.ui.view" id="movimientos_form_bva_view">
+		<field name="name">movimientos.form.bva</field>
+		<field name="model">stock.move</field>
+		<field name="inherit_id" ref="stock.view_move_form" />
+		<field name="arch" type="xml">
+
+		
+		<data>
+			<button name="action_confirm" position="replace">
+				<button name="action_confirm" states="draft" string="Process Later"
+					type="object" class="confirmar"/>
+			</button>
+			<button name="action_done" position="replace">
+				<button name="action_done" states="draft,assigned,confirmed"
+					string="Process Entirely" type="object" class="validar"/>
+			</button>
+			<button name="action_done" position="replace">
+				<button name="action_cancel" states="assigned,confirmed"
+					string="Cancel Move" type="object" icon="gtk-cancel"/>
+			</button>
+			 
+			<sheet position="replace">
+				<sheet>
+				<separator string="Información"/>
+				<table >
+					<tr style="width:700px">
+						<td style="width:130px"> <b>Tipo de Envio</b> </td>
+						<td style="width:150px"> 
+							<field name="tipo_envio" style="width:60%%"/>
+						</td>
+						<td style="width:130px"></td>
+						
+						<td style="width:130px"> <b>Correlativo</b> </td>
+						<td style="width:120px"> 
+							<field name="correlativo" style="width:90%%"/>
+						</td>
+					</tr>
+					<tr >
+						<td> <b>Vigilante de Guardia</b> </td>
+						<td> <field name="vigilante" style="width:100%%"/> </td>
+						<td></td>
+						<td> <b>Fecha de Creación</b> </td>
+						<td> <field name="create_date" groups="base.group_no_one"/> </td>
+					</tr>
+					<tr>
+						<td><b>Justificación</b> </td>
+						<td colspan="4"><field name="justificacion" style="width:98%%"/></td>
+					</tr>
+					
+				</table>
+				<separator/>
+				<table>
+					<tr style="width:700px">
+						<td align="center" colspan="2" style="width:300px">
+							<font color="#e40606" style="font-weight">
+							<H2><b>Origen</b></H2>
+							</font>
+						</td >
+						<td style="width:80px"></td>
+						<td  colspan="2" style="width:300px">
+							<font color="#e40606" style="font-weight">
+							<H2><b>Destino</b></H2>
+							</font>
+						</td>
+					</tr>
+					<tr>
+						<td style="width:130px"> <b>Ubicación Origen</b> </td>
+						<td style="width:200px">
+							<field name="location_id" style="width:100%%" groups="stock.group_locations"/>
+						</td>
+						<td style="width:80px"></td>
+						<td style="width:130px"> <b>Ubicación Destino</b> </td>
+						<td style="width:200px">
+							<field name="location_dest_id" style="width:100%%" groups="stock.group_locations"/>
+						</td>
+					</tr>
+					<tr>
+						<td style="width:130px"> <b>Responsable</b> </td>
+						<td style="width:200px">
+							<field name="enviado" style="width:100%%" />
+						</td>
+						<td style="width:80px"></td>
+						<td style="width:130px"> <b>Responsable </b> </td>
+						<td style="width:200px">
+							<field name="recibido" style="width:100%%" />
+						</td>
+					</tr>
+					<tr>
+						<td style="width:130px">
+							<field name="product_uom" invisible="1" groups="product.group_uom" class="oe_inline"/></td>
+						<td style="width:200px">
+							<field name="name" invisible="1"/>
+						</td>
+						<td style="width:80px"></td>
+						<td style="width:130px"> <b>Fecha Prevista</b> </td>
+						<td style="width:200px">
+							<field name="date_expected" style="width:100%%" on_change="onchange_date(date,date_expected)" attrs="{'invisible': [('state', '=', 'done')]}"/>
+							<field name="date" attrs="{'invisible': [('state', '!=', 'done')]}"/>
+						</td>
+					</tr>
+				</table>
+				<separator string="Detalles"/>
+				<table border="2" bordercolor="red">
+					<tr style="width:800px" >
+						<td style="width:300px;text-align:center"> <b>Nombre Y Descripción del Elemento </b> </td>
+						<td style="width:30px;text-align:center"> <b>G</b> </td>
+						<td style="width:30px;text-align:center"> <b>SG</b> </td>
+						<td style="width:30px;text-align:center"> <b>S</b> </td>
+						<td style="width:100px;text-align:center"> <b>N° de Identificación</b> </td>
+						<td style="width:80px;text-align:center"> <b>Cantidad</b> </td>
+						<td style="width:80px;text-align:center"> <b>Status</b> </td>
+						<td style="width:80px;text-align:center"> <b>Valor Unitario</b> </td>
+					</tr>
+					<tr>
+						<td style="width:300px">
+							<field name="product_id" domain="[('ubicacion','=',location_id)]"
+							       on_change="onchange_product_id(product_id,location_id,location_dest_id, False)" style="width:100%%" />
+						</td>
+						<td style="width:30px;text-align:center">
+							<field name="g" style="width:30%%"/>
+						</td>
+						<td style="width:30px;text-align:center">
+							<field name="sg" style="width:30%%" />
+					
+						</td>
+						<td style="width:30px;text-align:center">
+							<field name="s" style="width:30%%"/>
+						</td>
+						<td style="width:100px;text-align:center">
+							<field name="bva"  />
+						</td>
+						<td style="width:100px;text-align:center">
+							<field name="product_qty" />
+						</td>
+						<td style="width:80px;text-align:center">
+							<field name="estado" />
+						</td>
+						<td style="width:80px;text-align:center">
+							<field name="v_total"/>
+						</td>
+					</tr>
+				</table>
+				<footer><button name="generar_movimiento" string="Exportar Movimiento"
+					 type="object" icon="gtk-print" class="imprimir"
+					 attrs="{'invisible':[('state','!=', ('done'))]}"/></footer>
+				
+				</sheet>
+			</sheet>	
+		</data>
+		</field>		
+	</record>
+	</data>
+</openerp>
+

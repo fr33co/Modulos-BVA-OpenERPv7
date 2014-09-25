@@ -7,16 +7,18 @@ from datetime import date
 from openerp.osv import osv, fields
 
 class Bancos(osv.Model):
-	_name = "tesoreria.banco"
+	#~ _name = "tesoreria.banco"
 	
-	_order = "codigo"
+	#~ _order = "codigo"
 	
-	_rec_name = "codigo"
+	#~ _rec_name = "codigo"
+	
+	_inherit = "res.bank"
 
 	_columns = {
-		'codigo': fields.char(string = "Código", size = 3, required = True, help="Indique el código del banco"),
-		'descripcion' : fields.char(string="Descripción", help="Ingrese la descripción", required = True),
-		'secuenciador' : fields.char(string="Secuenciador", required = False),
+		#~ 'codigo': fields.char(string = "Código", size = 3, required = True, help="Indique el código del banco"),
+		#~ 'descripcion' : fields.char(string="Descripción", help="Ingrese la descripción", required = True),
+		#~ 'secuenciador' : fields.char(string="Secuenciador", required = False),
 	}
 
 	#NO BORRAR, ES UNA GUÍA...
